@@ -5,6 +5,9 @@
 *.suo
 *.user
 *.sln.docstates
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 
 # Build results
 [Pp]roj.android/
