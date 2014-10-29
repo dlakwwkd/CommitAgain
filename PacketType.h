@@ -7,28 +7,31 @@
 
 enum PacketTypes
 {
-	PKT_NONE	= 0,
-	
-	PKT_CS_LOGIN	= 1,
-	PKT_SC_LOGIN	= 2,
-	
-	PKT_CS_CHAT		= 11,
-	PKT_SC_CHAT		= 12,
+	PKT_NONE = 0,
 
-	PKT_CS_MOVE		= 21,
-	PKT_SC_MOVE		= 22,
+	PKT_CS_LOGIN = 1,
+	PKT_SC_LOGIN = 2,
 
-	PKT_MAX	= 1024
-} ;
+	PKT_CS_CHAT = 11,
+	PKT_SC_CHAT = 12,
+
+	PKT_CS_MOVE = 21,
+	PKT_SC_MOVE = 22,
+
+	PKT_CS_CREATE_HERO = 31,
+	PKT_SC_CREATE_HERO = 32,
+
+	PKT_MAX = 1024
+};
 
 #pragma pack(push, 1)
 
 struct PacketHeader
 {
 	PacketHeader() : mSize(0), mType(PKT_NONE) 	{}
-	short mSize ;
-	short mType ;
-} ;
+	short mSize;
+	short mType;
+};
 
 
 
@@ -36,62 +39,62 @@ struct LoginRequest : public PacketHeader
 {
 	LoginRequest()
 	{
-		mSize = sizeof(LoginRequest) ;
-		mType = PKT_CS_LOGIN ;
-		mPlayerId = -1 ;
+		mSize = sizeof(LoginRequest);
+		mType = PKT_CS_LOGIN;
+		mPlayerId = -1;
 	}
 
-	int	mPlayerId ;
-} ;
+	int	mPlayerId;
+};
 
 struct LoginResult : public PacketHeader
 {
 	LoginResult()
 	{
-		mSize = sizeof(LoginResult) ;
-		mType = PKT_SC_LOGIN ;
-		mPlayerId = -1 ;
-		memset(mName, 0, MAX_NAME_LEN) ;
+		mSize = sizeof(LoginResult);
+		mType = PKT_SC_LOGIN;
+		mPlayerId = -1;
+		memset(mName, 0, MAX_NAME_LEN);
 	}
 
-	int		mPlayerId ;
-	float	mPosX ;
-	float	mPosY ;
-	char	mName[MAX_NAME_LEN] ;
+	int		mPlayerId;
+	float	mPosX;
+	float	mPosY;
+	char	mName[MAX_NAME_LEN];
 
-} ;
+};
 
 struct ChatBroadcastRequest : public PacketHeader
 {
 	ChatBroadcastRequest()
 	{
-		mSize = sizeof(ChatBroadcastRequest) ;
-		mType = PKT_CS_CHAT ;
-		mPlayerId = -1 ;
-	
-		memset(mChat, 0, MAX_CHAT_LEN) ;
+		mSize = sizeof(ChatBroadcastRequest);
+		mType = PKT_CS_CHAT;
+		mPlayerId = -1;
+
+		memset(mChat, 0, MAX_CHAT_LEN);
 	}
 
-	int	mPlayerId ;
-	char mChat[MAX_CHAT_LEN] ;
-} ;
+	int	mPlayerId;
+	char mChat[MAX_CHAT_LEN];
+};
 
 struct ChatBroadcastResult : public PacketHeader
 {
 	ChatBroadcastResult()
 	{
-		mSize = sizeof(ChatBroadcastResult) ;
-		mType = PKT_SC_CHAT ;
-		mPlayerId = -1 ;
-		
-		memset(mName, 0, MAX_NAME_LEN) ;
-		memset(mChat, 0, MAX_CHAT_LEN) ;
+		mSize = sizeof(ChatBroadcastResult);
+		mType = PKT_SC_CHAT;
+		mPlayerId = -1;
+
+		memset(mName, 0, MAX_NAME_LEN);
+		memset(mChat, 0, MAX_CHAT_LEN);
 	}
-	
-	int	mPlayerId ;
-	char mName[MAX_NAME_LEN] ;
-	char mChat[MAX_CHAT_LEN] ;
-} ;
+
+	int	mPlayerId;
+	char mName[MAX_NAME_LEN];
+	char mChat[MAX_CHAT_LEN];
+};
 
 
 struct MoveRequest : public PacketHeader
@@ -126,6 +129,46 @@ struct MoveBroadcastResult : public PacketHeader
 	float	mPosY;
 };
 
+struct CreateHeroRequest : public PacketHeader
+{
+	CreateHeroRequest()
+	{
+		mSize = sizeof(CreateHeroRequest);
+		mType = PKT_CS_CREATE_HERO;
+		mPlayerId = -1;
+		mUnitId = -1;
+		mPosX = 0;
+		mPosY = 0;
+
+	}
+
+	int		mPlayerId;
+	int		mUnitId;
+	float	mPosX;
+	float	mPosY;
+
+};
+//todo ¼­¹ö¶û ¸ÂÃç¾ßÇÔ
+
+struct CreateHeroResult : public PacketHeader
+{
+	CreateHeroResult()
+	{
+		mSize = sizeof(CreateHeroRequest);
+		mType = PKT_SC_CREATE_HERO;
+		mPlayerId = -1;
+		mUnitId = -1;
+		mPosX = 0;
+		mPosY = 0;
+
+	}
+
+	int		mPlayerId;
+	int		mUnitId;
+	float	mPosX;
+	float	mPosY;
+
+};
 
 
 #pragma pack(pop)

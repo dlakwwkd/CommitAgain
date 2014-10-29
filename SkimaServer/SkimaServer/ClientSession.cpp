@@ -137,7 +137,7 @@ void ClientSession::OnWriteComplete(size_t len)
 bool ClientSession::Broadcast(PacketHeader* pkt)
 {
 	if ( !SendRequest(pkt) )
-		return false ;
+		return false ; 
 
 	if ( !IsConnected() )
 		return false ;
