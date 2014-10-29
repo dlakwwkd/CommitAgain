@@ -5,7 +5,9 @@
 #include "base/CCScheduler.h"
 #include "2d/CCLabel.h"
 #include "GameScene.h"
+#include "ObjectLayer.h"
 #include "../../PacketType.h"
+#include "Enums.h"
 
 
 #ifdef _WIN32
@@ -86,7 +88,7 @@ bool TcpClient::connect(const char* serverAddr, int port)
 
 	memset(&hostAddr, 0, sizeof(hostAddr));
 	hostAddr.sin_family = AF_INET;
-	hostAddr.sin_addr.s_addr = ((struct in_addr *)(host->h_addr_list[0]))->s_addr;
+	hostAddr.sin_addr.s_addr = inet_addr("10.73.42.29");
 	hostAddr.sin_port = htons(port);
 
 	if (SOCKET_ERROR == ::connect(m_sock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
@@ -175,34 +177,28 @@ void TcpClient::processPacket()
 				CCLOG("LOGIN OK: ID[%d] Name[%s] POS[%.4f, %.4f]", recvData.mPlayerId, recvData.mName, recvData.mPosX, recvData.mPosY);
 	
 				m_loginId = recvData.mPlayerId;
+
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(DEFAULT_LAYER)->getChildByTag(PHYSICS_LAYER)->getChildByTag(OBJECT_LAYER);
+
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::createHeroStart, dynamic_cast<ObjectLayer*>(layer)));
+
+
 			}
 			break;
 
-// 		case PKT_SC_CHAT:
-// 			{
-// 				ChatBroadcastResult recvData;
-// 				bool ret = m_recvBuffer.Read((char*)&recvData, recvData.mSize);
-// 				assert(ret && recvData.mPlayerId != -1);
-// 			
-// 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName(std::string("base_layer"));
-// 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::chatDraw, dynamic_cast<GameScene*>(layer), std::string(recvData.mName), std::string(recvData.mChat)));
-// 			}
-// 			break;
-// 
-// 		case PKT_SC_MOVE:
-// 			{
-// 				MoveBroadcastResult recvData;
-// 				bool ret = m_recvBuffer.Read((char*)&recvData, recvData.mSize);
-// 				assert(ret && recvData.mPlayerId != -1);
-// 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName(std::string("base_layer"));
-// 
-// 				if ( recvData.mPlayerId == m_loginId ) ///< in case of me
-// 					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::updateMe, dynamic_cast<GameScene*>(layer), recvData.mPosX, recvData.mPosY));
-// 				else
-// 					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::updatePeer, dynamic_cast<GameScene*>(layer), recvData.mPlayerId, recvData.mPosX, recvData.mPosY));
-// 
-// 			}
-// 			break;
+
+		case PKT_SC_CREATE_HERO:
+			{
+				CreateHeroResult recvData;
+				bool ret = m_recvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId != -1);
+
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(DEFAULT_LAYER)->getChildByTag(PHYSICS_LAYER)->getChildByTag(OBJECT_LAYER);
+
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::updatePeer, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, recvData.mPosX, recvData.mPosY));
+
+			}
+			break;
 
 		default:
 			assert(false);
@@ -220,7 +216,8 @@ void TcpClient::loginRequest()
 
 	/// 대략 아래의 id로 로그인 테스트..
 	LoginRequest sendData;
-	sendData.mPlayerId = 1000 + rand() % 101;
+//	sendData.mPlayerId = 1000 + rand() % 101;
+	sendData.mPlayerId = 1110;
 
 	send((const char*)&sendData, sizeof(LoginRequest));
 
@@ -251,4 +248,16 @@ void TcpClient::moveRequest(float x, float y)
 	sendData.mPosY = y;
 
 	send((const char*)&sendData, sizeof(MoveRequest));
+}
+
+void TcpClient::createRequest(int playerID, int unitID, float x, float y)
+{
+	CreateHeroRequest sendData;
+	sendData.mPlayerId = playerID;
+	sendData.mUnitId = unitID;
+	sendData.mPosX = x;
+	sendData.mPosY = y;
+
+	send((const char*)&sendData, sizeof(CreateHeroRequest));
+
 }

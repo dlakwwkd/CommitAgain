@@ -5,7 +5,7 @@ USING_NS_CC;
 
 class Unit;
 
-class ObjectLayer : public Layer
+class ObjectLayer : public cocos2d::Layer
 {
 public:
 	virtual bool init();
@@ -17,6 +17,9 @@ public:
 	void addNewSpriteAtPosition(Point p);
 	void createHero(Point location);
 	void MobAi();
+
+	void updatePeer(int id, float x, float y);
+	void createHeroStart();
 
 
 protected:

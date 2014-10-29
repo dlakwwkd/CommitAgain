@@ -2,6 +2,7 @@
 #include "PhysicsLayer.h"
 #include "GameManager.h"
 #include "Unit.h"
+#include "..\..\PacketType.h"
 
 
 bool ObjectLayer::init()
@@ -11,7 +12,17 @@ bool ObjectLayer::init()
 		return false;
 	}
 	m_Hero = nullptr;
-	createHero({ 200, 200 });
+	
+	/// 하드코딩 start
+	TcpClient::getInstance()->loginRequest();
+
+
+	
+	//createHero({ 200, 200 });
+
+
+	//하드코딩 end
+
 
 	this->schedule(schedule_selector(ObjectLayer::tick));
 	return true;
@@ -19,6 +30,12 @@ bool ObjectLayer::init()
 
 void ObjectLayer::tick(float dt)
 {
+	if (m_Hero == nullptr)
+	{
+		return;
+	}
+	
+
 	m_Hero->movement();
 	m_Hero->getSprite()->setZOrder(-m_Hero->getSprite()->getPosition().y);
 	for (auto& b : m_MobList)
@@ -80,4 +97,15 @@ void ObjectLayer::MobAi()
 		else
 			continue;
 	}
+}
+
+void ObjectLayer::updatePeer(int id, float x, float y)
+{
+	createHero({ x, y });
+}
+
+void ObjectLayer::createHeroStart()
+{
+	int playerID = 1110;
+	TcpClient::getInstance()->createRequest(playerID, 150, 200, 200);
 }

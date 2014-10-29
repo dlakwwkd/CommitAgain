@@ -24,6 +24,8 @@ public:
 	void loginRequest();
 	void chatRequest(const char* chat);
 	void moveRequest(float x, float y);
+	void createRequest(int playerID, int unitID, float x, float y);
+
 
 	
 private:
