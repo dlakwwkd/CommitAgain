@@ -127,13 +127,10 @@ void ClientManager::FlushClientSend()
 	}
 }
 
-void ClientManager::CreatePlayer(int pid, double x, double y, double z, const char* name, const char* comment)
+void ClientManager::CreatePlayer(int pid, const char* name, const char* comment)
 {
 	CreatePlayerDataContext* newPlayerJob = new CreatePlayerDataContext() ;
 	newPlayerJob->mPlayerId = pid ;
-	newPlayerJob->mPosX = x ;
-	newPlayerJob->mPosY = y ;
-	newPlayerJob->mPosZ = z ;
 	strcpy_s(newPlayerJob->mPlayerName, name) ;
 	strcpy_s(newPlayerJob->mComment, comment) ;
 

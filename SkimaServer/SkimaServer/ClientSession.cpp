@@ -166,8 +166,6 @@ void ClientSession::OnDbUpdate()
 
 	UpdatePlayerDataContext* updatePlayer = new UpdatePlayerDataContext(mSocket, mPlayerId) ;
 	 
-	updatePlayer->mPosX = mPosX ;
-	updatePlayer->mPosY = mPosY ;
 	strcpy_s(updatePlayer->mComment, "updated_test") ; ///< 일단은 테스트를 위한 코멘트
 	GDatabaseJobManager->PushDatabaseJobRequest(updatePlayer) ;
 

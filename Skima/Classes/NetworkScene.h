@@ -14,6 +14,8 @@ public:
 	void menuCallback2(Ref* sender);
 	void menuCallback3(Ref* sender);
 
+	void connectComplit();
+	
 
 private:
 	int m_PlayerID;

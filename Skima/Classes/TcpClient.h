@@ -22,6 +22,7 @@ public:
 
 	/// request test 
 	void loginRequest();
+	void makeRoomRequest();
 	void chatRequest(const char* chat);
 	void moveRequest(float x, float y);
 	void createRequest(int unitID, float x, float y);

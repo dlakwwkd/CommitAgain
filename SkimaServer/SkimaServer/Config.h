@@ -6,7 +6,7 @@
 #define LISTEN_PORT	9001
 
 /// 타이머 실행 간격 (ms)
-#define APC_TIMER_INTERVAL	100
+#define APC_TIMER_INTERVAL	1
 
 
 /// 플레이어의 HeartBeat 주기

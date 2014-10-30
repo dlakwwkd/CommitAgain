@@ -152,9 +152,6 @@ REGISTER_HANDLER(PKT_CS_CREATE_HERO)
 		return;
 	}
 
-	/// 플레이어 좌표 업데이트하고 바로 방송하면 끝
-	session->SetPosition(inPacket.mPosX, inPacket.mPosY);
-
 	CreateHeroResult outPacket;
 	outPacket.mPlayerId = inPacket.mPlayerId;
 	outPacket.mUnitId = inPacket.mUnitId;
@@ -214,9 +211,6 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 		printf("[DEBUG] PKT_CS_MOVE: invalid player ID", session->GetPlayerId());
 		return;
 	}
-
-	/// 플레이어 좌표 업데이트하고 바로 방송하면 끝
-	session->SetPosition(inPacket.mPosX, inPacket.mPosY);
 
 	MoveBroadcastResult outPacket;
 	outPacket.mPlayerId = inPacket.mPlayerId;

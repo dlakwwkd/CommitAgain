@@ -26,7 +26,6 @@ class ClientSession : public RefCountable, public ObjectPool<ClientSession>
 public:
 	ClientSession(SOCKET sock)
 		: mConnected(false), mLogon(false), mSocket(sock), mPlayerId(-1), mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE)
-		, mPosX(0), mPosY(0)
 	{
 		memset(&mClientAddr, 0, sizeof(SOCKADDR_IN)) ;
 		memset(mPlayerName, 0, sizeof(mPlayerName)) ;
@@ -37,7 +36,6 @@ public:
 	int	GetPlayerId() const	{ return mPlayerId; }
 	const char* GetPlayerName() const { return mPlayerName;  }
 	SOCKET GetSocketKey() const { return mSocket;  }
-	void SetPosition(float x, float y) { mPosX = x; mPosY = y; }
 
 	void	LoginDone(int pid, const char* name);
 	void	UpdateDone();
@@ -69,8 +67,6 @@ public:
 	void	DatabaseJobDone(DatabaseJobContext* result);
 
 private:
-	float			mPosX ;
-	float			mPosY ;
 	char			mPlayerName[MAX_NAME_LEN] ;
 
 private:

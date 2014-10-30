@@ -180,9 +180,7 @@ void TcpClient::processPacket()
 				m_loginId = recvData.mPlayerId;
 
 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("Network Layer");
-				if (dynamic_cast<NetworkScene*>(layer) == nullptr)
-					break;
-				layer->removeChildByName("Connect Label");
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::connectComplit, dynamic_cast<NetworkScene*>(layer)));
 
 
 // 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("Game Layer")->getChildByName("Physhics Layer")->getChildByName("Object Layer");
@@ -216,6 +214,19 @@ void TcpClient::processPacket()
 void TcpClient::loginRequest()
 {
 	if (m_loginId > 0)
+		return;
+
+	srand(time(NULL));
+
+	LoginRequest sendData;
+	sendData.mPlayerId = 1000 + rand() % 101;
+
+	send((const char*)&sendData, sizeof(LoginRequest));
+}
+
+void TcpClient::makeRoomRequest()
+{
+	if (m_loginId < 0)
 		return;
 
 	srand(time(NULL));

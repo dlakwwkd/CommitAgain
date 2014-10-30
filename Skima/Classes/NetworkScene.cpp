@@ -46,7 +46,7 @@ bool NetworkScene::init()
 
 void NetworkScene::menuCallback1(Ref* sender)
 {
-
+	
 
 }
 void NetworkScene::menuCallback2(Ref* sender)
@@ -58,5 +58,11 @@ void NetworkScene::menuCallback3(Ref* sender)
 {
 	TcpClient::destroyInstance();
 	Director::getInstance()->popScene();
+}
+
+void NetworkScene::connectComplit()
+{
+	auto label = dynamic_cast<Label*>(this->getChildByName("Connect Label"));
+	label->setString("접속 완료.");
 }
 
