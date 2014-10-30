@@ -44,7 +44,10 @@ struct PacketHeader
 } ;
 
 ///////////////////////////////////////////////////////////////////////////
-
+/*
+	로그인 관련
+*/
+///////////////////////////////////////////////////////////////////////////
 struct LoginRequest : public PacketHeader
 {
 	LoginRequest()
@@ -53,7 +56,6 @@ struct LoginRequest : public PacketHeader
 		mType = PKT_CS_LOGIN ;
 		mPlayerId = -1 ;
 	}
-
 	int	mPlayerId ;
 } ;
 struct LoginResult : public PacketHeader
@@ -65,13 +67,17 @@ struct LoginResult : public PacketHeader
 		mPlayerId = -1 ;
 		memset(mName, 0, MAX_NAME_LEN) ;
 	}
-
 	int		mPlayerId ;
 	char	mName[MAX_NAME_LEN] ;
 
 } ;
 
 
+///////////////////////////////////////////////////////////////////////////
+/*
+	게임 대기방, 게임 실행 관련
+*/
+///////////////////////////////////////////////////////////////////////////
 struct MakeRoomRequest : public PacketHeader
 {
 	MakeRoomRequest()
@@ -79,9 +85,7 @@ struct MakeRoomRequest : public PacketHeader
 		mSize = sizeof(MakeRoomRequest);
 		mType = PKT_CS_MAKE_ROOM;
 		mPlayerId = -1;
-
 	}
-
 	int		mPlayerId;
 };
 struct MakeRoomResult : public PacketHeader
@@ -93,7 +97,6 @@ struct MakeRoomResult : public PacketHeader
 		mPlayerId = -1;
 		mRoomId = -1;
 	}
-
 	int		mPlayerId;
 	int		mRoomId;
 };
@@ -109,7 +112,6 @@ struct InOutRoomRequest : public PacketHeader
 		mRoomId = -1;
 		mIsIn = true;
 	}
-
 	int		mPlayerId;
 	int		mRoomId;
 	bool	mIsIn;
@@ -124,7 +126,6 @@ struct InOutRoomResult : public PacketHeader
 		mRoomId = -1;
 		mIsIn = true;
 	}
-
 	int		mPlayerId;
 	int		mRoomId;
 	bool	mIsIn;
@@ -132,6 +133,11 @@ struct InOutRoomResult : public PacketHeader
 
 
 
+///////////////////////////////////////////////////////////////////////////
+/*
+	게임 내 유닛 관련
+*/
+///////////////////////////////////////////////////////////////////////////
 struct CreateHeroRequest : public PacketHeader
 {
 	CreateHeroRequest()
@@ -142,9 +148,7 @@ struct CreateHeroRequest : public PacketHeader
 		mUnitId = -1;
 		mPosX = 0;
 		mPosY = 0;
-
 	}
-
 	int		mPlayerId;
 	int		mUnitId;
 	float	mPosX;
@@ -160,50 +164,13 @@ struct CreateHeroResult : public PacketHeader
 		mUnitId = -1;
 		mPosX = 0;
 		mPosY = 0;
-
 	}
-
 	int		mPlayerId;
 	int		mUnitId;
 	float	mPosX;
 	float	mPosY;
 };
 
-
-
-
-
-
-struct ChatBroadcastRequest : public PacketHeader
-{
-	ChatBroadcastRequest()
-	{
-		mSize = sizeof(ChatBroadcastRequest);
-		mType = PKT_CS_CHAT;
-		mPlayerId = -1;
-
-		memset(mChat, 0, MAX_CHAT_LEN);
-	}
-
-	int	mPlayerId;
-	char mChat[MAX_CHAT_LEN];
-};
-struct ChatBroadcastResult : public PacketHeader
-{
-	ChatBroadcastResult()
-	{
-		mSize = sizeof(ChatBroadcastResult);
-		mType = PKT_SC_CHAT;
-		mPlayerId = -1;
-
-		memset(mName, 0, MAX_NAME_LEN);
-		memset(mChat, 0, MAX_CHAT_LEN);
-	}
-
-	int	mPlayerId;
-	char mName[MAX_NAME_LEN];
-	char mChat[MAX_CHAT_LEN];
-};
 
 
 struct MoveRequest : public PacketHeader
@@ -216,7 +183,6 @@ struct MoveRequest : public PacketHeader
 		mPosX = 0;
 		mPosY = 0;
 	}
-
 	int		mPlayerId;
 	float	mPosX;
 	float	mPosY;
@@ -231,10 +197,44 @@ struct MoveBroadcastResult : public PacketHeader
 		mPosX = 0;
 		mPosY = 0;
 	}
-
 	int		mPlayerId;
 	float	mPosX;
 	float	mPosY;
 };
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	채팅 관련
+*/
+///////////////////////////////////////////////////////////////////////////
+struct ChatBroadcastRequest : public PacketHeader
+{
+	ChatBroadcastRequest()
+	{
+		mSize = sizeof(ChatBroadcastRequest);
+		mType = PKT_CS_CHAT;
+		mPlayerId = -1;
+		memset(mChat, 0, MAX_CHAT_LEN);
+	}
+	int	mPlayerId;
+	char mChat[MAX_CHAT_LEN];
+};
+struct ChatBroadcastResult : public PacketHeader
+{
+	ChatBroadcastResult()
+	{
+		mSize = sizeof(ChatBroadcastResult);
+		mType = PKT_SC_CHAT;
+		mPlayerId = -1;
+		memset(mName, 0, MAX_NAME_LEN);
+		memset(mChat, 0, MAX_CHAT_LEN);
+	}
+	int	mPlayerId;
+	char mName[MAX_NAME_LEN];
+	char mChat[MAX_CHAT_LEN];
+};
+
+
 
 #pragma pack(pop)

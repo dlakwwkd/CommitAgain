@@ -135,6 +135,19 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 // 	GDatabaseJobManager->PushDatabaseJobRequest(newDbJob);
 }
 
+REGISTER_HANDLER(PKT_CS_MAKE_ROOM)
+{
+	LoginRequest inPacket;
+	if (false == session->ParsePacket(inPacket))
+	{
+		printf("[DEBUG] packet parsing error", inPacket.mType);
+		return;
+	}
+	printf("\n Request MakeRoom from %d \n", inPacket.mPlayerId);
+
+
+}
+
 REGISTER_HANDLER(PKT_CS_CREATE_HERO)
 {
 	CreateHeroRequest inPacket;

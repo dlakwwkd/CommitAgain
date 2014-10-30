@@ -23,10 +23,12 @@ public:
 
 	void loginRequest();
 	void makeRoomRequest();
-	void chatRequest(const char* chat);
-	void moveRequest(float x, float y);
+	void joinRoomRequest();
 	void createRequest(int unitID, float x, float y);
-	
+
+	void moveRequest(float x, float y);
+	void chatRequest(const char* chat);
+
 private:
 	TcpClient();
 	virtual ~TcpClient();

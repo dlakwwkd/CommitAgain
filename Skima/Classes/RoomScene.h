@@ -3,21 +3,18 @@
 
 USING_NS_CC;
 
-class NetworkScene : public LayerColor
+class RoomScene : public LayerColor
 {
 public:
 	static Scene* createScene();
 	virtual bool init();
-	CREATE_FUNC(NetworkScene);
+	CREATE_FUNC(RoomScene);
 
-	void menuCallback0(Ref* sender);
 	void menuCallback1(Ref* sender);
 	void menuCallback2(Ref* sender);
-	void menuCallback3(Ref* sender);
 
-	void connectComplit();
+	void makeRoomComplit(int roomId);
 
 private:
-	int m_GameID;
+	int m_RoomID;
 };
-

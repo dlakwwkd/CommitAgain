@@ -25,7 +25,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto glview = director->getOpenGLView();
     if(!glview) 
 	{
-        glview = GLViewImpl::create("My Game");
+        glview = GLViewImpl::create("Amaging PVP Game: Skima");
         director->setOpenGLView(glview);
 
 		glview->setFrameSize(800, 600);
@@ -33,7 +33,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     }
 
     // turn on display FPS
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object

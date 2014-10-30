@@ -1,14 +1,13 @@
 #include "MainScene.h"
 #include "GameScene.h"
 #include "NetworkScene.h"
-#include "Enums.h"
 
 
 Scene* MainScene::createScene()
 {
 	auto scene = Scene::create();
 	auto layer = MainScene::create();
-	scene->addChild(layer, 0, "Main Layer");
+	scene->addChild(layer, 0, "MainScene");
 	return scene;
 }
 
@@ -29,7 +28,7 @@ bool MainScene::init()
 
 	auto menu = Menu::create(menuItem1, menuItem2, menuItem3, NULL);
 	menu->alignItemsVertically();
-	this->addChild(menu, 0, "Main Menu");
+	this->addChild(menu, 0, "MainMenu");
 
 	return true;
 }

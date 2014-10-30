@@ -2,7 +2,6 @@
 #include "MapLayer.h"
 #include "ObjectLayer.h"
 #include "GameManager.h"
-#include "Enums.h"
 
 
 
@@ -14,9 +13,9 @@ bool PhysicsLayer::init()
 	}
 
 	auto layer1 = MapLayer::create();
-	this->addChild(layer1, 0, "Map Layer");
+	this->addChild(layer1, 0, "MapLayer");
 	auto layer2 = ObjectLayer::create();
-	this->addChild(layer2, 1, "Object Layer");
+	this->addChild(layer2, 1, "ObjectLayer");
 
 	auto MouseListener = EventListenerMouse::create();
 	MouseListener->onMouseDown = CC_CALLBACK_1(PhysicsLayer::onMouseDown, this);
@@ -37,7 +36,7 @@ void PhysicsLayer::tick(float dt)
 {
 	updateKeyInput();
 	cameraSync();
-	auto child = (ObjectLayer*)(this->getChildByName("Object Layer"));
+	auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
 	child->MobAi();
 }
 
@@ -52,7 +51,7 @@ void PhysicsLayer::onMouseDown(Event *event)
 	case MOUSE_BUTTON_LEFT:
 		break;
 	case MOUSE_BUTTON_RIGHT:
-		auto child = (ObjectLayer*)(this->getChildByName("Object Layer"));
+		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
 		child->unitMove(GET_IM->getMouseLocation());
 		break;
 	}
@@ -74,7 +73,7 @@ void PhysicsLayer::onMouseMove(Event *event)
 	
 	if (GET_IM->getMouseStatus(MOUSE_BUTTON_LEFT))
 	{
-		auto child = (ObjectLayer*)(this->getChildByName("Object Layer"));
+		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
 		child->addNewSpriteAtPosition(GET_IM->getMouseLocation());
 	}
 }

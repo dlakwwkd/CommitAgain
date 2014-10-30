@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "Unit.h"
 #include "..\..\PacketType.h"
+#include "Enums.h"
 
 
 bool ObjectLayer::init()

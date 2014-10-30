@@ -1,14 +1,14 @@
 #include "NetworkScene.h"
 #include "GameScene.h"
+#include "RoomScene.h"
 #include "TcpClient.h"
-#include "Enums.h"
 
 
 Scene* NetworkScene::createScene()
 {
 	auto scene = Scene::create();
 	auto layer = NetworkScene::create();
-	scene->addChild(layer, 0, "Network Layer");
+	scene->addChild(layer, 0, "NetworkScene");
 	return scene;
 }
 
@@ -19,8 +19,6 @@ bool NetworkScene::init()
 		return false;
 	}
 
-	m_PlayerID = -1;
-	m_RoomID = -1;
 	m_GameID = -1;
 	
 	auto label0 = Label::createWithSystemFont("辑滚 立加", "Thonburi", 50);
@@ -35,7 +33,7 @@ bool NetworkScene::init()
 
 	auto menu = Menu::create(menuItem0, menuItem1, menuItem2, menuItem3, NULL);
 	menu->alignItemsVertically();
-	this->addChild(menu, 0, "Network Menu");
+	this->addChild(menu, 0, "NetworkMenu");
 
 	return true;
 }
@@ -45,15 +43,15 @@ void NetworkScene::menuCallback0(Ref* sender)
 	if (TcpClient::getInstance()->checkSocket() != NULL)
 		return;
 
-	if (this->getChildByName("Connect Label") != nullptr)
+	if (this->getChildByName("ConnectLabel") != nullptr)
 	{
-		this->removeChildByName("Connect Label");
+		this->removeChildByName("ConnectLabel");
 	}
 
-	auto label = Label::createWithSystemFont("立加 吝...", "Thonburi", 50);
+	auto label = Label::createWithSystemFont("立加 吝......", "Thonburi", 50);
 	label->setAnchorPoint(Point::ZERO);
 	label->setHorizontalAlignment(TextHAlignment::CENTER);
-	this->addChild(label, 0, "Connect Label");
+	this->addChild(label, 0, "ConnectLabel");
 
 	if (TcpClient::getInstance()->connect() == false)
 	{
@@ -67,8 +65,10 @@ void NetworkScene::menuCallback0(Ref* sender)
 
 void NetworkScene::menuCallback1(Ref* sender)
 {
+	auto scene = RoomScene::createScene();
+	Director::getInstance()->pushScene(scene);
 
-
+	TcpClient::getInstance()->makeRoomRequest();
 }
 
 void NetworkScene::menuCallback2(Ref* sender)
@@ -86,7 +86,7 @@ void NetworkScene::menuCallback3(Ref* sender)
 
 void NetworkScene::connectComplit()
 {
-	auto label = dynamic_cast<Label*>(this->getChildByName("Connect Label"));
+	auto label = dynamic_cast<Label*>(this->getChildByName("ConnectLabel"));
 	if (label == nullptr)
 		return;
 	label->setString("立加 肯丰.");

@@ -154,8 +154,6 @@ void ClientSession::OnTick()
 		return;
 
 	/// 클라별로 주기적으로 해야될 일은 여기에
-
-
 	
 	CallFuncAfter(PLAYER_HEART_BEAT, this, &ClientSession::OnTick);
 }
@@ -167,6 +165,9 @@ void ClientSession::LoginSuccessInform(int id)
 	LoginResult outPacket;
 
 	outPacket.mPlayerId = mPlayerId = id;
+
+	// 여기서는 일단 ID로 닉네임을 덮어썼는데,
+	// 나중에 DB를 이용해 ID별로 닉네임을 적용해야 할듯. -수빈
 	itoa(mPlayerId, mPlayerName, 10);
 	strcpy_s(outPacket.mName, mPlayerName);
 

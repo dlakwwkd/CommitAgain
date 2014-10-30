@@ -1,7 +1,6 @@
 #include "GameScene.h"
 #include "PhysicsLayer.h"
 #include "UILayer.h"
-#include "Enums.h"
 
 Scene* GameScene::createScene()
 {
@@ -13,8 +12,8 @@ Scene* GameScene::createScene()
 	auto layer2 = PhysicsLayer::create();
 	layer2->setPhyWorld(scene->getPhysicsWorld());
 
-	scene->addChild(layer, 0, "Game Layer");
-	layer->addChild(layer2, 0, "Physhics Layer");
+	scene->addChild(layer, 0, "GameScene");
+	layer->addChild(layer2, 0, "PhyshicsLayer");
 
 	return scene;
 }
@@ -26,7 +25,7 @@ bool GameScene::init()
 		return false;
 	}
 	auto layer = UILayer::create();
-	this->addChild(layer, 10, "UI Layer");
+	this->addChild(layer, 10, "UILayer");
 
 	return true;
 }
