@@ -144,7 +144,7 @@ unsigned int WINAPI ClientHandlingThread( LPVOID lpParam )
 		GClientManager->FlushClientSend();
 
 		/// APC Queue에 쌓인 작업들 처리
-		SleepEx(INFINITE, TRUE);
+		SleepEx(1, TRUE);
 	}
 
 	CloseHandle( hTimer ) ;

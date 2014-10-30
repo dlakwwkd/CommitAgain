@@ -13,15 +13,9 @@ bool ObjectLayer::init()
 	}
 	m_Hero = nullptr;
 	
-	/// 하드코딩 start
-	TcpClient::getInstance()->loginRequest();
-
-
 	
 	//createHero({ 200, 200 });
 
-
-	//하드코딩 end
 
 
 	this->schedule(schedule_selector(ObjectLayer::tick));
@@ -107,5 +101,5 @@ void ObjectLayer::updatePeer(int id, float x, float y)
 void ObjectLayer::createHeroStart()
 {
 	int playerID = 1110;
-	TcpClient::getInstance()->createRequest(playerID, 150, 200, 200);
+	TcpClient::getInstance()->createRequest(150, 200, 200);
 }

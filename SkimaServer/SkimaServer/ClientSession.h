@@ -39,7 +39,7 @@ public:
 	SOCKET GetSocketKey() const { return mSocket;  }
 	void SetPosition(float x, float y) { mPosX = x; mPosY = y; }
 
-	void	LoginDone(int pid, float x, float y, const char* name);
+	void	LoginDone(int pid, const char* name);
 	void	UpdateDone();
 
 public: 

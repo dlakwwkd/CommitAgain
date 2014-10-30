@@ -19,7 +19,7 @@ bool ClientSession::OnConnect(SOCKADDR_IN* addr)
 	int opt = 1 ;
 	setsockopt(mSocket, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int)) ;
 
-	printf("[DEBUG] Client Connected: IP=%s, PORT=%d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port)) ;
+	printf("[DEBUG] Client Connected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port)) ;
 	
 	mConnected = true ;
 
@@ -57,7 +57,7 @@ void ClientSession::Disconnect()
 	if ( !IsConnected() )
 		return ;
 
-	printf("[DEBUG] Client Disconnected: IP=%s, PORT=%d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port)) ;
+	printf("[DEBUG] Client Disconnected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port)) ;
 
 	/// 즉각 해제
 
@@ -187,7 +187,7 @@ void ClientSession::DatabaseJobDone(DatabaseJobContext* result)
 	{
 		LoadPlayerDataContext* login = dynamic_cast<LoadPlayerDataContext*>(result) ;
 
-		LoginDone(login->mPlayerId, (float)login->mPosX, (float)login->mPosY, login->mPlayerName) ;
+		LoginDone(login->mPlayerId, login->mPlayerName) ;
 	
 	}
 	else if ( typeInfo == typeid(UpdatePlayerDataContext) )
@@ -209,25 +209,23 @@ void ClientSession::UpdateDone()
 
 
 
-void ClientSession::LoginDone(int pid, float x, float y, const char* name)
+void ClientSession::LoginDone(int pid, const char* name)
 {
 	LoginResult outPacket ;
 
 	outPacket.mPlayerId = mPlayerId = pid ;
-	outPacket.mPosX = mPosX = x ;
-	outPacket.mPosY = mPosY = y ;
 	strcpy_s(mPlayerName, name) ;
 	strcpy_s(outPacket.mName, name) ;
 
 	SendRequest(&outPacket) ;
 
 	mLogon = true ;
-
-	/// heartbeat gogo
-	OnTick();
-
-	/// first db update gogo
-	OnDbUpdate();
+// 
+// 	/// heartbeat gogo
+// 	OnTick();
+// 
+// 	/// first db update gogo
+// 	OnDbUpdate();
 }
 
 

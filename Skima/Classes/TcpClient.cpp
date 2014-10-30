@@ -6,6 +6,7 @@
 #include "2d/CCLabel.h"
 #include "GameScene.h"
 #include "ObjectLayer.h"
+#include "NetworkScene.h"
 #include "../../PacketType.h"
 #include "Enums.h"
 
@@ -88,7 +89,7 @@ bool TcpClient::connect(const char* serverAddr, int port)
 
 	memset(&hostAddr, 0, sizeof(hostAddr));
 	hostAddr.sin_family = AF_INET;
-	hostAddr.sin_addr.s_addr = inet_addr("10.73.42.29");
+	hostAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 	hostAddr.sin_port = htons(port);
 
 	if (SOCKET_ERROR == ::connect(m_sock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
@@ -174,13 +175,18 @@ void TcpClient::processPacket()
 				LoginResult recvData;
 				bool ret = m_recvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
-				CCLOG("LOGIN OK: ID[%d] Name[%s] POS[%.4f, %.4f]", recvData.mPlayerId, recvData.mName, recvData.mPosX, recvData.mPosY);
+				//("LOGIN OK: ID[%d] Name[%s]", recvData.mPlayerId, recvData.mName);
 	
 				m_loginId = recvData.mPlayerId;
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(DEFAULT_LAYER)->getChildByTag(PHYSICS_LAYER)->getChildByTag(OBJECT_LAYER);
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("Network Layer");
+				if (dynamic_cast<NetworkScene*>(layer) == nullptr)
+					break;
+				layer->removeChildByName("Connect Label");
 
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::createHeroStart, dynamic_cast<ObjectLayer*>(layer)));
+
+// 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("Game Layer")->getChildByName("Physhics Layer")->getChildByName("Object Layer");
+// 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::createHeroStart, dynamic_cast<ObjectLayer*>(layer)));
 
 
 			}
@@ -193,8 +199,8 @@ void TcpClient::processPacket()
 				bool ret = m_recvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(DEFAULT_LAYER)->getChildByTag(PHYSICS_LAYER)->getChildByTag(OBJECT_LAYER);
 
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("Game Layer")->getChildByName("Physhics Layer")->getChildByName("Object Layer");
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::updatePeer, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, recvData.mPosX, recvData.mPosY));
 
 			}
@@ -214,13 +220,10 @@ void TcpClient::loginRequest()
 
 	srand(time(NULL));
 
-	/// 대략 아래의 id로 로그인 테스트..
 	LoginRequest sendData;
-//	sendData.mPlayerId = 1000 + rand() % 101;
-	sendData.mPlayerId = 1110;
+	sendData.mPlayerId = 1000 + rand() % 101;
 
 	send((const char*)&sendData, sizeof(LoginRequest));
-
 }
 
 void TcpClient::chatRequest(const char* chat)
@@ -250,10 +253,13 @@ void TcpClient::moveRequest(float x, float y)
 	send((const char*)&sendData, sizeof(MoveRequest));
 }
 
-void TcpClient::createRequest(int playerID, int unitID, float x, float y)
+void TcpClient::createRequest(int unitID, float x, float y)
 {
+	if (m_loginId < 0)
+		return;
+
 	CreateHeroRequest sendData;
-	sendData.mPlayerId = playerID;
+	sendData.mPlayerId = m_loginId;
 	sendData.mUnitId = unitID;
 	sendData.mPosX = x;
 	sendData.mPosY = y;

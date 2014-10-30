@@ -24,5 +24,5 @@ bool UILayer::init()
 
 void UILayer::doClick1(Ref* sender)
 {
-	Director::getInstance()->end();
+	Director::getInstance()->popScene();
 }

@@ -135,6 +135,42 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 
 }
 
+REGISTER_HANDLER(PKT_CS_CREATE_HERO)
+{
+	CreateHeroRequest inPacket;
+	if (false == session->ParsePacket(inPacket))
+	{
+		printf("[DEBUG] packet parsing error", inPacket.mType);
+		return;
+	}
+
+	printf("\n haveID: %d \n recvID: %d \n", session->GetPlayerId(), inPacket.mPlayerId);
+
+	if (inPacket.mPlayerId != session->GetPlayerId())
+	{
+		printf("[DEBUG] PKT_CS_CREATE_HERO: invalid player ID", session->GetPlayerId());
+		return;
+	}
+
+	/// 플레이어 좌표 업데이트하고 바로 방송하면 끝
+	session->SetPosition(inPacket.mPosX, inPacket.mPosY);
+
+	CreateHeroResult outPacket;
+	outPacket.mPlayerId = inPacket.mPlayerId;
+	outPacket.mUnitId = inPacket.mUnitId;
+	outPacket.mPosX = inPacket.mPosX;
+	outPacket.mPosY = inPacket.mPosY;
+
+	if (!session->Broadcast(&outPacket))
+	{
+		session->Disconnect();
+	}
+}
+
+
+
+
+
 REGISTER_HANDLER(PKT_CS_CHAT)
 {
 	ChatBroadcastRequest inPacket;
@@ -151,7 +187,7 @@ REGISTER_HANDLER(PKT_CS_CHAT)
 	}
 
 	/// chatting의 경우 여기서 바로 방송
-	
+
 	ChatBroadcastResult outPacket;
 	outPacket.mPlayerId = inPacket.mPlayerId;
 	strcpy_s(outPacket.mName, session->GetPlayerName());
@@ -193,39 +229,3 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 	}
 
 }
-
-REGISTER_HANDLER(PKT_CS_CREATE_HERO)
-{
-	CreateHeroRequest inPacket;
-	if (false == session->ParsePacket(inPacket))
-	{
-		printf("[DEBUG] packet parsing error", inPacket.mType);
-		return;
-	}
-
-	printf("\n haveID: %d \n recvID: %d \n", session->GetPlayerId(), inPacket.mPlayerId);
-
-	if (inPacket.mPlayerId != session->GetPlayerId())
-	{
-		printf("[DEBUG] PKT_CS_CREATE_HERO: invalid player ID", session->GetPlayerId());
-		return;
-	}
-
-	/// 플레이어 좌표 업데이트하고 바로 방송하면 끝
-	session->SetPosition(inPacket.mPosX, inPacket.mPosY);
-
-	CreateHeroResult outPacket;
-	outPacket.mPlayerId = inPacket.mPlayerId;
-	outPacket.mUnitId = inPacket.mUnitId;
-	outPacket.mPosX = inPacket.mPosX;
-	outPacket.mPosY = inPacket.mPosY;
-
-	if (!session->Broadcast(&outPacket))
-	{
-		session->Disconnect();
-	}
-}
-
-
-
-

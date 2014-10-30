@@ -13,8 +13,8 @@ Scene* GameScene::createScene()
 	auto layer2 = PhysicsLayer::create();
 	layer2->setPhyWorld(scene->getPhysicsWorld());
 
-	scene->addChild(layer, 0, DEFAULT_LAYER);
-	layer->addChild(layer2, 0, PHYSICS_LAYER);
+	scene->addChild(layer, 0, "Game Layer");
+	layer->addChild(layer2, 0, "Physhics Layer");
 
 	return scene;
 }
@@ -26,7 +26,7 @@ bool GameScene::init()
 		return false;
 	}
 	auto layer = UILayer::create();
-	this->addChild(layer, 10, UI_LAYER);
+	this->addChild(layer, 10, "UI Layer");
 
 	return true;
 }

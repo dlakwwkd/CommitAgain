@@ -14,9 +14,9 @@ bool PhysicsLayer::init()
 	}
 
 	auto layer1 = MapLayer::create();
-	this->addChild(layer1, 0, MAP_LAYER);
+	this->addChild(layer1, 0, "Map Layer");
 	auto layer2 = ObjectLayer::create();
-	this->addChild(layer2, 1, OBJECT_LAYER);
+	this->addChild(layer2, 1, "Object Layer");
 
 	auto MouseListener = EventListenerMouse::create();
 	MouseListener->onMouseDown = CC_CALLBACK_1(PhysicsLayer::onMouseDown, this);
@@ -37,7 +37,7 @@ void PhysicsLayer::tick(float dt)
 {
 	updateKeyInput();
 	cameraSync();
-	auto child = (ObjectLayer*)(this->getChildByTag(OBJECT_LAYER));
+	auto child = (ObjectLayer*)(this->getChildByName("Object Layer"));
 	child->MobAi();
 }
 
@@ -52,7 +52,7 @@ void PhysicsLayer::onMouseDown(Event *event)
 	case MOUSE_BUTTON_LEFT:
 		break;
 	case MOUSE_BUTTON_RIGHT:
-		auto child = (ObjectLayer*)(this->getChildByTag(OBJECT_LAYER));
+		auto child = (ObjectLayer*)(this->getChildByName("Object Layer"));
 		child->unitMove(GET_IM->getMouseLocation());
 		break;
 	}
@@ -74,7 +74,7 @@ void PhysicsLayer::onMouseMove(Event *event)
 	
 	if (GET_IM->getMouseStatus(MOUSE_BUTTON_LEFT))
 	{
-		auto child = (ObjectLayer*)(this->getChildByTag(OBJECT_LAYER));
+		auto child = (ObjectLayer*)(this->getChildByName("Object Layer"));
 		child->addNewSpriteAtPosition(GET_IM->getMouseLocation());
 	}
 }

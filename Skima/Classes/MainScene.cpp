@@ -1,61 +1,51 @@
 #include "MainScene.h"
+#include "GameScene.h"
+#include "NetworkScene.h"
+#include "Enums.h"
 
 
 Scene* MainScene::createScene()
 {
 	auto scene = Scene::create();
 	auto layer = MainScene::create();
-	scene->addChild(layer);
+	scene->addChild(layer, 0, "Main Layer");
 	return scene;
 }
 
 bool MainScene::init()
 {
-
-	if (!LayerColor::initWithColor(Color4B(255,255,255,255)))
+	if (!LayerColor::initWithColor(Color4B(100,100,200,255)))
 	{
 		return false;
 	}
 	
-	auto menuItem1 = MenuItemImage::create(
-		"Images/btn-play-normal.png",
-		"Images/btn-play-selected.png",
-		CC_CALLBACK_1(MainScene::doClick1, this));
+	auto label1 = Label::createWithSystemFont("싱글 플레이", "Thonburi", 50);
+	auto label2 = Label::createWithSystemFont("멀티 플레이", "Thonburi", 50);
+	auto label3 = Label::createWithSystemFont("게임 종료", "Thonburi", 50);
 
-	auto menuItem2 = MenuItemImage::create(
-		"Images/btn-highscores-normal.png",
-		"Images/btn-highscores-selected.png",
-		this,
-		menu_selector(MainScene::doClick2));
-
-	auto menuItem3 = MenuItemImage::create(
-		"Images/btn-about-normal.png",
-		"Images/btn-about-selected.png",
-		this,
-		menu_selector(MainScene::doClick3));
+	auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(MainScene::menuCallback1, this));
+	auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(MainScene::menuCallback2, this));
+	auto menuItem3 = MenuItemLabel::create(label3, CC_CALLBACK_1(MainScene::menuCallback3, this));
 
 	auto menu = Menu::create(menuItem1, menuItem2, menuItem3, NULL);
-
 	menu->alignItemsVertically();
-
-	this->addChild(menu);
+	this->addChild(menu, 0, "Main Menu");
 
 	return true;
 }
 
-void MainScene::doClick1(Ref* sender)
+void MainScene::menuCallback1(Ref* sender)
 {
-	log("메뉴1");
+	auto scene = GameScene::createScene();
+	Director::getInstance()->pushScene(scene);
+}
+void MainScene::menuCallback2(Ref* sender)
+{
+	auto scene = NetworkScene::createScene();
+	Director::getInstance()->pushScene(scene);
+}
+void MainScene::menuCallback3(Ref* sender)
+{
+	Director::getInstance()->end();
 }
 
-void MainScene::doClick2(Ref* sender)
-{
-	log("메뉴2");
-
-}
-
-void MainScene::doClick3(Ref* sender)
-{
-	log("메뉴3");
-
-}
