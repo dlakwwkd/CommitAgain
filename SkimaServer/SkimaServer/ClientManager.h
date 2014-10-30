@@ -18,26 +18,24 @@ public:
 	void BroadcastPacket(ClientSession* from, PacketHeader* pkt) ;
 
 	void OnPeriodWork() ;
-
-	/// DB에 플레이어 정보를 생성하거나 삭제하는 함수
-	void CreatePlayer(int pid, const char* name, const char* comment) ;
-	void DeletePlayer(int pid) ;
-
 	void FlushClientSend();
 
+
+	/// DB에 플레이어 정보를 생성하거나 삭제하는 함수
+// 	void CreatePlayer(int pid, const char* name, const char* comment) ;
+// 	void DeletePlayer(int pid) ;
 private:
-	void CreatePlayerDone(DatabaseJobContext* dbJob) ;
-	void DeletePlayerDone(DatabaseJobContext* dbJob) ;
+// 	void CreatePlayerDone(DatabaseJobContext* dbJob) ;
+// 	void DeletePlayerDone(DatabaseJobContext* dbJob) ;
 
 private:
 	void CollectGarbageSessions() ;
-	void DispatchDatabaseJobResults() ;
+	//void DispatchDatabaseJobResults() ;
 	
 
 private:
 	typedef std::map<SOCKET, ClientSession*> ClientList ;
 	ClientList	mClientList ;
-
 	DWORD		mLastGCTick ;
 } ;
 

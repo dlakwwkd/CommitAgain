@@ -23,46 +23,71 @@ bool NetworkScene::init()
 	m_RoomID = -1;
 	m_GameID = -1;
 	
-	TcpClient::getInstance()->loginRequest();
-	auto label = Label::createWithSystemFont("접속 중...", "Thonburi", 50);
-	label->setAnchorPoint(Point::ZERO);
-	label->setHorizontalAlignment(TextHAlignment::CENTER);
-	this->addChild(label, 0, "Connect Label");
-	
+	auto label0 = Label::createWithSystemFont("서버 접속", "Thonburi", 50);
 	auto label1 = Label::createWithSystemFont("방 생성", "Thonburi", 50);
 	auto label2 = Label::createWithSystemFont("방 참여", "Thonburi", 50);
 	auto label3 = Label::createWithSystemFont("나가기", "Thonburi", 50);
 
+	auto menuItem0 = MenuItemLabel::create(label0, CC_CALLBACK_1(NetworkScene::menuCallback0, this));
 	auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(NetworkScene::menuCallback1, this));
 	auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(NetworkScene::menuCallback2, this));
 	auto menuItem3 = MenuItemLabel::create(label3, CC_CALLBACK_1(NetworkScene::menuCallback3, this));
 
-	auto menu = Menu::create(menuItem1, menuItem2, menuItem3, NULL);
+	auto menu = Menu::create(menuItem0, menuItem1, menuItem2, menuItem3, NULL);
 	menu->alignItemsVertically();
 	this->addChild(menu, 0, "Network Menu");
 
 	return true;
 }
 
+void NetworkScene::menuCallback0(Ref* sender)
+{
+	if (TcpClient::getInstance()->checkSocket() != NULL)
+		return;
+
+	if (this->getChildByName("Connect Label") != nullptr)
+	{
+		this->removeChildByName("Connect Label");
+	}
+
+	auto label = Label::createWithSystemFont("접속 중...", "Thonburi", 50);
+	label->setAnchorPoint(Point::ZERO);
+	label->setHorizontalAlignment(TextHAlignment::CENTER);
+	this->addChild(label, 0, "Connect Label");
+
+	if (TcpClient::getInstance()->connect() == false)
+	{
+		TcpClient::getInstance()->disconnect();
+		label->setString("연결 실패.");
+		return;
+	}
+
+	TcpClient::getInstance()->loginRequest();
+}
+
 void NetworkScene::menuCallback1(Ref* sender)
 {
-	
+
 
 }
+
 void NetworkScene::menuCallback2(Ref* sender)
 {
 
 
 }
+
 void NetworkScene::menuCallback3(Ref* sender)
 {
-	TcpClient::destroyInstance();
+	TcpClient::getInstance()->disconnect();
 	Director::getInstance()->popScene();
 }
+
 
 void NetworkScene::connectComplit()
 {
 	auto label = dynamic_cast<Label*>(this->getChildByName("Connect Label"));
+	if (label == nullptr)
+		return;
 	label->setString("접속 완료.");
 }
-

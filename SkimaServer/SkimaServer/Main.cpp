@@ -121,6 +121,7 @@ unsigned int WINAPI ClientHandlingThread( LPVOID lpParam )
 	{
 		SOCKET acceptSock = NULL;
 
+
 		/// 새로 접속한 클라이언트 처리
 		if (pAcceptList->Consume(acceptSock, false))
 		{

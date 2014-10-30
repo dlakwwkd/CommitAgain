@@ -17,34 +17,27 @@ public:
 	static TcpClient* getInstance();
 	static void destroyInstance();
 
-	bool connect(const char* serverAddr, int port);
-	
+	SOCKET checkSocket(){ return m_sock; }
+	bool connect();
+	void disconnect();
 
-	/// request test 
 	void loginRequest();
 	void makeRoomRequest();
 	void chatRequest(const char* chat);
 	void moveRequest(float x, float y);
 	void createRequest(int unitID, float x, float y);
-
-
 	
 private:
 	TcpClient();
 	virtual ~TcpClient();
 
-	bool initialize();
 	bool send(const char* data, int length);
-	
 	void networkThread();
 	void processPacket();
 
 private:
-
 	SOCKET			m_sock;
 	CircularBuffer	m_recvBuffer;
-
-	int m_loginId;
-
+	int				m_loginId;
 };
 

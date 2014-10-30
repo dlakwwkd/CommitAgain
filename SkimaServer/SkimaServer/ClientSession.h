@@ -37,13 +37,16 @@ public:
 	const char* GetPlayerName() const { return mPlayerName;  }
 	SOCKET GetSocketKey() const { return mSocket;  }
 
-	void	LoginDone(int pid, const char* name);
-	void	UpdateDone();
+	void	LoginSuccessInform(int id);
+
+
+// 	void	LoginDone(int pid, const char* name);
+// 	void	UpdateDone();
 
 public: 
 	bool	IsConnected() const { return mConnected; }
 	void	OnTick();
-	void	OnDbUpdate(); ///< 주기적으로 데이터베이스에 업데이트
+//	void	OnDbUpdate(); ///< 주기적으로 데이터베이스에 업데이트
 
 	template <class PKT_TYPE>
 	bool ParsePacket(PKT_TYPE& pkt)
@@ -64,7 +67,7 @@ public:
 	void	Disconnect() ;
 
 	bool	SendFlush(); ///< Send요청 중인것들 모아서 보냄
-	void	DatabaseJobDone(DatabaseJobContext* result);
+//	void	DatabaseJobDone(DatabaseJobContext* result);
 
 private:
 	char			mPlayerName[MAX_NAME_LEN] ;

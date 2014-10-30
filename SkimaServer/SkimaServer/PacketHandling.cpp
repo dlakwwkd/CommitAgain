@@ -127,12 +127,12 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 		printf("[DEBUG] packet parsing error", inPacket.mType);
 		return;
 	}
-
 	printf("\n Request Login ID: %d \n", inPacket.mPlayerId);
 
-	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
-	GDatabaseJobManager->PushDatabaseJobRequest(newDbJob);
+	session->LoginSuccessInform(inPacket.mPlayerId);
 
+// 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
+// 	GDatabaseJobManager->PushDatabaseJobRequest(newDbJob);
 }
 
 REGISTER_HANDLER(PKT_CS_CREATE_HERO)

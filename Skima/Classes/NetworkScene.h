@@ -10,6 +10,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(NetworkScene);
 
+	void menuCallback0(Ref* sender);
 	void menuCallback1(Ref* sender);
 	void menuCallback2(Ref* sender);
 	void menuCallback3(Ref* sender);

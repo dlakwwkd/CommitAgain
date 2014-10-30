@@ -20,57 +20,30 @@ static TcpClient* s_TcpClient = nullptr;
 
 TcpClient::TcpClient() : m_recvBuffer(BUF_SIZE), m_sock(NULL), m_loginId(-1)
 {
-
+	/// 쓰레드 생성
+	auto t = std::thread(CC_CALLBACK_0(TcpClient::networkThread, this));
+	t.detach();
 }
 
 TcpClient::~TcpClient()
 {
+	if(m_sock == NULL)
+		return;
+
 #ifndef _WIN32
 	close(m_sock);
 #else
 	closesocket(m_sock);
 	WSACleanup();
 #endif
-
 }
-
-bool TcpClient::initialize()
-{
-
-#ifdef _WIN32
-	WSADATA wsa;
-	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
-		return false;
-#endif
-
-
-	m_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (m_sock == INVALID_SOCKET)
-		return false;
-
-	/// thread start
-	auto t = std::thread(CC_CALLBACK_0(TcpClient::networkThread, this));
-	t.detach();
-
-	return true;
-}
-
 
 TcpClient* TcpClient::getInstance()
 {
 	if (nullptr == s_TcpClient)
 	{
 		s_TcpClient = new TcpClient();
-		if (false == s_TcpClient->initialize())
-			return nullptr;
-
-		std::string ipaddr = cocos2d::UserDefault::getInstance()->getStringForKey("ipaddr", std::string("localhost"));
-		int port = cocos2d::UserDefault::getInstance()->getIntegerForKey("port", 9001);
-
-		s_TcpClient->connect(ipaddr.c_str(), port);
 	}
-		
-
 	return s_TcpClient;
 }
 
@@ -79,12 +52,36 @@ void TcpClient::destroyInstance()
 	CC_SAFE_DELETE(s_TcpClient);
 }
 
-bool TcpClient::connect(const char* serverAddr, int port)
+
+
+
+/*
+	서버와의 연결, 연결해제 함수
+*/
+bool TcpClient::connect()
 {
+	if (m_sock != NULL)
+	{
+		TcpClient::getInstance()->disconnect();
+	}
+
+#ifdef _WIN32
+	WSADATA wsa;
+	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
+		return false;
+#endif
+
+	m_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (m_sock == INVALID_SOCKET)
+		return false;
+
+	std::string ipaddr = cocos2d::UserDefault::getInstance()->getStringForKey("ipaddr", std::string("localhost"));
+	int port = cocos2d::UserDefault::getInstance()->getIntegerForKey("port", 9001);
+
 	struct hostent* host;
 	struct sockaddr_in hostAddr;
 
-	if ((host = gethostbyname(serverAddr)) == 0) 
+	if ((host = gethostbyname(ipaddr.c_str())) == 0)
 		return false;
 
 	memset(&hostAddr, 0, sizeof(hostAddr));
@@ -97,9 +94,6 @@ bool TcpClient::connect(const char* serverAddr, int port)
 		CCLOG("CONNECT FAILED");
 		return false;
 	}
-	
-	//u_long arg = 1;
-	//ioctlsocket(mSocket, FIONBIO, &arg);
 
 	/// nagle 알고리즘 끄기
 	int opt = 1;
@@ -108,6 +102,27 @@ bool TcpClient::connect(const char* serverAddr, int port)
 	return true;
 }
 
+void TcpClient::disconnect()
+{
+	if (m_sock == NULL)
+		return;
+
+#ifndef _WIN32
+	close(m_sock);
+#else
+	closesocket(m_sock);
+	WSACleanup();
+#endif
+	m_sock = NULL;
+	m_loginId = -1;
+
+	return;
+}
+
+
+/*
+	실제 패킷을 보내고, 받는 함수
+*/
 bool TcpClient::send(const char* data, int length)
 {
 	int count = 0;
@@ -139,7 +154,6 @@ void TcpClient::networkThread()
 			sleep(0); ///< for cpu low-utilization
 			continue;
 		}
-			
 
 		if (!m_recvBuffer.Write(inBuf, n))
 		{
@@ -151,6 +165,10 @@ void TcpClient::networkThread()
 	}
 }
 
+
+/*
+	받은 패킷 파싱하여 처리하는 함수
+*/
 void TcpClient::processPacket()
 {
 	auto scheduler = cocos2d::Director::getInstance()->getScheduler();
@@ -162,11 +180,9 @@ void TcpClient::processPacket()
 
 		if (false == m_recvBuffer.Peek((char*)&header, sizeof(PacketHeader)))
 			break;
-			
 
 		if (header.mSize > m_recvBuffer.GetStoredSize())
 			break;
-	
 
 		switch (header.mType)
 		{
@@ -180,6 +196,8 @@ void TcpClient::processPacket()
 				m_loginId = recvData.mPlayerId;
 
 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("Network Layer");
+				if (layer == nullptr)
+					break;
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::connectComplit, dynamic_cast<NetworkScene*>(layer)));
 
 
@@ -211,6 +229,10 @@ void TcpClient::processPacket()
 	}
 }
 
+
+/*
+	보낼 패킷 파싱하는 함수들
+*/
 void TcpClient::loginRequest()
 {
 	if (m_loginId > 0)

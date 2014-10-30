@@ -147,6 +147,7 @@ bool ClientSession::Broadcast(PacketHeader* pkt)
 	return true ;
 }
 
+
 void ClientSession::OnTick()
 {
 	if (!IsConnected())
@@ -159,71 +160,97 @@ void ClientSession::OnTick()
 	CallFuncAfter(PLAYER_HEART_BEAT, this, &ClientSession::OnTick);
 }
 
-void ClientSession::OnDbUpdate()
+
+
+void ClientSession::LoginSuccessInform(int id)
 {
-	if (!IsConnected())
-		return;
+	LoginResult outPacket;
 
-	UpdatePlayerDataContext* updatePlayer = new UpdatePlayerDataContext(mSocket, mPlayerId) ;
-	 
-	strcpy_s(updatePlayer->mComment, "updated_test") ; ///< 일단은 테스트를 위한 코멘트
-	GDatabaseJobManager->PushDatabaseJobRequest(updatePlayer) ;
+	outPacket.mPlayerId = mPlayerId = id;
+	itoa(mPlayerId, mPlayerName, 10);
+	strcpy_s(outPacket.mName, mPlayerName);
 
-	CallFuncAfter(PLAYER_DB_UPDATE_INTERVAL, this, &ClientSession::OnDbUpdate);
+	SendRequest(&outPacket);
 
-}
+	mLogon = true;
 
-
-void ClientSession::DatabaseJobDone(DatabaseJobContext* result)
-{
-	CRASH_ASSERT( mSocket == result->mSockKey ) ;
-	
-
-	const type_info& typeInfo = typeid(*result) ;
-
-	if ( typeInfo == typeid(LoadPlayerDataContext) )
-	{
-		LoadPlayerDataContext* login = dynamic_cast<LoadPlayerDataContext*>(result) ;
-
-		LoginDone(login->mPlayerId, login->mPlayerName) ;
-	
-	}
-	else if ( typeInfo == typeid(UpdatePlayerDataContext) )
-	{
-		UpdateDone() ;
-	}
-	else
-	{
-		CRASH_ASSERT(false) ;
-	}
-
-}
-
-void ClientSession::UpdateDone()
-{
-	/// 콘텐츠를 넣기 전까지는 딱히 해줄 것이 없다. 단지 테스트를 위해서..
-	printf("Player[%d] Update Done\n", mPlayerId) ;
+	printf(" Soket: %d \n", mSocket);
+	printf(" ClntAddr: %s \n", inet_ntoa(mClientAddr.sin_addr));
+	printf(" ClntPort: %d \n", ntohs(mClientAddr.sin_port));
+	printf(" Send Login ID: %d \n", outPacket.mPlayerId);
+	printf(" Send Login Name: %s \n\n", outPacket.mName);
 }
 
 
 
-void ClientSession::LoginDone(int pid, const char* name)
-{
-	LoginResult outPacket ;
 
-	outPacket.mPlayerId = mPlayerId = pid ;
-	strcpy_s(mPlayerName, name) ;
-	strcpy_s(outPacket.mName, name) ;
-
-	SendRequest(&outPacket) ;
-
-	mLogon = true ;
+/*
+	DB 작업
+*/
 // 
-// 	/// heartbeat gogo
-// 	OnTick();
+// void ClientSession::OnDbUpdate()
+// {
+// 	if (!IsConnected())
+// 		return;
 // 
-// 	/// first db update gogo
-// 	OnDbUpdate();
-}
-
-
+// 	UpdatePlayerDataContext* updatePlayer = new UpdatePlayerDataContext(mSocket, mPlayerId) ;
+// 	 
+// 	strcpy_s(updatePlayer->mComment, "updated_test") ; ///< 일단은 테스트를 위한 코멘트
+// 	GDatabaseJobManager->PushDatabaseJobRequest(updatePlayer) ;
+// 
+// 	CallFuncAfter(PLAYER_DB_UPDATE_INTERVAL, this, &ClientSession::OnDbUpdate);
+// 
+// }
+// 
+// 
+// void ClientSession::DatabaseJobDone(DatabaseJobContext* result)
+// {
+// 	CRASH_ASSERT( mSocket == result->mSockKey ) ;
+// 	
+// 
+// 	const type_info& typeInfo = typeid(*result) ;
+// 
+// 	if ( typeInfo == typeid(LoadPlayerDataContext) )
+// 	{
+// 		LoadPlayerDataContext* login = dynamic_cast<LoadPlayerDataContext*>(result) ;
+// 
+// 		LoginDone(login->mPlayerId, login->mPlayerName) ;
+// 	
+// 	}
+// 	else if ( typeInfo == typeid(UpdatePlayerDataContext) )
+// 	{
+// 		UpdateDone() ;
+// 	}
+// 	else
+// 	{
+// 		CRASH_ASSERT(false) ;
+// 	}
+// 
+// }
+// 
+// void ClientSession::UpdateDone()
+// {
+// 	/// 콘텐츠를 넣기 전까지는 딱히 해줄 것이 없다. 단지 테스트를 위해서..
+// 	printf("Player[%d] Update Done\n", mPlayerId) ;
+// }
+// 
+// 
+// 
+// void ClientSession::LoginDone(int pid, const char* name)
+// {
+// // 	LoginResult outPacket;
+// // 
+// // 	outPacket.mPlayerId = mPlayerId = pid;
+// // 	strcpy_s(mPlayerName, name);
+// // 	strcpy_s(outPacket.mName, name);
+// // 
+// // 	SendRequest(&outPacket);
+// // 
+// // 	mLogon = true;
+// // 
+// // 	/// heartbeat gogo
+// // 	OnTick();
+// // 
+// // 	/// first db update gogo
+// // 	OnDbUpdate();
+// }
