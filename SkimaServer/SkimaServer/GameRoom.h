@@ -4,7 +4,10 @@
 class GameRoom
 {
 public:
-	GameRoom(int id) : m_RoomID(id), m_JoinAble(true){}
+	GameRoom(int id) : m_RoomID(id), m_JoinAble(true)
+	{
+		m_PlayerIdList.reserve(2);
+	}
 	~GameRoom(){}
 
 	int		GetRoomID(){ return m_RoomID; }

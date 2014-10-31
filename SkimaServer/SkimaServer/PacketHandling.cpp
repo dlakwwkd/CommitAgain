@@ -201,6 +201,12 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 
 
 
+
+
+
+
+
+
 REGISTER_HANDLER(PKT_CS_CREATE_HERO)
 {
 	CreateHeroRequest inPacket;
@@ -322,6 +328,8 @@ void ClientSession::LoginSuccessInform(int id)
 void ClientSession::MakeGameRoom(int id)
 {
 	GameRoom* gameRoom = GGameManager->CreateRoom();
+	GGameManager->JoinRoom(id, gameRoom->GetRoomID());
+
 	MakeRoomResult outPacket;
 
 	outPacket.mPlayerId = mPlayerId = id;
@@ -340,16 +348,17 @@ void ClientSession::JoinGameRoom()
 	if (roomNum == -1)
 		return;
 
-	GGameManager->JoinRoom(mPlayerId, mRoomId);
+	GGameManager->JoinRoom(mPlayerId, roomNum);
 
 	InOutRoomResult outPacket;
 
 	outPacket.mPlayerId = mPlayerId;
-	outPacket.mRoomId = mRoomId;
+	outPacket.mRoomId = mRoomId = roomNum;
 
 	SendRequest(&outPacket);
 
-	printf(" Send JoinRoomID: %d \n", outPacket.mRoomId);
+	printf(" Send JoinPlayer ID: %d \n", outPacket.mPlayerId);
+	printf(" Send JoinRoom ID: %d \n", outPacket.mRoomId);
 }
 
 void ClientSession::OutGameRoom()
