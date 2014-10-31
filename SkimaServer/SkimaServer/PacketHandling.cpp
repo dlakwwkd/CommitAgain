@@ -335,7 +335,6 @@ void ClientSession::MakeGameRoom(int id)
 
 void ClientSession::JoinGameRoom()
 {
-	GGameManager->
 }
 
 void ClientSession::OutGameRoom()
