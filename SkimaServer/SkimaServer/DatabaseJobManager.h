@@ -3,27 +3,27 @@
 
 #include "ProducerConsumerQueue.h"
 
-struct DatabaseJobContext ;
+struct DatabaseJobContext;
 
 class DatabaseJobManager
 {
 public:
 	DatabaseJobManager() {}
 
-	void ExecuteDatabaseJobs() ;
-	
-	void PushDatabaseJobRequest(DatabaseJobContext* jobContext) ;
-	bool PopDatabaseJobResult(DatabaseJobContext*& jobContext) ;
+	void ExecuteDatabaseJobs();
+
+	void PushDatabaseJobRequest(DatabaseJobContext* jobContext);
+	bool PopDatabaseJobResult(DatabaseJobContext*& jobContext);
 
 private:
-	enum  
+	enum
 	{
-		MAX_DB_JOB = 127 
-	} ;
+		MAX_DB_JOB = 127
+	};
 
 	ProducerConsumerQueue<DatabaseJobContext*, MAX_DB_JOB>	mDbJobRequestQueue;
 	ProducerConsumerQueue<DatabaseJobContext*, MAX_DB_JOB>	mDbJobResultQueue;
-	
-} ;
 
-extern DatabaseJobManager* GDatabaseJobManager ;
+};
+
+extern DatabaseJobManager* GDatabaseJobManager;

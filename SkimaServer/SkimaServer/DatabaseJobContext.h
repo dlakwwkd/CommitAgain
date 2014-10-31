@@ -12,64 +12,64 @@ struct DatabaseJobContext
 	DatabaseJobContext() : mSuccess(false)
 	{}
 
-	DatabaseJobContext(SOCKET socketKey) :  mSockKey(socketKey), mSuccess(false) 
+	DatabaseJobContext(SOCKET socketKey) : mSockKey(socketKey), mSuccess(false)
 	{}
 
 	virtual ~DatabaseJobContext() {}
 
-	virtual bool OnExecute() = 0 ;
+	virtual bool OnExecute() = 0;
 
-	void SetSuccess(bool success) { mSuccess = success ; }
+	void SetSuccess(bool success) { mSuccess = success; }
 
-	SOCKET	mSockKey ;
-	bool	mSuccess ;
-} ;
+	SOCKET	mSockKey;
+	bool	mSuccess;
+};
 
 
 /// player load 작업
 struct LoadPlayerDataContext : public DatabaseJobContext, public ObjectPool<LoadPlayerDataContext>
 {
 	LoadPlayerDataContext(SOCKET socketKey, int playerId) : DatabaseJobContext(socketKey)
-		, mPlayerId(playerId), mPosX(0), mPosY(0), mPosZ(0)
+	, mPlayerId(playerId), mPosX(0), mPosY(0), mPosZ(0)
 	{
-		memset(mPlayerName, 0, sizeof(mPlayerName)) ;
+		memset(mPlayerName, 0, sizeof(mPlayerName));
 	}
 
 
-	virtual bool OnExecute() ;
+	virtual bool OnExecute();
 
 
-	int		mPlayerId ;
+	int		mPlayerId;
 
 	///참고: 현재 DB에서는 xyz좌표를 double로 쓰고 있지만, 게임에서는 float로 xy만 쓰고 있음
-	double	mPosX ;
-	double	mPosY ;
-	double	mPosZ ; 
-	char	mPlayerName[MAX_NAME_LEN] ;
+	double	mPosX;
+	double	mPosY;
+	double	mPosZ;
+	char	mPlayerName[MAX_NAME_LEN];
 
-} ;
+};
 
 
 /// Player 생성 작업
 struct CreatePlayerDataContext : public DatabaseJobContext, public ObjectPool<CreatePlayerDataContext>
 {
-	CreatePlayerDataContext() 
-		: mPlayerId(-1), mPosX(0), mPosY(0), mPosZ(0)
+	CreatePlayerDataContext()
+	: mPlayerId(-1), mPosX(0), mPosY(0), mPosZ(0)
 	{
-		memset(mPlayerName, 0, sizeof(mPlayerName)) ;
-		memset(mComment, 0, sizeof(mComment)) ;
+		memset(mPlayerName, 0, sizeof(mPlayerName));
+		memset(mComment, 0, sizeof(mComment));
 	}
 
-	virtual bool OnExecute() ;
+	virtual bool OnExecute();
 
-	int		mPlayerId ;
+	int		mPlayerId;
 
-	double	mPosX ;
-	double	mPosY ;
-	double	mPosZ ;
-	char	mPlayerName[MAX_NAME_LEN] ;
-	char	mComment[MAX_COMMENT_LEN] ;
-} ;
+	double	mPosX;
+	double	mPosY;
+	double	mPosZ;
+	char	mPlayerName[MAX_NAME_LEN];
+	char	mComment[MAX_COMMENT_LEN];
+};
 
 
 
@@ -79,27 +79,27 @@ struct DeletePlayerDataContext : public DatabaseJobContext, public ObjectPool<De
 	DeletePlayerDataContext(int playerId) : mPlayerId(playerId)
 	{}
 
-	virtual bool OnExecute() ;
+	virtual bool OnExecute();
 
-	int		mPlayerId ;
+	int		mPlayerId;
 
-} ;
+};
 
 /// Player 업데이트 작업
 struct UpdatePlayerDataContext : public DatabaseJobContext, public ObjectPool<UpdatePlayerDataContext>
 {
 	UpdatePlayerDataContext(SOCKET socketKey, int playerId) : DatabaseJobContext(socketKey)
-		, mPlayerId(playerId), mPosX(0), mPosY(0), mPosZ(0)
+	, mPlayerId(playerId), mPosX(0), mPosY(0), mPosZ(0)
 	{
-		memset(mComment, 0, sizeof(mComment)) ;
+		memset(mComment, 0, sizeof(mComment));
 	}
 
-	virtual bool OnExecute() ;
+	virtual bool OnExecute();
 
-	int		mPlayerId ;
+	int		mPlayerId;
 
-	double	mPosX ;
-	double	mPosY ;
-	double	mPosZ ;
-	char	mComment[MAX_COMMENT_LEN] ;
-} ;
+	double	mPosX;
+	double	mPosY;
+	double	mPosZ;
+	char	mComment[MAX_COMMENT_LEN];
+};

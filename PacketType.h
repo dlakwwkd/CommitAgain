@@ -7,10 +7,10 @@
 
 enum PacketTypes
 {
-	PKT_NONE	= 0,
-	
-	PKT_CS_LOGIN	= 1,
-	PKT_SC_LOGIN	= 2,
+	PKT_NONE = 0,
+
+	PKT_CS_LOGIN = 1,
+	PKT_SC_LOGIN = 2,
 
 	PKT_CS_MAKE_ROOM = 11,
 	PKT_SC_MAKE_ROOM = 12,
@@ -22,61 +22,61 @@ enum PacketTypes
 	PKT_CS_OUT_GAME = 23,
 	PKT_SC_OUT_GAME = 24,
 
-	PKT_CS_CHAT		= 31,
-	PKT_SC_CHAT		= 32,
+	PKT_CS_CHAT = 31,
+	PKT_SC_CHAT = 32,
 
-	PKT_CS_CREATE_HERO	= 41,
-	PKT_SC_CREATE_HERO	= 42,
+	PKT_CS_CREATE_HERO = 41,
+	PKT_SC_CREATE_HERO = 42,
 
 	PKT_CS_MOVE = 51,
 	PKT_SC_MOVE = 52,
 
 
-	PKT_MAX	= 1024
-} ;
+	PKT_MAX = 1024
+};
 #pragma pack(push, 1)
 
 struct PacketHeader
 {
 	PacketHeader() : mSize(0), mType(PKT_NONE) 	{}
-	short mSize ;
-	short mType ;
-} ;
+	short mSize;
+	short mType;
+};
 
 ///////////////////////////////////////////////////////////////////////////
 /*
 	로그인 관련
-*/
+	*/
 ///////////////////////////////////////////////////////////////////////////
 struct LoginRequest : public PacketHeader
 {
 	LoginRequest()
 	{
-		mSize = sizeof(LoginRequest) ;
-		mType = PKT_CS_LOGIN ;
-		mPlayerId = -1 ;
+		mSize = sizeof(LoginRequest);
+		mType = PKT_CS_LOGIN;
+		mPlayerId = -1;
 	}
-	int	mPlayerId ;
-} ;
+	int	mPlayerId;
+};
 struct LoginResult : public PacketHeader
 {
 	LoginResult()
 	{
-		mSize = sizeof(LoginResult) ;
-		mType = PKT_SC_LOGIN ;
-		mPlayerId = -1 ;
-		memset(mName, 0, MAX_NAME_LEN) ;
+		mSize = sizeof(LoginResult);
+		mType = PKT_SC_LOGIN;
+		mPlayerId = -1;
+		memset(mName, 0, MAX_NAME_LEN);
 	}
-	int		mPlayerId ;
-	char	mName[MAX_NAME_LEN] ;
+	int		mPlayerId;
+	char	mName[MAX_NAME_LEN];
 
-} ;
+};
 
 
 ///////////////////////////////////////////////////////////////////////////
 /*
 	게임 대기방, 게임 실행 관련
-*/
+	*/
 ///////////////////////////////////////////////////////////////////////////
 struct MakeRoomRequest : public PacketHeader
 {
@@ -136,7 +136,7 @@ struct InOutRoomResult : public PacketHeader
 ///////////////////////////////////////////////////////////////////////////
 /*
 	게임 내 유닛 관련
-*/
+	*/
 ///////////////////////////////////////////////////////////////////////////
 struct CreateHeroRequest : public PacketHeader
 {
@@ -206,7 +206,7 @@ struct MoveBroadcastResult : public PacketHeader
 ///////////////////////////////////////////////////////////////////////////
 /*
 	채팅 관련
-*/
+	*/
 ///////////////////////////////////////////////////////////////////////////
 struct ChatBroadcastRequest : public PacketHeader
 {

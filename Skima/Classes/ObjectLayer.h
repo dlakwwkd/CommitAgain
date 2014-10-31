@@ -11,15 +11,15 @@ public:
 	virtual bool init();
 	CREATE_FUNC(ObjectLayer);
 
-	void tick(float dt);
+	void Tick(float dt);
 
-	void unitMove(Point p);
-	void addNewSpriteAtPosition(Point p);
-	void createHero(Point location);
+	void UnitMove(Point p);
+	void AddNewSpriteAtPosition(Point p);
+	void CreateHero(Point location);
 	void MobAi();
 
-	void updatePeer(int id, float x, float y);
-	void createHeroStart();
+	void UpdatePeer(int id, float x, float y);
+	void CreateHeroStart();
 
 
 protected:

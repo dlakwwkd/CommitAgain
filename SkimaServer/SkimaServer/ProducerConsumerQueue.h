@@ -14,10 +14,10 @@ public:
 
 	~ProducerConsumerQueue() {}
 
-	bool Produce(const TElem& item, bool waitUntilConsume=true)
+	bool Produce(const TElem& item, bool waitUntilConsume = true)
 	{
 		AcquireSRWLockExclusive(&mSRWLock);
-		
+
 		while (mOccupiedSize == QSize)
 		{
 			if (waitUntilConsume)
@@ -31,8 +31,8 @@ public:
 				return false;
 			}
 		}
-			
-		
+
+
 		mQueueArray[(mQueueOffset + mOccupiedSize) % QSize] = item;
 		++mOccupiedSize;
 
@@ -43,8 +43,8 @@ public:
 		return true;
 	}
 
-	
-	bool Consume(TElem& item, bool waitUntilProduce=true)
+
+	bool Consume(TElem& item, bool waitUntilProduce = true)
 	{
 		AcquireSRWLockExclusive(&mSRWLock);
 
@@ -60,7 +60,7 @@ public:
 				ReleaseSRWLockExclusive(&mSRWLock);
 				return false;
 			}
-			
+
 		}
 
 		item = mQueueArray[mQueueOffset];

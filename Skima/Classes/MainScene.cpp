@@ -13,11 +13,11 @@ Scene* MainScene::createScene()
 
 bool MainScene::init()
 {
-	if (!LayerColor::initWithColor(Color4B(100,100,200,255)))
+	if (!LayerColor::initWithColor(Color4B(100, 100, 200, 255)))
 	{
 		return false;
 	}
-	
+
 	auto label1 = Label::createWithSystemFont("싱글 플레이", "Thonburi", 50);
 	auto label2 = Label::createWithSystemFont("멀티 플레이", "Thonburi", 50);
 	auto label3 = Label::createWithSystemFont("게임 종료", "Thonburi", 50);

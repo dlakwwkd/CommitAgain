@@ -9,11 +9,11 @@ class Unit
 public:
 	Unit(const std::string& filename, BodyShape shape, Point createPos, float scale);
 
-	Sprite*			getSprite(){ return m_Sprite; }
-	PhysicsBody*	getBody(){ return m_Body; }
+	Sprite*			GetSprite(){ return m_Sprite; }
+	PhysicsBody*	GetBody(){ return m_Body; }
 
-	void			moveTargeting(Point p);
-	void			movement();
+	void			MoveTargeting(Point p);
+	void			Movement();
 
 protected:
 	Sprite*			m_Sprite;

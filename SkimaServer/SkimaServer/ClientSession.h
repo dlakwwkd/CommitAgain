@@ -9,8 +9,8 @@
 #include "RefCountable.h"
 
 
-class ClientSession ;
-class ClientManager ;
+class ClientSession;
+class ClientManager;
 //struct DatabaseJobContext ;
 
 struct OverlappedIO : public OVERLAPPED
@@ -18,8 +18,8 @@ struct OverlappedIO : public OVERLAPPED
 	OverlappedIO() : mObject(nullptr)
 	{}
 
-	ClientSession* mObject ;
-} ;
+	ClientSession* mObject;
+};
 
 class ClientSession : public RefCountable, public ObjectPool<ClientSession>
 {
@@ -27,26 +27,26 @@ public:
 	ClientSession(SOCKET sock)
 		: mConnected(false), mLogon(false), mSocket(sock), m_PlayerId(-1), mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE)
 	{
-		memset(&mClientAddr, 0, sizeof(SOCKADDR_IN)) ;
-		memset(m_PlayerName, 0, sizeof(m_PlayerName)) ;
+		memset(&mClientAddr, 0, sizeof(SOCKADDR_IN));
+		memset(m_PlayerName, 0, sizeof(m_PlayerName));
 	}
 	virtual ~ClientSession() {}
 
 public:
 	int	GetPlayerId() const	{ return m_PlayerId; }
-	const char* GetPlayerName() const { return m_PlayerName;  }
-	SOCKET GetSocketKey() const { return mSocket;  }
+	const char* GetPlayerName() const { return m_PlayerName; }
+	SOCKET GetSocketKey() const { return mSocket; }
 
 	void	LoginSuccessInform(int id);
 
 
-// 	void	LoginDone(int pid, const char* name);
-// 	void	UpdateDone();
+	// 	void	LoginDone(int pid, const char* name);
+	// 	void	UpdateDone();
 
-public: 
+public:
 	bool	IsConnected() const { return mConnected; }
 	void	OnTick();
-//	void	OnDbUpdate(); ///< 주기적으로 데이터베이스에 업데이트
+	//	void	OnDbUpdate(); ///< 주기적으로 데이터베이스에 업데이트
 
 	template <class PKT_TYPE>
 	bool ParsePacket(PKT_TYPE& pkt)
@@ -54,40 +54,40 @@ public:
 		return mRecvBuffer.Read((char*)&pkt, pkt.mSize);
 	}
 
-	void	OnRead(size_t len) ;
-	void	OnWriteComplete(size_t len) ;
+	void	OnRead(size_t len);
+	void	OnWriteComplete(size_t len);
 
-	bool	OnConnect(SOCKADDR_IN* addr) ;
-	
-	bool	PostRecv() ;
+	bool	OnConnect(SOCKADDR_IN* addr);
 
-	bool	SendRequest(PacketHeader* pkt) ;
-	bool	Broadcast(PacketHeader* pkt) ;
+	bool	PostRecv();
 
-	void	Disconnect() ;
+	bool	SendRequest(PacketHeader* pkt);
+	bool	Broadcast(PacketHeader* pkt);
+
+	void	Disconnect();
 
 	bool	SendFlush(); ///< Send요청 중인것들 모아서 보냄
-//	void	DatabaseJobDone(DatabaseJobContext* result);
+	//	void	DatabaseJobDone(DatabaseJobContext* result);
 
 private:
 	int				m_PlayerId;
 	char			m_PlayerName[MAX_NAME_LEN];
 
 private:
-	bool			mConnected ;
-	bool			mLogon ;
-	SOCKET			mSocket ;
-	SOCKADDR_IN		mClientAddr ;
+	bool			mConnected;
+	bool			mLogon;
+	SOCKET			mSocket;
+	SOCKADDR_IN		mClientAddr;
 
-	CircularBuffer	mSendBuffer ;
-	CircularBuffer	mRecvBuffer ;
+	CircularBuffer	mSendBuffer;
+	CircularBuffer	mRecvBuffer;
 
-	OverlappedIO	mOverlappedSend ;
-	OverlappedIO	mOverlappedRecv ;
+	OverlappedIO	mOverlappedSend;
+	OverlappedIO	mOverlappedRecv;
 
-	friend class ClientManager ;
-} ;
+	friend class ClientManager;
+};
 
 
-void CALLBACK RecvCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED lpOverlapped, DWORD dwFlags) ;
-void CALLBACK SendCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED lpOverlapped, DWORD dwFlags) ;
+void CALLBACK RecvCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED lpOverlapped, DWORD dwFlags);
+void CALLBACK SendCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED lpOverlapped, DWORD dwFlags);

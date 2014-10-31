@@ -17,13 +17,13 @@ class InputManager
 public:
 	InputManager();
 
-	Point	getMouseLocation()										{ return m_MouseLocation; }
-	bool	getMouseStatus(int button)								{ return m_MouseStatus[button]; }
-	bool	getKeyStatus(EventKeyboard::KeyCode key)				{ return m_KeyStatus[key]; }
-	
-	void	setMouseLocation(Point p)								{ m_MouseLocation = p; }
-	void	setMouseStatus(int button, bool status)					{ m_MouseStatus[button] = status; }
-	void	setKeyStatus(EventKeyboard::KeyCode key, bool status)	{ m_KeyStatus[key] = status; }
+	Point	GetMouseLocation()										{ return m_MouseLocation; }
+	bool	GetMouseStatus(int button)								{ return m_MouseStatus[button]; }
+	bool	GetKeyStatus(EventKeyboard::KeyCode key)				{ return m_KeyStatus[key]; }
+
+	void	SetMouseLocation(Point p)								{ m_MouseLocation = p; }
+	void	SetMouseStatus(int button, bool status)					{ m_MouseStatus[button] = status; }
+	void	SetKeyStatus(EventKeyboard::KeyCode key, bool status)	{ m_KeyStatus[key] = status; }
 
 private:
 	Point									m_MouseLocation;

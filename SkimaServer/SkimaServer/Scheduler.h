@@ -10,7 +10,7 @@ typedef std::function<void()> Task;
 struct JobElement
 {
 	JobElement(RefCountable* owner, const Task& task, int64_t execTick)
-		: mOwner(owner), mTask(task), mExecutionTick(execTick)
+	: mOwner(owner), mTask(task), mExecutionTick(execTick)
 	{}
 
 	RefCountable* mOwner;

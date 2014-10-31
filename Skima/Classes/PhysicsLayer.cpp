@@ -18,33 +18,33 @@ bool PhysicsLayer::init()
 	this->addChild(layer2, 1, "ObjectLayer");
 
 	auto MouseListener = EventListenerMouse::create();
-	MouseListener->onMouseDown = CC_CALLBACK_1(PhysicsLayer::onMouseDown, this);
-	MouseListener->onMouseUp = CC_CALLBACK_1(PhysicsLayer::onMouseUp, this);
-	MouseListener->onMouseMove = CC_CALLBACK_1(PhysicsLayer::onMouseMove, this);
+	MouseListener->onMouseDown = CC_CALLBACK_1(PhysicsLayer::OnMouseDown, this);
+	MouseListener->onMouseUp = CC_CALLBACK_1(PhysicsLayer::OnMouseUp, this);
+	MouseListener->onMouseMove = CC_CALLBACK_1(PhysicsLayer::OnMouseMove, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(MouseListener, this);
 
 	auto K_listener = EventListenerKeyboard::create();
-	K_listener->onKeyPressed = CC_CALLBACK_2(PhysicsLayer::onKeyPressed, this);
-	K_listener->onKeyReleased = CC_CALLBACK_2(PhysicsLayer::onKeyReleased, this);
+	K_listener->onKeyPressed = CC_CALLBACK_2(PhysicsLayer::OnKeyPressed, this);
+	K_listener->onKeyReleased = CC_CALLBACK_2(PhysicsLayer::OnKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(K_listener, this);
 
-	this->schedule(schedule_selector(PhysicsLayer::tick));
+	this->schedule(schedule_selector(PhysicsLayer::Tick));
 	return true;
 }
 
-void PhysicsLayer::tick(float dt)
+void PhysicsLayer::Tick(float dt)
 {
-	updateKeyInput();
-	cameraSync();
+	UpdateKeyInput();
+	CameraSync();
 	auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
 	child->MobAi();
 }
 
 
-void PhysicsLayer::onMouseDown(Event *event)
+void PhysicsLayer::OnMouseDown(Event *event)
 {
 	auto button = ((EventMouse*)event)->getMouseButton();
-	GET_IM->setMouseStatus(button, true);
+	GET_IM->SetMouseStatus(button, true);
 
 	switch (button)
 	{
@@ -52,56 +52,56 @@ void PhysicsLayer::onMouseDown(Event *event)
 		break;
 	case MOUSE_BUTTON_RIGHT:
 		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-		child->unitMove(GET_IM->getMouseLocation());
+		child->UnitMove(GET_IM->GetMouseLocation());
 		break;
 	}
 }
 
-void PhysicsLayer::onMouseUp(Event *event)
+void PhysicsLayer::OnMouseUp(Event *event)
 {
 	auto button = ((EventMouse*)event)->getMouseButton();
-	GET_IM->setMouseStatus(button, false);
+	GET_IM->SetMouseStatus(button, false);
 }
 
-void PhysicsLayer::onMouseMove(Event *event)
+void PhysicsLayer::OnMouseMove(Event *event)
 {
 	auto location = ((EventMouse*)event)->getLocation();
 	location.y = Director::getInstance()->getWinSize().height - location.y;
 
-	GET_IM->setMouseLocation(location);
+	GET_IM->SetMouseLocation(location);
 
-	
-	if (GET_IM->getMouseStatus(MOUSE_BUTTON_LEFT))
+
+	if (GET_IM->GetMouseStatus(MOUSE_BUTTON_LEFT))
 	{
 		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-		child->addNewSpriteAtPosition(GET_IM->getMouseLocation());
+		child->AddNewSpriteAtPosition(GET_IM->GetMouseLocation());
 	}
 }
 
 
-void PhysicsLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+void PhysicsLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	GET_IM->setKeyStatus(keyCode, true);
+	GET_IM->SetKeyStatus(keyCode, true);
 }
 
-void PhysicsLayer::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+void PhysicsLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	GET_IM->setKeyStatus(keyCode, false);
+	GET_IM->SetKeyStatus(keyCode, false);
 }
 
-void PhysicsLayer::updateKeyInput()
+void PhysicsLayer::UpdateKeyInput()
 {
-	if (GET_IM->getKeyStatus(KEY_UP_ARROW))
+	if (GET_IM->GetKeyStatus(KEY_UP_ARROW))
 		this->setPositionY(this->getPositionY() - 10);
-	if (GET_IM->getKeyStatus(KEY_DOWN_ARROW))
+	if (GET_IM->GetKeyStatus(KEY_DOWN_ARROW))
 		this->setPositionY(this->getPositionY() + 10);
-	if (GET_IM->getKeyStatus(KEY_LEFT_ARROW))
+	if (GET_IM->GetKeyStatus(KEY_LEFT_ARROW))
 		this->setPositionX(this->getPositionX() + 10);
-	if (GET_IM->getKeyStatus(KEY_RIGHT_ARROW))
+	if (GET_IM->GetKeyStatus(KEY_RIGHT_ARROW))
 		this->setPositionX(this->getPositionX() - 10);
 }
 
-void PhysicsLayer::cameraSync()
+void PhysicsLayer::CameraSync()
 {
-	
+
 }

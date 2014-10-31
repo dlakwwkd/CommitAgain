@@ -7,7 +7,7 @@ enum ThreadType
 	THREAD_DATABASE = 3
 };
 
-unsigned int WINAPI ClientHandlingThread( LPVOID lpParam ) ;
+unsigned int WINAPI ClientHandlingThread(LPVOID lpParam);
 //unsigned int WINAPI DatabaseHandlingThread( LPVOID lpParam ) ;
-void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighValue) ;
+void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighValue);
 

@@ -5,7 +5,7 @@
 
 //@{ Handler Helper
 
-typedef void (*HandlerFunc)(ClientSession* session);
+typedef void(*HandlerFunc)(ClientSession* session);
 
 static HandlerFunc HandlerTable[PKT_MAX];
 
@@ -44,7 +44,7 @@ struct RegisterHandler
 ///////////////////////////////////////////////////////////////////////////
 /*
 	연결된 클라이언트와 패킷 받고 보내는 작업 완료하는 콜백 함수들
-*/
+	*/
 ///////////////////////////////////////////////////////////////////////////
 void CALLBACK RecvCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED lpOverlapped, DWORD dwFlags)
 {
@@ -96,7 +96,7 @@ void CALLBACK SendCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED
 ///////////////////////////////////////////////////////////////////////////
 /*
 	받은 패킷 파싱하여 처리하는 함수
-*/
+	*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::OnRead(size_t len)
 {
@@ -111,7 +111,7 @@ void ClientSession::OnRead(size_t len)
 			return;
 
 		/// 패킷 완성이 되는가? 
-		if (mRecvBuffer.GetStoredSize() < (size_t) header.mSize)
+		if (mRecvBuffer.GetStoredSize() < (size_t)header.mSize)
 			return;
 
 
@@ -130,7 +130,7 @@ void ClientSession::OnRead(size_t len)
 ///////////////////////////////////////////////////////////////////////////
 /*
 	패킷 타입에 따라 파싱을 완료하고 작업을 처리하는 핸들러들
-*/
+	*/
 ///////////////////////////////////////////////////////////////////////////
 REGISTER_HANDLER(PKT_CS_LOGIN)
 {
@@ -144,8 +144,8 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 
 	session->LoginSuccessInform(inPacket.mPlayerId);
 
-// 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
-// 	GDatabaseJobManager->PushDatabaseJobRequest(newDbJob);
+	// 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
+	// 	GDatabaseJobManager->PushDatabaseJobRequest(newDbJob);
 }
 
 REGISTER_HANDLER(PKT_CS_MAKE_ROOM)
@@ -255,7 +255,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 ///////////////////////////////////////////////////////////////////////////
 /*
 	보낼 패킷 파싱하는 함수들
-*/
+	*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::LoginSuccessInform(int id)
 {

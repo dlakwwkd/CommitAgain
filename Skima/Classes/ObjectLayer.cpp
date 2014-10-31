@@ -19,11 +19,11 @@ bool ObjectLayer::init()
 
 
 
-	this->schedule(schedule_selector(ObjectLayer::tick));
+	this->schedule(schedule_selector(ObjectLayer::Tick));
 	return true;
 }
 
-void ObjectLayer::tick(float dt)
+void ObjectLayer::Tick(float dt)
 {
 	if (m_Hero == nullptr)
 	{
@@ -31,20 +31,20 @@ void ObjectLayer::tick(float dt)
 	}
 	
 
-	m_Hero->movement();
-	m_Hero->getSprite()->setZOrder(-m_Hero->getSprite()->getPosition().y);
+	m_Hero->Movement();
+	m_Hero->GetSprite()->setZOrder(-m_Hero->GetSprite()->getPosition().y);
 	for (auto& b : m_MobList)
 	{
-		b->movement();
-		b->getSprite()->setZOrder(-b->getSprite()->getPosition().y);
+		b->Movement();
+		b->GetSprite()->setZOrder(-b->GetSprite()->getPosition().y);
 	}
 }
 
-void ObjectLayer::unitMove(Point p)
+void ObjectLayer::UnitMove(Point p)
 {
 	if (m_Hero == nullptr) return;
 
-	m_Hero->moveTargeting(p);
+	m_Hero->MoveTargeting(p);
 
 // 	auto vect = m_Hero->getBody()->getPosition();
 // 	vect = GET_IM->getMouseLocation() - vect;
@@ -52,22 +52,22 @@ void ObjectLayer::unitMove(Point p)
 // 	m_Hero->getBody()->setVelocity(vect);
 }
 
-void ObjectLayer::createHero(Point location)
+void ObjectLayer::CreateHero(Point location)
 {
 	std::shared_ptr<Unit> unit(new Unit("Images/SpookyPeas.png", CIRCLE, location, 1.0f));
 	m_Hero = unit;
-	m_Hero->getBody()->setVelocityLimit(100);
-	this->addChild(m_Hero->getSprite());
+	m_Hero->GetBody()->setVelocityLimit(100);
+	this->addChild(m_Hero->GetSprite());
 }
 
-void ObjectLayer::addNewSpriteAtPosition(Point p)
+void ObjectLayer::AddNewSpriteAtPosition(Point p)
 {
 	auto parent = (PhysicsLayer*)(this->getParent());
 	std::shared_ptr<Unit> unit(new Unit("Images/Pea.png", CIRCLE, p - parent->getPosition(), 1.0f));
-	unit->getBody()->setVelocityLimit(100);
+	unit->GetBody()->setVelocityLimit(100);
 
 	m_MobList.push_back(unit);
-	this->addChild(unit->getSprite());
+	this->addChild(unit->GetSprite());
 }
 
 void ObjectLayer::MobAi()
@@ -86,20 +86,20 @@ void ObjectLayer::MobAi()
 		auto time = rand() % 300;
 
 		if (time < 3)
-			b->moveTargeting(temp);
+			b->MoveTargeting(temp);
 		else if (time == 10)
-			b->moveTargeting(m_Hero->getBody()->getPosition());
+			b->MoveTargeting(m_Hero->GetBody()->getPosition());
 		else
 			continue;
 	}
 }
 
-void ObjectLayer::updatePeer(int id, float x, float y)
+void ObjectLayer::UpdatePeer(int id, float x, float y)
 {
-	createHero({ x, y });
+	CreateHero({ x, y });
 }
 
-void ObjectLayer::createHeroStart()
+void ObjectLayer::CreateHeroStart()
 {
 	int playerID = 1110;
 	TcpClient::getInstance()->createRequest(150, 200, 200);

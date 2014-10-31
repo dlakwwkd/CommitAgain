@@ -33,13 +33,13 @@ Unit::Unit(const std::string& filename, BodyShape shape, Point createPos, float 
 	m_Body		= body;
 }
 
-void Unit::moveTargeting(Point p)
+void Unit::MoveTargeting(Point p)
 {
 	m_MoveMode		= true;
 	m_MovePosition	= p;
 }
 
-void Unit::movement()
+void Unit::Movement()
 {
 	if (m_MoveMode)
 	{

@@ -15,21 +15,21 @@
 ///////////////////////////////////////////////////////////////////////////
 bool ClientSession::OnConnect(SOCKADDR_IN* addr)
 {
-	memcpy(&mClientAddr, addr, sizeof(SOCKADDR_IN)) ;
+	memcpy(&mClientAddr, addr, sizeof(SOCKADDR_IN));
 
 	/// 소켓을 넌블러킹으로 바꾸고
-	u_long arg = 1 ;
-	ioctlsocket(mSocket, FIONBIO, &arg) ;
+	u_long arg = 1;
+	ioctlsocket(mSocket, FIONBIO, &arg);
 
 	/// nagle 알고리즘 끄기
-	int opt = 1 ;
-	setsockopt(mSocket, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int)) ;
+	int opt = 1;
+	setsockopt(mSocket, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int));
 
-	printf("[DEBUG] Client Connected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port)) ;
+	printf("[DEBUG] Client Connected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port));
 	
-	mConnected = true ;
+	mConnected = true;
 
-	return PostRecv() ;
+	return PostRecv();
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -39,28 +39,28 @@ bool ClientSession::OnConnect(SOCKADDR_IN* addr)
 ///////////////////////////////////////////////////////////////////////////
 bool ClientSession::PostRecv()
 {
-	if ( !IsConnected() )
-		return false ;
+	if (!IsConnected())
+		return false;
 
-	DWORD recvbytes = 0 ;
-	DWORD flags = 0 ;
-	WSABUF buf ;
-	buf.len = (ULONG)mRecvBuffer.GetFreeSpaceSize() ;
-	buf.buf = (char*)mRecvBuffer.GetBuffer() ;
+	DWORD recvbytes = 0;
+	DWORD flags = 0;
+	WSABUF buf;
+	buf.len = (ULONG)mRecvBuffer.GetFreeSpaceSize();
+	buf.buf = (char*)mRecvBuffer.GetBuffer();
 
-	memset(&mOverlappedRecv, 0, sizeof(OverlappedIO)) ;
-	mOverlappedRecv.mObject = this ;
+	memset(&mOverlappedRecv, 0, sizeof(OverlappedIO));
+	mOverlappedRecv.mObject = this;
 
 	/// 비동기 입출력 시작
-	if ( SOCKET_ERROR == WSARecv(mSocket, &buf, 1, &recvbytes, &flags, &mOverlappedRecv, RecvCompletion) )
+	if (SOCKET_ERROR == WSARecv(mSocket, &buf, 1, &recvbytes, &flags, &mOverlappedRecv, RecvCompletion))
 	{
-		if ( WSAGetLastError() != WSA_IO_PENDING )
-			return false ;
+		if (WSAGetLastError() != WSA_IO_PENDING)
+			return false;
 	}
 
-	IncRefCount() ;
+	IncRefCount();
 
-	return true ;
+	return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -70,10 +70,10 @@ bool ClientSession::PostRecv()
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::Disconnect()
 {
-	if ( !IsConnected() )
-		return ;
+	if (!IsConnected())
+		return;
 
-	printf("[DEBUG] Client Disconnected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port)) ;
+	printf("[DEBUG] Client Disconnected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port));
 
 	/// 즉각 해제
 
@@ -88,9 +88,9 @@ void ClientSession::Disconnect()
 		return;
 	}
 
-	closesocket(mSocket) ;
+	closesocket(mSocket);
 
-	mConnected = false ;
+	mConnected = false;
 }
 
 
@@ -102,15 +102,15 @@ void ClientSession::Disconnect()
 ///////////////////////////////////////////////////////////////////////////
 bool ClientSession::SendRequest(PacketHeader* pkt)
 {
-	if ( !IsConnected() )
-		return false ;
+	if (!IsConnected())
+		return false;
 
 	/// Send 요청은 버퍼에 쌓아놨다가 한번에 보낸다.
-	if ( false == mSendBuffer.Write((char*)pkt, pkt->mSize) )
+	if (false == mSendBuffer.Write((char*)pkt, pkt->mSize))
 	{
 		/// 버퍼 용량 부족인 경우는 끊어버림
-		Disconnect() ;
-		return false ;
+		Disconnect();
+		return false;
 	}
 
 	return true;
@@ -162,7 +162,7 @@ bool ClientSession::SendFlush()
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::OnWriteComplete(size_t len)
 {
-	mSendBuffer.Remove(len) ;
+	mSendBuffer.Remove(len);
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -174,15 +174,15 @@ void ClientSession::OnWriteComplete(size_t len)
 ///////////////////////////////////////////////////////////////////////////
 bool ClientSession::Broadcast(PacketHeader* pkt)
 {
-	if ( !SendRequest(pkt) )
-		return false ; 
+	if (!SendRequest(pkt))
+		return false;
 
-	if ( !IsConnected() )
-		return false ;
+	if (!IsConnected())
+		return false;
 
-	GClientManager->BroadcastPacket(this, pkt) ;
+	GClientManager->BroadcastPacket(this, pkt);
 
-	return true ;
+	return true;
 }
 
 

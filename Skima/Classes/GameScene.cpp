@@ -10,7 +10,7 @@ Scene* GameScene::createScene()
 
 	auto layer = GameScene::create();
 	auto layer2 = PhysicsLayer::create();
-	layer2->setPhyWorld(scene->getPhysicsWorld());
+	layer2->SetPhyWorld(scene->getPhysicsWorld());
 
 	scene->addChild(layer, 0, "GameScene");
 	layer->addChild(layer2, 0, "PhyshicsLayer");

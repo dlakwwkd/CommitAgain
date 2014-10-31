@@ -51,8 +51,8 @@ void MakeDump(EXCEPTION_POINTERS* e)
 
 LONG WINAPI ExceptionFilter(EXCEPTION_POINTERS* exceptionInfo)
 {
-	if ( IsDebuggerPresent() )
-		return EXCEPTION_CONTINUE_SEARCH ;
+	if (IsDebuggerPresent())
+		return EXCEPTION_CONTINUE_SEARCH;
 
 	THREADENTRY32 te32;
 	DWORD myThreadId = GetCurrentThreadId();
@@ -91,5 +91,5 @@ LONG WINAPI ExceptionFilter(EXCEPTION_POINTERS* exceptionInfo)
 	/// 여기서 쫑
 	ExitProcess(1);
 
-	return EXCEPTION_EXECUTE_HANDLER ;	
+	return EXCEPTION_EXECUTE_HANDLER;
 }
