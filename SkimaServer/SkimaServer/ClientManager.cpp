@@ -4,8 +4,8 @@
 #include "ThreadLocal.h"
 #include "ClientSession.h"
 #include "ClientManager.h"
-#include "DatabaseJobContext.h"
-#include "DatabaseJobManager.h"
+//#include "DatabaseJobContext.h"
+//#include "DatabaseJobManager.h"
 
 ClientManager* GClientManager = nullptr ;
 
@@ -21,6 +21,12 @@ ClientSession* ClientManager::CreateClient(SOCKET sock)
 
 
 
+///////////////////////////////////////////////////////////////////////////
+/*
+	연결된 모든 클라에게 동일한 패킷 전송하는 함수
+	(방송을 요청한 클라는 이미 보내기 처리한 상태이므로 제외)
+*/
+///////////////////////////////////////////////////////////////////////////
 void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 {
 	///FYI: C++ STL iterator 스타일의 루프
@@ -35,6 +41,13 @@ void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 	}
 }
 
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	서버의 매 프레임마다 실행되는 함수
+*/
+///////////////////////////////////////////////////////////////////////////
 void ClientManager::OnPeriodWork()
 {
 	/// 접속이 끊긴 세션들 주기적으로 정리 (1초 정도 마다 해주자)
@@ -49,6 +62,13 @@ void ClientManager::OnPeriodWork()
 	//DispatchDatabaseJobResults() ;
 }
 
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	연결이 끊긴 클라이언트 세션 제거 처리
+*/
+///////////////////////////////////////////////////////////////////////////
 void ClientManager::CollectGarbageSessions()
 {
 	std::vector<ClientSession*> disconnectedSessions ;
@@ -74,6 +94,13 @@ void ClientManager::CollectGarbageSessions()
 
 }
 
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	연결된 모든 클라의 출력버퍼에 쌓인 패킷들 전부 전송하는 함수
+*/
+///////////////////////////////////////////////////////////////////////////
 void ClientManager::FlushClientSend()
 {
 	for (auto& it : mClientList)

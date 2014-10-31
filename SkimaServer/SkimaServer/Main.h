@@ -8,6 +8,6 @@ enum ThreadType
 };
 
 unsigned int WINAPI ClientHandlingThread( LPVOID lpParam ) ;
-unsigned int WINAPI DatabaseHandlingThread( LPVOID lpParam ) ;
+//unsigned int WINAPI DatabaseHandlingThread( LPVOID lpParam ) ;
 void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighValue) ;
 

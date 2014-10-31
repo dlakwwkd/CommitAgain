@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ClientSession.h"
-#include "DatabaseJobContext.h"
-#include "DatabaseJobManager.h"
+//#include "DatabaseJobContext.h"
+//#include "DatabaseJobManager.h"
 
 //@{ Handler Helper
 
@@ -39,6 +39,13 @@ struct RegisterHandler
 
 //@}
 
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	연결된 클라이언트와 패킷 받고 보내는 작업 완료하는 콜백 함수들
+*/
+///////////////////////////////////////////////////////////////////////////
 void CALLBACK RecvCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED lpOverlapped, DWORD dwFlags)
 {
 	ClientSession* fromClient = static_cast<OverlappedIO*>(lpOverlapped)->mObject;
@@ -65,8 +72,6 @@ void CALLBACK RecvCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED
 		return;
 	}
 }
-
-
 void CALLBACK SendCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED lpOverlapped, DWORD dwFlags)
 {
 	ClientSession* fromClient = static_cast<OverlappedIO*>(lpOverlapped)->mObject;
@@ -87,8 +92,12 @@ void CALLBACK SendCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED
 
 }
 
-///////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////
+/*
+	받은 패킷 파싱하여 처리하는 함수
+*/
+///////////////////////////////////////////////////////////////////////////
 void ClientSession::OnRead(size_t len)
 {
 	mRecvBuffer.Commit(len);
@@ -118,7 +127,11 @@ void ClientSession::OnRead(size_t len)
 	}
 }
 
-/////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+/*
+	패킷 타입에 따라 파싱을 완료하고 작업을 처리하는 핸들러들
+*/
+///////////////////////////////////////////////////////////////////////////
 REGISTER_HANDLER(PKT_CS_LOGIN)
 {
 	LoginRequest inPacket;
@@ -236,3 +249,35 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 	}
 
 }
+
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	보낼 패킷 파싱하는 함수들
+*/
+///////////////////////////////////////////////////////////////////////////
+void ClientSession::LoginSuccessInform(int id)
+{
+	LoginResult outPacket;
+
+	outPacket.mPlayerId = mPlayerId = id;
+
+	// 여기서는 일단 ID로 닉네임을 덮어썼는데,
+	// 나중에 DB를 이용해 ID별로 닉네임을 적용해야 할듯. -수빈
+	itoa(mPlayerId, mPlayerName, 10);
+	strcpy_s(outPacket.mName, mPlayerName);
+
+	SendRequest(&outPacket);
+
+	mLogon = true;
+
+	printf(" Soket: %d \n", mSocket);
+	printf(" ClntAddr: %s \n", inet_ntoa(mClientAddr.sin_addr));
+	printf(" ClntPort: %d \n", ntohs(mClientAddr.sin_port));
+	printf(" Send Login ID: %d \n", outPacket.mPlayerId);
+	printf(" Send Login Name: %s \n\n", outPacket.mName);
+}
+
+
+

@@ -10,7 +10,7 @@
 #include "ClientSession.h"
 #include "ClientManager.h"
 #include "DatabaseJobManager.h"
-#include "DbHelper.h"
+//#include "DbHelper.h"
 
 #pragma comment(lib,"ws2_32.lib")
 
@@ -25,11 +25,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	/// Manager Init
 	GClientManager = new ClientManager ;
-	GDatabaseJobManager = new DatabaseJobManager ;
+	//GDatabaseJobManager = new DatabaseJobManager ;
 
 	/// DB Helper 초기화
-	if ( false == DbHelper::Initialize(DB_CONN_STR) )
-		return -1 ;
+// 	if ( false == DbHelper::Initialize(DB_CONN_STR) )
+// 		return -1 ;
 
 	/// 윈속 초기화
 	WSADATA wsa ;
@@ -68,9 +68,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		return -1 ;
 
 	/// DB Thread
-	HANDLE hDbThread = (HANDLE)_beginthreadex (NULL, 0, DatabaseHandlingThread, NULL, 0, (unsigned int*)&dwThreadId) ;
-	if (hDbThread == NULL)
-		return -1 ;
+// 	HANDLE hDbThread = (HANDLE)_beginthreadex (NULL, 0, DatabaseHandlingThread, NULL, 0, (unsigned int*)&dwThreadId) ;
+// 	if (hDbThread == NULL)
+// 		return -1 ;
 
 	printf("EasyGameServer Started...\n");
 
@@ -88,15 +88,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	CloseHandle( hThread ) ;
-	CloseHandle( hDbThread ) ;
+	//CloseHandle( hDbThread ) ;
 
 	// 윈속 종료
 	WSACleanup() ;
 
-	DbHelper::Finalize() ;
+	//DbHelper::Finalize() ;
 
 	delete GClientManager ;
-	delete GDatabaseJobManager ;
+	//delete GDatabaseJobManager ;
 	return 0 ;
 }
 
@@ -152,14 +152,14 @@ unsigned int WINAPI ClientHandlingThread( LPVOID lpParam )
 	return 0;
 } 
 
-unsigned int WINAPI DatabaseHandlingThread( LPVOID lpParam )
-{
-	LThreadType = THREAD_DATABASE ;
-
-	GDatabaseJobManager->ExecuteDatabaseJobs() ;
-	
-	return 0 ;
-}
+// unsigned int WINAPI DatabaseHandlingThread( LPVOID lpParam )
+// {
+// 	LThreadType = THREAD_DATABASE ;
+// 
+// 	GDatabaseJobManager->ExecuteDatabaseJobs() ;
+// 	
+// 	return 0 ;
+// }
 
 void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighValue)
 {

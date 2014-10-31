@@ -3,10 +3,16 @@
 #include "ClientSession.h"
 #include "..\..\PacketType.h"
 #include "ClientManager.h"
-#include "DatabaseJobContext.h"
-#include "DatabaseJobManager.h"
+//#include "DatabaseJobContext.h"
+//#include "DatabaseJobManager.h"
 
 
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	연결요청 들어온 클라와의 연결 처리 완료
+*/
+///////////////////////////////////////////////////////////////////////////
 bool ClientSession::OnConnect(SOCKADDR_IN* addr)
 {
 	memcpy(&mClientAddr, addr, sizeof(SOCKADDR_IN)) ;
@@ -26,6 +32,11 @@ bool ClientSession::OnConnect(SOCKADDR_IN* addr)
 	return PostRecv() ;
 }
 
+///////////////////////////////////////////////////////////////////////////
+/*
+	연결 완료된 클라에게서 입력 받을 준비 완료
+*/
+///////////////////////////////////////////////////////////////////////////
 bool ClientSession::PostRecv()
 {
 	if ( !IsConnected() )
@@ -52,6 +63,11 @@ bool ClientSession::PostRecv()
 	return true ;
 }
 
+///////////////////////////////////////////////////////////////////////////
+/*
+	연결 해제 처리 함수
+*/
+///////////////////////////////////////////////////////////////////////////
 void ClientSession::Disconnect()
 {
 	if ( !IsConnected() )
@@ -79,7 +95,11 @@ void ClientSession::Disconnect()
 
 
 
-
+///////////////////////////////////////////////////////////////////////////
+/*
+	보낼 패킷 출력버퍼에 쌓아놓기
+*/
+///////////////////////////////////////////////////////////////////////////
 bool ClientSession::SendRequest(PacketHeader* pkt)
 {
 	if ( !IsConnected() )
@@ -97,6 +117,11 @@ bool ClientSession::SendRequest(PacketHeader* pkt)
 
 }
 
+///////////////////////////////////////////////////////////////////////////
+/*
+	출력버퍼에 쌓여있는 패킷 전부 전송하기
+*/
+///////////////////////////////////////////////////////////////////////////
 bool ClientSession::SendFlush()
 {
 	if (!IsConnected())
@@ -128,12 +153,25 @@ bool ClientSession::SendFlush()
 	return true;
 }
 
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	보내기 완료한 패킷을 출력버퍼에서 제거하는 함수
+*/
+///////////////////////////////////////////////////////////////////////////
 void ClientSession::OnWriteComplete(size_t len)
 {
-	/// 보내기 완료한 데이터는 버퍼에서 제거
 	mSendBuffer.Remove(len) ;
 }
 
+///////////////////////////////////////////////////////////////////////////
+/*
+	동일한 패킷을 연결된 모든 클라에게 전송하는 함수
+	(먼저 이 함수를 실행한 클라에게 전송을 하고,
+	 클라이언트 매니저를 통해	다른 모든 클라에게 같은 내용을 전송)
+*/
+///////////////////////////////////////////////////////////////////////////
 bool ClientSession::Broadcast(PacketHeader* pkt)
 {
 	if ( !SendRequest(pkt) )
@@ -148,39 +186,30 @@ bool ClientSession::Broadcast(PacketHeader* pkt)
 }
 
 
+///////////////////////////////////////////////////////////////////////////
+/*
+	PLAYER_HEART_BEAT 주기마다 클라별로 처리할 작업 등록하는 곳
+*/
+///////////////////////////////////////////////////////////////////////////
 void ClientSession::OnTick()
 {
 	if (!IsConnected())
 		return;
 
-	/// 클라별로 주기적으로 해야될 일은 여기에
+	//////////////////////////////////////////////////////////////////////////
+	///여기에 등록
+
+
+
+	//////////////////////////////////////////////////////////////////////////
 	
 	CallFuncAfter(PLAYER_HEART_BEAT, this, &ClientSession::OnTick);
 }
 
 
 
-void ClientSession::LoginSuccessInform(int id)
-{
-	LoginResult outPacket;
 
-	outPacket.mPlayerId = mPlayerId = id;
 
-	// 여기서는 일단 ID로 닉네임을 덮어썼는데,
-	// 나중에 DB를 이용해 ID별로 닉네임을 적용해야 할듯. -수빈
-	itoa(mPlayerId, mPlayerName, 10);
-	strcpy_s(outPacket.mName, mPlayerName);
-
-	SendRequest(&outPacket);
-
-	mLogon = true;
-
-	printf(" Soket: %d \n", mSocket);
-	printf(" ClntAddr: %s \n", inet_ntoa(mClientAddr.sin_addr));
-	printf(" ClntPort: %d \n", ntohs(mClientAddr.sin_port));
-	printf(" Send Login ID: %d \n", outPacket.mPlayerId);
-	printf(" Send Login Name: %s \n\n", outPacket.mName);
-}
 
 
 
