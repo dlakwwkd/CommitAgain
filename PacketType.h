@@ -22,8 +22,8 @@ enum PacketTypes
 	PKT_CS_OUT_GAME = 23,
 	PKT_SC_OUT_GAME = 24,
 
-	PKT_CS_CHAT = 31,
-	PKT_SC_CHAT = 32,
+	PKT_CS_START_GAME = 31,
+	PKT_SC_START_GAME = 32,
 
 	PKT_CS_CREATE_HERO = 41,
 	PKT_SC_CREATE_HERO = 42,
@@ -31,6 +31,8 @@ enum PacketTypes
 	PKT_CS_MOVE = 51,
 	PKT_SC_MOVE = 52,
 
+	PKT_CS_CHAT = 91,
+	PKT_SC_CHAT = 92,
 
 	PKT_MAX = 1024
 };
@@ -129,6 +131,31 @@ struct InOutRoomResult : public PacketHeader
 	int		mPlayerId;
 	int		mRoomId;
 	bool	mIsIn;
+};
+
+struct StartGameRequest : public PacketHeader
+{
+	StartGameRequest()
+	{
+		mSize = sizeof(StartGameRequest);
+		mType = PKT_CS_START_GAME;
+		mPlayerId = -1;
+		mIsEnd = false;
+	}
+	int		mPlayerId;
+	bool	mIsEnd;
+};
+struct StartGameResult : public PacketHeader
+{
+	StartGameResult()
+	{
+		mSize = sizeof(StartGameRequest);
+		mType = PKT_CS_START_GAME;
+		mPlayerId = -1;
+		mIsEnd = false;
+	}
+	int		mPlayerId;
+	bool	mIsEnd;
 };
 
 
