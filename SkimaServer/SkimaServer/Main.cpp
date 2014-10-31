@@ -166,7 +166,6 @@ void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighVa
 	assert( LThreadType == THREAD_CLIENT ) ;
 
 	LScheduler->DoTasks(); ///< 林扁利栏肺 task 贸府
-	
 	GClientManager->OnPeriodWork() ;
 
 }

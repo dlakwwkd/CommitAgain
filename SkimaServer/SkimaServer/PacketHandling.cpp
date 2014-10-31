@@ -261,12 +261,12 @@ void ClientSession::LoginSuccessInform(int id)
 {
 	LoginResult outPacket;
 
-	outPacket.mPlayerId = mPlayerId = id;
+	outPacket.mPlayerId = m_PlayerId = id;
 
 	// 여기서는 일단 ID로 닉네임을 덮어썼는데,
 	// 나중에 DB를 이용해 ID별로 닉네임을 적용해야 할듯. -수빈
-	itoa(mPlayerId, mPlayerName, 10);
-	strcpy_s(outPacket.mName, mPlayerName);
+	itoa(m_PlayerId, m_PlayerName, 10);
+	strcpy_s(outPacket.mName, m_PlayerName);
 
 	SendRequest(&outPacket);
 

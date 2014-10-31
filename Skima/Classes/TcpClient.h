@@ -17,7 +17,7 @@ public:
 	static TcpClient* getInstance();
 	static void destroyInstance();
 
-	SOCKET checkSocket(){ return m_sock; }
+	SOCKET checkSocket(){ return mSock; }
 	bool connect();
 	void disconnect();
 
@@ -38,8 +38,8 @@ private:
 	void processPacket();
 
 private:
-	SOCKET			m_sock;
-	CircularBuffer	m_recvBuffer;
-	int				m_loginId;
+	SOCKET			mSock;
+	CircularBuffer	mRecvBuffer;
+	int				mLoginId;
 };
 

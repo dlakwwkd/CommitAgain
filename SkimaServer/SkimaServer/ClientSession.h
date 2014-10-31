@@ -25,16 +25,16 @@ class ClientSession : public RefCountable, public ObjectPool<ClientSession>
 {
 public:
 	ClientSession(SOCKET sock)
-		: mConnected(false), mLogon(false), mSocket(sock), mPlayerId(-1), mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE)
+		: mConnected(false), mLogon(false), mSocket(sock), m_PlayerId(-1), mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE)
 	{
 		memset(&mClientAddr, 0, sizeof(SOCKADDR_IN)) ;
-		memset(mPlayerName, 0, sizeof(mPlayerName)) ;
+		memset(m_PlayerName, 0, sizeof(m_PlayerName)) ;
 	}
 	virtual ~ClientSession() {}
 
 public:
-	int	GetPlayerId() const	{ return mPlayerId; }
-	const char* GetPlayerName() const { return mPlayerName;  }
+	int	GetPlayerId() const	{ return m_PlayerId; }
+	const char* GetPlayerName() const { return m_PlayerName;  }
 	SOCKET GetSocketKey() const { return mSocket;  }
 
 	void	LoginSuccessInform(int id);
@@ -70,14 +70,13 @@ public:
 //	void	DatabaseJobDone(DatabaseJobContext* result);
 
 private:
-	char			mPlayerName[MAX_NAME_LEN] ;
+	int				m_PlayerId;
+	char			m_PlayerName[MAX_NAME_LEN];
 
 private:
 	bool			mConnected ;
 	bool			mLogon ;
 	SOCKET			mSocket ;
-
-	int				mPlayerId ;
 	SOCKADDR_IN		mClientAddr ;
 
 	CircularBuffer	mSendBuffer ;

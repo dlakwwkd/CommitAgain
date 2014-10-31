@@ -9,6 +9,13 @@
 
 ClientManager* GClientManager = nullptr ;
 
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	aceept된 패킷을 관리하는(즉, 연결된 클라와 1:1로 대응되는)
+	ClientSession 생성
+*/
+///////////////////////////////////////////////////////////////////////////
 ClientSession* ClientManager::CreateClient(SOCKET sock)
 {
 	assert(LThreadType == THREAD_CLIENT);
@@ -18,8 +25,6 @@ ClientSession* ClientManager::CreateClient(SOCKET sock)
 
 	return client ;
 }
-
-
 
 ///////////////////////////////////////////////////////////////////////////
 /*

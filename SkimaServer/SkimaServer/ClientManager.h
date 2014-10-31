@@ -5,7 +5,7 @@
 
 class ClientSession ;
 struct PacketHeader ;
-struct DatabaseJobContext ;
+//struct DatabaseJobContext ;
 
 class ClientManager
 {

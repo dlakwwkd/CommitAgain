@@ -18,7 +18,7 @@
 
 static TcpClient* s_TcpClient = nullptr;
 
-TcpClient::TcpClient() : m_recvBuffer(BUF_SIZE), m_sock(NULL), m_loginId(-1)
+TcpClient::TcpClient() : mRecvBuffer(BUF_SIZE), mSock(NULL), mLoginId(-1)
 {
 	/// 쓰레드 생성
 	auto t = std::thread(CC_CALLBACK_0(TcpClient::networkThread, this));
@@ -27,13 +27,13 @@ TcpClient::TcpClient() : m_recvBuffer(BUF_SIZE), m_sock(NULL), m_loginId(-1)
 
 TcpClient::~TcpClient()
 {
-	if(m_sock == NULL)
+	if(mSock == NULL)
 		return;
 
 #ifndef _WIN32
-	close(m_sock);
+	close(mSock);
 #else
-	closesocket(m_sock);
+	closesocket(mSock);
 	WSACleanup();
 #endif
 }
@@ -62,7 +62,7 @@ void TcpClient::destroyInstance()
 ///////////////////////////////////////////////////////////////////////////
 bool TcpClient::connect()
 {
-	if (m_sock != NULL)
+	if (mSock != NULL)
 	{
 		TcpClient::getInstance()->disconnect();
 	}
@@ -73,8 +73,8 @@ bool TcpClient::connect()
 		return false;
 #endif
 
-	m_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (m_sock == INVALID_SOCKET)
+	mSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (mSock == INVALID_SOCKET)
 		return false;
 
 	std::string ipaddr = cocos2d::UserDefault::getInstance()->getStringForKey("ipaddr", std::string("localhost"));
@@ -91,7 +91,7 @@ bool TcpClient::connect()
 	hostAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 	hostAddr.sin_port = htons(port);
 
-	if (SOCKET_ERROR == ::connect(m_sock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
+	if (SOCKET_ERROR == ::connect(mSock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
 	{
 		CCLOG("CONNECT FAILED");
 		return false;
@@ -99,24 +99,24 @@ bool TcpClient::connect()
 
 	/// nagle 알고리즘 끄기
 	int opt = 1;
-	setsockopt(m_sock, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int));
+	setsockopt(mSock, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int));
 
 	return true;
 }
 
 void TcpClient::disconnect()
 {
-	if (m_sock == NULL)
+	if (mSock == NULL)
 		return;
 
 #ifndef _WIN32
-	close(m_sock);
+	close(mSock);
 #else
-	closesocket(m_sock);
+	closesocket(mSock);
 	WSACleanup();
 #endif
-	m_sock = NULL;
-	m_loginId = -1;
+	mSock = NULL;
+	mLoginId = -1;
 
 	return;
 }
@@ -132,7 +132,7 @@ bool TcpClient::send(const char* data, int length)
 	int count = 0;
 	while (count < length) 
 	{
-		int n = ::send(m_sock, data + count, length, 0);
+		int n = ::send(mSock, data + count, length, 0);
 		if (n == SOCKET_ERROR)
 		{
 			CCLOG("SEND ERROR");
@@ -151,7 +151,7 @@ void TcpClient::networkThread()
 	{
 		char inBuf[4096] = { 0, };
 
-		int n = ::recv(m_sock, inBuf, 4096, 0);
+		int n = ::recv(mSock, inBuf, 4096, 0);
 
 		if (n < 1)
 		{
@@ -159,7 +159,7 @@ void TcpClient::networkThread()
 			continue;
 		}
 
-		if (!m_recvBuffer.Write(inBuf, n))
+		if (!mRecvBuffer.Write(inBuf, n))
 		{
 			/// 버퍼 꽉찼다. 
 			assert(false);
@@ -184,10 +184,10 @@ void TcpClient::processPacket()
 	{
 		PacketHeader header;
 
-		if (false == m_recvBuffer.Peek((char*)&header, sizeof(PacketHeader)))
+		if (false == mRecvBuffer.Peek((char*)&header, sizeof(PacketHeader)))
 			break;
 
-		if (header.mSize > m_recvBuffer.GetStoredSize())
+		if (header.mSize > mRecvBuffer.GetStoredSize())
 			break;
 
 		switch (header.mType)
@@ -195,10 +195,10 @@ void TcpClient::processPacket()
 		case PKT_SC_LOGIN:
 			{
 				LoginResult recvData;
-				bool ret = m_recvBuffer.Read((char*)&recvData, recvData.mSize);
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 	
-				m_loginId = recvData.mPlayerId;
+				mLoginId = recvData.mPlayerId;
 
 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene");
 				if (layer == nullptr)
@@ -209,8 +209,8 @@ void TcpClient::processPacket()
 		case PKT_SC_MAKE_ROOM:
 			{
 				MakeRoomResult recvData;
-				bool ret = m_recvBuffer.Read((char*)&recvData, recvData.mSize);
-				assert(ret && recvData.mPlayerId == m_loginId);
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId == mLoginId);
 
 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene");
 				if (layer == nullptr)
@@ -223,7 +223,7 @@ void TcpClient::processPacket()
 		case PKT_SC_CREATE_HERO:
 			{
 				CreateHeroResult recvData;
-				bool ret = m_recvBuffer.Read((char*)&recvData, recvData.mSize);
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
 
@@ -249,7 +249,7 @@ void TcpClient::processPacket()
 ///////////////////////////////////////////////////////////////////////////
 void TcpClient::loginRequest()
 {
-	if (m_loginId > 0)
+	if (mLoginId > 0)
 		return;
 
 	srand(time(NULL));
@@ -262,22 +262,22 @@ void TcpClient::loginRequest()
 
 void TcpClient::makeRoomRequest()
 {
-	if (m_loginId < 0)
+	if (mLoginId < 0)
 		return;
 
 	MakeRoomRequest sendData;
-	sendData.mPlayerId = m_loginId;
+	sendData.mPlayerId = mLoginId;
 
 	send((const char*)&sendData, sizeof(MakeRoomRequest));
 }
 
 void TcpClient::joinRoomRequest()
 {
-	if (m_loginId < 0)
+	if (mLoginId < 0)
 		return;
 
 	MakeRoomRequest sendData;
-	sendData.mPlayerId = m_loginId;
+	sendData.mPlayerId = mLoginId;
 
 	send((const char*)&sendData, sizeof(MakeRoomRequest));
 }
@@ -288,11 +288,11 @@ void TcpClient::joinRoomRequest()
 
 void TcpClient::createRequest(int unitID, float x, float y)
 {
-	if (m_loginId < 0)
+	if (mLoginId < 0)
 		return;
 
 	CreateHeroRequest sendData;
-	sendData.mPlayerId = m_loginId;
+	sendData.mPlayerId = mLoginId;
 	sendData.mUnitId = unitID;
 	sendData.mPosX = x;
 	sendData.mPosY = y;
@@ -307,11 +307,11 @@ void TcpClient::createRequest(int unitID, float x, float y)
 
 void TcpClient::moveRequest(float x, float y)
 {
-	if (m_loginId < 0)
+	if (mLoginId < 0)
 		return;
 
 	MoveRequest sendData;
-	sendData.mPlayerId = m_loginId;
+	sendData.mPlayerId = mLoginId;
 	sendData.mPosX = x;
 	sendData.mPosY = y;
 
@@ -322,12 +322,12 @@ void TcpClient::moveRequest(float x, float y)
 
 void TcpClient::chatRequest(const char* chat)
 {
-	if (m_loginId < 0)
+	if (mLoginId < 0)
 		return;
 
 	ChatBroadcastRequest sendData;
 
-	sendData.mPlayerId = m_loginId;
+	sendData.mPlayerId = mLoginId;
 	memcpy(sendData.mChat, chat, strlen(chat));
 
 	send((const char*)&sendData, sizeof(ChatBroadcastRequest));
