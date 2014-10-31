@@ -193,7 +193,7 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 	}
 	else
 	{
-		printf("\n Request OutRoom from %d \n", inPacket.mPlayerId);
+		printf("\n Request OutRoom  from %d \n", inPacket.mPlayerId);
 		session->OutGameRoom();
 	}
 	
@@ -318,11 +318,7 @@ void ClientSession::LoginSuccessInform(int id)
 
 	mLogon = true;
 
-	printf(" Soket: %d \n", mSocket);
-	printf(" ClntAddr: %s \n", inet_ntoa(mClientAddr.sin_addr));
-	printf(" ClntPort: %d \n", ntohs(mClientAddr.sin_port));
 	printf(" Send Login ID: %d \n", outPacket.mPlayerId);
-	printf(" Send Login Name: %s \n\n", outPacket.mName);
 }
 
 void ClientSession::MakeGameRoom(int id)
@@ -338,7 +334,7 @@ void ClientSession::MakeGameRoom(int id)
 	SendRequest(&outPacket);
 
 	printf(" Send Login ID: %d \n", outPacket.mPlayerId);
-	printf(" Send Room ID: %d \n", outPacket.mRoomId);
+	printf(" Send Room  ID: %d \n", outPacket.mRoomId);
 }
 
 void ClientSession::JoinGameRoom()
@@ -358,11 +354,17 @@ void ClientSession::JoinGameRoom()
 	SendRequest(&outPacket);
 
 	printf(" Send JoinPlayer ID: %d \n", outPacket.mPlayerId);
-	printf(" Send JoinRoom ID: %d \n", outPacket.mRoomId);
+	printf(" Send JoinRoom   ID: %d \n", outPacket.mRoomId);
 }
 
 void ClientSession::OutGameRoom()
 {
+	if (mRoomId == -1 || mPlayerId == -1)
+		return;
+
 	GGameManager->OutRoom(mPlayerId, mRoomId);
+
+	printf(" Complete OutRoom PlayerID: %d, RoomID: %d\n", mPlayerId, mRoomId);
+	mRoomId = -1;
 }
 

@@ -8,7 +8,6 @@ GameManager* GGameManager = nullptr;
 GameRoom* GameManager::CreateRoom()
 {
 	GameRoom* room = new GameRoom(++m_RoomNum);
-	room->SetJoinAble();
 
 	if (m_RoomList[m_RoomNum] != nullptr)
 		delete m_RoomList[m_RoomNum];
@@ -22,7 +21,7 @@ void GameManager::UpdateRoomState()
 {
 	for (auto& it : m_RoomList)
 	{
-
+		;
 	}
 }
 
@@ -47,4 +46,19 @@ void GameManager::JoinRoom(int playerId, int roomId)
 void GameManager::OutRoom(int playerId, int roomId)
 {
 	m_RoomList[roomId]->OutPlayer(playerId);
+
+	if (m_RoomList[roomId]->GetPlayerListNum() == 0)
+	{
+		delete m_RoomList[roomId];
+
+		for (RoomList::iterator iter = m_RoomList.begin(); iter != m_RoomList.end(); ++iter)
+		{
+			if (iter->first == roomId)
+			{
+				m_RoomList.erase(iter);
+				break;
+			}
+		}
+		printf(" Destroy Room ID: %d \n", roomId);
+	}
 }

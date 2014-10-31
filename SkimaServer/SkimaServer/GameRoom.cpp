@@ -27,12 +27,6 @@ void GameRoom::OutPlayer(int id)
 			break;
 		}
 	}
-
-	m_JoinAble = true;
-
-	if (m_PlayerIdList.size() == 0)
-	{
-		printf(" Destroy Room ID: %d \n", m_RoomID);
-		delete this;
-	}
+	if (m_PlayerIdList.size() != 0)
+		m_JoinAble = true;
 }
