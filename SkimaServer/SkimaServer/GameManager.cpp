@@ -8,6 +8,7 @@ GameManager* GGameManager = nullptr;
 GameRoom* GameManager::CreateRoom()
 {
 	GameRoom* room = new GameRoom(++m_RoomNum);
+	room->SetJoinAble();
 
 	if (m_RoomList[m_RoomNum] != nullptr)
 		delete m_RoomList[m_RoomNum];
