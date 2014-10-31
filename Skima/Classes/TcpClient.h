@@ -24,6 +24,7 @@ public:
 	void loginRequest();
 	void makeRoomRequest();
 	void joinRoomRequest();
+	void outRoomRequest(int roomId);
 	void createRequest(int unitID, float x, float y);
 
 	void moveRequest(float x, float y);

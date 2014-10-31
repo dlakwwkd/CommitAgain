@@ -15,6 +15,8 @@ public:
 
 	void makeRoomComplit(int roomId);
 
+	void SetRoomID(int id) { m_RoomID = id;};
+
 private:
 	int m_RoomID;
 };

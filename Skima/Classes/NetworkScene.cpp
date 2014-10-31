@@ -65,16 +65,41 @@ void NetworkScene::menuCallback0(Ref* sender)
 
 void NetworkScene::menuCallback1(Ref* sender)
 {
-	auto scene = RoomScene::createScene();
-	Director::getInstance()->pushScene(scene);
+	if (TcpClient::getInstance()->checkSocket() == NULL)
+		return;
 
+	if (this->getChildByName("ConnectLabel") != nullptr)
+	{
+		this->removeChildByName("ConnectLabel");
+	}
+
+	auto label = Label::createWithSystemFont("방 생성 중...", "Thonburi", 50);
+	label->setAnchorPoint(Point::ZERO);
+	label->setHorizontalAlignment(TextHAlignment::CENTER);
+	this->addChild(label, 0, "ConnectLabel");
+
+	//예외 처리 안함
 	TcpClient::getInstance()->makeRoomRequest();
+
 }
 
 void NetworkScene::menuCallback2(Ref* sender)
 {
+	if (TcpClient::getInstance()->checkSocket() == NULL)
+		return;
 
+	if (this->getChildByName("ConnectLabel") != nullptr)
+	{
+		this->removeChildByName("ConnectLabel");
+	}
 
+	auto label = Label::createWithSystemFont("방에 들어가는 중...", "Thonburi", 50);
+	label->setAnchorPoint(Point::ZERO);
+	label->setHorizontalAlignment(TextHAlignment::CENTER);
+	this->addChild(label, 0, "ConnectLabel");
+
+	TcpClient::getInstance()->joinRoomRequest();
+	
 }
 
 void NetworkScene::menuCallback3(Ref* sender)
@@ -84,10 +109,29 @@ void NetworkScene::menuCallback3(Ref* sender)
 }
 
 
-void NetworkScene::connectComplit()
+void NetworkScene::ConnectComplit()
 {
 	auto label = dynamic_cast<Label*>(this->getChildByName("ConnectLabel"));
 	if (label == nullptr)
 		return;
 	label->setString("접속 완료.");
 }
+
+void NetworkScene::MakeRoomComplete(int roomId)
+{
+	auto scene = RoomScene::createScene();
+	auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
+
+	layer->SetRoomID(roomId);
+	Director::getInstance()->pushScene(scene);
+}
+
+void NetworkScene::JoinRoomComplete(int roomId)
+{
+	auto scene = RoomScene::createScene();
+	auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
+
+	layer->SetRoomID(roomId);
+	Director::getInstance()->pushScene(scene);
+}
+

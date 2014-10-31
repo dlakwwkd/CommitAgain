@@ -1,6 +1,7 @@
 #include "RoomScene.h"
 #include "GameScene.h"
 #include "NetworkScene.h"
+#include "TcpClient.h"
 
 
 Scene* RoomScene::createScene()
@@ -41,6 +42,11 @@ void RoomScene::menuCallback1(Ref* sender)
 }
 void RoomScene::menuCallback2(Ref* sender)
 {
+	if (TcpClient::getInstance()->checkSocket() == NULL)
+		return;
+
+	
+
 	Director::getInstance()->popScene();
 }
 

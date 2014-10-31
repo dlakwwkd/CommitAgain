@@ -15,7 +15,9 @@ public:
 	void menuCallback2(Ref* sender);
 	void menuCallback3(Ref* sender);
 
-	void connectComplit();
+	void ConnectComplit();
+	void MakeRoomComplete(int roomId);
+	void JoinRoomComplete(int roomId);
 
 private:
 	int m_GameID;

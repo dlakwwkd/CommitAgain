@@ -212,13 +212,34 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId == mLoginId);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene");
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene");
 				if (layer == nullptr)
 					break;
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::makeRoomComplit, dynamic_cast<RoomScene*>(layer), recvData.mRoomId));
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, dynamic_cast<NetworkScene*>(layer), recvData.mRoomId));
 			}
 			break;
+		case PKT_SC_INOUT_ROOM:
+			{
+				InOutRoomResult recvData;
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId == mLoginId);
 
+				if (recvData.mIsIn)
+				{
+					auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene");
+					if (layer == nullptr)
+						break;
+					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, dynamic_cast<NetworkScene*>(layer), recvData.mRoomId));
+				}
+				else
+				{
+					//나간 플레이어 처리 필요
+// 					auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene");
+// 					if (layer == nullptr)
+// 						break;
+//					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, dynamic_cast<NetworkScene*>(layer), recvData.mRoomId));
+				}
+			}
 
 		case PKT_SC_CREATE_HERO:
 			{
@@ -276,13 +297,25 @@ void TcpClient::joinRoomRequest()
 	if (mLoginId < 0)
 		return;
 
-	MakeRoomRequest sendData;
+	InOutRoomRequest sendData;
 	sendData.mPlayerId = mLoginId;
+	sendData.mIsIn = true;
 
 	send((const char*)&sendData, sizeof(MakeRoomRequest));
 }
 
+void TcpClient::outRoomRequest(int roomId)
+{
+	if (mLoginId < 0)
+		return;
 
+	InOutRoomRequest sendData;
+	sendData.mPlayerId = mLoginId;
+	sendData.mIsIn = false;
+	sendData.mRoomId = roomId;
+
+	send((const char*)&sendData, sizeof(MakeRoomRequest));
+}
 
 
 
