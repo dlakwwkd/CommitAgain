@@ -229,7 +229,7 @@ void TcpClient::processPacket()
 					auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene");
 					if (layer == nullptr)
 						break;
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, dynamic_cast<NetworkScene*>(layer), recvData.mRoomId));
+					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, dynamic_cast<NetworkScene*>(layer), recvData.mRoomId));
 				}
 				else
 				{
@@ -240,6 +240,7 @@ void TcpClient::processPacket()
 //					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, dynamic_cast<NetworkScene*>(layer), recvData.mRoomId));
 				}
 			}
+			break;
 
 		//case: //
 		//{
