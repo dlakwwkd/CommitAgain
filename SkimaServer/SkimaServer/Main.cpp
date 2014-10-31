@@ -98,6 +98,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//DbHelper::Finalize() ;
 
 	delete GClientManager;
+	delete GGameManager;
 	//delete GDatabaseJobManager ;
 	return 0;
 }
@@ -169,5 +170,5 @@ void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighVa
 
 	LScheduler->DoTasks(); ///< 林扁利栏肺 task 贸府
 	GClientManager->OnPeriodWork();
-
+	GGameManager->UpdateRoomState();
 }

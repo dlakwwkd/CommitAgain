@@ -1,11 +1,9 @@
 #pragma once
-#include "ObjectPool.h"
-#include "RefCountable.h"
 
-class Game : public RefCountable, public ObjectPool<Game>
+class Game
 {
 public:
 	Game(){}
-	virtual ~Game(){}
+	~Game(){}
 };
 

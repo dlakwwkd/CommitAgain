@@ -17,7 +17,6 @@ struct OverlappedIO : public OVERLAPPED
 {
 	OverlappedIO() : mObject(nullptr)
 	{}
-
 	ClientSession* mObject;
 };
 
@@ -25,20 +24,23 @@ class ClientSession : public RefCountable, public ObjectPool<ClientSession>
 {
 public:
 	ClientSession(SOCKET sock)
-		: mConnected(false), mLogon(false), mSocket(sock), m_PlayerId(-1), mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE)
+		: mConnected(false), mLogon(false), mSocket(sock), mPlayerId(-1), mRoomId(-1), mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE)
 	{
 		memset(&mClientAddr, 0, sizeof(SOCKADDR_IN));
-		memset(m_PlayerName, 0, sizeof(m_PlayerName));
+		memset(mPlayerName, 0, sizeof(mPlayerName));
 	}
 	virtual ~ClientSession() {}
 
 public:
-	int	GetPlayerId() const	{ return m_PlayerId; }
-	const char* GetPlayerName() const { return m_PlayerName; }
-	SOCKET GetSocketKey() const { return mSocket; }
+	int			GetPlayerId() const	{ return mPlayerId; }
+	int			GetRoomId() const	{ return mRoomId; }
+	const char* GetPlayerName() const { return mPlayerName; }
+	SOCKET		GetSocketKey() const { return mSocket; }
 
-	void	LoginSuccessInform(int id);
-
+	void		LoginSuccessInform(int id);
+	void		MakeGameRoom(int id);
+	void		JoinGameRoom();
+	void		OutGameRoom();
 
 	// 	void	LoginDone(int pid, const char* name);
 	// 	void	UpdateDone();
@@ -48,30 +50,26 @@ public:
 	void	OnTick();
 	//	void	OnDbUpdate(); ///< 주기적으로 데이터베이스에 업데이트
 
-	template <class PKT_TYPE>
-	bool ParsePacket(PKT_TYPE& pkt)
-	{
-		return mRecvBuffer.Read((char*)&pkt, pkt.mSize);
-	}
-
-	void	OnRead(size_t len);
-	void	OnWriteComplete(size_t len);
-
 	bool	OnConnect(SOCKADDR_IN* addr);
-
 	bool	PostRecv();
-
-	bool	SendRequest(PacketHeader* pkt);
-	bool	Broadcast(PacketHeader* pkt);
-
 	void	Disconnect();
 
-	bool	SendFlush(); ///< Send요청 중인것들 모아서 보냄
+	bool	SendRequest(PacketHeader* pkt);
+	bool	SendFlush();
+	bool	Broadcast(PacketHeader* pkt);
 	//	void	DatabaseJobDone(DatabaseJobContext* result);
 
+public:
+	template <class PKT_TYPE>
+	bool ParsePacket(PKT_TYPE& pkt){ return mRecvBuffer.Read((char*)&pkt, pkt.mSize); }
+
+	void OnWriteComplete(size_t len);
+	void OnRead(size_t len);
+
 private:
-	int				m_PlayerId;
-	char			m_PlayerName[MAX_NAME_LEN];
+	int				mRoomId;
+	int				mPlayerId;
+	char			mPlayerName[MAX_NAME_LEN];
 
 private:
 	bool			mConnected;

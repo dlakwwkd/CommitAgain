@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "ClientSession.h"
+#include "GameManager.h"
+#include "GameRoom.h"
 //#include "DatabaseJobContext.h"
 //#include "DatabaseJobManager.h"
 
@@ -95,6 +97,16 @@ void CALLBACK SendCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED
 
 ///////////////////////////////////////////////////////////////////////////
 /*
+	보내기 완료한 패킷을 출력버퍼에서 제거하는 함수
+	*/
+///////////////////////////////////////////////////////////////////////////
+void ClientSession::OnWriteComplete(size_t len)
+{
+	mSendBuffer.Remove(len);
+}
+
+///////////////////////////////////////////////////////////////////////////
+/*
 	받은 패킷 파싱하여 처리하는 함수
 	*/
 ///////////////////////////////////////////////////////////////////////////
@@ -137,11 +149,10 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 	LoginRequest inPacket;
 	if (false == session->ParsePacket(inPacket))
 	{
-		printf("[DEBUG] packet parsing error", inPacket.mType);
+		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
 		return;
 	}
 	printf("\n Request Login ID: %d \n", inPacket.mPlayerId);
-
 	session->LoginSuccessInform(inPacket.mPlayerId);
 
 	// 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
@@ -150,23 +161,52 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 
 REGISTER_HANDLER(PKT_CS_MAKE_ROOM)
 {
-	LoginRequest inPacket;
+	MakeRoomRequest inPacket;
 	if (false == session->ParsePacket(inPacket))
 	{
-		printf("[DEBUG] packet parsing error", inPacket.mType);
+		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
 		return;
 	}
 	printf("\n Request MakeRoom from %d \n", inPacket.mPlayerId);
-
-
+	session->MakeGameRoom(inPacket.mPlayerId);
 }
+
+REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
+{
+	InOutRoomRequest inPacket;
+	if (false == session->ParsePacket(inPacket))
+	{
+		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
+		return;
+	}
+
+	if (session->GetPlayerId() != inPacket.mPlayerId)
+	{
+		printf("[DEBUG] Player Info error!");
+		return;
+	}
+
+	if (inPacket.mIsIn)
+	{
+		printf("\n Request JoinRoom from %d \n", inPacket.mPlayerId);
+		session->JoinGameRoom();
+	}
+	else
+	{
+		printf("\n Request OutRoom from %d \n", inPacket.mPlayerId);
+		session->OutGameRoom();
+	}
+	
+}
+
+
 
 REGISTER_HANDLER(PKT_CS_CREATE_HERO)
 {
 	CreateHeroRequest inPacket;
 	if (false == session->ParsePacket(inPacket))
 	{
-		printf("[DEBUG] packet parsing error", inPacket.mType);
+		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
 		return;
 	}
 
@@ -199,7 +239,7 @@ REGISTER_HANDLER(PKT_CS_CHAT)
 	ChatBroadcastRequest inPacket;
 	if (false == session->ParsePacket(inPacket))
 	{
-		printf("[DEBUG] packet parsing error", inPacket.mType);
+		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
 		return;
 	}
 
@@ -228,7 +268,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 	MoveRequest inPacket;
 	if (false == session->ParsePacket(inPacket))
 	{
-		printf("[DEBUG] packet parsing error", inPacket.mType);
+		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
 		return;
 	}
 
@@ -261,12 +301,12 @@ void ClientSession::LoginSuccessInform(int id)
 {
 	LoginResult outPacket;
 
-	outPacket.mPlayerId = m_PlayerId = id;
+	outPacket.mPlayerId = mPlayerId = id;
 
 	// 여기서는 일단 ID로 닉네임을 덮어썼는데,
 	// 나중에 DB를 이용해 ID별로 닉네임을 적용해야 할듯. -수빈
-	itoa(m_PlayerId, m_PlayerName, 10);
-	strcpy_s(outPacket.mName, m_PlayerName);
+	itoa(mPlayerId, mPlayerName, 10);
+	strcpy_s(outPacket.mName, mPlayerName);
 
 	SendRequest(&outPacket);
 
@@ -279,5 +319,27 @@ void ClientSession::LoginSuccessInform(int id)
 	printf(" Send Login Name: %s \n\n", outPacket.mName);
 }
 
+void ClientSession::MakeGameRoom(int id)
+{
+	GameRoom* gameRoom = GGameManager->CreateRoom();
+	MakeRoomResult outPacket;
 
+	outPacket.mPlayerId = mPlayerId = id;
+	outPacket.mRoomId = mRoomId = gameRoom->GetRoomID();
+
+	SendRequest(&outPacket);
+
+	printf(" Send Login ID: %d \n", outPacket.mPlayerId);
+	printf(" Send Room ID: %d \n", outPacket.mRoomId);
+}
+
+void ClientSession::JoinGameRoom()
+{
+	GGameManager->
+}
+
+void ClientSession::OutGameRoom()
+{
+
+}
 
