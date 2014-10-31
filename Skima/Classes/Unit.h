@@ -20,6 +20,7 @@ protected:
 	PhysicsBody*	m_Body;
 
 	std::string		m_Name;
+	int				m_PlayerID;
 	int				m_MaxHp;
 	int				m_MaxMp;
 	int				m_Hp;

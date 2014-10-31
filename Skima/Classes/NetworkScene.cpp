@@ -109,7 +109,7 @@ void NetworkScene::menuCallback3(Ref* sender)
 }
 
 
-void NetworkScene::ConnectComplit()
+void NetworkScene::ConnectComplete()
 {
 	auto label = dynamic_cast<Label*>(this->getChildByName("ConnectLabel"));
 	if (label == nullptr)

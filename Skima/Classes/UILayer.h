@@ -10,6 +10,6 @@ public:
 	CREATE_FUNC(UILayer);
 
 	void doClick1(Ref* sender);
-
+	void loadingMessage();
 };
 

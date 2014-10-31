@@ -88,7 +88,7 @@ bool TcpClient::connect()
 
 	memset(&hostAddr, 0, sizeof(hostAddr));
 	hostAddr.sin_family = AF_INET;
-	hostAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	hostAddr.sin_addr.s_addr = inet_addr("10.73.42.129");
 	hostAddr.sin_port = htons(port);
 
 	if (SOCKET_ERROR == ::connect(mSock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
@@ -203,7 +203,7 @@ void TcpClient::processPacket()
 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene");
 				if (layer == nullptr)
 					break;
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::connectComplit, dynamic_cast<NetworkScene*>(layer)));
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ConnectComplete, dynamic_cast<NetworkScene*>(layer)));
 			}
 			break;
 		case PKT_SC_MAKE_ROOM:
@@ -240,6 +240,20 @@ void TcpClient::processPacket()
 //					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, dynamic_cast<NetworkScene*>(layer), recvData.mRoomId));
 				}
 			}
+
+		//case: //
+		//{
+		//		  StartGameResult recvData;
+		//		  bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+		//		  assert(ret && recvData.mPlayerId != -1);
+
+		//		  auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene");
+		//		  if (layer == nullptr)
+		//			  break;
+		//		  scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::gameStartComplete, dynamic_cast<RoomScene*>(layer)));
+
+		//}
+		
 
 		case PKT_SC_CREATE_HERO:
 			{
@@ -301,7 +315,7 @@ void TcpClient::joinRoomRequest()
 	sendData.mPlayerId = mLoginId;
 	sendData.mIsIn = true;
 
-	send((const char*)&sendData, sizeof(MakeRoomRequest));
+	send((const char*)&sendData, sizeof(InOutRoomRequest));
 }
 
 void TcpClient::outRoomRequest(int roomId)
@@ -314,7 +328,7 @@ void TcpClient::outRoomRequest(int roomId)
 	sendData.mIsIn = false;
 	sendData.mRoomId = roomId;
 
-	send((const char*)&sendData, sizeof(MakeRoomRequest));
+	send((const char*)&sendData, sizeof(InOutRoomRequest));
 }
 
 
@@ -365,4 +379,18 @@ void TcpClient::chatRequest(const char* chat)
 
 	send((const char*)&sendData, sizeof(ChatBroadcastRequest));
 }
+
+ void TcpClient::gameStartRequest()
+ {
+// 	if (mLoginId < 0)
+// 		return;
+// 
+// 	StartGameRequest sendData;
+// 	
+// 	sendData.mPlayerId = mLoginId;
+// 	
+// 	send((const char*)&sendData, sizeof(StartGameRequest));
+// 
+// 
+ }
 

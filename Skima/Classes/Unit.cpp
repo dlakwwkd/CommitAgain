@@ -22,10 +22,10 @@ Unit::Unit(const std::string& filename, BodyShape shape, Point createPos, float 
 	}
 
 	body->setMass(1.0f);
-	body->setRotationEnable(false);
 	body->setLinearDamping(3);
 
 	sprite->setPhysicsBody(body);
+	body->setRotationEnable(false);
 	sprite->setPosition(createPos);
 	sprite->setScale(scale);
 

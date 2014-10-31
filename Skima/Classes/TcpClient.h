@@ -25,6 +25,11 @@ public:
 	void makeRoomRequest();
 	void joinRoomRequest();
 	void outRoomRequest(int roomId);
+	void gameStartRequest();
+
+
+
+	//¹«¾µ¸ð
 	void createRequest(int unitID, float x, float y);
 
 	void moveRequest(float x, float y);

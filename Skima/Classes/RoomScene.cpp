@@ -36,25 +36,41 @@ bool RoomScene::init()
 
 void RoomScene::menuCallback1(Ref* sender)
 {
-	auto scene = GameScene::createScene();
-	Director::getInstance()->popScene();
-	Director::getInstance()->pushScene(scene);
+	//소켓연결확인
+	if (TcpClient::getInstance()->checkSocket() == NULL)
+		return;
+
+	// 게임스타트 요청 패킷보내기
+	TcpClient::getInstance()->gameStartRequest();
+
+	
+	
 }
 void RoomScene::menuCallback2(Ref* sender)
 {
 	if (TcpClient::getInstance()->checkSocket() == NULL)
 		return;
 
-	
+	TcpClient::getInstance()->outRoomRequest(m_RoomID);
 
 	Director::getInstance()->popScene();
 }
 
 
-void RoomScene::makeRoomComplit(int roomId)
+void RoomScene::makeRoomComplete(int roomId)
 {
 	m_RoomID = roomId;
 
 	CCLOG("room!!!!!!!!!!!");
+
+}
+
+void RoomScene::gameStartComplete()
+{
+	auto scene = GameScene::createScene();
+	Director::getInstance()->popScene();
+	Director::getInstance()->pushScene(scene);
+	
+
 
 }
