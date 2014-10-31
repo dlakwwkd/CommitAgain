@@ -10,9 +10,9 @@ public:
 
 
 private:
-	typedef std::map<SOCKET, Game*> GameList;
+	typedef std::map<int, Game*> GameList;
 	GameList	m_GameList;
 
 };
 
-extern GameManager* GClientManager;
+extern GameManager* GGameManager;

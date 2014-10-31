@@ -9,6 +9,7 @@
 #include "Scheduler.h"
 #include "ClientSession.h"
 #include "ClientManager.h"
+#include "GameManager.h"
 #include "DatabaseJobManager.h"
 //#include "DbHelper.h"
 
@@ -24,7 +25,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	LThreadType = THREAD_MAIN ;
 
 	/// Manager Init
-	GClientManager = new ClientManager ;
+	GClientManager = new ClientManager;
+	GGameManager = new GameManager;
 	//GDatabaseJobManager = new DatabaseJobManager ;
 
 	/// DB Helper √ ±‚»≠
