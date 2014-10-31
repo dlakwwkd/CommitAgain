@@ -10,8 +10,10 @@ public:
 	GameManager() : m_RoomNum(0){}
 
 	GameRoom*	CreateRoom();
-	GameRoom*	JoinRoom();
-	
+	int			SearchRoom();
+	void		JoinRoom(int playerId, int roomId);
+	void		OutRoom(int playerId, int roomId);
+
 	void		UpdateRoomState();
 
 private:

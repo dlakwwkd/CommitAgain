@@ -335,10 +335,25 @@ void ClientSession::MakeGameRoom(int id)
 
 void ClientSession::JoinGameRoom()
 {
+	auto roomNum = GGameManager->SearchRoom();
+	
+	if (roomNum == -1)
+		return;
+
+	GGameManager->JoinRoom(mPlayerId, mRoomId);
+
+	InOutRoomResult outPacket;
+
+	outPacket.mPlayerId = mPlayerId;
+	outPacket.mRoomId = mRoomId;
+
+	SendRequest(&outPacket);
+
+	printf(" Send JoinRoomID: %d \n", outPacket.mRoomId);
 }
 
 void ClientSession::OutGameRoom()
 {
-
+	GGameManager->OutRoom(mPlayerId, mRoomId);
 }
 

@@ -19,5 +19,31 @@ GameRoom* GameManager::CreateRoom()
 
 void GameManager::UpdateRoomState()
 {
+	for (auto& it : m_RoomList)
+	{
 
+	}
+}
+
+int GameManager::SearchRoom()
+{
+	for (auto& room : m_RoomList)
+	{
+		if (room.second->CheckJoinAble())
+		{
+			return room.second->GetRoomID();
+		}
+	}
+	printf(" No Room!!!!!!!!! \n");
+	return -1;
+}
+
+void GameManager::JoinRoom(int playerId, int roomId)
+{
+	m_RoomList[roomId]->JoinPlayer(playerId);
+}
+
+void GameManager::OutRoom(int playerId, int roomId)
+{
+	m_RoomList[roomId]->OutPlayer(playerId);
 }
