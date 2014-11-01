@@ -4,7 +4,7 @@
 class GameRoom
 {
 public:
-	GameRoom(int id) : m_RoomID(id), m_JoinAble(true)
+	GameRoom(int id) : m_RoomID(id), m_JoinAble(true), m_ReadyNum(0), m_IsAllReady(false)
 	{
 		m_PlayerIdList.reserve(2);
 	}
@@ -12,14 +12,20 @@ public:
 
 	int		GetRoomID(){ return m_RoomID; }
 	int		GetPlayerListNum(){ return m_PlayerIdList.size(); }
-	bool	CheckJoinAble(){ return m_JoinAble; }
-
+	bool	IsJoinAble(){ return m_JoinAble; }
+	bool	IsAllReady(){ return m_IsAllReady; }
+	
+	void	ReadySign();
 	void	JoinPlayer(int id);
 	void	OutPlayer(int id);
+
 
 private:
 	std::vector<int>	m_PlayerIdList;
 	int					m_RoomID;
 	bool				m_JoinAble;
+
+	int					m_ReadyNum;
+	bool				m_IsAllReady;
 };
 

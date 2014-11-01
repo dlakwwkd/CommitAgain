@@ -24,7 +24,8 @@ class ClientSession : public RefCountable, public ObjectPool<ClientSession>
 {
 public:
 	ClientSession(SOCKET sock)
-		: mConnected(false), mLogon(false), mSocket(sock), mPlayerId(-1), mRoomId(-1), mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE)
+		: mConnected(false), mLogon(false), mSocket(sock), mPlayerId(-1), mRoomId(-1), mIsReady(false),
+		mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE)
 	{
 		memset(&mClientAddr, 0, sizeof(SOCKADDR_IN));
 		memset(mPlayerName, 0, sizeof(mPlayerName));
@@ -36,11 +37,15 @@ public:
 	int			GetRoomId() const	{ return mRoomId; }
 	const char* GetPlayerName() const { return mPlayerName; }
 	SOCKET		GetSocketKey() const { return mSocket; }
+	
+	void		SetReady() { mIsReady = true; }
+	bool		IsReady() { return mIsReady; }
 
 	void		LoginSuccessInform(int id);
 	void		MakeGameRoom(int id);
 	void		JoinGameRoom();
 	void		OutGameRoom();
+	void		AllReadyNotify();
 
 	// 	void	LoginDone(int pid, const char* name);
 	// 	void	UpdateDone();
@@ -70,6 +75,7 @@ private:
 	int				mRoomId;
 	int				mPlayerId;
 	char			mPlayerName[MAX_NAME_LEN];
+	bool			mIsReady;
 
 private:
 	bool			mConnected;
