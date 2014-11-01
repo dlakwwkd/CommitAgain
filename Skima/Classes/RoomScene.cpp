@@ -85,6 +85,4 @@ void RoomScene::gameStartComplete()
 	Director::getInstance()->popScene();
 	Director::getInstance()->pushScene(scene);
 	
-
-
 }

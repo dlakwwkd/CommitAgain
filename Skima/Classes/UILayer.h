@@ -11,5 +11,6 @@ public:
 
 	void doClick1(Ref* sender);
 	void loadingMessage();
+	
 };
 

@@ -98,6 +98,8 @@ void ObjectLayer::MobAi()
 
 void ObjectLayer::UpdatePeer(int id, float x, float y)
 {
+	//to do : id에 따른 유닛 생성하기
+
 	CreateHero({ x, y });
 }
 
