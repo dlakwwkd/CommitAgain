@@ -25,7 +25,7 @@ public:
 	void makeRoomRequest();
 	void joinRoomRequest();
 	void outRoomRequest(int roomId);
-	void gameStartRequest();
+	void startGameRequest();
 
 
 

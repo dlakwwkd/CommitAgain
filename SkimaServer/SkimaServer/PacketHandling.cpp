@@ -13,7 +13,7 @@ static HandlerFunc HandlerTable[PKT_MAX];
 
 static void DefaultHandler(ClientSession* session)
 {
-	printf("[DEBUG] Invalid packet handler", session->GetPlayerId());
+	printf("[DEBUG] Invalid packet handler \n", session->GetPlayerId());
 	session->Disconnect();
 }
 
@@ -129,7 +129,7 @@ void ClientSession::OnRead(size_t len)
 
 		if (header.mType >= PKT_MAX || header.mType <= PKT_NONE)
 		{
-			printf("[DEBUG] Invalid packet type", GetPlayerId());
+			printf("[DEBUG] Invalid packet type \n", GetPlayerId());
 			Disconnect();
 			return;
 		}
@@ -149,10 +149,10 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 	LoginRequest inPacket;
 	if (false == session->ParsePacket(inPacket))
 	{
-		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
+		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-	printf("\n Request Login ID: %d \n", inPacket.mPlayerId);
+	printf(" Request Login ID: %d \n", inPacket.mPlayerId);
 	session->LoginSuccessInform(inPacket.mPlayerId);
 
 	// 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
@@ -164,10 +164,9 @@ REGISTER_HANDLER(PKT_CS_MAKE_ROOM)
 	MakeRoomRequest inPacket;
 	if (false == session->ParsePacket(inPacket))
 	{
-		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
+		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-	printf("\n Request MakeRoom from %d \n", inPacket.mPlayerId);
 	session->MakeGameRoom(inPacket.mPlayerId);
 }
 
@@ -176,27 +175,19 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 	InOutRoomRequest inPacket;
 	if (false == session->ParsePacket(inPacket))
 	{
-		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
+		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-
 	if (session->GetPlayerId() != inPacket.mPlayerId)
 	{
-		printf("[DEBUG] Player Info error!");
+		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
 
 	if (inPacket.mIsIn)
-	{
-		printf("\n Request JoinRoom from %d \n", inPacket.mPlayerId);
-		session->JoinGameRoom();
-	}
+		session->JoinGameRoom();	
 	else
-	{
-		printf("\n Request OutRoom  from %d \n", inPacket.mPlayerId);
 		session->OutGameRoom();
-	}
-	
 }
 
 
@@ -245,13 +236,13 @@ REGISTER_HANDLER(PKT_CS_CHAT)
 	ChatBroadcastRequest inPacket;
 	if (false == session->ParsePacket(inPacket))
 	{
-		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
+		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
 
 	if (inPacket.mPlayerId != session->GetPlayerId())
 	{
-		printf("[DEBUG] PKT_CS_CHAT: invalid player ID", session->GetPlayerId());
+		printf("[DEBUG] PKT_CS_CHAT: invalid player ID: %d \n", session->GetPlayerId());
 		return;
 	}
 
@@ -274,13 +265,13 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 	MoveRequest inPacket;
 	if (false == session->ParsePacket(inPacket))
 	{
-		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
+		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
 
 	if (inPacket.mPlayerId != session->GetPlayerId())
 	{
-		printf("[DEBUG] PKT_CS_MOVE: invalid player ID", session->GetPlayerId());
+		printf("[DEBUG] PKT_CS_MOVE: invalid player ID: %d \n", session->GetPlayerId());
 		return;
 	}
 
@@ -318,7 +309,7 @@ void ClientSession::LoginSuccessInform(int id)
 
 	mLogon = true;
 
-	printf(" Send Login ID: %d \n", outPacket.mPlayerId);
+	printf(" Send:   Login ID: %d \n", outPacket.mPlayerId);
 }
 
 void ClientSession::MakeGameRoom(int id)
@@ -333,8 +324,7 @@ void ClientSession::MakeGameRoom(int id)
 
 	SendRequest(&outPacket);
 
-	printf(" Send Login ID: %d \n", outPacket.mPlayerId);
-	printf(" Send Room  ID: %d \n", outPacket.mRoomId);
+	printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
 }
 
 void ClientSession::JoinGameRoom()
@@ -353,8 +343,7 @@ void ClientSession::JoinGameRoom()
 
 	SendRequest(&outPacket);
 
-	printf(" Send JoinPlayer ID: %d \n", outPacket.mPlayerId);
-	printf(" Send JoinRoom   ID: %d \n", outPacket.mRoomId);
+	printf(" Send: Join Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
 }
 
 void ClientSession::OutGameRoom()
@@ -364,7 +353,7 @@ void ClientSession::OutGameRoom()
 
 	GGameManager->OutRoom(mPlayerId, mRoomId);
 
-	printf(" Complete OutRoom PlayerID: %d, RoomID: %d\n", mPlayerId, mRoomId);
+	printf(" Send:  Out Room ID: %d, Player ID: %d \n", mRoomId, mPlayerId);
 	mRoomId = -1;
 }
 

@@ -34,7 +34,7 @@ int GameManager::SearchRoom()
 			return room.second->GetRoomID();
 		}
 	}
-	printf(" No Room!!!!!!!!!");
+	printf(" - No Room ! \n");
 	return -1;
 }
 
@@ -59,6 +59,6 @@ void GameManager::OutRoom(int playerId, int roomId)
 				break;
 			}
 		}
-		printf(" Destroy Room ID: %d \n", roomId);
+		printf(" - Destroy %d Room ! \n", roomId);
 	}
 }

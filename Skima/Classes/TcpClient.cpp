@@ -386,7 +386,7 @@ void TcpClient::chatRequest(const char* chat)
 	send((const char*)&sendData, sizeof(ChatBroadcastRequest));
 }
 
- void TcpClient::gameStartRequest()
+ void TcpClient::startGameRequest()
  {
 // 	if (mLoginId < 0)
 // 		return;

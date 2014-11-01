@@ -6,12 +6,11 @@ void GameRoom::JoinPlayer(int id)
 {
 	m_PlayerIdList.push_back(id);
 
-	printf(" Join Room ID: %d \n", m_RoomID);
-
+	printf("\n [Join Room] Room ID %d, Player ID: %d \n", m_RoomID, id);
 
 	if (m_PlayerIdList.size() >= 2)
 	{
-		printf(" Join Room ID: %d \n", m_RoomID);
+		printf(" - Room %d is Full ! \n", m_RoomID);
 		m_JoinAble = false;
 	}
 }
@@ -29,4 +28,6 @@ void GameRoom::OutPlayer(int id)
 	}
 	if (m_PlayerIdList.size() != 0)
 		m_JoinAble = true;
+
+	printf("\n [Out  Room] Room ID %d, Player ID: %d \n", m_RoomID, id);
 }

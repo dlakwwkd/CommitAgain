@@ -49,7 +49,7 @@ void RoomScene::menuCallback1(Ref* sender)
 		return;
 
 	// 게임스타트 요청 패킷보내기
-	TcpClient::getInstance()->gameStartRequest();
+	TcpClient::getInstance()->startGameRequest();
 
 	
 	
