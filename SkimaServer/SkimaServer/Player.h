@@ -7,7 +7,7 @@ public:
 	~Player();
 
 public:
-	void UnitMove(Point currentPos, Point targetPos, int speed);
+	void UnitMove(N_Point currentPos, N_Point targetPos, int speed);
 
 private:
 	Unit* mUnit;
