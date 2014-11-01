@@ -12,6 +12,8 @@ public:
 	Sprite*			GetSprite(){ return m_Sprite; }
 	PhysicsBody*	GetBody(){ return m_Body; }
 
+	void			SetUnitID(int unitID){ m_UnitID = unitID; }
+	int				GetUnitID(){ return m_UnitID; }
 	void			MoveTargeting(Point p);
 	void			Movement();
 
@@ -21,6 +23,7 @@ protected:
 
 	std::string		m_Name;
 	int				m_PlayerID;
+	int				m_UnitID;
 	int				m_MaxHp;
 	int				m_MaxMp;
 	int				m_Hp;
