@@ -34,9 +34,16 @@ bool GameScene::init()
 	return true;
 }
 
+void GameScene::removeLoading()
+{
+
+	// this??
+	this->removeChildByName("LoadingBGLayer");
+}
+
 // void GameScene::popupLoading()
 // {
 // 	auto loadingBGLayer = LoadingBGLayer::create();
 // 	loadingBGLayer->setOpacity(128); //π›≈ı∏Ì
 // 	
-}
+

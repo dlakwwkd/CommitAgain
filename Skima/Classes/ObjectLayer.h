@@ -18,7 +18,8 @@ public:
 	void CreateHero(Point location);
 	void MobAi();
 
-	void UpdatePeer(int id, float x, float y);
+	void FirstDrawUnit(int id, float x, float y);
+	void UpdateAnimation(int id, float x, float y);
 	//void CreateHeroStart();
 
 

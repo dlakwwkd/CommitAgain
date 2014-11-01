@@ -265,7 +265,37 @@ void TcpClient::processPacket()
 
 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("PhyshicsLayer")->getChildByName("ObjectLayer");
 				// scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::createHeroStart, dynamic_cast<ObjectLayer*>(layer)));
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UpdatePeer, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, recvData.mPosX, recvData.mPosY));
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UpdateAnimation, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, recvData.mPosX, recvData.mPosY));
+
+			}
+			break;
+		
+			//todo
+
+
+		case PKT_SC_START_GAME:
+			{	
+				StartGameNotify recvData;
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId != -1);
+
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene");
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::removeLoading, dynamic_cast<GameScene*>(layer)));
+			}
+			break;
+
+
+		case PKT_SC_MOVE:
+			{
+							MoveBroadcastResult recvData;
+							bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+							assert(ret && recvData.mPlayerId != -1);
+							
+							
+			auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("PhyshicsLayer")->getChildByName("ObjectLayer");
+			scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UpdateAnimation, dynamic_cast<ObjectLayer*>(layer), recvData.mPlayerId, recvData.mPosX, recvData.mPosY));
+
+
 
 			}
 			break;

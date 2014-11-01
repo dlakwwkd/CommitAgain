@@ -96,11 +96,23 @@ void ObjectLayer::MobAi()
 	}
 }
 
-void ObjectLayer::UpdatePeer(int id, float x, float y)
+void ObjectLayer::UpdateAnimation(int id, float x, float y)
 {
+	//전상태의 스파라이트를 지우고 새로 그리기
+
+
+
+
 	//to do : id에 따른 유닛 생성하기
 
+	//CreateHero({ x, y });
+}
+
+void ObjectLayer::FirstDrawUnit(int id, float x, float y)
+{
 	CreateHero({ x, y });
+
+
 }
 
 

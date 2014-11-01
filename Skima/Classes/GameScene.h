@@ -8,7 +8,10 @@ class GameScene : public Layer
 public:
 	static Scene* createScene();
 	virtual bool init();
-	void popupLoading();
+	//void popupLoading();
+
+	void removeLoading();
+
 	CREATE_FUNC(GameScene);
 
 private:
