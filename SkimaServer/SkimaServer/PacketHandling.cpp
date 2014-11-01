@@ -190,6 +190,23 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 		session->OutGameRoom();
 }
 
+REGISTER_HANDLER(PKT_CS_GAME_READY)
+{
+	GameReadyNotify inPacket;
+	if (false == session->ParsePacket(inPacket))
+	{
+		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+		return;
+	}
+	if (session->GetPlayerId() != inPacket.mPlayerId)
+	{
+		printf("[DEBUG] Player Info error! \n");
+		return;
+	}
+
+	session->OutGameRoom();
+}
+
 
 
 

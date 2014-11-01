@@ -1,10 +1,11 @@
 #pragma once
 #include <map>
+#include "RefCountable.h"
 
 class Game;
 class GameRoom;
 
-class GameManager
+class GameManager : public RefCountable
 {
 public:
 	GameManager() : m_MakeRoomNum(0){}

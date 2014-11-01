@@ -28,7 +28,7 @@ bool ClientSession::OnConnect(SOCKADDR_IN* addr)
 	printf("[DEBUG] Client Connected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port));
 	
 	mConnected = true;
-
+	OnTick();
 	return PostRecv();
 }
 

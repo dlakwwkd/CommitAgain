@@ -148,7 +148,7 @@ unsigned int WINAPI ClientHandlingThread(LPVOID lpParam)
 		GClientManager->FlushClientSend();
 
 		/// APC Queue에 쌓인 작업들 처리
-		SleepEx(1, TRUE);
+		SleepEx(INFINITE, TRUE);
 	}
 
 	CloseHandle(hTimer);
@@ -170,5 +170,4 @@ void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighVa
 
 	LScheduler->DoTasks(); ///< 주기적으로 task 처리
 	GClientManager->OnPeriodWork();
-	GGameManager->UpdateRoomState();
 }

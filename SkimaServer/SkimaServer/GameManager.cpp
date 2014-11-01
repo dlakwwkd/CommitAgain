@@ -1,12 +1,17 @@
 #include "stdafx.h"
 #include "GameManager.h"
 #include "GameRoom.h"
+#include "Scheduler.h"
+#include "Config.h"
 
 GameManager* GGameManager = nullptr;
 
 
 GameRoom* GameManager::CreateRoom()
 {
+	if (m_MakeRoomNum == 0)
+		UpdateRoomState();
+
 	GameRoom* room = new GameRoom(++m_MakeRoomNum);
 
 	if (m_RoomList[m_MakeRoomNum] != nullptr)
@@ -21,8 +26,10 @@ void GameManager::UpdateRoomState()
 {
 	for (auto& it : m_RoomList)
 	{
-		;
+		printf("ddd\n");
 	}
+
+	CallFuncAfter(ROOM_STATE_UPDATE_INTERVAL, this, &GameManager::UpdateRoomState);
 }
 
 int GameManager::SearchRoom()
