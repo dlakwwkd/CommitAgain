@@ -11,7 +11,8 @@ public:
 	GameManager() : m_MakeRoomNum(0){}
 
 	GameRoom*	CreateRoom();
-	int			SearchRoom();
+	GameRoom*	SearchRoom(int roomId);
+	int			SearchEmptyRoom();
 	void		JoinRoom(int playerId, int roomId);
 	void		OutRoom(int playerId, int roomId);
 

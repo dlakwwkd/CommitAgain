@@ -22,21 +22,24 @@ GameRoom* GameManager::CreateRoom()
 	return room;
 }
 
-void GameManager::UpdateRoomState()
-{
-	for (auto& it : m_RoomList)
-	{
-		printf("ddd\n");
-	}
-
-	CallFuncAfter(ROOM_STATE_UPDATE_INTERVAL, this, &GameManager::UpdateRoomState);
-}
-
-int GameManager::SearchRoom()
+GameRoom* GameManager::SearchRoom(int roomId)
 {
 	for (auto& room : m_RoomList)
 	{
-		if (room.second->CheckJoinAble())
+		if (room.first == roomId)
+		{
+			return room.second;
+		}
+	}
+	printf(" - No Room ! \n");
+	return nullptr;
+}
+
+int GameManager::SearchEmptyRoom()
+{
+	for (auto& room : m_RoomList)
+	{
+		if (room.second->IsJoinAble())
 		{
 			return room.second->GetRoomID();
 		}
@@ -68,4 +71,14 @@ void GameManager::OutRoom(int playerId, int roomId)
 		}
 		printf(" - Destroy %d Room ! \n", roomId);
 	}
+}
+
+void GameManager::UpdateRoomState()
+{
+	for (auto& it : m_RoomList)
+	{
+		printf("ddd\n");
+	}
+
+	CallFuncAfter(ROOM_STATE_UPDATE_INTERVAL, this, &GameManager::UpdateRoomState);
 }

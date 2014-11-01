@@ -204,7 +204,24 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 		return;
 	}
 
-	session->OutGameRoom();
+	auto room = GGameManager->SearchRoom(session->GetRoomId());
+	if (room != nullptr)
+	{
+		session->SetReady();
+		room->ReadySign();
+
+		if (room->IsAllReady())
+		{
+			session->AllReadyNotify();
+
+			// 게임 구동 시작!
+		}
+	}
+	else
+	{
+		printf("[DEBUG] Room Info error! \n");
+		return;
+	}
 }
 
 
@@ -346,7 +363,7 @@ void ClientSession::MakeGameRoom(int id)
 
 void ClientSession::JoinGameRoom()
 {
-	auto roomNum = GGameManager->SearchRoom();
+	auto roomNum = GGameManager->SearchEmptyRoom();
 	
 	if (roomNum == -1)
 		return;
@@ -372,5 +389,16 @@ void ClientSession::OutGameRoom()
 
 	printf(" Send:  Out Room ID: %d, Player ID: %d \n", mRoomId, mPlayerId);
 	mRoomId = -1;
+	mIsReady = false;
 }
 
+void ClientSession::AllReadyNotify()
+{
+	GameRunNotify outPacket;
+
+	outPacket.mPlayerId = mPlayerId;
+
+	SendRequest(&outPacket);
+
+	printf(" Send: GameRunNotify Player ID: %d \n", outPacket.mPlayerId);
+}
