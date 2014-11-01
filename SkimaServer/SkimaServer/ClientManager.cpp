@@ -26,6 +26,19 @@ ClientSession* ClientManager::CreateClient(SOCKET sock)
 	return client;
 }
 
+ClientSession* ClientManager::GetClient(int playerId)
+{
+	for (auto& client : mClientList)
+	{
+		if (client.second->GetPlayerId() == playerId)
+		{
+			return client.second;
+		}
+	}
+	return nullptr;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////
 /*
 	연결된 모든 클라의 출력버퍼에 동일한 패킷을 적재하는 함수
@@ -43,6 +56,7 @@ void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 			continue;
 
 		client->SendRequest(pkt);
+		printf(" Send: UnitInfo Player ID: %d \n", from->mPlayerId);
 	}
 }
 
