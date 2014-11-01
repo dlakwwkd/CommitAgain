@@ -369,7 +369,19 @@ void TcpClient::outRoomRequest(int roomId)
 	send((const char*)&sendData, sizeof(InOutRoomRequest));
 }
 
+void TcpClient::startGameRequest()
+{
+	if (mLoginId < 0)
+		return;
 
+	GameReadyNotify sendData;
+
+	sendData.mPlayerId = mLoginId;
+
+	send((const char*)&sendData, sizeof(GameReadyNotify));
+
+
+}
 // 
 // void TcpClient::createRequest(int unitID, float x, float y)
 // {
@@ -414,19 +426,7 @@ void TcpClient::chatRequest(const char* chat)
 	send((const char*)&sendData, sizeof(ChatBroadcastRequest));
 }
 
- void TcpClient::startGameRequest()
- {
-	if (mLoginId < 0)
-		return;
- 
-	GameReadyNotify sendData;
-	
-	sendData.mPlayerId = mLoginId;
-	
-	send((const char*)&sendData, sizeof(GameReadyNotify));
- 
- 
- }
+
 
  void TcpClient::meReadyRequest()
  {
