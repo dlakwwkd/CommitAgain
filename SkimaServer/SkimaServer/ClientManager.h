@@ -14,6 +14,7 @@ public:
 	{}
 
 	ClientSession* CreateClient(SOCKET sock);
+	ClientSession* GetClient(int playerId);
 
 	void BroadcastPacket(ClientSession* from, PacketHeader* pkt);
 

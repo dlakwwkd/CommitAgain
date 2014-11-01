@@ -45,6 +45,11 @@ struct N_Point
 	float x, y;
 };
 
+enum UnitType
+{
+	TYPE_NONE
+};
+
 enum PacketTypes
 {
 	PKT_NONE = 0,
@@ -217,13 +222,15 @@ struct CreateHeroResult : public PacketHeader
 		mType = PKT_SC_CREATE_HERO;
 		mPlayerId = -1;
 		mUnitId = -1;
+		mUnitType = TYPE_NONE;
 		mPosX = 0;
 		mPosY = 0;
 	}
-	int		mPlayerId;
-	int		mUnitId;
-	float	mPosX;
-	float	mPosY;
+	int			mPlayerId;
+	int			mUnitId;
+	UnitType	mUnitType;
+	float		mPosX;
+	float		mPosY;
 };
 
 
@@ -312,12 +319,16 @@ struct MoveBroadcastResult : public PacketHeader
 		mSize = sizeof(MoveBroadcastResult);
 		mType = PKT_SC_MOVE;
 		mPlayerId = -1;
+		mUnitId = -1;
+		mUnitType = TYPE_NONE;
 		mPosX = 0;
 		mPosY = 0;
 	}
-	int		mPlayerId;
-	float	mPosX;
-	float	mPosY;
+	int			mPlayerId;
+	int			mUnitId;
+	UnitType	mUnitType;
+	float		mPosX;
+	float		mPosY;
 };
 
 

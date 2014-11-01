@@ -215,6 +215,7 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 			session->AllReadyNotify();
 
 			// 게임 구동 시작!
+			GGameManager->CreateGame(session->GetRoomId());
 		}
 	}
 	else
@@ -401,4 +402,36 @@ void ClientSession::AllReadyNotify()
 	SendRequest(&outPacket);
 
 	printf(" Send: GameRunNotify Player ID: %d \n", outPacket.mPlayerId);
+}
+
+void ClientSession::SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 pos)
+{
+	CreateHeroResult outPacket;
+
+	outPacket.mPlayerId = mPlayerId;
+	outPacket.mUnitId = unitId;
+	outPacket.mUnitType = unitType;
+	outPacket.mPosX = pos.x;
+	outPacket.mPosY = pos.y;
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+}
+
+void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 pos)
+{
+	MoveBroadcastResult outPacket;
+
+	outPacket.mPlayerId = mPlayerId;
+	outPacket.mUnitId = unitId;
+	outPacket.mUnitType = unitType;
+	outPacket.mPosX = pos.x;
+	outPacket.mPosY = pos.y;
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
 }

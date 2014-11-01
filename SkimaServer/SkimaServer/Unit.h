@@ -1,28 +1,26 @@
 #pragma once
 #include "..\..\PacketType.h"
 
-enum UnitType
-{
-	TYPE_NONE
-};
-
 class Unit
 {
 public:
-	Unit();
+	Unit(b2Vec2 pos);
 	~Unit();
 
 public:
-	N_Point		GetCurrentPos(){ return mCurrentPos; }
+	int			GetUnitID(){ return m_ID; }
+	UnitType	GetUnitType(){ return m_Type; }
+	b2Vec2		GetCurrentPos(){ return m_CurrentPos; }
+	b2Vec2		GetTargetPos(){ return m_TargetPos; }
 	void		SetCurrentPos();
-	N_Point		GetTargetPos(){ return mTargetPos; }
 	void		SetTargetPos();
-	UnitType	GetUnitType(){ return mType; }
 
 private:
-	N_Point		mCurrentPos;
-	N_Point		mTargetPos;
-	UnitType	mType;
-	int			speed;
+	int			m_ID;
+	UnitType	m_Type;
+
+	int			m_Speed;
+	b2Vec2		m_CurrentPos;
+	b2Vec2		m_TargetPos;
 };
 
