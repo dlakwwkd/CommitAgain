@@ -334,24 +334,29 @@ void TcpClient::outRoomRequest(int roomId)
 
 
 
-void TcpClient::createRequest(int unitID, float x, float y)
-{
-	if (mLoginId < 0)
-		return;
-
-	CreateHeroRequest sendData;
-	sendData.mPlayerId = mLoginId;
-	sendData.mUnitId = unitID;
-	sendData.mPosX = x;
-	sendData.mPosY = y;
-
-	send((const char*)&sendData, sizeof(CreateHeroRequest));
-
-}
 
 
 
 
+
+
+
+
+// 
+// void TcpClient::createRequest(int unitID, float x, float y)
+// {
+// 	if (mLoginId < 0)
+// 		return;
+// 
+// 	CreateHeroRequest sendData;
+// 	sendData.mPlayerId = mLoginId;
+// 	sendData.mUnitId = unitID;
+// 	sendData.mPosX = x;
+// 	sendData.mPosY = y;
+// 
+// 	send((const char*)&sendData, sizeof(CreateHeroRequest));
+// 
+// }
 
 void TcpClient::moveRequest(float x, float y)
 {

@@ -7,7 +7,7 @@ class GameRoom;
 class GameManager
 {
 public:
-	GameManager() : m_RoomNum(0){}
+	GameManager() : m_MakeRoomNum(0){}
 
 	GameRoom*	CreateRoom();
 	int			SearchRoom();
@@ -22,7 +22,7 @@ private:
 	GameList	m_GameList;
 	RoomList	m_RoomList;
 
-	int			m_RoomNum;
+	int			m_MakeRoomNum;
 };
 
 extern GameManager* GGameManager;

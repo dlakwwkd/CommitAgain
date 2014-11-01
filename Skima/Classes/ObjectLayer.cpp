@@ -101,8 +101,10 @@ void ObjectLayer::UpdatePeer(int id, float x, float y)
 	CreateHero({ x, y });
 }
 
-void ObjectLayer::CreateHeroStart()
-{
-	int playerID = 1110;
-	TcpClient::getInstance()->createRequest(150, 200, 200);
-}
+
+// 
+// void ObjectLayer::CreateHeroStart()
+// {
+// 	int playerID = 1110;
+// 	TcpClient::getInstance()->createRequest(150, 200, 200);
+// }

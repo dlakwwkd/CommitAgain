@@ -16,20 +16,26 @@ enum PacketTypes
 	PKT_SC_MAKE_ROOM = 12,
 	PKT_CS_INOUT_ROOM = 13,
 	PKT_SC_INOUT_ROOM = 14,
+	PKT_CS_GAME_READY = 15,
+	PKT_SC_ALL_READY = 16,
 
-	PKT_CS_PLAY_GAME = 21,
-	PKT_SC_PLAY_GAME = 22,
-	PKT_CS_OUT_GAME = 23,
-	PKT_SC_OUT_GAME = 24,
+	///////////////
+	// SC로만 로딩 정보 전달(맵, 유닛 등) 
+	PKT_SC_CREATE_MAP = 21,
+	PKT_SC_CREATE_HERO = 22,
+	///////////////
 
-	PKT_CS_START_GAME = 31,
-	PKT_SC_START_GAME = 32,
+	PKT_SC_RUN_COMPLETE = 31,
+	PKT_CS_RUN_COMPLETE = 32,
 
-	PKT_CS_CREATE_HERO = 41,
-	PKT_SC_CREATE_HERO = 42,
+	PKT_SC_START_GAME = 33,
 
-	PKT_CS_MOVE = 51,
-	PKT_SC_MOVE = 52,
+	PKT_CS_OUT_GAME = 34,
+	PKT_SC_OUT_GAME = 35,
+
+
+	PKT_CS_MOVE = 41,
+	PKT_SC_MOVE = 42,
 
 	PKT_CS_CHAT = 91,
 	PKT_SC_CHAT = 92,
@@ -77,7 +83,7 @@ struct LoginResult : public PacketHeader
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	게임 대기방, 게임 실행 관련
+	게임 대기방 관련
 	*/
 ///////////////////////////////////////////////////////////////////////////
 struct MakeRoomRequest : public PacketHeader
@@ -133,59 +139,41 @@ struct InOutRoomResult : public PacketHeader
 	bool	mIsIn;
 };
 
-struct StartGameRequest : public PacketHeader
-{
-	StartGameRequest()
-	{
-		mSize = sizeof(StartGameRequest);
-		mType = PKT_CS_START_GAME;
-		mPlayerId = -1;
-		mIsEnd = false;
-	}
-	int		mPlayerId;
-	bool	mIsEnd;
-};
-struct StartGameResult : public PacketHeader
-{
-	StartGameResult()
-	{
-		mSize = sizeof(StartGameRequest);
-		mType = PKT_CS_START_GAME;
-		mPlayerId = -1;
-		mIsEnd = false;
-	}
-	int		mPlayerId;
-	bool	mIsEnd;
-};
-
 
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	게임 내 유닛 관련
+	게임 로딩, 구동 관련
 	*/
 ///////////////////////////////////////////////////////////////////////////
-struct CreateHeroRequest : public PacketHeader
+struct GameReadyNotify : public PacketHeader
 {
-	CreateHeroRequest()
+	GameReadyNotify()
 	{
-		mSize = sizeof(CreateHeroRequest);
-		mType = PKT_CS_CREATE_HERO;
+		mSize = sizeof(GameReadyNotify);
+		mType = PKT_CS_GAME_READY;
 		mPlayerId = -1;
-		mUnitId = -1;
-		mPosX = 0;
-		mPosY = 0;
 	}
 	int		mPlayerId;
-	int		mUnitId;
-	float	mPosX;
-	float	mPosY;
 };
+struct GameRunNotify : public PacketHeader
+{
+	GameRunNotify()
+	{
+		mSize = sizeof(GameRunNotify);
+		mType = PKT_SC_ALL_READY;
+		mPlayerId = -1;
+	}
+	int		mPlayerId;
+};
+
+//////////////////////////////////////////////////////////////////////////
+// 로딩 관련 데이터 전송
 struct CreateHeroResult : public PacketHeader
 {
 	CreateHeroResult()
 	{
-		mSize = sizeof(CreateHeroRequest);
+		mSize = sizeof(CreateHeroResult);
 		mType = PKT_SC_CREATE_HERO;
 		mPlayerId = -1;
 		mUnitId = -1;
@@ -199,7 +187,70 @@ struct CreateHeroResult : public PacketHeader
 };
 
 
+//////////////////////////////////////////////////////////////////////////
 
+struct ServerRunComplete : public PacketHeader
+{
+	ServerRunComplete()
+	{
+		mSize = sizeof(ServerRunComplete);
+		mType = PKT_SC_RUN_COMPLETE;
+		mPlayerId = -1;
+	}
+	int		mPlayerId;
+};
+struct ClientRunComplete : public PacketHeader
+{
+	ClientRunComplete()
+	{
+		mSize = sizeof(ClientRunComplete);
+		mType = PKT_CS_RUN_COMPLETE;
+		mPlayerId = -1;
+	}
+	int		mPlayerId;
+};
+
+struct StartGame : public PacketHeader
+{
+	StartGame()
+	{
+		mSize = sizeof(StartGame);
+		mType = PKT_SC_START_GAME;
+		mPlayerId = -1;
+	}
+	int		mPlayerId;
+};
+
+
+
+struct OutGameNotify : public PacketHeader
+{
+	OutGameNotify()
+	{
+		mSize = sizeof(OutGameNotify);
+		mType = PKT_CS_OUT_GAME;
+		mPlayerId = -1;
+	}
+	int		mPlayerId;
+};
+struct OutGameResult : public PacketHeader
+{
+	OutGameResult()
+	{
+		mSize = sizeof(OutGameResult);
+		mType = PKT_SC_OUT_GAME;
+		mPlayerId = -1;
+	}
+	int		mPlayerId;
+};
+
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	게임 내 유닛 관련
+	*/
+///////////////////////////////////////////////////////////////////////////
 struct MoveRequest : public PacketHeader
 {
 	MoveRequest()
@@ -228,6 +279,7 @@ struct MoveBroadcastResult : public PacketHeader
 	float	mPosX;
 	float	mPosY;
 };
+
 
 
 ///////////////////////////////////////////////////////////////////////////

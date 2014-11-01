@@ -19,7 +19,7 @@ public:
 	void MobAi();
 
 	void UpdatePeer(int id, float x, float y);
-	void CreateHeroStart();
+	//void CreateHeroStart();
 
 
 protected:

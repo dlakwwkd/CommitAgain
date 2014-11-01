@@ -205,38 +205,38 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 
 
 
-
-
-REGISTER_HANDLER(PKT_CS_CREATE_HERO)
-{
-	CreateHeroRequest inPacket;
-	if (false == session->ParsePacket(inPacket))
-	{
-		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
-		return;
-	}
-
-	printf("\n haveID: %d \n recvID: %d \n", session->GetPlayerId(), inPacket.mPlayerId);
-
-	if (inPacket.mPlayerId != session->GetPlayerId())
-	{
-		printf("[DEBUG] PKT_CS_CREATE_HERO: invalid player ID", session->GetPlayerId());
-		return;
-	}
-
-	CreateHeroResult outPacket;
-	outPacket.mPlayerId = inPacket.mPlayerId;
-	outPacket.mUnitId = inPacket.mUnitId;
-	outPacket.mPosX = inPacket.mPosX;
-	outPacket.mPosY = inPacket.mPosY;
-
-	if (!session->Broadcast(&outPacket))
-	{
-		session->Disconnect();
-	}
-}
-
-
+// 
+// 
+// REGISTER_HANDLER(PKT_CS_CREATE_HERO)
+// {
+// 	CreateHeroRequest inPacket;
+// 	if (false == session->ParsePacket(inPacket))
+// 	{
+// 		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
+// 		return;
+// 	}
+// 
+// 	printf("\n haveID: %d \n recvID: %d \n", session->GetPlayerId(), inPacket.mPlayerId);
+// 
+// 	if (inPacket.mPlayerId != session->GetPlayerId())
+// 	{
+// 		printf("[DEBUG] PKT_CS_CREATE_HERO: invalid player ID", session->GetPlayerId());
+// 		return;
+// 	}
+// 
+// 	CreateHeroResult outPacket;
+// 	outPacket.mPlayerId = inPacket.mPlayerId;
+// 	outPacket.mUnitId = inPacket.mUnitId;
+// 	outPacket.mPosX = inPacket.mPosX;
+// 	outPacket.mPosY = inPacket.mPosY;
+// 
+// 	if (!session->Broadcast(&outPacket))
+// 	{
+// 		session->Disconnect();
+// 	}
+// }
+// 
+// 
 
 
 

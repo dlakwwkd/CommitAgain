@@ -7,12 +7,12 @@ GameManager* GGameManager = nullptr;
 
 GameRoom* GameManager::CreateRoom()
 {
-	GameRoom* room = new GameRoom(++m_RoomNum);
+	GameRoom* room = new GameRoom(++m_MakeRoomNum);
 
-	if (m_RoomList[m_RoomNum] != nullptr)
-		delete m_RoomList[m_RoomNum];
+	if (m_RoomList[m_MakeRoomNum] != nullptr)
+		delete m_RoomList[m_MakeRoomNum];
 
-	m_RoomList[m_RoomNum] = room;
+	m_RoomList[m_MakeRoomNum] = room;
 
 	return room;
 }
@@ -34,7 +34,7 @@ int GameManager::SearchRoom()
 			return room.second->GetRoomID();
 		}
 	}
-	printf(" No Room!!!!!!!!! \n");
+	printf(" No Room!!!!!!!!!");
 	return -1;
 }
 
