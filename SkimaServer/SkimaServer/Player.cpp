@@ -13,7 +13,7 @@ Player::~Player()
 	delete mUnit;
 }
 
-void Player::UnitMove(Point currentPos, Point targetPos, int speed)
+void Player::UnitMove(N_Point currentPos, N_Point targetPos, int speed)
 {
 
 }

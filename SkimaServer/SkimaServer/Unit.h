@@ -13,15 +13,15 @@ public:
 	~Unit();
 
 public:
-	Point		GetCurrentPos(){ return mCurrentPos; }
+	N_Point		GetCurrentPos(){ return mCurrentPos; }
 	void		SetCurrentPos();
-	Point		GetTargetPos(){ return mTargetPos; }
+	N_Point		GetTargetPos(){ return mTargetPos; }
 	void		SetTargetPos();
 	UnitType	GetUnitType(){ return mType; }
 
 private:
-	Point		mCurrentPos;
-	Point		mTargetPos;
+	N_Point		mCurrentPos;
+	N_Point		mTargetPos;
 	UnitType	mType;
 	int			speed;
 };
