@@ -189,32 +189,32 @@ struct CreateHeroResult : public PacketHeader
 
 //////////////////////////////////////////////////////////////////////////
 
-struct ServerRunComplete : public PacketHeader
+struct ServerRunCompleteNotify : public PacketHeader
 {
-	ServerRunComplete()
+	ServerRunCompleteNotify()
 	{
-		mSize = sizeof(ServerRunComplete);
+		mSize = sizeof(ServerRunCompleteNotify);
 		mType = PKT_SC_RUN_COMPLETE;
 		mPlayerId = -1;
 	}
 	int		mPlayerId;
 };
-struct ClientRunComplete : public PacketHeader
+struct ClientRunCompleteNotify : public PacketHeader
 {
-	ClientRunComplete()
+	ClientRunCompleteNotify()
 	{
-		mSize = sizeof(ClientRunComplete);
+		mSize = sizeof(ClientRunCompleteNotify);
 		mType = PKT_CS_RUN_COMPLETE;
 		mPlayerId = -1;
 	}
 	int		mPlayerId;
 };
 
-struct StartGame : public PacketHeader
+struct StartGameNotify : public PacketHeader
 {
-	StartGame()
+	StartGameNotify()
 	{
-		mSize = sizeof(StartGame);
+		mSize = sizeof(StartGameNotify);
 		mType = PKT_SC_START_GAME;
 		mPlayerId = -1;
 	}
@@ -223,11 +223,11 @@ struct StartGame : public PacketHeader
 
 
 
-struct OutGameNotify : public PacketHeader
+struct OutGameRequest : public PacketHeader
 {
-	OutGameNotify()
+	OutGameRequest()
 	{
-		mSize = sizeof(OutGameNotify);
+		mSize = sizeof(OutGameRequest);
 		mType = PKT_CS_OUT_GAME;
 		mPlayerId = -1;
 	}
