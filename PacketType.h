@@ -5,6 +5,46 @@
 #define MAX_NAME_LEN	30
 #define MAX_COMMENT_LEN	40
 
+
+struct Point
+{
+	Point()
+	{
+
+	}
+	Point(float _x, float _y)
+	{
+		x = _x, y = _y;
+	}
+	Point operator+(const Point& point) const{
+		return Point(x + point.x, y + point.y);
+	}
+	Point operator-(const Point& point) const{
+		return Point(x + point.x, y + point.y);
+	}
+	Point operator*(float n) const{
+		return Point(x*n, y*n);
+	}
+	bool operator!=(const Point& point) const{
+		if (x == point.x && y == point.y)
+			return false;
+		return true;
+	}
+	bool operator==(const Point& point) const{
+		if (x == point.x && y == point.y)
+			return true;
+		return false;
+	}
+	float Distance(const Point& aPoint, const Point& bPoint) const {
+		return (float)pow(pow(aPoint.x - bPoint.x, 2) + pow(aPoint.y - bPoint.y, 2), 0.5);
+	}
+	Point Rotate(Point point, float angle) const {
+		return Point(point.x * cos(angle) - point.y * sin(angle),
+			point.x * sin(angle) + point.y * cos(angle));
+	}
+	float x, y;
+};
+
 enum PacketTypes
 {
 	PKT_NONE = 0,
