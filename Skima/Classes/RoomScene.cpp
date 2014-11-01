@@ -31,6 +31,14 @@ bool RoomScene::init()
 	menu->alignItemsVertically();
 	this->addChild(menu, 0, "RoomMenu");
 
+
+	auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
+	label->setAnchorPoint(Point::ZERO);
+	label->setHorizontalAlignment(TextHAlignment::CENTER);
+	this->addChild(label, 0, "RoomStateLabel");
+
+	// 1초 마다 Tick 함수를 호출한다.
+	this->schedule(schedule_selector(RoomScene::Tick), 1.0f);
 	return true;
 }
 
@@ -48,22 +56,28 @@ void RoomScene::menuCallback1(Ref* sender)
 }
 void RoomScene::menuCallback2(Ref* sender)
 {
-	if (TcpClient::getInstance()->checkSocket() == NULL)
-		return;
-
-	TcpClient::getInstance()->outRoomRequest(m_RoomID);
+	if (TcpClient::getInstance()->checkSocket() != NULL)
+		TcpClient::getInstance()->outRoomRequest(m_RoomID);
 
 	Director::getInstance()->popScene();
 }
 
 
-void RoomScene::makeRoomComplete(int roomId)
+//////////////////////////////////////////////////////////////////////////
+void RoomScene::Tick(float dt)
 {
-	m_RoomID = roomId;
+	auto label = dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"));
+	if (label == nullptr)
+		return;
 
-	CCLOG("room!!!!!!!!!!!");
-
+	// 방 번호를 문자열로 변환 후 라벨에 적용
+	char buf[32];
+	_itoa(m_RoomID, buf, 32);
+	std::string roomNum = buf;
+	roomNum += "번 방";
+	label->setString(roomNum.c_str());
 }
+//////////////////////////////////////////////////////////////////////////
 
 void RoomScene::gameStartComplete()
 {

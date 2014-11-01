@@ -35,6 +35,8 @@ bool NetworkScene::init()
 	menu->alignItemsVertically();
 	this->addChild(menu, 0, "NetworkMenu");
 
+	// 3초 마다 Tick 함수를 호출한다.
+	this->schedule(schedule_selector(NetworkScene::Tick), 3.0f);
 	return true;
 }
 
@@ -48,7 +50,7 @@ void NetworkScene::menuCallback0(Ref* sender)
 		this->removeChildByName("ConnectLabel");
 	}
 
-	auto label = Label::createWithSystemFont("접속 중......", "Thonburi", 50);
+	auto label = Label::createWithSystemFont("서버에 접속 중......", "Thonburi", 50);
 	label->setAnchorPoint(Point::ZERO);
 	label->setHorizontalAlignment(TextHAlignment::CENTER);
 	this->addChild(label, 0, "ConnectLabel");
@@ -56,7 +58,7 @@ void NetworkScene::menuCallback0(Ref* sender)
 	if (TcpClient::getInstance()->connect() == false)
 	{
 		TcpClient::getInstance()->disconnect();
-		label->setString("연결 실패.");
+		label->setString("서버 연결 실패.");
 		return;
 	}
 
@@ -99,7 +101,6 @@ void NetworkScene::menuCallback2(Ref* sender)
 	this->addChild(label, 0, "ConnectLabel");
 
 	TcpClient::getInstance()->joinRoomRequest();
-	
 }
 
 void NetworkScene::menuCallback3(Ref* sender)
@@ -109,29 +110,57 @@ void NetworkScene::menuCallback3(Ref* sender)
 }
 
 
+//////////////////////////////////////////////////////////////////////////
+void NetworkScene::Tick(float dt)
+{
+	if (TcpClient::getInstance()->checkSocket() == NULL)
+	{
+		if (this->getChildByName("ConnectLabel") != nullptr)
+		{
+			auto label = dynamic_cast<Label*>(this->getChildByName("ConnectLabel"));
+			label->setString("서버 연결 끊김.");
+		}
+	}
+	else
+	{
+		auto label = dynamic_cast<Label*>(this->getChildByName("ConnectLabel"));
+		if (label == nullptr)
+			return;
+		label->setString("서버 연결 양호.");
+	}
+}
+//////////////////////////////////////////////////////////////////////////
+
+
+
 void NetworkScene::ConnectComplete()
 {
 	auto label = dynamic_cast<Label*>(this->getChildByName("ConnectLabel"));
 	if (label == nullptr)
 		return;
-	label->setString("접속 완료.");
+	label->setString("서버 연결 양호.");
 }
 
 void NetworkScene::MakeRoomComplete(int roomId)
 {
+	auto label = dynamic_cast<Label*>(this->getChildByName("ConnectLabel"));
+	if (label != nullptr)
+		label->setString("서버 연결 양호.");
+
 	auto scene = RoomScene::createScene();
 	auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
-
 	layer->SetRoomID(roomId);
 	Director::getInstance()->pushScene(scene);
 }
 
 void NetworkScene::JoinRoomComplete(int roomId)
 {
+	auto label = dynamic_cast<Label*>(this->getChildByName("ConnectLabel"));
+	if (label != nullptr)
+		label->setString("서버 연결 양호.");
+	
 	auto scene = RoomScene::createScene();
 	auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
-
 	layer->SetRoomID(roomId);
 	Director::getInstance()->pushScene(scene);
 }
-

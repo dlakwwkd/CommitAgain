@@ -32,6 +32,7 @@ bool PhysicsLayer::init()
 	return true;
 }
 
+//////////////////////////////////////////////////////////////////////////
 void PhysicsLayer::Tick(float dt)
 {
 	UpdateKeyInput();
@@ -39,6 +40,7 @@ void PhysicsLayer::Tick(float dt)
 	auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
 	child->MobAi();
 }
+//////////////////////////////////////////////////////////////////////////
 
 
 void PhysicsLayer::OnMouseDown(Event *event)

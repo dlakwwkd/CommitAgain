@@ -15,6 +15,8 @@ public:
 	void menuCallback2(Ref* sender);
 	void menuCallback3(Ref* sender);
 
+	void Tick(float dt);
+
 	void ConnectComplete();
 	void MakeRoomComplete(int roomId);
 	void JoinRoomComplete(int roomId);

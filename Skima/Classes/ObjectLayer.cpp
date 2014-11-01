@@ -23,6 +23,7 @@ bool ObjectLayer::init()
 	return true;
 }
 
+//////////////////////////////////////////////////////////////////////////
 void ObjectLayer::Tick(float dt)
 {
 	if (m_Hero == nullptr)
@@ -39,6 +40,7 @@ void ObjectLayer::Tick(float dt)
 		b->GetSprite()->setZOrder(-b->GetSprite()->getPosition().y);
 	}
 }
+//////////////////////////////////////////////////////////////////////////
 
 void ObjectLayer::UnitMove(Point p)
 {
