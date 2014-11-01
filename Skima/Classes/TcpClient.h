@@ -29,11 +29,15 @@ public:
 
 
 
-	//무쓸모
+	//무쓸모//////////
 	void createRequest(int unitID, float x, float y);
-
+	//////////////////
+	
 	void moveRequest(float x, float y);
 	void chatRequest(const char* chat);
+
+	void meReadyRequest(); //이름 체인지 + bool값 인자
+
 
 private:
 	TcpClient();

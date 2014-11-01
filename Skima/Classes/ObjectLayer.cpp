@@ -54,11 +54,16 @@ void ObjectLayer::UnitMove(Point p)
 // 	m_Hero->getBody()->setVelocity(vect);
 }
 
-void ObjectLayer::CreateHero(Point location)
+void ObjectLayer::CreateHero(int unitID, Point location) // unitID를 넘어오는 playerID라 가정
 {
 	std::shared_ptr<Unit> unit(new Unit("Images/SpookyPeas.png", CIRCLE, location, 1.0f));
-	m_Hero = unit;
-	m_Hero->GetBody()->setVelocityLimit(100);
+	
+	unit->SetUnitID(unitID);
+	m_HeroList.push_back(unit);
+	
+
+	//m_Hero->GetBody()->setVelocityLimit(100);
+	
 	this->addChild(m_Hero->GetSprite());
 }
 
@@ -96,11 +101,29 @@ void ObjectLayer::MobAi()
 	}
 }
 
+void ObjectLayer::FirstDrawUnit(int id, float x, float y)
+{
+	CreateHero(id, { x, y });
+
+
+}
 void ObjectLayer::UpdateAnimation(int id, float x, float y)
 {
-	//전상태의 스파라이트를 지우고 새로 그리기
+	
+	//유닛을 찾고
+	for (auto& unit : m_HeroList)
+	{
+		if (unit->GetUnitID() == id){
+			unit->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
+			unit->GetSprite()->setPosition(Point(x, y));
 
+			//return;
+		}
+	}
+	
+	//CCLOG("그릴 유닛이 없음");
 
+	//그 해당 유닛을 이동시키기
 
 
 	//to do : id에 따른 유닛 생성하기
@@ -108,12 +131,9 @@ void ObjectLayer::UpdateAnimation(int id, float x, float y)
 	//CreateHero({ x, y });
 }
 
-void ObjectLayer::FirstDrawUnit(int id, float x, float y)
-{
-	CreateHero({ x, y });
 
 
-}
+
 
 
 // 

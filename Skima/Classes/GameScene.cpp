@@ -1,25 +1,36 @@
 #include "GameScene.h"
 #include "PhysicsLayer.h"
 #include "LoadingBGLayer.h"
+#include "MapLayer.h"
+#include "ObjectLayer.h"
 //#include "UILayer.h"
 
 Scene* GameScene::createScene()
 {
-	auto scene = Scene::createWithPhysics();
+	
+ 	auto scene = Scene::createWithPhysics();
+
+	//수정필요
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_NONE);
-	scene->getPhysicsWorld()->setGravity(Vect::ZERO);
+ 	scene->getPhysicsWorld()->setGravity(Vect::ZERO);
 
 	auto layer = GameScene::create();
-	auto layer2 = PhysicsLayer::create();
-	auto loadingBGLayer = LoadingBGLayer::create();
-	
 
-	layer2->SetPhyWorld(scene->getPhysicsWorld());
+	auto physLayer = PhysicsLayer::create();
+	//	auto mapLayer = MapLayer::create();
+	//	auto objectLayer = ObjectLayer::create();
+
+	auto loadingBGLayer = LoadingBGLayer::create();
+
+//	layer2->SetPhyWorld(scene->getPhysicsWorld());
+
+	//수정필요
 
 	
 	scene->addChild(layer, 0, "GameScene");
 	layer->addChild(loadingBGLayer, 5, "LoadingBGLayer");
-	layer->addChild(layer2, 0, "PhyshicsLayer");
+// 	layer->addChild(mapLayer, 0, "MapLayer");
+// 	layer->addChild(objectLayer, 1, "ObjectLayer");
 
 	return scene;
 }

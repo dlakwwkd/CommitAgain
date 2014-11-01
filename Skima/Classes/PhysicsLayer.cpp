@@ -29,6 +29,9 @@ bool PhysicsLayer::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(K_listener, this);
 
 	this->schedule(schedule_selector(PhysicsLayer::Tick));
+
+	
+
 	return true;
 }
 
@@ -47,14 +50,21 @@ void PhysicsLayer::OnMouseDown(Event *event)
 {
 	auto button = ((EventMouse*)event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, true);
+	float x, y;
 
 	switch (button)
 	{
 	case MOUSE_BUTTON_LEFT:
 		break;
 	case MOUSE_BUTTON_RIGHT:
-		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-		child->UnitMove(GET_IM->GetMouseLocation());
+// 		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
+// 		child->UnitMove(GET_IM->GetMouseLocation());
+				
+		 x = GET_IM->GetMouseLocation().x;
+		 y = GET_IM->GetMouseLocation().y;
+
+		TcpClient::getInstance()->moveRequest(x,y);
+		
 		break;
 	}
 }
@@ -78,6 +88,7 @@ void PhysicsLayer::OnMouseMove(Event *event)
 		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
 		child->AddNewSpriteAtPosition(GET_IM->GetMouseLocation());
 	}
+	
 }
 
 

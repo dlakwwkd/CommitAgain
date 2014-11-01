@@ -8,7 +8,7 @@ bool LoadingBGLayer::init()
 		return false;
 	}
 
-	Size winSize = Director::getInstance()->getWinSize(); //사이즈 지정
+	auto winSize = Director::getInstance()->getWinSize(); //사이즈 지정
 
 	auto loadingLabel = Label::createWithSystemFont("로딩중...", "Thonburi", 50, Size(250,150), TextHAlignment::LEFT);
 
