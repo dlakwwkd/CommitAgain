@@ -4,10 +4,10 @@
 
 USING_NS_CC;
 
-class Unit
+class MultiUnit
 {
 public:
-	Unit(const std::string& filename, BodyShape shape, Point createPos, float scale);
+	MultiUnit(const std::string& filename, BodyShape shape, Point createPos, float scale);
 
 	Sprite*			GetSprite(){ return m_Sprite; }
 	PhysicsBody*	GetBody(){ return m_Body; }

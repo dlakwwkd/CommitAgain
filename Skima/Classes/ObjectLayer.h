@@ -15,17 +15,19 @@ public:
 
 	void UnitMove(Point p);
 	void AddNewSpriteAtPosition(Point p);
-	void CreateHero(Point location);
+	void CreateHero(int unitID, Point location);
+	
 	void MobAi();
 
-	void UpdatePeer(int id, float x, float y);
+	void FirstDrawUnit(int id, float x, float y);
+	void UpdateAnimation(int id, float x, float y);
 	//void CreateHeroStart();
 
 
 protected:
 	std::shared_ptr<Unit>				m_Hero;
 	std::vector<std::shared_ptr<Unit>>	m_MobList;
-
+	std::vector<std::shared_ptr<Unit>>	m_HeroList;
 
 };
 

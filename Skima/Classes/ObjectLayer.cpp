@@ -32,13 +32,13 @@ void ObjectLayer::Tick(float dt)
 	}
 	
 
-	m_Hero->Movement();
-	m_Hero->GetSprite()->setZOrder(-m_Hero->GetSprite()->getPosition().y);
-	for (auto& b : m_MobList)
-	{
-		b->Movement();
-		b->GetSprite()->setZOrder(-b->GetSprite()->getPosition().y);
-	}
+// 	m_Hero->Movement();
+// 	m_Hero->GetSprite()->setZOrder(-m_Hero->GetSprite()->getPosition().y);
+// 	for (auto& b : m_MobList)
+// 	{
+// 		b->Movement();
+// 		b->GetSprite()->setZOrder(-b->GetSprite()->getPosition().y);
+// 	}
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -54,11 +54,16 @@ void ObjectLayer::UnitMove(Point p)
 // 	m_Hero->getBody()->setVelocity(vect);
 }
 
-void ObjectLayer::CreateHero(Point location)
+void ObjectLayer::CreateHero(int unitID, Point location) // unitID를 넘어오는 playerID라 가정
 {
 	std::shared_ptr<Unit> unit(new Unit("Images/SpookyPeas.png", CIRCLE, location, 1.0f));
-	m_Hero = unit;
-	m_Hero->GetBody()->setVelocityLimit(100);
+	
+	unit->SetUnitID(unitID);
+	m_HeroList.push_back(unit);
+	
+
+	//m_Hero->GetBody()->setVelocityLimit(100);
+	
 	this->addChild(m_Hero->GetSprite());
 }
 
@@ -96,10 +101,31 @@ void ObjectLayer::MobAi()
 	}
 }
 
-void ObjectLayer::UpdatePeer(int id, float x, float y)
+void ObjectLayer::FirstDrawUnit(int id, float x, float y)
 {
-	CreateHero({ x, y });
+	CreateHero(id, { x, y });
+
+
 }
+void ObjectLayer::UpdateAnimation(int id, float x, float y)
+{
+	
+	//유닛을 찾고
+	for (auto& unit : m_HeroList)
+	{
+		if (unit->GetUnitID() == id){
+			unit->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
+			unit->GetSprite()->setPosition(Point(x, y));
+
+			//return;
+		}
+	}
+
+}
+
+
+
+
 
 
 // 

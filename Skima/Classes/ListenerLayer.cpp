@@ -1,34 +1,32 @@
-#include "PhysicsLayer.h"
+#include "ListenerLayer.h"
 #include "MapLayer.h"
 #include "ObjectLayer.h"
 #include "GameManager.h"
 
 
-
-bool PhysicsLayer::init()
+bool ListenerLayer::init()
 {
 	if (!Layer::init())
 	{
 		return false;
 	}
-
-	auto layer1 = MapLayer::create();
-	this->addChild(layer1, 0, "MapLayer");
-	auto layer2 = ObjectLayer::create();
-	this->addChild(layer2, 1, "ObjectLayer");
-
+	auto mapLayer = MapLayer::create();
+	auto objectlayer = ObjectLayer::create();
+	this->addChild(mapLayer, 0,"MapLayer");
+	this->addChild(objectlayer, 1,"ObjectLayer");
+	
 	auto MouseListener = EventListenerMouse::create();
-	MouseListener->onMouseDown = CC_CALLBACK_1(PhysicsLayer::OnMouseDown, this);
-	MouseListener->onMouseUp = CC_CALLBACK_1(PhysicsLayer::OnMouseUp, this);
-	MouseListener->onMouseMove = CC_CALLBACK_1(PhysicsLayer::OnMouseMove, this);
+	MouseListener->onMouseDown = CC_CALLBACK_1(ListenerLayer::OnMouseDown, this);
+	MouseListener->onMouseUp = CC_CALLBACK_1(ListenerLayer::OnMouseUp, this);
+	MouseListener->onMouseMove = CC_CALLBACK_1(ListenerLayer::OnMouseMove, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(MouseListener, this);
 
 	auto K_listener = EventListenerKeyboard::create();
-	K_listener->onKeyPressed = CC_CALLBACK_2(PhysicsLayer::OnKeyPressed, this);
-	K_listener->onKeyReleased = CC_CALLBACK_2(PhysicsLayer::OnKeyReleased, this);
+	K_listener->onKeyPressed = CC_CALLBACK_2(ListenerLayer::OnKeyPressed, this);
+	K_listener->onKeyReleased = CC_CALLBACK_2(ListenerLayer::OnKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(K_listener, this);
 
-	this->schedule(schedule_selector(PhysicsLayer::Tick));
+	this->schedule(schedule_selector(ListenerLayer::Tick));
 
 	
 
@@ -36,7 +34,7 @@ bool PhysicsLayer::init()
 }
 
 //////////////////////////////////////////////////////////////////////////
-void PhysicsLayer::Tick(float dt)
+void ListenerLayer::Tick(float dt)
 {
 	UpdateKeyInput();
 	CameraSync();
@@ -46,7 +44,7 @@ void PhysicsLayer::Tick(float dt)
 //////////////////////////////////////////////////////////////////////////
 
 
-void PhysicsLayer::OnMouseDown(Event *event)
+void ListenerLayer::OnMouseDown(Event *event)
 {
 	auto button = ((EventMouse*)event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, true);
@@ -69,13 +67,13 @@ void PhysicsLayer::OnMouseDown(Event *event)
 	}
 }
 
-void PhysicsLayer::OnMouseUp(Event *event)
+void ListenerLayer::OnMouseUp(Event *event)
 {
 	auto button = ((EventMouse*)event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, false);
 }
 
-void PhysicsLayer::OnMouseMove(Event *event)
+void ListenerLayer::OnMouseMove(Event *event)
 {
 	auto location = ((EventMouse*)event)->getLocation();
 	location.y = Director::getInstance()->getWinSize().height - location.y;
@@ -92,17 +90,17 @@ void PhysicsLayer::OnMouseMove(Event *event)
 }
 
 
-void PhysicsLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, true);
 }
 
-void PhysicsLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, false);
 }
 
-void PhysicsLayer::UpdateKeyInput()
+void ListenerLayer::UpdateKeyInput()
 {
 	if (GET_IM->GetKeyStatus(KEY_UP_ARROW))
 		this->setPositionY(this->getPositionY() - 10);
@@ -114,7 +112,7 @@ void PhysicsLayer::UpdateKeyInput()
 		this->setPositionX(this->getPositionX() - 10);
 }
 
-void PhysicsLayer::CameraSync()
+void ListenerLayer::CameraSync()
 {
 
 }

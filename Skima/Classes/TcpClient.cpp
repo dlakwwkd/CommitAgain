@@ -88,7 +88,7 @@ bool TcpClient::connect()
 
 	memset(&hostAddr, 0, sizeof(hostAddr));
 	hostAddr.sin_family = AF_INET;
-	hostAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	hostAddr.sin_addr.s_addr = inet_addr("10.73.39.94");
 	hostAddr.sin_port = htons(port);
 
 	if (SOCKET_ERROR == ::connect(mSock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
@@ -242,19 +242,20 @@ void TcpClient::processPacket()
 			}
 			break;
 
-		//case: //
-		//{
-		//		  StartGameResult recvData;
-		//		  bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-		//		  assert(ret && recvData.mPlayerId != -1);
+		case PKT_SC_ALL_READY:
+		{
+				GameRunNotify recvData;
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId != -1);
 
-		//		  auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene");
-		//		  if (layer == nullptr)
-		//			  break;
-		//		  scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::gameStartComplete, dynamic_cast<RoomScene*>(layer)));
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene");
+				if (layer == nullptr)
+					break;
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::gameStartComplete, dynamic_cast<RoomScene*>(layer)));
+				return;
 
-		//}
-		
+		}
+			break;
 
 		case PKT_SC_CREATE_HERO:
 			{
@@ -262,13 +263,50 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("PhyshicsLayer")->getChildByName("ObjectLayer");
-				// scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::createHeroStart, dynamic_cast<ObjectLayer*>(layer)));
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UpdatePeer, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, recvData.mPosX, recvData.mPosY));
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::FirstDrawUnit, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, recvData.mPosX, recvData.mPosY));
 
 			}
 			break;
+
+		case PKT_SC_RUN_COMPLETE:
+			{
+				ServerRunCompleteNotify recvData;
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId != -1);
+
+				meReadyRequest();
+
+			}
+			break;
+
+		case PKT_SC_START_GAME:
+			{	
+				StartGameNotify recvData;
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId != -1);
+
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene");
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::removeLoading, dynamic_cast<GameScene*>(layer)));
+			}
+			break;
+
+
+		case PKT_SC_MOVE:
+			{
+				MoveBroadcastResult recvData;
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId != -1);
+							
+							
+			auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("PhyshicsLayer")->getChildByName("ObjectLayer");
+			scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UpdateAnimation, dynamic_cast<ObjectLayer*>(layer), recvData.mPlayerId, recvData.mPosX, recvData.mPosY));
+
+
+
+			}
+			break;
+
 
 		default:
 			assert(false);
@@ -332,16 +370,19 @@ void TcpClient::outRoomRequest(int roomId)
 	send((const char*)&sendData, sizeof(InOutRoomRequest));
 }
 
+void TcpClient::startGameRequest()
+{
+	if (mLoginId < 0)
+		return;
+
+	GameReadyNotify sendData;
+
+	sendData.mPlayerId = mLoginId;
+
+	send((const char*)&sendData, sizeof(GameReadyNotify));
 
 
-
-
-
-
-
-
-
-
+}
 // 
 // void TcpClient::createRequest(int unitID, float x, float y)
 // {
@@ -386,17 +427,17 @@ void TcpClient::chatRequest(const char* chat)
 	send((const char*)&sendData, sizeof(ChatBroadcastRequest));
 }
 
- void TcpClient::startGameRequest()
- {
-// 	if (mLoginId < 0)
-// 		return;
-// 
-// 	StartGameRequest sendData;
-// 	
-// 	sendData.mPlayerId = mLoginId;
-// 	
-// 	send((const char*)&sendData, sizeof(StartGameRequest));
-// 
-// 
- }
 
+
+ void TcpClient::meReadyRequest()
+ {
+	 if (mLoginId < 0)
+		 return;
+
+	 ClientRunCompleteNotify sendData;
+
+	 sendData.mPlayerId = mLoginId;
+
+	 send((const char*)&sendData, sizeof(ClientRunCompleteNotify));
+
+ }
