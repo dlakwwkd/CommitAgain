@@ -17,6 +17,7 @@ public:
 	
 	bool	IsJoinAble(){ return m_JoinAble; }
 	bool	IsAllReady(){ return m_IsAllReady; }
+	void	InitReady(){ m_IsAllReady = false; }
 	
 	void	ReadySign();
 	void	JoinPlayer(int id);

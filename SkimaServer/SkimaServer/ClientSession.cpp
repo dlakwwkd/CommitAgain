@@ -92,8 +92,8 @@ void ClientSession::Disconnect()
 
 	mConnected = false;
 	
-
 	OutGameRoom();
+
 }
 
 

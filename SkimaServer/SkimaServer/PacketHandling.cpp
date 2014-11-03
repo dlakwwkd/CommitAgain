@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ClientManager.h"
 #include "ClientSession.h"
 #include "GameManager.h"
 #include "GameRoom.h"
@@ -204,6 +205,8 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 		return;
 	}
 
+	printf(" - Player %d is Ready ! \n", inPacket.mPlayerId);
+
 	auto room = GGameManager->SearchRoom(session->GetRoomId());
 	if (room != nullptr)
 	{
@@ -212,10 +215,10 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 
 		if (room->IsAllReady())
 		{
-			session->AllReadyNotify();
-
-			// 게임 구동 시작!
-			GGameManager->CreateGame(session->GetRoomId());
+			for (auto& playerId : room->GetPlayerList())
+			{
+				GClientManager->GetClient(playerId)->AllReadyNotify();
+			}
 		}
 	}
 	else
@@ -385,6 +388,19 @@ void ClientSession::OutGameRoom()
 {
 	if (mRoomId == -1 || mPlayerId == -1)
 		return;
+
+	GGameManager->OutRoom(mPlayerId, mRoomId);
+
+	printf(" Send:  Out Room ID: %d, Player ID: %d \n", mRoomId, mPlayerId);
+	mRoomId = -1;
+	mIsReady = false;
+}
+
+void ClientSession::OutGame()
+{
+	if (mRoomId == -1 || mPlayerId == -1)
+		return;
+
 
 	GGameManager->OutRoom(mPlayerId, mRoomId);
 

@@ -81,6 +81,9 @@ void GameManager::OutRoom(int playerId, int roomId)
 	}
 }
 
+void GameManager::PlayerOut(int playerId)
+{
+}
 
 void GameManager::CreateGame(int roomId)
 {
@@ -91,8 +94,6 @@ void GameManager::CreateGame(int roomId)
 
 	m_GameList[roomId] = game;
 	game->SetPlayerList(m_RoomList[roomId]->GetPlayerList());
-	
-	DeleteRoom(roomId);
 }
 
 void GameManager::DeleteGame(int gameId)
@@ -110,10 +111,6 @@ void GameManager::DeleteGame(int gameId)
 }
 
 
-void GameManager::PlayerOut(int playerId)
-{
-	
-}
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -143,8 +140,22 @@ void GameManager::Tick(float dt)
 {
 	m_World->Step(dt, 8, 3);
 
+	for (auto& room : m_RoomList)
+	{
+		if (room.second->IsAllReady())
+		{
+			// 게임 구동 시작!;
+			printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", room.first);
+			CreateGame(room.first);
+			room.second->InitReady();
+		}
+	}
+
 	for (auto& game : m_GameList)
 	{
+		if (!game.second->GetIsStart())
+			continue;
+
 		for (auto& player : game.second->GetPlayerList())
 		{
 			auto client = GClientManager->GetClient(player.first);
@@ -152,7 +163,6 @@ void GameManager::Tick(float dt)
 			client->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos());
 		}
 	}
-
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -162,10 +172,7 @@ void GameManager::Tick(float dt)
 ///////////////////////////////////////////////////////////////////////////
 void GameManager::LowTick()
 {
-	for (auto& it : m_RoomList)
-	{
-		;
-	}
+	
 
 	CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::LowTick);
 }

@@ -3,11 +3,6 @@
 #include "Player.h"
 #include "Map.h"
 
-Game::Game(int id)
-{
-	m_GameID = id;
-}
-
 void Game::SetPlayerList(const std::vector<int>& playerIdList)
 {
 	int i = 0;
