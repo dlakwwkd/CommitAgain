@@ -26,6 +26,21 @@ GameRoom* GameManager::CreateRoom()
 	return room;
 }
 
+void GameManager::DeleteRoom(int roomId)
+{
+	delete m_RoomList[roomId];
+
+	for (RoomList::iterator iter = m_RoomList.begin(); iter != m_RoomList.end(); ++iter)
+	{
+		if (iter->first == roomId)
+		{
+			m_RoomList.erase(iter);
+			break;
+		}
+	}
+	printf(" - Destroy %d Room ! \n", roomId);
+}
+
 GameRoom* GameManager::SearchRoom(int roomId)
 {
 	for (auto& room : m_RoomList)
@@ -35,7 +50,7 @@ GameRoom* GameManager::SearchRoom(int roomId)
 			return room.second;
 		}
 	}
-	printf(" - No Room ! \n");
+	printf(" - Room Search Failed ! \n");
 	return nullptr;
 }
 
@@ -63,17 +78,7 @@ void GameManager::OutRoom(int playerId, int roomId)
 
 	if (m_RoomList[roomId]->GetPlayerListNum() == 0)
 	{
-		delete m_RoomList[roomId];
-
-		for (RoomList::iterator iter = m_RoomList.begin(); iter != m_RoomList.end(); ++iter)
-		{
-			if (iter->first == roomId)
-			{
-				m_RoomList.erase(iter);
-				break;
-			}
-		}
-		printf(" - Destroy %d Room ! \n", roomId);
+		DeleteRoom(roomId);
 	}
 }
 
@@ -86,8 +91,14 @@ void GameManager::CreateGame(int roomId)
 		delete m_GameList[roomId];
 
 	m_GameList[roomId] = game;
-
 	game->SetPlayerList(m_RoomList[roomId]->GetPlayerList());
+	
+	DeleteRoom(roomId);
+}
+
+void GameManager::DeleteGame(int roomId)
+{
+
 }
 
 

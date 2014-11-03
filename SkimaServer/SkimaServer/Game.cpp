@@ -13,14 +13,12 @@ void Game::InitGame()
 
 }
 
-void Game::SetPlayerList(std::vector<int> playerList)
+void Game::SetPlayerList(std::vector<int>& playerList)
 {
 	int i = 0;
 	for (auto& playerId : playerList)
 	{
 		m_PlayerList[playerId] = new Player(playerId);
-
-		printf("@@@@@@@@@@@@@@@");
 
 		if (i == 0)
 			m_PlayerList[playerId]->CreateHero({ 10, 10 });

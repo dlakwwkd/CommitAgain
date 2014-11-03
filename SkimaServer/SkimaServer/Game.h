@@ -12,8 +12,8 @@ public:
 	~Game(){}
 
 	int			GetGameID(){ return m_GameID; }
-	PlayerList	GetPlayerList(){ return m_PlayerList; }
-	void		SetPlayerList(std::vector<int> playerList);
+	PlayerList&	GetPlayerList(){ return m_PlayerList; }
+	void		SetPlayerList(std::vector<int>& playerList);
 	
 	void	InitGame();
 

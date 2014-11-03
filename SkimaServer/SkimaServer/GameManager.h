@@ -13,6 +13,8 @@ public:
 	virtual ~GameManager(){ DeletePhyWorld(); }
 	
 	GameRoom*	CreateRoom();
+	void		DeleteRoom(int roomId);
+
 	GameRoom*	SearchRoom(int roomId);
 	int			SearchEmptyRoom();
 	void		JoinRoom(int playerId, int roomId);
