@@ -27,7 +27,7 @@ bool NetworkGameScene::init()
 	auto listenerLayer = ListenerLayer::create();
 	auto loadingLayer = LoadingBGLayer::create();
 	this->addChild(listenerLayer, 0, "ListenerLayer");
-	this->addChild(loadingLayer, 10, "LoadingLayer");
+	this->addChild(loadingLayer, 10, "LoadingBGLayer");
 }
 
 void NetworkGameScene::StartGame()

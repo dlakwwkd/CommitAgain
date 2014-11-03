@@ -287,6 +287,7 @@ void TcpClient::processPacket()
 					break;
 
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(LoadingBGLayer::SetLoadingFin, dynamic_cast<LoadingBGLayer*>(layer)));
+				return;
 			}
 			break;
 

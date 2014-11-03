@@ -82,10 +82,10 @@ void ListenerLayer::OnMouseUp(Event *event)
 
 void ListenerLayer::OnMouseMove(Event *event)
 {
-// 	auto location = dynamic_cast<EventMouse*>(event)->getLocation();
-// 	location.y = Director::getInstance()->getWinSize().height - location.y;
-// 
-// 	GET_IM->SetMouseLocation(location);
+	auto location = dynamic_cast<EventMouse*>(event)->getLocation();
+	location.y = Director::getInstance()->getWinSize().height - location.y;
+
+	GET_IM->SetMouseLocation(location);
 }
 
 
