@@ -12,8 +12,12 @@ public:
 
 	int		GetRoomID(){ return m_RoomID; }
 	int		GetPlayerListNum(){ return m_PlayerIdList.size(); }
+
+	const std::vector<int>& GetPlayerList(){ return m_PlayerIdList; }
+	
 	bool	IsJoinAble(){ return m_JoinAble; }
 	bool	IsAllReady(){ return m_IsAllReady; }
+	void	InitReady(){ m_IsAllReady = false; }
 	
 	void	ReadySign();
 	void	JoinPlayer(int id);

@@ -30,7 +30,7 @@ public:
 		memset(&mClientAddr, 0, sizeof(SOCKADDR_IN));
 		memset(mPlayerName, 0, sizeof(mPlayerName));
 	}
-	virtual ~ClientSession() { OutGameRoom(); }
+	virtual ~ClientSession() {}
 
 public:
 	int			GetPlayerId() const	{ return mPlayerId; }
@@ -45,7 +45,10 @@ public:
 	void		MakeGameRoom(int id);
 	void		JoinGameRoom();
 	void		OutGameRoom();
+	void		OutGame();
 	void		AllReadyNotify();
+	void		SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 pos);
+	void		SendUnitInfo(int unitId, UnitType unitType, b2Vec2 pos);
 
 	// 	void	LoginDone(int pid, const char* name);
 	// 	void	UpdateDone();

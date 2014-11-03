@@ -26,7 +26,7 @@ void GameRoom::JoinPlayer(int id)
 
 void GameRoom::OutPlayer(int id)
 {
-	for (auto it = m_PlayerIdList.begin(); it != m_PlayerIdList.end(); ++it)
+	for (auto& it = m_PlayerIdList.begin(); it != m_PlayerIdList.end(); ++it)
 	{
 		if (*it == id)
 		{
@@ -36,8 +36,6 @@ void GameRoom::OutPlayer(int id)
 	}
 	if (m_PlayerIdList.size() != 0)
 		m_JoinAble = true;
-
-	
 
 	printf("\n [Out  Room] Room ID %d, Player ID: %d \n", m_RoomID, id);
 }

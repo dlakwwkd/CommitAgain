@@ -1,15 +1,18 @@
 #pragma once
 #include "Unit.h"
+
 class Player
 {
 public:
-	Player();
-	~Player();
+	Player(int playerId) : m_PlayerID(playerId){}
+	~Player(){ delete m_Hero; }
 
-public:
-	void UnitMove(Point currentPos, Point targetPos, int speed);
+	Unit*	GetMyHero(){ return m_Hero; }
+	void	CreateHero(b2Vec2 pos);
+	void	UnitMove(b2Vec2 currentPos, b2Vec2 targetPos, int speed);
 
 private:
-	Unit* mUnit;
+	int		m_PlayerID;
+	Unit*	m_Hero;
 };
 
