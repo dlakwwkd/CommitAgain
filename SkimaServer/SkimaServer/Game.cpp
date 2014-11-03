@@ -5,18 +5,13 @@
 
 Game::Game(int id)
 {
+	m_GameID = id;
 }
 
-void Game::InitGame()
-{
-
-
-}
-
-void Game::SetPlayerList(std::vector<int>& playerList)
+void Game::SetPlayerList(const std::vector<int>& playerIdList)
 {
 	int i = 0;
-	for (auto& playerId : playerList)
+	for (auto& playerId : playerIdList)
 	{
 		m_PlayerList[playerId] = new Player(playerId);
 
@@ -26,5 +21,24 @@ void Game::SetPlayerList(std::vector<int>& playerList)
 			m_PlayerList[playerId]->CreateHero({ MAX_MAP_SIZE_X - 10, MAX_MAP_SIZE_Y - 10 });
 
 		i++;
+	}
+}
+
+void Game::InitGame()
+{
+
+
+}
+
+void Game::PlayerOut(int playerId)
+{
+	for (auto& iter = m_PlayerList.begin(); iter != m_PlayerList.end(); ++iter)
+	{
+		if (iter->first == playerId)
+		{
+			delete iter->second;
+			m_PlayerList.erase(iter);
+			break;
+		}
 	}
 }

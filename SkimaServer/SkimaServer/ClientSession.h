@@ -30,7 +30,7 @@ public:
 		memset(&mClientAddr, 0, sizeof(SOCKADDR_IN));
 		memset(mPlayerName, 0, sizeof(mPlayerName));
 	}
-	virtual ~ClientSession() { OutGameRoom(); }
+	virtual ~ClientSession() {}
 
 public:
 	int			GetPlayerId() const	{ return mPlayerId; }

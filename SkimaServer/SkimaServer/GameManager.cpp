@@ -28,12 +28,11 @@ GameRoom* GameManager::CreateRoom()
 
 void GameManager::DeleteRoom(int roomId)
 {
-	delete m_RoomList[roomId];
-
-	for (RoomList::iterator iter = m_RoomList.begin(); iter != m_RoomList.end(); ++iter)
+	for (auto& iter = m_RoomList.begin(); iter != m_RoomList.end(); ++iter)
 	{
 		if (iter->first == roomId)
 		{
+			delete iter->second;
 			m_RoomList.erase(iter);
 			break;
 		}
@@ -96,9 +95,24 @@ void GameManager::CreateGame(int roomId)
 	DeleteRoom(roomId);
 }
 
-void GameManager::DeleteGame(int roomId)
+void GameManager::DeleteGame(int gameId)
 {
+	for (auto& iter = m_GameList.begin(); iter != m_GameList.end(); ++iter)
+	{
+		if (iter->first == gameId)
+		{
+			delete iter->second;
+			m_GameList.erase(iter);
+			break;
+		}
+	}
+	printf(" - Destroy %d Game ! \n", gameId);
+}
 
+
+void GameManager::PlayerOut(int playerId)
+{
+	
 }
 
 

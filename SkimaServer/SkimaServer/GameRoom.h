@@ -13,7 +13,7 @@ public:
 	int		GetRoomID(){ return m_RoomID; }
 	int		GetPlayerListNum(){ return m_PlayerIdList.size(); }
 
-	std::vector<int>& GetPlayerList(){ return m_PlayerIdList; }
+	const std::vector<int>& GetPlayerList(){ return m_PlayerIdList; }
 	
 	bool	IsJoinAble(){ return m_JoinAble; }
 	bool	IsAllReady(){ return m_IsAllReady; }

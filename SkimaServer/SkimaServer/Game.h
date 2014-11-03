@@ -11,11 +11,12 @@ public:
 	Game(int id);
 	~Game(){}
 
-	int			GetGameID(){ return m_GameID; }
-	PlayerList&	GetPlayerList(){ return m_PlayerList; }
-	void		SetPlayerList(std::vector<int>& playerList);
+	int					GetGameID(){ return m_GameID; }
+	const PlayerList&	GetPlayerList(){ return m_PlayerList; }
+	void				SetPlayerList(const std::vector<int>& playerIdList);
 	
-	void	InitGame();
+	void				InitGame();
+	void				PlayerOut(int playerId);
 
 private:
 	PlayerList			m_PlayerList;

@@ -21,7 +21,9 @@ public:
 	void		OutRoom(int playerId, int roomId);
 
 	void		CreateGame(int roomId);
-	void		DeleteGame(int roomId);
+	void		DeleteGame(int gameId);
+
+	void		PlayerOut(int playerId);
 
 	void		InitPhyWorld();
 	void		DeletePhyWorld();

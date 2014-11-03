@@ -91,6 +91,9 @@ void ClientSession::Disconnect()
 	closesocket(mSocket);
 
 	mConnected = false;
+	
+
+	OutGameRoom();
 }
 
 
