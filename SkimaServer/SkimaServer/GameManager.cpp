@@ -83,6 +83,14 @@ void GameManager::OutRoom(int playerId, int roomId)
 
 void GameManager::PlayerOut(int playerId)
 {
+	for (auto& game : m_GameList)
+	{
+		for (auto& player : game.second->GetPlayerList())
+		{
+			if (player.first == playerId)
+				game.second->PlayerOut(playerId);
+		}
+	}
 }
 
 void GameManager::CreateGame(int roomId)

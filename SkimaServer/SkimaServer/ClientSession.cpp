@@ -3,6 +3,7 @@
 #include "ClientSession.h"
 #include "..\..\PacketType.h"
 #include "ClientManager.h"
+#include "GameManager.h"
 //#include "DatabaseJobContext.h"
 //#include "DatabaseJobManager.h"
 
@@ -93,7 +94,7 @@ void ClientSession::Disconnect()
 	mConnected = false;
 	
 	OutGameRoom();
-
+	GGameManager->PlayerOut(mPlayerId);
 }
 
 
