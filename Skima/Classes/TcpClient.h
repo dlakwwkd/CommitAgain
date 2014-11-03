@@ -9,6 +9,10 @@
 #include <winsock2.h>
 #endif
 
+#include "cocos2d.h"
+
+USING_NS_CC;
+
 #define BUF_SIZE	32768
 
 class TcpClient
@@ -26,18 +30,12 @@ public:
 	void joinRoomRequest();
 	void outRoomRequest(int roomId);
 	void startGameRequest();
-
-
-
-	//무쓸모//////////
-	void createRequest(int unitID, float x, float y);
-	//////////////////
-	
-	void moveRequest(float x, float y);
-	void chatRequest(const char* chat);
-
 	void meReadyRequest(); //이름 체인지 + bool값 인자
 
+	void moveRequest(Point targetPos);
+
+
+	//void chatRequest(const char* chat);
 
 private:
 	TcpClient();

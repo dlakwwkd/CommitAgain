@@ -79,10 +79,9 @@ void RoomScene::Tick(float dt)
 }
 //////////////////////////////////////////////////////////////////////////
 
-void RoomScene::gameStartComplete()
+void RoomScene::GameStartComplete()
 {
 	auto scene = NetworkGameScene::createScene();
 	Director::getInstance()->popScene();
 	Director::getInstance()->pushScene(scene);
-
 }

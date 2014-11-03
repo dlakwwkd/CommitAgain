@@ -9,6 +9,11 @@ public:
 	virtual bool init();  
     CREATE_FUNC(NetworkGameScene);
 
-	void removeLoadingLayer();
+	bool IsStartGame(){ return m_IsStartGame; }
 
+	void StartGame();
+	void RemoveLoadingLayer();
+
+private:
+	bool m_IsStartGame;
 };

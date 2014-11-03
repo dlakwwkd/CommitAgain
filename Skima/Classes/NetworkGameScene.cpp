@@ -10,11 +10,7 @@ Scene* NetworkGameScene::createScene()
 {
     auto scene = Scene::create();
 	auto layer = NetworkGameScene::create();
-	auto listenerLayer = ListenerLayer::create();
-
-	scene->addChild(layer,0,"NetworkGameScene");
-	layer->addChild(listenerLayer, 0, "ListenerLayer");
-
+	scene->addChild(layer, 0, "NetworkGameScene");
     return scene;
 }
 
@@ -26,26 +22,21 @@ bool NetworkGameScene::init()
         return false;
     }
 
+	m_IsStartGame = false;
+
+	auto listenerLayer = ListenerLayer::create();
 	auto loadingLayer = LoadingBGLayer::create();
-	this->addChild(loadingLayer, 10,"LoadingLayer");
-
-
-// 	Size winsize = Director::getInstance()->getWinSize();
-// 	auto bg = Sprite::create("bg1.png");
-// 	bg->setPosition(winsize.width / 2, winsize.height / 2);
-// 	this->addChild(bg,0);
-//  
-// 	auto bgLayer = BGLayer::create();
-// 	auto charlayer = CharacterLayer::create();
-// 	this->addChild(bgLayer,5);
-// 	this->addChild(charlayer, 1);
-
-	
-
+	this->addChild(listenerLayer, 0, "ListenerLayer");
+	this->addChild(loadingLayer, 10, "LoadingLayer");
 }
 
-void NetworkGameScene::removeLoadingLayer()
+void NetworkGameScene::StartGame()
+{
+	RemoveLoadingLayer();
+	m_IsStartGame = true;
+}
+
+void NetworkGameScene::RemoveLoadingLayer()
 {
 	this->removeChildByName("LoadingBGLayer");
-
 }

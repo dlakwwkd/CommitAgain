@@ -1,5 +1,6 @@
 #include "ObjectLayer.h"
 #include "PhysicsLayer.h"
+#include "LoadingBGLayer.h"
 #include "GameManager.h"
 #include "Unit.h"
 #include "Enums.h"
@@ -25,12 +26,8 @@ bool ObjectLayer::init()
 //////////////////////////////////////////////////////////////////////////
 void ObjectLayer::Tick(float dt)
 {
-	if (m_Hero == nullptr)
-	{
-		return;
-	}
+	if (m_Hero == nullptr) return;
 	
-
 // 	m_Hero->Movement();
 // 	m_Hero->GetSprite()->setZOrder(-m_Hero->GetSprite()->getPosition().y);
 // 	for (auto& b : m_MobList)
@@ -71,7 +68,7 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID
 
 void ObjectLayer::AddNewSpriteAtPosition(Point p)
 {
-	auto parent = (PhysicsLayer*)(this->getParent());
+	auto parent = dynamic_cast<PhysicsLayer*>(this->getParent());
 	std::shared_ptr<Unit> unit(new Unit("Images/Pea.png", CIRCLE, p - parent->getPosition(), 1.0f));
 	//unit->GetBody()->setVelocityLimit(100);
 
@@ -103,28 +100,24 @@ void ObjectLayer::MobAi()
 // 	}
 }
 
-void ObjectLayer::FirstDrawUnit(int playerID, int unitID, UnitType unitType, float x, float y)
+void ObjectLayer::FirstDrawUnit(int playerID, int unitID, UnitType unitType, Point pos)
 
 {
 	//todo unitType 넣어주기
-	CreateHero(playerID, unitID, { x, y });
-
-
+	CreateHero(playerID, unitID, pos);
 }
-void ObjectLayer::UpdateAnimation(int playerId, int unitID, float x, float y)
+void ObjectLayer::UpdateAnimation(int playerId, int unitID, Point pos)
 {
-	
 	//유닛을 찾고
 	for (auto& unit : m_HeroList)
 	{
 		if (unit->GetUnitID() == unitID){
 			unit->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
-			unit->GetSprite()->setPosition(Point(x, y));
+			unit->GetSprite()->setPosition(pos);
 
 			//return;
 		}
 	}
-
 }
 
 

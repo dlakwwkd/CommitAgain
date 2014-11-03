@@ -1,4 +1,5 @@
 #include "LoadingBGLayer.h"
+#include "TcpClient.h"
 
 
 bool LoadingBGLayer::init()
@@ -9,12 +10,21 @@ bool LoadingBGLayer::init()
 	}
 	this->setOpacity(210);
 
+	m_IsLoadingFin = false;
 
-	auto loadinglabel = LabelTTF::create("Loading...", "Arial", 50);
-	loadinglabel->setPosition(500, 400);
-	this->addChild(loadinglabel);
+	auto loadingLabel = LabelTTF::create("Loading...", "Arial", 50);
+	loadingLabel->setPosition(500, 400);
+	this->addChild(loadingLabel);
 
-
-
+	this->schedule(schedule_selector(LoadingBGLayer::Tick), 1.0f);
 	return true;
+}
+
+void LoadingBGLayer::Tick(float dt)
+{
+	if (m_IsLoadingFin)
+	{
+		TcpClient::getInstance()->meReadyRequest();
+		m_IsLoadingFin = false;
+	}
 }

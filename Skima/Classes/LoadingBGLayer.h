@@ -9,5 +9,12 @@ public:
 	virtual bool init();
 	CREATE_FUNC(LoadingBGLayer);
 
+	void SetLoadingFin(){ m_IsLoadingFin = true; }
+	bool IsLoadingFin(){ return m_IsLoadingFin; }
+	
+	void Tick(float dt);
+
+private:
+	bool m_IsLoadingFin;
 };
 

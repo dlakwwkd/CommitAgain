@@ -20,14 +20,9 @@ public:
 	
 
 	void MobAi();
-	void FirstDrawUnit(int playerID, int unitID, UnitType unitType, float x, float y);
-
-	
-	void UpdateAnimation(int playerId, int unitID, float x, float y);
-
-	
+	void FirstDrawUnit(int playerID, int unitID, UnitType unitType, Point pos);
+	void UpdateAnimation(int playerId, int unitID, Point pos);
 	//void CreateHeroStart();
-
 
 protected:
 	std::shared_ptr<Unit>				m_Hero;

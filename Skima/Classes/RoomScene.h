@@ -17,7 +17,7 @@ public:
 
 	void Tick(float dt);
 
-	void gameStartComplete(); //서버시작한다
+	void GameStartComplete(); //서버시작한다
 private:
 	int m_RoomID;
 };

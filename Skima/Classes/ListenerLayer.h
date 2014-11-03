@@ -21,6 +21,5 @@ public:
 	virtual void	OnMouseMove(Event *event);
 	virtual void	OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 	virtual void	OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
-
 };
 

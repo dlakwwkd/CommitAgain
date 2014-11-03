@@ -2,6 +2,7 @@
 #include "MapLayer.h"
 #include "ObjectLayer.h"
 #include "GameManager.h"
+#include "NetworkGameScene.h"
 
 
 bool ListenerLayer::init()
@@ -27,26 +28,36 @@ bool ListenerLayer::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(K_listener, this);
 
 	this->schedule(schedule_selector(ListenerLayer::Tick));
-
-	
-
 	return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 void ListenerLayer::Tick(float dt)
 {
-	UpdateKeyInput();
-	CameraSync();
-	auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
+	auto child = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
 	child->MobAi();
 }
 //////////////////////////////////////////////////////////////////////////
 
 
+
+void ListenerLayer::UpdateKeyInput()
+{
+
+}
+
+void ListenerLayer::CameraSync()
+{
+
+}
+
+
 void ListenerLayer::OnMouseDown(Event *event)
 {
-	auto button = ((EventMouse*)event)->getMouseButton();
+	if (!dynamic_cast<NetworkGameScene*>(this->getParent())->IsStartGame())
+		return;
+
+	auto button = dynamic_cast<EventMouse*>(event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, true);
 	float x, y;
 
@@ -55,38 +66,26 @@ void ListenerLayer::OnMouseDown(Event *event)
 	case MOUSE_BUTTON_LEFT:
 		break;
 	case MOUSE_BUTTON_RIGHT:
-// 		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-// 		child->UnitMove(GET_IM->GetMouseLocation());
-				
-		 x = GET_IM->GetMouseLocation().x;
-		 y = GET_IM->GetMouseLocation().y;
+		auto child = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
+		child->UnitMove(GET_IM->GetMouseLocation());
 
-		TcpClient::getInstance()->moveRequest(x,y);
-		
+		TcpClient::getInstance()->moveRequest(GET_IM->GetMouseLocation());
 		break;
 	}
 }
 
 void ListenerLayer::OnMouseUp(Event *event)
 {
-	auto button = ((EventMouse*)event)->getMouseButton();
+	auto button = dynamic_cast<EventMouse*>(event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, false);
 }
 
 void ListenerLayer::OnMouseMove(Event *event)
 {
-	auto location = ((EventMouse*)event)->getLocation();
-	location.y = Director::getInstance()->getWinSize().height - location.y;
-
-	GET_IM->SetMouseLocation(location);
-
-
-	if (GET_IM->GetMouseStatus(MOUSE_BUTTON_LEFT))
-	{
-		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-		child->AddNewSpriteAtPosition(GET_IM->GetMouseLocation());
-	}
-	
+// 	auto location = dynamic_cast<EventMouse*>(event)->getLocation();
+// 	location.y = Director::getInstance()->getWinSize().height - location.y;
+// 
+// 	GET_IM->SetMouseLocation(location);
 }
 
 
@@ -98,21 +97,4 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, false);
-}
-
-void ListenerLayer::UpdateKeyInput()
-{
-	if (GET_IM->GetKeyStatus(KEY_UP_ARROW))
-		this->setPositionY(this->getPositionY() - 10);
-	if (GET_IM->GetKeyStatus(KEY_DOWN_ARROW))
-		this->setPositionY(this->getPositionY() + 10);
-	if (GET_IM->GetKeyStatus(KEY_LEFT_ARROW))
-		this->setPositionX(this->getPositionX() + 10);
-	if (GET_IM->GetKeyStatus(KEY_RIGHT_ARROW))
-		this->setPositionX(this->getPositionX() - 10);
-}
-
-void ListenerLayer::CameraSync()
-{
-
 }
