@@ -1,5 +1,6 @@
 #pragma once
 #include "cocos2d.h"
+#include "..\..\PacketType.h"
 
 USING_NS_CC;
 
@@ -15,12 +16,16 @@ public:
 
 	void UnitMove(Point p);
 	void AddNewSpriteAtPosition(Point p);
-	void CreateHero(int unitID, Point location);
+	void CreateHero(int playerID, int unitID, Point location);
 	
-	void MobAi();
 
-	void FirstDrawUnit(int id, float x, float y);
-	void UpdateAnimation(int id, float x, float y);
+	void MobAi();
+	void FirstDrawUnit(int playerID, int unitID, UnitType unitType, float x, float y);
+
+	
+	void UpdateAnimation(int playerId, int unitID, float x, float y);
+
+	
 	//void CreateHeroStart();
 
 

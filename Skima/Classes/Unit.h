@@ -1,6 +1,8 @@
 #pragma once
 #include "cocos2d.h"
 #include "Enums.h"
+#include "../../PacketType.h"
+
 
 USING_NS_CC;
 
@@ -10,9 +12,10 @@ public:
 	Unit(const std::string& filename, BodyShape shape, Point createPos, float scale);
 
 	Sprite*			GetSprite(){ return m_Sprite; }
-	PhysicsBody*	GetBody(){ return m_Body; }
+//	PhysicsBody*	GetBody(){ return m_Body; }
 
 	void			SetUnitID(int unitID){ m_UnitID = unitID; }
+	void			SetUnitPlayerID(int playerID){ m_PlayerID = playerID; }
 	int				GetUnitID(){ return m_UnitID; }
 	void			MoveTargeting(Point p);
 	void			Movement();
@@ -20,7 +23,7 @@ public:
 protected:
 	Sprite*			m_Sprite;
 	PhysicsBody*	m_Body;
-
+	UnitType		m_UnitType;
 	std::string		m_Name;
 	int				m_PlayerID;
 	int				m_UnitID;

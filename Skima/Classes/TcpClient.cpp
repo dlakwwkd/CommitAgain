@@ -9,7 +9,7 @@
 #include "ObjectLayer.h"
 #include "NetworkScene.h"
 #include "RoomScene.h"
-
+#include "NetworkGameScene.h"
 
 #ifdef _WIN32
 #pragma comment(lib,"ws2_32.lib")
@@ -252,7 +252,7 @@ void TcpClient::processPacket()
 				if (layer == nullptr)
 					break;
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::gameStartComplete, dynamic_cast<RoomScene*>(layer)));
-				return;
+				return;//callback함수 때문에 추가
 
 		}
 			break;
@@ -264,7 +264,9 @@ void TcpClient::processPacket()
 				assert(ret && recvData.mPlayerId != -1);
 
 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::FirstDrawUnit, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, recvData.mPosX, recvData.mPosY));
+				if (layer == nullptr)
+					break;
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::FirstDrawUnit, dynamic_cast<ObjectLayer*>(layer),recvData.mPlayerId, recvData.mUnitId,recvData.mUnitType, recvData.mPosX, recvData.mPosY));
 
 			}
 			break;
@@ -287,7 +289,7 @@ void TcpClient::processPacket()
 				assert(ret && recvData.mPlayerId != -1);
 
 				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene");
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::removeLoading, dynamic_cast<GameScene*>(layer)));
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkGameScene::removeLoadingLayer, dynamic_cast<NetworkGameScene*>(layer)));
 			}
 			break;
 
@@ -300,7 +302,7 @@ void TcpClient::processPacket()
 							
 							
 			auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("PhyshicsLayer")->getChildByName("ObjectLayer");
-			scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UpdateAnimation, dynamic_cast<ObjectLayer*>(layer), recvData.mPlayerId, recvData.mPosX, recvData.mPosY));
+			scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UpdateAnimation, dynamic_cast<ObjectLayer*>(layer), recvData.mPlayerId, recvData.mUnitId, recvData.mPosX, recvData.mPosY));
 
 
 

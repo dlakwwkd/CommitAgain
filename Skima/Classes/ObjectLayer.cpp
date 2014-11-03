@@ -2,7 +2,6 @@
 #include "PhysicsLayer.h"
 #include "GameManager.h"
 #include "Unit.h"
-#include "..\..\PacketType.h"
 #include "Enums.h"
 
 
@@ -54,24 +53,27 @@ void ObjectLayer::UnitMove(Point p)
 // 	m_Hero->getBody()->setVelocity(vect);
 }
 
-void ObjectLayer::CreateHero(int unitID, Point location) // unitID를 넘어오는 playerID라 가정
+void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID를 넘어오는 playerID라 가정
 {
+	//todo unitType 맹글어야함
+
 	std::shared_ptr<Unit> unit(new Unit("Images/SpookyPeas.png", CIRCLE, location, 1.0f));
 	
 	unit->SetUnitID(unitID);
+	unit->SetUnitPlayerID(playerID);
 	m_HeroList.push_back(unit);
-	
+	//todo : herolist로 접근하는것 수정해야함
 
 	//m_Hero->GetBody()->setVelocityLimit(100);
 	
-	this->addChild(m_Hero->GetSprite());
+	this->addChild(unit->GetSprite());
 }
 
 void ObjectLayer::AddNewSpriteAtPosition(Point p)
 {
 	auto parent = (PhysicsLayer*)(this->getParent());
 	std::shared_ptr<Unit> unit(new Unit("Images/Pea.png", CIRCLE, p - parent->getPosition(), 1.0f));
-	unit->GetBody()->setVelocityLimit(100);
+	//unit->GetBody()->setVelocityLimit(100);
 
 	m_MobList.push_back(unit);
 	this->addChild(unit->GetSprite());
@@ -79,41 +81,43 @@ void ObjectLayer::AddNewSpriteAtPosition(Point p)
 
 void ObjectLayer::MobAi()
 {
-	auto winSize = Director::getInstance()->getWinSize();
-	auto parent = (PhysicsLayer*)(this->getParent());
-
-	for (auto& b : m_MobList)
-	{
-		if (b == m_Hero) continue;
-
-		Vect temp;
-		temp.x = rand() % (int)winSize.width;
-		temp.y = rand() % (int)winSize.height;
-
-		auto time = rand() % 300;
-
-		if (time < 3)
-			b->MoveTargeting(temp);
-		else if (time == 10)
-			b->MoveTargeting(m_Hero->GetBody()->getPosition());
-		else
-			continue;
-	}
+// 	auto winSize = Director::getInstance()->getWinSize();
+// 	auto parent = (PhysicsLayer*)(this->getParent());
+// 
+// 	for (auto& b : m_MobList)
+// 	{
+// 		if (b == m_Hero) continue;
+// 
+// 		Vect temp;
+// 		temp.x = rand() % (int)winSize.width;
+// 		temp.y = rand() % (int)winSize.height;
+// 
+// 		auto time = rand() % 300;
+// 
+// 		if (time < 3)
+// 			b->MoveTargeting(temp);
+// 		else if (time == 10)
+// 			b->MoveTargeting(m_Hero->GetBody()->getPosition());
+// 		else
+// 			continue;
+// 	}
 }
 
-void ObjectLayer::FirstDrawUnit(int id, float x, float y)
+void ObjectLayer::FirstDrawUnit(int playerID, int unitID, UnitType unitType, float x, float y)
+
 {
-	CreateHero(id, { x, y });
+	//todo unitType 넣어주기
+	CreateHero(playerID, unitID, { x, y });
 
 
 }
-void ObjectLayer::UpdateAnimation(int id, float x, float y)
+void ObjectLayer::UpdateAnimation(int playerId, int unitID, float x, float y)
 {
 	
 	//유닛을 찾고
 	for (auto& unit : m_HeroList)
 	{
-		if (unit->GetUnitID() == id){
+		if (unit->GetUnitID() == unitID){
 			unit->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
 			unit->GetSprite()->setPosition(Point(x, y));
 
