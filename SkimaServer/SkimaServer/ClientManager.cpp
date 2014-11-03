@@ -55,8 +55,13 @@ void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 		if (from == client)
 			continue;
 
-		client->SendRequest(pkt);
-		printf(" Send: UnitInfo Player ID: %d \n", from->mPlayerId);
+
+		// 같은 방에 있는 애들에게만 방송한다.
+		if (client->GetRoomId() == from->GetRoomId())
+		{
+			client->SendRequest(pkt);
+			printf(" Send: UnitInfo Player ID: %d \n", from->mPlayerId);
+		}
 	}
 }
 

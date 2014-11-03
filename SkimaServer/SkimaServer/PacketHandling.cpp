@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "ClientManager.h"
 #include "ClientSession.h"
 #include "GameManager.h"
 #include "GameRoom.h"
@@ -215,10 +214,7 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 
 		if (room->IsAllReady())
 		{
-			for (auto& playerId : room->GetPlayerList())
-			{
-				GClientManager->GetClient(playerId)->AllReadyNotify();
-			}
+			session->AllReadyNotify();
 		}
 	}
 	else
@@ -415,9 +411,11 @@ void ClientSession::AllReadyNotify()
 
 	outPacket.mPlayerId = mPlayerId;
 
-	SendRequest(&outPacket);
-
-	printf(" Send: GameRunNotify Player ID: %d \n", outPacket.mPlayerId);
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+	printf(" Send: GameRunNotify Room ID: %d \n", mRoomId);
 }
 
 void ClientSession::SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 pos)
