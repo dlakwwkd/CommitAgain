@@ -32,13 +32,13 @@ void ObjectLayer::Tick(float dt)
 	}
 	
 
-	m_Hero->Movement();
-	m_Hero->GetSprite()->setZOrder(-m_Hero->GetSprite()->getPosition().y);
-	for (auto& b : m_MobList)
-	{
-		b->Movement();
-		b->GetSprite()->setZOrder(-b->GetSprite()->getPosition().y);
-	}
+// 	m_Hero->Movement();
+// 	m_Hero->GetSprite()->setZOrder(-m_Hero->GetSprite()->getPosition().y);
+// 	for (auto& b : m_MobList)
+// 	{
+// 		b->Movement();
+// 		b->GetSprite()->setZOrder(-b->GetSprite()->getPosition().y);
+// 	}
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -120,15 +120,7 @@ void ObjectLayer::UpdateAnimation(int id, float x, float y)
 			//return;
 		}
 	}
-	
-	//CCLOG("그릴 유닛이 없음");
 
-	//그 해당 유닛을 이동시키기
-
-
-	//to do : id에 따른 유닛 생성하기
-
-	//CreateHero({ x, y });
 }
 
 

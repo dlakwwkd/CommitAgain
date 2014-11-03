@@ -7,12 +7,13 @@ bool LoadingBGLayer::init()
 	{
 		return false;
 	}
+	this->setOpacity(210);
 
-	auto winSize = Director::getInstance()->getWinSize(); //사이즈 지정
 
-	auto loadingLabel = Label::createWithSystemFont("로딩중...", "Thonburi", 50, Size(250,150), TextHAlignment::LEFT);
+	auto loadinglabel = LabelTTF::create("Loading...", "Arial", 50);
+	loadinglabel->setPosition(500, 400);
+	this->addChild(loadinglabel);
 
-	
 
 
 	return true;

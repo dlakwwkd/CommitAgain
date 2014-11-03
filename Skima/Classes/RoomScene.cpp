@@ -1,7 +1,7 @@
 #include "RoomScene.h"
-#include "GameScene.h"
 #include "NetworkScene.h"
 #include "TcpClient.h"
+#include "NetworkGameScene.h"
 
 
 Scene* RoomScene::createScene()
@@ -42,7 +42,7 @@ bool RoomScene::init()
 	return true;
 }
 
-void RoomScene::menuCallback1(Ref* sender)
+void RoomScene::menuCallback1(Ref* sender) //"게임시작"
 {
 	//소켓연결확인
 	if (TcpClient::getInstance()->checkSocket() == NULL)
@@ -54,7 +54,7 @@ void RoomScene::menuCallback1(Ref* sender)
 	
 	
 }
-void RoomScene::menuCallback2(Ref* sender)
+void RoomScene::menuCallback2(Ref* sender)	//"나가기"
 {
 	if (TcpClient::getInstance()->checkSocket() != NULL)
 		TcpClient::getInstance()->outRoomRequest(m_RoomID);
@@ -81,8 +81,8 @@ void RoomScene::Tick(float dt)
 
 void RoomScene::gameStartComplete()
 {
-	auto scene = GameScene::createScene();
+	auto scene = NetworkGameScene::createScene();
 	Director::getInstance()->popScene();
 	Director::getInstance()->pushScene(scene);
-	
+
 }

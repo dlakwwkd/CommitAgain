@@ -88,7 +88,7 @@ bool TcpClient::connect()
 
 	memset(&hostAddr, 0, sizeof(hostAddr));
 	hostAddr.sin_family = AF_INET;
-	hostAddr.sin_addr.s_addr = inet_addr("10.73.42.129");
+	hostAddr.sin_addr.s_addr = inet_addr("10.73.39.94");
 	hostAddr.sin_port = htons(port);
 
 	if (SOCKET_ERROR == ::connect(mSock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
@@ -252,6 +252,7 @@ void TcpClient::processPacket()
 				if (layer == nullptr)
 					break;
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::gameStartComplete, dynamic_cast<RoomScene*>(layer)));
+				return;
 
 		}
 			break;
@@ -262,7 +263,7 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("PhyshicsLayer")->getChildByName("ObjectLayer");
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::FirstDrawUnit, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, recvData.mPosX, recvData.mPosY));
 
 			}
