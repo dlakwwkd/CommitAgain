@@ -9,13 +9,17 @@ void Player::CreateHero(b2Vec2 pos)
 	m_Hero = new Unit(pos);
 	auto client = GClientManager->GetClient(m_PlayerID);
 
-	Sleep(3000);
+	Sleep(500);
+
 	client->SendCreateHeroResult(m_Hero->GetUnitID(),m_Hero->GetUnitType(), m_Hero->GetCurrentPos());
 }
 
 void Player::UnitMove()
 {
-	if (m_Hero->GetCurrentPos() == m_Hero->GetTargetPos())
+	if (!(m_Hero->GetCurrentPos().x < m_Hero->GetTargetPos().x - 5 ||
+		m_Hero->GetCurrentPos().y < m_Hero->GetTargetPos().y - 5 ||
+		m_Hero->GetCurrentPos().x > m_Hero->GetTargetPos().x + 5 ||
+		m_Hero->GetCurrentPos().y > m_Hero->GetTargetPos().y + 5))
 	{
 		m_Hero->SetIsMove(false);
 		return;
@@ -26,9 +30,12 @@ void Player::UnitMove()
 void Player::SetAverageMove(b2Vec2 targetPos)
 {
 	m_Hero->SetIsMove(true);
-	b2Vec2 averageMove;
-	averageMove.x = (targetPos.x - m_Hero->GetCurrentPos().x) / 10 * m_Hero->GetSpeed();
-	averageMove.y = (targetPos.y - m_Hero->GetCurrentPos().y) / 10 * m_Hero->GetSpeed();
-	m_Hero->SetAverageMove(averageMove);
+
+	auto direction = targetPos - m_Hero->GetCurrentPos();
+	auto temp = abs(direction.x) + abs(direction.y);
+
+	direction *= m_Hero->GetSpeed() / temp;
+	
+	m_Hero->SetAverageMove(direction);
 }
 

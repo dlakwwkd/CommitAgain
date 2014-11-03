@@ -17,7 +17,7 @@ public:
 	bool		IsMove(){ return m_IsMove; }
 	void		SetAverageMove(b2Vec2 averageMove){ m_AverageMove = averageMove; }
 	void		SetCurrentPos(b2Vec2 currentPos){ m_CurrentPos = currentPos; }
-	void		SetTargetPos();
+	void		SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
 	void		SetIsMove(bool isMove){ m_IsMove = isMove; }
 	void		SetSpeed(int speed){ m_Speed = speed; }
 

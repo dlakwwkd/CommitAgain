@@ -130,6 +130,7 @@ void GameManager::UnitMove(b2Vec2 targetPos, int playerId)
 		{
 			if (player.first == playerId)
 			{
+				player.second->GetMyHero()->SetTargetPos(targetPos);
 				player.second->SetAverageMove(targetPos);
 				break;
 			}
@@ -198,7 +199,7 @@ void GameManager::Tick(float dt)
 			{
 				num++;
 			}
-			if (num == 1000)
+			if (num == 100)
 			{
 				client->ServerRunComplete();
 				num = 0;
