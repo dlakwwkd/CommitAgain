@@ -317,7 +317,6 @@ void TcpClient::processPacket()
 
 				Point pos = { recvData.mPosX, recvData.mPosY };
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UpdateAnimation, dynamic_cast<ObjectLayer*>(layer), recvData.mPlayerId, recvData.mUnitId, pos));
-				return;	//
 			}
 			break;
 
