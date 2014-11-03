@@ -2,6 +2,7 @@
 #include "ClientSession.h"
 #include "GameManager.h"
 #include "GameRoom.h"
+#include "Game.h"
 //#include "DatabaseJobContext.h"
 //#include "DatabaseJobManager.h"
 
@@ -225,11 +226,6 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 }
 
 
-
-
-
-
-
 // 
 // 
 // REGISTER_HANDLER(PKT_CS_CREATE_HERO)
@@ -297,6 +293,8 @@ REGISTER_HANDLER(PKT_CS_CHAT)
 REGISTER_HANDLER(PKT_CS_MOVE)
 {
 	MoveRequest inPacket;
+	b2Vec2 targetPos;
+
 	if (false == session->ParsePacket(inPacket))
 	{
 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
@@ -309,18 +307,32 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 		return;
 	}
 
-	MoveBroadcastResult outPacket;
-	outPacket.mPlayerId = inPacket.mPlayerId;
-	outPacket.mPosX = inPacket.mPosX;
-	outPacket.mPosY = inPacket.mPosY;
+	targetPos.x = inPacket.mPosX;
+	targetPos.y = inPacket.mPosY;
+	
+	GGameManager->UnitMove(targetPos, session->GetPlayerId());
 
-	if (!session->Broadcast(&outPacket))
-	{
-		session->Disconnect();
-	}
+	printf(" Send:   Login ID: %d, x: %3f, y: %3f \n", session->GetPlayerId(), inPacket.mPosX, inPacket.mPosY);
 
 }
 
+REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
+{
+	ClientRunCompleteNotify inPacket;
+	if (false == session->ParsePacket(inPacket))
+	{
+		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+		return;
+	}
+
+	if (inPacket.mPlayerId != session->GetPlayerId())
+	{
+		printf("[DEBUG] PKT_CS_CHAT: invalid player ID: %d \n", session->GetPlayerId());
+		return;
+	}
+
+	GGameManager->SearchGame(session->GetPlayerId())->SetLoadedPlayerNum();
+}
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -405,6 +417,20 @@ void ClientSession::OutGame()
 	mIsReady = false;
 }
 
+void ClientSession::ServerRunComplete()
+{
+	ServerRunCompleteNotify outPacket;
+
+	outPacket.mPlayerId = mPlayerId;
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+
+	printf(" Send: ServerRunCompleteNotify ");
+}
+
 void ClientSession::AllReadyNotify()
 {
 	GameRunNotify outPacket;
@@ -415,7 +441,22 @@ void ClientSession::AllReadyNotify()
 	{
 		Disconnect();
 	}
+
 	printf(" Send: GameRunNotify Room ID: %d \n", mRoomId);
+}
+
+void ClientSession::StartGame()
+{
+	StartGameNotify outPacket;
+
+	outPacket.mPlayerId = mPlayerId;
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+
+	printf(" Send: StartGameNotify Room ID: %d \n", mRoomId);
 }
 
 void ClientSession::SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 pos)

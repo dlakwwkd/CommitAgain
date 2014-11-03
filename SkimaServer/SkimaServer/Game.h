@@ -8,7 +8,7 @@ typedef std::map<int, Player*> PlayerList;
 class Game
 {
 public:
-	Game(int id) : m_GameID(id), m_IsStart(false){}
+	Game(int id) : m_GameID(id), m_IsStart(false), m_LoadedPlayerNum(0) {}
 	~Game(){}
 
 	int					GetGameID(){ return m_GameID; }
@@ -20,11 +20,15 @@ public:
 
 	void				InitGame();
 	void				PlayerOut(int playerId);
+	
+	void				SetLoadedPlayerNum(){ m_LoadedPlayerNum++; }
+	int					GetLoadedPlayerNum(){ return m_LoadedPlayerNum; }
 
 private:
 	PlayerList			m_PlayerList;
 	int					m_GameID;
 	bool				m_IsStart;
+	int					m_LoadedPlayerNum;
 
 	
 };

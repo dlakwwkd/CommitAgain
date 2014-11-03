@@ -20,10 +20,13 @@ public:
 	void		JoinRoom(int playerId, int roomId);
 	void		OutRoom(int playerId, int roomId);
 
+	Game*		SearchGame(int playerId);
 	void		CreateGame(int roomId);
 	void		DeleteGame(int gameId);
 
 	void		PlayerOut(int playerId);
+
+	void		UnitMove(b2Vec2 targetPos, int playerId);
 
 	void		InitPhyWorld();
 	void		DeletePhyWorld();

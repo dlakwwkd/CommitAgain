@@ -9,7 +9,8 @@ public:
 
 	Unit*	GetMyHero(){ return m_Hero; }
 	void	CreateHero(b2Vec2 pos);
-	void	UnitMove(b2Vec2 currentPos, b2Vec2 targetPos, int speed);
+	void	UnitMove();
+	void	SetAverageMove(b2Vec2 targetPos);
 
 private:
 	int		m_PlayerID;

@@ -122,6 +122,23 @@ void GameManager::DeleteGame(int gameId)
 }
 
 
+void GameManager::UnitMove(b2Vec2 targetPos, int playerId)
+{
+	for (auto& game : m_GameList)
+	{
+		for (auto& player : game.second->GetPlayerList())
+		{
+			if (player.first == playerId)
+			{
+				player.second->SetAverageMove(targetPos);
+				break;
+			}
+		}
+	}
+}
+
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -151,6 +168,9 @@ void GameManager::Tick(float dt)
 {
 	m_World->Step(dt, 8, 3);
 
+	static int num = 0;
+	static int num2 = 0;
+
 	for (auto& room : m_RoomList)
 	{
 		if (room.second->IsAllReady())
@@ -159,18 +179,46 @@ void GameManager::Tick(float dt)
 			printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", room.first);
 			CreateGame(room.first);
 			room.second->InitReady();
+			
+			num = 1;
+			num2 = 0;
 		}
 	}
 
+
+
 	for (auto& game : m_GameList)
 	{
-		if (!game.second->GetIsStart())
-			continue;
-
+		
 		for (auto& player : game.second->GetPlayerList())
 		{
 			auto client = GClientManager->GetClient(player.first);
+
+			if (num > 0)
+			{
+				num++;
+			}
+			if (num == 1000)
+			{
+				client->ServerRunComplete();
+				num = 0;
+			}
+
+			if (game.second->GetLoadedPlayerNum() >= 2 && num2 == 0)
+			{
+				client->StartGame();
+				game.second->SetIsStart();
+				num2++;
+			}
+
+			if (!game.second->GetIsStart())
+				continue;
+
 			auto unit = player.second->GetMyHero();
+			if (unit->IsMove())
+			{
+				player.second->UnitMove();
+			}
 			client->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos());
 		}
 	}
@@ -186,4 +234,16 @@ void GameManager::LowTick()
 	
 
 	CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::LowTick);
+}
+
+Game* GameManager::SearchGame(int playerId)
+{
+	for (auto& game : m_GameList)
+	{
+		for (auto& player : game.second->GetPlayerList())
+		{
+			if (player.first == playerId)
+				return game.second;
+		}
+	}
 }

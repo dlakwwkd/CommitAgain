@@ -49,6 +49,8 @@ public:
 	void		AllReadyNotify();
 	void		SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 pos);
 	void		SendUnitInfo(int unitId, UnitType unitType, b2Vec2 pos);
+	void		ServerRunComplete();
+	void		StartGame();
 
 	// 	void	LoginDone(int pid, const char* name);
 	// 	void	UpdateDone();
