@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Base">
+      <UniqueIdentifier>{8726c443-7e6e-4353-8555-644c911f9edc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\src">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{155fd4f3-b534-4b68-9f1d-ef8fd8665fe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{f6fc131e-e739-4743-992a-8d35b9e86aa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PhysicsWorld">
+      <UniqueIdentifier>{9e639b63-e4d1-4a14-a9ba-fb422d9ef94a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{658a76a3-8cc3-40a2-80dc-2c3f46f9821b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Manager">
+      <UniqueIdentifier>{04a48203-df7a-4d28-9480-f145cd0e2b56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI">
+      <UniqueIdentifier>{0f86f7cb-b498-46a4-98e3-ac1718b54e97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PhysicsWorld\Object">
+      <UniqueIdentifier>{6287dcdb-ade1-49c4-88ca-36047e1c3cf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PhysicsWorld\Object\Missile">
+      <UniqueIdentifier>{da7bc9c2-03c2-4252-8851-02ab3e1f4a19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PhysicsWorld\Object\Skill">
+      <UniqueIdentifier>{d40cfdb1-1860-4226-9479-48753cc453d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PhysicsWorld\Object\Unit">
+      <UniqueIdentifier>{945b4f14-0b3b-446f-b8d9-21ae9199c969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PhysicsWorld\Object\Obstruction">
+      <UniqueIdentifier>{dc02d778-62f7-4365-b0fb-82ca3366056f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PhysicsWorld\Map">
+      <UniqueIdentifier>{3cead3ac-e92d-44a1-9beb-dcafdca7d98a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{58a76034-fe09-41c3-87ea-39ab529a0925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Room">
+      <UniqueIdentifier>{dcfbbcce-a8d8-422a-9dfc-4404327e6ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\MultiPlay">
+      <UniqueIdentifier>{9d1731da-4ee8-4ed4-8cc9-fecd64bc2db8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Base\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainScene.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicsLayer.cpp">
+      <Filter>Game\PhysicsWorld</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameManager.cpp">
+      <Filter>Game\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UILayer.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InputManager.cpp">
+      <Filter>Game\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MapLayer.cpp">
+      <Filter>Game\PhysicsWorld\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ObjectLayer.cpp">
+      <Filter>Game\PhysicsWorld\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Unit.cpp">
+      <Filter>Game\PhysicsWorld\Object\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CircularBuffer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TcpClient.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NetworkScene.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RoomScene.cpp">
+      <Filter>Network\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ListenerLayer.cpp">
+      <Filter>Game\MultiPlay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LoadingBGLayer.cpp">
+      <Filter>Game\MultiPlay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NetworkGameScene.cpp">
+      <Filter>Game\MultiPlay</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>Base\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsLayer.h">
+      <Filter>Game\PhysicsWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Enums.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameManager.h">
+      <Filter>Game\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UILayer.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InputManager.h">
+      <Filter>Game\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MapLayer.h">
+      <Filter>Game\PhysicsWorld\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ObjectLayer.h">
+      <Filter>Game\PhysicsWorld\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Unit.h">
+      <Filter>Game\PhysicsWorld\Object\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CircularBuffer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TcpClient.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PacketType.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NetworkScene.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RoomScene.h">
+      <Filter>Network\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ListenerLayer.h">
+      <Filter>Game\MultiPlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LoadingBGLayer.h">
+      <Filter>Game\MultiPlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NetworkGameScene.h">
+      <Filter>Game\MultiPlay</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>Base\resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

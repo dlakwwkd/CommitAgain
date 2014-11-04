@@ -7,9 +7,6 @@
 # User-specific files
 *.suo
 *.user
-*.vcxproj
-*.vcxproj.filters
-*.vcxproj.user
 
 # Build results
 [Pp]roj.android/
@@ -69,7 +66,6 @@ dlldata.c
 *.pidb
 *.svclog
 *.scc
-*.filters
 
 # Chutzpah Test files
 _Chutzpah*

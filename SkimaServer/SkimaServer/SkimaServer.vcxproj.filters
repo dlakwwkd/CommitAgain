@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Exception.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Scheduler.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadLocal.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="DatabaseJobContext.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="DatabaseJobManager.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="DbHelper.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandling.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite3.c">
+      <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientManager.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientSession.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="GameRoom.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CircularBuffer.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Main.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="RefCountable.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Scheduler.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadLocal.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseJobContext.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseJobManager.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="DbHelper.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PacketType.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3ext.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="SQLStatement.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="ProducerConsumerQueue.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientManager.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientSession.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="GameRoom.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CircularBuffer.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Main">
+      <UniqueIdentifier>{90531235-95eb-4406-9294-73bcf1371de5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{082cacc1-3dbd-40fa-b62b-45901b6c80a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DB">
+      <UniqueIdentifier>{13d22ebf-6590-44d3-abcb-4a71ebdd6ec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{35437880-75f3-45de-a5a9-55a4229a8c88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client">
+      <UniqueIdentifier>{24d915b5-b3cf-4798-ada4-27a668da7932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{bf38a9ee-8db2-4b27-97a7-3df4c0d1d0ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject">
+      <UniqueIdentifier>{99f3dd0a-ec03-4362-ab85-1d24bf5c2587}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
