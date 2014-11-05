@@ -20,7 +20,18 @@ public:
 	void		SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
 	void		SetIsMove(bool isMove){ m_IsMove = isMove; }
 	void		SetSpeed(int speed){ m_Speed = speed; }
+
 	void		SetState(MoveState* state){ m_State = state; }
+	State*		GetStandbyState() { return (State*)m_StandbyState; }
+	State*		GetMovingState(){ return (State*)m_MovingState; }
+	State*		GetStunnedState() { return (State*)m_StunnedState; }
+	State*		GetCrashedState() { return (State*)m_CrashedState; }
+
+	void		TryMove() { m_State->TryMove(); }
+	void		Stunned() { m_State->Stunned(); }
+	void		Crashed() { m_State->Crashed(); }
+	void		EndMove() { m_State->EndMove(); }
+	void		EndStun() { m_State->EndStun(); }
 
 private:
 	int			m_ID;
