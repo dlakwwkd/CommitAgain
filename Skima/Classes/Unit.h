@@ -18,8 +18,11 @@ public:
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
 
-
-
+	void			SetState(MoveState* state){ m_MoveState = state; }
+	MoveState*		GetStandbyState(){ return (MoveState*)m_StandbyState; }
+	MoveState*		GetMovingState(){ return (MoveState*)m_MovingState; }
+	MoveState*		GetCrashedState(){ return (MoveState*)m_CrashedState; }
+	
 	void			MoveTargeting(Point p);
 
 public:
@@ -29,12 +32,16 @@ protected:
 	void			Movement(GameMode gameMode);
 	void			SingleMove();
 	void			MultiMove();
+	void			TryMove();
+	void			EndMove();
+	void			Crashed();
+	void			EndCrashed();
+
 
 protected:
 	MoveState*		m_MoveState;
 	MoveState*		m_StandbyState;
 	MoveState*		m_MovingState;
-	MoveState*		m_StunnedState;
 	MoveState*		m_CrashedState;
 
 protected:

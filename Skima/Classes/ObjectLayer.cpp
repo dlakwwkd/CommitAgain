@@ -13,11 +13,6 @@ bool ObjectLayer::init()
 		return false;
 	}
 	m_Hero = nullptr;
-	
-	
-	//createHero({ 200, 200 });
-
-
 
 	this->schedule(schedule_selector(ObjectLayer::Tick));
 	return true;
@@ -59,8 +54,6 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID
 	unit->SetUnitID(unitID);
 	unit->SetUnitPlayerID(playerID);
 	m_HeroList.push_back(unit);
-	//todo : herolist로 접근하는것 수정해야함
-
 	//m_Hero->GetBody()->setVelocityLimit(100);
 	
 	this->addChild(unit->GetSprite());
@@ -108,14 +101,12 @@ void ObjectLayer::FirstDrawUnit(int playerID, int unitID, UnitType unitType, Poi
 }
 void ObjectLayer::UpdateAnimation(int playerId, int unitID, Point pos)
 {
-	//유닛을 찾고
 	for (auto& unit : m_HeroList)
 	{
 		if (unit->GetUnitID() == unitID){
 			unit->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
 			unit->GetSprite()->setPosition(pos);
-
-			//return;
+						
 		}
 	}
 }

@@ -35,7 +35,6 @@ Unit::Unit(const std::string& filename, Point createPos, float scale, GameMode g
 
 	m_MoveState = m_StandbyState = new StandbyState();
 	m_MovingState = new MovingState();
-	m_StunnedState = new StunnedState();
 	m_CrashedState = new CrashedState();
 }
 
@@ -43,7 +42,6 @@ Unit::~Unit()
 {
 	delete m_StandbyState;
 	delete m_MovingState;
-	delete m_StunnedState;
 	delete m_CrashedState;
 }
 
@@ -115,6 +113,25 @@ void Unit::MultiMove()
 	}
 }
 
+void Unit::TryMove()
+{
+	m_MoveState->TryMove(this);
+}
+void Unit::EndMove()
+{
+	m_MoveState->EndMove(this);
+}
+
+void Unit::Crashed()
+{
+	m_MoveState->Crashed(this);
+
+}
+
+void Unit::EndCrashed()
+{
+	m_MoveState->EndCrash(this);
+}
 
 
 
