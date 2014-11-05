@@ -1,7 +1,7 @@
 #include "RoomScene.h"
 #include "NetworkScene.h"
 #include "TcpClient.h"
-#include "NetworkGameScene.h"
+#include "MultiGameScene.h"
 
 
 Scene* RoomScene::createScene()
@@ -81,7 +81,7 @@ void RoomScene::Tick(float dt)
 
 void RoomScene::GameStartComplete()
 {
-	auto scene = NetworkGameScene::createScene();
+	auto scene = MultiGameScene::createScene();
 	Director::getInstance()->popScene();
 	Director::getInstance()->pushScene(scene);
 }

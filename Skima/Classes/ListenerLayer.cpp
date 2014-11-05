@@ -2,7 +2,7 @@
 #include "MapLayer.h"
 #include "ObjectLayer.h"
 #include "GameManager.h"
-#include "NetworkGameScene.h"
+#include "MultiGameScene.h"
 
 
 bool ListenerLayer::init()
@@ -54,7 +54,7 @@ void ListenerLayer::CameraSync()
 
 void ListenerLayer::OnMouseDown(Event *event)
 {
-	if (!dynamic_cast<NetworkGameScene*>(this->getParent())->IsStartGame())
+	if (!dynamic_cast<MultiGameScene*>(this->getParent())->IsStartGame())
 		return;
 
 	auto button = dynamic_cast<EventMouse*>(event)->getMouseButton();

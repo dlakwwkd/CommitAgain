@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "Enums.h"
 #include "../../PacketType.h"
+#include "../../FSM.h"
 
 USING_NS_CC;
 
@@ -9,11 +10,15 @@ class Unit
 {
 public:
 	Unit(const std::string& filename, Point createPos, float scale, GameMode gameMode);
+	~Unit();
 
 	void			SetUnitID(int unitID){ m_UnitID = unitID; }
 	void			SetUnitPlayerID(int playerID){ m_PlayerID = playerID; }
+	void			SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
+
+
 
 	void			MoveTargeting(Point p);
 
@@ -25,6 +30,12 @@ protected:
 	void			SingleMove();
 	void			MultiMove();
 
+protected:
+	MoveState*		m_MoveState;
+	MoveState*		m_StandbyState;
+	MoveState*		m_MovingState;
+	MoveState*		m_StunnedState;
+	MoveState*		m_CrashedState;
 
 protected:
 	UnitType		m_UnitType;
