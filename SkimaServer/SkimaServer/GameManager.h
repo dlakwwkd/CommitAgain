@@ -26,7 +26,7 @@ public:
 
 	void		PlayerOut(int playerId);
 
-	void		UnitMove(b2Vec2 targetPos, int playerId);
+	void UnitMove(b2Vec2 targetPos, b2Vec2 currentPos, int playerId);
 
 	void		InitPhyWorld();
 	void		DeletePhyWorld();

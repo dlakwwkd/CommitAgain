@@ -23,6 +23,7 @@ public:
 	
 	void				SetLoadedPlayerNum(){ m_LoadedPlayerNum++; }
 	int					GetLoadedPlayerNum(){ return m_LoadedPlayerNum; }
+	Player*				GetPlayer(int palyerId);
 
 private:
 	PlayerList			m_PlayerList;

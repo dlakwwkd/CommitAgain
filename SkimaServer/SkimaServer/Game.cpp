@@ -37,3 +37,14 @@ void Game::PlayerOut(int playerId)
 		}
 	}
 }
+
+Player* Game::GetPlayer(int playerId)
+{
+	for (auto& player : m_PlayerList)
+	{
+		if (player.first == playerId)
+		{
+			return player.second;
+		}
+	}
+}

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "ClientSession.h"
 #include "GameManager.h"
+#include "Player.h"
+#include "Unit.h"
 #include "GameRoom.h"
 #include "Game.h"
 //#include "DatabaseJobContext.h"
@@ -294,6 +296,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 {
 	MoveRequest inPacket;
 	b2Vec2 targetPos;
+	b2Vec2 currentPos;
 
 	if (false == session->ParsePacket(inPacket))
 	{
@@ -309,11 +312,16 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 
 	targetPos.x = inPacket.mTargetPosX;
 	targetPos.y = inPacket.mTargetPosY;
+	currentPos.x = inPacket.mCurrentPosX;
+	currentPos.y = inPacket.mCurrentPosY;
 	
-	GGameManager->UnitMove(targetPos, session->GetPlayerId());
+	GGameManager->UnitMove(targetPos, currentPos, session->GetPlayerId());
 
 	printf(" Send:   Login ID: %d, x: %3f, y: %3f \n", session->GetPlayerId(), inPacket.mTargetPosX, inPacket.mTargetPosY);
 
+	auto unit = GGameManager->SearchGame(session->GetPlayerId())->GetPlayer(session->GetPlayerId())->GetMyHero();
+
+	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos(), unit->GetTargetPos());
 
 }
 
@@ -476,15 +484,17 @@ void ClientSession::SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 p
 	}
 }
 
-void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 pos)
+void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	MoveBroadcastResult outPacket;
 
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
 	outPacket.mUnitType = unitType;
-	outPacket.mCurrentPosX = pos.x;
-	outPacket.mCurrentPosY = pos.y;
+	outPacket.mCurrentPosX = currentPos.x;
+	outPacket.mCurrentPosY = currentPos.y;
+	outPacket.mTargetPosX = targetPos.x;
+	outPacket.mTargetPosY = targetPos.y;
 
 	if (!Broadcast(&outPacket))
 	{

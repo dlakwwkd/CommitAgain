@@ -122,7 +122,7 @@ void GameManager::DeleteGame(int gameId)
 }
 
 
-void GameManager::UnitMove(b2Vec2 targetPos, int playerId)
+void GameManager::UnitMove(b2Vec2 targetPos, b2Vec2 currentPos, int playerId)
 {
 	for (auto& game : m_GameList)
 	{
@@ -132,6 +132,7 @@ void GameManager::UnitMove(b2Vec2 targetPos, int playerId)
 			{
 				player.second->GetMyHero()->SetTargetPos(targetPos);
 				player.second->SetAverageMove(targetPos);
+				player.second->GetMyHero()->SetCurrentPos(currentPos);
 				break;
 			}
 		}
@@ -220,7 +221,6 @@ void GameManager::Tick(float dt)
 			{
 				player.second->UnitMove();
 			}
-			client->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos());
 		}
 	}
 }
@@ -248,3 +248,4 @@ Game* GameManager::SearchGame(int playerId)
 		}
 	}
 }
+
