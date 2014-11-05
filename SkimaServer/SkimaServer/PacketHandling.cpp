@@ -314,16 +314,16 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 	targetPos.y = inPacket.mTargetPosY;
 	currentPos.x = inPacket.mCurrentPosX;
 	currentPos.y = inPacket.mCurrentPosY;
-	
-	GGameManager->UnitMove(targetPos, currentPos, session->GetPlayerId());
 
 	printf(" Send:   Login ID: %d, x: %3f, y: %3f \n", session->GetPlayerId(), inPacket.mTargetPosX, inPacket.mTargetPosY);
 
 	auto unit = GGameManager->SearchGame(session->GetPlayerId())->GetPlayer(session->GetPlayerId())->GetMyHero();
 
-	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos(), unit->GetTargetPos());
-
-	unit->TryMove();
+	if (unit->GetState() == unit->GetStandbyState() || unit->GetState() == unit->GetMovingState())
+	{
+		GGameManager->UnitMove(targetPos, currentPos, session->GetPlayerId());
+		session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos(), unit->GetTargetPos());
+	}
 }
 
 REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)

@@ -22,3 +22,27 @@ Unit::~Unit()
 	delete m_MovingState;
 	delete m_CrashedState;
 }
+
+void Unit::UnitMove()
+{
+	if (!(m_CurrentPos.x < m_TargetPos.x - 5 ||
+		m_CurrentPos.y < m_TargetPos.y - 5 ||
+		m_CurrentPos.x > m_TargetPos.x + 5 ||
+		m_CurrentPos.y > m_TargetPos.y + 5))
+	{
+		m_IsMove = false;
+		return;
+	}
+	m_CurrentPos = (m_CurrentPos + m_AverageMove);
+}
+
+void Unit::SetAverageMove(b2Vec2 targetPos)
+{
+	m_IsMove = true;
+	auto direction = targetPos - m_CurrentPos;
+	auto temp = abs(direction.x) + abs(direction.y);
+
+	direction *= m_Speed / temp;
+
+	m_AverageMove = direction;
+}
