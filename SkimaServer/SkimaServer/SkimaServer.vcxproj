@@ -157,6 +157,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\FSM.h" />
     <ClInclude Include="..\..\PacketType.h" />
     <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="ClientManager.h" />
@@ -214,6 +215,7 @@
     </ClCompile>
     <ClCompile Include="ThreadLocal.cpp" />
     <ClCompile Include="Unit.cpp" />
+    <ClCompile Include="UnitState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

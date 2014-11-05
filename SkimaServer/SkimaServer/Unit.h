@@ -20,15 +20,21 @@ public:
 	void		SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
 	void		SetIsMove(bool isMove){ m_IsMove = isMove; }
 	void		SetSpeed(int speed){ m_Speed = speed; }
+	void		SetState(MoveState* state){ m_State = state; }
 
 private:
 	int			m_ID;
 	UnitType	m_Type;
+	MoveState*	m_State;
 
 	bool		m_IsMove;
 	int			m_Speed;
 	b2Vec2		m_AverageMove;
 	b2Vec2		m_CurrentPos;
 	b2Vec2		m_TargetPos;
+	MoveState*	m_StandbyState;
+	MoveState*	m_MovingState;
+	MoveState*	m_StunnedState;
+	MoveState*	m_CrashedState;
 };
 

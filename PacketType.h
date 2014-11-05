@@ -1,4 +1,5 @@
 #pragma once
+#include "../../FSM.h"
 
 #define MAX_CHAT_LEN	256
 

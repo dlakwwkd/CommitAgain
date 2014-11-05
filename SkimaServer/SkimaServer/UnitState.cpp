@@ -1,0 +1,125 @@
+#include "../../FSM.h"
+
+//////////////////////////////////////////////////////////////////////////
+
+	/*대기상태*/
+
+//////////////////////////////////////////////////////////////////////////
+
+void StandbyState::TryMove()
+{
+	
+}
+
+void StandbyState::Stunned()
+{
+
+}
+
+void StandbyState::Crashed()
+{
+
+}
+
+void StandbyState::EndMove()
+{
+
+}
+
+void StandbyState::EndStun()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+	/*이동중 상태*/
+
+//////////////////////////////////////////////////////////////////////////
+
+void MovingState::TryMove()
+{
+
+}
+
+void MovingState::Stunned()
+{
+
+}
+
+void MovingState::Crashed()
+{
+
+}
+
+void MovingState::EndMove()
+{
+
+}
+
+void MovingState::EndStun()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+	/*행동불가상태*/
+
+//////////////////////////////////////////////////////////////////////////
+
+void StunnedState::TryMove()
+{
+
+}
+
+void StunnedState::Stunned()
+{
+
+}
+
+void StunnedState::Crashed()
+{
+
+}
+
+void StunnedState::EndMove()
+{
+
+}
+
+void StunnedState::EndStun()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+	/*밀려남상태*/
+
+//////////////////////////////////////////////////////////////////////////
+
+void CrashedState::TryMove()
+{
+
+}
+
+void CrashedState::Stunned()
+{
+
+}
+
+void CrashedState::Crashed()
+{
+
+}
+
+void CrashedState::EndMove()
+{
+
+}
+
+void CrashedState::EndStun()
+{
+
+}
