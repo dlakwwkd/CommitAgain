@@ -1,49 +1,16 @@
 #include "Unit.h"
 
 
-<<<<<<< HEAD
-Unit::Unit(const std::string& filename, Point createPos, float scale, SINGLE_MODE_FUNC)
-{
-	m_Speed = 100.0f;
-	m_MoveMode = false;
-
-	auto sprite = Sprite::create(filename);
-	sprite->setPosition(createPos);
-	sprite->setScale(scale);
-
-	m_Sprite	= sprite;
-}
-
-Unit::Unit(const std::string& filename, Point createPos, float scale, MULTI_MODE_FUNC)
-{
-=======
 Unit::Unit(const std::string& filename, Point createPos, float scale, GameMode gameMode)
 {
->>>>>>> origin/Client_v0.2
 	m_Speed = 100.0f;
 	m_MoveMode = false;
 
 	auto sprite = Sprite::create(filename);
-<<<<<<< HEAD
-	auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // ¹Ðµµ, Åº¼º·Â, ¸¶Âû·Â
-
-	PhysicsBody* body = nullptr;
-	body = PhysicsBody::createCircle(sprite->getContentSize().width*(scale / 2), material);
-	 
-	body->setMass(1.0f);
-	body->setLinearDamping(3);
-
-	sprite->setPhysicsBody(body);
-	body->setRotationEnable(false);
-=======
->>>>>>> origin/Client_v0.2
 	sprite->setPosition(createPos);
 	sprite->setScale(scale);
 
 	m_Sprite = sprite;
-<<<<<<< HEAD
-	m_Body	= body;
-=======
 
 	switch (gameMode)
 	{
@@ -76,7 +43,6 @@ Unit::~Unit()
 	delete m_StandbyState;
 	delete m_MovingState;
 	delete m_CrashedState;
->>>>>>> origin/Client_v0.2
 }
 
 
