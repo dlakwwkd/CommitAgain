@@ -3,26 +3,29 @@
 #include "Enums.h"
 #include "../../PacketType.h"
 
-
 USING_NS_CC;
 
 class Unit
 {
 public:
-	Unit(const std::string& filename, BodyShape shape, Point createPos, float scale);
-
-	Sprite*			GetSprite(){ return m_Sprite; }
-//	PhysicsBody*	GetBody(){ return m_Body; }
+	Unit(const std::string& filename, Point createPos, float scale, SINGLE_MODE_FUNC);
 
 	void			SetUnitID(int unitID){ m_UnitID = unitID; }
 	void			SetUnitPlayerID(int playerID){ m_PlayerID = playerID; }
 	int				GetUnitID(){ return m_UnitID; }
+	Sprite*			GetSprite(){ return m_Sprite; }
+
 	void			MoveTargeting(Point p);
-	void			Movement();
+	void			Movement(SINGLE_MODE_FUNC);
+
+public:
+	Unit(const std::string& filename, Point createPos, float scale, MULTI_MODE_FUNC);
+
+	PhysicsBody*	GetBody(){ return m_Body; }
+
+	void			Movement(MULTI_MODE_FUNC);
 
 protected:
-	Sprite*			m_Sprite;
-	PhysicsBody*	m_Body;
 	UnitType		m_UnitType;
 	std::string		m_Name;
 	int				m_PlayerID;
@@ -35,4 +38,9 @@ protected:
 
 	Point			m_MovePosition;
 	bool			m_MoveMode;
+
+protected:
+	Sprite*			m_Sprite;
+	PhysicsBody*	m_Body;
+
 };

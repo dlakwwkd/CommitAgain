@@ -176,6 +176,9 @@
     <ClInclude Include="..\Classes\NetworkGameScene.h">
       <Filter>Game\MultiPlay</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\FSM.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
