@@ -307,12 +307,13 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 		return;
 	}
 
-	targetPos.x = inPacket.mPosX;
-	targetPos.y = inPacket.mPosY;
+	targetPos.x = inPacket.mTargetPosX;
+	targetPos.y = inPacket.mTargetPosY;
 	
 	GGameManager->UnitMove(targetPos, session->GetPlayerId());
 
-	printf(" Send:   Login ID: %d, x: %3f, y: %3f \n", session->GetPlayerId(), inPacket.mPosX, inPacket.mPosY);
+	printf(" Send:   Login ID: %d, x: %3f, y: %3f \n", session->GetPlayerId(), inPacket.mTargetPosX, inPacket.mTargetPosY);
+
 
 }
 
@@ -482,8 +483,8 @@ void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 pos)
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
 	outPacket.mUnitType = unitType;
-	outPacket.mPosX = pos.x;
-	outPacket.mPosY = pos.y;
+	outPacket.mCurrentPosX = pos.x;
+	outPacket.mCurrentPosY = pos.y;
 
 	if (!Broadcast(&outPacket))
 	{

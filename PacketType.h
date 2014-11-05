@@ -305,12 +305,18 @@ struct MoveRequest : public PacketHeader
 		mSize = sizeof(MoveRequest);
 		mType = PKT_CS_MOVE;
 		mPlayerId = -1;
-		mPosX = 0;
-		mPosY = 0;
+		mCurrentPosX = 0;
+		mCurrentPosY = 0;
+		mTargetPosX = 0;
+		mTargetPosY = 0;
+
 	}
 	int		mPlayerId;
-	float	mPosX;
-	float	mPosY;
+	float	mCurrentPosX;
+	float	mCurrentPosY;
+	float	mTargetPosX;
+	float	mTargetPosY;
+
 };
 struct MoveBroadcastResult : public PacketHeader
 {
@@ -321,14 +327,20 @@ struct MoveBroadcastResult : public PacketHeader
 		mPlayerId = -1;
 		mUnitId = -1;
 		mUnitType = TYPE_NONE;
-		mPosX = 0;
-		mPosY = 0;
+		mCurrentPosX = 0;
+		mCurrentPosY = 0;
+		mTargetPosX = 0;
+		mTargetPosY = 0;
+
 	}
 	int			mPlayerId;
 	int			mUnitId;
 	UnitType	mUnitType;
-	float		mPosX;
-	float		mPosY;
+	float		mCurrentPosX;
+	float		mCurrentPosY;
+	float		mTargetPosX;
+	float		mTargetPosY;
+
 };
 
 
