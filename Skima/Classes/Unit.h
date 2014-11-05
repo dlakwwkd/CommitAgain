@@ -8,7 +8,7 @@ USING_NS_CC;
 class Unit
 {
 public:
-	Unit(const std::string& filename, Point createPos, float scale, SINGLE_MODE_FUNC);
+	Unit(const std::string& filename, Point createPos, float scale, GameMode gameMode);
 
 	void			SetUnitID(int unitID){ m_UnitID = unitID; }
 	void			SetUnitPlayerID(int playerID){ m_PlayerID = playerID; }
@@ -16,14 +16,15 @@ public:
 	Sprite*			GetSprite(){ return m_Sprite; }
 
 	void			MoveTargeting(Point p);
-	void			Movement(SINGLE_MODE_FUNC);
 
 public:
-	Unit(const std::string& filename, Point createPos, float scale, MULTI_MODE_FUNC);
-
 	PhysicsBody*	GetBody(){ return m_Body; }
 
-	void			Movement(MULTI_MODE_FUNC);
+protected:
+	void			Movement(GameMode gameMode);
+	void			SingleMove();
+	void			MultiMove();
+
 
 protected:
 	UnitType		m_UnitType;
