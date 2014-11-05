@@ -1,5 +1,5 @@
 #include "NetworkScene.h"
-#include "GameScene.h"
+#include "SingleGameScene.h"
 #include "RoomScene.h"
 #include "TcpClient.h"
 

@@ -13,11 +13,6 @@ bool ObjectLayer::init()
 		return false;
 	}
 	m_Hero = nullptr;
-	
-	
-	//createHero({ 200, 200 });
-
-
 
 	this->schedule(schedule_selector(ObjectLayer::Tick));
 	return true;
@@ -54,13 +49,11 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID
 {
 	//todo unitType 맹글어야함
 
-	std::shared_ptr<Unit> unit(new Unit("Images/SpookyPeas.png", CIRCLE, location, 1.0f));
+	std::shared_ptr<Unit> unit(new Unit("Images/SpookyPeas.png", location, 1.0f, MULTI));
 	
 	unit->SetUnitID(unitID);
 	unit->SetUnitPlayerID(playerID);
 	m_HeroList.push_back(unit);
-	//todo : herolist로 접근하는것 수정해야함
-
 	//m_Hero->GetBody()->setVelocityLimit(100);
 	
 	this->addChild(unit->GetSprite());
@@ -69,7 +62,7 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID
 void ObjectLayer::AddNewSpriteAtPosition(Point p)
 {
 	auto parent = dynamic_cast<PhysicsLayer*>(this->getParent());
-	std::shared_ptr<Unit> unit(new Unit("Images/Pea.png", CIRCLE, p - parent->getPosition(), 1.0f));
+	std::shared_ptr<Unit> unit(new Unit("Images/Pea.png", p - parent->getPosition(), 1.0f, SINGLE));
 	//unit->GetBody()->setVelocityLimit(100);
 
 	m_MobList.push_back(unit);
@@ -108,14 +101,12 @@ void ObjectLayer::FirstDrawUnit(int playerID, int unitID, UnitType unitType, Poi
 }
 void ObjectLayer::UpdateAnimation(int playerId, int unitID, Point pos)
 {
-	//유닛을 찾고
 	for (auto& unit : m_HeroList)
 	{
 		if (unit->GetUnitID() == unitID){
 			unit->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
 			unit->GetSprite()->setPosition(pos);
-
-			//return;
+						
 		}
 	}
 }
