@@ -1,39 +1,42 @@
 #include "Unit.h"
 
 
-Unit::Unit(const std::string& filename, BodyShape shape, Point createPos, float scale)
+Unit::Unit(const std::string& filename, Point createPos, float scale, SINGLE_MODE_FUNC)
 {
-
-	
 	m_Speed = 100.0f;
 	m_MoveMode = false;
 
 	auto sprite = Sprite::create(filename);
-//	auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // ¹Ðµµ, Åº¼º·Â, ¸¶Âû·Â
-	
-//	PhysicsBody* body = nullptr;
-// 	switch (shape)
-// 	{
-// 	case CIRCLE:
-// 		body = PhysicsBody::createCircle(sprite->getContentSize().width*(scale / 2), material);
-// 		break;
-// 	case BOX:
-// 		body = PhysicsBody::createBox(Size(sprite->getContentSize().width * scale,
-// 										sprite->getContentSize().height * scale), material);
-// 		break;
-// 	}
-// 
-// 	body->setMass(1.0f);
-// 	body->setLinearDamping(3);
-
-// 	sprite->setPhysicsBody(body);
-// 	body->setRotationEnable(false);
 	sprite->setPosition(createPos);
 	sprite->setScale(scale);
 
 	m_Sprite	= sprite;
-//	m_Body		= body;
 }
+
+Unit::Unit(const std::string& filename, Point createPos, float scale, MULTI_MODE_FUNC)
+{
+	m_Speed = 100.0f;
+	m_MoveMode = false;
+
+	auto sprite = Sprite::create(filename);
+	auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // ¹Ðµµ, Åº¼º·Â, ¸¶Âû·Â
+
+	PhysicsBody* body = nullptr;
+	body = PhysicsBody::createCircle(sprite->getContentSize().width*(scale / 2), material);
+	 
+	body->setMass(1.0f);
+	body->setLinearDamping(3);
+
+	sprite->setPhysicsBody(body);
+	body->setRotationEnable(false);
+	sprite->setPosition(createPos);
+	sprite->setScale(scale);
+
+	m_Sprite = sprite;
+	m_Body	= body;
+}
+
+
 
 void Unit::MoveTargeting(Point p)
 {
