@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "Enums.h"
 #include "../../PacketType.h"
+#include "../../FSM.h"
 
 USING_NS_CC;
 
