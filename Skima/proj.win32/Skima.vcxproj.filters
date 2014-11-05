@@ -114,6 +114,9 @@
     <ClCompile Include="..\Classes\NetworkGameScene.cpp">
       <Filter>Game\MultiPlay</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MoveState.cpp">
+      <Filter>Game\PhysicsWorld\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
