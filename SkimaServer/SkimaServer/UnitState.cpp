@@ -1,4 +1,5 @@
-
+#include "stdafx.h"
+#include "..\..\FSM.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -6,92 +7,51 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-void StandbyState::TryMove()
+void StandbyState::TryMove(Unit* unit)
 {	
 
 }
 
-void StandbyState::Stunned()
+void StandbyState::Crashed(Unit* unit)
 {
 
 }
 
-void StandbyState::Crashed()
+void StandbyState::EndMove(Unit* unit)
 {
 
 }
 
-void StandbyState::EndMove()
+void StandbyState::EndCrash(Unit* unit)
 {
 
 }
-
-void StandbyState::EndStun()
-{
-
-}
-
 //////////////////////////////////////////////////////////////////////////
 
 	/*이동중 상태*/
 
 //////////////////////////////////////////////////////////////////////////
 
-void MovingState::TryMove()
+void MovingState::TryMove(Unit* unit)
 {
 
 }
 
-void MovingState::Stunned()
+void MovingState::Crashed(Unit* unit)
 {
 
 }
 
-void MovingState::Crashed()
+void MovingState::EndMove(Unit* unit)
 {
 
 }
 
-void MovingState::EndMove()
+void MovingState::EndCrash(Unit* unit)
 {
 
 }
 
-void MovingState::EndStun()
-{
-
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-	/*행동불가상태*/
-
-//////////////////////////////////////////////////////////////////////////
-
-void StunnedState::TryMove()
-{
-
-}
-
-void StunnedState::Stunned()
-{
-
-}
-
-void StunnedState::Crashed()
-{
-
-}
-
-void StunnedState::EndMove()
-{
-
-}
-
-void StunnedState::EndStun()
-{
-
-}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -99,27 +59,22 @@ void StunnedState::EndStun()
 
 //////////////////////////////////////////////////////////////////////////
 
-void CrashedState::TryMove()
+void CrashedState::TryMove(Unit* unit)
 {
 
 }
 
-void CrashedState::Stunned()
+void CrashedState::Crashed(Unit* unit)
 {
 
 }
 
-void CrashedState::Crashed()
+void CrashedState::EndMove(Unit* unit)
 {
 
 }
 
-void CrashedState::EndMove()
-{
-
-}
-
-void CrashedState::EndStun()
+void CrashedState::EndCrash(Unit* unit)
 {
 
 }

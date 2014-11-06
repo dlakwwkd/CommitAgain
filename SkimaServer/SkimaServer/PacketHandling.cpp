@@ -323,7 +323,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 
 	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos(), unit->GetTargetPos());
 
-	unit->TryMove(session->GetPlayerId());
+	unit->TryMove();
 }
 
 REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)

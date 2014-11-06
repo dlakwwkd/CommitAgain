@@ -1,5 +1,6 @@
 #pragma once
 #include "..\..\PacketType.h"
+#include "..\..\FSM.h"
 
 class Unit
 {
@@ -24,14 +25,11 @@ public:
 	void		SetState(MoveState* state){ m_State = state; }
 	State*		GetStandbyState() { return (State*)m_StandbyState; }
 	State*		GetMovingState(){ return (State*)m_MovingState; }
-	State*		GetStunnedState() { return (State*)m_StunnedState; }
 	State*		GetCrashedState() { return (State*)m_CrashedState; }
 
-	void		TryMove() { m_State->TryMove(); }
-	void		Stunned() { m_State->Stunned(); }
-	void		Crashed() { m_State->Crashed(); }
-	void		EndMove() { m_State->EndMove(); }
-	void		EndStun() { m_State->EndStun(); }
+	void		TryMove() { m_State->TryMove(this); }
+	void		Crashed() { m_State->Crashed(this); }
+	void		EndMove() { m_State->EndMove(this); }
 
 private:
 	int			m_ID;
@@ -45,7 +43,6 @@ private:
 	b2Vec2		m_TargetPos;
 	MoveState*	m_StandbyState;
 	MoveState*	m_MovingState;
-	MoveState*	m_StunnedState;
 	MoveState*	m_CrashedState;
 };
 
