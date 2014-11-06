@@ -11,6 +11,7 @@ bool ListenerLayer::init()
 	{
 		return false;
 	}
+
 	auto mapLayer = MapLayer::create();
 	auto objectlayer = ObjectLayer::create();
 	this->addChild(mapLayer, 0,"MapLayer");
