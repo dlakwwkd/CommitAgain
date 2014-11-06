@@ -8,6 +8,7 @@ m_IsMove(false), m_AverageMove({ 0, 0 })
 {
 	m_State = m_StandbyState = new StandbyState;
 	m_MovingState = new MovingState;
+	m_StunnedState = new StunnedState;
 	m_CrashedState = new CrashedState;
 
 	static int makeId = 0;
@@ -20,5 +21,6 @@ Unit::~Unit()
 	delete m_State;
 	delete m_StandbyState;
 	delete m_MovingState;
+	delete m_StunnedState;
 	delete m_CrashedState;
 }
