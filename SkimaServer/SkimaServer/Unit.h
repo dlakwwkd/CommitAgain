@@ -19,13 +19,14 @@ public:
 	void		SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
 	void		SetSpeed(int speed){ m_Speed = speed; }
 
-	void			SetState(MoveState* state){ m_State = state; }
-	MoveState*		GetState(){ return (MoveState*)m_State; }
-	MoveState*		GetStandbyState() { return (MoveState*)m_StandbyState; }
-	MoveState*		GetMovingState(){ return (MoveState*)m_MovingState; }
-	MoveState*		GetCrashedState() { return (MoveState*)m_CrashedState; }
+	void		SetState(MoveState* state){ m_State = state; }
+	MoveState*	GetState(){ return (MoveState*)m_State; }
+	MoveState*	GetStandbyState() { return (MoveState*)m_StandbyState; }
+	MoveState*	GetMovingState(){ return (MoveState*)m_MovingState; }
+	MoveState*	GetCrashedState() { return (MoveState*)m_CrashedState; }
 
-	void		TryMove() { m_State->TryMove(this); }
+	void		TryMove(b2Vec2 currentPos, b2Vec2 targetPos);
+	void		MoveMent(){ m_State->Movement(this); }
 	void		Crashed() { m_State->Crashed(this); }
 	void		EndMove() { m_State->EndMove(this); }
 

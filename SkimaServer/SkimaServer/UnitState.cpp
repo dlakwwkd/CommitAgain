@@ -13,6 +13,11 @@ void StandbyState::TryMove(Unit* unit)
 	unit->SetState(unit->GetMovingState());
 }
 
+void StandbyState::Movement(Unit* unit)
+{
+
+}
+
 void StandbyState::Crashed(Unit* unit)
 {
 	unit->SetState(unit->GetCrashedState());
@@ -34,6 +39,11 @@ void StandbyState::EndCrash(Unit* unit)
 //////////////////////////////////////////////////////////////////////////
 
 void MovingState::TryMove(Unit* unit)
+{
+	
+}
+
+void MovingState::Movement(Unit* unit)
 {
 	unit->UnitMove();
 }
@@ -63,6 +73,11 @@ void MovingState::EndCrash(Unit* unit)
 void CrashedState::TryMove(Unit* unit)
 {
 	//¾øÀ½
+}
+
+void CrashedState::Movement(Unit* unit)
+{
+
 }
 
 void CrashedState::Crashed(Unit* unit)

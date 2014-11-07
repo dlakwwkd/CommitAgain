@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ClientSession.h"
 #include "Unit.h"
 
 
@@ -44,4 +45,12 @@ void Unit::SetAverageMove(b2Vec2 targetPos)
 	direction *= m_Speed / temp;
 
 	m_AverageMove = direction;
+}
+
+void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
+{
+	m_CurrentPos = currentPos;
+	m_TargetPos = targetPos;
+	SetAverageMove(targetPos);
+	m_State->TryMove(this);
 }
