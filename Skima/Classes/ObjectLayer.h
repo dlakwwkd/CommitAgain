@@ -31,7 +31,7 @@ protected:
 protected:
 	std::shared_ptr<Unit>				m_Hero;
 	std::vector<std::shared_ptr<Unit>>	m_MobList;
-	std::vector<std::shared_ptr<Unit>>	m_HeroList;
+	std::vector<std::shared_ptr<Unit>>	m_UnitList;
 
 };
 

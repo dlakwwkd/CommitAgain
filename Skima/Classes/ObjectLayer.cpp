@@ -47,7 +47,7 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID
 
 	unit->SetUnitID(unitID);
 	unit->SetUnitPlayerID(playerID);
-	m_HeroList.push_back(unit);
+	m_UnitList.push_back(unit);
 	//m_Hero->GetBody()->setVelocityLimit(100);
 
 	this->addChild(unit->GetSprite());
@@ -73,7 +73,7 @@ void ObjectLayer::FirstDrawUnit(int playerID, int unitID, UnitType unitType, Poi
 }
 void ObjectLayer::UpdateAnimation(int playerId, int unitID, Point pos)
 {
-	for (auto& unit : m_HeroList)
+	for (auto& unit : m_UnitList)
 	{
 		if (unit->GetUnitID() == unitID){
 			unit->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
