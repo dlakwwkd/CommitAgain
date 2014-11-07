@@ -122,7 +122,7 @@ void GameManager::DeleteGame(int gameId)
 }
 
 
-void GameManager::UnitMove(b2Vec2 targetPos, b2Vec2 currentPos, int playerId)
+void GameManager::UnitMoveSet(b2Vec2 targetPos, b2Vec2 currentPos, int playerId)
 {
 	for (auto& game : m_GameList)
 	{
@@ -204,10 +204,9 @@ void GameManager::Tick(float dt)
 				continue;
 
 			auto unit = player.second->GetMyHero();
-			if (unit->IsMove())
-			{
-				unit->UnitMove();
-			}
+			
+			unit->TryMove();
+			
 		}
 	}
 }
