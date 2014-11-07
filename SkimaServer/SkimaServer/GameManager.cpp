@@ -122,22 +122,22 @@ void GameManager::DeleteGame(int gameId)
 }
 
 
-void GameManager::UnitMoveSet(b2Vec2 targetPos, b2Vec2 currentPos, int playerId)
-{
-	for (auto& game : m_GameList)
-	{
-		for (auto& player : game.second->GetPlayerList())
-		{
-			if (player.first == playerId)
-			{
-				player.second->GetMyHero()->SetCurrentPos(currentPos);
-				player.second->GetMyHero()->SetTargetPos(targetPos);
-				player.second->GetMyHero()->SetAverageMove(targetPos);
-				break;
-			}
-		}
-	}
-}
+// void GameManager::UnitMoveSet(b2Vec2 targetPos, b2Vec2 currentPos, int playerId)
+// {
+// 	for (auto& game : m_GameList)
+// 	{
+// 		for (auto& player : game.second->GetPlayerList())
+// 		{
+// 			if (player.first == playerId)
+// 			{
+// 				player.second->GetMyHero()->SetCurrentPos(currentPos);
+// 				player.second->GetMyHero()->SetTargetPos(targetPos);
+// 				player.second->GetMyHero()->SetAverageMove(targetPos);
+// 				break;
+// 			}
+// 		}
+// 	}
+// }
 
 
 
@@ -205,7 +205,7 @@ void GameManager::Tick(float dt)
 
 			auto unit = player.second->GetMyHero();
 			
-			unit->TryMove();
+			unit->Movement();
 			
 		}
 	}

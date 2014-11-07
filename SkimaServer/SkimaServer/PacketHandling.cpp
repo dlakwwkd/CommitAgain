@@ -319,12 +319,10 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 
 	auto unit = GGameManager->SearchGame(session->GetPlayerId())->GetPlayer(session->GetPlayerId())->GetMyHero();
 
-	if (unit->GetState() == unit->GetStandbyState() || unit->GetState() == unit->GetMovingState())
-	{
-		session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos(), unit->GetTargetPos());
-		GGameManager->UnitMoveSet(targetPos, currentPos, session->GetPlayerId());
-		unit->TryMove();
-	}
+	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos(), unit->GetTargetPos());
+	//GGameManager->UnitMoveSet(targetPos, currentPos, session->GetPlayerId());
+	unit->TryMove(targetPos, currentPos);
+	
 }
 
 REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
