@@ -20,8 +20,5 @@ public:
 	void ConnectComplete();
 	void MakeRoomComplete(int roomId);
 	void JoinRoomComplete(int roomId);
-
-private:
-	int m_GameID;
 };
 

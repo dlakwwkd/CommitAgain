@@ -87,9 +87,6 @@
     <ClCompile Include="..\Classes\ListenerLayer.cpp">
       <Filter>Game\MultiPlay</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\LoadingBGLayer.cpp">
-      <Filter>Game\MultiPlay</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\PhysicsLayer.cpp">
       <Filter>Game\SinglePlay</Filter>
     </ClCompile>
@@ -113,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\MultiGameScene.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LoadingBGLayer.cpp">
+      <Filter>Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,9 +152,6 @@
     <ClInclude Include="..\Classes\ListenerLayer.h">
       <Filter>Game\MultiPlay</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\LoadingBGLayer.h">
-      <Filter>Game\MultiPlay</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\ObjectLayer.h">
       <Filter>Game\Object</Filter>
     </ClInclude>
@@ -181,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="..\..\FSM.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LoadingBGLayer.h">
+      <Filter>Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -53,21 +53,22 @@ void Unit::MoveTargeting(Point p)
 	m_MovePosition	= p;
 }
 
-void Unit::Movement(GameMode gameMode)
+void Unit::Move(GameMode gameMode)
 {
 	switch (gameMode)
 	{
-	case SINGLE:
-		SingleMove();
-		break;
-
-	case MULTI:
-		MultiMove();
-		break;
+	case SINGLE:	MoveS();	break;
+	case MULTI:		MoveM();	break;
 	}
 }
 
-void Unit::SingleMove()
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	게임 모드에 따라 나뉘는 함수들
+*/
+///////////////////////////////////////////////////////////////////////////
+void Unit::MoveS()
 {
 	if (m_MoveMode)
 	{
@@ -90,7 +91,7 @@ void Unit::SingleMove()
 	}
 }
 
-void Unit::MultiMove()
+void Unit::MoveM()
 {
 	if (m_MoveMode)
 	{
@@ -113,6 +114,13 @@ void Unit::MultiMove()
 	}
 }
 
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	상태 패턴 함수들
+*/
+///////////////////////////////////////////////////////////////////////////
 void Unit::TryMove()
 {
 	m_MoveState->TryMove(this);
@@ -127,12 +135,9 @@ void Unit::Crashed()
 	m_MoveState->Crashed(this);
 
 }
-
 void Unit::EndCrashed()
 {
 	m_MoveState->EndCrash(this);
 }
-
-
 
 

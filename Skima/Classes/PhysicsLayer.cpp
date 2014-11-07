@@ -13,9 +13,10 @@ bool PhysicsLayer::init()
 	}
 
 	auto layer1 = MapLayer::create();
-	this->addChild(layer1, 0, "MapLayer");
 	auto layer2 = ObjectLayer::create();
+	this->addChild(layer1, 0, "MapLayer");
 	this->addChild(layer2, 1, "ObjectLayer");
+	layer2->schedule(schedule_selector(ObjectLayer::TickS));
 
 	auto MouseListener = EventListenerMouse::create();
 	MouseListener->onMouseDown = CC_CALLBACK_1(PhysicsLayer::OnMouseDown, this);
@@ -29,7 +30,6 @@ bool PhysicsLayer::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(K_listener, this);
 
 	this->schedule(schedule_selector(PhysicsLayer::Tick));
-
 	return true;
 }
 
@@ -44,6 +44,25 @@ void PhysicsLayer::Tick(float dt)
 //////////////////////////////////////////////////////////////////////////
 
 
+
+void PhysicsLayer::UpdateKeyInput()
+{
+	if (GET_IM->GetKeyStatus(KEY_UP_ARROW))
+		this->setPositionY(this->getPositionY() - 10);
+	if (GET_IM->GetKeyStatus(KEY_DOWN_ARROW))
+		this->setPositionY(this->getPositionY() + 10);
+	if (GET_IM->GetKeyStatus(KEY_LEFT_ARROW))
+		this->setPositionX(this->getPositionX() + 10);
+	if (GET_IM->GetKeyStatus(KEY_RIGHT_ARROW))
+		this->setPositionX(this->getPositionX() - 10);
+}
+
+void PhysicsLayer::CameraSync()
+{
+
+}
+
+
 void PhysicsLayer::OnMouseDown(Event *event)
 {
 	auto button = ((EventMouse*)event)->getMouseButton();
@@ -55,7 +74,7 @@ void PhysicsLayer::OnMouseDown(Event *event)
 		break;
 	case MOUSE_BUTTON_RIGHT:
 		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-		child->UnitMove(GET_IM->GetMouseLocation());
+		child->UnitMove(GET_IM->GetMouseLocation(), SINGLE);
 		break;
 	}
 }
@@ -91,21 +110,4 @@ void PhysicsLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 void PhysicsLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, false);
-}
-
-void PhysicsLayer::UpdateKeyInput()
-{
-	if (GET_IM->GetKeyStatus(KEY_UP_ARROW))
-		this->setPositionY(this->getPositionY() - 10);
-	if (GET_IM->GetKeyStatus(KEY_DOWN_ARROW))
-		this->setPositionY(this->getPositionY() + 10);
-	if (GET_IM->GetKeyStatus(KEY_LEFT_ARROW))
-		this->setPositionX(this->getPositionX() + 10);
-	if (GET_IM->GetKeyStatus(KEY_RIGHT_ARROW))
-		this->setPositionX(this->getPositionX() - 10);
-}
-
-void PhysicsLayer::CameraSync()
-{
-
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
-#include "..\..\PacketType.h"
+#include "../../PacketType.h"
+#include "Enums.h"
 
 USING_NS_CC;
 
@@ -12,17 +13,20 @@ public:
 	virtual bool init();
 	CREATE_FUNC(ObjectLayer);
 
-	void Tick(float dt);
+	void TickS(float dt);
+	void TickM(float dt);
 
-	void UnitMove(Point p);
-	void AddNewSpriteAtPosition(Point p);
 	void CreateHero(int playerID, int unitID, Point location);
-	
-
-	void MobAi();
+	void UnitMove(Point pos, GameMode gameMode);
 	void FirstDrawUnit(int playerID, int unitID, UnitType unitType, Point pos);
 	void UpdateAnimation(int playerId, int unitID, Point pos);
-	//void CreateHeroStart();
+
+	void AddNewSpriteAtPosition(Point pos);
+	void MobAi();
+
+protected:
+	void UnitMoveS(Point pos);
+	void UnitMoveM(Point pos);
 
 protected:
 	std::shared_ptr<Unit>				m_Hero;

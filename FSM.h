@@ -9,6 +9,7 @@ class State
 class MoveState : public State
 {
 public:
+	virtual ~MoveState(){}
 	virtual void TryMove(Unit* unit) = 0;
 	virtual void Crashed(Unit* unit) = 0;
 	virtual void EndMove(Unit* unit) = 0;
@@ -18,6 +19,7 @@ public:
 class StandbyState : public MoveState
 {
 public:
+	virtual ~StandbyState(){}
 	virtual void TryMove(Unit* unit);
 	virtual void Crashed(Unit* unit);
 	virtual void EndMove(Unit* unit);
@@ -26,6 +28,7 @@ public:
 class MovingState : public MoveState
 {
 public:
+	virtual ~MovingState(){}
 	virtual void TryMove(Unit* unit);
 	virtual void Crashed(Unit* unit);
 	virtual void EndMove(Unit* unit);
@@ -34,6 +37,7 @@ public:
 class CrashedState : public MoveState
 {
 public:
+	virtual ~CrashedState(){}
 	virtual void TryMove(Unit* unit);
 	virtual void Crashed(Unit* unit);
 	virtual void EndMove(Unit* unit);

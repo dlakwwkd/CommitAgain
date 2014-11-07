@@ -24,14 +24,15 @@ public:
 	MoveState*		GetCrashedState(){ return (MoveState*)m_CrashedState; }
 	
 	void			MoveTargeting(Point p);
+	void			Move(GameMode gameMode);
 
 public:
 	PhysicsBody*	GetBody(){ return m_Body; }
 
 protected:
-	void			Movement(GameMode gameMode);
-	void			SingleMove();
-	void			MultiMove();
+	void			MoveS();
+	void			MoveM();
+
 	void			TryMove();
 	void			EndMove();
 	void			Crashed();

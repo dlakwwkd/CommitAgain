@@ -11,11 +11,12 @@ bool ListenerLayer::init()
 	{
 		return false;
 	}
-	auto mapLayer = MapLayer::create();
-	auto objectlayer = ObjectLayer::create();
-	this->addChild(mapLayer, 0,"MapLayer");
-	this->addChild(objectlayer, 1,"ObjectLayer");
-	
+	auto layer1 = MapLayer::create();
+	auto layer2 = ObjectLayer::create();
+	this->addChild(layer1, 0, "MapLayer");
+	this->addChild(layer2, 1, "ObjectLayer");
+	layer2->schedule(schedule_selector(ObjectLayer::TickM));
+
 	auto MouseListener = EventListenerMouse::create();
 	MouseListener->onMouseDown = CC_CALLBACK_1(ListenerLayer::OnMouseDown, this);
 	MouseListener->onMouseUp = CC_CALLBACK_1(ListenerLayer::OnMouseUp, this);
@@ -67,7 +68,7 @@ void ListenerLayer::OnMouseDown(Event *event)
 		break;
 	case MOUSE_BUTTON_RIGHT:
 		auto child = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
-		child->UnitMove(GET_IM->GetMouseLocation());
+		child->UnitMove(GET_IM->GetMouseLocation(), MULTI);
 
 		TcpClient::getInstance()->moveRequest(GET_IM->GetMouseLocation());
 		break;
