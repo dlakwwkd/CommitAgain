@@ -7,9 +7,17 @@
 
 Scene* SingleGameScene::createScene()
 {
-	auto scene = Scene::create();
+	auto scene = Scene::createWithPhysics();
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_NONE);
+	scene->getPhysicsWorld()->setGravity(Vect::ZERO);
+
 	auto layer = SingleGameScene::create();
+	auto layer2 = PhysicsLayer::create();
+
+	layer2->SetPhyWorld(scene->getPhysicsWorld());
+
 	scene->addChild(layer, 0, "SingleGameScene");
+	layer->addChild(layer2, 0, "PhysicsLayer");
 	return scene;
 }
 
@@ -19,9 +27,5 @@ bool SingleGameScene::init()
 	{
 		return false;
 	}
-
-	auto layer = PhysicsLayer::create();
-	this->addChild(layer, 0, "PhysicsLayer");
-
 	return true;
 }

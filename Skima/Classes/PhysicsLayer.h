@@ -11,7 +11,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(PhysicsLayer);
 
-	PhysicsWorld*	GetPhyWorld()					{ return m_World; }
+	PhysicsWorld*	GetPhyWorld(){ return m_World; }
 	void			SetPhyWorld(PhysicsWorld* world){ m_World = world; }
 
 	void			Tick(float dt);
