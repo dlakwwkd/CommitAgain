@@ -130,9 +130,9 @@ void GameManager::UnitMove(b2Vec2 targetPos, b2Vec2 currentPos, int playerId)
 		{
 			if (player.first == playerId)
 			{
-				player.second->GetMyHero()->SetTargetPos(targetPos);
-				player.second->SetAverageMove(targetPos);
 				player.second->GetMyHero()->SetCurrentPos(currentPos);
+				player.second->GetMyHero()->SetTargetPos(targetPos);
+				player.second->GetMyHero()->SetAverageMove(targetPos);
 				break;
 			}
 		}
@@ -170,9 +170,6 @@ void GameManager::Tick(float dt)
 {
 	m_World->Step(dt, 8, 3);
 
-	static int num = 0;
-	static int num2 = 0;
-
 	for (auto& room : m_RoomList)
 	{
 		if (room.second->IsAllReady())
@@ -181,13 +178,8 @@ void GameManager::Tick(float dt)
 			printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", room.first);
 			CreateGame(room.first);
 			room.second->InitReady();
-			
-			num = 1;
-			num2 = 0;
 		}
 	}
-
-
 
 	for (auto& game : m_GameList)
 	{
@@ -196,30 +188,25 @@ void GameManager::Tick(float dt)
 		{
 			auto client = GClientManager->GetClient(player.first);
 
-			if (num > 0)
-			{
-				num++;
-			}
-			if (num == 100)
+			if (game.second->IsReady())
 			{
 				client->ServerRunComplete();
-				num = 0;
 			}
 
-			if (game.second->GetLoadedPlayerNum() >= 2 && num2 == 0)
+			if (game.second->GetLoadedPlayerNum() >= 2)
 			{
 				client->StartGame();
-				game.second->SetIsStart();
-				num2++;
+				game.second->SetIsReady(false);
+				game.second->SetIsStart(true);
 			}
 
-			if (!game.second->GetIsStart())
+			if (!game.second->IsStart())
 				continue;
 
 			auto unit = player.second->GetMyHero();
 			if (unit->IsMove())
 			{
-				player.second->UnitMove();
+				unit->UnitMove();
 			}
 		}
 	}

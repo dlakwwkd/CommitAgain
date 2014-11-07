@@ -16,13 +16,13 @@ public:
 	b2Vec2		GetTargetPos(){ return m_TargetPos; }
 	int			GetSpeed(){ return m_Speed; }
 	bool		IsMove(){ return m_IsMove; }
-	void		SetAverageMove(b2Vec2 averageMove){ m_AverageMove = averageMove; }
 	void		SetCurrentPos(b2Vec2 currentPos){ m_CurrentPos = currentPos; }
 	void		SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
 	void		SetIsMove(bool isMove){ m_IsMove = isMove; }
 	void		SetSpeed(int speed){ m_Speed = speed; }
 
 	void		SetState(MoveState* state){ m_State = state; }
+	State*		GetState(){ return (State*)m_State; }
 	State*		GetStandbyState() { return (State*)m_StandbyState; }
 	State*		GetMovingState(){ return (State*)m_MovingState; }
 	State*		GetCrashedState() { return (State*)m_CrashedState; }
@@ -30,6 +30,9 @@ public:
 	void		TryMove() { m_State->TryMove(this); }
 	void		Crashed() { m_State->Crashed(this); }
 	void		EndMove() { m_State->EndMove(this); }
+
+	void		UnitMove();
+	void		SetAverageMove(b2Vec2 targetPos);
 
 private:
 	int			m_ID;
