@@ -26,7 +26,7 @@ public:
 	MoveState*	GetCrashedState() { return (MoveState*)m_CrashedState; }
 
 	void		TryMove(b2Vec2 currentPos, b2Vec2 targetPos);
-	void		MoveMent(){ m_State->Movement(this); }
+	void		Movement(){ m_State->Movement(this); }
 	void		Crashed() { m_State->Crashed(this); }
 	void		EndMove() { m_State->EndMove(this); }
 
