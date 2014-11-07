@@ -21,6 +21,7 @@ bool ListenerLayer::init()
 	MouseListener->onMouseDown = CC_CALLBACK_1(ListenerLayer::OnMouseDown, this);
 	MouseListener->onMouseUp = CC_CALLBACK_1(ListenerLayer::OnMouseUp, this);
 	MouseListener->onMouseMove = CC_CALLBACK_1(ListenerLayer::OnMouseMove, this);
+	MouseListener->onMouseMove = CC_CALLBACK_1(ListenerLayer::CheckMouseScroll, this); //  scroll?
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(MouseListener, this);
 
 	auto K_listener = EventListenerKeyboard::create();
@@ -98,4 +99,59 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, false);
+}
+
+void ListenerLayer::CheckMouseScroll(Event *event)
+{
+	auto location = dynamic_cast<EventMouse*>(event)->getLocation();
+	location.y = Director::getInstance()->getWinSize().height - location.y;
+
+	auto winSize = Director::getInstance()->getWinSize();
+
+	if (location.x < 5){
+		GET_IM->SetMouseScrollStatus(SCROLL_LEFT, true);
+		ScreenMove(SCROLL_LEFT);
+	}
+	if (location.x > 5)
+		GET_IM->SetMouseScrollStatus(SCROLL_LEFT, false);
+	if (location.x > winSize.width - 5){
+		GET_IM->SetMouseScrollStatus(SCROLL_RIGHT, true);
+		ScreenMove(SCROLL_RIGHT);
+	}
+	if (location.x < winSize.width - 5)
+		GET_IM->SetMouseScrollStatus(SCROLL_RIGHT, false);
+	if (location.y < 5){
+		GET_IM->SetMouseScrollStatus(SCROLL_DOWN, true);
+		ScreenMove(SCROLL_DOWN);
+	}
+	if (location.y > 5)
+		GET_IM->SetMouseScrollStatus(SCROLL_DOWN, false);
+	if (location.y > winSize.height - 5){
+		GET_IM->SetMouseScrollStatus(SCROLL_UP, true);
+		ScreenMove(SCROLL_UP);
+	}
+	if (location.y < winSize.height - 5)
+		GET_IM->SetMouseScrollStatus(SCROLL_UP, false);
+}
+
+void ListenerLayer::ScreenMove(ScrollDir scrollDir)
+{
+	switch (scrollDir)
+	{
+	case SCROLL_UP:
+		this->setPositionY(this->getPositionY() - 7);
+		break;
+
+	case SCROLL_DOWN:
+		this->setPositionY(this->getPositionY() + 7);
+		break;
+
+	case SCROLL_LEFT:
+		this->setPositionX(this->getPositionX() + 7);
+		break;
+
+	case SCROLL_RIGHT:
+		this->setPositionX(this->getPositionX() - 7);
+		break;
+	}
 }

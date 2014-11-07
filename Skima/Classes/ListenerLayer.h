@@ -1,7 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "TcpClient.h"
-
+#include "InputManager.h"
 
 USING_NS_CC;
 
@@ -10,12 +10,13 @@ class ListenerLayer : public Layer
 public:
 	virtual bool init();
 	CREATE_FUNC(ListenerLayer);
-
-	
+		
 	void			Tick(float dt);
 	void			UpdateKeyInput();
 	void			CameraSync();
 
+	void			CheckMouseScroll(Event *event);
+	void			ScreenMove(ScrollDir scrollDir);
 	virtual void	OnMouseDown(Event *event);
 	virtual void	OnMouseUp(Event *event);
 	virtual void	OnMouseMove(Event *event);
