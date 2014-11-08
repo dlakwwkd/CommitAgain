@@ -25,6 +25,7 @@ public:
 	
 	void			MoveTargeting(Point p);
 	void			Move(GameMode gameMode);
+	Point			GetUnitPos(){ return m_CurPosition; }
 
 public:
 	PhysicsBody*	GetBody(){ return m_Body; }
@@ -56,11 +57,10 @@ protected:
 	int				m_Mp;
 	float			m_Speed;
 
-	Point			m_MovePosition;
+	Point			m_CurPosition;
 	bool			m_MoveMode;
 
 protected:
 	Sprite*			m_Sprite;
 	PhysicsBody*	m_Body;
-
 };

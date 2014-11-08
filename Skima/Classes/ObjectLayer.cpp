@@ -53,9 +53,19 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID
 	this->addChild(unit->GetSprite());
 }
 
-void ObjectLayer::UnitMove(Point pos, GameMode gameMode)
+void ObjectLayer::UnitMove(int unitID, Point recvCurPos, Point targetPos, GameMode gameMode)
 {
-	if (m_Hero == nullptr) return;
+	//if (m_Hero == nullptr) return;
+	for (auto& unit : m_UnitList)
+	{
+		if (unit->GetUnitID() == unitID)
+		{
+			//FSM체크하고
+			//현재위치랑 보내준위치랑 체크해서 일정범위안이면 moveM움직이도록 // 범위밖이면.....T.T
+			//
+		}
+	}
+
 
 	switch (gameMode)
 	{
@@ -75,10 +85,11 @@ void ObjectLayer::UpdateAnimation(int playerId, int unitID, Point pos)
 {
 	for (auto& unit : m_UnitList)
 	{
-		if (unit->GetUnitID() == unitID){
+		if (unit->GetUnitID() == unitID)
+		{
 			unit->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
 			unit->GetSprite()->setPosition(pos);
-						
+			
 		}
 	}
 }
@@ -137,6 +148,11 @@ void ObjectLayer::UnitMoveS(Point pos)
 void ObjectLayer::UnitMoveM(Point pos)
 {
 	m_Hero->MoveTargeting(pos);
+}
+
+bool ObjectLayer::PosGapCheck(int unitID, Point recvCurPos)
+{
+	if (<recvCurPos.x)
 }
 
 

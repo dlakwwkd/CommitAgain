@@ -50,7 +50,7 @@ Unit::~Unit()
 void Unit::MoveTargeting(Point p)
 {
 	m_MoveMode		= true;
-	m_MovePosition	= p;
+	m_CurPosition	= p;
 }
 
 void Unit::Move(GameMode gameMode)
@@ -72,17 +72,17 @@ void Unit::MoveS()
 {
 	if (m_MoveMode)
 	{
-		if (!(m_Body->getPosition().x < m_MovePosition.x - 5 ||
-			m_Body->getPosition().y < m_MovePosition.y - 5 ||
-			m_Body->getPosition().x > m_MovePosition.x + 5 ||
-			m_Body->getPosition().y > m_MovePosition.y + 5))
+		if (!(m_Body->getPosition().x < m_CurPosition.x - 5 ||
+			m_Body->getPosition().y < m_CurPosition.y - 5 ||
+			m_Body->getPosition().x > m_CurPosition.x + 5 ||
+			m_Body->getPosition().y > m_CurPosition.y + 5))
 		{
 			m_MoveMode = false;
 			m_Body->setVelocity(Vect::ZERO);
 			return;
 		}
 
-		auto direction = m_MovePosition - m_Body->getPosition();
+		auto direction = m_CurPosition - m_Body->getPosition();
 		auto temp = abs(direction.x) + abs(direction.y);
 
 		direction *= m_Speed / temp;
@@ -95,17 +95,17 @@ void Unit::MoveM()
 {
 	if (m_MoveMode)
 	{
-		if (!(m_Body->getPosition().x < m_MovePosition.x - 5 ||
-			m_Body->getPosition().y < m_MovePosition.y - 5 ||
-			m_Body->getPosition().x > m_MovePosition.x + 5 ||
-			m_Body->getPosition().y > m_MovePosition.y + 5))
+		if (!(m_Body->getPosition().x < m_CurPosition.x - 5 ||
+			m_Body->getPosition().y < m_CurPosition.y - 5 ||
+			m_Body->getPosition().x > m_CurPosition.x + 5 ||
+			m_Body->getPosition().y > m_CurPosition.y + 5))
 		{
 			m_MoveMode = false;
 			m_Body->setVelocity(Vect::ZERO);
 			return;
 		}
 
-		auto direction = m_MovePosition - m_Body->getPosition();
+		auto direction = m_CurPosition - m_Body->getPosition();
 		auto temp = abs(direction.x) + abs(direction.y);
 
 		direction *= m_Speed / temp;
