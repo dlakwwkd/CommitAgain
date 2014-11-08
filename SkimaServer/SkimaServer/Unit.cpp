@@ -5,9 +5,9 @@
 #include "Unit.h"
 
 
-Unit::Unit(b2Vec2 pos)
+Unit::Unit(int playerId, b2Vec2 pos)
 : m_ID(-1), m_Type(TYPE_NONE), m_Speed(5), m_TargetPos({ 0, 0 }),
-m_AverageMove({ 0, 0 }), m_PlayerId(0)
+m_AverageMove({ 0, 0 }), m_PlayerId(playerId)
 {
 	m_State = m_StandbyState = new StandbyState;
 	m_MovingState = new MovingState;

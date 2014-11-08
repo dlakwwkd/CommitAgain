@@ -7,7 +7,7 @@ class b2World;
 class Unit
 {
 public:
-	Unit(b2Vec2 pos);
+	Unit(int playerId, b2Vec2 pos);
 	~Unit();
 
 public:
