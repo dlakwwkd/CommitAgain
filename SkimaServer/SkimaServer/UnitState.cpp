@@ -77,7 +77,7 @@ void CrashedState::TryMove(Unit* unit)
 
 void CrashedState::Movement(Unit* unit)
 {
-
+	
 }
 
 void CrashedState::Crashed(Unit* unit)

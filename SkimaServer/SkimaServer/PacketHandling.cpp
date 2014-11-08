@@ -315,13 +315,15 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 	currentPos.x = inPacket.mCurrentPosX;
 	currentPos.y = inPacket.mCurrentPosY;
 
-	printf(" Send:   Login ID: %d, x: %3f, y: %3f \n", session->GetPlayerId(), inPacket.mTargetPosX, inPacket.mTargetPosY);
+	printf(" Recv:   Login ID: %d, xc: %3f, yc: %3f, xt: %3f, yt: %3f \n", session->GetPlayerId(),
+		currentPos.x, currentPos.y, targetPos.x, targetPos.y);
 
-	auto unit = GGameManager->SearchGame(session->GetPlayerId())->GetPlayer(session->GetPlayerId())->GetMyHero();
+	auto unit = GGameManager->SearchPlayer(session->GetPlayerId())->GetMyHero();
+
+	unit->TryMove(currentPos, targetPos);
 
 	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos(), unit->GetTargetPos());
 	//GGameManager->UnitMoveSet(targetPos, currentPos, session->GetPlayerId());
-	unit->TryMove(currentPos, targetPos);
 	
 }
 
@@ -495,6 +497,23 @@ void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPo
 	outPacket.mCurrentPosY = currentPos.y;
 	outPacket.mTargetPosX = targetPos.x;
 	outPacket.mTargetPosY = targetPos.y;
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+}
+
+
+void ClientSession::CrashedBoradCast(int unitId, b2Vec2 currentPos, bool isCrashed)
+{
+	CrashedBroadcastResult outPacket;
+
+	outPacket.mPlayerId = mPlayerId;
+	outPacket.mUnitId = unitId;
+	outPacket.mIsCrashed = isCrashed;
+	outPacket.mCurrentPosX = currentPos.x;
+	outPacket.mCurrentPosY = currentPos.y;
 
 	if (!Broadcast(&outPacket))
 	{

@@ -121,6 +121,22 @@ void GameManager::DeleteGame(int gameId)
 	printf(" - Destroy %d Game ! \n", gameId);
 }
 
+Game* GameManager::SearchGame(int playerId)
+{
+	for (auto& game : m_GameList)
+	{
+		for (auto& player : game.second->GetPlayerList())
+		{
+			if (player.first == playerId)
+				return game.second;
+		}
+	}
+}
+
+Player* GameManager::SearchPlayer(int playerId)
+{
+	return SearchGame(playerId)->GetPlayer(playerId);
+}
 
 // void GameManager::UnitMoveSet(b2Vec2 targetPos, b2Vec2 currentPos, int playerId)
 // {
@@ -176,7 +192,7 @@ void GameManager::Tick(float dt)
 		{
 			// 게임 구동 시작!;
 			printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", room.first);
-			CreateGame(room.first);
+			CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::CreateGame, room.first);
 			room.second->InitReady();
 		}
 	}
@@ -190,13 +206,13 @@ void GameManager::Tick(float dt)
 
 			if (game.second->IsReady())
 			{
-				client->ServerRunComplete();
+				CallFuncAfter(MANAGER_UPDATE_INTERVAL, client, &ClientSession::ServerRunComplete);
+				game.second->SetIsReady(false);
 			}
 
-			if (game.second->GetLoadedPlayerNum() >= 2)
+			if (game.second->GetLoadedPlayerNum() >= 2 && !game.second->IsStart())
 			{
 				client->StartGame();
-				game.second->SetIsReady(false);
 				game.second->SetIsStart(true);
 			}
 
@@ -223,15 +239,4 @@ void GameManager::LowTick()
 	CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::LowTick);
 }
 
-Game* GameManager::SearchGame(int playerId)
-{
-	for (auto& game : m_GameList)
-	{
-		for (auto& player : game.second->GetPlayerList())
-		{
-			if (player.first == playerId)
-				return game.second;
-		}
-	}
-}
 

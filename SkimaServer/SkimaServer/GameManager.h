@@ -5,6 +5,7 @@
 class Game;
 class GameRoom;
 class b2World;
+class Player;
 
 class GameManager : public RefCountable
 {
@@ -24,12 +25,14 @@ public:
 	void		CreateGame(int roomId);
 	void		DeleteGame(int gameId);
 
+	Player*		SearchPlayer(int playerId);
 	void		PlayerOut(int playerId);
 
 	void		UnitMoveSet(b2Vec2 targetPos, b2Vec2 currentPos, int playerId);
 
 	void		InitPhyWorld();
 	void		DeletePhyWorld();
+	b2World*	GetWolrd(){ return m_World; }
 	
 	void		Tick(float dt);
 	void		LowTick();
@@ -42,6 +45,7 @@ private:
 	int			m_MakeRoomNum;
 
 	b2World*	m_World;
+
 };
 
 extern GameManager* GGameManager;

@@ -60,7 +60,7 @@ void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 		if (client->GetRoomId() == from->GetRoomId())
 		{
 			client->SendRequest(pkt);
-			printf(" Send: UnitInfo Player ID: %d \n", from->mPlayerId);
+			printf(" Send: Broadcast Player ID: %d \n", from->mPlayerId);
 		}
 	}
 }

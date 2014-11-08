@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ClientSession.h"
+#include "GameManager.h"
 #include "Unit.h"
 
 
@@ -11,6 +12,24 @@ Unit::Unit(b2Vec2 pos)
 	m_MovingState = new MovingState;
 	m_CrashedState = new CrashedState;
 
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(m_CurrentPos.x, m_CurrentPos.y);
+
+	b2Body* body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
+
+	b2CircleShape circle;
+	circle.m_radius = 0.55;
+
+	b2FixtureDef fixtureDef;
+
+	fixtureDef.shape = &circle;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.2f;
+	fixtureDef.restitution = 0.7f;
+	
+	body->CreateFixture(&fixtureDef);
+
 	static int makeId = 0;
 	m_ID = ++makeId;
 }
@@ -18,10 +37,6 @@ Unit::Unit(b2Vec2 pos)
 
 Unit::~Unit()
 {
-	delete m_State;
-	delete m_StandbyState;
-	delete m_MovingState;
-	delete m_CrashedState;
 }
 
 void Unit::UnitMove()

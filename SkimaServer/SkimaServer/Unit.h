@@ -2,6 +2,8 @@
 #include "..\..\PacketType.h"
 #include "..\..\FSM.h"
 
+class b2World;
+
 class Unit
 {
 public:
@@ -34,6 +36,7 @@ public:
 	void		SetAverageMove(b2Vec2 targetPos);
 
 private:
+	b2Body*		m_Body;
 	int			m_ID;
 	UnitType	m_Type;
 	MoveState*	m_State;
