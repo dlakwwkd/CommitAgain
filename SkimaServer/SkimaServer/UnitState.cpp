@@ -82,7 +82,10 @@ void CrashedState::Movement(Unit* unit)
 		unit->UnitCrashed(false);
 		EndCrash(unit);
 	}
-	unit->UnitCrashed(true);
+	else
+	{
+		unit->UnitCrashed(true);
+	}
 }
 
 void CrashedState::Crashed(Unit* unit)

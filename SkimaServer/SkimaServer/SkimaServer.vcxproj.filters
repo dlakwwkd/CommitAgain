@@ -41,9 +41,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="CircularBuffer.cpp">
       <Filter>Util</Filter>
     </ClCompile>
@@ -58,6 +55,9 @@
     </ClCompile>
     <ClCompile Include="UnitState.cpp">
       <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

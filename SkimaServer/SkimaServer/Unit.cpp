@@ -18,17 +18,16 @@ m_AverageMove({ 0, 0 }), m_PlayerId(playerId)
 	m_Body = GGameManager->GetWolrd()->CreateBody(&m_BodyDef);
 
 	b2CircleShape circle;
-	circle.m_radius = 0.55;
+	circle.m_radius = 10.0f;
 
 	b2FixtureDef fixtureDef;
-
 	fixtureDef.shape = &circle;
 	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.2f;
+	fixtureDef.friction = 0.3f;
 	fixtureDef.restitution = 0.7f;
 	
 	m_Body->CreateFixture(&fixtureDef);
-	m_Body->SetLinearDamping(1.0f);
+	//m_Body->SetLinearDamping(0.1f);
 
 	static int makeId = 0;
 	m_ID = ++makeId;
@@ -50,9 +49,11 @@ void Unit::UnitMove()
 		return;
 	}
 	auto currentPos = (m_Body->GetPosition() + m_AverageMove);
-	m_BodyDef.position.Set(currentPos.x, currentPos.y);
+	m_Body->SetTransform(currentPos, 0);
 
-	if (!(m_Body->GetLinearVelocity() == b2Vec2(0,0)))
+	printf("id: %d, x: %f, y: %f \n", m_ID, m_Body->GetPosition().x, m_Body->GetPosition().y);
+
+	if (0)
 	{
 		Crashed();
 	}

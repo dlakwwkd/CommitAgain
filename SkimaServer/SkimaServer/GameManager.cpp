@@ -186,6 +186,8 @@ void GameManager::Tick(float dt)
 {
 	m_World->Step(dt, 8, 3);
 
+
+
 	for (auto& room : m_RoomList)
 	{
 		if (room.second->IsAllReady())
@@ -222,7 +224,6 @@ void GameManager::Tick(float dt)
 			auto unit = player.second->GetMyHero();
 			
 			unit->Movement();
-			
 		}
 	}
 }
