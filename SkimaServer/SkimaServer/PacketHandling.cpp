@@ -322,7 +322,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 
 	unit->TryMove(currentPos, targetPos);
 
-	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos(), unit->GetTargetPos());
+	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetBody()->GetPosition(), unit->GetTargetPos());
 	//GGameManager->UnitMoveSet(targetPos, currentPos, session->GetPlayerId());
 	
 }

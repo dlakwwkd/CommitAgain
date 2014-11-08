@@ -1,22 +1,21 @@
 #include "stdafx.h"
 #include "ClientSession.h"
+#include "ClientManager.h"
 #include "GameManager.h"
 #include "Unit.h"
 
 
 Unit::Unit(b2Vec2 pos)
-: m_ID(-1), m_Type(TYPE_NONE), m_Speed(5), m_CurrentPos(pos), m_TargetPos({ 0, 0 }),
- m_AverageMove({ 0, 0 })
+: m_ID(-1), m_Type(TYPE_NONE), m_Speed(5), m_TargetPos({ 0, 0 }),
+m_AverageMove({ 0, 0 }), m_PlayerId(0)
 {
 	m_State = m_StandbyState = new StandbyState;
 	m_MovingState = new MovingState;
 	m_CrashedState = new CrashedState;
 
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(m_CurrentPos.x, m_CurrentPos.y);
-
-	b2Body* body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
+	m_BodyDef.type = b2_dynamicBody;
+	m_BodyDef.position.Set(pos.x, pos.y);
+	m_Body = GGameManager->GetWolrd()->CreateBody(&m_BodyDef);
 
 	b2CircleShape circle;
 	circle.m_radius = 0.55;
@@ -28,7 +27,8 @@ Unit::Unit(b2Vec2 pos)
 	fixtureDef.friction = 0.2f;
 	fixtureDef.restitution = 0.7f;
 	
-	body->CreateFixture(&fixtureDef);
+	m_Body->CreateFixture(&fixtureDef);
+	m_Body->SetLinearDamping(1.0f);
 
 	static int makeId = 0;
 	m_ID = ++makeId;
@@ -41,20 +41,26 @@ Unit::~Unit()
 
 void Unit::UnitMove()
 {
-	if (!(m_CurrentPos.x < m_TargetPos.x - 5 ||
-		m_CurrentPos.y < m_TargetPos.y - 5 ||
-		m_CurrentPos.x > m_TargetPos.x + 5 ||
-		m_CurrentPos.y > m_TargetPos.y + 5))
+	if (!(m_Body->GetPosition().x < m_TargetPos.x - 5 ||
+		m_Body->GetPosition().y < m_TargetPos.y - 5 ||
+		m_Body->GetPosition().x > m_TargetPos.x + 5 ||
+		m_Body->GetPosition().y > m_TargetPos.y + 5))
 	{
 		EndMove();
 		return;
 	}
-	m_CurrentPos = (m_CurrentPos + m_AverageMove);
+	auto currentPos = (m_Body->GetPosition() + m_AverageMove);
+	m_BodyDef.position.Set(currentPos.x, currentPos.y);
+
+	if (!(m_Body->GetLinearVelocity() == b2Vec2(0,0)))
+	{
+		Crashed();
+	}
 }
 
 void Unit::SetAverageMove(b2Vec2 targetPos)
 {
-	auto direction = targetPos - m_CurrentPos;
+	auto direction = targetPos - m_Body->GetPosition();
 	auto temp = abs(direction.x) + abs(direction.y);
 
 	direction *= m_Speed / temp;
@@ -64,8 +70,13 @@ void Unit::SetAverageMove(b2Vec2 targetPos)
 
 void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 {
-	m_CurrentPos = currentPos;
+	m_BodyDef.position.Set(currentPos.x, currentPos.y);
 	m_TargetPos = targetPos;
 	SetAverageMove(targetPos);
 	m_State->TryMove(this);
+}
+
+void Unit::UnitCrashed(bool isCrashed)
+{
+	GClientManager->GetClient(m_PlayerId)->CrashedBoradCast(m_ID, m_Body->GetPosition(), isCrashed);
 }

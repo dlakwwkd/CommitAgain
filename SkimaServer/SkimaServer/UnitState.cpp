@@ -77,7 +77,12 @@ void CrashedState::TryMove(Unit* unit)
 
 void CrashedState::Movement(Unit* unit)
 {
-	
+	if (unit->GetBody()->GetLinearVelocity() == b2Vec2(0, 0))
+	{
+		unit->UnitCrashed(false);
+		EndCrash(unit);
+	}
+	unit->UnitCrashed(true);
 }
 
 void CrashedState::Crashed(Unit* unit)

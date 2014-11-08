@@ -14,10 +14,8 @@ public:
 	int			GetUnitID(){ return m_ID; }
 	UnitType	GetUnitType(){ return m_Type; }
 	b2Vec2		GetAverageMove(){ return m_AverageMove; }
-	b2Vec2		GetCurrentPos(){ return m_CurrentPos; }
 	b2Vec2		GetTargetPos(){ return m_TargetPos; }
 	int			GetSpeed(){ return m_Speed; }
-	void		SetCurrentPos(b2Vec2 currentPos){ m_CurrentPos = currentPos; }
 	void		SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
 	void		SetSpeed(int speed){ m_Speed = speed; }
 
@@ -33,17 +31,21 @@ public:
 	void		EndMove() { m_State->EndMove(this); }
 
 	void		UnitMove();
+	void		UnitCrashed(bool isCrashed);
 	void		SetAverageMove(b2Vec2 targetPos);
 
+	b2Body*		GetBody(){ return m_Body; }
+
 private:
+	int			m_PlayerId;
 	b2Body*		m_Body;
+	b2BodyDef	m_BodyDef;
 	int			m_ID;
 	UnitType	m_Type;
 	MoveState*	m_State;
 
 	int			m_Speed;
 	b2Vec2		m_AverageMove;
-	b2Vec2		m_CurrentPos;
 	b2Vec2		m_TargetPos;
 	MoveState*	m_StandbyState;
 	MoveState*	m_MovingState;
