@@ -71,9 +71,6 @@ void ObjectLayer::UnitMove(int unitID, Point recvCurPos, Point targetPos)
 	case MULTI:
 		UnitMoveM(unitID, recvCurPos, targetPos);
 
-
-		//if (m_Hero == nullptr) return;
-
 // 		for (auto& unit : m_UnitList)
 // 		{
 // 			if (unit->GetUnitID() == unitID)
@@ -84,14 +81,30 @@ void ObjectLayer::UnitMove(int unitID, Point recvCurPos, Point targetPos)
 // 				{
 // 					
 // 				}
-// 
 // 			}
 // 		}
 		break;
-	
 	}
-
 }
+
+void ObjectLayer::UnitCrash(int unitID, Point recvPos)
+{
+	switch (GET_GM.GetGameMode())
+	{
+	case SINGLE:
+		UnitCrashS(recvPos);
+		break;
+	case MULTI:
+		UnitCrashM(unitID, recvPos);
+		break;
+	}
+}
+
+void ObjectLayer::UnitCrashEnd(int unitID)
+{
+	m_UnitList[unitID]->EndCrashed();
+}
+
 
 
 void ObjectLayer::FirstDrawUnit(int playerID, int unitID, UnitType unitType, Point pos)
@@ -141,13 +154,29 @@ void ObjectLayer::MobAi()
 		auto time = rand() % 300;
 
 		if (time < 3)
-			b->MoveTargeting(temp);
+			b->SetMoveTargetPos(temp);
 		else if (time == 10)
-			b->MoveTargeting(m_Hero->GetBody()->getPosition());
+			b->SetMoveTargetPos(m_Hero->GetBody()->getPosition());
 		else
 			continue;
 	}
 }
+
+
+bool ObjectLayer::PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos)
+{
+	Point unitPos = unit->GetUnitPos();
+
+	if (unitPos.x - recvCurPos.x > 5 || unitPos.x - recvCurPos.x<-5)
+		return false;
+
+	if (unitPos.y - recvCurPos.y>5 || unitPos.y - recvCurPos.y < -5)
+		return false;
+
+	else
+		return true;
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -157,7 +186,8 @@ void ObjectLayer::MobAi()
 ///////////////////////////////////////////////////////////////////////////
 void ObjectLayer::UnitMoveS(Point pos)
 {
-	m_Hero->MoveTargeting(pos);
+	m_Hero->SetMoveTargetPos(pos);
+	m_Hero->TryMove();
 
 // 	auto vect = m_Hero->GetBody()->getPosition();
 // 	vect = GET_IM->GetMouseLocation() - vect;
@@ -166,21 +196,20 @@ void ObjectLayer::UnitMoveS(Point pos)
 }
 void ObjectLayer::UnitMoveM(int unitID, Point recvCurPos, Point targetPos)
 {
-	m_UnitList[unitID]->MoveTargeting(targetPos);
+	m_UnitList[unitID]->SetMoveTargetPos(targetPos);
+	m_UnitList[unitID]->TryMove();
 }
 
-bool ObjectLayer::PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos)
+
+void ObjectLayer::UnitCrashS(Point pos)
 {
-	Point unitPos = unit->GetUnitPos();
-	
-	if (unitPos.x - recvCurPos.x > 5 || unitPos.x - recvCurPos.x<-5)
-		return false;
 
-	if (unitPos.y - recvCurPos.y>5 || unitPos.y - recvCurPos.y < -5)
-		return false;
+}
 
-	else
-		return true;
+void ObjectLayer::UnitCrashM(int unitID, Point recvPos)
+{
+	m_UnitList[unitID]->SetMoveTargetPos(recvPos);
+	m_UnitList[unitID]->Crashed();
 }
 
 

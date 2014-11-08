@@ -46,18 +46,21 @@ Unit::~Unit()
 
 
 
-void Unit::MoveTargeting(Point pos)
-{
-	m_TargetPos	= pos;
-	TryMove();
-}
-
 void Unit::Move()
 {
 	switch (GET_GM.GetGameMode())
 	{
 	case SINGLE:	MoveS();	break;
 	case MULTI:		MoveM();	break;
+	}
+}
+
+void Unit::Crash()
+{
+	switch (GET_GM.GetGameMode())
+	{
+	case SINGLE:	CrashS();	break;
+	case MULTI:		CrashM();	break;
 	}
 }
 
@@ -107,6 +110,18 @@ void Unit::MoveM()
 }
 
 
+void Unit::CrashS()
+{
+
+}
+
+void Unit::CrashM()
+{
+	m_Sprite->setPosition(m_TargetPos);
+}
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -125,16 +140,12 @@ void Unit::EndMove()
 void Unit::Crashed()
 {
 	m_MoveState->Crashed(this);
-
 }
 void Unit::EndCrashed()
 {
 	m_MoveState->EndCrash(this);
 }
-
 void Unit::Movement()
 {
 	m_MoveState->Movement(this);
 }
-
-

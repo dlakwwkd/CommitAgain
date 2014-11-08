@@ -78,6 +78,6 @@ void CrashedState::EndCrash(Unit* unit)
 }
 void CrashedState::Movement(Unit* unit)
 {
-
+	unit->Crash();
 }
 

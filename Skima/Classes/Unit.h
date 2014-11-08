@@ -15,6 +15,7 @@ public:
 	void			SetUnitID(int unitID){ m_UnitID = unitID; }
 	void			SetUnitPlayerID(int playerID){ m_PlayerID = playerID; }
 	void			SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
+	void			SetMoveTargetPos(Point pos){ m_TargetPos = pos; }
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
 	Point			GetUnitPos(){ return m_CurPos; }
@@ -24,8 +25,8 @@ public:
 	MoveState*		GetMovingState(){ return (MoveState*)m_MovingState; }
 	MoveState*		GetCrashedState(){ return (MoveState*)m_CrashedState; }
 	
-	void			MoveTargeting(Point pos);
 	void			Move();
+	void			Crash();
 
 	void			TryMove();
 	void			EndMove();
@@ -40,6 +41,8 @@ public:
 protected:
 	void			MoveS();
 	void			MoveM();
+	void			CrashS();
+	void			CrashM();
 
 
 
