@@ -74,7 +74,7 @@ void PhysicsLayer::OnMouseDown(Event *event)
 		break;
 	case MOUSE_BUTTON_RIGHT:
 		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-		child->UnitMove(GET_IM->GetMouseLocation(), SINGLE);
+		child->UnitMove(1, { 0, 0 }, GET_IM->GetMouseLocation());
 		break;
 	}
 }

@@ -49,8 +49,8 @@ Unit::~Unit()
 
 void Unit::MoveTargeting(Point pos)
 {
-	m_MoveMode	= true;
 	m_TargetPos	= pos;
+	TryMove();
 }
 
 void Unit::Move()
@@ -93,25 +93,21 @@ void Unit::MoveS()
 
 void Unit::MoveM()
 {
-	if (m_MoveMode)
+	if (!(m_Sprite->getPosition().x < m_TargetPos.x - 5 ||
+		m_Sprite->getPosition().y < m_TargetPos.y - 5 ||
+		m_Sprite->getPosition().x > m_TargetPos.x + 5 ||
+		m_Sprite->getPosition().y > m_TargetPos.y + 5))
 	{
-		if (!(m_Body->getPosition().x < m_TargetPos.x - 5 ||
-			m_Body->getPosition().y < m_TargetPos.y - 5 ||
-			m_Body->getPosition().x > m_TargetPos.x + 5 ||
-			m_Body->getPosition().y > m_TargetPos.y + 5))
-		{
-			m_MoveMode = false;
-			m_Body->setVelocity(Vect::ZERO);
-			return;
-		}
-
-		auto direction = m_TargetPos - m_Body->getPosition();
-		auto temp = abs(direction.x) + abs(direction.y);
-
-		direction *= m_Speed / temp;
-
-		m_Body->applyImpulse(direction);
+		m_MoveState->EndMove(this);
+		return;
 	}
+
+	auto direction = m_TargetPos - m_Sprite->getPosition();
+	auto temp = abs(direction.x) + abs(direction.y);
+
+	direction *= m_Speed / temp;
+
+	m_Sprite->setPosition(m_Sprite->getPosition() + direction);
 }
 
 
@@ -138,6 +134,11 @@ void Unit::Crashed()
 void Unit::EndCrashed()
 {
 	m_MoveState->EndCrash(this);
+}
+
+void Unit::Movement()
+{
+	m_MoveState->Movement(this);
 }
 
 

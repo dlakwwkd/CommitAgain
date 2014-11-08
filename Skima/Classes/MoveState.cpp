@@ -22,7 +22,10 @@ void StandbyState::EndCrash(Unit* unit)
 {
 
 }
+void StandbyState::Movement(Unit* unit)
+{
 
+}
 
 //////////////////////////////////////////////////////////////////////////
 /*
@@ -46,6 +49,11 @@ void MovingState::EndCrash(Unit* unit)
 {
 
 }
+void MovingState::Movement(Unit* unit)
+{
+	unit->Move();
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 /*
@@ -67,5 +75,9 @@ void CrashedState::EndMove(Unit* unit)
 void CrashedState::EndCrash(Unit* unit)
 {
 	unit->SetState(unit->GetStandbyState());
+}
+void CrashedState::Movement(Unit* unit)
+{
+
 }
 

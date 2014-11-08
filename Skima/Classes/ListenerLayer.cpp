@@ -61,16 +61,12 @@ void ListenerLayer::OnMouseDown(Event *event)
 
 	auto button = dynamic_cast<EventMouse*>(event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, true);
-	float x, y;
 
 	switch (button)
 	{
 	case MOUSE_BUTTON_LEFT:
 		break;
 	case MOUSE_BUTTON_RIGHT:
-		auto child = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
-		child->UnitMove(GET_IM->GetMouseLocation(), MULTI);
-
 		TcpClient::getInstance()->moveRequest(GET_IM->GetMouseLocation());
 		break;
 	}

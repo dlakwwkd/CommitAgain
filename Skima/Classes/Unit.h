@@ -17,6 +17,7 @@ public:
 	void			SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
+	Point			GetUnitPos(){ return m_CurPos; }
 
 	void			SetState(MoveState* state){ m_MoveState = state; }
 	MoveState*		GetStandbyState(){ return (MoveState*)m_StandbyState; }
@@ -25,7 +26,13 @@ public:
 	
 	void			MoveTargeting(Point pos);
 	void			Move();
-	Point			GetUnitPos(){ return m_CurPos; }
+
+	void			TryMove();
+	void			EndMove();
+	void			Crashed();
+	void			EndCrashed();
+	void			Movement();
+
 
 public:
 	PhysicsBody*	GetBody(){ return m_Body; }
@@ -34,10 +41,6 @@ protected:
 	void			MoveS();
 	void			MoveM();
 
-	void			TryMove();
-	void			EndMove();
-	void			Crashed();
-	void			EndCrashed();
 
 
 protected:

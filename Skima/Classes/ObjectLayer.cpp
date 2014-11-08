@@ -22,18 +22,20 @@ void ObjectLayer::TickS(float dt)
 {
 	if (m_Hero == nullptr) return;
 	
-	m_Hero->Move(SINGLE);
+	m_Hero->Move();
 	m_Hero->GetSprite()->setZOrder(-m_Hero->GetSprite()->getPosition().y);
 	for (auto& b : m_MobList)
 	{
-		b->Move(SINGLE);
+		b->Move();
 		b->GetSprite()->setZOrder(-b->GetSprite()->getPosition().y);
 	}
 }
 void ObjectLayer::TickM(float dt)
 {
-	if (m_Hero == nullptr) return;
-
+	for (auto& unit : m_UnitList)
+	{
+		unit.second->Movement();
+	}
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -47,37 +49,38 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID
 
 	unit->SetUnitID(unitID);
 	unit->SetUnitPlayerID(playerID);
-	m_UnitList.push_back(unit);
+	m_UnitList[unitID] = unit;
 	//m_Hero->GetBody()->setVelocityLimit(100);
 
 	this->addChild(unit->GetSprite());
 }
 
-void ObjectLayer::UnitMove(int unitID, Point recvCurPos, Point targetPos, GameMode gameMode)
+void ObjectLayer::UnitMove(int unitID, Point recvCurPos, Point targetPos)
 {
-	switch (gameMode)
+	switch (GET_GM.GetGameMode())
 	{
 	case SINGLE:
 		UnitMoveS(targetPos);
 		break;
-
-
 	case MULTI:
+		UnitMoveM(unitID, recvCurPos, targetPos);
+
+
 		//if (m_Hero == nullptr) return;
-		for (auto& unit : m_UnitList)
-		{
-			if (unit->GetUnitID() == unitID)
-			{
-				//FSM체크하고
-				//현재위치랑 보내준위치랑 체크해서 일정범위안이면 moveM움직이도록 // 범위밖이면.....T.T
-				if (PosGapCheck(unit, recvCurPos) == true)
-				{
-					
-				}
 
-			}
-		}
-
+// 		for (auto& unit : m_UnitList)
+// 		{
+// 			if (unit->GetUnitID() == unitID)
+// 			{
+// 				//FSM체크하고
+// 				//현재위치랑 보내준위치랑 체크해서 일정범위안이면 moveM움직이도록 // 범위밖이면.....T.T
+// 				if (PosGapCheck(unit, recvCurPos) == true)
+// 				{
+// 					
+// 				}
+// 
+// 			}
+// 		}
 		break;
 	
 	}
@@ -95,10 +98,10 @@ void ObjectLayer::UpdateAnimation(int playerId, int unitID, Point pos)
 {
 	for (auto& unit : m_UnitList)
 	{
-		if (unit->GetUnitID() == unitID)
+		if (unit.second->GetUnitID() == unitID)
 		{
-			unit->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
-			unit->GetSprite()->setPosition(pos);
+			unit.second->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
+			unit.second->GetSprite()->setPosition(pos);
 			
 		}
 	}
@@ -150,14 +153,14 @@ void ObjectLayer::UnitMoveS(Point pos)
 {
 	m_Hero->MoveTargeting(pos);
 
-	auto vect = m_Hero->GetBody()->getPosition();
-	vect = GET_IM->GetMouseLocation() - vect;
-
-	m_Hero->GetBody()->setVelocity(vect);
+// 	auto vect = m_Hero->GetBody()->getPosition();
+// 	vect = GET_IM->GetMouseLocation() - vect;
+// 
+// 	m_Hero->GetBody()->setVelocity(vect);
 }
-void ObjectLayer::UnitMoveM(Point pos)
+void ObjectLayer::UnitMoveM(int unitID, Point recvCurPos, Point targetPos)
 {
-	m_Hero->MoveTargeting(pos);
+	m_UnitList[unitID]->MoveTargeting(targetPos);
 }
 
 bool ObjectLayer::PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos)

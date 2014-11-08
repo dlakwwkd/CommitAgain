@@ -1,5 +1,6 @@
 #pragma once
 #include "cocos2d.h"
+#include <map>
 #include "../../PacketType.h"
 #include "Enums.h"
 
@@ -17,7 +18,7 @@ public:
 	void TickM(float dt);
 
 	void CreateHero(int playerID, int unitID, Point location);
-	void UnitMove(int unitID, Point recvCurPos, Point targetPos, GameMode gameMode);
+	void UnitMove(int unitID, Point recvCurPos, Point targetPos);
 	bool PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos);
 	void FirstDrawUnit(int playerID, int unitID, UnitType unitType, Point pos);
 	void UpdateAnimation(int playerId, int unitID, Point pos);
@@ -27,12 +28,14 @@ public:
 
 protected:
 	void UnitMoveS(Point pos);
-	void UnitMoveM(Point pos);
+	void UnitMoveM(int unitID, Point recvCurPos, Point targetPos);
 
 protected:
-	std::shared_ptr<Unit>				m_Hero;
-	std::vector<std::shared_ptr<Unit>>	m_MobList;
-	std::vector<std::shared_ptr<Unit>>	m_UnitList;
+	std::shared_ptr<Unit>					m_Hero;
+	std::map<int, std::shared_ptr<Unit>>	m_UnitList;
+
+
+	std::vector<std::shared_ptr<Unit>>		m_MobList;
 
 };
 
