@@ -7,7 +7,7 @@
 
 /// 타이머 실행 간격 (ms)
 #define APC_TIMER_INTERVAL	16
-#define MANAGER_UPDATE_INTERVAL	2000
+#define MANAGER_UPDATE_INTERVAL	1000
 
 
 /// 플레이어의 HeartBeat 주기
