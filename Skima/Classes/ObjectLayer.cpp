@@ -45,7 +45,7 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID
 {
 	//todo unitType ¸Í±Û¾î¾ßÇÔ
 
-	std::shared_ptr<Unit> unit(new Unit("Images/SpookyPeas.png", location, 1.0f, MULTI));
+	std::shared_ptr<Unit> unit(new Unit("Images/SpookyPeas.png", location, 1.0f));
 
 	unit->SetUnitID(unitID);
 	unit->SetUnitPlayerID(playerID);
@@ -118,7 +118,7 @@ void ObjectLayer::UpdateAnimation(int playerId, int unitID, Point pos)
 void ObjectLayer::AddNewSpriteAtPosition(Point pos)
 {
 	auto parent = dynamic_cast<PhysicsLayer*>(this->getParent());
-	std::shared_ptr<Unit> unit(new Unit("Images/Pea.png", pos - parent->getPosition(), 1.0f, SINGLE));
+	std::shared_ptr<Unit> unit(new Unit("Images/Pea.png", pos - parent->getPosition(), 1.0f));
 	unit->GetBody()->setVelocityLimit(100);
 
 	m_MobList.push_back(unit);

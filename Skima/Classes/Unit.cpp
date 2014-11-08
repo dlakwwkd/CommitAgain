@@ -1,10 +1,9 @@
 #include "Unit.h"
 #include "GameManager.h"
 
-Unit::Unit(const std::string& filename, Point createPos, float scale, GameMode gameMode)
+Unit::Unit(const std::string& filename, Point createPos, float scale)
 {
-	m_Speed = 100.0f;
-	m_MoveMode = false;
+	m_Speed = 10.0f;
 
 	auto sprite = Sprite::create(filename);
 	sprite->setPosition(createPos);
@@ -12,7 +11,7 @@ Unit::Unit(const std::string& filename, Point createPos, float scale, GameMode g
 
 	m_Sprite = sprite;
 
-	switch (gameMode)
+	switch (GET_GM.GetGameMode())
 	{
 	case SINGLE:
 	{
@@ -70,25 +69,22 @@ void Unit::Move()
 ///////////////////////////////////////////////////////////////////////////
 void Unit::MoveS()
 {
-	if (m_MoveMode)
+	if (!(m_Body->getPosition().x < m_TargetPos.x - 5 ||
+		m_Body->getPosition().y < m_TargetPos.y - 5 ||
+		m_Body->getPosition().x > m_TargetPos.x + 5 ||
+		m_Body->getPosition().y > m_TargetPos.y + 5))
 	{
-		if (!(m_Body->getPosition().x < m_TargetPos.x - 5 ||
-			m_Body->getPosition().y < m_TargetPos.y - 5 ||
-			m_Body->getPosition().x > m_TargetPos.x + 5 ||
-			m_Body->getPosition().y > m_TargetPos.y + 5))
-		{
-			m_MoveMode = false;
-			m_Body->setVelocity(Vect::ZERO);
-			return;
-		}
-
-		auto direction = m_TargetPos - m_Body->getPosition();
-		auto temp = abs(direction.x) + abs(direction.y);
-
-		direction *= m_Speed / temp;
-
-		m_Body->applyImpulse(direction);
+		m_MoveState->EndMove(this);
+		m_Body->setVelocity(Vect::ZERO);
+		return;
 	}
+
+	auto direction = m_TargetPos - m_Body->getPosition();
+	auto temp = abs(direction.x) + abs(direction.y);
+
+	direction *= m_Speed / temp;
+
+	m_Body->applyImpulse(direction);
 }
 
 void Unit::MoveM()

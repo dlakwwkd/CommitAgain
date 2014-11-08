@@ -9,7 +9,7 @@ USING_NS_CC;
 class Unit
 {
 public:
-	Unit(const std::string& filename, Point createPos, float scale, GameMode gameMode);
+	Unit(const std::string& filename, Point createPos, float scale);
 	~Unit();
 
 	void			SetUnitID(int unitID){ m_UnitID = unitID; }
@@ -62,7 +62,6 @@ protected:
 
 	Point			m_CurPos;
 	Point			m_TargetPos;
-	bool			m_MoveMode;
 
 protected:
 	Sprite*			m_Sprite;
