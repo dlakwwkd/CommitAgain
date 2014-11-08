@@ -3,6 +3,7 @@
 #include "LoadingBGLayer.h"
 #include "MapLayer.h"
 #include "ObjectLayer.h"
+#include "GameManager.h"
 //#include "UILayer.h"
 
 Scene* SingleGameScene::createScene()
@@ -27,5 +28,6 @@ bool SingleGameScene::init()
 	{
 		return false;
 	}
+	GET_GM.SetGameMode(SINGLE);
 	return true;
 }

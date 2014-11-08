@@ -317,7 +317,7 @@ void TcpClient::processPacket()
 
 				Point curPos = { recvData.mCurrentPosX, recvData.mCurrentPosY };
 				Point targetPos = { recvData.mTargetPosX, recvData.mTargetPosY };
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(Unit::Move, dynamic_cast<ObjectLayer*>(layer), recvData.mPlayerId, recvData.mUnitId, pos));
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitMove, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, curPos, targetPos));
 			}
 			break;
 

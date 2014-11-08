@@ -3,6 +3,7 @@
 #include "MapLayer.h"
 #include "ObjectLayer.h"
 #include "ListenerLayer.h"
+#include "GameManager.h"
 
 USING_NS_CC;
 
@@ -22,6 +23,7 @@ bool MultiGameScene::init()
         return false;
     }
 
+	GET_GM.SetGameMode(MULTI);
 	m_IsStartGame = false;
 
 	auto listenerLayer = ListenerLayer::create();

@@ -1,5 +1,5 @@
 #include "Unit.h"
-
+#include "GameManager.h"
 
 Unit::Unit(const std::string& filename, Point createPos, float scale, GameMode gameMode)
 {
@@ -47,15 +47,15 @@ Unit::~Unit()
 
 
 
-void Unit::MoveTargeting(Point p)
+void Unit::MoveTargeting(Point pos)
 {
-	m_MoveMode		= true;
-	m_CurPosition	= p;
+	m_MoveMode	= true;
+	m_TargetPos	= pos;
 }
 
-void Unit::Move(GameMode gameMode)
+void Unit::Move()
 {
-	switch (gameMode)
+	switch (GET_GM.GetGameMode())
 	{
 	case SINGLE:	MoveS();	break;
 	case MULTI:		MoveM();	break;
@@ -72,17 +72,17 @@ void Unit::MoveS()
 {
 	if (m_MoveMode)
 	{
-		if (!(m_Body->getPosition().x < m_CurPosition.x - 5 ||
-			m_Body->getPosition().y < m_CurPosition.y - 5 ||
-			m_Body->getPosition().x > m_CurPosition.x + 5 ||
-			m_Body->getPosition().y > m_CurPosition.y + 5))
+		if (!(m_Body->getPosition().x < m_TargetPos.x - 5 ||
+			m_Body->getPosition().y < m_TargetPos.y - 5 ||
+			m_Body->getPosition().x > m_TargetPos.x + 5 ||
+			m_Body->getPosition().y > m_TargetPos.y + 5))
 		{
 			m_MoveMode = false;
 			m_Body->setVelocity(Vect::ZERO);
 			return;
 		}
 
-		auto direction = m_CurPosition - m_Body->getPosition();
+		auto direction = m_TargetPos - m_Body->getPosition();
 		auto temp = abs(direction.x) + abs(direction.y);
 
 		direction *= m_Speed / temp;
@@ -95,17 +95,17 @@ void Unit::MoveM()
 {
 	if (m_MoveMode)
 	{
-		if (!(m_Body->getPosition().x < m_CurPosition.x - 5 ||
-			m_Body->getPosition().y < m_CurPosition.y - 5 ||
-			m_Body->getPosition().x > m_CurPosition.x + 5 ||
-			m_Body->getPosition().y > m_CurPosition.y + 5))
+		if (!(m_Body->getPosition().x < m_TargetPos.x - 5 ||
+			m_Body->getPosition().y < m_TargetPos.y - 5 ||
+			m_Body->getPosition().x > m_TargetPos.x + 5 ||
+			m_Body->getPosition().y > m_TargetPos.y + 5))
 		{
 			m_MoveMode = false;
 			m_Body->setVelocity(Vect::ZERO);
 			return;
 		}
 
-		auto direction = m_CurPosition - m_Body->getPosition();
+		auto direction = m_TargetPos - m_Body->getPosition();
 		auto temp = abs(direction.x) + abs(direction.y);
 
 		direction *= m_Speed / temp;

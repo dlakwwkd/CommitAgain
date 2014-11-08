@@ -23,9 +23,9 @@ public:
 	MoveState*		GetMovingState(){ return (MoveState*)m_MovingState; }
 	MoveState*		GetCrashedState(){ return (MoveState*)m_CrashedState; }
 	
-	void			MoveTargeting(Point p);
-	void			Move(GameMode gameMode);
-	Point			GetUnitPos(){ return m_CurPosition; }
+	void			MoveTargeting(Point pos);
+	void			Move();
+	Point			GetUnitPos(){ return m_CurPos; }
 
 public:
 	PhysicsBody*	GetBody(){ return m_Body; }
@@ -57,7 +57,8 @@ protected:
 	int				m_Mp;
 	float			m_Speed;
 
-	Point			m_CurPosition;
+	Point			m_CurPos;
+	Point			m_TargetPos;
 	bool			m_MoveMode;
 
 protected:
