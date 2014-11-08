@@ -47,4 +47,5 @@ Player* Game::GetPlayer(int playerId)
 			return player.second;
 		}
 	}
+	return nullptr;
 }

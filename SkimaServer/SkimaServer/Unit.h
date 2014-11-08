@@ -2,6 +2,8 @@
 #include "..\..\PacketType.h"
 #include "..\..\FSM.h"
 
+class b2World;
+
 class Unit
 {
 public:

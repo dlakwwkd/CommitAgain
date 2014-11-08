@@ -9,7 +9,7 @@ class Game
 {
 public:
 	Game(int id) : m_GameID(id), m_IsStart(false), m_LoadedPlayerNum(0) 
-		, m_IsReady(false){}
+		, m_IsReady(true){}
 	
 	~Game(){}
 
@@ -27,7 +27,7 @@ public:
 	
 	void				SetLoadedPlayerNum(){ m_LoadedPlayerNum++; }
 	int					GetLoadedPlayerNum(){ return m_LoadedPlayerNum; }
-	Player*				GetPlayer(int palyerId);
+	Player*				GetPlayer(int playerId);
 
 private:
 	PlayerList			m_PlayerList;
