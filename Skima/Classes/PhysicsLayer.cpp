@@ -92,6 +92,7 @@ void PhysicsLayer::OnMouseMove(Event *event)
 	location.y = Director::getInstance()->getWinSize().height - location.y;
 
 	GET_IM->SetMouseLocation(location);
+	GET_IM->CheckMouseScroll();
 
 
 	if (GET_IM->GetMouseStatus(MOUSE_BUTTON_LEFT))
@@ -115,15 +116,15 @@ void PhysicsLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 void PhysicsLayer::ScreenMove()
 {
 	if (GET_IM->GetMouseScrollStatus(SCROLL_UP)){
-		this->setPositionY(this->getPositionY() - 7);
+		this->setPositionY(this->getPositionY() + 10);
 	}
 	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN)){
-		this->setPositionY(this->getPositionY() + 7);
+		this->setPositionY(this->getPositionY() - 10);
 	}
 	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT)){
-		this->setPositionX(this->getPositionX() + 7);
+		this->setPositionX(this->getPositionX() + 10);
 	}
 	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT)){
-		this->setPositionX(this->getPositionX() - 7);
+		this->setPositionX(this->getPositionX() - 10);
 	}
 }
