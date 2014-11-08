@@ -3,6 +3,7 @@
 #include "ObjectLayer.h"
 #include "GameManager.h"
 #include "MultiGameScene.h"
+#include "Unit.h"
 
 
 bool ListenerLayer::init()
@@ -36,8 +37,7 @@ bool ListenerLayer::init()
 //////////////////////////////////////////////////////////////////////////
 void ListenerLayer::Tick(float dt)
 {
-	auto child = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
-	child->MobAi();
+	
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -62,12 +62,15 @@ void ListenerLayer::OnMouseDown(Event *event)
 	auto button = dynamic_cast<EventMouse*>(event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, true);
 
+	auto layer = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
+	auto hero = layer->GetMyHero();
+
 	switch (button)
 	{
 	case MOUSE_BUTTON_LEFT:
 		break;
 	case MOUSE_BUTTON_RIGHT:
-		TcpClient::getInstance()->moveRequest(GET_IM->GetMouseLocation());
+		TcpClient::getInstance()->moveRequest(hero->GetUnitPos(), GET_IM->GetMouseLocation());
 		break;
 	}
 }
@@ -96,6 +99,9 @@ void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, false);
 }
+
+
+
 
 void ListenerLayer::CheckMouseScroll(Event *event)
 {

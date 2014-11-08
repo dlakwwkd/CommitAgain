@@ -50,6 +50,12 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID
 	unit->SetUnitID(unitID);
 	unit->SetUnitPlayerID(playerID);
 	m_UnitList[unitID] = unit;
+
+	if (playerID == TcpClient::getInstance()->getLoginId())
+	{
+		m_Hero = unit;
+	}
+
 	//m_Hero->GetBody()->setVelocityLimit(100);
 
 	this->addChild(unit->GetSprite());

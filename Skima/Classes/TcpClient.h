@@ -21,7 +21,8 @@ public:
 	static TcpClient* getInstance();
 	static void destroyInstance();
 
-	SOCKET checkSocket(){ return mSock; }
+	SOCKET	checkSocket(){ return mSock; }
+	int		getLoginId(){ return mLoginId; }
 	bool connect();
 	void disconnect();
 
@@ -32,7 +33,7 @@ public:
 	void startGameRequest();
 	void meReadyRequest(); //이름 체인지 + bool값 인자
 
-	void moveRequest(Point targetPos);
+	void moveRequest(Point curPos, Point targetPos);
 
 
 	//void chatRequest(const char* chat);

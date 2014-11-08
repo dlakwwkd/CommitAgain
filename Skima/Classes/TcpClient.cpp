@@ -89,7 +89,7 @@ bool TcpClient::connect()
 
 	memset(&hostAddr, 0, sizeof(hostAddr));
 	hostAddr.sin_family = AF_INET;
-	hostAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	hostAddr.sin_addr.s_addr = inet_addr("10.73.38.181");
 	hostAddr.sin_port = htons(port);
 
 	if (SOCKET_ERROR == ::connect(mSock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
@@ -405,13 +405,15 @@ void TcpClient::meReadyRequest()
 	send((const char*)&sendData, sizeof(ClientRunCompleteNotify));
 }
 
-void TcpClient::moveRequest(Point targetPos)
+void TcpClient::moveRequest(Point curPos, Point targetPos)
 {
 	if (mLoginId < 0)
 		return;
 
 	MoveRequest sendData;
 	sendData.mPlayerId = mLoginId;
+	sendData.mCurrentPosX = curPos.x;
+	sendData.mCurrentPosY = curPos.y;
 	sendData.mTargetPosX = targetPos.x;
 	sendData.mTargetPosY = targetPos.y;
 

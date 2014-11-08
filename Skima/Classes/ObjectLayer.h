@@ -17,6 +17,8 @@ public:
 	void TickS(float dt);
 	void TickM(float dt);
 
+	std::shared_ptr<Unit> GetMyHero(){ return m_Hero; }
+
 	void CreateHero(int playerID, int unitID, Point location);
 	void UnitMove(int unitID, Point recvCurPos, Point targetPos);
 	bool PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos);
