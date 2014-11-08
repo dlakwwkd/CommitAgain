@@ -1,6 +1,5 @@
 #pragma once
 #include "cocos2d.h"
-#include "GameManager.h"
 #include "ListenerLayer.h"
 
 USING_NS_CC;

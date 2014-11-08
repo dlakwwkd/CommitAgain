@@ -17,6 +17,7 @@ public:
 	void			Tick(float dt);
 	void			UpdateKeyInput();
 	void			CameraSync();
+	void			ScreenMove();
 
 	virtual void	OnMouseDown(Event *event);
 	virtual void	OnMouseUp(Event *event);

@@ -40,6 +40,7 @@ void PhysicsLayer::Tick(float dt)
 	CameraSync();
 	auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
 	child->MobAi();
+	ScreenMove();
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -110,4 +111,19 @@ void PhysicsLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 void PhysicsLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, false);
+}
+void PhysicsLayer::ScreenMove()
+{
+	if (GET_IM->GetMouseScrollStatus(SCROLL_UP)){
+		this->setPositionY(this->getPositionY() - 7);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN)){
+		this->setPositionY(this->getPositionY() + 7);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT)){
+		this->setPositionX(this->getPositionX() + 7);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT)){
+		this->setPositionX(this->getPositionX() - 7);
+	}
 }

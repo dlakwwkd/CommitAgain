@@ -41,7 +41,6 @@ void ListenerLayer::Tick(float dt)
 //////////////////////////////////////////////////////////////////////////
 
 
-
 void ListenerLayer::UpdateKeyInput()
 {
 
@@ -100,8 +99,6 @@ void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	GET_IM->SetKeyStatus(keyCode, false);
 }
 
-
-
 void ListenerLayer::ScreenMove()
 {
 	if (GET_IM->GetMouseScrollStatus(SCROLL_UP)){
@@ -111,9 +108,9 @@ void ListenerLayer::ScreenMove()
 		this->setPositionY(this->getPositionY() + 7);
 	}
 	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT)){
-		this->setPositionX(this->getPositionY() + 7);
+		this->setPositionX(this->getPositionX() + 7);
 	}
 	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT)){
-		this->setPositionX(this->getPositionY() - 7);
+		this->setPositionX(this->getPositionX() - 7);
 	}
 }

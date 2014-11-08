@@ -7,14 +7,10 @@ InputManager::InputManager()
 	m_MouseScrollStatus[SCROLL_RIGHT] = false;
 	m_MouseScrollStatus[SCROLL_UP] = false;
 	m_MouseScrollStatus[SCROLL_DOWN] = false;
-
 }
 
 void InputManager::CheckMouseScroll()
 {
-// 	auto location = dynamic_cast<EventMouse*>(event)->getLocation();
-// 	location.y = Director::getInstance()->getWinSize().height - location.y;
- 
  	auto winSize = Director::getInstance()->getWinSize();
 
 	if (m_MouseLocation.x < 5){
@@ -22,7 +18,6 @@ void InputManager::CheckMouseScroll()
  	}
 	if (m_MouseLocation.x > 5){
 		m_MouseScrollStatus[SCROLL_LEFT] = false;
-
 	}
 	if (m_MouseLocation.x > winSize.width - 5){
 		m_MouseScrollStatus[SCROLL_RIGHT] = true;
@@ -35,11 +30,9 @@ void InputManager::CheckMouseScroll()
 	}
 	if (m_MouseLocation.y > 5){
 		m_MouseScrollStatus[SCROLL_UP] = false;
-
 	}
 	if (m_MouseLocation.y > winSize.height - 5){
 		m_MouseScrollStatus[SCROLL_DOWN] = true;
-
 	}
 	if (m_MouseLocation.y < winSize.height - 5){
 		m_MouseScrollStatus[SCROLL_DOWN] = false;
