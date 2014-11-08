@@ -105,14 +105,14 @@
     <ClCompile Include="..\Classes\RoomScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SingleGameScene.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MultiGameScene.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\LoadingBGLayer.cpp">
       <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SingleGameScene.cpp">
+      <Filter>Game\SinglePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MultiGameScene.cpp">
+      <Filter>Game\MultiPlay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,12 +167,6 @@
     <ClInclude Include="..\Classes\RoomScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\SingleGameScene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MultiGameScene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\FSM.h">
       <Filter>Game\Object</Filter>
     </ClInclude>
@@ -181,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\LoadingBGLayer.h">
       <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SingleGameScene.h">
+      <Filter>Game\SinglePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MultiGameScene.h">
+      <Filter>Game\MultiPlay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

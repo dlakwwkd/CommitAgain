@@ -22,7 +22,6 @@ bool ListenerLayer::init()
 	MouseListener->onMouseDown = CC_CALLBACK_1(ListenerLayer::OnMouseDown, this);
 	MouseListener->onMouseUp = CC_CALLBACK_1(ListenerLayer::OnMouseUp, this);
 	MouseListener->onMouseMove = CC_CALLBACK_1(ListenerLayer::OnMouseMove, this);
-	MouseListener->onMouseMove = CC_CALLBACK_1(ListenerLayer::CheckMouseScroll, this); //  scroll?
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(MouseListener, this);
 
 	auto K_listener = EventListenerKeyboard::create();
@@ -63,14 +62,14 @@ void ListenerLayer::OnMouseDown(Event *event)
 	GET_IM->SetMouseStatus(button, true);
 
 	auto layer = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
-	auto hero = layer->GetMyHero();
+	auto curPos = layer->GetMyHero()->GetSprite()->getPosition();
 
 	switch (button)
 	{
 	case MOUSE_BUTTON_LEFT:
 		break;
 	case MOUSE_BUTTON_RIGHT:
-		TcpClient::getInstance()->moveRequest(hero->GetUnitPos(), GET_IM->GetMouseLocation());
+		TcpClient::getInstance()->moveRequest(curPos, GET_IM->GetMouseLocation());
 		break;
 	}
 }
