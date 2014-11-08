@@ -1,5 +1,7 @@
 #pragma once
 #include "cocos2d.h"
+#include "GameManager.h"
+#include "ListenerLayer.h"
 
 USING_NS_CC;
 
@@ -34,6 +36,7 @@ public:
 	void	SetMouseStatus(int button, bool status)					{ m_MouseStatus[button] = status; }
 	void	SetMouseScrollStatus(ScrollDir dir, bool status)		{ m_MouseScrollStatus[dir] = status; }
 	void	SetKeyStatus(EventKeyboard::KeyCode key, bool status)	{ m_KeyStatus[key] = status; }
+	void	CheckMouseScroll();
 
 private:
 	Point									m_MouseLocation;

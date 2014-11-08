@@ -15,8 +15,7 @@ public:
 	void			UpdateKeyInput();
 	void			CameraSync();
 
-	void			CheckMouseScroll(Event *event);
-	void			ScreenMove(ScrollDir scrollDir);
+	void			ScreenMove();
 	virtual void	OnMouseDown(Event *event);
 	virtual void	OnMouseUp(Event *event);
 	virtual void	OnMouseMove(Event *event);
