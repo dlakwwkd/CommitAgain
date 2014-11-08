@@ -503,3 +503,20 @@ void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPo
 		Disconnect();
 	}
 }
+
+
+void ClientSession::CrashedBoradCast(int unitId, b2Vec2 currentPos, bool isCrashed)
+{
+	CrashedBroadcastResult outPacket;
+
+	outPacket.mPlayerId = mPlayerId;
+	outPacket.mUnitId = unitId;
+	outPacket.mIsCrashed = isCrashed;
+	outPacket.mCurrentPosX = currentPos.x;
+	outPacket.mCurrentPosY = currentPos.y;
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+}
