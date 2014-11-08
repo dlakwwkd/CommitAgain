@@ -321,6 +321,23 @@ void TcpClient::processPacket()
 			}
 			break;
 
+		case PKT_SC_CRASH:
+			{
+				CrashedBroadcastResult recvData;
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId != -1);
+
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
+				if (layer == nullptr)
+					break;
+
+				Point curPos = { recvData.mCurrentPosX, recvData.mCurrentPosY };
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, curPos));
+				if (!recvData.mIsCrashed)
+					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId));
+			}
+			break;
+
 		default:
 			assert(false);
 		}
