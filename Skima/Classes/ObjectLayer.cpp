@@ -55,23 +55,33 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID
 
 void ObjectLayer::UnitMove(int unitID, Point recvCurPos, Point targetPos, GameMode gameMode)
 {
-	//if (m_Hero == nullptr) return;
-	for (auto& unit : m_UnitList)
-	{
-		if (unit->GetUnitID() == unitID)
-		{
-			//FSM체크하고
-			//현재위치랑 보내준위치랑 체크해서 일정범위안이면 moveM움직이도록 // 범위밖이면.....T.T
-			//
-		}
-	}
-
-
 	switch (gameMode)
 	{
-	case SINGLE:	UnitMoveS(pos);	break;
-	case MULTI:		UnitMoveM(pos);	break;
+	case SINGLE:
+		UnitMoveS(targetPos);
+		break;
+
+
+	case MULTI:
+		//if (m_Hero == nullptr) return;
+		for (auto& unit : m_UnitList)
+		{
+			if (unit->GetUnitID() == unitID)
+			{
+				//FSM체크하고
+				//현재위치랑 보내준위치랑 체크해서 일정범위안이면 moveM움직이도록 // 범위밖이면.....T.T
+				if (PosGapCheck(unit, recvCurPos) == true)
+				{
+					
+				}
+
+			}
+		}
+
+		break;
+	
 	}
+
 }
 
 
@@ -150,9 +160,18 @@ void ObjectLayer::UnitMoveM(Point pos)
 	m_Hero->MoveTargeting(pos);
 }
 
-bool ObjectLayer::PosGapCheck(int unitID, Point recvCurPos)
+bool ObjectLayer::PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos)
 {
-	if (<recvCurPos.x)
+	Point unitPos = unit->GetUnitPos();
+	
+	if (unitPos.x - recvCurPos.x > 5 || unitPos.x - recvCurPos.x<-5)
+		return false;
+
+	if (unitPos.y - recvCurPos.y>5 || unitPos.y - recvCurPos.y < -5)
+		return false;
+
+	else
+		return true;
 }
 
 

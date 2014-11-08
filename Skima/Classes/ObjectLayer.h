@@ -18,7 +18,7 @@ public:
 
 	void CreateHero(int playerID, int unitID, Point location);
 	void UnitMove(int unitID, Point recvCurPos, Point targetPos, GameMode gameMode);
-	bool PosGapCheck(int unitID, Point recvCurPos);
+	bool PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos);
 	void FirstDrawUnit(int playerID, int unitID, UnitType unitType, Point pos);
 	void UpdateAnimation(int playerId, int unitID, Point pos);
 
