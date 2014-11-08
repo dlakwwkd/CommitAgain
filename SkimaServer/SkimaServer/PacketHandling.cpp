@@ -320,9 +320,10 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 
 	auto unit = GGameManager->SearchPlayer(session->GetPlayerId())->GetMyHero();
 
+	unit->TryMove(currentPos, targetPos);
+
 	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetCurrentPos(), unit->GetTargetPos());
 	//GGameManager->UnitMoveSet(targetPos, currentPos, session->GetPlayerId());
-	unit->TryMove(currentPos, targetPos);
 	
 }
 
