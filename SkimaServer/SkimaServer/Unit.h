@@ -7,19 +7,16 @@ class b2World;
 class Unit
 {
 public:
-	Unit(b2Vec2 pos);
+	Unit(int playerId, b2Vec2 pos);
 	~Unit();
 
 public:
-	int			GetUnitID(){ return m_ID; }
+	int			GetUnitID(){ return m_UnitID; }
 	UnitType	GetUnitType(){ return m_Type; }
-	b2Vec2		GetAverageMove(){ return m_AverageMove; }
-	b2Vec2		GetCurrentPos(){ return m_CurrentPos; }
 	b2Vec2		GetTargetPos(){ return m_TargetPos; }
-	int			GetSpeed(){ return m_Speed; }
-	void		SetCurrentPos(b2Vec2 currentPos){ m_CurrentPos = currentPos; }
+	float		GetSpeed(){ return m_Speed; }
 	void		SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
-	void		SetSpeed(int speed){ m_Speed = speed; }
+	void		SetSpeed(float speed){ m_Speed = speed; }
 
 	void		SetState(MoveState* state){ m_State = state; }
 	MoveState*	GetState(){ return (MoveState*)m_State; }
@@ -33,18 +30,21 @@ public:
 	void		EndMove() { m_State->EndMove(this); }
 
 	void		UnitMove();
+	void		UnitCrashed(bool isCrashed);
 	void		SetAverageMove(b2Vec2 targetPos);
 
-private:
-	b2Body*		m_Body;
-	int			m_ID;
-	UnitType	m_Type;
-	MoveState*	m_State;
+	b2Body*		GetBody(){ return m_Body; }
 
-	int			m_Speed;
-	b2Vec2		m_AverageMove;
-	b2Vec2		m_CurrentPos;
+private:
+	int			m_PlayerId;
+	int			m_UnitID;
+	float		m_Speed;
+	UnitType	m_Type;
+
+	b2Body*		m_Body;
 	b2Vec2		m_TargetPos;
+
+	MoveState*	m_State;
 	MoveState*	m_StandbyState;
 	MoveState*	m_MovingState;
 	MoveState*	m_CrashedState;

@@ -9,6 +9,6 @@ void Player::CreateHero(b2Vec2 pos)
 	m_Hero = new Unit(m_PlayerID, pos);
 	auto client = GClientManager->GetClient(m_PlayerID);
 
-	client->SendCreateHeroResult(m_Hero->GetUnitID(),m_Hero->GetUnitType(), m_Hero->GetCurrentPos());
+	client->SendCreateHeroResult(m_Hero->GetUnitID(),m_Hero->GetUnitType(), pos);
 }
 
