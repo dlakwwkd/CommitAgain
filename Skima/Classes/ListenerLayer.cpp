@@ -61,14 +61,15 @@ void ListenerLayer::OnMouseDown(Event *event)
 	GET_IM->SetMouseStatus(button, true);
 
 	auto layer = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
-	auto curPos = layer->GetMyHero()->GetSprite()->getPosition();
+	auto hero = layer->GetMyHero();
 
 	switch (button)
 	{
 	case MOUSE_BUTTON_LEFT:
 		break;
 	case MOUSE_BUTTON_RIGHT:
-		TcpClient::getInstance()->moveRequest(curPos, GET_IM->GetMouseLocation());
+		if (hero->GetMoveState() != hero->GetCrashedState())
+			TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
 		break;
 	}
 }
