@@ -11,9 +11,8 @@ public:
 	~Unit();
 
 public:
-	int			GetUnitID(){ return m_ID; }
+	int			GetUnitID(){ return m_UnitID; }
 	UnitType	GetUnitType(){ return m_Type; }
-	b2Vec2		GetAverageMove(){ return m_AverageMove; }
 	b2Vec2		GetTargetPos(){ return m_TargetPos; }
 	float		GetSpeed(){ return m_Speed; }
 	void		SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
@@ -38,15 +37,14 @@ public:
 
 private:
 	int			m_PlayerId;
-	b2Body*		m_Body;
-	b2BodyDef	m_BodyDef;
-	int			m_ID;
-	UnitType	m_Type;
-	MoveState*	m_State;
-
+	int			m_UnitID;
 	float		m_Speed;
-	b2Vec2		m_AverageMove;
+	UnitType	m_Type;
+
+	b2Body*		m_Body;
 	b2Vec2		m_TargetPos;
+
+	MoveState*	m_State;
 	MoveState*	m_StandbyState;
 	MoveState*	m_MovingState;
 	MoveState*	m_CrashedState;

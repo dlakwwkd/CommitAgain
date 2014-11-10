@@ -320,9 +320,9 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 
 	auto unit = GGameManager->SearchPlayer(session->GetPlayerId())->GetMyHero();
 
-	unit->TryMove(currentPos, targetPos);
+	unit->TryMove({ currentPos.x / PTM_RATIO, currentPos.y / PTM_RATIO }, { targetPos.x / PTM_RATIO, targetPos.y / PTM_RATIO });
 
-	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), unit->GetBody()->GetPosition(), unit->GetTargetPos());
+	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
 	//GGameManager->UnitMoveSet(targetPos, currentPos, session->GetPlayerId());
 	
 }
@@ -477,8 +477,8 @@ void ClientSession::SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 p
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
 	outPacket.mUnitType = unitType;
-	outPacket.mPosX = pos.x;
-	outPacket.mPosY = pos.y;
+	outPacket.mPosX = pos.x*PTM_RATIO;
+	outPacket.mPosY = pos.y*PTM_RATIO;
 
 	if (!Broadcast(&outPacket))
 	{
@@ -512,8 +512,8 @@ void ClientSession::CrashedBoradCast(int unitId, b2Vec2 currentPos, bool isCrash
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
 	outPacket.mIsCrashed = isCrashed;
-	outPacket.mCurrentPosX = currentPos.x;
-	outPacket.mCurrentPosY = currentPos.y;
+	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
+	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
 
 	if (!Broadcast(&outPacket))
 	{

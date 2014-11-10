@@ -79,7 +79,6 @@ void CrashedState::TryMove(Unit* unit)
 
 void CrashedState::Movement(Unit* unit)
 {
-	printf("À¯´Ö: %d,   ¼Óµµ - x: %f, y: %f\n", unit->GetUnitID(), unit->GetBody()->GetLinearVelocity().x, unit->GetBody()->GetLinearVelocity().y);
 	if (!(abs(unit->GetBody()->GetLinearVelocity().x) > 0.1 ||
 		abs(unit->GetBody()->GetLinearVelocity().y) > 0.1))
 	{

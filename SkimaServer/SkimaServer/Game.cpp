@@ -11,9 +11,9 @@ void Game::SetPlayerList(const std::vector<int>& playerIdList)
 		m_PlayerList[playerId] = new Player(playerId);
 
 		if (i == 0)
-			m_PlayerList[playerId]->CreateHero({ 100, 100 });
+			m_PlayerList[playerId]->CreateHero({ 100 / PTM_RATIO, 100 / PTM_RATIO });
 		else
-			m_PlayerList[playerId]->CreateHero({ MAX_MAP_SIZE_X - 100, MAX_MAP_SIZE_Y - 100 });
+			m_PlayerList[playerId]->CreateHero({ (MAX_MAP_SIZE_X - 100) / PTM_RATIO, (MAX_MAP_SIZE_Y - 100) / PTM_RATIO });
 
 		i++;
 	}

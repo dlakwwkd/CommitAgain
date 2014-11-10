@@ -6,23 +6,23 @@
 
 
 Unit::Unit(int playerId, b2Vec2 pos)
-: m_ID(-1), m_Type(TYPE_NONE), m_Speed(100000.0f), m_TargetPos({ 0, 0 }),
-m_AverageMove({ 0, 0 }), m_PlayerId(playerId)
+: m_UnitID(-1), m_Type(TYPE_NONE), m_Speed(10.0f), m_TargetPos({ 0, 0 }), m_PlayerId(playerId)
 {
 	m_State = m_StandbyState = new StandbyState;
 	m_MovingState = new MovingState;
 	m_CrashedState = new CrashedState;
 
-	m_BodyDef.type = b2_dynamicBody;
-	m_BodyDef.position.Set(pos.x, pos.y);
-	m_Body = GGameManager->GetWolrd()->CreateBody(&m_BodyDef);
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(pos.x, pos.y);
+	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
 	b2CircleShape circle;
-	circle.m_radius = 10.0f;
+	circle.m_radius = 10.0f/PTM_RATIO;
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;
-	fixtureDef.density = 10.0f;
+	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
 	fixtureDef.restitution = 0.7f;
 	
@@ -30,7 +30,7 @@ m_AverageMove({ 0, 0 }), m_PlayerId(playerId)
 	m_Body->SetUserData(this);
 
 	static int makeId = 0;
-	m_ID = ++makeId;
+	m_UnitID = ++makeId;
 }
 
 
@@ -40,20 +40,19 @@ Unit::~Unit()
 
 void Unit::UnitMove()
 {
-	if (!(m_Body->GetPosition().x < m_TargetPos.x - 5 ||
-		m_Body->GetPosition().y < m_TargetPos.y - 5 ||
-		m_Body->GetPosition().x > m_TargetPos.x + 5 ||
-		m_Body->GetPosition().y > m_TargetPos.y + 5))
+	if (!(m_Body->GetPosition().x < m_TargetPos.x - 0.05f ||
+		m_Body->GetPosition().y < m_TargetPos.y - 0.05f ||
+		m_Body->GetPosition().x > m_TargetPos.x + 0.05f ||
+		m_Body->GetPosition().y > m_TargetPos.y + 0.05f))
 	{
-		printf("id: %d, x: %f, y: %f \n", m_ID, m_Body->GetPosition().x, m_Body->GetPosition().y);
+		printf("id: %d, x: %f, y: %f \n", m_UnitID, m_Body->GetPosition().x*PTM_RATIO, m_Body->GetPosition().y*PTM_RATIO);
 		m_Body->SetLinearVelocity(b2Vec2(0, 0));
 		EndMove();
 		return;
 	}
+
 // 	auto currentPos = (m_Body->GetPosition() + m_AverageMove);
 // 	m_Body->SetTransform(currentPos, 0);
-
-	printf("id: %d, x: %f, y: %f \n", m_ID, m_Body->GetPosition().x, m_Body->GetPosition().y);
 
 // 	if (1)
 // 	{
@@ -68,23 +67,18 @@ void Unit::SetAverageMove(b2Vec2 targetPos)
 
 	direction *= m_Speed / temp;
 
-	printf("x : %f, y : %f", direction.x, direction.y);
-
-	m_Body->ApplyLinearImpulse(direction, b2Vec2(0, 0), true);
-	//m_Body->SetLinearVelocity(direction);
-
-	m_AverageMove = direction;
+	m_Body->SetLinearVelocity(direction);
 }
 
 void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 {
-	m_BodyDef.position.Set(currentPos.x, currentPos.y);
 	m_TargetPos = targetPos;
 	SetAverageMove(targetPos);
+
 	m_State->TryMove(this);
 }
 
 void Unit::UnitCrashed(bool isCrashed)
 {
-	GClientManager->GetClient(m_PlayerId)->CrashedBoradCast(m_ID, m_Body->GetPosition(), isCrashed);
+	GClientManager->GetClient(m_PlayerId)->CrashedBoradCast(m_UnitID, m_Body->GetPosition(), isCrashed);
 }
