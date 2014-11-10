@@ -251,8 +251,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
-	printf(" Recv:   Login ID: %d\n xc: %3f, yc: %3f, xt: %3f, yt: %3f \n", session->GetPlayerId(),
-		inPacket.mCurrentPosX, inPacket.mCurrentPosY, inPacket.mTargetPosX, inPacket.mTargetPosY);
+	printf(" Receive: LoginID: %d\t\t X : %.f\tY : %.f\n", session->GetPlayerId(), inPacket.mTargetPosX, inPacket.mTargetPosY);
 
 	b2Vec2 targetPos;
 	b2Vec2 currentPos;
@@ -370,7 +369,7 @@ void ClientSession::ServerRunComplete()
 	{
 		Disconnect();
 	}
-	printf(" Send: ServerRunCompleteNotify ");
+	printf(" Send: ServerRunCompleteNotify Room ID: %d \n", mRoomId);
 }
 
 void ClientSession::AllReadyNotify()
@@ -443,4 +442,5 @@ void ClientSession::CrashedBoradCast(int unitId, b2Vec2 currentPos, bool isCrash
 	{
 		Disconnect();
 	}
+	printf(" Send: Crashed!  UnitID: %d, \t\t X : %.f\tY : %.f\n", unitId, outPacket.mCurrentPosX, outPacket.mCurrentPosY);
 }

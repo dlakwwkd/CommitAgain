@@ -31,7 +31,7 @@ public:
 	void joinRoomRequest();
 	void outRoomRequest(int roomId);
 	void startGameRequest();
-	void meReadyRequest(); //이름 체인지 + bool값 인자
+	void runCompleteRequest(); //이름 체인지 + bool값 인자
 
 	void moveRequest(Point curPos, Point targetPos);
 

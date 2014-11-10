@@ -69,7 +69,7 @@ void Unit::UnitMove()
 		m_Body->GetPosition().x > m_TargetPos.x + 0.1f ||
 		m_Body->GetPosition().y > m_TargetPos.y + 0.1f))
 	{
-		printf("UnitID: %d, x: %f, y: %f \n", m_UnitID,
+		printf(" - Reach: UnitID:  %d, \t\t\t\t\t X : %.f\tY : %.f\n", m_UnitID,
 			m_Body->GetPosition().x*PTM_RATIO, m_Body->GetPosition().y*PTM_RATIO);
 		EndMove();
 	}

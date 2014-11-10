@@ -102,7 +102,7 @@ void ObjectLayer::UnitCrash(int unitID, Point recvPos)
 
 void ObjectLayer::UnitCrashEnd(int unitID)
 {
-	m_UnitList[unitID]->EndCrashed();
+	m_UnitList[unitID]->EndCrash();
 }
 
 

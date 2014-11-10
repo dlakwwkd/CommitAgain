@@ -69,7 +69,9 @@ void ListenerLayer::OnMouseDown(Event *event)
 		break;
 	case MOUSE_BUTTON_RIGHT:
 		if (hero->GetMoveState() != hero->GetCrashedState())
+		{
 			TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
+		}
 		break;
 	}
 }

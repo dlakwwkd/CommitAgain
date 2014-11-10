@@ -4,12 +4,9 @@
 Unit::Unit(const std::string& filename, Point createPos, float scale)
 {
 	m_Speed = 10.0f;
-
-	auto sprite = Sprite::create(filename);
-	sprite->setPosition(createPos);
-	sprite->setScale(scale);
-
-	m_Sprite = sprite;
+	m_Sprite = Sprite::create(filename);
+	m_Sprite->setPosition(createPos);
+	m_Sprite->setScale(scale);
 
 	switch (GET_GM.GetGameMode())
 	{
@@ -17,15 +14,12 @@ Unit::Unit(const std::string& filename, Point createPos, float scale)
 	{
 		auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // 밀도, 탄성력, 마찰력
 
-		PhysicsBody* body = nullptr;
-		body = PhysicsBody::createCircle(sprite->getContentSize().width*(scale / 2), material);
+		m_Body = PhysicsBody::createCircle(m_Sprite->getContentSize().width*(scale / 2), material);
+		m_Body->setMass(1.0f);
+		m_Body->setLinearDamping(3);
+		m_Body->setRotationEnable(false);
 
-		body->setMass(1.0f);
-		body->setLinearDamping(3);
-		body->setRotationEnable(false);
-
-		sprite->setPhysicsBody(body);
-		m_Body = body;
+		m_Sprite->setPhysicsBody(m_Body);
 		break;
 	}
 	case MULTI:
@@ -81,10 +75,8 @@ void Unit::MoveS()
 		m_Body->setVelocity(Vect::ZERO);
 		return;
 	}
-
 	auto direction = m_TargetPos - m_Body->getPosition();
 	auto temp = abs(direction.x) + abs(direction.y);
-
 	direction *= m_Speed / temp;
 
 	m_Body->applyImpulse(direction);
@@ -100,10 +92,8 @@ void Unit::MoveM()
 		m_MoveState->EndMove(this);
 		return;
 	}
-
 	auto direction = m_TargetPos - m_Sprite->getPosition();
 	auto temp = abs(direction.x) + abs(direction.y);
-
 	direction *= m_Speed / temp;
 
 	m_Sprite->setPosition(m_Sprite->getPosition() + direction);
@@ -121,31 +111,3 @@ void Unit::CrashM()
 }
 
 
-
-
-///////////////////////////////////////////////////////////////////////////
-/*
-	상태 패턴 함수들
-*/
-///////////////////////////////////////////////////////////////////////////
-void Unit::TryMove()
-{
-	m_MoveState->TryMove(this);
-}
-void Unit::EndMove()
-{
-	m_MoveState->EndMove(this);
-}
-
-void Unit::Crashed()
-{
-	m_MoveState->Crashed(this);
-}
-void Unit::EndCrashed()
-{
-	m_MoveState->EndCrash(this);
-}
-void Unit::Movement()
-{
-	m_MoveState->Movement(this);
-}

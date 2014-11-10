@@ -44,16 +44,12 @@ bool RoomScene::init()
 
 void RoomScene::menuCallback1(Ref* sender) //"게임시작"
 {
-	//소켓연결확인
 	if (TcpClient::getInstance()->checkSocket() == NULL)
 		return;
 
-	// 게임스타트 요청 패킷보내기
 	TcpClient::getInstance()->startGameRequest();
-
-	
-	
 }
+
 void RoomScene::menuCallback2(Ref* sender)	//"나가기"
 {
 	if (TcpClient::getInstance()->checkSocket() != NULL)

@@ -24,7 +24,7 @@ void LoadingBGLayer::Tick(float dt)
 {
 	if (m_IsLoadingFin)
 	{
-		TcpClient::getInstance()->meReadyRequest();
+		TcpClient::getInstance()->runCompleteRequest();
 		m_IsLoadingFin = false;
 	}
 }

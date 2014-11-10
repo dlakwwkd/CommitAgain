@@ -411,7 +411,7 @@ void TcpClient::startGameRequest()
 	send((const char*)&sendData, sizeof(GameReadyNotify));
 }
 
-void TcpClient::meReadyRequest()
+void TcpClient::runCompleteRequest()
 {
 	if (mLoginId < 0)
 		return;
