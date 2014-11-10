@@ -1,11 +1,9 @@
 #pragma once
-
 class Unit;
 
 class State
 {
 };
-
 class MoveState : public State
 {
 public:
@@ -16,7 +14,6 @@ public:
 	virtual void EndCrash(Unit* unit) = 0;
 	virtual void Movement(Unit* unit) = 0;
 };
-
 class StandbyState : public MoveState
 {
 public:

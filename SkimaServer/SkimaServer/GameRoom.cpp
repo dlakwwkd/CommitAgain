@@ -13,16 +13,14 @@ void GameRoom::ReadySign()
 void GameRoom::JoinPlayer(int id)
 {
 	m_PlayerIdList.push_back(id);
-
 	printf("\n [Join Room] Room ID %d, Player ID: %d \n", m_RoomID, id);
 
 	if (m_PlayerIdList.size() >= 2)
 	{
-		printf(" - Room %d is Full ! \n", m_RoomID);
 		m_JoinAble = false;
+		printf(" - Room %d is Full ! \n", m_RoomID);
 	}
 }
-
 
 void GameRoom::OutPlayer(int id)
 {

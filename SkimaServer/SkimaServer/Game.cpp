@@ -22,7 +22,6 @@ void Game::SetPlayerList(const std::vector<int>& playerIdList)
 void Game::InitGame()
 {
 
-
 }
 
 void Game::PlayerOut(int playerId)

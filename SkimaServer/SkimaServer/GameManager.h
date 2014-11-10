@@ -4,9 +4,9 @@
 
 class Game;
 class GameRoom;
+class Player;
 class b2World;
 class ContactListener;
-class Player;
 
 class GameManager : public RefCountable
 {
@@ -29,16 +29,17 @@ public:
 	Player*				SearchPlayer(int playerId);
 	void				PlayerOut(int playerId);
 
-	void				UnitMoveSet(b2Vec2 targetPos, b2Vec2 currentPos, int playerId);
+	//void				UnitMoveSet(b2Vec2 targetPos, b2Vec2 currentPos, int playerId);
+
+	void				Tick(float dt);
+	void				LowTick();
+
+public:
+	b2World*			GetWolrd(){ return m_World; }
+	ContactListener*	GetContact(){ return m_Contact; }
 
 	void				InitPhyWorld();
 	void				DeletePhyWorld();
-
-	b2World*			GetWolrd(){ return m_World; }
-	ContactListener*	GetContact(){ return m_Contact; }
-	
-	void				Tick(float dt);
-	void				LowTick();
 
 private:
 	typedef std::map<int, Game*> GameList;
@@ -47,9 +48,9 @@ private:
 	RoomList			m_RoomList;
 	int					m_MakeRoomNum;
 
+private:
 	b2World*			m_World;
 	ContactListener*	m_Contact;
-
 };
 
 extern GameManager* GGameManager;

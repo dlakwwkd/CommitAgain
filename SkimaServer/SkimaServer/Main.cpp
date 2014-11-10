@@ -171,10 +171,10 @@ void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighVa
 	LScheduler->DoTasks(); ///< 林扁利栏肺 task 贸府
 	GClientManager->OnPeriodWork();
 
+
 	static float deltaTime;
 	static DWORD currentTime;
 	static DWORD lastTime = GetTickCount();
-	
 	currentTime = GetTickCount();
 	deltaTime = (currentTime - lastTime)*0.001f;
 	lastTime = currentTime;

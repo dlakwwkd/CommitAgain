@@ -10,26 +10,21 @@ public:
 	}
 	~GameRoom(){}
 
-	int		GetRoomID(){ return m_RoomID; }
-	int		GetPlayerListNum(){ return m_PlayerIdList.size(); }
-
+	int						GetRoomID(){ return m_RoomID; }
 	const std::vector<int>& GetPlayerList(){ return m_PlayerIdList; }
-	
-	bool	IsJoinAble(){ return m_JoinAble; }
-	bool	IsAllReady(){ return m_IsAllReady; }
-	void	InitReady(){ m_IsAllReady = false; }
+	bool					IsJoinAble(){ return m_JoinAble; }
+	bool					IsAllReady(){ return m_IsAllReady; }
+	void					InitReady(){ m_IsAllReady = false; }
 	
 	void	ReadySign();
 	void	JoinPlayer(int id);
 	void	OutPlayer(int id);
 
-
 private:
 	std::vector<int>	m_PlayerIdList;
 	int					m_RoomID;
-	bool				m_JoinAble;
-
 	int					m_ReadyNum;
+	bool				m_JoinAble;
 	bool				m_IsAllReady;
 };
 

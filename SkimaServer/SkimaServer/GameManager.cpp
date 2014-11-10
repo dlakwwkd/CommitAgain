@@ -12,6 +12,11 @@
 GameManager* GGameManager = nullptr;
 
 
+///////////////////////////////////////////////////////////////////////////
+/*
+	GameRoom 包访
+*/
+///////////////////////////////////////////////////////////////////////////
 GameRoom* GameManager::CreateRoom()
 {
 	if (m_MakeRoomNum == 0)
@@ -20,10 +25,10 @@ GameRoom* GameManager::CreateRoom()
 	GameRoom* room = new GameRoom(++m_MakeRoomNum);
 
 	if (m_RoomList[m_MakeRoomNum] != nullptr)
+	{
 		delete m_RoomList[m_MakeRoomNum];
-
+	}
 	m_RoomList[m_MakeRoomNum] = room;
-
 	return room;
 }
 
@@ -76,13 +81,20 @@ void GameManager::OutRoom(int playerId, int roomId)
 {
 	m_RoomList[roomId]->OutPlayer(playerId);
 
-	if (m_RoomList[roomId]->GetPlayerListNum() == 0)
+	if (m_RoomList[roomId]->GetPlayerList().size() == 0)
 	{
 		DeleteRoom(roomId);
 	}
 }
 
-void GameManager::PlayerOut(int playerId)
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	Game 包访
+*/
+///////////////////////////////////////////////////////////////////////////
+Game* GameManager::SearchGame(int playerId)
 {
 	for (auto& game : m_GameList)
 	{
@@ -90,11 +102,12 @@ void GameManager::PlayerOut(int playerId)
 		{
 			if (player.first == playerId)
 			{
-				game.second->PlayerOut(playerId);
-				break;
+				return game.second;
 			}
 		}
 	}
+	printf(" - Game Search Failed ! \n");
+	return nullptr;
 }
 
 void GameManager::CreateGame(int roomId)
@@ -102,8 +115,9 @@ void GameManager::CreateGame(int roomId)
 	Game* game = new Game(roomId);
 
 	if (m_GameList[roomId] != nullptr)
+	{
 		delete m_GameList[roomId];
-
+	}
 	m_GameList[roomId] = game;
 	game->SetPlayerList(m_RoomList[roomId]->GetPlayerList());
 }
@@ -122,21 +136,31 @@ void GameManager::DeleteGame(int gameId)
 	printf(" - Destroy %d Game ! \n", gameId);
 }
 
-Game* GameManager::SearchGame(int playerId)
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	Player 包访
+*/
+///////////////////////////////////////////////////////////////////////////
+Player* GameManager::SearchPlayer(int playerId)
+{
+	return SearchGame(playerId)->GetPlayer(playerId);
+}
+
+void GameManager::PlayerOut(int playerId)
 {
 	for (auto& game : m_GameList)
 	{
 		for (auto& player : game.second->GetPlayerList())
 		{
 			if (player.first == playerId)
-				return game.second;
+			{
+				game.second->PlayerOut(playerId);
+				break;
+			}
 		}
 	}
-}
-
-Player* GameManager::SearchPlayer(int playerId)
-{
-	return SearchGame(playerId)->GetPlayer(playerId);
 }
 
 // void GameManager::UnitMoveSet(b2Vec2 targetPos, b2Vec2 currentPos, int playerId)
@@ -158,28 +182,6 @@ Player* GameManager::SearchPlayer(int playerId)
 
 
 
-
-
-///////////////////////////////////////////////////////////////////////////
-/*
-	拱府技拌 备绵
-*/
-///////////////////////////////////////////////////////////////////////////
-void GameManager::InitPhyWorld()
-{
-	b2Vec2 gravity(0.0f, 0.0f);
-	m_World = new b2World(gravity);
-
-	m_World->SetAllowSleeping(true);
-	m_World->SetContinuousPhysics(true);
-
-	m_Contact = new ContactListener();
-	m_World->SetContactListener((b2ContactListener*)m_Contact);
-}
-void GameManager::DeletePhyWorld()
-{
-	delete m_World;
-}
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -203,10 +205,9 @@ void GameManager::Tick(float dt)
 
 	for (auto& game : m_GameList)
 	{
-		
 		for (auto& player : game.second->GetPlayerList())
 		{
-			auto client = GClientManager->GetClient(player.first);
+			auto client = GClientManager->GetClient(player.first);	_ASSERT(client != nullptr);
 
 			if (game.second->IsReady())
 			{
@@ -223,14 +224,10 @@ void GameManager::Tick(float dt)
 			if (!game.second->IsStart())
 				continue;
 
-			auto unit = player.second->GetMyHero();
-			
+			auto unit = player.second->GetMyHero();	_ASSERT(unit != nullptr);
 			unit->Movement();
 		}
 	}
-
-
-
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -243,6 +240,32 @@ void GameManager::LowTick()
 	
 
 	CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::LowTick);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	拱府技拌 备绵
+*/
+///////////////////////////////////////////////////////////////////////////
+void GameManager::InitPhyWorld()
+{
+	b2Vec2 gravity(0.0f, 0.0f);
+	m_World = new b2World(gravity);
+
+	m_World->SetAllowSleeping(true);
+	m_World->SetContinuousPhysics(true);
+
+	m_Contact = new ContactListener();
+	m_World->SetContactListener((b2ContactListener*)m_Contact);
+}
+
+void GameManager::DeletePhyWorld()
+{
+	delete m_World;
+	delete m_Contact;
 }
 
 

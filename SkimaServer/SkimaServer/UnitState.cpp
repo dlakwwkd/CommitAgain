@@ -7,15 +7,9 @@
 	/*대기상태*/
 
 //////////////////////////////////////////////////////////////////////////
-
 void StandbyState::TryMove(Unit* unit)
 {
 	unit->SetState(unit->GetMovingState());
-}
-
-void StandbyState::Movement(Unit* unit)
-{
-
 }
 
 void StandbyState::Crashed(Unit* unit)
@@ -24,31 +18,17 @@ void StandbyState::Crashed(Unit* unit)
 	unit->GetBody()->SetLinearDamping(3.0f);
 }
 
-void StandbyState::EndMove(Unit* unit)
-{
-	//없음
-}
+void StandbyState::EndMove(Unit* unit){}
+void StandbyState::EndCrash(Unit* unit){}
+void StandbyState::Movement(Unit* unit){}
 
-void StandbyState::EndCrash(Unit* unit)
-{
-	//없음
-}
+
 //////////////////////////////////////////////////////////////////////////
 
 	/*이동중 상태*/
 
 //////////////////////////////////////////////////////////////////////////
-
-void MovingState::TryMove(Unit* unit)
-{
-	
-}
-
-void MovingState::Movement(Unit* unit)
-{
-	unit->UnitMove();
-}
-
+void MovingState::TryMove(Unit* unit){}
 void MovingState::Crashed(Unit* unit)
 {
 	unit->SetState(unit->GetCrashedState());
@@ -58,11 +38,13 @@ void MovingState::Crashed(Unit* unit)
 void MovingState::EndMove(Unit* unit)
 {
 	unit->SetState(unit->GetStandbyState());
+	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
 }
 
-void MovingState::EndCrash(Unit* unit)
+void MovingState::EndCrash(Unit* unit){}
+void MovingState::Movement(Unit* unit)
 {
-	//없음
+	unit->UnitMove();
 }
 
 
@@ -71,16 +53,24 @@ void MovingState::EndCrash(Unit* unit)
 	/*밀려남상태*/
 
 //////////////////////////////////////////////////////////////////////////
-
-void CrashedState::TryMove(Unit* unit)
+void CrashedState::TryMove(Unit* unit){}
+void CrashedState::Crashed(Unit* unit)
 {
-	//없음
+	//crash함수
+}
+
+void CrashedState::EndMove(Unit* unit){}
+void CrashedState::EndCrash(Unit* unit)
+{
+	unit->SetState(unit->GetStandbyState());
+	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
+	unit->GetBody()->SetLinearDamping(0.0f);
 }
 
 void CrashedState::Movement(Unit* unit)
 {
-	if (!(abs(unit->GetBody()->GetLinearVelocity().x) > 0.1 ||
-		abs(unit->GetBody()->GetLinearVelocity().y) > 0.1))
+	if (!(abs(unit->GetBody()->GetLinearVelocity().x) > 0.1f ||
+		abs(unit->GetBody()->GetLinearVelocity().y) > 0.1f))
 	{
 		unit->UnitCrashed(false);
 		EndCrash(unit);
@@ -89,21 +79,4 @@ void CrashedState::Movement(Unit* unit)
 	{
 		unit->UnitCrashed(true);
 	}
-}
-
-void CrashedState::Crashed(Unit* unit)
-{
-	//crash함수
-}
-
-void CrashedState::EndMove(Unit* unit)
-{
-	//없음
-}
-
-void CrashedState::EndCrash(Unit* unit)
-{
-	unit->SetState(unit->GetStandbyState());
-	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
-	unit->GetBody()->SetLinearDamping(0.0f);
 }

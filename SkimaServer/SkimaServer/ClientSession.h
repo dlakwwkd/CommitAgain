@@ -45,7 +45,6 @@ public:
 	void		MakeGameRoom(int id);
 	void		JoinGameRoom();
 	void		OutGameRoom();
-	void		OutGame();
 	void		AllReadyNotify();
 	void		SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 pos);
 	void		SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 targetPos);

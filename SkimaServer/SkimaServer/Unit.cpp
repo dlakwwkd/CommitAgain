@@ -6,8 +6,11 @@
 
 
 Unit::Unit(int playerId, b2Vec2 pos)
-: m_UnitID(-1), m_Type(TYPE_NONE), m_Speed(10.0f), m_TargetPos({ 0, 0 }), m_PlayerId(playerId)
+: m_UnitID(-1), m_Type(TYPE_NONE), m_Speed(10.0f), m_TargetPos({ 0, 0 }), m_PlayerID(playerId)
 {
+	static int makeId = 0;
+	m_UnitID = ++makeId;
+
 	m_State = m_StandbyState = new StandbyState;
 	m_MovingState = new MovingState;
 	m_CrashedState = new CrashedState;
@@ -28,15 +31,35 @@ Unit::Unit(int playerId, b2Vec2 pos)
 	
 	m_Body->CreateFixture(&fixtureDef);
 	m_Body->SetUserData(this);
-
-	static int makeId = 0;
-	m_UnitID = ++makeId;
 }
-
 
 Unit::~Unit()
 {
+	delete m_StandbyState;
+	delete m_MovingState;
+	delete m_CrashedState;
 }
+
+
+void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
+{
+	m_TargetPos = targetPos;
+
+	auto direction = targetPos - m_Body->GetPosition();
+	auto temp = abs(direction.x) + abs(direction.y);
+
+	if (temp < 0.2f)
+	{
+		m_Body->SetLinearVelocity(b2Vec2(0, 0));
+		return;
+	}
+
+	direction *= m_Speed / temp;
+	m_Body->SetLinearVelocity(direction);
+
+	m_State->TryMove(this);
+}
+
 
 void Unit::UnitMove()
 {
@@ -45,46 +68,14 @@ void Unit::UnitMove()
 		m_Body->GetPosition().x > m_TargetPos.x + 0.1f ||
 		m_Body->GetPosition().y > m_TargetPos.y + 0.1f))
 	{
-		printf("id: %d, x: %f, y: %f \n", m_UnitID, m_Body->GetPosition().x*PTM_RATIO, m_Body->GetPosition().y*PTM_RATIO);
-		m_Body->SetLinearVelocity(b2Vec2(0, 0));
+		printf("UnitID: %d, x: %f, y: %f \n", m_UnitID,
+			m_Body->GetPosition().x*PTM_RATIO, m_Body->GetPosition().y*PTM_RATIO);
 		EndMove();
-		return;
 	}
-
-// 	auto currentPos = (m_Body->GetPosition() + m_AverageMove);
-// 	m_Body->SetTransform(currentPos, 0);
-
-// 	if (1)
-// 	{
-// 		Crashed();
-// 	}
-}
-
-void Unit::SetAverageMove(b2Vec2 targetPos)
-{
-	auto direction = targetPos - m_Body->GetPosition();
-	auto temp = abs(direction.x) + abs(direction.y);
-
-	if (temp < 0.2)
-	{
-		m_Body->SetLinearVelocity(b2Vec2(0, 0));
-		return;
-	}
-
-	direction *= m_Speed / temp;
-
-	m_Body->SetLinearVelocity(direction);
-}
-
-void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
-{
-	m_TargetPos = targetPos;
-	SetAverageMove(targetPos);
-
-	m_State->TryMove(this);
 }
 
 void Unit::UnitCrashed(bool isCrashed)
 {
-	GClientManager->GetClient(m_PlayerId)->CrashedBoradCast(m_UnitID, m_Body->GetPosition(), isCrashed);
+	auto client = GClientManager->GetClient(m_PlayerID);		_ASSERT(client != nullptr);
+	client->CrashedBoradCast(m_UnitID, m_Body->GetPosition(), isCrashed);
 }

@@ -155,7 +155,6 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-	printf(" Request Login ID: %d \n", inPacket.mPlayerId);
 	session->LoginSuccessInform(inPacket.mPlayerId);
 
 	// 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
@@ -188,9 +187,13 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 	}
 
 	if (inPacket.mIsIn)
+	{
 		session->JoinGameRoom();	
+	}
 	else
+	{
 		session->OutGameRoom();
+	}
 }
 
 REGISTER_HANDLER(PKT_CS_GAME_READY)
@@ -206,125 +209,16 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
-
 	printf(" - Player %d is Ready ! \n", inPacket.mPlayerId);
 
-	auto room = GGameManager->SearchRoom(session->GetRoomId());
-	if (room != nullptr)
+	auto room = GGameManager->SearchRoom(session->GetRoomId());			_ASSERT(room != nullptr);
+	room->ReadySign();
+	session->SetReady();
+
+	if (room->IsAllReady())
 	{
-		session->SetReady();
-		room->ReadySign();
-
-		if (room->IsAllReady())
-		{
-			session->AllReadyNotify();
-		}
+		session->AllReadyNotify();
 	}
-	else
-	{
-		printf("[DEBUG] Room Info error! \n");
-		return;
-	}
-}
-
-
-// 
-// 
-// REGISTER_HANDLER(PKT_CS_CREATE_HERO)
-// {
-// 	CreateHeroRequest inPacket;
-// 	if (false == session->ParsePacket(inPacket))
-// 	{
-// 		printf("[DEBUG] packet parsing error: %d", inPacket.mType);
-// 		return;
-// 	}
-// 
-// 	printf("\n haveID: %d \n recvID: %d \n", session->GetPlayerId(), inPacket.mPlayerId);
-// 
-// 	if (inPacket.mPlayerId != session->GetPlayerId())
-// 	{
-// 		printf("[DEBUG] PKT_CS_CREATE_HERO: invalid player ID", session->GetPlayerId());
-// 		return;
-// 	}
-// 
-// 	CreateHeroResult outPacket;
-// 	outPacket.mPlayerId = inPacket.mPlayerId;
-// 	outPacket.mUnitId = inPacket.mUnitId;
-// 	outPacket.mPosX = inPacket.mPosX;
-// 	outPacket.mPosY = inPacket.mPosY;
-// 
-// 	if (!session->Broadcast(&outPacket))
-// 	{
-// 		session->Disconnect();
-// 	}
-// }
-// 
-// 
-
-
-
-REGISTER_HANDLER(PKT_CS_CHAT)
-{
-	ChatBroadcastRequest inPacket;
-	if (false == session->ParsePacket(inPacket))
-	{
-		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
-		return;
-	}
-
-	if (inPacket.mPlayerId != session->GetPlayerId())
-	{
-		printf("[DEBUG] PKT_CS_CHAT: invalid player ID: %d \n", session->GetPlayerId());
-		return;
-	}
-
-	/// chatting의 경우 여기서 바로 방송
-
-	ChatBroadcastResult outPacket;
-	outPacket.mPlayerId = inPacket.mPlayerId;
-	strcpy_s(outPacket.mName, session->GetPlayerName());
-	strcpy_s(outPacket.mChat, inPacket.mChat);
-
-	/// 채팅은 바로 방송 하면 끝
-	if (!session->Broadcast(&outPacket))
-	{
-		session->Disconnect();
-	}
-}
-
-REGISTER_HANDLER(PKT_CS_MOVE)
-{
-	MoveRequest inPacket;
-	b2Vec2 targetPos;
-	b2Vec2 currentPos;
-
-	if (false == session->ParsePacket(inPacket))
-	{
-		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
-		return;
-	}
-
-	if (inPacket.mPlayerId != session->GetPlayerId())
-	{
-		printf("[DEBUG] PKT_CS_MOVE: invalid player ID: %d \n", session->GetPlayerId());
-		return;
-	}
-
-	targetPos.x = inPacket.mTargetPosX;
-	targetPos.y = inPacket.mTargetPosY;
-	currentPos.x = inPacket.mCurrentPosX;
-	currentPos.y = inPacket.mCurrentPosY;
-
-	printf(" Recv:   Login ID: %d, xc: %3f, yc: %3f, xt: %3f, yt: %3f \n", session->GetPlayerId(),
-		currentPos.x, currentPos.y, targetPos.x, targetPos.y);
-
-	auto unit = GGameManager->SearchPlayer(session->GetPlayerId())->GetMyHero();
-
-	unit->TryMove({ currentPos.x / PTM_RATIO, currentPos.y / PTM_RATIO }, { targetPos.x / PTM_RATIO, targetPos.y / PTM_RATIO });
-
-	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
-	//GGameManager->UnitMoveSet(targetPos, currentPos, session->GetPlayerId());
-	
 }
 
 REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
@@ -335,15 +229,80 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-
-	if (inPacket.mPlayerId != session->GetPlayerId())
+	if (session->GetPlayerId() != inPacket.mPlayerId)
 	{
-		printf("[DEBUG] PKT_CS_CHAT: invalid player ID: %d \n", session->GetPlayerId());
+		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
-
-	GGameManager->SearchGame(session->GetPlayerId())->SetLoadedPlayerNum();
+	auto game = GGameManager->SearchGame(session->GetPlayerId());		_ASSERT(game != nullptr);
+	game->SetLoadedPlayerNum();
 }
+
+REGISTER_HANDLER(PKT_CS_MOVE)
+{
+	MoveRequest inPacket;
+	if (false == session->ParsePacket(inPacket))
+	{
+		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+		return;
+	}
+	if (session->GetPlayerId() != inPacket.mPlayerId)
+	{
+		printf("[DEBUG] Player Info error! \n");
+		return;
+	}
+	printf(" Recv:   Login ID: %d\n xc: %3f, yc: %3f, xt: %3f, yt: %3f \n", session->GetPlayerId(),
+		inPacket.mCurrentPosX, inPacket.mCurrentPosY, inPacket.mTargetPosX, inPacket.mTargetPosY);
+
+	b2Vec2 targetPos;
+	b2Vec2 currentPos;
+	targetPos.x = inPacket.mTargetPosX / PTM_RATIO;
+	targetPos.y = inPacket.mTargetPosY / PTM_RATIO;
+	currentPos.x = inPacket.mCurrentPosX / PTM_RATIO;
+	currentPos.y = inPacket.mCurrentPosY / PTM_RATIO;
+
+	auto player = GGameManager->SearchPlayer(session->GetPlayerId());	_ASSERT(player != nullptr);
+	auto unit = player->GetMyHero();										_ASSERT(unit != nullptr);
+	unit->TryMove(currentPos, targetPos);
+
+	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
+	//GGameManager->UnitMoveSet(targetPos, currentPos, session->GetPlayerId());
+}
+
+// 
+// REGISTER_HANDLER(PKT_CS_CHAT)
+// {
+// 	ChatBroadcastRequest inPacket;
+// 	if (false == session->ParsePacket(inPacket))
+// 	{
+// 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+// 		return;
+// 	}
+// 
+// 	if (inPacket.mPlayerId != session->GetPlayerId())
+// 	{
+// 		printf("[DEBUG] PKT_CS_CHAT: invalid player ID: %d \n", session->GetPlayerId());
+// 		return;
+// 	}
+// 
+// 	/// chatting의 경우 여기서 바로 방송
+// 
+// 	ChatBroadcastResult outPacket;
+// 	outPacket.mPlayerId = inPacket.mPlayerId;
+// 	strcpy_s(outPacket.mName, session->GetPlayerName());
+// 	strcpy_s(outPacket.mChat, inPacket.mChat);
+// 
+// 	/// 채팅은 바로 방송 하면 끝
+// 	if (!session->Broadcast(&outPacket))
+// 	{
+// 		session->Disconnect();
+// 	}
+// }
+
+
+
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -354,18 +313,14 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
 void ClientSession::LoginSuccessInform(int id)
 {
 	LoginResult outPacket;
-
 	outPacket.mPlayerId = mPlayerId = id;
-
 	// 여기서는 일단 ID로 닉네임을 덮어썼는데,
 	// 나중에 DB를 이용해 ID별로 닉네임을 적용해야 할듯. -수빈
 	itoa(mPlayerId, mPlayerName, 10);
 	strcpy_s(outPacket.mName, mPlayerName);
 
-	SendRequest(&outPacket);
-
 	mLogon = true;
-
+	SendRequest(&outPacket);
 	printf(" Send:   Login ID: %d \n", outPacket.mPlayerId);
 }
 
@@ -375,105 +330,64 @@ void ClientSession::MakeGameRoom(int id)
 	GGameManager->JoinRoom(id, gameRoom->GetRoomID());
 
 	MakeRoomResult outPacket;
-
 	outPacket.mPlayerId = mPlayerId = id;
 	outPacket.mRoomId = mRoomId = gameRoom->GetRoomID();
 
 	SendRequest(&outPacket);
-
 	printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
 }
 
 void ClientSession::JoinGameRoom()
 {
 	auto roomNum = GGameManager->SearchEmptyRoom();
-	
-	if (roomNum == -1)
-		return;
-
+	_ASSERT(roomNum > 0);
 	GGameManager->JoinRoom(mPlayerId, roomNum);
 
 	InOutRoomResult outPacket;
-
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mRoomId = mRoomId = roomNum;
 
 	SendRequest(&outPacket);
-
 	printf(" Send: Join Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
 }
 
 void ClientSession::OutGameRoom()
 {
-	if (mRoomId == -1 || mPlayerId == -1)
-		return;
-
+	_ASSERT(mRoomId > 0 && mPlayerId > 0);
 	GGameManager->OutRoom(mPlayerId, mRoomId);
 
-	printf(" Send:  Out Room ID: %d, Player ID: %d \n", mRoomId, mPlayerId);
 	mRoomId = -1;
 	mIsReady = false;
-}
-
-void ClientSession::OutGame()
-{
-	if (mRoomId == -1 || mPlayerId == -1)
-		return;
-
-
-	GGameManager->OutRoom(mPlayerId, mRoomId);
-
 	printf(" Send:  Out Room ID: %d, Player ID: %d \n", mRoomId, mPlayerId);
-	mRoomId = -1;
-	mIsReady = false;
 }
 
 void ClientSession::ServerRunComplete()
 {
 	ServerRunCompleteNotify outPacket;
-
 	outPacket.mPlayerId = mPlayerId;
 
 	if (!Broadcast(&outPacket))
 	{
 		Disconnect();
 	}
-
 	printf(" Send: ServerRunCompleteNotify ");
 }
 
 void ClientSession::AllReadyNotify()
 {
 	GameRunNotify outPacket;
-
 	outPacket.mPlayerId = mPlayerId;
 
 	if (!Broadcast(&outPacket))
 	{
 		Disconnect();
 	}
-
 	printf(" Send: GameRunNotify Room ID: %d \n", mRoomId);
-}
-
-void ClientSession::StartGame()
-{
-	StartGameNotify outPacket;
-
-	outPacket.mPlayerId = mPlayerId;
-
-	if (!Broadcast(&outPacket))
-	{
-		Disconnect();
-	}
-
-	printf(" Send: StartGameNotify Room ID: %d \n", mRoomId);
 }
 
 void ClientSession::SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 pos)
 {
 	CreateHeroResult outPacket;
-
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
 	outPacket.mUnitType = unitType;
@@ -484,19 +398,31 @@ void ClientSession::SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 p
 	{
 		Disconnect();
 	}
+	printf(" Send: CreateHeroResult Player ID: %d \n", mPlayerId);
+}
+
+void ClientSession::StartGame()
+{
+	StartGameNotify outPacket;
+	outPacket.mPlayerId = mPlayerId;
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+	printf(" Send: StartGameNotify Room ID: %d \n", mRoomId);
 }
 
 void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	MoveBroadcastResult outPacket;
-
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
 	outPacket.mUnitType = unitType;
-	outPacket.mCurrentPosX = currentPos.x;
-	outPacket.mCurrentPosY = currentPos.y;
-	outPacket.mTargetPosX = targetPos.x;
-	outPacket.mTargetPosY = targetPos.y;
+	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
+	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
+	outPacket.mTargetPosX = targetPos.x*PTM_RATIO;
+	outPacket.mTargetPosY = targetPos.y*PTM_RATIO;
 
 	if (!Broadcast(&outPacket))
 	{
@@ -504,11 +430,9 @@ void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPo
 	}
 }
 
-
 void ClientSession::CrashedBoradCast(int unitId, b2Vec2 currentPos, bool isCrashed)
 {
 	CrashedBroadcastResult outPacket;
-
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
 	outPacket.mIsCrashed = isCrashed;
