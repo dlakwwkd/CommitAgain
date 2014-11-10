@@ -15,9 +15,9 @@ public:
 	UnitType	GetUnitType(){ return m_Type; }
 	b2Vec2		GetAverageMove(){ return m_AverageMove; }
 	b2Vec2		GetTargetPos(){ return m_TargetPos; }
-	int			GetSpeed(){ return m_Speed; }
+	float		GetSpeed(){ return m_Speed; }
 	void		SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
-	void		SetSpeed(int speed){ m_Speed = speed; }
+	void		SetSpeed(float speed){ m_Speed = speed; }
 
 	void		SetState(MoveState* state){ m_State = state; }
 	MoveState*	GetState(){ return (MoveState*)m_State; }
@@ -44,7 +44,7 @@ private:
 	UnitType	m_Type;
 	MoveState*	m_State;
 
-	int			m_Speed;
+	float		m_Speed;
 	b2Vec2		m_AverageMove;
 	b2Vec2		m_TargetPos;
 	MoveState*	m_StandbyState;

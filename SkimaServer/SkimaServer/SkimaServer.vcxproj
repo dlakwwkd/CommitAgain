@@ -163,6 +163,7 @@
     <ClInclude Include="ClientManager.h" />
     <ClInclude Include="ClientSession.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="ContactListener.h" />
     <ClInclude Include="DatabaseJobContext.h" />
     <ClInclude Include="DatabaseJobManager.h" />
     <ClInclude Include="DbHelper.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="ClientSession.cpp" />
+    <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="DatabaseJobContext.cpp" />
     <ClCompile Include="DatabaseJobManager.cpp" />
     <ClCompile Include="DbHelper.cpp" />

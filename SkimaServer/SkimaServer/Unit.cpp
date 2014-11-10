@@ -6,7 +6,7 @@
 
 
 Unit::Unit(int playerId, b2Vec2 pos)
-: m_ID(-1), m_Type(TYPE_NONE), m_Speed(5), m_TargetPos({ 0, 0 }),
+: m_ID(-1), m_Type(TYPE_NONE), m_Speed(100000.0f), m_TargetPos({ 0, 0 }),
 m_AverageMove({ 0, 0 }), m_PlayerId(playerId)
 {
 	m_State = m_StandbyState = new StandbyState;
@@ -22,12 +22,12 @@ m_AverageMove({ 0, 0 }), m_PlayerId(playerId)
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;
-	fixtureDef.density = 1.0f;
+	fixtureDef.density = 10.0f;
 	fixtureDef.friction = 0.3f;
 	fixtureDef.restitution = 0.7f;
 	
 	m_Body->CreateFixture(&fixtureDef);
-	//m_Body->SetLinearDamping(0.1f);
+	m_Body->SetUserData(this);
 
 	static int makeId = 0;
 	m_ID = ++makeId;
@@ -45,18 +45,20 @@ void Unit::UnitMove()
 		m_Body->GetPosition().x > m_TargetPos.x + 5 ||
 		m_Body->GetPosition().y > m_TargetPos.y + 5))
 	{
+		printf("id: %d, x: %f, y: %f \n", m_ID, m_Body->GetPosition().x, m_Body->GetPosition().y);
+		m_Body->SetLinearVelocity(b2Vec2(0, 0));
 		EndMove();
 		return;
 	}
-	auto currentPos = (m_Body->GetPosition() + m_AverageMove);
-	m_Body->SetTransform(currentPos, 0);
+// 	auto currentPos = (m_Body->GetPosition() + m_AverageMove);
+// 	m_Body->SetTransform(currentPos, 0);
 
 	printf("id: %d, x: %f, y: %f \n", m_ID, m_Body->GetPosition().x, m_Body->GetPosition().y);
 
-	if (0)
-	{
-		Crashed();
-	}
+// 	if (1)
+// 	{
+// 		Crashed();
+// 	}
 }
 
 void Unit::SetAverageMove(b2Vec2 targetPos)
@@ -65,6 +67,11 @@ void Unit::SetAverageMove(b2Vec2 targetPos)
 	auto temp = abs(direction.x) + abs(direction.y);
 
 	direction *= m_Speed / temp;
+
+	printf("x : %f, y : %f", direction.x, direction.y);
+
+	m_Body->ApplyLinearImpulse(direction, b2Vec2(0, 0), true);
+	//m_Body->SetLinearVelocity(direction);
 
 	m_AverageMove = direction;
 }

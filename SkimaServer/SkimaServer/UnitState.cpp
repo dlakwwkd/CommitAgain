@@ -21,6 +21,7 @@ void StandbyState::Movement(Unit* unit)
 void StandbyState::Crashed(Unit* unit)
 {
 	unit->SetState(unit->GetCrashedState());
+	unit->GetBody()->SetLinearDamping(1.0f);
 }
 
 void StandbyState::EndMove(Unit* unit)
@@ -51,6 +52,7 @@ void MovingState::Movement(Unit* unit)
 void MovingState::Crashed(Unit* unit)
 {
 	unit->SetState(unit->GetCrashedState());
+	unit->GetBody()->SetLinearDamping(1.0f);
 }
 
 void MovingState::EndMove(Unit* unit)
@@ -77,7 +79,9 @@ void CrashedState::TryMove(Unit* unit)
 
 void CrashedState::Movement(Unit* unit)
 {
-	if (unit->GetBody()->GetLinearVelocity() == b2Vec2(0, 0))
+	printf("À¯´Ö: %d,   ¼Óµµ - x: %f, y: %f\n", unit->GetUnitID(), unit->GetBody()->GetLinearVelocity().x, unit->GetBody()->GetLinearVelocity().y);
+	if (!(abs(unit->GetBody()->GetLinearVelocity().x) > 0.1 ||
+		abs(unit->GetBody()->GetLinearVelocity().y) > 0.1))
 	{
 		unit->UnitCrashed(false);
 		EndCrash(unit);
@@ -101,4 +105,5 @@ void CrashedState::EndMove(Unit* unit)
 void CrashedState::EndCrash(Unit* unit)
 {
 	unit->SetState(unit->GetStandbyState());
+	unit->GetBody()->SetLinearDamping(0.0f);
 }

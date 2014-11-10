@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "ClientManager.h"
 #include "ClientSession.h"
+#include "ContactListener.h"
 #include "Scheduler.h"
 #include "Config.h"
 
@@ -171,6 +172,9 @@ void GameManager::InitPhyWorld()
 
 	m_World->SetAllowSleeping(true);
 	m_World->SetContinuousPhysics(true);
+
+	m_Contact = new ContactListener();
+	m_World->SetContactListener((b2ContactListener*)m_Contact);
 }
 void GameManager::DeletePhyWorld()
 {

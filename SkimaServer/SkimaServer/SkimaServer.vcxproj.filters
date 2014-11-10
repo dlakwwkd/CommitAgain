@@ -41,6 +41,9 @@
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
     <ClCompile Include="CircularBuffer.cpp">
       <Filter>Util</Filter>
     </ClCompile>
@@ -54,9 +57,9 @@
       <Filter>Game\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="UnitState.cpp">
-      <Filter>Network</Filter>
+      <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
+    <ClCompile Include="ContactListener.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="..\..\FSM.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="ContactListener.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
