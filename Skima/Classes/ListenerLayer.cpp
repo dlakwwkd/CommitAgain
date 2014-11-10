@@ -12,21 +12,12 @@ bool ListenerLayer::init()
 	{
 		return false;
 	}
-<<<<<<< HEAD
-
-	auto mapLayer = MapLayer::create();
-	auto objectlayer = ObjectLayer::create();
-	this->addChild(mapLayer, 0,"MapLayer");
-	this->addChild(objectlayer, 1,"ObjectLayer");
-	
-=======
 	auto layer1 = MapLayer::create();
 	auto layer2 = ObjectLayer::create();
 	this->addChild(layer1, 0, "MapLayer");
 	this->addChild(layer2, 1, "ObjectLayer");
 	layer2->schedule(schedule_selector(ObjectLayer::TickM), 0.016f);
 
->>>>>>> origin/Client_v0.2
 	auto MouseListener = EventListenerMouse::create();
 	MouseListener->onMouseDown = CC_CALLBACK_1(ListenerLayer::OnMouseDown, this);
 	MouseListener->onMouseUp = CC_CALLBACK_1(ListenerLayer::OnMouseUp, this);
