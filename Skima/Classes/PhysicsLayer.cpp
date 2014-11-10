@@ -13,9 +13,10 @@ bool PhysicsLayer::init()
 	}
 
 	auto layer1 = MapLayer::create();
-	this->addChild(layer1, 0, "MapLayer");
 	auto layer2 = ObjectLayer::create();
+	this->addChild(layer1, 0, "MapLayer");
 	this->addChild(layer2, 1, "ObjectLayer");
+	layer2->schedule(schedule_selector(ObjectLayer::TickS));
 
 	auto MouseListener = EventListenerMouse::create();
 	MouseListener->onMouseDown = CC_CALLBACK_1(PhysicsLayer::OnMouseDown, this);
@@ -29,7 +30,6 @@ bool PhysicsLayer::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(K_listener, this);
 
 	this->schedule(schedule_selector(PhysicsLayer::Tick));
-
 	return true;
 }
 
@@ -40,8 +40,28 @@ void PhysicsLayer::Tick(float dt)
 	CameraSync();
 	auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
 	child->MobAi();
+	ScreenMove();
 }
 //////////////////////////////////////////////////////////////////////////
+
+
+
+void PhysicsLayer::UpdateKeyInput()
+{
+	if (GET_IM->GetKeyStatus(KEY_UP_ARROW))
+		this->setPositionY(this->getPositionY() - 10);
+	if (GET_IM->GetKeyStatus(KEY_DOWN_ARROW))
+		this->setPositionY(this->getPositionY() + 10);
+	if (GET_IM->GetKeyStatus(KEY_LEFT_ARROW))
+		this->setPositionX(this->getPositionX() + 10);
+	if (GET_IM->GetKeyStatus(KEY_RIGHT_ARROW))
+		this->setPositionX(this->getPositionX() - 10);
+}
+
+void PhysicsLayer::CameraSync()
+{
+
+}
 
 
 void PhysicsLayer::OnMouseDown(Event *event)
@@ -55,7 +75,7 @@ void PhysicsLayer::OnMouseDown(Event *event)
 		break;
 	case MOUSE_BUTTON_RIGHT:
 		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-		child->UnitMove(GET_IM->GetMouseLocation());
+		child->UnitMove(1, { 0, 0 }, GET_IM->GetMouseLocation());
 		break;
 	}
 }
@@ -72,6 +92,7 @@ void PhysicsLayer::OnMouseMove(Event *event)
 	location.y = Director::getInstance()->getWinSize().height - location.y;
 
 	GET_IM->SetMouseLocation(location);
+	GET_IM->CheckMouseScroll();
 
 
 	if (GET_IM->GetMouseStatus(MOUSE_BUTTON_LEFT))
@@ -92,20 +113,18 @@ void PhysicsLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, false);
 }
-
-void PhysicsLayer::UpdateKeyInput()
+void PhysicsLayer::ScreenMove()
 {
-	if (GET_IM->GetKeyStatus(KEY_UP_ARROW))
-		this->setPositionY(this->getPositionY() - 10);
-	if (GET_IM->GetKeyStatus(KEY_DOWN_ARROW))
+	if (GET_IM->GetMouseScrollStatus(SCROLL_UP)){
 		this->setPositionY(this->getPositionY() + 10);
-	if (GET_IM->GetKeyStatus(KEY_LEFT_ARROW))
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN)){
+		this->setPositionY(this->getPositionY() - 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT)){
 		this->setPositionX(this->getPositionX() + 10);
-	if (GET_IM->GetKeyStatus(KEY_RIGHT_ARROW))
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT)){
 		this->setPositionX(this->getPositionX() - 10);
-}
-
-void PhysicsLayer::CameraSync()
-{
-
+	}
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include "cocos2d.h"
-#include "..\..\PacketType.h"
+#include <map>
+#include "../../PacketType.h"
+#include "Enums.h"
 
 USING_NS_CC;
 
@@ -12,22 +14,36 @@ public:
 	virtual bool init();
 	CREATE_FUNC(ObjectLayer);
 
-	void Tick(float dt);
+	void TickS(float dt);
+	void TickM(float dt);
 
-	void UnitMove(Point p);
-	void AddNewSpriteAtPosition(Point p);
+	std::shared_ptr<Unit> GetMyHero(){ return m_Hero; }
+
 	void CreateHero(int playerID, int unitID, Point location);
-	
+	void UnitMove(int unitID, Point recvCurPos, Point targetPos);
+	void UnitCrash(int unitID, Point recvPos);
+	void UnitCrashEnd(int unitID);
 
-	void MobAi();
+
+	bool PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos);
 	void FirstDrawUnit(int playerID, int unitID, UnitType unitType, Point pos);
 	void UpdateAnimation(int playerId, int unitID, Point pos);
-	//void CreateHeroStart();
+
+	void AddNewSpriteAtPosition(Point pos);
+	void MobAi();
 
 protected:
-	std::shared_ptr<Unit>				m_Hero;
-	std::vector<std::shared_ptr<Unit>>	m_MobList;
-	std::vector<std::shared_ptr<Unit>>	m_HeroList;
+	void UnitMoveS(Point pos);
+	void UnitMoveM(int unitID, Point recvCurPos, Point targetPos);
+	void UnitCrashS(Point pos);
+	void UnitCrashM(int unitID, Point recvPos);
+
+protected:
+	std::shared_ptr<Unit>					m_Hero;
+	std::map<int, std::shared_ptr<Unit>>	m_UnitList;
+
+
+	std::vector<std::shared_ptr<Unit>>		m_MobList;
 
 };
 

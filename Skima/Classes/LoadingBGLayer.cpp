@@ -12,9 +12,9 @@ bool LoadingBGLayer::init()
 
 	m_IsLoadingFin = false;
 
-	auto loadingLabel = LabelTTF::create("Loading...", "Arial", 50);
-	loadingLabel->setPosition(500, 400);
-	this->addChild(loadingLabel);
+	auto label = LabelTTF::create("Loading...", "Arial", 50);
+	label->setPosition(500, 400);
+	this->addChild(label);
 
 	this->schedule(schedule_selector(LoadingBGLayer::Tick), 1.0f);
 	return true;

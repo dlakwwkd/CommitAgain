@@ -2,7 +2,8 @@
 #include "MapLayer.h"
 #include "ObjectLayer.h"
 #include "GameManager.h"
-#include "NetworkGameScene.h"
+#include "MultiGameScene.h"
+#include "Unit.h"
 
 
 bool ListenerLayer::init()
@@ -11,12 +12,21 @@ bool ListenerLayer::init()
 	{
 		return false;
 	}
+<<<<<<< HEAD
 
 	auto mapLayer = MapLayer::create();
 	auto objectlayer = ObjectLayer::create();
 	this->addChild(mapLayer, 0,"MapLayer");
 	this->addChild(objectlayer, 1,"ObjectLayer");
 	
+=======
+	auto layer1 = MapLayer::create();
+	auto layer2 = ObjectLayer::create();
+	this->addChild(layer1, 0, "MapLayer");
+	this->addChild(layer2, 1, "ObjectLayer");
+	layer2->schedule(schedule_selector(ObjectLayer::TickM), 0.016f);
+
+>>>>>>> origin/Client_v0.2
 	auto MouseListener = EventListenerMouse::create();
 	MouseListener->onMouseDown = CC_CALLBACK_1(ListenerLayer::OnMouseDown, this);
 	MouseListener->onMouseUp = CC_CALLBACK_1(ListenerLayer::OnMouseUp, this);
@@ -35,11 +45,9 @@ bool ListenerLayer::init()
 //////////////////////////////////////////////////////////////////////////
 void ListenerLayer::Tick(float dt)
 {
-	auto child = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
-	child->MobAi();
+	//ScreenMove();
 }
 //////////////////////////////////////////////////////////////////////////
-
 
 
 void ListenerLayer::UpdateKeyInput()
@@ -55,22 +63,22 @@ void ListenerLayer::CameraSync()
 
 void ListenerLayer::OnMouseDown(Event *event)
 {
-	if (!dynamic_cast<NetworkGameScene*>(this->getParent())->IsStartGame())
+	if (!dynamic_cast<MultiGameScene*>(this->getParent())->IsStartGame())
 		return;
 
 	auto button = dynamic_cast<EventMouse*>(event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, true);
-	float x, y;
+
+	auto layer = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
+	auto hero = layer->GetMyHero();
 
 	switch (button)
 	{
 	case MOUSE_BUTTON_LEFT:
 		break;
 	case MOUSE_BUTTON_RIGHT:
-		auto child = dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"));
-		child->UnitMove(GET_IM->GetMouseLocation());
-
-		TcpClient::getInstance()->moveRequest(GET_IM->GetMouseLocation());
+		if (hero->GetMoveState() != hero->GetCrashedState())
+			TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
 		break;
 	}
 }
@@ -87,6 +95,7 @@ void ListenerLayer::OnMouseMove(Event *event)
 	location.y = Director::getInstance()->getWinSize().height - location.y;
 
 	GET_IM->SetMouseLocation(location);
+	GET_IM->CheckMouseScroll();
 }
 
 
@@ -98,4 +107,36 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, false);
+}
+
+void ListenerLayer::ScreenMove()
+{
+	if (GET_IM->GetMouseScrollStatus(SCROLL_UP)){
+		this->setPositionY(this->getPositionY() + 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN)){
+		this->setPositionY(this->getPositionY() - 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT)){
+		this->setPositionX(this->getPositionX() + 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT)){
+		this->setPositionX(this->getPositionX() - 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_UPRIGHT)){
+		this->setPositionY(this->getPositionY() + 10);
+		this->setPositionX(this->getPositionX() - 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_UPLEFT)){
+		this->setPositionY(this->getPositionY() + 10);
+		this->setPositionX(this->getPositionX() + 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWNLEFT)){
+		this->setPositionY(this->getPositionY() - 10);
+		this->setPositionX(this->getPositionX() + 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWNRIGHT)){
+		this->setPositionY(this->getPositionY() - 10);
+		this->setPositionX(this->getPositionX() - 10);
+	}
 }

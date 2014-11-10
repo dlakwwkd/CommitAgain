@@ -1,5 +1,5 @@
 #include "NetworkScene.h"
-#include "GameScene.h"
+#include "SingleGameScene.h"
 #include "RoomScene.h"
 #include "TcpClient.h"
 
@@ -18,8 +18,6 @@ bool NetworkScene::init()
 	{
 		return false;
 	}
-
-	m_GameID = -1;
 	
 	auto label0 = Label::createWithSystemFont("辑滚 立加", "Thonburi", 50);
 	auto label1 = Label::createWithSystemFont("规 积己", "Thonburi", 50);

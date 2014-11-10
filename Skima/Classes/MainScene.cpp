@@ -1,5 +1,5 @@
 #include "MainScene.h"
-#include "GameScene.h"
+#include "SingleGameScene.h"
 #include "NetworkScene.h"
 
 
@@ -35,7 +35,7 @@ bool MainScene::init()
 
 void MainScene::menuCallback1(Ref* sender)
 {
-	auto scene = GameScene::createScene();
+	auto scene = SingleGameScene::createScene();
 	Director::getInstance()->pushScene(scene);
 }
 void MainScene::menuCallback2(Ref* sender)

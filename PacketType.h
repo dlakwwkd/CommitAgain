@@ -82,6 +82,8 @@ enum PacketTypes
 	PKT_CS_MOVE = 41,
 	PKT_SC_MOVE = 42,
 
+	PKT_SC_CRASH = 44,
+
 	PKT_CS_CHAT = 91,
 	PKT_SC_CHAT = 92,
 
@@ -324,6 +326,7 @@ struct MoveBroadcastResult : public PacketHeader
 	{
 		mSize = sizeof(MoveBroadcastResult);
 		mType = PKT_SC_MOVE;
+		mIsMove = false;
 		mPlayerId = -1;
 		mUnitId = -1;
 		mUnitType = TYPE_NONE;
@@ -336,10 +339,31 @@ struct MoveBroadcastResult : public PacketHeader
 	int			mPlayerId;
 	int			mUnitId;
 	UnitType	mUnitType;
+	bool		mIsMove;
 	float		mCurrentPosX;
 	float		mCurrentPosY;
 	float		mTargetPosX;
 	float		mTargetPosY;
+
+};
+
+struct CrashedBroadcastResult : public PacketHeader
+{
+	CrashedBroadcastResult()
+	{
+		mSize = sizeof(CrashedBroadcastResult);
+		mType = PKT_SC_CRASH;
+		mIsCrashed = true;
+		mPlayerId = -1;
+		mUnitId = -1;
+		mCurrentPosX = 0;
+		mCurrentPosY = 0;
+	}
+	int			mPlayerId;
+	int			mUnitId;
+	bool		mIsCrashed;
+	float		mCurrentPosX;
+	float		mCurrentPosY;
 
 };
 

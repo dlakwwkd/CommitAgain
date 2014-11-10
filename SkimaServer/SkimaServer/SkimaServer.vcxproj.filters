@@ -56,6 +56,9 @@
     <ClCompile Include="Unit.cpp">
       <Filter>Game\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="UnitState.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -131,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FSM.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

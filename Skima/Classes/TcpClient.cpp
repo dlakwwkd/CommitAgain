@@ -5,12 +5,12 @@
 #include "base/CCScheduler.h"
 #include "2d/CCLabel.h"
 #include "../../PacketType.h"
-#include "GameScene.h"
+#include "SingleGameScene.h"
 #include "ObjectLayer.h"
 #include "NetworkScene.h"
 #include "LoadingBGLayer.h"
 #include "RoomScene.h"
-#include "NetworkGameScene.h"
+#include "MultiGameScene.h"
 
 #ifdef _WIN32
 #pragma comment(lib,"ws2_32.lib")
@@ -89,7 +89,7 @@ bool TcpClient::connect()
 
 	memset(&hostAddr, 0, sizeof(hostAddr));
 	hostAddr.sin_family = AF_INET;
-	hostAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	hostAddr.sin_addr.s_addr = inet_addr("10.73.38.30");
 	hostAddr.sin_port = htons(port);
 
 	if (SOCKET_ERROR == ::connect(mSock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
@@ -267,7 +267,7 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
 				if (layer == nullptr)
 					break;
 
@@ -282,7 +282,7 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkGameScene")->getChildByName("LoadingBGLayer");
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("LoadingBGLayer");
 				if (layer == nullptr)
 					break;
 
@@ -297,11 +297,11 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkGameScene");
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene");
 				if (layer == nullptr)
 					break;
 
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkGameScene::StartGame, dynamic_cast<NetworkGameScene*>(layer)));
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MultiGameScene::StartGame, dynamic_cast<MultiGameScene*>(layer)));
 			}
 			break;
 
@@ -311,12 +311,30 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 							
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
 				if (layer == nullptr)
 					break;
 
-				Point pos = { recvData.mPosX, recvData.mPosY };
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UpdateAnimation, dynamic_cast<ObjectLayer*>(layer), recvData.mPlayerId, recvData.mUnitId, pos));
+				Point curPos = { recvData.mCurrentPosX, recvData.mCurrentPosY };
+				Point targetPos = { recvData.mTargetPosX, recvData.mTargetPosY };
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitMove, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, curPos, targetPos));
+			}
+			break;
+
+		case PKT_SC_CRASH:
+			{
+				CrashedBroadcastResult recvData;
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId != -1);
+
+				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
+				if (layer == nullptr)
+					break;
+
+				Point curPos = { recvData.mCurrentPosX, recvData.mCurrentPosY };
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, curPos));
+				if (!recvData.mIsCrashed)
+					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId));
 			}
 			break;
 
@@ -404,15 +422,17 @@ void TcpClient::meReadyRequest()
 	send((const char*)&sendData, sizeof(ClientRunCompleteNotify));
 }
 
-void TcpClient::moveRequest(Point targetPos)
+void TcpClient::moveRequest(Point curPos, Point targetPos)
 {
 	if (mLoginId < 0)
 		return;
 
 	MoveRequest sendData;
 	sendData.mPlayerId = mLoginId;
-	sendData.mPosX = targetPos.x;
-	sendData.mPosY = targetPos.y;
+	sendData.mCurrentPosX = curPos.x;
+	sendData.mCurrentPosY = curPos.y;
+	sendData.mTargetPosX = targetPos.x;
+	sendData.mTargetPosY = targetPos.y;
 
 	send((const char*)&sendData, sizeof(MoveRequest));
 }
