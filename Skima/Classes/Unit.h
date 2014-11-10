@@ -20,7 +20,7 @@ public:
 	Sprite*			GetSprite(){ return m_Sprite; }
 	Point			GetUnitPos(){ return m_CurPos; }
 
-	void			SetState(MoveState* state){ m_MoveState = state; }
+	MoveState*		GetMoveState(){ return m_MoveState; }
 	MoveState*		GetStandbyState(){ return (MoveState*)m_StandbyState; }
 	MoveState*		GetMovingState(){ return (MoveState*)m_MovingState; }
 	MoveState*		GetCrashedState(){ return (MoveState*)m_CrashedState; }

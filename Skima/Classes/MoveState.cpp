@@ -8,11 +8,11 @@
 //////////////////////////////////////////////////////////////////////////
 void StandbyState::TryMove(Unit* unit)
 {
-	unit->SetState(unit->GetMovingState());
+	unit->SetMoveState(unit->GetMovingState());
 }
 void StandbyState::Crashed(Unit* unit)
 {
-	unit->SetState(unit->GetCrashedState());
+	unit->SetMoveState(unit->GetCrashedState());
 }
 void StandbyState::EndMove(Unit* unit)
 {
@@ -38,12 +38,12 @@ void MovingState::TryMove(Unit* unit)
 }
 void MovingState::Crashed(Unit* unit)
 {
-	unit->SetState(unit->GetCrashedState());
+	unit->SetMoveState(unit->GetCrashedState());
 
 }
 void MovingState::EndMove(Unit* unit)
 {
-	unit->SetState(unit->GetStandbyState());
+	unit->SetMoveState(unit->GetStandbyState());
 }
 void MovingState::EndCrash(Unit* unit)
 {
@@ -74,7 +74,7 @@ void CrashedState::EndMove(Unit* unit)
 }
 void CrashedState::EndCrash(Unit* unit)
 {
-	unit->SetState(unit->GetStandbyState());
+	unit->SetMoveState(unit->GetStandbyState());
 }
 void CrashedState::Movement(Unit* unit)
 {
