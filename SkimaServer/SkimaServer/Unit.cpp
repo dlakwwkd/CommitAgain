@@ -18,13 +18,13 @@ Unit::Unit(int playerId, b2Vec2 pos)
 	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
 	b2CircleShape circle;
-	circle.m_radius = 10.0f/PTM_RATIO;
+	circle.m_radius = 15.0f/PTM_RATIO;
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
-	fixtureDef.restitution = 0.7f;
+	fixtureDef.restitution = 0.3f;
 	
 	m_Body->CreateFixture(&fixtureDef);
 	m_Body->SetUserData(this);
@@ -40,10 +40,10 @@ Unit::~Unit()
 
 void Unit::UnitMove()
 {
-	if (!(m_Body->GetPosition().x < m_TargetPos.x - 0.05f ||
-		m_Body->GetPosition().y < m_TargetPos.y - 0.05f ||
-		m_Body->GetPosition().x > m_TargetPos.x + 0.05f ||
-		m_Body->GetPosition().y > m_TargetPos.y + 0.05f))
+	if (!(m_Body->GetPosition().x < m_TargetPos.x - 0.1f ||
+		m_Body->GetPosition().y < m_TargetPos.y - 0.1f ||
+		m_Body->GetPosition().x > m_TargetPos.x + 0.1f ||
+		m_Body->GetPosition().y > m_TargetPos.y + 0.1f))
 	{
 		printf("id: %d, x: %f, y: %f \n", m_UnitID, m_Body->GetPosition().x*PTM_RATIO, m_Body->GetPosition().y*PTM_RATIO);
 		m_Body->SetLinearVelocity(b2Vec2(0, 0));
@@ -64,6 +64,12 @@ void Unit::SetAverageMove(b2Vec2 targetPos)
 {
 	auto direction = targetPos - m_Body->GetPosition();
 	auto temp = abs(direction.x) + abs(direction.y);
+
+	if (temp < 0.2)
+	{
+		m_Body->SetLinearVelocity(b2Vec2(0, 0));
+		return;
+	}
 
 	direction *= m_Speed / temp;
 
