@@ -38,6 +38,7 @@ Unit::~Unit()
 	delete m_StandbyState;
 	delete m_MovingState;
 	delete m_CrashedState;
+	GGameManager->GetWolrd()->DestroyBody(m_Body);
 }
 
 
