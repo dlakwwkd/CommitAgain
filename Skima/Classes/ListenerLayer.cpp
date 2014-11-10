@@ -16,7 +16,7 @@ bool ListenerLayer::init()
 	auto layer2 = ObjectLayer::create();
 	this->addChild(layer1, 0, "MapLayer");
 	this->addChild(layer2, 1, "ObjectLayer");
-	layer2->schedule(schedule_selector(ObjectLayer::TickM));
+	layer2->schedule(schedule_selector(ObjectLayer::TickM), 0.016f);
 
 	auto MouseListener = EventListenerMouse::create();
 	MouseListener->onMouseDown = CC_CALLBACK_1(ListenerLayer::OnMouseDown, this);
@@ -36,7 +36,7 @@ bool ListenerLayer::init()
 //////////////////////////////////////////////////////////////////////////
 void ListenerLayer::Tick(float dt)
 {
-	ScreenMove();
+	//ScreenMove();
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -111,6 +111,22 @@ void ListenerLayer::ScreenMove()
 		this->setPositionX(this->getPositionX() + 10);
 	}
 	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT)){
+		this->setPositionX(this->getPositionX() - 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_UPRIGHT)){
+		this->setPositionY(this->getPositionY() + 10);
+		this->setPositionX(this->getPositionX() - 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_UPLEFT)){
+		this->setPositionY(this->getPositionY() + 10);
+		this->setPositionX(this->getPositionX() + 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWNLEFT)){
+		this->setPositionY(this->getPositionY() - 10);
+		this->setPositionX(this->getPositionX() + 10);
+	}
+	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWNRIGHT)){
+		this->setPositionY(this->getPositionY() - 10);
 		this->setPositionX(this->getPositionX() - 10);
 	}
 }
