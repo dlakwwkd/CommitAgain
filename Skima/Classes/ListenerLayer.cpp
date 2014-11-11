@@ -50,33 +50,40 @@ void ListenerLayer::UpdateKeyInput()
 
 void ListenerLayer::ScreenMove()
 {
-	if (GET_IM->GetMouseScrollStatus(SCROLL_UP)){
-		this->setPositionY(this->getPositionY() + 10);
+	Point mouseLocation = GET_IM->GetMouseLocation();
+	auto winSize = Director::getInstance()->getWinSize();
+
+
+	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && GET_IM->GetMouseScrollStatus(SCROLL_UP))
+	{
+		Point creteria = { 50, 50 };
+		Point gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
+		gap *= 7;
+		this->setPosition(this->getPosition() + gap);
+
 	}
-	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN)){
-		this->setPositionY(this->getPositionY() - 10);
+	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && GET_IM->GetMouseScrollStatus(SCROLL_UP))
+	{
+		Point creteria = { winSize.width-50, 50 };
+		Point gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
+		gap *= 7;
+		this->setPositionX(this->getPositionX() - gap.x);
+		this->setPositionY(this->getPositionY() + gap.y);
 	}
-	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT)){
-		this->setPositionX(this->getPositionX() + 10);
+	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && GET_IM->GetMouseScrollStatus(SCROLL_DOWN))
+	{
+		Point creteria = { winSize.width - 50, winSize.height - 50 };
+		Point gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
+		gap *= 7;
+		this->setPosition(this->getPosition() - gap);
 	}
-	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT)){
-		this->setPositionX(this->getPositionX() - 10);
-	}
-	if (GET_IM->GetMouseScrollStatus(SCROLL_UPRIGHT)){
-		this->setPositionY(this->getPositionY() + 10);
-		this->setPositionX(this->getPositionX() - 10);
-	}
-	if (GET_IM->GetMouseScrollStatus(SCROLL_UPLEFT)){
-		this->setPositionY(this->getPositionY() + 10);
-		this->setPositionX(this->getPositionX() + 10);
-	}
-	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWNLEFT)){
-		this->setPositionY(this->getPositionY() - 10);
-		this->setPositionX(this->getPositionX() + 10);
-	}
-	if (GET_IM->GetMouseScrollStatus(SCROLL_DOWNRIGHT)){
-		this->setPositionY(this->getPositionY() - 10);
-		this->setPositionX(this->getPositionX() - 10);
+	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && GET_IM->GetMouseScrollStatus(SCROLL_DOWN))
+	{
+		Point creteria = { 50, winSize.height-50 };
+		Point gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
+		gap *= 7;
+		this->setPositionX(this->getPositionX() + gap.x);
+		this->setPositionY(this->getPositionY() - gap.y);
 	}
 }
 

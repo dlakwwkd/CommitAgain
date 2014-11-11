@@ -14,14 +14,17 @@ USING_NS_CC;
 
 enum ScrollDir
 {
+// 	SCROLL_HORI,
+// 	SCROLL_VERTI,
 	SCROLL_UP,
 	SCROLL_DOWN,
 	SCROLL_LEFT,
 	SCROLL_RIGHT,
-	SCROLL_UPRIGHT,
-	SCROLL_DOWNRIGHT,
-	SCROLL_UPLEFT,
-	SCROLL_DOWNLEFT,
+// 	SCROLL_UPRIGHT,
+// 	SCROLL_DOWNRIGHT,
+// 	SCROLL_UPLEFT,
+// 	SCROLL_DOWNLEFT,
+// 	
 };
 
 class InputManager
@@ -43,6 +46,6 @@ public:
 private:
 	Point									m_MouseLocation;
 	std::map<int, bool>						m_MouseStatus;
-	std::map<ScrollDir, bool>				m_MouseScrollStatus;
+	std::map<ScrollDir,bool>				m_MouseScrollStatus;
 	std::map<EventKeyboard::KeyCode, bool>	m_KeyStatus;
 };
