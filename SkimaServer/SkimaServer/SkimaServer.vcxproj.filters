@@ -56,11 +56,11 @@
     <ClCompile Include="Unit.cpp">
       <Filter>Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="UnitState.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="ContactListener.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="FSM.cpp">
+      <Filter>Game\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,11 +138,11 @@
     <ClInclude Include="Unit.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\FSM.h">
-      <Filter>Network</Filter>
-    </ClInclude>
     <ClInclude Include="ContactListener.h">
-      <Filter>Game</Filter>
+      <Filter>Game\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FSM.h">
+      <Filter>Game\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +169,9 @@
     </Filter>
     <Filter Include="Game\GameObject">
       <UniqueIdentifier>{99f3dd0a-ec03-4362-ab85-1d24bf5c2587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Core">
+      <UniqueIdentifier>{ef0b499a-c964-4377-bf7c-50bbcbbcf358}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

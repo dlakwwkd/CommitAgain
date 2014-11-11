@@ -90,9 +90,6 @@
     <ClCompile Include="..\Classes\PhysicsLayer.cpp">
       <Filter>Game\SinglePlay</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MoveState.cpp">
-      <Filter>Game\Object</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ObjectLayer.cpp">
       <Filter>Game\Object</Filter>
     </ClCompile>
@@ -116,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Base\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FSM.cpp">
+      <Filter>Game\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -217,7 +217,7 @@
     </ClCompile>
     <ClCompile Include="ThreadLocal.cpp" />
     <ClCompile Include="Unit.cpp" />
-    <ClCompile Include="UnitState.cpp" />
+    <ClCompile Include="FSM.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
