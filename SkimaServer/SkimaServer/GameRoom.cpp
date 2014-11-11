@@ -30,7 +30,7 @@ void GameRoom::OutPlayer(int id)
 	{
 		if (*it == id)
 		{
-			m_PlayerIdList.erase(it);
+			m_PlayerIdList.erase(it); ///# 순회중 삭제는 신중하게 해야함.. 다행히 break가 있어서 넘어감..
 			break;
 		}
 	}

@@ -87,7 +87,7 @@ void CrashedState::Movement(Unit* unit)
 	}
 	else
 	{
-		unit->UnitCrashed(true);
+		unit->UnitCrashed(true); ///# 이 부분이 너무 많이 호출됨..
 	}
 }
 

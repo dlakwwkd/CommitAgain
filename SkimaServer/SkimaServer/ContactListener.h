@@ -3,7 +3,7 @@ class ContactListener : public b2ContactListener
 {
 public:
 	ContactListener();
-	~ContactListener();
+	~ContactListener(); ///# 가상 소멸자 사용 안하는 이유?
 
 	virtual void BeginContact(b2Contact *contact);
 	virtual void EndContact(b2Contact* contact);

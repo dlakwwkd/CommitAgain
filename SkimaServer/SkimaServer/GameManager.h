@@ -42,7 +42,7 @@ public:
 
 private:
 	typedef std::map<int, Game*> GameList;
-	typedef std::map<int, GameRoom*> RoomList;
+	typedef std::map<int, GameRoom*> RoomList; ///# 삭제될 수 있는 포인터를 이렇게 직접 들고 있는 것은 위험.. 보통 이럴때는 shared_ptr<>를 사용.
 	GameList			m_GameList;
 	RoomList			m_RoomList;
 	int					m_MakeRoomNum;

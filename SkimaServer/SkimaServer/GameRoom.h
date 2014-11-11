@@ -13,7 +13,7 @@ public:
 	int		GetRoomID(){ return m_RoomID; }
 	int		GetPlayerListNum(){ return m_PlayerIdList.size(); }
 
-	const std::vector<int>& GetPlayerList(){ return m_PlayerIdList; }
+	const std::vector<int>& GetPlayerList(){ return m_PlayerIdList; } ///# 내부 객체의 참조를 통째로 객체 외부로 넘겨주는거는 구조적으로 좋지 못함.
 	
 	bool	IsJoinAble(){ return m_JoinAble; }
 	bool	IsAllReady(){ return m_IsAllReady; }
