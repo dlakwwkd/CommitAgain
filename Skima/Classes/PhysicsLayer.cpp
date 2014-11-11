@@ -1,9 +1,11 @@
+#include "pch.h"
 #include "PhysicsLayer.h"
-#include "MapLayer.h"
-#include "ObjectLayer.h"
 #include "GameManager.h"
+#include "ObjectLayer.h"
+#include "MapLayer.h"
+#include "TcpClient.h"
 
-
+#define GET_OBJECT_LAYER dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
 
 bool PhysicsLayer::init()
 {
@@ -37,13 +39,11 @@ bool PhysicsLayer::init()
 void PhysicsLayer::Tick(float dt)
 {
 	UpdateKeyInput();
-	CameraSync();
-	auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-	child->MobAi();
+	auto layer = GET_OBJECT_LAYER;			_ASSERT(layer != nullptr);
+	layer->MobAi();
 	ScreenMove();
 }
 //////////////////////////////////////////////////////////////////////////
-
 
 
 void PhysicsLayer::UpdateKeyInput()
@@ -58,61 +58,6 @@ void PhysicsLayer::UpdateKeyInput()
 		this->setPositionX(this->getPositionX() - 10);
 }
 
-void PhysicsLayer::CameraSync()
-{
-
-}
-
-
-void PhysicsLayer::OnMouseDown(Event *event)
-{
-	auto button = ((EventMouse*)event)->getMouseButton();
-	GET_IM->SetMouseStatus(button, true);
-
-	switch (button)
-	{
-	case MOUSE_BUTTON_LEFT:
-		break;
-	case MOUSE_BUTTON_RIGHT:
-		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-		child->UnitMove(1, { 0, 0 }, GET_IM->GetMouseLocation());
-		break;
-	}
-}
-
-void PhysicsLayer::OnMouseUp(Event *event)
-{
-	auto button = ((EventMouse*)event)->getMouseButton();
-	GET_IM->SetMouseStatus(button, false);
-}
-
-void PhysicsLayer::OnMouseMove(Event *event)
-{
-	auto location = ((EventMouse*)event)->getLocation();
-	location.y = Director::getInstance()->getWinSize().height - location.y;
-
-	GET_IM->SetMouseLocation(location);
-	GET_IM->CheckMouseScroll();
-
-
-	if (GET_IM->GetMouseStatus(MOUSE_BUTTON_LEFT))
-	{
-		auto child = (ObjectLayer*)(this->getChildByName("ObjectLayer"));
-		child->AddNewSpriteAtPosition(GET_IM->GetMouseLocation());
-	}
-	
-}
-
-
-void PhysicsLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
-{
-	GET_IM->SetKeyStatus(keyCode, true);
-}
-
-void PhysicsLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
-{
-	GET_IM->SetKeyStatus(keyCode, false);
-}
 void PhysicsLayer::ScreenMove()
 {
 	if (GET_IM->GetMouseScrollStatus(SCROLL_UP)){
@@ -127,4 +72,65 @@ void PhysicsLayer::ScreenMove()
 	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT)){
 		this->setPositionX(this->getPositionX() - 10);
 	}
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	마우스 리스너
+*/
+///////////////////////////////////////////////////////////////////////////
+void PhysicsLayer::OnMouseDown(Event *event)
+{
+	auto button = static_cast<EventMouse*>(event)->getMouseButton();
+	GET_IM->SetMouseStatus(button, true);
+
+	switch (button)
+	{
+	case MOUSE_BUTTON_LEFT:
+		break;
+	case MOUSE_BUTTON_RIGHT:
+		auto layer = GET_OBJECT_LAYER;		_ASSERT(layer != nullptr);
+		layer->UnitMove(1, { 0, 0 }, GET_IM->GetMouseLocation());
+		break;
+	}
+}
+
+void PhysicsLayer::OnMouseUp(Event *event)
+{
+	auto button = static_cast<EventMouse*>(event)->getMouseButton();
+	GET_IM->SetMouseStatus(button, false);
+}
+
+void PhysicsLayer::OnMouseMove(Event *event)
+{
+	auto location = static_cast<EventMouse*>(event)->getLocation();
+	location.y = Director::getInstance()->getWinSize().height - location.y;
+
+	GET_IM->SetMouseLocation(location);
+	GET_IM->CheckMouseScroll();
+
+	if (GET_IM->GetMouseStatus(MOUSE_BUTTON_LEFT))
+	{
+		auto layer = GET_OBJECT_LAYER;		_ASSERT(layer != nullptr);
+		layer->AddNewSpriteAtPosition(GET_IM->GetMouseLocation());
+	}
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	키보드 리스너
+*/
+///////////////////////////////////////////////////////////////////////////
+void PhysicsLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	GET_IM->SetKeyStatus(keyCode, true);
+}
+
+void PhysicsLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	GET_IM->SetKeyStatus(keyCode, false);
 }

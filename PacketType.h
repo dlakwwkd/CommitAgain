@@ -6,45 +6,6 @@
 #define MAX_COMMENT_LEN	40
 
 
-struct N_Point
-{
-	N_Point()
-	{
-
-	}
-	N_Point(float _x, float _y)
-	{
-		x = _x, y = _y;
-	}
-	N_Point operator+(const N_Point& point) const{
-		return N_Point(x + point.x, y + point.y);
-	}
-	N_Point operator-(const N_Point& point) const{
-		return N_Point(x + point.x, y + point.y);
-	}
-	N_Point operator*(float n) const{
-		return N_Point(x*n, y*n);
-	}
-	bool operator!=(const N_Point& point) const{
-		if (x == point.x && y == point.y)
-			return false;
-		return true;
-	}
-	bool operator==(const N_Point& point) const{
-		if (x == point.x && y == point.y)
-			return true;
-		return false;
-	}
-	float Distance(const N_Point& aPoint, const N_Point& bPoint) const {
-		return (float)pow(pow(aPoint.x - bPoint.x, 2) + pow(aPoint.y - bPoint.y, 2), 0.5);
-	}
-	N_Point Rotate(N_Point point, float angle) const {
-		return N_Point(point.x * cos(angle) - point.y * sin(angle),
-			point.x * sin(angle) + point.y * cos(angle));
-	}
-	float x, y;
-};
-
 enum UnitType
 {
 	TYPE_NONE
@@ -90,6 +51,7 @@ enum PacketTypes
 	PKT_MAX = 1024
 };
 #pragma pack(push, 1)
+
 
 struct PacketHeader
 {
@@ -214,6 +176,7 @@ struct GameRunNotify : public PacketHeader
 	int		mPlayerId;
 };
 
+
 //////////////////////////////////////////////////////////////////////////
 // 로딩 관련 데이터 전송
 struct CreateHeroResult : public PacketHeader
@@ -234,9 +197,8 @@ struct CreateHeroResult : public PacketHeader
 	float		mPosX;
 	float		mPosY;
 };
-
-
 //////////////////////////////////////////////////////////////////////////
+
 
 struct ServerRunCompleteNotify : public PacketHeader
 {

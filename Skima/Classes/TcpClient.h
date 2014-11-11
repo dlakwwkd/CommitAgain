@@ -9,11 +9,15 @@
 #include <winsock2.h>
 #endif
 
-#include "cocos2d.h"
-
 USING_NS_CC;
 
 #define BUF_SIZE	32768
+
+#define GET_NETWORK_SCENE	dynamic_cast<NetworkScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene"))
+#define GET_ROOM_SCENE		dynamic_cast<RoomScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene"))
+#define GET_M_GAME_SCENE	dynamic_cast<MultiGameScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene"))
+#define GET_LOADING_LAYER	dynamic_cast<LoadingBGLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("LoadingBGLayer"))
+#define GET_OBJECT_LAYER	dynamic_cast<ObjectLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer"))
 
 class TcpClient
 {
@@ -35,8 +39,7 @@ public:
 
 	void moveRequest(Point curPos, Point targetPos);
 
-
-	//void chatRequest(const char* chat);
+//	void chatRequest(const char* chat);
 
 private:
 	TcpClient();

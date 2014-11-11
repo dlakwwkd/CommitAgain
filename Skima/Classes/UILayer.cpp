@@ -1,6 +1,6 @@
+#include "pch.h"
 #include "UILayer.h"
 
-using namespace cocos2d;
 
 bool UILayer::init()
 {

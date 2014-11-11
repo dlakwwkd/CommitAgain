@@ -1,8 +1,10 @@
+#include "pch.h"
 #include "RoomScene.h"
 #include "NetworkScene.h"
 #include "TcpClient.h"
 #include "MultiGameScene.h"
 
+#define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
 
 Scene* RoomScene::createScene()
 {
@@ -20,6 +22,7 @@ bool RoomScene::init()
 	}
 
 	m_RoomID = -1;
+	m_IsReady = false;
 
 	auto label1 = Label::createWithSystemFont("게임 시작", "Thonburi", 50);
 	auto label2 = Label::createWithSystemFont("나가기", "Thonburi", 50);
@@ -42,28 +45,31 @@ bool RoomScene::init()
 	return true;
 }
 
-void RoomScene::menuCallback1(Ref* sender) //"게임시작"
+void RoomScene::menuCallback1(Ref* sender)	// 게임 시작
 {
-	if (TcpClient::getInstance()->checkSocket() == NULL)
+	if (TcpClient::getInstance()->checkSocket() == NULL || m_IsReady)
 		return;
 
+	m_IsReady = true;
 	TcpClient::getInstance()->startGameRequest();
 }
 
-void RoomScene::menuCallback2(Ref* sender)	//"나가기"
+void RoomScene::menuCallback2(Ref* sender)	// 나가기
 {
 	if (TcpClient::getInstance()->checkSocket() != NULL)
 		TcpClient::getInstance()->outRoomRequest(m_RoomID);
 
+	m_IsReady = false;
 	Director::getInstance()->popScene();
 }
+
 
 
 //////////////////////////////////////////////////////////////////////////
 void RoomScene::Tick(float dt)
 {
-	auto label = dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"));
-	if (label == nullptr)
+	auto label = GET_ROOM_STATE_LABEL;
+	if(label == nullptr)
 		return;
 
 	// 방 번호를 문자열로 변환 후 라벨에 적용
@@ -74,6 +80,8 @@ void RoomScene::Tick(float dt)
 	label->setString(roomNum.c_str());
 }
 //////////////////////////////////////////////////////////////////////////
+
+
 
 void RoomScene::GameStartComplete()
 {

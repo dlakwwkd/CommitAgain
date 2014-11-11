@@ -1,9 +1,10 @@
+#include "pch.h"
 #include "SingleGameScene.h"
+#include "GameManager.h"
 #include "PhysicsLayer.h"
+#include "ObjectLayer.h"
 #include "LoadingBGLayer.h"
 #include "MapLayer.h"
-#include "ObjectLayer.h"
-#include "GameManager.h"
 //#include "UILayer.h"
 
 Scene* SingleGameScene::createScene()
@@ -12,13 +13,13 @@ Scene* SingleGameScene::createScene()
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_NONE);
 	scene->getPhysicsWorld()->setGravity(Vect::ZERO);
 
-	auto layer = SingleGameScene::create();
+	auto layer1 = SingleGameScene::create();
 	auto layer2 = PhysicsLayer::create();
 
 	layer2->SetPhyWorld(scene->getPhysicsWorld());
 
-	scene->addChild(layer, 0, "SingleGameScene");
-	layer->addChild(layer2, 0, "PhysicsLayer");
+	scene->addChild(layer1, 0, "SingleGameScene");
+	layer1->addChild(layer2, 0, "PhysicsLayer");
 	return scene;
 }
 

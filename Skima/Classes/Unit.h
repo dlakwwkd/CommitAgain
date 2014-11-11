@@ -1,5 +1,4 @@
 #pragma once
-#include "cocos2d.h"
 #include "Enums.h"
 #include "../../PacketType.h"
 #include "../../FSM.h"

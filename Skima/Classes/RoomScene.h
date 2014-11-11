@@ -1,5 +1,4 @@
 #pragma once
-#include "cocos2d.h"
 
 USING_NS_CC;
 
@@ -10,14 +9,16 @@ public:
 	virtual bool init();
 	CREATE_FUNC(RoomScene);
 
-	void SetRoomID(int id) { m_RoomID = id; };
-
-	void menuCallback1(Ref* sender); //게임시작
-	void menuCallback2(Ref* sender); //나가기
+	void menuCallback1(Ref* sender);
+	void menuCallback2(Ref* sender);
 
 	void Tick(float dt);
 
-	void GameStartComplete(); //서버시작한다
+	void SetRoomID(int id) { m_RoomID = id; };
+
+	void GameStartComplete();
+
 private:
-	int m_RoomID;
+	int		m_RoomID;
+	bool	m_IsReady;
 };

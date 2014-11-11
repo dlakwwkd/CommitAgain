@@ -187,13 +187,9 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 	}
 
 	if (inPacket.mIsIn)
-	{
 		session->JoinGameRoom();	
-	}
 	else
-	{
 		session->OutGameRoom();
-	}
 }
 
 REGISTER_HANDLER(PKT_CS_GAME_READY)
@@ -339,7 +335,8 @@ void ClientSession::MakeGameRoom(int id)
 void ClientSession::JoinGameRoom()
 {
 	auto roomNum = GGameManager->SearchEmptyRoom();
-	_ASSERT(roomNum > 0);
+	if(roomNum < 0)
+		return;
 	GGameManager->JoinRoom(mPlayerId, roomNum);
 
 	InOutRoomResult outPacket;

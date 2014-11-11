@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <thread>
 #include "TcpClient.h"
 #include "platform/CCFileUtils.h"
@@ -6,11 +7,11 @@
 #include "2d/CCLabel.h"
 #include "../../PacketType.h"
 #include "SingleGameScene.h"
-#include "ObjectLayer.h"
-#include "NetworkScene.h"
-#include "LoadingBGLayer.h"
-#include "RoomScene.h"
 #include "MultiGameScene.h"
+#include "NetworkScene.h"
+#include "RoomScene.h"
+#include "ObjectLayer.h"
+#include "LoadingBGLayer.h"
 
 #ifdef _WIN32
 #pragma comment(lib,"ws2_32.lib")
@@ -201,26 +202,24 @@ void TcpClient::processPacket()
 	
 				mLoginId = recvData.mPlayerId;
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene");
-				if (layer == nullptr)
-					break;
-
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ConnectComplete, dynamic_cast<NetworkScene*>(layer)));
+				auto scene = GET_NETWORK_SCENE;		assert(scene != nullptr);
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ConnectLabelChange, scene,
+					"서버 접속 성공!!"));
 			}
 			break;
+
 		case PKT_SC_MAKE_ROOM:
 			{
 				MakeRoomResult recvData;
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId == mLoginId);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene");
-				if (layer == nullptr)
-					break;
-
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, dynamic_cast<NetworkScene*>(layer), recvData.mRoomId));
+				auto scene = GET_NETWORK_SCENE;		assert(scene != nullptr);
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, scene,
+					recvData.mRoomId));
 			}
 			break;
+
 		case PKT_SC_INOUT_ROOM:
 			{
 				InOutRoomResult recvData;
@@ -229,37 +228,27 @@ void TcpClient::processPacket()
 
 				if (recvData.mIsIn)
 				{
-					auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene");
-					if (layer == nullptr)
-						break;
-
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, dynamic_cast<NetworkScene*>(layer), recvData.mRoomId));
+					auto scene = GET_NETWORK_SCENE;	assert(scene != nullptr);
+					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, scene,
+						recvData.mRoomId));
 				}
 				else
 				{
 					//나간 플레이어 처리 필요
-// 					auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene");
-// 					if (layer == nullptr)
-// 						break;
-//					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, dynamic_cast<NetworkScene*>(layer), recvData.mRoomId));
 				}
 			}
 			break;
 
 		case PKT_SC_ALL_READY:
-		{
+			{
 				GameRunNotify recvData;
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene");
-				if (layer == nullptr)
-					break;
-
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::GameStartComplete, dynamic_cast<RoomScene*>(layer)));
-				return; //callback함수 때문에 추가
-		}
-			break;
+				auto scene = GET_ROOM_SCENE;		assert(scene != nullptr);
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::GameStartComplete, scene));
+			}
+			return; // 이 다음 패킷 수신 전에 콜백함수 호출이 필요하므로 리턴
 
 		case PKT_SC_CREATE_HERO:
 			{
@@ -267,12 +256,11 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
-				if (layer == nullptr)
-					break;
+				auto pos = Point(recvData.mPosX, recvData.mPosY);
 
-				Point pos = { recvData.mPosX, recvData.mPosY };
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::FirstDrawUnit, dynamic_cast<ObjectLayer*>(layer), recvData.mPlayerId, recvData.mUnitId, recvData.mUnitType, pos));
+				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::FirstDrawUnit, layer,
+					recvData.mPlayerId, recvData.mUnitId, recvData.mUnitType, pos));
 			}
 			break;
 
@@ -282,14 +270,10 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("LoadingBGLayer");
-				if (layer == nullptr)
-					break;
-
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(LoadingBGLayer::SetLoadingFin, dynamic_cast<LoadingBGLayer*>(layer)));
-				return;
+				auto layer = GET_LOADING_LAYER;		assert(layer != nullptr);
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(LoadingBGLayer::SetLoadingFin, layer));
 			}
-			break;
+			return; // 이 다음 패킷 수신 전에 콜백함수 호출이 필요하므로 리턴
 
 		case PKT_SC_START_GAME:
 			{	
@@ -297,11 +281,8 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene");
-				if (layer == nullptr)
-					break;
-
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MultiGameScene::StartGame, dynamic_cast<MultiGameScene*>(layer)));
+				auto scene = GET_M_GAME_SCENE;		assert(scene != nullptr);
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MultiGameScene::StartGame, scene));
 			}
 			break;
 
@@ -311,13 +292,12 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 							
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
-				if (layer == nullptr)
-					break;
+				auto curPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
+				auto targetPos = Point(recvData.mTargetPosX, recvData.mTargetPosY);
 
-				Point curPos = { recvData.mCurrentPosX, recvData.mCurrentPosY };
-				Point targetPos = { recvData.mTargetPosX, recvData.mTargetPosY };
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitMove, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, curPos, targetPos));
+				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitMove, layer,
+					recvData.mUnitId, curPos, targetPos));
 			}
 			break;
 
@@ -327,14 +307,17 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto layer = cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer");
-				if (layer == nullptr)
-					break;
+				auto curPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
 
-				Point curPos = { recvData.mCurrentPosX, recvData.mCurrentPosY };
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId, curPos));
+				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
+					recvData.mUnitId, curPos));
+
 				if (!recvData.mIsCrashed)
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, dynamic_cast<ObjectLayer*>(layer), recvData.mUnitId));
+				{
+					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
+						recvData.mUnitId));
+				}
 			}
 			break;
 
@@ -359,7 +342,7 @@ void TcpClient::loginRequest()
 	srand(time(NULL));
 
 	LoginRequest sendData;
-	sendData.mPlayerId = 1000 + rand() % 101;
+	sendData.mPlayerId = 1000 + rand() % 101;	// 아이디 임시로 랜덤 생성
 
 	send((const char*)&sendData, sizeof(LoginRequest));
 }

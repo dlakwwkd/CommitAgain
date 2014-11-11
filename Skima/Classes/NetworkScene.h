@@ -1,5 +1,4 @@
 #pragma once
-#include "cocos2d.h"
 
 USING_NS_CC;
 
@@ -17,7 +16,8 @@ public:
 
 	void Tick(float dt);
 
-	void ConnectComplete();
+	void ConnectLabelCreate(const char* str, NetworkScene* scene);
+	void ConnectLabelChange(const char* str);
 	void MakeRoomComplete(int roomId);
 	void JoinRoomComplete(int roomId);
 };

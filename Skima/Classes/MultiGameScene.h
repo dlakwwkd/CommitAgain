@@ -1,5 +1,4 @@
 #pragma once
-#include "cocos2d.h"
 
 class MultiGameScene : public cocos2d::Layer
 {

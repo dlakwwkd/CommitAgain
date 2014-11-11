@@ -1,7 +1,4 @@
 #pragma once
-#include "cocos2d.h"
-#include "TcpClient.h"
-
 
 USING_NS_CC;
 
@@ -16,7 +13,6 @@ public:
 
 	void			Tick(float dt);
 	void			UpdateKeyInput();
-	void			CameraSync();
 	void			ScreenMove();
 
 	virtual void	OnMouseDown(Event *event);

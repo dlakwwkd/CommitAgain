@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "LoadingBGLayer.h"
 #include "TcpClient.h"
 
@@ -20,6 +21,7 @@ bool LoadingBGLayer::init()
 	return true;
 }
 
+//////////////////////////////////////////////////////////////////////////
 void LoadingBGLayer::Tick(float dt)
 {
 	if (m_IsLoadingFin)
@@ -28,3 +30,4 @@ void LoadingBGLayer::Tick(float dt)
 		m_IsLoadingFin = false;
 	}
 }
+//////////////////////////////////////////////////////////////////////////

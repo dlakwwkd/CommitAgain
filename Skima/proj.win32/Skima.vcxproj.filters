@@ -114,6 +114,9 @@
     <ClCompile Include="..\Classes\MultiGameScene.cpp">
       <Filter>Game\MultiPlay</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Base\win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MultiGameScene.h">
       <Filter>Game\MultiPlay</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Base\win32</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

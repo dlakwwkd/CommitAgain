@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CircularBuffer.h"
 #include <assert.h>
 
