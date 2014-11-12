@@ -307,17 +307,11 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto curPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
+				auto exPos = Point(recvData.mExpectPosX, recvData.mExpectPosY);
 
 				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
-					recvData.mUnitId, curPos));
-
-				if (!recvData.mIsCrashed)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
-						recvData.mUnitId));
-				}
+					recvData.mUnitId, exPos));
 			}
 			break;
 
