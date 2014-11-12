@@ -50,7 +50,7 @@ void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 	auto direction = targetPos - m_Body->GetPosition();
 	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
 
-	if (distance < 0.4f)
+	if (distance < 0.6f)
 	{
 		m_Body->SetLinearVelocity(b2Vec2(0, 0));
 		return;

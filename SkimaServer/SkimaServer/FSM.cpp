@@ -57,15 +57,18 @@ void MovingState::Movement(Unit* unit)
 void CrashedState::TryMove(Unit* unit){}
 void CrashedState::Crashed(Unit* unit)
 {
-	//crashÇÔ¼ö
+	auto velo = unit->GetBody()->GetLinearVelocity();
+	velo.x /= 5;
+	velo.y /= 5;
+	unit->GetBody()->SetLinearVelocity(velo);
 }
 
 void CrashedState::EndMove(Unit* unit){}
 void CrashedState::EndCrash(Unit* unit)
 {
+	unit->SetState(unit->GetStandbyState());
 	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
 	unit->GetBody()->SetLinearDamping(0.0f);
-	unit->SetState(unit->GetStandbyState());
 }
 
 void CrashedState::Movement(Unit* unit)
@@ -73,8 +76,8 @@ void CrashedState::Movement(Unit* unit)
 	if (!(abs(unit->GetBody()->GetLinearVelocity().x) > 0.1f ||
 		abs(unit->GetBody()->GetLinearVelocity().y) > 0.1f))
 	{
-		unit->UnitCrashed(false);
 		EndCrash(unit);
+		unit->UnitCrashed(false);
 		printf(" - CrashEnd: UnitID:  %d, \t\t\t\t X : %.f\tY : %.f\n", unit->GetUnitID(),
 			unit->GetBody()->GetPosition().x*PTM_RATIO, unit->GetBody()->GetPosition().y*PTM_RATIO);
 	}
