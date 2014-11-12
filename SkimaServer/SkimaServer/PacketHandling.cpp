@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ClientSession.h"
+#include "ClientManager.h"
 #include "GameManager.h"
 #include "Player.h"
 #include "Unit.h"
@@ -155,6 +156,12 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
+	if (!(GClientManager->IsValidPlayerId(inPacket.mPlayerId)))
+	{
+		printf("[DEBUG] playerId already exists\n");
+		session->Disconnect();
+		return;
+	}
 	session->LoginSuccessInform(inPacket.mPlayerId);
 
 	// 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
@@ -187,9 +194,13 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 	}
 
 	if (inPacket.mIsIn)
+	{
 		session->JoinGameRoom();	
+	}
 	else
+	{
 		session->OutGameRoom();
+	}
 }
 
 REGISTER_HANDLER(PKT_CS_GAME_READY)
@@ -260,8 +271,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 	auto unit = player->GetMyHero();										_ASSERT(unit != nullptr);
 	unit->TryMove(currentPos, targetPos);
 
-	session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
-	//GGameManager->UnitMoveSet(targetPos, currentPos, session->GetPlayerId());
+	//session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
 }
 
 // 
@@ -335,8 +345,7 @@ void ClientSession::MakeGameRoom(int id)
 void ClientSession::JoinGameRoom()
 {
 	auto roomNum = GGameManager->SearchEmptyRoom();
-	if(roomNum < 0)
-		return;
+	_ASSERT(roomNum > 0);
 	GGameManager->JoinRoom(mPlayerId, roomNum);
 
 	InOutRoomResult outPacket;

@@ -38,6 +38,17 @@ ClientSession* ClientManager::GetClient(int playerId)
 	return nullptr;
 }
 
+bool ClientManager::IsValidPlayerId(int playerId)
+{
+	for (auto& client : mClientList)
+	{
+		if (client.second->GetPlayerId() == playerId)
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -134,6 +145,8 @@ void ClientManager::FlushClientSend()
 		}
 	}
 }
+
+
 
 
 /*

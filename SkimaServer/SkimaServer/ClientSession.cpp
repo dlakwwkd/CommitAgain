@@ -93,7 +93,10 @@ void ClientSession::Disconnect()
 
 	mConnected = false;
 	
-	OutGameRoom();
+	if (mRoomId > 0)
+	{
+		OutGameRoom();
+	}
 	GGameManager->PlayerOut(mPlayerId);
 }
 

@@ -21,6 +21,7 @@ public:
 	void OnPeriodWork();
 	void FlushClientSend();
 
+	bool IsValidPlayerId(int playerId);
 
 	/// DB에 플레이어 정보를 생성하거나 삭제하는 함수
 	// 	void CreatePlayer(int pid, const char* name, const char* comment) ;
