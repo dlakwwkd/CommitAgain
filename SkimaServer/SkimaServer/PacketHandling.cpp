@@ -441,11 +441,12 @@ void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPo
 	}
 }
 
-void ClientSession::CrashedBoradCast(int unitId, b2Vec2 expectPos)
+void ClientSession::CrashedBoradCast(int unitId, b2Vec2 expectPos, bool mIsCrashed)
 {
 	CrashedBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
+	outPacket.mIsCrashed = mIsCrashed;
 	outPacket.mExpectPosX = expectPos.x*PTM_RATIO;
 	outPacket.mExpectPosY = expectPos.y*PTM_RATIO;
 

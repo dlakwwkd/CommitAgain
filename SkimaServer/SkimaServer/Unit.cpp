@@ -4,7 +4,7 @@
 #include "GameManager.h"
 #include "Unit.h"
 
-#define CRASHTIME 0.3f
+#define CRASHTIME 0.1f
 
 Unit::Unit(int playerId, b2Vec2 pos)
 : m_UnitID(-1), m_Type(TYPE_NONE), m_Speed(10.0f), m_TargetPos({ 0, 0 }), m_PlayerID(playerId)
@@ -28,7 +28,7 @@ Unit::Unit(int playerId, b2Vec2 pos)
 	fixtureDef.shape = &circle;
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
-	fixtureDef.restitution = 0.3f;
+	fixtureDef.restitution = 0.7f;
 	
 	m_Body->CreateFixture(&fixtureDef);
 	m_Body->SetUserData(this);
@@ -78,19 +78,22 @@ void Unit::UnitMove()
 	}
 }
 
-void Unit::UnitCrashed()
+void Unit::UnitCrashed(bool isCrashed)
 {
 	auto client = GClientManager->GetClient(m_PlayerID);		_ASSERT(client != nullptr);
 
 	auto velo = m_Body->GetLinearVelocity();
+	velo.x *= 5;
+	velo.y *= 5;
+	m_Body->SetLinearVelocity(velo);
 	auto pos = m_Body->GetPosition();
 
-	printf("Velocity unitId: %d, x: %f, y: %f\n", m_UnitID, velo.x, velo.y);
+	printf("Velocity unitId: %d, x: %f, y: %f\n", m_UnitID, velo.x*PTM_RATIO, velo.y*PTM_RATIO);
 
 	b2Vec2 expectpos;
 
 	expectpos.x = pos.x + velo.x * CRASHTIME; //¿¹»ó °ª
 	expectpos.y = pos.y + velo.y * CRASHTIME;
 
-	client->CrashedBoradCast(m_UnitID, expectpos);
+	client->CrashedBoradCast(m_UnitID, expectpos, isCrashed);
 }
