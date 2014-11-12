@@ -33,10 +33,10 @@ void ObjectLayer::TickS(float dt)
 }
 void ObjectLayer::TickM(float dt)
 {
-	for (auto& unit : m_UnitList)
-	{
-		unit.second->Movement();
-	}
+// 	for (auto& unit : m_UnitList)
+// 	{
+// 		unit.second->Movement();
+// 	}
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -166,7 +166,7 @@ void ObjectLayer::MobAi()
 
 bool ObjectLayer::PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos)
 {
-	Point unitPos = unit->GetUnitPos();
+	Point unitPos = unit->GetSprite()->getPosition();
 
 	if (unitPos.x - recvCurPos.x > 5 || unitPos.x - recvCurPos.x<-5)
 		return false;

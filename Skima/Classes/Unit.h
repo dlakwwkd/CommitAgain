@@ -17,7 +17,7 @@ public:
 	void			SetMoveTargetPos(Point pos){ m_TargetPos = pos; }
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
-	Point			GetUnitPos(){ return m_CurPos; }
+	Point			GetMoveTargetPos(){ return m_TargetPos; }
 
 	MoveState*		GetMoveState(){ return m_MoveState; }
 	MoveState*		GetStandbyState(){ return (MoveState*)m_StandbyState; }
@@ -59,7 +59,6 @@ protected:
 	int				m_Mp;
 	float			m_Speed;
 
-	Point			m_CurPos;
 	Point			m_TargetPos;
 
 protected:
