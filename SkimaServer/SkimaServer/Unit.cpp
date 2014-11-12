@@ -84,10 +84,12 @@ void Unit::UnitCrashed()
 	auto velo = m_Body->GetLinearVelocity();
 	auto pos = m_Body->GetPosition();
 
+	printf("Velocity unitId: %d, x: %f, y: %f\n", m_UnitID, velo.x, velo.y);
+
 	b2Vec2 expectpos;
 
-	expectpos.x = pos.x + velo.x * 3; //예상 값 3
-	expectpos.y = pos.y + velo.y * 3;
+	expectpos.x = pos.x + velo.x; //예상 값
+	expectpos.y = pos.y + velo.y;
 
 	client->CrashedBoradCast(m_UnitID, expectpos);
 }
