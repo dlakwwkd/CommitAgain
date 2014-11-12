@@ -48,7 +48,7 @@ public:
 	void		AllReadyNotify();
 	void		SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 pos);
 	void		SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 targetPos);
-	void		CrashedBoradCast(int unitId, b2Vec2 currentPos,bool iscrashed);
+	void		CrashedBoradCast(int unitId, b2Vec2 currentPos);
 	void		ServerRunComplete();
 	void		StartGame();
 

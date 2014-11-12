@@ -32,7 +32,7 @@ public:
 	void		Movement(){ m_State->Movement(this); }
 
 	void		UnitMove();
-	void		UnitCrashed(bool isCrashed);
+	void		UnitCrashed();
 
 private:
 	int			m_PlayerID;

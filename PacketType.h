@@ -315,17 +315,15 @@ struct CrashedBroadcastResult : public PacketHeader
 	{
 		mSize = sizeof(CrashedBroadcastResult);
 		mType = PKT_SC_CRASH;
-		mIsCrashed = true;
 		mPlayerId = -1;
 		mUnitId = -1;
-		mCurrentPosX = 0;
-		mCurrentPosY = 0;
+		mExpectPosX = 0;
+		mExpectPosY = 0;
 	}
 	int			mPlayerId;
 	int			mUnitId;
-	bool		mIsCrashed;
-	float		mCurrentPosX;
-	float		mCurrentPosY;
+	float		mExpectPosX;
+	float		mExpectPosY;
 
 };
 

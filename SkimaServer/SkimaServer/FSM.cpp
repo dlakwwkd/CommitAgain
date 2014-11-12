@@ -16,6 +16,7 @@ void StandbyState::Crashed(Unit* unit)
 {
 	unit->SetState(unit->GetCrashedState());
 	unit->GetBody()->SetLinearDamping(3.0f);
+	unit->UnitCrashed();
 }
 
 void StandbyState::EndMove(Unit* unit){}
@@ -33,6 +34,8 @@ void MovingState::Crashed(Unit* unit)
 {
 	unit->SetState(unit->GetCrashedState());
 	unit->GetBody()->SetLinearDamping(3.0f);
+	unit->UnitCrashed();
+
 }
 
 void MovingState::EndMove(Unit* unit)
@@ -72,11 +75,7 @@ void CrashedState::Movement(Unit* unit)
 	if (!(abs(unit->GetBody()->GetLinearVelocity().x) > 0.1f ||
 		abs(unit->GetBody()->GetLinearVelocity().y) > 0.1f))
 	{
-		unit->UnitCrashed(false);
+		//unit->UnitCrashed(false);
 		EndCrash(unit);
-	}
-	else
-	{
-		unit->UnitCrashed(true);
 	}
 }

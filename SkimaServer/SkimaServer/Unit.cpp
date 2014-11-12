@@ -77,8 +77,17 @@ void Unit::UnitMove()
 	}
 }
 
-void Unit::UnitCrashed(bool isCrashed)
+void Unit::UnitCrashed()
 {
 	auto client = GClientManager->GetClient(m_PlayerID);		_ASSERT(client != nullptr);
-	client->CrashedBoradCast(m_UnitID, m_Body->GetPosition(), isCrashed);
+
+	auto velo = m_Body->GetLinearVelocity();
+	auto pos = m_Body->GetPosition();
+
+	b2Vec2 expectpos;
+
+	expectpos.x = pos.x + velo.x * 3; //¿¹»ó °ª 3
+	expectpos.y = pos.y + velo.y * 3;
+
+	client->CrashedBoradCast(m_UnitID, expectpos);
 }

@@ -435,18 +435,17 @@ void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPo
 	}
 }
 
-void ClientSession::CrashedBoradCast(int unitId, b2Vec2 currentPos, bool isCrashed)
+void ClientSession::CrashedBoradCast(int unitId, b2Vec2 expectPos)
 {
 	CrashedBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
-	outPacket.mIsCrashed = isCrashed;
-	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
-	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
+	outPacket.mExpectPosX = expectPos.x*PTM_RATIO;
+	outPacket.mExpectPosX = expectPos.y*PTM_RATIO;
 
 	if (!Broadcast(&outPacket))
 	{
 		Disconnect();
 	}
-	printf(" Send: Crashed!  UnitID: %d, \t\t X : %.f\tY : %.f\n", unitId, outPacket.mCurrentPosX, outPacket.mCurrentPosY);
+	printf(" Send: Crashed!  UnitID: %d, \t\t X : %.f\tY : %.f\n", unitId, outPacket.mExpectPosX, outPacket.mExpectPosX);
 }
