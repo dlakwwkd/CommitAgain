@@ -361,10 +361,8 @@ void ClientSession::JoinGameRoom()
 
 void ClientSession::OutGameRoom()
 {
-	if (mRoomId < 0 || mPlayerId < 0)
-	{
+	if(mRoomId < 0 || mPlayerId < 0)
 		return;
-	}
 	GGameManager->OutRoom(mPlayerId, mRoomId);
 
 	mRoomId = -1;
@@ -441,12 +439,12 @@ void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPo
 	}
 }
 
-void ClientSession::CrashedBoradCast(int unitId, b2Vec2 expectPos, bool mIsCrashed)
+void ClientSession::CrashedBroadCast(int unitId, b2Vec2 expectPos, bool isCrashed)
 {
 	CrashedBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
-	outPacket.mIsCrashed = mIsCrashed;
+	outPacket.mIsCrashed = isCrashed;
 	outPacket.mExpectPosX = expectPos.x*PTM_RATIO;
 	outPacket.mExpectPosY = expectPos.y*PTM_RATIO;
 
