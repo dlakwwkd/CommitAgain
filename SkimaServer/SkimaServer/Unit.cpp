@@ -47,15 +47,15 @@ void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 	m_TargetPos = targetPos;
 
 	auto direction = targetPos - m_Body->GetPosition();
-	auto temp = abs(direction.x) + abs(direction.y);
+	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
 
-	if (temp < 0.4f)
+	if (distance < 0.4f)
 	{
 		m_Body->SetLinearVelocity(b2Vec2(0, 0));
 		return;
 	}
 
-	direction *= m_Speed / temp;
+	direction *= m_Speed / distance;
 	m_Body->SetLinearVelocity(direction);
 
 	GClientManager->GetClient(m_PlayerID)->SendUnitInfo(m_UnitID, m_Type, currentPos, targetPos);

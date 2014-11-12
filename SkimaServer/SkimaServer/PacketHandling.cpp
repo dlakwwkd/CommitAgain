@@ -345,7 +345,10 @@ void ClientSession::MakeGameRoom(int id)
 void ClientSession::JoinGameRoom()
 {
 	auto roomNum = GGameManager->SearchEmptyRoom();
-	_ASSERT(roomNum > 0);
+	if (roomNum < 0)
+	{
+		return;
+	}
 	GGameManager->JoinRoom(mPlayerId, roomNum);
 
 	InOutRoomResult outPacket;
@@ -358,7 +361,10 @@ void ClientSession::JoinGameRoom()
 
 void ClientSession::OutGameRoom()
 {
-	_ASSERT(mRoomId > 0 && mPlayerId > 0);
+	if (mRoomId < 0 || mPlayerId < 0)
+	{
+		return;
+	}
 	GGameManager->OutRoom(mPlayerId, mRoomId);
 
 	mRoomId = -1;
