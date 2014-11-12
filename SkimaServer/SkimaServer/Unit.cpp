@@ -4,6 +4,7 @@
 #include "GameManager.h"
 #include "Unit.h"
 
+#define CRASHTIME 0.3f
 
 Unit::Unit(int playerId, b2Vec2 pos)
 : m_UnitID(-1), m_Type(TYPE_NONE), m_Speed(10.0f), m_TargetPos({ 0, 0 }), m_PlayerID(playerId)
@@ -88,8 +89,8 @@ void Unit::UnitCrashed()
 
 	b2Vec2 expectpos;
 
-	expectpos.x = pos.x + velo.x; //예상 값
-	expectpos.y = pos.y + velo.y;
+	expectpos.x = pos.x + velo.x * CRASHTIME; //예상 값
+	expectpos.y = pos.y + velo.y * CRASHTIME;
 
 	client->CrashedBoradCast(m_UnitID, expectpos);
 }
