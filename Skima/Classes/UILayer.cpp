@@ -8,39 +8,21 @@ bool UILayer::init()
 	{
 		return false;
 	}
-	/*  메뉴 play버튼
-	auto menuItem1 = MenuItemImage::create(
-		"Images/btn-play-normal.png",
-		"Images/btn-play-selected.png",
-		CC_CALLBACK_1(UILayer::doClick1, this));
-	auto menu = Menu::create(menuItem1, NULL);
-	menu->alignItemsVertically();
-	this->addChild(menu);
-	*/
+	
 
+	auto menuItem1 = MenuItemImage::create(	"Images/Exit.png","Images/Exit_selected.png",
+		CC_CALLBACK_1(UILayer::ClickExit, this));
+	menuItem1->setScale(0.3f, 0.3f);
+
+	auto winSize = Director::getInstance()->getWinSize();
+	auto menu = Menu::create(menuItem1, NULL);
+	menu->setPosition(winSize.width -40 , 12);
+	this->addChild(menu);
 
 	return true;
 }
 
-void UILayer::doClick1(Ref* sender)
+void UILayer::ClickExit(Ref* sender)
 {
 	Director::getInstance()->popScene();
 }
-// 
-// void UILayer::loadingMessage()
-// {
-// 	//조정필요
-// 
-// 	if (this->getChildByName("ConnectLabel") != nullptr)
-// 	{
-// 		this->removeChildByName("ConnectLabel");
-// 	}
-// 		auto label = Label::createWithSystemFont("로딩 중...", "Thonburi", 50);
-// 	label->setAnchorPoint(Point(0.5,0.5));
-// 	label->setHorizontalAlignment(TextHAlignment::CENTER);
-// 	this->addChild(label, 0, "ConnectLabel");
-// 
-// 	//함수를 거멓게
-// 
-// 
-// }
