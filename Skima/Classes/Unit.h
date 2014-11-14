@@ -1,7 +1,7 @@
 #pragma once
 #include "Enums.h"
 #include "../../PacketType.h"
-#include "../../FSM.h"
+#include "FSM.h"
 
 USING_NS_CC;
 

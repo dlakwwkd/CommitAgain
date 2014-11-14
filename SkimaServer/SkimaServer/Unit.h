@@ -1,6 +1,6 @@
 #pragma once
 #include "..\..\PacketType.h"
-#include "..\..\FSM.h"
+#include "FSM.h"
 
 class b2World;
 
