@@ -61,7 +61,7 @@
     <Filter Include="Game\Component\Player">
       <UniqueIdentifier>{658a76a3-8cc3-40a2-80dc-2c3f46f9821b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Skill\Shoot">
+    <Filter Include="Game\Component\Skill\ShootType">
       <UniqueIdentifier>{60123690-516a-4373-8779-c201ab14c357}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -126,6 +126,30 @@
     <ClCompile Include="..\Classes\ObjectLayer.cpp">
       <Filter>Game\Component\Object</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\FireballMissile.cpp">
+      <Filter>Game\Component\Object\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FireballSkill.cpp">
+      <Filter>Game\Component\Skill\ShootType</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Missile.cpp">
+      <Filter>Game\Component\Object\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ShootType.cpp">
+      <Filter>Game\Component\Skill\ShootType</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Hero.cpp">
+      <Filter>Game\Component\Object\Hero</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Effect.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>Game\Component\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -176,9 +200,6 @@
     <ClInclude Include="..\Classes\RoomScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\FSM.h">
-      <Filter>Network</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\LoadingBGLayer.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
@@ -195,6 +216,33 @@
       <Filter>Game\Component\Object</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ObjectLayer.h">
+      <Filter>Game\Component\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FireballMissile.h">
+      <Filter>Game\Component\Object\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FireballSkill.h">
+      <Filter>Game\Component\Skill\ShootType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Missile.h">
+      <Filter>Game\Component\Object\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ShootType.h">
+      <Filter>Game\Component\Skill\ShootType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill.h">
+      <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Hero.h">
+      <Filter>Game\Component\Object\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Effect.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>Game\Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\FSM.h">
       <Filter>Game\Component\Object</Filter>
     </ClInclude>
   </ItemGroup>

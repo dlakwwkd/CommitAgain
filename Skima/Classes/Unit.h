@@ -9,6 +9,7 @@ class Unit
 {
 public:
 	Unit(const std::string& filename, Point createPos, float scale);
+	Unit(){}
 	~Unit();
 
 	void			SetUnitID(int unitID){ m_UnitID = unitID; }
