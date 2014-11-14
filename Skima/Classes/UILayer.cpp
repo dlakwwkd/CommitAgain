@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "UILayer.h"
-
+#include "TcpClient.h"
 
 bool UILayer::init()
 {
@@ -24,5 +24,6 @@ bool UILayer::init()
 
 void UILayer::ClickExit(Ref* sender)
 {
+	TcpClient::getInstance()->disconnect();
 	Director::getInstance()->popScene();
 }
