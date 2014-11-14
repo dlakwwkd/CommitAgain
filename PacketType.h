@@ -318,12 +318,16 @@ struct CrashedBroadcastResult : public PacketHeader
 		mPlayerId = -1;
 		mUnitId = -1;
 		mIsCrashed = true;
+		mCurrentPosX = 0;
+		mCurrentPosY = 0;
 		mExpectPosX = 0;
 		mExpectPosY = 0;
 	}
 	int			mPlayerId;
 	int			mUnitId;
 	bool		mIsCrashed;
+	float		mCurrentPosX;
+	float		mCurrentPosY;
 	float		mExpectPosX;
 	float		mExpectPosY;
 

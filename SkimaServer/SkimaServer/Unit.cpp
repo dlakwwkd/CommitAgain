@@ -95,5 +95,5 @@ void Unit::UnitCrashed(bool isCrashed)
 	expectpos.x = pos.x + velo.x * CRASHTIME; //¿¹»ó °ª
 	expectpos.y = pos.y + velo.y * CRASHTIME;
 
-	client->CrashedBroadCast(m_UnitID, expectpos, isCrashed);
+	client->CrashedBroadCast(m_UnitID, m_Body->GetPosition(), expectpos, isCrashed);
 }
