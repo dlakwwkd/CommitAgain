@@ -101,8 +101,9 @@ void ObjectLayer::UnitCrash(int unitID, Point recvPos)
 	}
 }
 
-void ObjectLayer::UnitCrashEnd(int unitID)
+void ObjectLayer::UnitCrashEnd(int unitID, Point revisePos)
 {
+	m_Hero->SetMoveTargetPos(revisePos);
 	m_UnitList[unitID]->EndCrash();
 }
 

@@ -86,6 +86,10 @@ void CrashedState::EndMove(Unit* unit){}
 void CrashedState::EndCrash(Unit* unit)
 {
 	unit->SetMoveState(unit->GetStandbyState());
+	unit->GetSprite()->stopAllActions();
+
+	auto action = MoveTo::create(0.1f, unit->GetMoveTargetPos());
+	unit->GetSprite()->runAction(action);
 }
 
 void CrashedState::Movement(Unit* unit)

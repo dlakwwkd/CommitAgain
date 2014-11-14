@@ -21,7 +21,7 @@ public:
 	void CreateHero(int playerID, int unitID, Point location);
 	void UnitMove(int unitID, Point recvCurPos, Point targetPos);
 	void UnitCrash(int unitID, Point recvPos);
-	void UnitCrashEnd(int unitID);
+	void UnitCrashEnd(int unitID, Point revisePos);
 
 
 	bool PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos);

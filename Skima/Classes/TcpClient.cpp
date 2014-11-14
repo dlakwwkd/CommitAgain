@@ -308,6 +308,7 @@ void TcpClient::processPacket()
 				assert(ret && recvData.mPlayerId != -1);
 
 				auto exPos = Point(recvData.mExpectPosX, recvData.mExpectPosY);
+				auto revisionPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
 
 				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
@@ -316,7 +317,7 @@ void TcpClient::processPacket()
 				if (!recvData.mIsCrashed)
 				{
 					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
-						recvData.mUnitId));
+						recvData.mUnitId, revisionPos));
 				}
 			}
 			break;
