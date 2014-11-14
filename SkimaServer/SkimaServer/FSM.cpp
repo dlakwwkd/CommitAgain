@@ -33,13 +33,12 @@ void MovingState::Crashed(Unit* unit)
 {
 	unit->SetState(unit->GetCrashedState());
 	unit->GetBody()->SetLinearDamping(10.0f);
-
 }
 
 void MovingState::EndMove(Unit* unit)
 {
-	unit->SetState(unit->GetStandbyState());
 	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
+	unit->SetState(unit->GetStandbyState());
 }
 
 void MovingState::EndCrash(Unit* unit){}
@@ -66,9 +65,9 @@ void CrashedState::Crashed(Unit* unit)
 void CrashedState::EndMove(Unit* unit){}
 void CrashedState::EndCrash(Unit* unit)
 {
-	unit->SetState(unit->GetStandbyState());
 	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
 	unit->GetBody()->SetLinearDamping(0.0f);
+	unit->SetState(unit->GetStandbyState());
 }
 
 void CrashedState::Movement(Unit* unit)

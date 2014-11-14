@@ -5,7 +5,7 @@
 #include "ObjectLayer.h"
 #include "LoadingBGLayer.h"
 #include "MapLayer.h"
-//#include "UILayer.h"
+#include "UILayer.h"
 
 Scene* SingleGameScene::createScene()
 {
@@ -30,5 +30,8 @@ bool SingleGameScene::init()
 		return false;
 	}
 	GET_GM.SetGameMode(SINGLE);
+
+	auto layer = UILayer::create();
+	this->addChild(layer, 5, "UILayer");
 	return true;
 }

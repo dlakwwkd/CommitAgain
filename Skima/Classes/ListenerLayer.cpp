@@ -5,7 +5,6 @@
 #include "GameManager.h"
 #include "MultiGameScene.h"
 #include "Unit.h"
-#include "UILayer.h"
 
 #define GET_OBJECT_LAYER dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
 
@@ -17,10 +16,8 @@ bool ListenerLayer::init()
 	}
 	auto layer1 = MapLayer::create();
 	auto layer2 = ObjectLayer::create();
-	auto layer3 = UILayer::create();
 	this->addChild(layer1, 0, "MapLayer");
 	this->addChild(layer2, 1, "ObjectLayer");
-	this->addChild(layer3, 10, "UILayer");
 	layer2->schedule(schedule_selector(ObjectLayer::TickM));
 
 	auto MouseListener = EventListenerMouse::create();
