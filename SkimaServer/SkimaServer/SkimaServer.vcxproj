@@ -167,6 +167,7 @@
     <ClInclude Include="DatabaseJobContext.h" />
     <ClInclude Include="DatabaseJobManager.h" />
     <ClInclude Include="DbHelper.h" />
+    <ClInclude Include="FireballSkill.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameRoom.h" />
@@ -178,6 +179,8 @@
     <ClInclude Include="ProducerConsumerQueue.h" />
     <ClInclude Include="RefCountable.h" />
     <ClInclude Include="Scheduler.h" />
+    <ClInclude Include="ShootingSkill.h" />
+    <ClInclude Include="Skill.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sqlite3ext.h" />
     <ClInclude Include="SQLStatement.h" />
@@ -194,6 +197,7 @@
     <ClCompile Include="DatabaseJobContext.cpp" />
     <ClCompile Include="DatabaseJobManager.cpp" />
     <ClCompile Include="DbHelper.cpp" />
+    <ClCompile Include="FireballSkill.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameRoom.cpp" />
@@ -203,6 +207,8 @@
     <ClCompile Include="PacketHandling.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scheduler.cpp" />
+    <ClCompile Include="ShootingSkill.cpp" />
+    <ClCompile Include="Skill.cpp" />
     <ClCompile Include="sqlite3.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

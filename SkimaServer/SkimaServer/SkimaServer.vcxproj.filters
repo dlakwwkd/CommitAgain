@@ -47,20 +47,29 @@
     <ClCompile Include="CircularBuffer.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootingSkill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>Game\GameObject</Filter>
+      <Filter>Game\Component\Map</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Game\GameObject</Filter>
+      <Filter>Game\Component\Player</Filter>
     </ClCompile>
     <ClCompile Include="Unit.cpp">
-      <Filter>Game\GameObject</Filter>
+      <Filter>Game\Component\Object\Unit</Filter>
     </ClCompile>
     <ClCompile Include="ContactListener.cpp">
-      <Filter>Game\Core</Filter>
+      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="FSM.cpp">
-      <Filter>Game\Core</Filter>
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FireballSkill.cpp">
+      <Filter>Game\Component\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,20 +138,29 @@
     <ClInclude Include="CircularBuffer.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootingSkill.h">
+      <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Game\GameObject</Filter>
+      <Filter>Game\Component\Map</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Game\GameObject</Filter>
+      <Filter>Game\Component\Player</Filter>
     </ClInclude>
     <ClInclude Include="Unit.h">
-      <Filter>Game\GameObject</Filter>
+      <Filter>Game\Component\Object\Unit</Filter>
     </ClInclude>
     <ClInclude Include="ContactListener.h">
-      <Filter>Game\Core</Filter>
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\..\FSM.h">
-      <Filter>Game\Core</Filter>
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FireballSkill.h">
+      <Filter>Game\Component\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,11 +185,26 @@
     <Filter Include="Game">
       <UniqueIdentifier>{bf38a9ee-8db2-4b27-97a7-3df4c0d1d0ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject">
+    <Filter Include="Game\Component">
       <UniqueIdentifier>{99f3dd0a-ec03-4362-ab85-1d24bf5c2587}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Core">
-      <UniqueIdentifier>{ef0b499a-c964-4377-bf7c-50bbcbbcf358}</UniqueIdentifier>
+    <Filter Include="Game\Component\Skill">
+      <UniqueIdentifier>{927f6ed7-f725-42d4-9663-ae8c30d6a231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Map">
+      <UniqueIdentifier>{d7f54ea7-95af-4a55-810e-490c3e4940b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Player">
+      <UniqueIdentifier>{ceeca51b-63ee-405f-a8c4-8a050704df25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Object">
+      <UniqueIdentifier>{e30175aa-886b-4dea-a476-3cf603bec8da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Object\Missile">
+      <UniqueIdentifier>{acd95774-9987-485c-a89c-b2810c0d478d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Object\Unit">
+      <UniqueIdentifier>{c3bc629c-e021-453a-ae25-e541fbeab5db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
