@@ -487,10 +487,11 @@ void ClientSession::CrashedBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 expec
 	printf(" Send: Crashed!  UnitID: %d, \t\t X : %.f\tY : %.f\n", unitId, outPacket.mExpectPosX, outPacket.mExpectPosY);
 }
 
-void ClientSession::SkillBroadCast(SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	SkillBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayerId;
+	outPacket.mHeroId = heroId;
 	outPacket.mKey = key;
 	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
 	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;

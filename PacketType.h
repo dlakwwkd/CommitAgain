@@ -394,6 +394,7 @@ struct SkillBroadcastResult : public PacketHeader
 		mSize = sizeof(SkillBroadcastResult);
 		mType = PKT_SC_SKILL;
 		mPlayerId = -1;
+		mHeroId = -1;
 		mKey = SKILL_NONE;
 		mCurrentPosX = 0;
 		mCurrentPosY = 0;
@@ -402,6 +403,7 @@ struct SkillBroadcastResult : public PacketHeader
 
 	}
 	int			mPlayerId;
+	int			mHeroId;
 	SkillKey	mKey;
 	float		mCurrentPosX;
 	float		mCurrentPosY;

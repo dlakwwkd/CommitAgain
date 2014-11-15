@@ -5,8 +5,8 @@ class FireballMissile :
 {
 public:
 	FireballMissile();
-	FireballMissile(int playerId, b2Vec2 pos);
+	FireballMissile(int playerId, int unitId);
 
-	~FireballMissile();
+	virtual~FireballMissile();
 };
 

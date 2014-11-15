@@ -5,7 +5,7 @@ class IceballMissile :
 {
 public:
 	IceballMissile();
-	IceballMissile::IceballMissile(int playerId, b2Vec2 pos);
-	~IceballMissile();
+	IceballMissile::IceballMissile(int playerId, int unitId);
+	virtual~IceballMissile();
 };
 
