@@ -6,7 +6,7 @@ FireballMissile::FireballMissile()
 {
 }
 
-FireballMissile::FireballMissile(int playerId, b2Vec2 pos)
+FireballMissile::FireballMissile(int playerId, int unitId)
 {
 
 }
