@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "FireballSkill.h"
-#include "FireMissile.h"
+#include "FireballMissile.h"
 
 
 FireballSkill::FireballSkill(int playerid)
