@@ -2,25 +2,20 @@
 #include "ContactListener.h"
 #include "Unit.h"
 #include "Hero.h"
+#include "Missile.h"
 
 void ContactListener::BeginContact(b2Contact *contact)
 {
-	auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
-	auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
+	Unit* crashUnit[2];
 
-	UnitType unitType = unitA->GetUnitType();
-	
-	switch (unitType)
+	crashUnit[0] = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
+	crashUnit[1]= static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
+
+	for (int i = 0; i < _countof(crashUnit); ++i)
 	{
-	case UNIT_HERO:
-		Hero* hero = dynamic_cast<Hero*>(unitA);
-		hero->Crashed();
-		break;
-
-	case UNIT_MISSILE:
-		Missile* missile = dynamic_cast<Missile*>(unitA);
-		hero->Crashed();
+		crashUnit[i]->BeginCrashed();
 	}
+
 }
 
 void ContactListener::EndContact(b2Contact* contact)
@@ -28,8 +23,8 @@ void ContactListener::EndContact(b2Contact* contact)
 	auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
 	auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
-	unitA->HeroCrashed(true);
-	unitB->HeroCrashed(true);
+	unitA->Crashing(true);
+	unitB->Crashing(true);
 }
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold){}
 void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse){}

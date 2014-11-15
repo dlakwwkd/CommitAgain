@@ -298,7 +298,7 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 
 	auto player = GGameManager->SearchPlayer(session->GetPlayerId());	_ASSERT(player != nullptr);
 	auto hero = player->GetMyHero();										_ASSERT(hero != nullptr);
-	hero->Skill(inPacket.mKey);
+	hero->UseSkill(inPacket.mKey);
 
 	//session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
 }
