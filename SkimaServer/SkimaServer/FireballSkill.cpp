@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "FireballSkill.h"
 #include "FireMissile.h"
+#include "ClientSession.h"
+#include "ClientManager.h"
 
 
 FireballSkill::FireballSkill()
@@ -14,9 +16,9 @@ FireballSkill::~FireballSkill()
 {
 }
 
-void FireballSkill::Shoot(b2Vec2 targetPos)
+void FireballSkill::Shoot(int unitId, b2Vec2 targetPos)
 {
-	ms_fireball = new FireballMissile;
+	ms_fireball = new FireballMissile(m_PlayerId, unitId);
 	ms_fireball->SetVelocity(m_Speed);
 	ms_fireball->SetDamage(m_Damage);
 	ms_fireball->SetTargerPos(targetPos);
