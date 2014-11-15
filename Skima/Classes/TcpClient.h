@@ -38,6 +38,7 @@ public:
 	void runCompleteRequest(); //이름 체인지 + bool값 인자
 
 	void moveRequest(Point curPos, Point targetPos);
+	void skillRequest(Point curPos, Point targetPos, SkillKey skillKey);
 
 //	void chatRequest(const char* chat);
 

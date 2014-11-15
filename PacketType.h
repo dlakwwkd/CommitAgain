@@ -70,12 +70,12 @@ enum PacketTypes
 
 enum SkillKey
 {
-	KEY_NONE = 0,
+	SKILL_NONE,
 
-	KEY_Q = 1,
-	KEY_W = 2,
-	KEY_E = 3,
-	KEY_R = 4,
+	SKILL_Q = 137,
+	SKILL_W = 143,
+	SKILL_E = 125,
+	SKILL_R = 138,
 };
 
 #pragma pack(push, 1)

@@ -47,3 +47,16 @@ void InputManager::CheckMouseScroll()
 	}
 	
 }
+
+EventKeyboard::KeyCode InputManager::SearchTargetingKey()
+{
+	for (auto& key : m_Targeting)
+	{
+		if (key.second == true)
+		{
+			
+			return key.first;
+		}
+	}
+	return EventKeyboard::KeyCode(-1);
+}

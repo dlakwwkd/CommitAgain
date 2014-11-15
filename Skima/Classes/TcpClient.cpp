@@ -421,6 +421,22 @@ void TcpClient::moveRequest(Point curPos, Point targetPos)
 	send((const char*)&sendData, sizeof(MoveRequest));
 }
 
+void TcpClient::skillRequest(Point curPos, Point targetPos, SkillKey skillKey)
+{
+	if (mLoginId < 0)
+		return;
+
+	SkillRequest sendData;
+	sendData.mPlayerId = mLoginId;
+	sendData.mCurrentPosX = curPos.x;
+	sendData.mCurrentPosY = curPos.y;
+	sendData.mTargetPosX = targetPos.x;
+	sendData.mTargetPosY = targetPos.y;
+	sendData.mKey = skillKey;
+
+	send((const char*)&sendData, sizeof(SkillRequest));
+}
+
 
 
 

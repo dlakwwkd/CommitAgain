@@ -3,6 +3,7 @@
 #include "MapLayer.h"
 #include "ObjectLayer.h"
 #include "GameManager.h"
+#include "InputManager.h"
 #include "MultiGameScene.h"
 #include "Unit.h"
 
@@ -19,6 +20,8 @@ bool ListenerLayer::init()
 	this->addChild(layer1, 0, "MapLayer");
 	this->addChild(layer2, 1, "ObjectLayer");
 	layer2->schedule(schedule_selector(ObjectLayer::TickM));
+
+	m_Targeting = false;
 
 	auto MouseListener = EventListenerMouse::create();
 	MouseListener->onMouseDown = CC_CALLBACK_1(ListenerLayer::OnMouseDown, this);
@@ -107,6 +110,15 @@ void ListenerLayer::OnMouseDown(Event *event)
 	switch (button)
 	{
 	case MOUSE_BUTTON_LEFT:
+		if (!m_Targeting)
+			break;
+		auto key = GET_IM->SearchTargetingKey();		_ASSERT(key != EventKeyboard::KeyCode(-1));
+		if (key != EventKeyboard::KeyCode(-1))
+		{
+			TcpClient::getInstance()->skillRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation(),
+				static_cast<SkillKey>(key));
+		}
+		m_Targeting = false;
 		break;
 	case MOUSE_BUTTON_RIGHT:
 		if (hero->GetMoveState() != hero->GetCrashedState())
@@ -141,6 +153,16 @@ void ListenerLayer::OnMouseMove(Event *event)
 void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, true);
+
+	if (m_Targeting)
+		return;
+	switch (keyCode)
+	{
+	case KEY_Q:
+		GET_IM->SetTargeting(keyCode, true);
+		m_Targeting = true;
+		break;
+	}
 }
 
 void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
