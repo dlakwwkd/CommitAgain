@@ -5,10 +5,10 @@ class ShootingSkill :
 {
 public:
 	ShootingSkill();
-	~ShootingSkill();
+	virtual ~ShootingSkill();
 
 protected:
-	int msome;
+	virtual void Shoot();
 
 };
 

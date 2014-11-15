@@ -8,7 +8,7 @@ class FireballSkill :
 {
 public:
 	FireballSkill();
-	~FireballSkill();
+	virtual ~FireballSkill();
 
 	void Shoot(b2Vec2 targetPos);
 

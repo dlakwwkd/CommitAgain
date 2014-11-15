@@ -11,3 +11,8 @@ ShootingSkill::ShootingSkill()
 ShootingSkill::~ShootingSkill()
 {
 }
+
+void ShootingSkill::Shoot()
+{
+
+}
