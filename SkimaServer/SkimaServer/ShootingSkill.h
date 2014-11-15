@@ -7,5 +7,8 @@ public:
 	ShootingSkill();
 	~ShootingSkill();
 
+protected:
+	int msome;
+
 };
 

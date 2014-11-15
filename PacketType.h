@@ -45,11 +45,25 @@ enum PacketTypes
 
 	PKT_SC_CRASH = 44,
 
+	PKT_CS_SKILL = 45,
+	PKT_SC_SKILL = 46,
+
 	PKT_CS_CHAT = 91,
 	PKT_SC_CHAT = 92,
 
 	PKT_MAX = 1024
 };
+
+enum SkillKey
+{
+	KEY_NONE = 0,
+
+	KEY_Q = 1,
+	KEY_W = 2,
+	KEY_E = 3,
+	KEY_R = 4,
+};
+
 #pragma pack(push, 1)
 
 
@@ -282,6 +296,7 @@ struct MoveRequest : public PacketHeader
 	float	mTargetPosY;
 
 };
+
 struct MoveBroadcastResult : public PacketHeader
 {
 	MoveBroadcastResult()
@@ -333,7 +348,51 @@ struct CrashedBroadcastResult : public PacketHeader
 
 };
 
+struct SkillRequest : public PacketHeader
+{
+	SkillRequest()
+	{
+		mSize = sizeof(SkillRequest);
+		mType = PKT_CS_SKILL;
+		mPlayerId = -1;
+		mKey = KEY_NONE;
+		mCurrentPosX = 0;
+		mCurrentPosY = 0;
+		mTargetPosX = 0;
+		mTargetPosY = 0;
 
+	}
+	int			mPlayerId;
+	SkillKey	mKey;
+	float		mCurrentPosX;
+	float		mCurrentPosY;
+	float		mTargetPosX;
+	float		mTargetPosY;
+
+};
+
+struct SkillBroadcastResult : public PacketHeader
+{
+	SkillBroadcastResult()
+	{
+		mSize = sizeof(SkillBroadcastResult);
+		mType = PKT_SC_MOVE;
+		mPlayerId = -1;
+		mKey = KEY_NONE;
+		mCurrentPosX = 0;
+		mCurrentPosY = 0;
+		mTargetPosX = 0;
+		mTargetPosY = 0;
+
+	}
+	int			mPlayerId;
+	SkillKey	mKey;
+	float		mCurrentPosX;
+	float		mCurrentPosY;
+	float		mTargetPosX;
+	float		mTargetPosY;
+
+};
 
 ///////////////////////////////////////////////////////////////////////////
 /*

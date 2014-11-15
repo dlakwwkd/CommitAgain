@@ -268,8 +268,37 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 	currentPos.y = inPacket.mCurrentPosY / PTM_RATIO;
 
 	auto player = GGameManager->SearchPlayer(session->GetPlayerId());	_ASSERT(player != nullptr);
-	auto unit = player->GetMyHero();										_ASSERT(unit != nullptr);
-	unit->TryMove(currentPos, targetPos);
+	auto hero = player->GetMyHero();										_ASSERT(hero != nullptr);
+	hero->TryMove(currentPos, targetPos);
+
+	//session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
+}
+
+REGISTER_HANDLER(PKT_CS_SKILL)
+{
+	SkillRequest inPacket;
+	if (false == session->ParsePacket(inPacket))
+	{
+		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+		return;
+	}
+	if (session->GetPlayerId() != inPacket.mPlayerId)
+	{
+		printf("[DEBUG] Player Info error! \n");
+		return;
+	}
+	printf(" SkillReceive: LoginID: %d\t\t X : %.f\tY : %.f\n", session->GetPlayerId(), inPacket.mTargetPosX, inPacket.mTargetPosY);
+
+	b2Vec2 targetPos;
+	b2Vec2 currentPos;
+	targetPos.x = inPacket.mTargetPosX / PTM_RATIO;
+	targetPos.y = inPacket.mTargetPosY / PTM_RATIO;
+	currentPos.x = inPacket.mCurrentPosX / PTM_RATIO;
+	currentPos.y = inPacket.mCurrentPosY / PTM_RATIO;
+
+	auto player = GGameManager->SearchPlayer(session->GetPlayerId());	_ASSERT(player != nullptr);
+	auto hero = player->GetMyHero();										_ASSERT(hero != nullptr);
+	hero->Skill(inPacket.mKey);
 
 	//session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
 }
