@@ -5,10 +5,11 @@
 #include "Unit.h"
 
 
-Unit::Unit(int playerId, b2Vec2 pos)
+Unit::Unit(int playerId, HeroType m_Type, b2Vec2 pos)
 {
 	static int makeId = 0;
 	m_UnitID = ++makeId;
+	m_Type = UNIT_NONE;
 	m_Hp = 0;
 
 }

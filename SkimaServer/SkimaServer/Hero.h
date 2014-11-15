@@ -4,7 +4,7 @@ class Hero : public Unit
 {
 public:
 	Hero();
-	Hero(int playerId, b2Vec2 pos);
+	Hero(int playerId, HeroType heroType, b2Vec2 pos);
 	~Hero();
 
 	void		SetState(MoveState* state){ m_State = state; }
@@ -24,7 +24,7 @@ public:
 
 private:
 	int			m_PlayerID;
-
+	HeroType    m_HeroType;
 	MoveState*	m_State;
 	MoveState*	m_StandbyState;
 	MoveState*	m_MovingState; 

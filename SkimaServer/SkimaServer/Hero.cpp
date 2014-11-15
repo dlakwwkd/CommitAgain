@@ -11,7 +11,7 @@ Hero::Hero()
 {
 }
 
-Hero::Hero(int playerId, b2Vec2 pos)
+Hero::Hero(int playerId, HeroType heroType, b2Vec2 pos)
 {
 	m_UnitID = -1;
 	m_Type = UNIT_NONE;
