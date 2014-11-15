@@ -451,7 +451,7 @@ void ClientSession::StartGame()
 	printf(" Send: StartGameNotify Room ID: %d \n", mRoomId);
 }
 
-void ClientSession::SendUnitInfo(int unitId, HeroType unitType, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::SendHeroInfo(int unitId, HeroType unitType, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	MoveBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayerId;
