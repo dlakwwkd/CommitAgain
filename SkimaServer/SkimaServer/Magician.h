@@ -6,6 +6,10 @@ public:
 	Magician();
 	Magician(int playerId, HeroType heroType, b2Vec2 pos);
 
-	~Magician();
+	virtual~Magician();
+
+	
+	virtual void UseSkill(SkillKey skillKey, b2Vec2 targetPos);
+
 };
 

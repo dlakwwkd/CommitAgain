@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Missile.h"
 #include "ClientManager.h"
+#include "ClientSession.h"
+#include "GameManager.h"
 
 
 
@@ -9,9 +11,15 @@ Missile::Missile()
 
 }
 
-Missile::Missile(int playerId, b2Vec2 pos)
+Missile::Missile(int playerId, int unitId)
 {
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	//bodyDef.position.Set(pos.x, pos.y);
+	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
+	b2CircleShape circle;
+	circle.m_radius = 10.0f / PTM_RATIO;
 }
 
 
@@ -28,6 +36,10 @@ void Missile::MissileShoot(b2Vec2 currentPos, b2Vec2 targetPos)
 
 	direction *= m_Speed / distance;
 	m_Body->SetLinearVelocity(direction);
+	//todo
+}
 
-	GClientManager->GetClient(m_UnitID)->SendUnitInfo(m_UnitID, m_Type, currentPos, targetPos);
+void Missile::ConsumeLiveTime(int costTime)
+{
+
 }

@@ -1,34 +1,27 @@
 #pragma once
 #include "Unit.h"
+#include "Skill.h"
 class Hero : public Unit
 {
 public:
 	Hero();
 	Hero(int playerId, HeroType heroType, b2Vec2 pos);
-	~Hero();
+	virtual~Hero();
 
-	void		SetState(MoveState* state){ m_State = state; }
-	MoveState*	GetState(){ return (MoveState*)m_State; }
-	MoveState*	GetStandbyState() { return (MoveState*)m_StandbyState; }
-	MoveState*	GetMovingState(){ return (MoveState*)m_MovingState; }
-	MoveState*	GetCrashedState() { return (MoveState*)m_CrashedState; }
+	HeroType			GetHeroType(){ return m_HeroType; }
 
-	void		TryMove(b2Vec2 currentPos, b2Vec2 targetPos);
-	void		Crashed() { m_State->Crashed(this); }
-	void		EndMove() { m_State->EndMove(this); }
-	void		EndCrash() { m_State->EndCrash(this); }
-	void		Movement(){ m_State->Movement(this); }
+	void				UnitMove();
+	void				UnitCrashed(bool isCrashed);
+	virtual void		UseSkill(SkillKey skillKey, b2Vec2 targetPos);
 
-	void		HeroMove();
-	void		HeroCrashed(bool isCrashed);
-
-private:
-	int			m_PlayerID;
+protected:
+	int			m_SkillID;
 	HeroType    m_HeroType;
-	MoveState*	m_State;
-	MoveState*	m_StandbyState;
-	MoveState*	m_MovingState; 
-	MoveState*	m_CrashedState;
+
+	Skill*		m_Qskill;
+	Skill*		m_Wskill;
+	Skill*		m_Eskill;
+	Skill*		m_Rskill;
 
 };
 
