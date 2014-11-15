@@ -100,7 +100,7 @@ void ObjectLayer::UnitCrashEnd(int unitID, Point revisePos)
 	m_UnitList[unitID]->EndCrash();
 }
 
-void ObjectLayer::UnitSkillUse(int unitID, SkillKey key, Point recvCurPos, Point targetPos)
+void ObjectLayer::UnitSkillUse(int unitId, SkillKey key, Point recvCurPos, Point targetPos)
 {
 	switch (GET_GM.GetGameMode())
 	{
@@ -108,7 +108,7 @@ void ObjectLayer::UnitSkillUse(int unitID, SkillKey key, Point recvCurPos, Point
 		UnitSkillUseS(key, targetPos);
 		break;
 	case MULTI:
-		UnitSkillUseM(unitID, key, recvCurPos, targetPos);
+		UnitSkillUseM(unitId, key, recvCurPos, targetPos);
 		break;
 	}
 }
@@ -198,7 +198,7 @@ void ObjectLayer::UnitSkillUseS(SkillKey key, Point pos)
 
 void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Point targetPos)
 {
-	
+	m_UnitList[unitID]->EndMove();
 }
 
 

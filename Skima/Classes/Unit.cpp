@@ -67,37 +67,30 @@ void Unit::Crash()
 ///////////////////////////////////////////////////////////////////////////
 void Unit::MoveS()
 {
-	if (!(m_Body->getPosition().x < m_TargetPos.x - 5 ||
-		m_Body->getPosition().y < m_TargetPos.y - 5 ||
-		m_Body->getPosition().x > m_TargetPos.x + 5 ||
-		m_Body->getPosition().y > m_TargetPos.y + 5))
-	{
-		m_MoveState->EndMove(this);
-		m_Body->setVelocity(Vect::ZERO);
-		return;
-	}
-	auto direction = m_TargetPos - m_Body->getPosition();
-	auto temp = abs(direction.x) + abs(direction.y);
-	direction *= m_Speed / temp;
-
-	m_Body->applyImpulse(direction);
+// 	if (!(m_Body->getPosition().x < m_TargetPos.x - 5 ||
+// 		m_Body->getPosition().y < m_TargetPos.y - 5 ||
+// 		m_Body->getPosition().x > m_TargetPos.x + 5 ||
+// 		m_Body->getPosition().y > m_TargetPos.y + 5))
+// 	{
+// 		m_MoveState->EndMove(this);
+// 		m_Body->setVelocity(Vect::ZERO);
+// 		return;
+// 	}
+// 	auto direction = m_TargetPos - m_Body->getPosition();
+// 	auto temp = abs(direction.x) + abs(direction.y);
+// 	direction *= m_Speed / temp;
+// 
+// 	m_Body->applyImpulse(direction);
 }
 
 void Unit::MoveM()
 {
-	if (!(m_Sprite->getPosition().x < m_TargetPos.x - 5 ||
-		m_Sprite->getPosition().y < m_TargetPos.y - 5 ||
-		m_Sprite->getPosition().x > m_TargetPos.x + 5 ||
-		m_Sprite->getPosition().y > m_TargetPos.y + 5))
-	{
-		m_MoveState->EndMove(this);
-		return;
-	}
-	auto direction = m_TargetPos - m_Sprite->getPosition();
-	auto temp = abs(direction.x) + abs(direction.y);
-	direction *= m_Speed / temp;
-
-	m_Sprite->setPosition(m_Sprite->getPosition() + direction);
+	auto distance = m_TargetPos - m_Sprite->getPosition();
+	auto scala = sqrt(pow(distance.x, 2) + pow(distance.y, 2)) / 300;
+	auto action1 = MoveTo::create(scala, m_TargetPos);
+	auto action2 = CallFunc::create(CC_CALLBACK_0(Unit::EndMove, this));
+	auto action3 = Sequence::create(action1, action2, NULL);
+	m_Sprite->runAction(action3);
 }
 
 
@@ -108,7 +101,11 @@ void Unit::CrashS()
 
 void Unit::CrashM()
 {
-	m_Sprite->setPosition(m_TargetPos);
+	auto distance = m_TargetPos - m_Sprite->getPosition();
+	auto scala = sqrt(pow(distance.x, 2) + pow(distance.y, 2)) / 200;
+	auto action1 = MoveTo::create(scala, m_TargetPos);
+	auto action2 = EaseSineOut::create(action1);
+	m_Sprite->runAction(action2);
 }
 
 

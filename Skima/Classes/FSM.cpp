@@ -10,24 +10,13 @@
 void StandbyState::TryMove(Unit* unit)
 {
 	unit->SetMoveState(unit->GetMovingState());
-
-	auto distance = unit->GetMoveTargetPos() - unit->GetSprite()->getPosition();
-	auto scala = sqrt(pow(distance.x, 2) + pow(distance.y, 2)) / 300;
-	auto action1 = MoveTo::create(scala, unit->GetMoveTargetPos());
-	auto action2 = CallFunc::create(CC_CALLBACK_0(Unit::EndMove, unit));
-	auto action3 = Sequence::create(action1, action2, NULL);
-	unit->GetSprite()->runAction(action3);
+	unit->Move();
 }
 
 void StandbyState::Crashed(Unit* unit)
 {
 	unit->SetMoveState(unit->GetCrashedState());
-
-	auto distance = unit->GetMoveTargetPos() - unit->GetSprite()->getPosition();
-	auto scala = sqrt(pow(distance.x, 2) + pow(distance.y, 2)) / 200;
-	auto action1 = MoveTo::create(scala, unit->GetMoveTargetPos());
-	auto action2 = EaseSineOut::create(action1);
-	unit->GetSprite()->runAction(action2);
+	unit->Crash();
 }
 
 void StandbyState::EndMove(Unit* unit){}
@@ -43,35 +32,25 @@ void StandbyState::Movement(Unit* unit){}
 void MovingState::TryMove(Unit* unit)
 {
 	unit->GetSprite()->stopAllActions();
+	unit->Move();
 
-	auto distance = unit->GetMoveTargetPos() - unit->GetSprite()->getPosition();
-	auto scala = sqrt(pow(distance.x, 2) + pow(distance.y, 2)) / 300;
-	auto action1 = MoveTo::create(scala, unit->GetMoveTargetPos());
-	auto action2 = CallFunc::create(CC_CALLBACK_0(Unit::EndMove, unit));
-	auto action3 = Sequence::create(action1, action2, NULL);
-	unit->GetSprite()->runAction(action3);
 }
 void MovingState::Crashed(Unit* unit)
 {
 	unit->SetMoveState(unit->GetCrashedState());
 	unit->GetSprite()->stopAllActions();
-
-	auto distance = unit->GetMoveTargetPos() - unit->GetSprite()->getPosition();
-	auto scala = sqrt(pow(distance.x, 2) + pow(distance.y, 2)) / 200;
-	auto action1 = MoveTo::create(scala, unit->GetMoveTargetPos());
-	auto action2 = EaseSineOut::create(action1);
-	unit->GetSprite()->runAction(action2);
+	unit->Crash();
 }
 
 void MovingState::EndMove(Unit* unit)
 {
 	unit->SetMoveState(unit->GetStandbyState());
+	unit->GetSprite()->stopAllActions();
 }
 
 void MovingState::EndCrash(Unit* unit){}
 void MovingState::Movement(Unit* unit)
 {
-	//unit->Move();
 }
 
 
@@ -88,12 +67,12 @@ void CrashedState::EndCrash(Unit* unit)
 	unit->SetMoveState(unit->GetStandbyState());
 	unit->GetSprite()->stopAllActions();
 
-	auto action = MoveTo::create(0.1f, unit->GetMoveTargetPos());
-	unit->GetSprite()->runAction(action);
+	auto action1 = MoveTo::create(0.1f, unit->GetMoveTargetPos());
+	auto action2 = EaseSineIn::create(action1);
+	unit->GetSprite()->runAction(action2);
 }
 
 void CrashedState::Movement(Unit* unit)
 {
-	//unit->Crash();
 }
 
