@@ -40,7 +40,7 @@ void PhysicsLayer::Tick(float dt)
 {
 	UpdateKeyInput();
 	auto layer = GET_OBJECT_LAYER;			_ASSERT(layer != nullptr);
-	layer->MobAi();
+	//layer->MobAi();
 	ScreenMove();
 }
 //////////////////////////////////////////////////////////////////////////
@@ -115,7 +115,7 @@ void PhysicsLayer::OnMouseMove(Event *event)
 	if (GET_IM->GetMouseStatus(MOUSE_BUTTON_LEFT))
 	{
 		auto layer = GET_OBJECT_LAYER;		_ASSERT(layer != nullptr);
-		layer->AddNewSpriteAtPosition(GET_IM->GetMouseLocation());
+		//layer->AddNewSpriteAtPosition(GET_IM->GetMouseLocation());
 	}
 }
 

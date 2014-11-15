@@ -5,10 +5,17 @@ class ShootingSkill :
 {
 public:
 	ShootingSkill();
-	~ShootingSkill();
+	ShootingSkill(int playerid);
+	virtual ~ShootingSkill();
 
 protected:
-	int msome;
+	virtual void Shoot(int unitId, b2Vec2 targetPos);
+
+	int m_PlayerId;
+
+	int	m_Speed;
+	int m_LiveTime;
+	
 
 };
 

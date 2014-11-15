@@ -6,7 +6,7 @@ class Magician :
 {
 public:
 	Magician(Point createPos, float scale);
-	~Magician();
+	virtual ~Magician();
 
 private:
 	std::map<SkillKey, Skill*> m_SkillList;

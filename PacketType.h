@@ -62,6 +62,8 @@ enum PacketTypes
 	PKT_CS_SKILL = 45,
 	PKT_SC_SKILL = 46,
 
+	PKT_SC_MISSILE = 48,
+
 	PKT_CS_CHAT = 91,
 	PKT_SC_CHAT = 92,
 
@@ -190,8 +192,10 @@ struct GameReadyNotify : public PacketHeader
 		mSize = sizeof(GameReadyNotify);
 		mType = PKT_CS_GAME_READY;
 		mPlayerId = -1;
+		mHeroType = HERO_NONE;
 	}
 	int		mPlayerId;
+	HeroType mHeroType;
 };
 struct GameRunNotify : public PacketHeader
 {
@@ -320,7 +324,6 @@ struct MoveBroadcastResult : public PacketHeader
 		mIsMove = false;
 		mPlayerId = -1;
 		mUnitId = -1;
-		mUnitType = HERO_NONE;
 		mCurrentPosX = 0;
 		mCurrentPosY = 0;
 		mTargetPosX = 0;
@@ -329,7 +332,6 @@ struct MoveBroadcastResult : public PacketHeader
 	}
 	int			mPlayerId;
 	int			mUnitId;
-	HeroType	mUnitType;
 	bool		mIsMove;
 	float		mCurrentPosX;
 	float		mCurrentPosY;
@@ -390,9 +392,8 @@ struct SkillBroadcastResult : public PacketHeader
 	SkillBroadcastResult()
 	{
 		mSize = sizeof(SkillBroadcastResult);
-		mType = PKT_SC_MOVE;
+		mType = PKT_SC_SKILL;
 		mPlayerId = -1;
-		mUnitId = -1;
 		mKey = SKILL_NONE;
 		mCurrentPosX = 0;
 		mCurrentPosY = 0;
@@ -401,8 +402,31 @@ struct SkillBroadcastResult : public PacketHeader
 
 	}
 	int			mPlayerId;
-	int			mUnitId;
 	SkillKey	mKey;
+	float		mCurrentPosX;
+	float		mCurrentPosY;
+	float		mTargetPosX;
+	float		mTargetPosY;
+
+};
+
+
+struct MissileBroadcastResult : public PacketHeader
+{
+	MissileBroadcastResult()
+	{
+		mSize = sizeof(MissileBroadcastResult);
+		mType = PKT_SC_MISSILE;
+		mPlayerId = -1;
+		mUnitId = -1;
+		mCurrentPosX = 0;
+		mCurrentPosY = 0;
+		mTargetPosX = 0;
+		mTargetPosY = 0;
+
+	}
+	int			mPlayerId;
+	int			mUnitId;
 	float		mCurrentPosX;
 	float		mCurrentPosY;
 	float		mTargetPosX;

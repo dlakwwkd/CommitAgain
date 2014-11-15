@@ -22,20 +22,20 @@ public:
 	void UnitMove(int unitID, Point recvCurPos, Point targetPos);
 	void UnitCrash(int unitID, Point recvPos);
 	void UnitCrashEnd(int unitID, Point revisePos);
+	void UnitSkillUse(int unitID, SkillKey key, Point recvCurPos, Point targetPos);
 
-
-	bool PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos);
 	void FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos);
-	void UpdateAnimation(int playerId, int unitID, Point pos);
 
-	void AddNewSpriteAtPosition(Point pos);
-	void MobAi();
+// 	void AddNewSpriteAtPosition(Point pos);
+// 	void MobAi();
 
 protected:
 	void UnitMoveS(Point pos);
 	void UnitMoveM(int unitID, Point recvCurPos, Point targetPos);
 	void UnitCrashS(Point pos);
 	void UnitCrashM(int unitID, Point recvPos);
+	void UnitSkillUseS(SkillKey key, Point pos);
+	void UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Point targetPos);
 
 protected:
 	std::shared_ptr<Unit>					m_Hero;

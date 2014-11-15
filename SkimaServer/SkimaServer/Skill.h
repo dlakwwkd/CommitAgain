@@ -3,6 +3,9 @@ class Skill
 {
 public:
 	Skill();
-	~Skill();
+	virtual ~Skill();
+
+protected:
+	int	m_Damage;
 };
 

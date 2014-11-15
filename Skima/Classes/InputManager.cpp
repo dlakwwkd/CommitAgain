@@ -54,7 +54,6 @@ EventKeyboard::KeyCode InputManager::SearchTargetingKey()
 	{
 		if (key.second == true)
 		{
-			
 			return key.first;
 		}
 	}
