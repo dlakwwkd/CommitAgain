@@ -451,12 +451,11 @@ void ClientSession::StartGame()
 	printf(" Send: StartGameNotify Room ID: %d \n", mRoomId);
 }
 
-void ClientSession::SendHeroInfo(int unitId, HeroType unitType, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	MoveBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
-	outPacket.mUnitType = unitType;
 	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
 	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
 	outPacket.mTargetPosX = targetPos.x*PTM_RATIO;
@@ -486,12 +485,27 @@ void ClientSession::CrashedBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 expec
 	printf(" Send: Crashed!  UnitID: %d, \t\t X : %.f\tY : %.f\n", unitId, outPacket.mExpectPosX, outPacket.mExpectPosY);
 }
 
-void ClientSession::SkillBroadCast(int unitId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::SkillBroadCast(SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	SkillBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayerId;
-	outPacket.mUnitId = unitId;
 	outPacket.mKey = key;
+	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
+	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
+	outPacket.mTargetPosX = targetPos.x*PTM_RATIO;
+	outPacket.mTargetPosY = targetPos.y*PTM_RATIO;
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+}
+
+void ClientSession::MissileBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
+{
+	MissileBroadcastResult outPacket;
+	outPacket.mPlayerId = mPlayerId;
+	outPacket.mUnitId = unitId;
 	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
 	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
 	outPacket.mTargetPosX = targetPos.x*PTM_RATIO;

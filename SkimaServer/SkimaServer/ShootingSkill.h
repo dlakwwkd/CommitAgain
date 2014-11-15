@@ -4,6 +4,7 @@ class ShootingSkill :
 	public Skill
 {
 public:
+	ShootingSkill();
 	ShootingSkill(int playerid);
 	virtual ~ShootingSkill();
 
@@ -13,6 +14,7 @@ protected:
 	int m_PlayerId;
 
 	int	m_Speed;
+	int m_LiveTime;
 	
 
 };
