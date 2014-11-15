@@ -6,9 +6,11 @@
 #define MAX_COMMENT_LEN	40
 
 
-enum UnitType
+enum HeroType
 {
-	TYPE_NONE
+	UNIT_NONE,
+
+	UNIT_MAGICIAN,
 };
 
 enum PacketTypes
@@ -201,13 +203,13 @@ struct CreateHeroResult : public PacketHeader
 		mType = PKT_SC_CREATE_HERO;
 		mPlayerId = -1;
 		mUnitId = -1;
-		mUnitType = TYPE_NONE;
+		mUnitType = UNIT_NONE;
 		mPosX = 0;
 		mPosY = 0;
 	}
 	int			mPlayerId;
 	int			mUnitId;
-	UnitType	mUnitType;
+	HeroType	mUnitType;
 	float		mPosX;
 	float		mPosY;
 };
@@ -306,7 +308,7 @@ struct MoveBroadcastResult : public PacketHeader
 		mIsMove = false;
 		mPlayerId = -1;
 		mUnitId = -1;
-		mUnitType = TYPE_NONE;
+		mUnitType = UNIT_NONE;
 		mCurrentPosX = 0;
 		mCurrentPosY = 0;
 		mTargetPosX = 0;
@@ -315,7 +317,7 @@ struct MoveBroadcastResult : public PacketHeader
 	}
 	int			mPlayerId;
 	int			mUnitId;
-	UnitType	mUnitType;
+	HeroType	mUnitType;
 	bool		mIsMove;
 	float		mCurrentPosX;
 	float		mCurrentPosY;
@@ -378,6 +380,7 @@ struct SkillBroadcastResult : public PacketHeader
 		mSize = sizeof(SkillBroadcastResult);
 		mType = PKT_SC_MOVE;
 		mPlayerId = -1;
+		mUnitId = -1;
 		mKey = KEY_NONE;
 		mCurrentPosX = 0;
 		mCurrentPosY = 0;
@@ -386,6 +389,7 @@ struct SkillBroadcastResult : public PacketHeader
 
 	}
 	int			mPlayerId;
+	int			mUnitId;
 	SkillKey	mKey;
 	float		mCurrentPosX;
 	float		mCurrentPosY;

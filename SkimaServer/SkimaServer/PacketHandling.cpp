@@ -423,7 +423,7 @@ void ClientSession::AllReadyNotify()
 	printf(" Send: GameRunNotify Room ID: %d \n", mRoomId);
 }
 
-void ClientSession::SendCreateHeroResult(int unitId, UnitType unitType, b2Vec2 pos)
+void ClientSession::SendCreateHeroResult(int unitId, HeroType unitType, b2Vec2 pos)
 {
 	CreateHeroResult outPacket;
 	outPacket.mPlayerId = mPlayerId;
@@ -451,7 +451,7 @@ void ClientSession::StartGame()
 	printf(" Send: StartGameNotify Room ID: %d \n", mRoomId);
 }
 
-void ClientSession::SendUnitInfo(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::SendUnitInfo(int unitId, HeroType unitType, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	MoveBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayerId;

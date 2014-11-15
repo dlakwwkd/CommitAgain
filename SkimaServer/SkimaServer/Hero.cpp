@@ -14,7 +14,7 @@ Hero::Hero()
 Hero::Hero(int playerId, b2Vec2 pos)
 {
 	m_UnitID = -1;
-	m_Type = TYPE_NONE;
+	m_Type = UNIT_NONE;
 	m_Speed = 10.0f;
 	m_TargetPos = { 0, 0 };
 	m_PlayerID = playerId;
