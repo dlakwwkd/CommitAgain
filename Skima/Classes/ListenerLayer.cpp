@@ -110,20 +110,25 @@ void ListenerLayer::OnMouseDown(Event *event)
 	switch (button)
 	{
 	case MOUSE_BUTTON_LEFT:
-		if (!m_Targeting)
-			break;
-		auto key = GET_IM->SearchTargetingKey();		_ASSERT(key != EventKeyboard::KeyCode(-1));
-		if (key != EventKeyboard::KeyCode(-1))
 		{
-			TcpClient::getInstance()->skillRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation(),
-				static_cast<SkillKey>(key));
+			if (!m_Targeting)
+				break;
+			auto key = GET_IM->SearchTargetingKey();		_ASSERT(key != EventKeyboard::KeyCode(-1));
+			if (key != EventKeyboard::KeyCode(-1))
+			{
+				TcpClient::getInstance()->skillRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation(),
+					static_cast<SkillKey>(key));
+			}
+			m_Targeting = false;
 		}
-		m_Targeting = false;
 		break;
+
 	case MOUSE_BUTTON_RIGHT:
-		if (hero->GetMoveState() != hero->GetCrashedState())
 		{
-			TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
+			if (hero->GetMoveState() != hero->GetCrashedState())
+			{
+				TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
+			}
 		}
 		break;
 	}

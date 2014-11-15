@@ -369,7 +369,7 @@ struct SkillRequest : public PacketHeader
 		mSize = sizeof(SkillRequest);
 		mType = PKT_CS_SKILL;
 		mPlayerId = -1;
-		mKey = KEY_NONE;
+		mKey = SKILL_NONE;
 		mCurrentPosX = 0;
 		mCurrentPosY = 0;
 		mTargetPosX = 0;
@@ -393,7 +393,7 @@ struct SkillBroadcastResult : public PacketHeader
 		mType = PKT_SC_MOVE;
 		mPlayerId = -1;
 		mUnitId = -1;
-		mKey = KEY_NONE;
+		mKey = SKILL_NONE;
 		mCurrentPosX = 0;
 		mCurrentPosY = 0;
 		mTargetPosX = 0;

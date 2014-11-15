@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "CircularBuffer.h"
+#include "PacketType.h"
 
 #ifndef _WIN32
 #include <netdb.h>
