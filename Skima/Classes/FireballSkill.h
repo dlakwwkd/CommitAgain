@@ -5,6 +5,6 @@ class FireballSkill :
 {
 public:
 	FireballSkill();
-	~FireballSkill();
+	virtual ~FireballSkill();
 };
 

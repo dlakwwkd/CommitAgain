@@ -5,7 +5,7 @@ class Hero :
 {
 public:
 	Hero();
-	~Hero();
+	virtual ~Hero();
 
 protected:
 	HeroType m_HeroType;

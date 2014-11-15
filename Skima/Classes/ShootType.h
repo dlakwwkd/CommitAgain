@@ -5,6 +5,6 @@ class ShootType :
 {
 public:
 	ShootType();
-	~ShootType();
+	virtual ~ShootType();
 };
 

@@ -45,8 +45,6 @@ void ObjectLayer::TickM(float dt)
 
 void ObjectLayer::CreateHero(int playerID, int unitID, Point location, HeroType heroType)
 {
-	//todo unitType 맹글어야함
-
 	std::shared_ptr<Unit> unit;
 
 	switch (heroType)
@@ -67,9 +65,6 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location, HeroType 
 	{
 		m_Hero = unit;
 	}
-
-	//m_Hero->GetBody()->setVelocityLimit(100);
-
 	this->addChild(unit->GetSprite());
 }
 
@@ -82,19 +77,6 @@ void ObjectLayer::UnitMove(int unitID, Point recvCurPos, Point targetPos)
 		break;
 	case MULTI:
 		UnitMoveM(unitID, recvCurPos, targetPos);
-
-// 		for (auto& unit : m_UnitList)
-// 		{
-// 			if (unit->GetUnitID() == unitID)
-// 			{
-// 				//FSM체크하고
-// 				//현재위치랑 보내준위치랑 체크해서 일정범위안이면 moveM움직이도록 // 범위밖이면.....T.T
-// 				if (PosGapCheck(unit, recvCurPos) == true)
-// 				{
-// 					
-// 				}
-// 			}
-// 		}
 		break;
 	}
 }
@@ -118,6 +100,19 @@ void ObjectLayer::UnitCrashEnd(int unitID, Point revisePos)
 	m_UnitList[unitID]->EndCrash();
 }
 
+void ObjectLayer::UnitSkillUse(int unitID, SkillKey key, Point recvCurPos, Point targetPos)
+{
+	switch (GET_GM.GetGameMode())
+	{
+	case SINGLE:
+		UnitSkillUseS(key, targetPos);
+		break;
+	case MULTI:
+		UnitSkillUseM(unitID, key, recvCurPos, targetPos);
+		break;
+	}
+}
+
 
 
 void ObjectLayer::FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos)
@@ -125,69 +120,41 @@ void ObjectLayer::FirstDrawUnit(int playerID, int unitID, HeroType heroType, Poi
 	//todo unitType 넣어주기
 	CreateHero(playerID, unitID, pos, heroType);
 }
-void ObjectLayer::UpdateAnimation(int playerId, int unitID, Point pos)
-{
-	for (auto& unit : m_UnitList)
-	{
-		if (unit.second->GetUnitID() == unitID)
-		{
-			unit.second->GetSprite()->setAnchorPoint(Point(0.5, 0.5));
-			unit.second->GetSprite()->setPosition(pos);
-			
-		}
-	}
-}
 
-
-
-void ObjectLayer::AddNewSpriteAtPosition(Point pos)
-{
-	auto parent = dynamic_cast<PhysicsLayer*>(this->getParent());
-	std::shared_ptr<Unit> unit(new Unit("Images/Pea.png", pos - parent->getPosition(), 1.0f));
-	unit->GetBody()->setVelocityLimit(100);
-
-	m_MobList.push_back(unit);
-	this->addChild(unit->GetSprite());
-}
-
-void ObjectLayer::MobAi()
-{
-	auto winSize = Director::getInstance()->getWinSize();
-	auto parent = dynamic_cast<PhysicsLayer*>(this->getParent());
-
-	for (auto& b : m_MobList)
-	{
-		if (b == m_Hero) continue;
-
-		Vect temp;
-		temp.x = rand() % (int)winSize.width;
-		temp.y = rand() % (int)winSize.height;
-
-		auto time = rand() % 300;
-
-		if (time < 3)
-			b->SetMoveTargetPos(temp);
-		else if (time == 10)
-			b->SetMoveTargetPos(m_Hero->GetBody()->getPosition());
-		else
-			continue;
-	}
-}
-
-
-bool ObjectLayer::PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos)
-{
-	Point unitPos = unit->GetSprite()->getPosition();
-
-	if (unitPos.x - recvCurPos.x > 5 || unitPos.x - recvCurPos.x<-5)
-		return false;
-
-	if (unitPos.y - recvCurPos.y>5 || unitPos.y - recvCurPos.y < -5)
-		return false;
-
-	else
-		return true;
-}
+// 
+// void ObjectLayer::AddNewSpriteAtPosition(Point pos)
+// {
+// 	auto parent = dynamic_cast<PhysicsLayer*>(this->getParent());
+// 	std::shared_ptr<Unit> unit(new Unit("Images/Pea.png", pos - parent->getPosition(), 1.0f));
+// 	unit->GetBody()->setVelocityLimit(100);
+// 
+// 	m_MobList.push_back(unit);
+// 	this->addChild(unit->GetSprite());
+// }
+// 
+// void ObjectLayer::MobAi()
+// {
+// 	auto winSize = Director::getInstance()->getWinSize();
+// 	auto parent = dynamic_cast<PhysicsLayer*>(this->getParent());
+// 
+// 	for (auto& b : m_MobList)
+// 	{
+// 		if (b == m_Hero) continue;
+// 
+// 		Vect temp;
+// 		temp.x = rand() % (int)winSize.width;
+// 		temp.y = rand() % (int)winSize.height;
+// 
+// 		auto time = rand() % 300;
+// 
+// 		if (time < 3)
+// 			b->SetMoveTargetPos(temp);
+// 		else if (time == 10)
+// 			b->SetMoveTargetPos(m_Hero->GetBody()->getPosition());
+// 		else
+// 			continue;
+// 	}
+// }
 
 
 
@@ -198,8 +165,8 @@ bool ObjectLayer::PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos)
 ///////////////////////////////////////////////////////////////////////////
 void ObjectLayer::UnitMoveS(Point pos)
 {
-	m_Hero->SetMoveTargetPos(pos);
-	m_Hero->TryMove();
+// 	m_Hero->SetMoveTargetPos(pos);
+// 	m_Hero->TryMove();
 
 // 	auto vect = m_Hero->GetBody()->getPosition();
 // 	vect = GET_IM->GetMouseLocation() - vect;
@@ -222,6 +189,16 @@ void ObjectLayer::UnitCrashM(int unitID, Point recvPos)
 {
 	m_UnitList[unitID]->SetMoveTargetPos(recvPos);
 	m_UnitList[unitID]->Crashed();
+}
+
+void ObjectLayer::UnitSkillUseS(SkillKey key, Point pos)
+{
+
+}
+
+void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Point targetPos)
+{
+	
 }
 
 

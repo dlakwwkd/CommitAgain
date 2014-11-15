@@ -5,6 +5,6 @@ class Missile :
 {
 public:
 	Missile();
-	~Missile();
+	virtual ~Missile();
 };
 

@@ -5,6 +5,6 @@ class FireballMissile :
 {
 public:
 	FireballMissile(Point createPos, float scale);
-	~FireballMissile();
+	virtual ~FireballMissile();
 };
 
