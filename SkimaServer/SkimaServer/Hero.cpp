@@ -1,5 +1,10 @@
 #include "stdafx.h"
 #include "Hero.h"
+#include "ClientSession.h"
+#include "ClientManager.h"
+#include "GameManager.h"
+
+#define CRASHTIME 0.1f
 
 
 Hero::Hero()
@@ -8,6 +13,11 @@ Hero::Hero()
 
 Hero::Hero(int playerId, b2Vec2 pos)
 {
+	m_UnitID = -1;
+	m_Type = TYPE_NONE;
+	m_Speed = 10.0f;
+	m_TargetPos = { 0, 0 };
+	m_PlayerID = playerId;
 	m_State = m_StandbyState = new StandbyState;
 	m_MovingState = new MovingState;
 	m_CrashedState = new CrashedState;

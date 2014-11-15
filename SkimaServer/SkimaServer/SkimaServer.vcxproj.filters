@@ -59,9 +59,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game\Component\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Unit.cpp">
-      <Filter>Game\Component\Object\Unit</Filter>
-    </ClCompile>
     <ClCompile Include="ContactListener.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -72,13 +69,19 @@
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
     <ClCompile Include="FireballMissile.cpp">
-      <Filter>Game\Component\Object\Missile</Filter>
+      <Filter>Game\Component\Object\Unit\Missile</Filter>
     </ClCompile>
     <ClCompile Include="IceballMissile.cpp">
-      <Filter>Game\Component\Object\Missile</Filter>
+      <Filter>Game\Component\Object\Unit\Missile</Filter>
     </ClCompile>
     <ClCompile Include="Missile.cpp">
-      <Filter>Game\Component\Object\Missile</Filter>
+      <Filter>Game\Component\Object\Unit\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Game\Component\Object\Unit\Hero</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Game\Component\Object\Unit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,9 +162,6 @@
     <ClInclude Include="Player.h">
       <Filter>Game\Component\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Unit.h">
-      <Filter>Game\Component\Object\Unit</Filter>
-    </ClInclude>
     <ClInclude Include="ContactListener.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -172,13 +172,19 @@
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
     <ClInclude Include="FireballMissile.h">
-      <Filter>Game\Component\Object\Missile</Filter>
+      <Filter>Game\Component\Object\Unit\Missile</Filter>
     </ClInclude>
     <ClInclude Include="IceballMissile.h">
-      <Filter>Game\Component\Object\Missile</Filter>
+      <Filter>Game\Component\Object\Unit\Missile</Filter>
     </ClInclude>
     <ClInclude Include="Missile.h">
-      <Filter>Game\Component\Object\Missile</Filter>
+      <Filter>Game\Component\Object\Unit\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Game\Component\Object\Unit\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Game\Component\Object\Unit</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,11 +224,14 @@
     <Filter Include="Game\Component\Object">
       <UniqueIdentifier>{e30175aa-886b-4dea-a476-3cf603bec8da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Object\Missile">
-      <UniqueIdentifier>{acd95774-9987-485c-a89c-b2810c0d478d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Component\Object\Unit">
+      <UniqueIdentifier>{5df08bf3-c4f7-45cf-8899-033d74719a18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Object\Unit\Hero">
       <UniqueIdentifier>{c3bc629c-e021-453a-ae25-e541fbeab5db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Object\Unit\Missile">
+      <UniqueIdentifier>{acd95774-9987-485c-a89c-b2810c0d478d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

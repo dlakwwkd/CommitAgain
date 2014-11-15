@@ -172,6 +172,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameRoom.h" />
+    <ClInclude Include="Hero.h" />
     <ClInclude Include="IceballMissile.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Exception.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameRoom.cpp" />
+    <ClCompile Include="Hero.cpp" />
     <ClCompile Include="IceballMissile.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Exception.cpp" />

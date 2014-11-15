@@ -44,7 +44,7 @@ void MovingState::EndMove(Unit* unit)
 void MovingState::EndCrash(Unit* unit){}
 void MovingState::Movement(Unit* unit)
 {
-	unit->UnitMove();
+	unit->HeroMove();
 }
 
 
@@ -76,7 +76,7 @@ void CrashedState::Movement(Unit* unit)
 		abs(unit->GetBody()->GetLinearVelocity().y) > 0.1f))
 	{
 		EndCrash(unit);
-		unit->UnitCrashed(false);
+		unit->HeroCrashed(false);
 		printf(" - CrashEnd: UnitID:  %d, \t\t\t\t X : %.f\tY : %.f\n", unit->GetUnitID(),
 			unit->GetBody()->GetPosition().x*PTM_RATIO, unit->GetBody()->GetPosition().y*PTM_RATIO);
 	}

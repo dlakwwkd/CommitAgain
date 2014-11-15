@@ -1,7 +1,6 @@
 #pragma once
 #include "Unit.h"
-class Hero :
-	public Unit
+class Hero : public Unit
 {
 public:
 	Hero();
@@ -24,6 +23,8 @@ public:
 	void		HeroCrashed(bool isCrashed);
 
 private:
+	int			m_PlayerID;
+
 	MoveState*	m_State;
 	MoveState*	m_StandbyState;
 	MoveState*	m_MovingState; 
