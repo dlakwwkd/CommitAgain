@@ -226,6 +226,8 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 	{
 		session->AllReadyNotify();
 	}
+
+	session->
 }
 
 REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)

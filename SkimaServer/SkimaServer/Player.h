@@ -8,10 +8,11 @@ public:
 	~Player(){ delete m_Hero; }
 
 	Hero*	GetMyHero(){ return m_Hero; }
-	void	CreateHero(HeroType herotype, b2Vec2 pos);
+	void	CreateHero(b2Vec2 pos);
 
 private:
-	int		m_PlayerID;
-	Hero*	m_Hero;
+	int			m_PlayerID;
+	Hero*		m_Hero;
+	HeroType	m_HeroType;
 };
 

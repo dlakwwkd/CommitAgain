@@ -4,11 +4,11 @@
 #include "ClientSession.h"
 
 
-void Player::CreateHero(HeroType herotype, b2Vec2 pos)
+void Player::CreateHero(b2Vec2 pos)
 {
-	m_Hero = new Hero(m_PlayerID, herotype,pos);
+	m_Hero = new Hero(m_PlayerID, m_HeroType,pos);
 	auto client = GClientManager->GetClient(m_PlayerID);
 
-	client->SendCreateHeroResult(m_Hero->GetUnitID(),m_Hero->GetUnitType(), pos);
+	client->SendCreateHeroResult(m_Hero->GetUnitID(), m_HeroType, pos);
 }
 
