@@ -18,7 +18,7 @@ public:
 
 	std::shared_ptr<Unit> GetMyHero(){ return m_Hero; }
 
-	void CreateHero(int playerID, int unitID, Point location);
+	void CreateHero(int playerID, int unitID, Point location, UnitType unitType);
 	void UnitMove(int unitID, Point recvCurPos, Point targetPos);
 	void UnitCrash(int unitID, Point recvPos);
 	void UnitCrashEnd(int unitID, Point revisePos);

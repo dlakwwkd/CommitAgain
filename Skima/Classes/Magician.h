@@ -1,10 +1,14 @@
 #pragma once
-#include "Unit.h"
+#include "Hero.h"
+#include "FireballSkill.h"
 class Magician :
-	public Unit
+	public Hero
 {
 public:
-	Magician();
+	Magician(Point createPos, float scale);
 	~Magician();
+
+private:
+	std::map<SkillKey, Skill*> m_SkillList;
 };
 

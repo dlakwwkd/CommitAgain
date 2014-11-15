@@ -2,6 +2,7 @@
 #include "ObjectLayer.h"
 #include "PhysicsLayer.h"
 #include "LoadingBGLayer.h"
+#include "Magician.h"
 #include "GameManager.h"
 #include "Unit.h"
 #include "Enums.h"
@@ -42,11 +43,21 @@ void ObjectLayer::TickM(float dt)
 
 
 
-void ObjectLayer::CreateHero(int playerID, int unitID, Point location) // unitID를 넘어오는 playerID라 가정
+void ObjectLayer::CreateHero(int playerID, int unitID, Point location, UnitType unitType)
 {
 	//todo unitType 맹글어야함
 
-	std::shared_ptr<Unit> unit(new Unit("Images/SpookyPeas.png", location, 1.0f));
+	std::shared_ptr<Unit> unit;
+
+	switch (unitType)
+	{
+	case TYPE_NONE:
+		return;
+	case MAGICIAN:
+		std::shared_ptr<Unit> temp(new Magician(location, 1.0f));
+		unit = temp;
+		break;
+	}
 
 	unit->SetUnitID(unitID);
 	unit->SetUnitPlayerID(playerID);
@@ -113,7 +124,7 @@ void ObjectLayer::FirstDrawUnit(int playerID, int unitID, UnitType unitType, Poi
 
 {
 	//todo unitType 넣어주기
-	CreateHero(playerID, unitID, pos);
+	CreateHero(playerID, unitID, pos, unitType);
 }
 void ObjectLayer::UpdateAnimation(int playerId, int unitID, Point pos)
 {

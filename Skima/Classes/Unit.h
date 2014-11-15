@@ -55,9 +55,7 @@ protected:
 	int				m_PlayerID;
 	int				m_UnitID;
 	int				m_MaxHp;
-	int				m_MaxMp;
 	int				m_Hp;
-	int				m_Mp;
 	float			m_Speed;
 
 	Point			m_TargetPos;

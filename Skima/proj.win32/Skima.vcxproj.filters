@@ -150,6 +150,9 @@
     <ClCompile Include="..\Classes\Magician.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Hero.cpp">
+      <Filter>Game\Component\Object\Hero</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -240,6 +243,9 @@
       <Filter>Game\Component\Object</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Magician.h">
+      <Filter>Game\Component\Object\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Hero.h">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
   </ItemGroup>
