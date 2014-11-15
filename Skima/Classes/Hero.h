@@ -6,5 +6,8 @@ class Hero :
 public:
 	Hero();
 	~Hero();
+
+protected:
+	HeroType m_HeroType;
 };
 

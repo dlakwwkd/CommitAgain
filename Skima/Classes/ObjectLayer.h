@@ -18,14 +18,14 @@ public:
 
 	std::shared_ptr<Unit> GetMyHero(){ return m_Hero; }
 
-	void CreateHero(int playerID, int unitID, Point location, UnitType unitType);
+	void CreateHero(int playerID, int unitID, Point location, HeroType heroType);
 	void UnitMove(int unitID, Point recvCurPos, Point targetPos);
 	void UnitCrash(int unitID, Point recvPos);
 	void UnitCrashEnd(int unitID, Point revisePos);
 
 
 	bool PosGapCheck(std::shared_ptr<Unit> unit, Point recvCurPos);
-	void FirstDrawUnit(int playerID, int unitID, UnitType unitType, Point pos);
+	void FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos);
 	void UpdateAnimation(int playerId, int unitID, Point pos);
 
 	void AddNewSpriteAtPosition(Point pos);

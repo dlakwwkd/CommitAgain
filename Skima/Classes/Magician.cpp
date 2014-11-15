@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "Magician.h"
 #include "GameManager.h"
+#include "PacketType.h"
 
 
 Magician::Magician(Point createPos, float scale)
 {
-	m_Sprite = Sprite::create("Magician.jpg");
+	m_Sprite = Sprite::create("Magician.png");
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
 	m_SkillList[SKILL_Q] = new FireballSkill();
@@ -30,7 +31,7 @@ Magician::Magician(Point createPos, float scale)
 
 	m_MaxHp = 300;
 	m_Hp = m_MaxHp;
-	m_UnitType = MAGICIAN;
+	m_HeroType = HERO_MAGICIAN;
 
 	m_MoveState = m_StandbyState = new StandbyState();
 	m_MovingState = new MovingState();

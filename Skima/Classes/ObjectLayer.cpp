@@ -43,17 +43,17 @@ void ObjectLayer::TickM(float dt)
 
 
 
-void ObjectLayer::CreateHero(int playerID, int unitID, Point location, UnitType unitType)
+void ObjectLayer::CreateHero(int playerID, int unitID, Point location, HeroType heroType)
 {
 	//todo unitType 맹글어야함
 
 	std::shared_ptr<Unit> unit;
 
-	switch (unitType)
+	switch (heroType)
 	{
-	case TYPE_NONE:
+	case HERO_NONE:
 		return;
-	case MAGICIAN:
+	case HERO_MAGICIAN:
 		std::shared_ptr<Unit> temp(new Magician(location, 1.0f));
 		unit = temp;
 		break;
@@ -120,11 +120,10 @@ void ObjectLayer::UnitCrashEnd(int unitID, Point revisePos)
 
 
 
-void ObjectLayer::FirstDrawUnit(int playerID, int unitID, UnitType unitType, Point pos)
-
+void ObjectLayer::FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos)
 {
 	//todo unitType 넣어주기
-	CreateHero(playerID, unitID, pos, unitType);
+	CreateHero(playerID, unitID, pos, heroType);
 }
 void ObjectLayer::UpdateAnimation(int playerId, int unitID, Point pos)
 {
