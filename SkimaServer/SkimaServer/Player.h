@@ -8,7 +8,7 @@ public:
 	~Player(){ delete m_Hero; }
 
 	Hero*	GetMyHero(){ return m_Hero; }
-	void	CreateHero(b2Vec2 pos);
+	void	CreateHero(HeroType herotype, b2Vec2 pos);
 
 private:
 	int		m_PlayerID;
