@@ -5,12 +5,24 @@
 #define MAX_NAME_LEN	30
 #define MAX_COMMENT_LEN	40
 
-
-enum HeroType
+enum UnitType
 {
 	UNIT_NONE,
 
-	UNIT_MAGICIAN,
+	UNIT_HERO,
+	UNIT_MISSILE,
+};
+
+enum HeroType
+{
+	HERO_NONE,
+
+	HERO_MAGICIAN,
+};
+
+enum MissileType
+{
+	MS_NONE,
 };
 
 enum PacketTypes
@@ -203,7 +215,7 @@ struct CreateHeroResult : public PacketHeader
 		mType = PKT_SC_CREATE_HERO;
 		mPlayerId = -1;
 		mUnitId = -1;
-		mUnitType = UNIT_NONE;
+		mUnitType = HERO_NONE;
 		mPosX = 0;
 		mPosY = 0;
 	}
@@ -308,7 +320,7 @@ struct MoveBroadcastResult : public PacketHeader
 		mIsMove = false;
 		mPlayerId = -1;
 		mUnitId = -1;
-		mUnitType = UNIT_NONE;
+		mUnitType = HERO_NONE;
 		mCurrentPosX = 0;
 		mCurrentPosY = 0;
 		mTargetPosX = 0;

@@ -49,6 +49,7 @@ public:
 	void		SendCreateHeroResult(int unitId, HeroType unitType, b2Vec2 pos);
 	void		SendUnitInfo(int unitId, HeroType unitType, b2Vec2 currentPos, b2Vec2 targetPos);
 	void		CrashedBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 expectPos, bool mIsCrashed);
+	void		SkillBroadCast(int unitId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos);
 	void		ServerRunComplete();
 	void		StartGame();
 
