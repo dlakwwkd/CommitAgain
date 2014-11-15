@@ -13,6 +13,6 @@ public:
 private:
 	int			m_PlayerID;
 	Hero*		m_Hero;
-	HeroType	m_HeroType;
+	
 };
 

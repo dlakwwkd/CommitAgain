@@ -81,6 +81,7 @@ public:
 private:
 	int				mRoomId;
 	int				mPlayerId;
+	HeroType		mHeroType;
 	char			mPlayerName[MAX_NAME_LEN];
 	bool			mIsReady;
 

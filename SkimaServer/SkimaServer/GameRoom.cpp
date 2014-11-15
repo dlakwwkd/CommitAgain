@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameRoom.h"
+#include "Player.h"
 
 
 void GameRoom::ReadySign()
@@ -12,10 +13,11 @@ void GameRoom::ReadySign()
 
 void GameRoom::JoinPlayer(int id)
 {
-	m_PlayerIdList.push_back(id);
+	m_PlayerList[id] = new Player(id);
+
 	printf("\n [Join Room] Room ID %d, Player ID: %d \n", m_RoomID, id);
 
-	if (m_PlayerIdList.size() >= 2)
+	if (m_PlayerList.size() >= 2)
 	{
 		m_JoinAble = false;
 		printf(" - Room %d is Full ! \n", m_RoomID);
@@ -24,7 +26,7 @@ void GameRoom::JoinPlayer(int id)
 
 void GameRoom::OutPlayer(int id)
 {
-	for (auto& it = m_PlayerIdList.begin(); it != m_PlayerIdList.end(); ++it)
+	for (auto& it = m_PlayerList.begin(); it != m_PlayerList.end(); ++it)
 	{
 		if (*it == id)
 		{
