@@ -1,6 +1,6 @@
 #pragma once
 #include <map>
-#include "../../PacketType.h"
+#include "PacketType.h"
 #include "Enums.h"
 
 USING_NS_CC;

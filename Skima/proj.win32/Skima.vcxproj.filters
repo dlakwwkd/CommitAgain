@@ -141,14 +141,14 @@
     <ClCompile Include="..\Classes\Skill.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Hero.cpp">
-      <Filter>Game\Component\Object\Hero</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Effect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
       <Filter>Game\Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Magician.cpp">
+      <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,9 +212,6 @@
     <ClInclude Include="pch.h">
       <Filter>Base\win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\FSM.h">
-      <Filter>Game\Component\Object</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\ObjectLayer.h">
       <Filter>Game\Component\Object</Filter>
     </ClInclude>
@@ -233,9 +230,6 @@
     <ClInclude Include="..\Classes\Skill.h">
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Hero.h">
-      <Filter>Game\Component\Object\Hero</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Effect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
@@ -244,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Shared\FSM.h">
       <Filter>Game\Component\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Magician.h">
+      <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@
 #include "base/CCDirector.h"
 #include "base/CCScheduler.h"
 #include "2d/CCLabel.h"
-#include "../../PacketType.h"
+#include "PacketType.h"
 #include "SingleGameScene.h"
 #include "MultiGameScene.h"
 #include "NetworkScene.h"

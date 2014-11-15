@@ -1,10 +1,10 @@
 #pragma once
 #include "Unit.h"
-class Hero :
+class Magician :
 	public Unit
 {
 public:
-	Hero();
-	~Hero();
+	Magician();
+	~Magician();
 };
 
