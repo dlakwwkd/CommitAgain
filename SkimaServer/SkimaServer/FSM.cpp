@@ -1,26 +1,26 @@
 #include "stdafx.h"
 #include "FSM.h"
-#include "Unit.h"
+#include "Hero.h"
 
 //////////////////////////////////////////////////////////////////////////
 
 	/*대기상태*/
 
 //////////////////////////////////////////////////////////////////////////
-void StandbyState::TryMove(Unit* unit)
+void StandbyState::TryMove(Hero* hero)
 {
-	unit->SetState(unit->GetMovingState());
+	hero->SetState(hero->GetMovingState());
 }
 
-void StandbyState::Crashed(Unit* unit)
+void StandbyState::Crashed(Hero* hero)
 {
-	unit->SetState(unit->GetCrashedState());
-	unit->GetBody()->SetLinearDamping(10.0f);
+	hero->SetState(hero->GetCrashedState());
+	hero->GetBody()->SetLinearDamping(10.0f);
 }
 
-void StandbyState::EndMove(Unit* unit){}
-void StandbyState::EndCrash(Unit* unit){}
-void StandbyState::Movement(Unit* unit){}
+void StandbyState::EndMove(Hero* hero){}
+void StandbyState::EndCrash(Hero* hero){}
+void StandbyState::Movement(Hero* hero){}
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -28,23 +28,23 @@ void StandbyState::Movement(Unit* unit){}
 	/*이동중 상태*/
 
 //////////////////////////////////////////////////////////////////////////
-void MovingState::TryMove(Unit* unit){}
-void MovingState::Crashed(Unit* unit)
+void MovingState::TryMove(Hero* hero){}
+void MovingState::Crashed(Hero* hero)
 {
-	unit->SetState(unit->GetCrashedState());
-	unit->GetBody()->SetLinearDamping(10.0f);
+	hero->SetState(hero->GetCrashedState());
+	hero->GetBody()->SetLinearDamping(10.0f);
 }
 
-void MovingState::EndMove(Unit* unit)
+void MovingState::EndMove(Hero* hero)
 {
-	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
-	unit->SetState(unit->GetStandbyState());
+	hero->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
+	hero->SetState(hero->GetStandbyState());
 }
 
-void MovingState::EndCrash(Unit* unit){}
-void MovingState::Movement(Unit* unit)
+void MovingState::EndCrash(Hero* hero){}
+void MovingState::Movement(Hero* hero)
 {
-	unit->HeroMove();
+	hero->HeroMove();
 }
 
 
@@ -53,31 +53,31 @@ void MovingState::Movement(Unit* unit)
 	/*밀려남상태*/
 
 //////////////////////////////////////////////////////////////////////////
-void CrashedState::TryMove(Unit* unit){}
-void CrashedState::Crashed(Unit* unit)
+void CrashedState::TryMove(Hero* hero){}
+void CrashedState::Crashed(Hero* hero)
 {
-	auto velo = unit->GetBody()->GetLinearVelocity();
+	auto velo = hero->GetBody()->GetLinearVelocity();
 	velo.x /= 5;
 	velo.y /= 5;
-	unit->GetBody()->SetLinearVelocity(velo);
+	hero->GetBody()->SetLinearVelocity(velo);
 }
 
-void CrashedState::EndMove(Unit* unit){}
-void CrashedState::EndCrash(Unit* unit)
+void CrashedState::EndMove(Hero* hero){}
+void CrashedState::EndCrash(Hero* hero)
 {
-	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
-	unit->GetBody()->SetLinearDamping(0.0f);
-	unit->SetState(unit->GetStandbyState());
+	hero->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
+	hero->GetBody()->SetLinearDamping(0.0f);
+	hero->SetState(hero->GetStandbyState());
 }
 
-void CrashedState::Movement(Unit* unit)
+void CrashedState::Movement(Hero* hero)
 {
-	if (!(abs(unit->GetBody()->GetLinearVelocity().x) > 0.1f ||
-		abs(unit->GetBody()->GetLinearVelocity().y) > 0.1f))
+	if (!(abs(hero->GetBody()->GetLinearVelocity().x) > 0.1f ||
+		abs(hero->GetBody()->GetLinearVelocity().y) > 0.1f))
 	{
-		EndCrash(unit);
-		unit->HeroCrashed(false);
-		printf(" - CrashEnd: UnitID:  %d, \t\t\t\t X : %.f\tY : %.f\n", unit->GetUnitID(),
-			unit->GetBody()->GetPosition().x*PTM_RATIO, unit->GetBody()->GetPosition().y*PTM_RATIO);
+		EndCrash(hero);
+		hero->HeroCrashed(false);
+		printf(" - CrashEnd: UnitID:  %d, \t\t\t\t X : %.f\tY : %.f\n", hero->GetUnitID(),
+			hero->GetBody()->GetPosition().x*PTM_RATIO, hero->GetBody()->GetPosition().y*PTM_RATIO);
 	}
 }

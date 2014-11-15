@@ -83,6 +83,9 @@
     <ClCompile Include="Unit.cpp">
       <Filter>Game\Component\Object\Unit</Filter>
     </ClCompile>
+    <ClCompile Include="Magician.cpp">
+      <Filter>Game\Component\Object\Unit\Hero</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -165,9 +168,6 @@
     <ClInclude Include="ContactListener.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\FSM.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
     <ClInclude Include="FireballSkill.h">
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
@@ -185,6 +185,12 @@
     </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>Game\Component\Object\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Magician.h">
+      <Filter>Game\Component\Object\Unit\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\FSM.h">
+      <Filter>Game\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
