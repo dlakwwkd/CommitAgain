@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Magician.h"
-#include "Hero.h"
 #include "FireballSkill.h"
 
 Magician::Magician()
@@ -29,7 +28,7 @@ void Magician::UseSkill(SkillKey skillKey, b2Vec2 targetPos)
 		break;
 
 	case SKILL_Q:
-		m_Qskill->Shoot(targetPos);
+		m_Qskill->ShootSkill(m_UnitID,targetPos);
 		break;
 
 	case SKILL_W:

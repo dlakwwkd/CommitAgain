@@ -6,16 +6,16 @@ ShootingSkill::ShootingSkill()
 
 }
 
-ShootingSkill::ShootingSkill(int playerid) : m_PlayerId(playerid)
+ShootingSkill::ShootingSkill(int playerId) : m_PlayerId(playerId)
 {
-	m_Speed = 0;
+	m_MissileSpeed = 0;
 }
 
 ShootingSkill::~ShootingSkill()
 {
 }
 
-void ShootingSkill::Shoot(int unitId, b2Vec2 targetPos)
+void ShootingSkill::ShootSkill(int unitId, b2Vec2 targetPos)
 {
 
 }

@@ -13,6 +13,6 @@ public:
 private:
 	int			m_PlayerID;
 	Hero*		m_Hero;
-	
+	HeroType	m_HeroType; // 일단 가지고 있다고 침
 };
 

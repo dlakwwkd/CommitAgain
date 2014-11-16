@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "FireballSkill.h"
 #include "FireballMissile.h"
-
+#include "Hero.h"
 
 FireballSkill::FireballSkill(int playerid)
 {
 	m_PlayerId = playerid;
-	m_Speed = 5;
+	m_MissileSpeed = 5.0f;
 	m_Damage = 50;
-	m_LiveTime = 500;
+	m_MissileLiveTime = 500.0f;
 }
 
 
@@ -16,12 +16,11 @@ FireballSkill::~FireballSkill()
 {
 }
 
-void FireballSkill::Shoot(int unitId, b2Vec2 targetPos)
+void FireballSkill::ShootSkill(int unitId, b2Vec2 targetPos)
 {
-	ms_fireball = new FireballMissile(m_PlayerId, unitId);
-	ms_fireball->SetVelocity(m_Speed);
-	ms_fireball->SetDamage(m_Damage);
-	ms_fireball->SetTargerPos(targetPos);
-	ms_fireball->SetLiveTime(m_LiveTime);
-	ms_fireball->Shoot();
+	ms_fireball = new FireballMissile(m_PlayerId, unitId,/*heropos*/,targetPos);
+	ms_fireball->SetMissileSpeed(m_MissileSpeed);
+	ms_fireball->SetMissileDamage(m_Damage);
+	ms_fireball->SetMissileLivetime(m_MissileLiveTime);
+	ms_fireball->MissileShoot();
 }

@@ -3,14 +3,13 @@
 
 class FireballMissile;
 
-class FireballSkill :
-	public ShootingSkill
+class FireballSkill : public ShootingSkill
 {
 public:
 	FireballSkill(int playerid);
 	virtual ~FireballSkill();
 
-	void Shoot(int unitId, b2Vec2 targetPos);
+	void ShootSkill(int unitId, b2Vec2 targetPos);
 
 private:
 	FireballMissile*	ms_fireball;

@@ -11,11 +11,17 @@ Missile::Missile()
 
 }
 
-Missile::Missile(int playerId, int unitId)
+Missile::Missile(int playerId, int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
 {
+	//todo
+	//b2Vec2 direction = heroPos - targetPos;
+	
+	b2Vec2 initPos;//위에꺼 계산해서 넣어주기
+	
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	//bodyDef.position.Set(pos.x, pos.y);
+
+	bodyDef.position.Set(initPos.x,initPos.y);
 	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
 	b2CircleShape circle;
@@ -27,19 +33,25 @@ Missile::~Missile()
 {
 }
 
-void Missile::MissileShoot(b2Vec2 currentPos, b2Vec2 targetPos)
+void Missile::MissileShoot()
 {
-	m_TargetPos = targetPos;
-
-	auto direction = targetPos - m_Body->GetPosition();
+	
+	auto direction = m_TargetPos - m_Body->GetPosition();
 	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
 
 	direction *= m_Speed / distance;
 	m_Body->SetLinearVelocity(direction);
-	//todo
+	//todo : 코드추가및 검증필요
 }
 
-void Missile::ConsumeLiveTime(int costTime)
+void Missile::ConsumeLiveTime(float costTime)
 {
 
+}
+
+void Missile::SetMissileInitPos(b2Vec2 heroPos, b2Vec2 targetPos)
+{
+	//todo 
+
+	//hoor pos와 target pos 가지고와서 뺸후 어디에 놓을지...
 }

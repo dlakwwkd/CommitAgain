@@ -491,7 +491,7 @@ void ClientSession::SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, 
 {
 	SkillBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayerId;
-	outPacket.mHeroId = heroId;
+	outPacket.mUnitId = heroId;
 	outPacket.mKey = key;
 	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
 	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
