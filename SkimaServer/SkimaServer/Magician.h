@@ -9,7 +9,7 @@ public:
 	virtual~Magician();
 
 	
-	virtual void UseSkill(SkillKey skillKey, b2Vec2 targetPos);
+	virtual void UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos);
 
 };
 

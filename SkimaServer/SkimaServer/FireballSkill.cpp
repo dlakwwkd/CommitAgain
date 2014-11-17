@@ -16,9 +16,9 @@ FireballSkill::~FireballSkill()
 {
 }
 
-void FireballSkill::ShootSkill(int unitId, b2Vec2 targetPos)
+void FireballSkill::ShootSkill(int unitId, b2Vec2 initPos, b2Vec2 targetPos)
 {
-	ms_fireball = new FireballMissile(m_PlayerId, unitId,/*heropos*/,targetPos);
+	ms_fireball = new FireballMissile(m_PlayerId, unitId, initPos, targetPos);
 	ms_fireball->SetMissileSpeed(m_MissileSpeed);
 	ms_fireball->SetMissileDamage(m_Damage);
 	ms_fireball->SetMissileLivetime(m_MissileLiveTime);

@@ -18,7 +18,7 @@ Magician::~Magician()
 {
 }
 
-void Magician::UseSkill(SkillKey skillKey, b2Vec2 targetPos)
+void Magician::UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
 {
 	//broadcast skill id , unit pos...
 	//skill id == missile unit id

@@ -12,7 +12,3 @@ Skill::~Skill()
 {
 }
 
-void Skill::ShootSkill(int unitId, b2Vec2 targetPos)
-{
-
-}

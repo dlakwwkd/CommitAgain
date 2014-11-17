@@ -33,3 +33,8 @@ b2Vec2 ShootingSkill::GenerateInitPos(b2Vec2 heroPos, b2Vec2 targetPos)
 	return direction;
 
 }
+
+int ShootingSkill::MakeMissileUnitId(int playerId)
+{
+
+}

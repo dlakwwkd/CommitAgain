@@ -12,7 +12,7 @@ public:
 
 	void				UnitMove();
 	void				UnitCrashed(bool isCrashed);
-	virtual void		UseSkill(SkillKey skillKey, b2Vec2 targetPos);
+	virtual void		UseSkill(SkillKey skillKey,b2Vec2 heroPos, b2Vec2 targetPos);
 
 protected:
 	int			m_SkillID;
