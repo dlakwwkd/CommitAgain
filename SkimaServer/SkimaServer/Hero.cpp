@@ -14,6 +14,7 @@ Hero::Hero()
 Hero::Hero(int playerId, int unitId, HeroType heroType, b2Vec2 pos)
 {
 	m_UnitID = unitId;
+	m_unitType = UNIT_HERO;
 	m_HeroType = heroType;
 	m_Speed = 10.0f;
 	m_TargetPos = { 0, 0 };
@@ -83,5 +84,5 @@ void Hero::Crashing(bool isCrashing)
 	expectpos.x = pos.x + velo.x * CRASHTIME; //¿¹»ó °ª
 	expectpos.y = pos.y + velo.y * CRASHTIME;
 
-	client->CrashedBroadCast(m_UnitID, m_Body->GetPosition(), expectpos, isCrashing);
+	client->CrashedBroadCast(m_UnitID, m_unitType, m_Body->GetPosition(), expectpos, isCrashing);
 }

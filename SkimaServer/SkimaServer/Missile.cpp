@@ -14,6 +14,7 @@ Missile::Missile()
 
 Missile::Missile(int unitId, int missileId, b2Vec2 initPos, b2Vec2 targetPos)
 {
+	m_unitType = UNIT_MISSILE;
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 
@@ -54,6 +55,6 @@ void Missile::BeginCrashed()
 
 void Missile::Crashing(bool isCrashing)
 {
-	GClientManager->GetClient(m_PlayerID)->CrashedBroadCast(m_UnitID, m_Body->GetPosition(), m_Body->GetPosition(), isCrashing);
+	GClientManager->GetClient(m_PlayerID)->CrashedBroadCast(m_UnitID, m_unitType, m_Body->GetPosition(), m_Body->GetPosition(), isCrashing);
 	delete this;
 }
