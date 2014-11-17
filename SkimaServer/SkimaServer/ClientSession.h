@@ -11,6 +11,7 @@
 
 class ClientSession;
 class ClientManager;
+class Player;
 //struct DatabaseJobContext ;
 
 struct OverlappedIO : public OVERLAPPED
