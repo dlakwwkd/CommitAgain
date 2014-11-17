@@ -9,7 +9,8 @@ public:
 	ShootingSkill(int playerid);
 	virtual ~ShootingSkill();
 	
-	virtual void ShootSkill(int unitId, b2Vec2 targetPos);
+	b2Vec2 GenerateInitPos(b2Vec2 heroPos, b2Vec2 targetPos);
+	virtual void ShootSkill(int unitId, b2Vec2 initPos, b2Vec2 targetPos);
 
 protected:	
 	
