@@ -3,6 +3,7 @@
 #include "FSM.h"
 
 class b2World;
+#define CRASHTIME 0.1f
 
 class Unit
 {
@@ -34,10 +35,10 @@ public:
 	MoveState*		GetMovingState(){ return (MoveState*)m_MovingState; }
 	MoveState*		GetCrashedState() { return (MoveState*)m_CrashedState; }
 
-	void			UnitMove();
-	virtual void	BeginCrashed();
-	virtual void	Crashing(bool isCrashing);
-	void			UnitCrashed(bool isCrashed);
+	virtual void	UnitMove()=0;
+	virtual void	BeginCrashed()=0;
+	virtual void	Crashing(bool isCrashing)=0;
+	//virtual void	UnitCrashed(bool isCrashed)=0;
 
 
 protected:

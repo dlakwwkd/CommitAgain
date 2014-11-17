@@ -224,8 +224,8 @@ void GameManager::Tick(float dt)
 			if (!game.second->IsStart())
 				continue;
 
-			auto unit = player.second->GetMyHero();	_ASSERT(unit != nullptr);
-			unit->Movement();
+			auto hero = player.second->GetMyHero();	_ASSERT(hero != nullptr);
+			hero->Movement();
 		}
 	}
 }
