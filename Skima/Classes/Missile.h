@@ -6,5 +6,9 @@ class Missile :
 public:
 	Missile();
 	virtual ~Missile();
+
+public:
+	virtual void MissileCast(Point createPos, Point targetPos) = 0;
+
 };
 
