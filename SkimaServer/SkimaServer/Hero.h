@@ -10,10 +10,10 @@ public:
 
 	HeroType			GetHeroType(){ return m_HeroType; }
 
-	virtual void		UnitMove();
-	virtual void		BeginCrashed() { m_State->Crashed(this); }
-	virtual void		Crashing(bool isCrashing);
-	//virtual void		UnitCrashed(bool isCrashed);
+	void				UnitMove();
+	void				BeginCrashed() { m_State->Crashed(this); }
+	void				Crashing(bool isCrashing);
+	//void				UnitCrashed(bool isCrashed);
 	virtual void		UseSkill(SkillKey skillKey,b2Vec2 heroPos, b2Vec2 targetPos);
 	
 protected:

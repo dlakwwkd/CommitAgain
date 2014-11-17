@@ -15,12 +15,12 @@ public:
 	void			SetMissileLivetime(float missileLivetime) { m_Livetime = missileLivetime; }
 
 
+	void			UnitMove(){};
+	void			BeginCrashed();
+	void			Crashing(bool isCrashing);
 
 	virtual void	MissileShoot();
 	virtual void	ConsumeLiveTime(float costTime);
-	virtual void	UnitMove(){};
-	virtual void	BeginCrashed();
-	virtual void	Crashing(bool isCrashing);
 
 protected:
 	int m_Damage;

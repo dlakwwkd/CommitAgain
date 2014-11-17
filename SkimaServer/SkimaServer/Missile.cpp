@@ -14,15 +14,7 @@ Missile::Missile()
 
 Missile::Missile(int unitId, int missileId, b2Vec2 initPos, b2Vec2 targetPos)
 {
-	m_unitType = UNIT_MISSILE;
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
 
-	bodyDef.position.Set(initPos.x,initPos.y);
-	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
-
-	b2CircleShape circle;
-	circle.m_radius = 10.0f / PTM_RATIO;
 }
 
 
@@ -39,8 +31,7 @@ void Missile::MissileShoot()
 	direction *= m_Speed / distance;
 	m_Body->SetLinearVelocity(direction);
 
-	GClientManager->GetClient(m_PlayerID)->MissileBroadCast(m_UnitID, currentPos, m_TargetPos);
-	//todo : 코드추가및 검증필요
+	GClientManager->GetClient(m_PlayerID)->MissileBroadCast(m_PlayerID,m_UnitID, currentPos, m_TargetPos);
 }
 
 void Missile::ConsumeLiveTime(float costTime)

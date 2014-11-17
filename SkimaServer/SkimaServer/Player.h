@@ -9,7 +9,7 @@ public:
 
 	Hero*	GetMyHero(){ return m_Hero; }
 	void	SetHeroType(HeroType herotype) { m_HeroType = herotype; }
-	void	CreateHero(int unitId, b2Vec2 pos);
+	void	CreateHero(b2Vec2 pos);
 
 private:
 	int			m_PlayerID;

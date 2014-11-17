@@ -6,10 +6,11 @@ ShootingSkill::ShootingSkill()
 
 }
 
-ShootingSkill::ShootingSkill(int playerId)
+ShootingSkill::ShootingSkill(int playerId, float heroBodySize)
 {
 	m_PlayerId = playerId;
 	m_MissileSpeed = 0;
+	m_HeroBodySize = heroBodySize;
 }
 
 ShootingSkill::~ShootingSkill()
@@ -28,18 +29,8 @@ b2Vec2 ShootingSkill::GenerateInitPos(b2Vec2 heroPos, b2Vec2 targetPos)
 	auto direction = targetPos - heroPos;
 	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
 
-	direction *= 5 / distance; //수치 수정필요 ==> hero의 size를 받을것
+	direction *= (2.5f*2*m_HeroBodySize) / distance; //수치 수정필요 ==> hero의 size를 받을것
 
 	return direction;
 
-}
-
-int ShootingSkill::MakeMissileUnitId(int playerId)
-{
-	//일단 하드 코딩
-
-	int missileId;
-	missileId = rand()%playerId;
-
-	return missileId;
 }

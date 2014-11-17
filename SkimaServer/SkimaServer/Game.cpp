@@ -12,9 +12,9 @@ void Game::SetPlayerList(PlayerList playerlist)
 	for (auto& it : playerlist)
 	{
 		if (i == 1)
-			it.second->CreateHero(i, { 100 / PTM_RATIO, 100 / PTM_RATIO });
+			it.second->CreateHero({ 100 / PTM_RATIO, 100 / PTM_RATIO });
 		else
-			it.second->CreateHero(i, { (MAX_MAP_SIZE_X - 100) / PTM_RATIO, (MAX_MAP_SIZE_Y - 100) / PTM_RATIO });
+			it.second->CreateHero({ (MAX_MAP_SIZE_X - 100) / PTM_RATIO, (MAX_MAP_SIZE_Y - 100) / PTM_RATIO });
 
 		i++;
 	}

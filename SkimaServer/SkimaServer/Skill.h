@@ -13,5 +13,6 @@ public:
 protected:
 	int	m_Damage;
 	int m_PlayerId;
+	float m_HeroBodySize;
 };
 
