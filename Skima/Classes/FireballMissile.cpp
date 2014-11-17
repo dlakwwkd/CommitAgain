@@ -13,9 +13,8 @@ FireballMissile::~FireballMissile()
 {
 }
 
-void FireballMissile::MissileCast(Point createPos, Point targetPos, int missileID)
+void FireballMissile::MissileCast(Point createPos, Point targetPos)
 {
-	m_MissileID = missileID;
 	m_Particle = ParticleSystemQuad::create("Images/light.plist");
 	m_Particle->setPosition(createPos);
 	auto distance = targetPos - createPos;

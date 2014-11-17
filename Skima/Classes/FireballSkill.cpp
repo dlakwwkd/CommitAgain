@@ -15,5 +15,5 @@ FireballSkill::~FireballSkill()
 
 void FireballSkill::SkillCast(Point heroPos, Point targetPos, int missileID)
 {
-	m_Missile->MissileCast(heroPos, targetPos, missileID);
+	m_Missile->MissileCast(heroPos, targetPos);
 }
