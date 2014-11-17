@@ -14,10 +14,10 @@ bool MapLayer::init()
 	auto sprite = Sprite::create("Images/bg1.png");
 	sprite->setPosition(layerCenter);
 	this->addChild(sprite);
-
-	this->addChild(particle);
-	auto action = MoveTo::create(1, { 500, 500 });
-	particle->runAction(action);
+// 
+// 	this->addChild(particle);
+// 	auto action = MoveTo::create(1, { 500, 500 });
+// 	particle->runAction(action);
 //	auto body = PhysicsBody::createEdgeBox(sprite->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT, 3);
 //	sprite->setPhysicsBody(body);
 	return true;

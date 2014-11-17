@@ -337,6 +337,21 @@ void TcpClient::processPacket()
 			}
 			break;
 
+		case PKT_SC_MISSILE:
+			{
+				MissileBroadcastResult recvData;
+				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+				assert(ret && recvData.mPlayerId != -1);
+
+				auto curPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
+				auto targetPos = Point(recvData.mTargetPosX, recvData.mTargetPosY);
+
+				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::ShootMissile, layer,
+					recvData.mUnitId, curPos, targetPos));
+			}
+			break;
+
 		default:
 			assert(false);
 		}

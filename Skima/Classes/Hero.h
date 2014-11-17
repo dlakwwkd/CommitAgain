@@ -7,6 +7,8 @@ public:
 	Hero();
 	virtual ~Hero();
 
+	HeroType GetHeroType(){ return m_HeroType; }
+
 protected:
 	HeroType m_HeroType;
 };

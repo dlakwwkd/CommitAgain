@@ -4,7 +4,9 @@
 #include "LoadingBGLayer.h"
 #include "Magician.h"
 #include "GameManager.h"
-#include "Unit.h"
+#include "Hero.h"
+#include "Missile.h"
+#include "FireballMissile.h"
 #include "Enums.h"
 
 
@@ -43,16 +45,22 @@ void ObjectLayer::TickM(float dt)
 
 
 
+void ObjectLayer::FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos)
+{
+	//todo unitType 持绢林扁
+	CreateHero(playerID, unitID, pos, heroType);
+}
+
 void ObjectLayer::CreateHero(int playerID, int unitID, Point location, HeroType heroType)
 {
-	std::shared_ptr<Unit> unit;
+	std::shared_ptr<Hero> unit;
 
 	switch (heroType)
 	{
 	case HERO_NONE:
 		return;
 	case HERO_MAGICIAN:
-		std::shared_ptr<Unit> temp(new Magician(location, 1.0f));
+		std::shared_ptr<Hero> temp(new Magician(location, 1.0f));
 		unit = temp;
 		break;
 	}
@@ -114,12 +122,20 @@ void ObjectLayer::UnitSkillUse(int unitId, SkillKey key, Point recvCurPos, Point
 }
 
 
-
-void ObjectLayer::FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos)
+void ObjectLayer::ShootMissile(int missileID, Point createPos, Point targetPos)
 {
-	//todo unitType 持绢林扁
-	CreateHero(playerID, unitID, pos, heroType);
+	switch (GET_GM.GetGameMode())
+	{
+	case SINGLE:
+		ShootMissileS(createPos, targetPos);
+		break;
+	case MULTI:
+		ShootMissileM(missileID, createPos, targetPos);
+		break;
+	}
 }
+
+
 
 // 
 // void ObjectLayer::AddNewSpriteAtPosition(Point pos)
@@ -201,6 +217,30 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Poin
 	m_UnitList[unitID]->EndMove();
 }
 
+void ObjectLayer::ShootMissileS(Point createPos, Point targetPos)
+{
 
+}
+
+void ObjectLayer::ShootMissileM(int missileID, Point createPos, Point targetPos)
+{
+	std::shared_ptr<Missile> missile;
+
+	switch (m_Hero->GetHeroType())
+	{
+	case HERO_MAGICIAN:
+		{
+			std::shared_ptr<Missile> temp(new FireballMissile());
+			missile = temp;
+		}
+		break;
+	case HERO_NONE:
+		return;
+	}
+	missile->SetUnitID(missileID);
+	missile->MissileCast(createPos, targetPos);
+
+	m_MissileList[missileID] = missile;
+}
 
 

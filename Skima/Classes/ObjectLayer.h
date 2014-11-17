@@ -6,6 +6,8 @@
 USING_NS_CC;
 
 class Unit;
+class Hero;
+class Missile;
 
 class ObjectLayer : public cocos2d::Layer
 {
@@ -16,15 +18,17 @@ public:
 	void TickS(float dt);
 	void TickM(float dt);
 
-	std::shared_ptr<Unit> GetMyHero(){ return m_Hero; }
+	std::shared_ptr<Hero> GetMyHero(){ return m_Hero; }
 
+	void FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos);
 	void CreateHero(int playerID, int unitID, Point location, HeroType heroType);
 	void UnitMove(int unitID, Point recvCurPos, Point targetPos);
 	void UnitCrash(int unitID, Point recvPos);
 	void UnitCrashEnd(int unitID, Point revisePos);
 	void UnitSkillUse(int unitID, SkillKey key, Point recvCurPos, Point targetPos);
 
-	void FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos);
+	void ShootMissile(int missileID, Point createPos, Point targetPos);
+
 
 // 	void AddNewSpriteAtPosition(Point pos);
 // 	void MobAi();
@@ -36,10 +40,13 @@ protected:
 	void UnitCrashM(int unitID, Point recvPos);
 	void UnitSkillUseS(SkillKey key, Point pos);
 	void UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Point targetPos);
+	void ShootMissileS(Point createPos, Point targetPos);
+	void ShootMissileM(int missileID, Point createPos, Point targetPos);
 
 protected:
-	std::shared_ptr<Unit>					m_Hero;
+	std::shared_ptr<Hero>					m_Hero;
 	std::map<int, std::shared_ptr<Unit>>	m_UnitList;
+	std::map<int, std::shared_ptr<Missile>>	m_MissileList;
 
 
 	std::vector<std::shared_ptr<Unit>>		m_MobList;

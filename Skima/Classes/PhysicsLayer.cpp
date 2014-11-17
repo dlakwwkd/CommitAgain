@@ -5,7 +5,7 @@
 #include "ObjectLayer.h"
 #include "MapLayer.h"
 #include "TcpClient.h"
-#include "Unit.h"
+#include "Hero.h"
 
 #define GET_OBJECT_LAYER dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
 
