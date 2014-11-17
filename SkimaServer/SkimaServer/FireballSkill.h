@@ -9,9 +9,7 @@ public:
 	FireballSkill(int playerid,float heroBodySize);
 	virtual ~FireballSkill();
 
-	virtual void ShootSkill(int unitId, b2Vec2 heroPos, b2Vec2 targetPos);
+	virtual void SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos);
 
-private:
-	FireballMissile*	ms_Fireball;
 };
 

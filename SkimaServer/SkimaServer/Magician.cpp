@@ -28,43 +28,23 @@ Magician::Magician(int playerId, HeroType heroType, b2Vec2 pos)
 
 	m_Body->CreateFixture(&fixtureDef);
 	m_Body->SetUserData(this);
-
+	
 	m_HeroType = HERO_MAGICIAN;
 	
-	m_Qskill = new FireballSkill(m_PlayerID, m_Body->GetFixtureList()->GetShape()->m_radius);
-	
-
+	m_SkillList[SKILL_Q] = new FireballSkill(m_PlayerID,circle.m_radius);
 }
 
 
 Magician::~Magician()
 {
 	GGameManager->GetWolrd()->DestroyBody(m_Body);
+	for (auto& skill : m_SkillList)
+	{
+		delete skill.second;
+	}
 }
 
 void Magician::UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
 {
-	printf("[DEBUG] Magician :: UseSkill\n");
-	//broadcast skill id , unit pos...
-	//skill id == missile unit id
-	switch (skillKey)
-	{
-	case SKILL_NONE:
-		break;
-
-	case SKILL_Q:
-		m_Qskill->ShootSkill(m_UnitID,heroPos,targetPos);
-		break;
-
-	case SKILL_W:
-		break;
-
-	case SKILL_E:
-		break;
-
-	case SKILL_R:
-		break;
-
-	}
+	m_SkillList[skillKey]->SkillCast(m_UnitID, heroPos, targetPos);
 }
-		
