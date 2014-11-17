@@ -471,11 +471,12 @@ void ClientSession::SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos
 	}
 }
 
-void ClientSession::CrashedBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 expectPos, bool isCrashed)
+void ClientSession::CrashedBroadCast(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 expectPos, bool isCrashed)
 {
 	CrashedBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayerId;
 	outPacket.mUnitId = unitId;
+	outPacket.mUnitType = unitType;
 	outPacket.mIsCrashed = isCrashed;
 	outPacket.mCurrentPosX = currentPos.x * PTM_RATIO;
 	outPacket.mCurrentPosY = currentPos.y * PTM_RATIO;
