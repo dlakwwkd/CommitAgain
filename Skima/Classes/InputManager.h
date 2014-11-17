@@ -40,6 +40,7 @@ public:
 	void	SetTargeting(EventKeyboard::KeyCode key, bool status)	{ m_Targeting[key] = status; }
 
 	void					CheckMouseScroll();
+	void					InitTargetingKey();
 	EventKeyboard::KeyCode	SearchTargetingKey();
 
 private:

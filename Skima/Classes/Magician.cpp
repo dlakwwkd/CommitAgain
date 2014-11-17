@@ -6,7 +6,7 @@
 
 Magician::Magician(Point createPos, float scale)
 {
-	m_Sprite = Sprite::create("Images/Magician.png");
+	m_Sprite = Sprite::create("Magician.png");
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
 	m_SkillList[SKILL_Q] = new FireballSkill();

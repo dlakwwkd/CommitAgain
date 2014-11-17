@@ -52,7 +52,7 @@ public:
 	void		AllReadyNotify();
 	void		SendCreateHeroResult(int unitId, HeroType unitType, b2Vec2 pos);
 	void		SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
-	void		CrashedBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 expectPos, bool mIsCrashed);
+	void		CrashedBroadCast(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 expectPos, bool mIsCrashed);
 	void		SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos);
 	void		MissileBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
 	void		ServerRunComplete();

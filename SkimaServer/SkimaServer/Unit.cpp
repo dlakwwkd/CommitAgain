@@ -4,7 +4,6 @@
 #include "GameManager.h"
 #include "Unit.h"
 
-#define CRASHTIME 0.1f
 
 Unit::Unit(int playerId, UnitType m_unitType, b2Vec2 pos)
 {
@@ -50,35 +49,35 @@ void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 }
 
 
-void Unit::UnitMove()
-{
-	if (!(m_Body->GetPosition().x < m_TargetPos.x - 0.1f ||
-		m_Body->GetPosition().y < m_TargetPos.y - 0.1f ||
-		m_Body->GetPosition().x > m_TargetPos.x + 0.1f ||
-		m_Body->GetPosition().y > m_TargetPos.y + 0.1f))
-	{
-		printf(" - Reach: UnitID:  %d, \t\t\t\t\t X : %.f\tY : %.f\n", m_UnitID,
-			m_Body->GetPosition().x*PTM_RATIO, m_Body->GetPosition().y*PTM_RATIO);
-		EndMove();
-	}
-}
-
-void Unit::UnitCrashed(bool isCrashed)
-{
-	auto client = GClientManager->GetClient(m_PlayerID);		_ASSERT(client != nullptr);
-
-	auto velo = m_Body->GetLinearVelocity();
-	velo.x *= 5;
-	velo.y *= 5;
-	m_Body->SetLinearVelocity(velo);
-	auto pos = m_Body->GetPosition();
-
-	printf("Velocity unitId: %d, x: %f, y: %f\n", m_UnitID, velo.x*PTM_RATIO, velo.y*PTM_RATIO);
-
-	b2Vec2 expectpos;
-
-	expectpos.x = pos.x + velo.x * CRASHTIME; //예상 값
-	expectpos.y = pos.y + velo.y * CRASHTIME;
-
-	client->CrashedBroadCast(m_UnitID, m_Body->GetPosition(), expectpos, isCrashed);
-}
+// void Unit::UnitMove()
+// {
+// 	if (!(m_Body->GetPosition().x < m_TargetPos.x - 0.1f ||
+// 		m_Body->GetPosition().y < m_TargetPos.y - 0.1f ||
+// 		m_Body->GetPosition().x > m_TargetPos.x + 0.1f ||
+// 		m_Body->GetPosition().y > m_TargetPos.y + 0.1f))
+// 	{
+// 		printf(" - Reach: UnitID:  %d, \t\t\t\t\t X : %.f\tY : %.f\n", m_UnitID,
+// 			m_Body->GetPosition().x*PTM_RATIO, m_Body->GetPosition().y*PTM_RATIO);
+// 		EndMove();
+// 	}
+// }
+// 
+// void Unit::UnitCrashed(bool isCrashed)
+// {
+// 	auto client = GClientManager->GetClient(m_PlayerID);		_ASSERT(client != nullptr);
+// 
+// 	auto velo = m_Body->GetLinearVelocity();
+// 	velo.x *= 5;
+// 	velo.y *= 5;
+// 	m_Body->SetLinearVelocity(velo);
+// 	auto pos = m_Body->GetPosition();
+// 
+// 	printf("Velocity unitId: %d, x: %f, y: %f\n", m_UnitID, velo.x*PTM_RATIO, velo.y*PTM_RATIO);
+// 
+// 	b2Vec2 expectpos;
+// 
+// 	expectpos.x = pos.x + velo.x * CRASHTIME; //예상 값
+// 	expectpos.y = pos.y + velo.y * CRASHTIME;
+// 
+// 	client->CrashedBroadCast(m_UnitID, m_Body->GetPosition(), expectpos, isCrashed);
+// }

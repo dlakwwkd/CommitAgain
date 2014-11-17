@@ -46,3 +46,14 @@ void Missile::ConsumeLiveTime(float costTime)
 {
 
 }
+
+void Missile::BeginCrashed()
+{
+	m_Body->SetLinearDamping(10.0f);
+}
+
+void Missile::Crashing(bool isCrashing)
+{
+	GClientManager->GetClient(m_PlayerID)->CrashedBroadCast(m_UnitID, m_Body->GetPosition(), m_Body->GetPosition(), isCrashing);
+	delete this;
+}

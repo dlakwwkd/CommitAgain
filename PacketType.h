@@ -348,6 +348,7 @@ struct CrashedBroadcastResult : public PacketHeader
 		mType = PKT_SC_CRASH;
 		mPlayerId = -1;
 		mUnitId = -1;
+		mUnitType = UNIT_NONE;
 		mIsCrashed = true;
 		mCurrentPosX = 0;
 		mCurrentPosY = 0;
@@ -356,6 +357,7 @@ struct CrashedBroadcastResult : public PacketHeader
 	}
 	int			mPlayerId;
 	int			mUnitId;
+	UnitType	mUnitType;
 	bool		mIsCrashed;
 	float		mCurrentPosX;
 	float		mCurrentPosY;

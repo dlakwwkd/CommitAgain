@@ -128,6 +128,8 @@ void ListenerLayer::OnMouseDown(Event *event)
 			{
 				TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
 			}
+			GET_IM->InitTargetingKey();
+			m_Targeting = false;
 		}
 		break;
 	}

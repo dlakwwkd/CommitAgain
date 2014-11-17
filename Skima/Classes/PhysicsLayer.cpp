@@ -86,7 +86,7 @@ void PhysicsLayer::ScreenMove()
 ///////////////////////////////////////////////////////////////////////////
 void PhysicsLayer::OnMouseDown(Event *event)
 {
-	auto button = dynamic_cast<EventMouse*>(event)->getMouseButton();
+	auto button = static_cast<EventMouse*>(event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, true);
 
 	auto layer = GET_OBJECT_LAYER;		_ASSERT(layer != nullptr);

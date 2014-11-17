@@ -3,6 +3,7 @@
 #include "FSM.h"
 
 class b2World;
+#define CRASHTIME 0.1f
 
 class Unit
 {
@@ -12,30 +13,32 @@ public:
 	virtual~Unit();
 
 public:
-	int			GetUnitID(){ return m_UnitID; }
-	void		SetUnitHp(int Hp){ m_Hp = Hp; }
-	int			GetUnitHp(){ return m_Hp; }
-	UnitType	GetUnitType(){ return m_unitType; }
-	void		SetSpeed(float speed){ m_Speed = speed; }
-	float		GetSpeed(){ return m_Speed; }
-	void		SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
-	b2Vec2		GetTargetPos(){ return m_TargetPos; }
-	b2Body*		GetBody(){ return m_Body; }
+	int				GetUnitID(){ return m_UnitID; }
+	void			SetUnitHp(int Hp){ m_Hp = Hp; }
+	int				GetUnitHp(){ return m_Hp; }
+	UnitType		GetUnitType(){ return m_unitType; }
+	void			SetSpeed(float speed){ m_Speed = speed; }
+	float			GetSpeed(){ return m_Speed; }
+	void			SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
+	b2Vec2			GetTargetPos(){ return m_TargetPos; }
+	b2Body*			GetBody(){ return m_Body; }
 
-	void		TryMove(b2Vec2 currentPos, b2Vec2 targetPos);
-	void		Crashed() { m_State->Crashed(this); }
-	void		EndMove() { m_State->EndMove(this); }
-	void		EndCrash() { m_State->EndCrash(this); }
-	void		Movement(){ m_State->Movement(this); }
+	void			TryMove(b2Vec2 currentPos, b2Vec2 targetPos);
+	void			Crashed() { m_State->Crashed(this); }
+	void			EndMove() { m_State->EndMove(this); }
+	void			EndCrash() { m_State->EndCrash(this); }
+	void			Movement(){ m_State->Movement(this); }
 
-	void		SetState(MoveState* state){ m_State = state; }
-	MoveState*	GetState(){ return (MoveState*)m_State; }
-	MoveState*	GetStandbyState() { return (MoveState*)m_StandbyState; }
-	MoveState*	GetMovingState(){ return (MoveState*)m_MovingState; }
-	MoveState*	GetCrashedState() { return (MoveState*)m_CrashedState; }
+	void			SetState(MoveState* state){ m_State = state; }
+	MoveState*		GetState(){ return (MoveState*)m_State; }
+	MoveState*		GetStandbyState() { return (MoveState*)m_StandbyState; }
+	MoveState*		GetMovingState(){ return (MoveState*)m_MovingState; }
+	MoveState*		GetCrashedState() { return (MoveState*)m_CrashedState; }
 
-	void		UnitMove();
-	void		UnitCrashed(bool isCrashed);
+	virtual void	UnitMove()=0;
+	virtual void	BeginCrashed()=0;
+	virtual void	Crashing(bool isCrashing)=0;
+	//virtual void	UnitCrashed(bool isCrashed)=0;
 
 
 protected:
