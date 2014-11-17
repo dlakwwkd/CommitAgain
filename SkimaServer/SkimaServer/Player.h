@@ -8,11 +8,12 @@ public:
 	~Player(){ delete m_Hero; }
 
 	Hero*	GetMyHero(){ return m_Hero; }
+	void	SetHeroType(HeroType herotype) { m_HeroType = herotype; }
 	void	CreateHero(b2Vec2 pos);
 
 private:
 	int			m_PlayerID;
 	Hero*		m_Hero;
-	HeroType	m_HeroType; // 일단 가지고 있다고 침
+	HeroType	m_HeroType;
 };
 

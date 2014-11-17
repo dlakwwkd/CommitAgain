@@ -72,9 +72,9 @@ int GameManager::SearchEmptyRoom()
 	return -1;
 }
 
-void GameManager::JoinRoom(int playerId, int roomId)
+void GameManager::JoinRoom(int id, Player* player, int roomId)
 {
-	m_RoomList[roomId]->JoinPlayer(playerId);
+	m_RoomList[roomId]->JoinPlayer(id, player);
 }
 
 void GameManager::OutRoom(int playerId, int roomId)

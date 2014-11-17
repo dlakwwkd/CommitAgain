@@ -13,7 +13,7 @@ public:
 
 	int					GetGameID(){ return m_GameID; }
 	const PlayerList&	GetPlayerList(){ return m_PlayerList; }
-	void				SetPlayerList(const std::vector<int>& playerIdList);
+	void				SetPlayerList(PlayerList playerlist);
 	
 	void				SetIsStart(bool isStart){ m_IsStart = isStart; }
 	void				SetIsReady(bool isReady){ m_IsReady = isReady; }
