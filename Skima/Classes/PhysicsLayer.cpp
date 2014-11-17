@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "PhysicsLayer.h"
+#include "SingleGameScene.h"
 #include "GameManager.h"
 #include "ObjectLayer.h"
 #include "MapLayer.h"
 #include "TcpClient.h"
+#include "Unit.h"
 
 #define GET_OBJECT_LAYER dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
 
@@ -87,13 +89,22 @@ void PhysicsLayer::OnMouseDown(Event *event)
 	auto button = static_cast<EventMouse*>(event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, true);
 
+	auto layer = GET_OBJECT_LAYER;		_ASSERT(layer != nullptr);
+	auto hero = layer->GetMyHero();
+
 	switch (button)
 	{
 	case MOUSE_BUTTON_LEFT:
 		break;
 	case MOUSE_BUTTON_RIGHT:
-		auto layer = GET_OBJECT_LAYER;		_ASSERT(layer != nullptr);
-		layer->UnitMove(1, { 0, 0 }, GET_IM->GetMouseLocation());
+		{
+			if (hero->GetMoveState() != hero->GetCrashedState())
+			{
+				TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
+			}
+	
+			layer->UnitMove(1, { 0, 0 }, GET_IM->GetMouseLocation());
+		}
 		break;
 	}
 }
@@ -111,12 +122,6 @@ void PhysicsLayer::OnMouseMove(Event *event)
 
 	GET_IM->SetMouseLocation(location);
 	GET_IM->CheckMouseScroll();
-
-	if (GET_IM->GetMouseStatus(MOUSE_BUTTON_LEFT))
-	{
-		auto layer = GET_OBJECT_LAYER;		_ASSERT(layer != nullptr);
-		//layer->AddNewSpriteAtPosition(GET_IM->GetMouseLocation());
-	}
 }
 
 

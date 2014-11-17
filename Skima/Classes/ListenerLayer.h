@@ -20,7 +20,6 @@ public:
 	virtual void	OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 	virtual void	OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 
-
 private:
 	bool			m_Targeting;
 };
