@@ -17,20 +17,19 @@ ShootingSkill::~ShootingSkill()
 {
 }
 
-void ShootingSkill::ShootSkill(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
+void ShootingSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
 {
 
 }
 
 b2Vec2 ShootingSkill::GenerateInitPos(b2Vec2 heroPos, b2Vec2 targetPos)
 {
-	// todo : 가까이 있는곳에쏘면 내가 맞는 경우고려
-
 	auto direction = targetPos - heroPos;
 	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
+	
+	direction.x = (direction.x*m_HeroBodySize * 2.5f) / distance;
+	direction.y = (direction.y*m_HeroBodySize * 2.5f) / distance;
 
-	direction *= (2.5f*2*m_HeroBodySize) / distance; //수치 수정필요 ==> hero의 size를 받을것
-
-	return direction;
-
+	heroPos += direction;
+	return heroPos;
 }

@@ -9,9 +9,8 @@ void ContactListener::BeginContact(b2Contact *contact)
 	auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
 	auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
-	unitA->BeginCrashed();
-	unitB->BeginCrashed();
-
+	unitA->Crashed();
+	unitB->Crashed();
 }
 
 void ContactListener::EndContact(b2Contact* contact)

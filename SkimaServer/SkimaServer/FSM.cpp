@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FSM.h"
 #include "Hero.h"
+#include "GameManager.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -79,5 +80,10 @@ void CrashedState::Movement(Unit* unit)
 		unit->Crashing(false);
 		printf(" - CrashEnd: UnitID:  %d, \t\t\t\t X : %.f\tY : %.f\n", unit->GetUnitID(),
 			unit->GetBody()->GetPosition().x*PTM_RATIO, unit->GetBody()->GetPosition().y*PTM_RATIO);
+	}
+
+	if (unit->GetUnitType() == UNIT_MISSILE)
+	{
+		GGameManager->GetWolrd()->DestroyBody(unit->GetBody());
 	}
 }

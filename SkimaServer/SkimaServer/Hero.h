@@ -1,6 +1,10 @@
 #pragma once
 #include "Unit.h"
 #include "Skill.h"
+#include <map>
+
+typedef std::map<SkillKey, Skill*> SkillList;
+
 class Hero : public Unit
 {
 public:
@@ -9,10 +13,11 @@ public:
 	virtual~Hero();
 
 	HeroType			GetHeroType(){ return m_HeroType; }
+	const SkillList&	GetSkillList(){ return m_SkillList; }
 
 	void				UnitMove();
-	void				BeginCrashed() { m_State->Crashed(this); }
-	void				Crashing(bool isCrashing);
+	//void				BeginCrashed() { m_State->Crashed(this); }
+	//void				Crashing(bool isCrashing);
 	//void				UnitCrashed(bool isCrashed);
 	virtual void		UseSkill(SkillKey skillKey,b2Vec2 heroPos, b2Vec2 targetPos);
 	
@@ -20,10 +25,6 @@ protected:
 	int			m_SkillID;
 	HeroType    m_HeroType;
 
-	Skill*		m_Qskill;
-	Skill*		m_Wskill;
-	Skill*		m_Eskill;
-	Skill*		m_Rskill;
-
+	SkillList	m_SkillList;
 };
 
