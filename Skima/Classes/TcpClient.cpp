@@ -406,7 +406,6 @@ void TcpClient::startGameRequest()
 
 	GameReadyNotify sendData;
 	sendData.mPlayerId = mLoginId;
-
 	send((const char*)&sendData, sizeof(GameReadyNotify));
 }
 
