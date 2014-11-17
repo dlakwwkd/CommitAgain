@@ -48,6 +48,14 @@ void InputManager::CheckMouseScroll()
 	
 }
 
+void InputManager::InitTargetingKey()
+{
+	for (auto& key : m_Targeting)
+	{
+		key.second = false;
+	}
+}
+
 EventKeyboard::KeyCode InputManager::SearchTargetingKey()
 {
 	for (auto& key : m_Targeting)
