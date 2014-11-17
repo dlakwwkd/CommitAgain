@@ -28,7 +28,7 @@ void Magician::UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
 		break;
 
 	case SKILL_Q:
-		m_Qskill->ShootSkill(m_UnitID,targetPos);
+		m_Qskill->ShootSkill(m_UnitID,heroPos,targetPos);
 		break;
 
 	case SKILL_W:

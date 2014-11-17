@@ -11,10 +11,9 @@ Missile::Missile()
 
 }
 
-Missile::Missile(int playerId, int unitId, b2Vec2 initPos, b2Vec2 targetPos)
+
+Missile::Missile(int unitId, int missileId, b2Vec2 initPos, b2Vec2 targetPos)
 {
-	
-	
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 
