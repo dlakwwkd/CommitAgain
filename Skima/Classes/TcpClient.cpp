@@ -406,11 +406,8 @@ void TcpClient::startGameRequest()
 
 	GameReadyNotify sendData;
 	sendData.mPlayerId = mLoginId;
-<<<<<<< HEAD
-=======
 	sendData.mHeroType = HERO_MAGICIAN;
 
->>>>>>> origin/v0.3_Skill_Make
 	send((const char*)&sendData, sizeof(GameReadyNotify));
 }
 
