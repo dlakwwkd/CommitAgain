@@ -8,8 +8,10 @@ public:
 	~Missile();
 
 public:
-	virtual void MissileCast(Point createPos, Point targetPos) = 0;
-	virtual void MissileCrash() = 0;
+	virtual void MissileCast(Point createPos, Point targetPos, int missileID) = 0;
+
+protected:
+	int m_MissileID;
 
 };
 

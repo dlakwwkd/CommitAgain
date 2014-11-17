@@ -507,10 +507,10 @@ void ClientSession::SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, 
 	}
 }
 
-void ClientSession::MissileBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::MissileBroadCast(int playerId,int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	MissileBroadcastResult outPacket;
-	outPacket.mPlayerId = mPlayerId;
+	outPacket.mPlayerId = playerId;
 	outPacket.mUnitId = unitId;
 	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
 	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;

@@ -7,15 +7,19 @@
 
 Unit::Unit(int playerId, UnitType m_unitType, b2Vec2 pos)
 {
-	static int makeId = 0;
-	m_UnitID = ++makeId;
-	m_unitType = UNIT_NONE;
-	m_Hp = 0;
+	
 }
 
 Unit::Unit()
 {
+	static int makeId = 0;
+	m_UnitID = ++makeId;
+	m_unitType = UNIT_NONE;
+	m_Hp = 0;
 
+	m_State = m_StandbyState = new StandbyState;
+	m_MovingState = new MovingState;
+	m_CrashedState = new CrashedState;
 }
 
 Unit::~Unit()
@@ -23,7 +27,6 @@ Unit::~Unit()
 	delete m_StandbyState;
 	delete m_MovingState;
 	delete m_CrashedState;
-	GGameManager->GetWolrd()->DestroyBody(m_Body);
 }
 
 
