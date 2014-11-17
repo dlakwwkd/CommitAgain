@@ -136,6 +136,31 @@ void ObjectLayer::ShootMissile(int missileID, Point createPos, Point targetPos)
 }
 
 
+void ObjectLayer::MissileCrash(int missileID)
+{
+	switch (GET_GM.GetGameMode())
+	{
+	case SINGLE:
+		MissileCrashS();
+		break;
+	case MULTI:
+		MissileCrashM(missileID);
+		break;
+	}
+}
+
+
+void ObjectLayer::DeleteMissile(int missileID)
+{
+	for (auto& iter = m_MissileList.begin(); iter != m_MissileList.end(); ++iter)
+	{
+		if (iter->first == missileID)
+		{
+			m_MissileList.erase(iter);
+			break;
+		}
+	}
+}
 
 // 
 // void ObjectLayer::AddNewSpriteAtPosition(Point pos)
@@ -241,6 +266,16 @@ void ObjectLayer::ShootMissileM(int missileID, Point createPos, Point targetPos)
 	missile->MissileCast(createPos, targetPos);
 
 	m_MissileList[missileID] = missile;
+}
+
+void ObjectLayer::MissileCrashS()
+{
+
+}
+
+void ObjectLayer::MissileCrashM(int missileID)
+{
+	m_MissileList[missileID]->MissileCrash();
 }
 
 

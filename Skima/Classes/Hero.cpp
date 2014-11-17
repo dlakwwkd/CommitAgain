@@ -9,4 +9,8 @@ Hero::Hero()
 
 Hero::~Hero()
 {
+	for (auto& skill : m_SkillList)
+	{
+		delete skill.second;
+	}
 }

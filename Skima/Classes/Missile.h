@@ -5,10 +5,11 @@ class Missile :
 {
 public:
 	Missile();
-	virtual ~Missile();
+	~Missile();
 
 public:
 	virtual void MissileCast(Point createPos, Point targetPos) = 0;
+	virtual void MissileCrash() = 0;
 
 };
 

@@ -8,8 +8,8 @@ USING_NS_CC;
 class Unit
 {
 public:
+	Unit();
 	Unit(const std::string& filename, Point createPos, float scale);
-	Unit(){}
 	virtual ~Unit();
 
 	void			SetUnitID(int unitID){ m_UnitID = unitID; }

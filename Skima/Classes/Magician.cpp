@@ -2,11 +2,12 @@
 #include "Magician.h"
 #include "GameManager.h"
 #include "PacketType.h"
+#include "FireballSkill.h"
 
 
 Magician::Magician(Point createPos, float scale)
 {
-	m_Sprite = Sprite::create("Magician.png");
+	m_Sprite = Sprite::create("Images/Magician.png");
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
 	m_SkillList[SKILL_Q] = new FireballSkill();
@@ -32,20 +33,9 @@ Magician::Magician(Point createPos, float scale)
 	m_MaxHp = 300;
 	m_Hp = m_MaxHp;
 	m_HeroType = HERO_MAGICIAN;
-
-	m_MoveState = m_StandbyState = new StandbyState();
-	m_MovingState = new MovingState();
-	m_CrashedState = new CrashedState();
 }
 
 
 Magician::~Magician()
 {
-	delete m_StandbyState;
-	delete m_MovingState;
-	delete m_CrashedState;
-	for (auto& skill : m_SkillList)
-	{
-		delete skill.second;
-	}
 }

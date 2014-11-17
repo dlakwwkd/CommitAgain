@@ -11,6 +11,7 @@ public:
 
 public:
 	void MissileCast(Point createPos, Point targetPos);
+	void MissileCrash();
 	void MissileDelete();
 	
 private:

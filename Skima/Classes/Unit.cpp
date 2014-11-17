@@ -2,9 +2,16 @@
 #include "Unit.h"
 #include "GameManager.h"
 
-Unit::Unit(const std::string& filename, Point createPos, float scale)
+Unit::Unit()
 {
 	m_Speed = 10.0f;
+	m_MoveState = m_StandbyState = new StandbyState();
+	m_MovingState = new MovingState();
+	m_CrashedState = new CrashedState();
+}
+
+Unit::Unit(const std::string& filename, Point createPos, float scale)
+{
 	m_Sprite = Sprite::create(filename);
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
@@ -26,10 +33,6 @@ Unit::Unit(const std::string& filename, Point createPos, float scale)
 	case MULTI:
 		break;
 	}
-
-	m_MoveState = m_StandbyState = new StandbyState();
-	m_MovingState = new MovingState();
-	m_CrashedState = new CrashedState();
 }
 
 Unit::~Unit()

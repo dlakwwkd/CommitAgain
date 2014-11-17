@@ -90,7 +90,7 @@ bool TcpClient::connect()
 
 	memset(&hostAddr, 0, sizeof(hostAddr));
 	hostAddr.sin_family = AF_INET;
-	hostAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	hostAddr.sin_addr.s_addr = inet_addr("10.73.43.148");
 	hostAddr.sin_port = htons(port);
 
 	if (SOCKET_ERROR == ::connect(mSock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
@@ -157,7 +157,7 @@ void TcpClient::networkThread()
 
 		if (n < 1)
 		{
-			sleep(0); ///< for cpu low-utilization
+			sleep(10); ///< for cpu low-utilization
 			continue;
 		}
 
@@ -311,13 +311,23 @@ void TcpClient::processPacket()
 				auto revisionPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
 
 				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
-					recvData.mUnitId, exPos));
 
-				if (!recvData.mIsCrashed)
+				switch (recvData.mUnitType)
 				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
-						recvData.mUnitId, revisionPos));
+				case UNIT_HERO:
+					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
+						recvData.mUnitId, exPos));
+
+					if (!recvData.mIsCrashed)
+					{
+						scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
+							recvData.mUnitId, revisionPos));
+					}
+					break;
+				case UNIT_MISSILE:
+					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MissileCrash, layer,
+						recvData.mUnitId));
+					break;
 				}
 			}
 			break;

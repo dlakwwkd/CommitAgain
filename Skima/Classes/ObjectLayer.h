@@ -28,7 +28,8 @@ public:
 	void UnitSkillUse(int unitID, SkillKey key, Point recvCurPos, Point targetPos);
 
 	void ShootMissile(int missileID, Point createPos, Point targetPos);
-
+	void MissileCrash(int missileID);
+	void DeleteMissile(int missileID);
 
 // 	void AddNewSpriteAtPosition(Point pos);
 // 	void MobAi();
@@ -42,6 +43,8 @@ protected:
 	void UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Point targetPos);
 	void ShootMissileS(Point createPos, Point targetPos);
 	void ShootMissileM(int missileID, Point createPos, Point targetPos);
+	void MissileCrashS();
+	void MissileCrashM(int missileID);
 
 protected:
 	std::shared_ptr<Hero>					m_Hero;
