@@ -11,9 +11,9 @@ Hero::Hero()
 
 }
 
-Hero::Hero(int playerId, HeroType heroType, b2Vec2 pos)
+Hero::Hero(int playerId, int unitId, HeroType heroType, b2Vec2 pos)
 {
-	m_UnitID = -1;
+	m_UnitID = unitId;
 	m_HeroType = heroType;
 	m_Speed = 10.0f;
 	m_TargetPos = { 0, 0 };

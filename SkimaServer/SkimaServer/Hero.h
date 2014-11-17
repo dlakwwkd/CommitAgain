@@ -5,7 +5,7 @@ class Hero : public Unit
 {
 public:
 	Hero();
-	Hero(int playerId, HeroType heroType, b2Vec2 pos);
+	Hero(int playerId, int unitId, HeroType heroType, b2Vec2 pos);
 	virtual~Hero();
 
 	HeroType			GetHeroType(){ return m_HeroType; }

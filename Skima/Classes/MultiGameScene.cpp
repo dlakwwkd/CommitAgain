@@ -7,6 +7,8 @@
 #include "GameManager.h"
 #include "UILayer.h"
 
+USING_NS_CC;
+
 Scene* MultiGameScene::createScene()
 {
     auto scene = Scene::create();
@@ -32,7 +34,6 @@ bool MultiGameScene::init()
 	auto layer2 = UILayer::create();
 	this->addChild(layer1, 10, "LoadingBGLayer");
 	this->addChild(layer2, 5, "UILayer");
-	return true;
 }
 
 void MultiGameScene::StartGame()

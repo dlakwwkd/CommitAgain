@@ -162,8 +162,6 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 		session->Disconnect();
 		return;
 	}
-
-	session->MakePlayer();
 	session->LoginSuccessInform(inPacket.mPlayerId);
 
 	// 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
@@ -302,7 +300,7 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 
 	auto player = GGameManager->SearchPlayer(session->GetPlayerId());	_ASSERT(player != nullptr);
 	auto hero = player->GetMyHero();										_ASSERT(hero != nullptr);
-	hero->UseSkill(inPacket.mKey, targetPos);
+	//hero->UseSkill(inPacket.mKey, targetPos);
 
 	//session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
 }
@@ -352,6 +350,8 @@ void ClientSession::LoginSuccessInform(int id)
 {
 	LoginResult outPacket;
 	outPacket.mPlayerId = mPlayerId = id;
+	MakePlayer();
+
 	// 여기서는 일단 ID로 닉네임을 덮어썼는데,
 	// 나중에 DB를 이용해 ID별로 닉네임을 적용해야 할듯. -수빈
 	itoa(mPlayerId, mPlayerName, 10);

@@ -1,7 +1,5 @@
 #pragma once
 
-USING_NS_CC;
-
 class MultiGameScene : public cocos2d::Layer
 {
 public:
