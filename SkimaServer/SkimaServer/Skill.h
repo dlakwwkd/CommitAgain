@@ -6,7 +6,7 @@ public:
 	virtual ~Skill();
 
 
-	virtual void ShootSkill(int unitId, b2Vec2 targetPos);
+	virtual void ShootSkill(int unitId, b2Vec2 heroPos, b2Vec2 targetPos) = 0;
 	virtual int GetSkillDamage() { return m_Damage; }
 
 
