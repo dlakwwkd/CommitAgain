@@ -56,7 +56,6 @@ void ListenerLayer::ScreenMove()
 	Point mouseLocation = GET_IM->GetMouseLocation();
 	auto winSize = Director::getInstance()->getWinSize();
 
-
 	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && GET_IM->GetMouseScrollStatus(SCROLL_UP))
 	{
 		Point creteria = { 50, 50 };

@@ -7,8 +7,6 @@
 #include "GameManager.h"
 #include "UILayer.h"
 
-USING_NS_CC;
-
 Scene* MultiGameScene::createScene()
 {
     auto scene = Scene::create();
