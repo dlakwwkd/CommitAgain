@@ -10,7 +10,9 @@ Magician::Magician(int playerId, HeroType heroType, b2Vec2 pos)
 {
 	m_HeroType = HERO_MAGICIAN;
 
-	m_Qskill = new FireballSkill(m_PlayerID);
+	m_Qskill = new FireballSkill(m_PlayerID, m_Body->GetFixtureList()->GetShape()->m_radius);
+	
+
 }
 
 
