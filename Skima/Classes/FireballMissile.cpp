@@ -13,11 +13,12 @@ FireballMissile::~FireballMissile()
 {
 }
 
-void FireballMissile::MissileCast(Point heroPos, Point targetPos)
+void FireballMissile::MissileCast(Point createPos, Point targetPos, int missileID)
 {
+	m_MissileID = missileID;
 	m_Particle = ParticleSystemQuad::create("Images/light.plist");
-	m_Particle->setPosition(heroPos);
-	auto distance = targetPos - heroPos;
+	m_Particle->setPosition(createPos);
+	auto distance = targetPos - createPos;
 	auto scala = sqrt(pow(distance.x, 2) + pow(distance.y, 2)) / 300;
 	auto action1 = MoveTo::create(scala, targetPos);
 	auto action2 = CallFunc::create(CC_CALLBACK_0(FireballMissile::MissileDelete, this));

@@ -10,7 +10,7 @@ public:
 	~FireballMissile();
 
 public:
-	void MissileCast(Point createPos, Point targetPos);
+	void MissileCast(Point createPos, Point targetPos, int missileID);
 	void MissileDelete();
 	
 private:
