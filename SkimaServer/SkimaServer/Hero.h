@@ -12,7 +12,7 @@ public:
 
 	virtual void		UnitMove();
 	virtual void		BeginCrashed() { m_State->Crashed(this); }
-	virtual void		Crashing(bool isCrashing) {}
+	virtual void		Crashing(bool isCrashing);
 	//virtual void		UnitCrashed(bool isCrashed);
 	virtual void		UseSkill(SkillKey skillKey,b2Vec2 heroPos, b2Vec2 targetPos);
 	

@@ -18,6 +18,7 @@ public:
 
 	virtual void	MissileShoot();
 	virtual void	ConsumeLiveTime(float costTime);
+	virtual void	UnitMove(){};
 	virtual void	BeginCrashed();
 	virtual void	Crashing(bool isCrashing);
 
