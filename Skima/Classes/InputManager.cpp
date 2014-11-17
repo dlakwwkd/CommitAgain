@@ -8,13 +8,6 @@ InputManager::InputManager()
 	m_MouseScrollStatus[SCROLL_RIGHT] = false;
 	m_MouseScrollStatus[SCROLL_UP] = false;
 	m_MouseScrollStatus[SCROLL_DOWN] = false;
-// 	m_MouseScrollStatus[SCROLL_UPRIGHT] = false;
-// 	m_MouseScrollStatus[SCROLL_DOWNRIGHT] = false;
-// 	m_MouseScrollStatus[SCROLL_DOWNLEFT] = false;
-// 	m_MouseScrollStatus[SCROLL_UPLEFT] = false;
-// 	m_MouseScrollStatus[SCROLL_HORI] = false;
-// 	m_MouseScrollStatus[SCROLL_VERTI] = false;
-
 }
 
 void InputManager::CheckMouseScroll()
