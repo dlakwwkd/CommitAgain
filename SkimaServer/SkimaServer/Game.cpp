@@ -3,17 +3,18 @@
 #include "Player.h"
 #include "Map.h"
 
-void Game::SetPlayerList(const std::vector<int>& playerIdList)
+void Game::SetPlayerList(PlayerList playerlist)
 {
-	int i = 0;
-	for (auto& playerId : playerIdList)
-	{
-		m_PlayerList[playerId] = new Player(playerId);
+	m_PlayerList = playerlist;
 
+	int i = 0;
+
+	for (auto& it : playerlist)
+	{
 		if (i == 0)
-			m_PlayerList[playerId]->CreateHero({ 100 / PTM_RATIO, 100 / PTM_RATIO });
+			it.second->CreateHero({ 100 / PTM_RATIO, 100 / PTM_RATIO });
 		else
-			m_PlayerList[playerId]->CreateHero({ (MAX_MAP_SIZE_X - 100) / PTM_RATIO, (MAX_MAP_SIZE_Y - 100) / PTM_RATIO });
+			it.second->CreateHero({ (MAX_MAP_SIZE_X - 100) / PTM_RATIO, (MAX_MAP_SIZE_Y - 100) / PTM_RATIO });
 
 		i++;
 	}

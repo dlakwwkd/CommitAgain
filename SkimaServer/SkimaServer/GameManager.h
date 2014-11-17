@@ -19,7 +19,7 @@ public:
 
 	GameRoom*			SearchRoom(int roomId);
 	int					SearchEmptyRoom();
-	void				JoinRoom(int playerId, int roomId);
+	void				JoinRoom(int id, Player* player, int roomId);
 	void				OutRoom(int playerId, int roomId);
 
 	Game*				SearchGame(int playerId);

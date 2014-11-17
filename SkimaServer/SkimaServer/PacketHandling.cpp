@@ -162,6 +162,8 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 		session->Disconnect();
 		return;
 	}
+
+	session->MakePlayer();
 	session->LoginSuccessInform(inPacket.mPlayerId);
 
 	// 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
@@ -227,7 +229,7 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 		session->AllReadyNotify();
 	}
 
-	session->
+	session->SetHeroType(inPacket.mHeroType);
 }
 
 REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
@@ -363,7 +365,7 @@ void ClientSession::LoginSuccessInform(int id)
 void ClientSession::MakeGameRoom(int id)
 {
 	GameRoom* gameRoom = GGameManager->CreateRoom();
-	GGameManager->JoinRoom(id, gameRoom->GetRoomID());
+	GGameManager->JoinRoom(id, mPlayer, gameRoom->GetRoomID());
 
 	MakeRoomResult outPacket;
 	outPacket.mPlayerId = mPlayerId = id;
@@ -380,7 +382,7 @@ void ClientSession::JoinGameRoom()
 	{
 		return;
 	}
-	GGameManager->JoinRoom(mPlayerId, roomNum);
+	GGameManager->JoinRoom(mPlayerId, mPlayer, roomNum);
 
 	InOutRoomResult outPacket;
 	outPacket.mPlayerId = mPlayerId;

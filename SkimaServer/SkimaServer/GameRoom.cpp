@@ -11,9 +11,9 @@ void GameRoom::ReadySign()
 	}
 }
 
-void GameRoom::JoinPlayer(int id)
+void GameRoom::JoinPlayer(int id, Player* player)
 {
-	m_PlayerList[id] = new Player(id);
+	m_PlayerList[id] = player;
 
 	printf("\n [Join Room] Room ID %d, Player ID: %d \n", m_RoomID, id);
 
@@ -28,13 +28,14 @@ void GameRoom::OutPlayer(int id)
 {
 	for (auto& it = m_PlayerList.begin(); it != m_PlayerList.end(); ++it)
 	{
-		if (*it == id)
+		if (it->first == id)
 		{
-			m_PlayerIdList.erase(it);
+			delete it->second;
+			m_PlayerList.erase(it);
 			break;
 		}
 	}
-	if (m_PlayerIdList.size() != 0)
+	if (m_PlayerList.size() != 0)
 		m_JoinAble = true;
 
 	printf("\n [Out  Room] Room ID %d, Player ID: %d \n", m_RoomID, id);

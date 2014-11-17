@@ -4,6 +4,7 @@
 #include "..\..\PacketType.h"
 #include "ClientManager.h"
 #include "GameManager.h"
+#include "Player.h"
 //#include "DatabaseJobContext.h"
 //#include "DatabaseJobManager.h"
 
@@ -202,6 +203,24 @@ void ClientSession::OnTick()
 	
 	CallFuncAfter(PLAYER_HEART_BEAT, this, &ClientSession::OnTick);
 }
+
+//////////////////////////////////////////////////////////////////////////
+/*
+	Player 만들고 설정
+*/
+//////////////////////////////////////////////////////////////////////////
+
+void ClientSession::MakePlayer()
+{
+	mPlayer = new Player(mPlayerId);
+}
+
+void ClientSession::SetHeroType(HeroType herotype)
+{
+	mPlayer->SetHeroType(herotype);
+}
+
+
 
 
 

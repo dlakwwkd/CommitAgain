@@ -41,6 +41,9 @@ public:
 	void		SetReady() { mIsReady = true; }
 	bool		IsReady() { return mIsReady; }
 
+	void		MakePlayer();
+	void		SetHeroType(HeroType herotype);
+
 	void		LoginSuccessInform(int id);
 	void		MakeGameRoom(int id);
 	void		JoinGameRoom();
@@ -81,9 +84,10 @@ public:
 private:
 	int				mRoomId;
 	int				mPlayerId;
-	HeroType		mHeroType;
 	char			mPlayerName[MAX_NAME_LEN];
 	bool			mIsReady;
+
+	Player*			mPlayer;
 
 private:
 	bool			mConnected;
