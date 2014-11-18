@@ -37,8 +37,6 @@ public:
 
 	void			UnitMove();
 	void			Crashing(bool isCrashing);
-	//virtual void	UnitCrashed(bool isCrashed)=0;
-
 
 protected:
 	int			m_PlayerID;

@@ -10,7 +10,7 @@ public:
 	~Player(){ delete m_Hero; }
 
 	Hero*			GetMyHero(){ return m_Hero; }
-	const UnitList&	GetUnitList(){ return m_UnitList; }
+	UnitList&		GetUnitList(){ return m_UnitList; }
 	void			SetHeroType(HeroType herotype) { m_HeroType = herotype; }
 	void			SetUnitPush(int unitID, Unit* unit) { m_UnitList[unitID] = unit; }
 	void			CreateHero(b2Vec2 pos);

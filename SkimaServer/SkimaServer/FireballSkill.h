@@ -7,9 +7,9 @@ class FireballSkill : public ShootingSkill
 {
 public:
 	FireballSkill(int playerid,float heroBodySize);
-	virtual ~FireballSkill();
+	~FireballSkill();
 
-	virtual void SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos);
+	void SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos);
 
 };
 

@@ -40,6 +40,12 @@ void MovingState::EndMove(Unit* unit)
 {
 	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
 	unit->SetState(unit->GetStandbyState());
+
+
+	if (unit->GetUnitType() == UNIT_MISSILE)
+	{
+		GGameManager->GetWolrd()->DestroyBody(unit->GetBody());
+	}
 }
 
 void MovingState::EndCrash(Unit* unit){}
@@ -85,5 +91,6 @@ void CrashedState::Movement(Unit* unit)
 	if (unit->GetUnitType() == UNIT_MISSILE)
 	{
 		GGameManager->GetWolrd()->DestroyBody(unit->GetBody());
+		unit->SetState(unit->GetStandbyState());
 	}
 }
