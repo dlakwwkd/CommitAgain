@@ -24,16 +24,19 @@ GameRoom* GameManager::CreateRoom()
 
 	GameRoom* room = new GameRoom(++m_MakeRoomNum);
 
+	///# map의 자료구조를 접근할때 이렇게 operator[]를 쓰지 말고 (위험!) find()를 사용할 것. 아래처럼 null이 아니라고 막 지우면 큰일남.
 	if (m_RoomList[m_MakeRoomNum] != nullptr)
 	{
 		delete m_RoomList[m_MakeRoomNum];
 	}
-	m_RoomList[m_MakeRoomNum] = room;
+	m_RoomList[m_MakeRoomNum] = room; ///< insert() 활용. 
 	return room;
 }
 
 void GameManager::DeleteRoom(int roomId)
 {
+	///# 만일 roomId에 해당하는 방이 없으면? 
+
 	for (auto& iter = m_RoomList.begin(); iter != m_RoomList.end(); ++iter)
 	{
 		if (iter->first == roomId)
@@ -43,6 +46,8 @@ void GameManager::DeleteRoom(int roomId)
 			break;
 		}
 	}
+	
+
 	printf(" - Destroy %d Room ! \n", roomId);
 }
 
@@ -74,6 +79,7 @@ int GameManager::SearchEmptyRoom()
 
 void GameManager::JoinRoom(int id, Player* player, int roomId)
 {
+	///# roomId 검증 필요
 	m_RoomList[roomId]->JoinPlayer(id, player);
 }
 
@@ -114,9 +120,9 @@ void GameManager::CreateGame(int roomId)
 {
 	Game* game = new Game(roomId);
 
-	if (m_GameList[roomId] != nullptr)
+	if (m_GameList[roomId] != nullptr) ///< 위험.
 	{
-		delete m_GameList[roomId];
+		delete m_GameList[roomId]; ///< 위험.
 	}
 	m_GameList[roomId] = game;
 	game->SetPlayerList(m_RoomList[roomId]->GetPlayerList());

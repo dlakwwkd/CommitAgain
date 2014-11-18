@@ -5,6 +5,6 @@ class IceballMissile :
 {
 public:
 	IceballMissile();
-	~IceballMissile();
+	~IceballMissile(); ///# 가상 소멸자
 };
 

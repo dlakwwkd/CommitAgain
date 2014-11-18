@@ -39,6 +39,7 @@ public:
 	void			Crashing(bool isCrashing);
 
 protected:
+	/// 아래 멤버 변수들 생성자에서 디폴트값으로 초기화 항상 할 것.
 	int			m_PlayerID;
 	int			m_UnitID; 
 	int			m_Hp;

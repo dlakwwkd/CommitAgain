@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 #include <map>
 
@@ -17,7 +17,7 @@ public:
 	~GameRoom(){}
 
 	int								GetRoomID(){ return m_RoomID; }
-	const PlayerList&				GetPlayerList(){ return m_PlayerList; }
+	const PlayerList&				GetPlayerList(){ return m_PlayerList; } ///< 내부 컬렉션을 외부에서 순회하는 방식은 구조적으로 잘못된 것. 객체지향에 맞지 않음. 
 	bool							IsJoinAble(){ return m_JoinAble; }
 	bool							IsAllReady(){ return m_IsAllReady; }
 	void							InitReady(){ m_IsAllReady = false; }

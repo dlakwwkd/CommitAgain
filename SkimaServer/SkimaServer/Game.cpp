@@ -27,6 +27,8 @@ void Game::InitGame()
 
 void Game::PlayerOut(int playerId)
 {
+	///# 이런 로직은 논리적으로 검증을 해야 한다. 만일 playerId에 해당하는 녀석이 없었다면? 어디에선가 논리적으로 잘못 돌아가고 있다는 뜻.
+
 	for (auto& iter = m_PlayerList.begin(); iter != m_PlayerList.end(); ++iter)
 	{
 		if (iter->first == playerId)
