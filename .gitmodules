@@ -1,0 +1,3 @@
+[submodule "Skima/cocos2d-x"]
+	path = Skima/cocos2d-x
+	url = http://github.com/cocos2d/cocos2d-x
