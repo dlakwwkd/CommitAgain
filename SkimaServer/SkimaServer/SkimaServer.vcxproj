@@ -69,8 +69,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\..\Skima\cocos2d\external;$(ProjectDir)..\..\Shared;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\Skima\cocos2d\external\Box2D\proj.win32\Debug.win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\..\Shared;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\..\Shared\Box2D\proj.win32\Debug.win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
