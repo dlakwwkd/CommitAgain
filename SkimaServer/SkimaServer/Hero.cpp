@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Hero.h"
 #include "ClientSession.h"
 #include "ClientManager.h"
@@ -25,5 +25,5 @@ Hero::~Hero()
 
 void Hero::UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
 {
-	//°¢°¢ÀÇ Ä³¸¯ÅÍÀÇ useskill¸¸ È£Ãâ (°ËÁõÇÊ¿ä..)
+	//ê°ê°ì˜ ìºë¦­í„°ì˜ useskillë§Œ í˜¸ì¶œ (ê²€ì¦í•„ìš”..)
 }

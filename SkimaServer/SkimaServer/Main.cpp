@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Main.h"
 
 #include "Config.h"
@@ -19,7 +19,7 @@ typedef ProducerConsumerQueue<SOCKET, 100> PendingAcceptList;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	/// crash ¹ß»ı½Ã dump ³²±â±â À§ÇØ¼­
+	/// crash ë°œìƒì‹œ dump ë‚¨ê¸°ê¸° ìœ„í•´ì„œ
 	SetUnhandledExceptionFilter(ExceptionFilter);
 
 	LThreadType = THREAD_MAIN;
@@ -29,11 +29,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	GGameManager = new GameManager;
 	//GDatabaseJobManager = new DatabaseJobManager ;
 
-	/// DB Helper ÃÊ±âÈ­
+	/// DB Helper ì´ˆê¸°í™”
 	// 	if ( false == DbHelper::Initialize(DB_CONN_STR) )
 	// 		return -1 ;
 
-	/// À©¼Ó ÃÊ±âÈ­
+	/// ìœˆì† ì´ˆê¸°í™”
 	WSADATA wsa;
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
 		return -1;
@@ -92,7 +92,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	CloseHandle(hThread);
 	//CloseHandle( hDbThread ) ;
 
-	// À©¼Ó Á¾·á
+	// ìœˆì† ì¢…ë£Œ
 	WSACleanup();
 
 	//DbHelper::Finalize() ;
@@ -116,7 +116,7 @@ unsigned int WINAPI ClientHandlingThread(LPVOID lpParam)
 		return -1;
 
 	LARGE_INTEGER liDueTime;
-	liDueTime.QuadPart = -10000000; ///< 1ÃÊ ÈÄºÎÅÍ µ¿ÀÛ
+	liDueTime.QuadPart = -10000000; ///< 1ì´ˆ í›„ë¶€í„° ë™ì‘
 	if (!SetWaitableTimer(hTimer, &liDueTime, APC_TIMER_INTERVAL, TimerProc, NULL, TRUE))
 		return -1;
 
@@ -125,29 +125,29 @@ unsigned int WINAPI ClientHandlingThread(LPVOID lpParam)
 		SOCKET acceptSock = NULL;
 
 
-		/// »õ·Î Á¢¼ÓÇÑ Å¬¶óÀÌ¾ğÆ® Ã³¸®
+		/// ìƒˆë¡œ ì ‘ì†í•œ í´ë¼ì´ì–¸íŠ¸ ì²˜ë¦¬
 		if (pAcceptList->Consume(acceptSock, false))
 		{
-			/// ¼ÒÄÏ Á¤º¸ ±¸Á¶Ã¼ ÇÒ´ç°ú ÃÊ±âÈ­
+			/// ì†Œì¼“ ì •ë³´ êµ¬ì¡°ì²´ í• ë‹¹ê³¼ ì´ˆê¸°í™”
 			ClientSession* client = GClientManager->CreateClient(acceptSock);
 
 			SOCKADDR_IN clientaddr;
 			int addrlen = sizeof(clientaddr);
 			getpeername(acceptSock, (SOCKADDR*)&clientaddr, &addrlen);
 
-			// Å¬¶ó Á¢¼Ó Ã³¸®
+			// í´ë¼ ì ‘ì† ì²˜ë¦¬
 			if (false == client->OnConnect(&clientaddr))
 			{
 				client->Disconnect();
 			}
 
-			continue; ///< ´Ù½Ã ´ë±â·Î
+			continue; ///< ë‹¤ì‹œ ëŒ€ê¸°ë¡œ
 		}
 
-		/// ÃÖÁ¾ÀûÀ¸·Î Å¬¶óÀÌ¾ğÆ®µé¿¡ ½×ÀÎ send ¿äÃ» Ã³¸®
+		/// ìµœì¢…ì ìœ¼ë¡œ í´ë¼ì´ì–¸íŠ¸ë“¤ì— ìŒ“ì¸ send ìš”ì²­ ì²˜ë¦¬
 		GClientManager->FlushClientSend();
 
-		/// APC Queue¿¡ ½×ÀÎ ÀÛ¾÷µé Ã³¸®
+		/// APC Queueì— ìŒ“ì¸ ì‘ì—…ë“¤ ì²˜ë¦¬
 		SleepEx(INFINITE, TRUE);
 	}
 
@@ -168,7 +168,7 @@ void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighVa
 {
 	assert(LThreadType == THREAD_CLIENT);
 
-	LScheduler->DoTasks(); ///< ÁÖ±âÀûÀ¸·Î task Ã³¸®
+	LScheduler->DoTasks(); ///< ì£¼ê¸°ì ìœ¼ë¡œ task ì²˜ë¦¬
 	GClientManager->OnPeriodWork();
 
 

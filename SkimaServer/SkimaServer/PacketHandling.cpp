@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "ClientSession.h"
 #include "ClientManager.h"
 #include "GameManager.h"
@@ -49,7 +49,7 @@ struct RegisterHandler
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	¿¬°áµÈ Å¬¶óÀÌ¾ğÆ®¿Í ÆĞÅ¶ ¹Ş°í º¸³»´Â ÀÛ¾÷ ¿Ï·áÇÏ´Â Äİ¹é ÇÔ¼öµé
+	ì—°ê²°ëœ í´ë¼ì´ì–¸íŠ¸ì™€ íŒ¨í‚· ë°›ê³  ë³´ë‚´ëŠ” ì‘ì—… ì™„ë£Œí•˜ëŠ” ì½œë°± í•¨ìˆ˜ë“¤
 	*/
 ///////////////////////////////////////////////////////////////////////////
 void CALLBACK RecvCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED lpOverlapped, DWORD dwFlags)
@@ -61,17 +61,17 @@ void CALLBACK RecvCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED
 	if (!fromClient->IsConnected())
 		return;
 
-	/// ¿¡·¯ ¹ß»ı½Ã ÇØ´ç ¼¼¼Ç Á¾·á
+	/// ì—ëŸ¬ ë°œìƒì‹œ í•´ë‹¹ ì„¸ì…˜ ì¢…ë£Œ
 	if (dwError || cbTransferred == 0)
 	{
 		fromClient->Disconnect();
 		return;
 	}
 
-	/// ¹ŞÀº µ¥ÀÌÅÍ Ã³¸®
+	/// ë°›ì€ ë°ì´í„° ì²˜ë¦¬
 	fromClient->OnRead(cbTransferred);
 
-	/// ´Ù½Ã ¹Ş±â
+	/// ë‹¤ì‹œ ë°›ê¸°
 	if (false == fromClient->PostRecv())
 	{
 		fromClient->Disconnect();
@@ -87,7 +87,7 @@ void CALLBACK SendCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED
 	if (!fromClient->IsConnected())
 		return;
 
-	/// ¿¡·¯ ¹ß»ı½Ã ÇØ´ç ¼¼¼Ç Á¾·á
+	/// ì—ëŸ¬ ë°œìƒì‹œ í•´ë‹¹ ì„¸ì…˜ ì¢…ë£Œ
 	if (dwError || cbTransferred == 0)
 	{
 		fromClient->Disconnect();
@@ -101,7 +101,7 @@ void CALLBACK SendCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	º¸³»±â ¿Ï·áÇÑ ÆĞÅ¶À» Ãâ·Â¹öÆÛ¿¡¼­ Á¦°ÅÇÏ´Â ÇÔ¼ö
+	ë³´ë‚´ê¸° ì™„ë£Œí•œ íŒ¨í‚·ì„ ì¶œë ¥ë²„í¼ì—ì„œ ì œê±°í•˜ëŠ” í•¨ìˆ˜
 	*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::OnWriteComplete(size_t len)
@@ -111,22 +111,22 @@ void ClientSession::OnWriteComplete(size_t len)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	¹ŞÀº ÆĞÅ¶ ÆÄ½ÌÇÏ¿© Ã³¸®ÇÏ´Â ÇÔ¼ö
+	ë°›ì€ íŒ¨í‚· íŒŒì‹±í•˜ì—¬ ì²˜ë¦¬í•˜ëŠ” í•¨ìˆ˜
 	*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::OnRead(size_t len)
 {
 	mRecvBuffer.Commit(len);
 
-	/// ÆĞÅ¶ ÆÄ½ÌÇÏ°í Ã³¸®
+	/// íŒ¨í‚· íŒŒì‹±í•˜ê³  ì²˜ë¦¬
 	while (true)
 	{
-		/// ÆĞÅ¶ Çì´õ Å©±â ¸¸Å­ ÀĞ¾î¿Íº¸±â
+		/// íŒ¨í‚· í—¤ë” í¬ê¸° ë§Œí¼ ì½ì–´ì™€ë³´ê¸°
 		PacketHeader header;
 		if (false == mRecvBuffer.Peek((char*)&header, sizeof(PacketHeader)))
 			return;
 
-		/// ÆĞÅ¶ ¿Ï¼ºÀÌ µÇ´Â°¡? 
+		/// íŒ¨í‚· ì™„ì„±ì´ ë˜ëŠ”ê°€? 
 		if (mRecvBuffer.GetStoredSize() < (size_t)header.mSize)
 			return;
 
@@ -145,7 +145,7 @@ void ClientSession::OnRead(size_t len)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	ÆĞÅ¶ Å¸ÀÔ¿¡ µû¶ó ÆÄ½ÌÀ» ¿Ï·áÇÏ°í ÀÛ¾÷À» Ã³¸®ÇÏ´Â ÇÚµé·¯µé
+	íŒ¨í‚· íƒ€ì…ì— ë”°ë¼ íŒŒì‹±ì„ ì™„ë£Œí•˜ê³  ì‘ì—…ì„ ì²˜ë¦¬í•˜ëŠ” í•¸ë“¤ëŸ¬ë“¤
 	*/
 ///////////////////////////////////////////////////////////////////////////
 REGISTER_HANDLER(PKT_CS_LOGIN)
@@ -321,14 +321,14 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 // 		return;
 // 	}
 // 
-// 	/// chattingÀÇ °æ¿ì ¿©±â¼­ ¹Ù·Î ¹æ¼Û
+// 	/// chattingì˜ ê²½ìš° ì—¬ê¸°ì„œ ë°”ë¡œ ë°©ì†¡
 // 
 // 	ChatBroadcastResult outPacket;
 // 	outPacket.mPlayerId = inPacket.mPlayerId;
 // 	strcpy_s(outPacket.mName, session->GetPlayerName());
 // 	strcpy_s(outPacket.mChat, inPacket.mChat);
 // 
-// 	/// Ã¤ÆÃÀº ¹Ù·Î ¹æ¼Û ÇÏ¸é ³¡
+// 	/// ì±„íŒ…ì€ ë°”ë¡œ ë°©ì†¡ í•˜ë©´ ë
 // 	if (!session->Broadcast(&outPacket))
 // 	{
 // 		session->Disconnect();
@@ -343,7 +343,7 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	º¸³¾ ÆĞÅ¶ ÆÄ½ÌÇÏ´Â ÇÔ¼öµé
+	ë³´ë‚¼ íŒ¨í‚· íŒŒì‹±í•˜ëŠ” í•¨ìˆ˜ë“¤
 	*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::LoginSuccessInform(int id)
@@ -352,8 +352,8 @@ void ClientSession::LoginSuccessInform(int id)
 	outPacket.mPlayerId = mPlayerId = id;
 	MakePlayer();
 
-	// ¿©±â¼­´Â ÀÏ´Ü ID·Î ´Ğ³×ÀÓÀ» µ¤¾î½è´Âµ¥,
-	// ³ªÁß¿¡ DB¸¦ ÀÌ¿ëÇØ IDº°·Î ´Ğ³×ÀÓÀ» Àû¿ëÇØ¾ß ÇÒµí. -¼öºó
+	// ì—¬ê¸°ì„œëŠ” ì¼ë‹¨ IDë¡œ ë‹‰ë„¤ì„ì„ ë®ì–´ì¼ëŠ”ë°,
+	// ë‚˜ì¤‘ì— DBë¥¼ ì´ìš©í•´ IDë³„ë¡œ ë‹‰ë„¤ì„ì„ ì ìš©í•´ì•¼ í• ë“¯. -ìˆ˜ë¹ˆ
 	itoa(mPlayerId, mPlayerName, 10);
 	strcpy_s(outPacket.mName, mPlayerName);
 

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Player.h"
 #include "ClientManager.h"
 #include "ClientSession.h"
@@ -7,7 +7,7 @@
 
 void Player::CreateHero(b2Vec2 pos)
 {
-	//switch·Î °Å¸£±â
+	//switchë¡œ ê±°ë¥´ê¸°
 	m_Hero = new Magician(m_PlayerID, m_HeroType, pos);
 	m_UnitList[m_Hero->GetUnitID()] = m_Hero;
 

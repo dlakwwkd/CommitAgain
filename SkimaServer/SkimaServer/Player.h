@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Hero.h"
 
 typedef std::map<int, Unit*> UnitList;

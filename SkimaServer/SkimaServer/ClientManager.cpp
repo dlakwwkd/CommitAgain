@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Main.h"
 #include "..\..\PacketType.h"
 #include "ThreadLocal.h"
@@ -12,8 +12,8 @@ ClientManager* GClientManager = nullptr;
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	aceeptµÈ ÆĞÅ¶À» °ü¸®ÇÏ´Â(Áï, ¿¬°áµÈ Å¬¶ó¿Í 1:1·Î ´ëÀÀµÇ´Â)
-	ClientSession »ı¼º
+	aceeptëœ íŒ¨í‚·ì„ ê´€ë¦¬í•˜ëŠ”(ì¦‰, ì—°ê²°ëœ í´ë¼ì™€ 1:1ë¡œ ëŒ€ì‘ë˜ëŠ”)
+	ClientSession ìƒì„±
 	*/
 ///////////////////////////////////////////////////////////////////////////
 ClientSession* ClientManager::CreateClient(SOCKET sock)
@@ -52,13 +52,13 @@ bool ClientManager::IsValidPlayerId(int playerId)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	¿¬°áµÈ ¸ğµç Å¬¶óÀÇ Ãâ·Â¹öÆÛ¿¡ µ¿ÀÏÇÑ ÆĞÅ¶À» ÀûÀçÇÏ´Â ÇÔ¼ö
-	(¹æ¼ÛÀ» ¿äÃ»ÇÑ Å¬¶ó´Â ÀÌ¹Ì º¸³»±â Ã³¸®ÇÑ »óÅÂÀÌ¹Ç·Î Á¦¿Ü)
+	ì—°ê²°ëœ ëª¨ë“  í´ë¼ì˜ ì¶œë ¥ë²„í¼ì— ë™ì¼í•œ íŒ¨í‚·ì„ ì ì¬í•˜ëŠ” í•¨ìˆ˜
+	(ë°©ì†¡ì„ ìš”ì²­í•œ í´ë¼ëŠ” ì´ë¯¸ ë³´ë‚´ê¸° ì²˜ë¦¬í•œ ìƒíƒœì´ë¯€ë¡œ ì œì™¸)
 	*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 {
-	///FYI: C++ STL iterator ½ºÅ¸ÀÏÀÇ ·çÇÁ
+	///FYI: C++ STL iterator ìŠ¤íƒ€ì¼ì˜ ë£¨í”„
 	for (ClientList::const_iterator it = mClientList.begin(); it != mClientList.end(); ++it)
 	{
 		ClientSession* client = it->second;
@@ -66,7 +66,7 @@ void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 		if (from == client)
 			continue;
 
-		// °°Àº ¹æ¿¡ ÀÖ´Â ¾Öµé¿¡°Ô¸¸ ¹æ¼ÛÇÑ´Ù.
+		// ê°™ì€ ë°©ì— ìˆëŠ” ì• ë“¤ì—ê²Œë§Œ ë°©ì†¡í•œë‹¤.
 		if (client->GetRoomId() == from->GetRoomId())
 		{
 			client->SendRequest(pkt);
@@ -78,12 +78,12 @@ void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	¼­¹öÀÇ ¸Å ÇÁ·¹ÀÓ¸¶´Ù ½ÇÇàµÇ´Â ÇÔ¼ö
+	ì„œë²„ì˜ ë§¤ í”„ë ˆì„ë§ˆë‹¤ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜
 	*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientManager::OnPeriodWork()
 {
-	/// Á¢¼ÓÀÌ ²÷±ä ¼¼¼Çµé ÁÖ±âÀûÀ¸·Î Á¤¸® (1ÃÊ Á¤µµ ¸¶´Ù ÇØÁÖÀÚ)
+	/// ì ‘ì†ì´ ëŠê¸´ ì„¸ì…˜ë“¤ ì£¼ê¸°ì ìœ¼ë¡œ ì •ë¦¬ (1ì´ˆ ì •ë„ ë§ˆë‹¤ í•´ì£¼ì)
 	DWORD currTick = GetTickCount();
 	if (currTick - mLastGCTick >= 1000)
 	{
@@ -91,7 +91,7 @@ void ClientManager::OnPeriodWork()
 		mLastGCTick = currTick;
 	}
 
-	/// Ã³¸® ¿Ï·áµÈ DB ÀÛ¾÷µé °¢°¢ÀÇ Client·Î dispatch
+	/// ì²˜ë¦¬ ì™„ë£Œëœ DB ì‘ì—…ë“¤ ê°ê°ì˜ Clientë¡œ dispatch
 	//DispatchDatabaseJobResults() ;
 }
 
@@ -99,14 +99,14 @@ void ClientManager::OnPeriodWork()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	¿¬°áÀÌ ²÷±ä Å¬¶óÀÌ¾ğÆ® ¼¼¼Ç Á¦°Å Ã³¸®
+	ì—°ê²°ì´ ëŠê¸´ í´ë¼ì´ì–¸íŠ¸ ì„¸ì…˜ ì œê±° ì²˜ë¦¬
 	*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientManager::CollectGarbageSessions()
 {
 	std::vector<ClientSession*> disconnectedSessions;
 
-	///FYI: C++ 11 ¶÷´Ù¸¦ ÀÌ¿ëÇÑ ½ºÅ¸ÀÏ
+	///FYI: C++ 11 ëŒë‹¤ë¥¼ ì´ìš©í•œ ìŠ¤íƒ€ì¼
 	std::for_each(mClientList.begin(), mClientList.end(),
 		[&](ClientList::const_reference it)
 	{
@@ -117,7 +117,7 @@ void ClientManager::CollectGarbageSessions()
 	}
 	);
 
-	///FYI: C¾ğ¾î ½ºÅ¸ÀÏÀÇ ·çÇÁ
+	///FYI: Cì–¸ì–´ ìŠ¤íƒ€ì¼ì˜ ë£¨í”„
 	for (size_t i = 0; i < disconnectedSessions.size(); ++i)
 	{
 		ClientSession* client = disconnectedSessions[i];
@@ -131,7 +131,7 @@ void ClientManager::CollectGarbageSessions()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	¿¬°áµÈ ¸ğµç Å¬¶óÀÇ Ãâ·Â¹öÆÛ¿¡ ½×ÀÎ ÆĞÅ¶µé ÀüºÎ Àü¼ÛÇÏ´Â ÇÔ¼ö
+	ì—°ê²°ëœ ëª¨ë“  í´ë¼ì˜ ì¶œë ¥ë²„í¼ì— ìŒ“ì¸ íŒ¨í‚·ë“¤ ì „ë¶€ ì „ì†¡í•˜ëŠ” í•¨ìˆ˜
 	*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientManager::FlushClientSend()
@@ -150,11 +150,11 @@ void ClientManager::FlushClientSend()
 
 
 /*
-	DB ÀÛ¾÷
+	DB ì‘ì—…
 	*/
 // void ClientManager::DispatchDatabaseJobResults()
 // {
-// 	/// ½×¿© ÀÖ´Â DB ÀÛ¾÷ Ã³¸® °á°úµéÀ» °¢°¢ÀÇ Å¬¶ó¿¡°Ô ³Ñ±ä´Ù
+// 	/// ìŒ“ì—¬ ìˆëŠ” DB ì‘ì—… ì²˜ë¦¬ ê²°ê³¼ë“¤ì„ ê°ê°ì˜ í´ë¼ì—ê²Œ ë„˜ê¸´ë‹¤
 // 	DatabaseJobContext* dbResult = nullptr ;
 // 	while ( GDatabaseJobManager->PopDatabaseJobResult(dbResult) )
 // 	{
@@ -174,7 +174,7 @@ void ClientManager::FlushClientSend()
 // 			}
 // 			else
 // 			{
-// 				/// ¿©±â´Â ÇØ´ç DB¿äÃ»À» Çß´ø Å¬¶óÀÌ¾ğÆ®¿¡¼­ Á÷Á¢ ÇØÁà¾ß ´Â °æ¿ì´Ù
+// 				/// ì—¬ê¸°ëŠ” í•´ë‹¹ DBìš”ì²­ì„ í–ˆë˜ í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì§ì ‘ í•´ì¤˜ì•¼ ëŠ” ê²½ìš°ë‹¤
 // 				auto& it = mClientList.find(dbResult->mSockKey) ;
 // 
 // 				if ( it != mClientList.end() && it->second->IsConnected() )
@@ -186,7 +186,7 @@ void ClientManager::FlushClientSend()
 // 		}
 // 	
 // 	
-// 		/// ¿Ï·áµÈ DB ÀÛ¾÷ ÄÁÅØ½ºÆ®´Â »èÁ¦ÇØÁÖÀÚ
+// 		/// ì™„ë£Œëœ DB ì‘ì—… ì»¨í…ìŠ¤íŠ¸ëŠ” ì‚­ì œí•´ì£¼ì
 // 		DatabaseJobContext* toBeDelete = dbResult ;
 // 		delete toBeDelete ;
 // 	}

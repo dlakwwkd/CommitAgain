@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include "GameManager.h"
 #include "GameRoom.h"
 #include "Game.h"
@@ -14,7 +14,7 @@ GameManager* GGameManager = nullptr;
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	GameRoom ∞¸∑√
+	GameRoom Í¥ÄÎ†®
 */
 ///////////////////////////////////////////////////////////////////////////
 GameRoom* GameManager::CreateRoom()
@@ -91,7 +91,7 @@ void GameManager::OutRoom(int playerId, int roomId)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	Game ∞¸∑√
+	Game Í¥ÄÎ†®
 */
 ///////////////////////////////////////////////////////////////////////////
 Game* GameManager::SearchGame(int playerId)
@@ -140,7 +140,7 @@ void GameManager::DeleteGame(int gameId)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	Player ∞¸∑√
+	Player Í¥ÄÎ†®
 */
 ///////////////////////////////////////////////////////////////////////////
 Player* GameManager::SearchPlayer(int playerId)
@@ -185,7 +185,7 @@ void GameManager::PlayerOut(int playerId)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	∏≈ «¡∑π¿”∏∂¥Ÿ Ω««‡	
+	Îß§ ÌîÑÎ†àÏûÑÎßàÎã§ Ïã§Ìñâ	
 */
 ///////////////////////////////////////////////////////////////////////////
 void GameManager::Tick(float dt)
@@ -196,7 +196,7 @@ void GameManager::Tick(float dt)
 	{
 		if (room.second->IsAllReady())
 		{
-			// ∞‘¿” ±∏µø Ω√¿€!;
+			// Í≤åÏûÑ Íµ¨Îèô ÏãúÏûë!;
 			printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", room.first);
 			CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::CreateGame, room.first);
 			room.second->InitReady();
@@ -234,7 +234,7 @@ void GameManager::Tick(float dt)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	MANAGER_UPDATE_INTERVAL ¡÷±‚∑Œ Ω««‡
+	MANAGER_UPDATE_INTERVAL Ï£ºÍ∏∞Î°ú Ïã§Ìñâ
 */
 ///////////////////////////////////////////////////////////////////////////
 void GameManager::LowTick()
@@ -249,7 +249,7 @@ void GameManager::LowTick()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	π∞∏Æºº∞Ë ±∏√‡
+	Î¨ºÎ¶¨ÏÑ∏Í≥Ñ Íµ¨Ï∂ï
 */
 ///////////////////////////////////////////////////////////////////////////
 void GameManager::InitPhyWorld()

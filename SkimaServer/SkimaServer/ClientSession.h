@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <map>
 #include <WinSock2.h>
@@ -64,7 +64,7 @@ public:
 public:
 	bool	IsConnected() const { return mConnected; }
 	void	OnTick();
-	//	void	OnDbUpdate(); ///< ÁÖ±âÀûÀ¸·Î µ¥ÀÌÅÍº£ÀÌ½º¿¡ ¾÷µ¥ÀÌÆ®
+	//	void	OnDbUpdate(); ///< ì£¼ê¸°ì ìœ¼ë¡œ ë°ì´í„°ë² ì´ìŠ¤ì— ì—…ë°ì´íŠ¸
 
 	bool	OnConnect(SOCKADDR_IN* addr);
 	bool	PostRecv();

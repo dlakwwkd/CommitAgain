@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "FireballSkill.h"
 #include "FireballMissile.h"
 #include "GameManager.h"

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "ClientSession.h"
 #include "ClientManager.h"
 #include "GameManager.h"
@@ -79,7 +79,7 @@ void Unit::Crashing(bool isCrashing)
 
 	b2Vec2 expectpos;
 
-	expectpos.x = pos.x + velo.x * CRASHTIME; //¿¹»ó °ª
+	expectpos.x = pos.x + velo.x * CRASHTIME; //ì˜ˆìƒ ê°’
 	expectpos.y = pos.y + velo.y * CRASHTIME;
 
 	client->CrashedBroadCast(m_UnitID, m_UnitType, m_Body->GetPosition(), expectpos, isCrashing);
