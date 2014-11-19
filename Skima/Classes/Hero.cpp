@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Hero.h"
+#include "Skill.h"
 
 
 Hero::Hero()
