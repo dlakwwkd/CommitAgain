@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "MainScene.h"
 #include "SingleGameScene.h"
 #include "NetworkScene.h"
@@ -19,9 +19,9 @@ bool MainScene::init()
 		return false;
 	}
 
-	auto label1 = Label::createWithSystemFont("½Ì±Û ÇÃ·¹ÀÌ", "Thonburi", 50);
-	auto label2 = Label::createWithSystemFont("¸ÖÆ¼ ÇÃ·¹ÀÌ", "Thonburi", 50);
-	auto label3 = Label::createWithSystemFont("°ÔÀÓ Á¾·á", "Thonburi", 50);
+	auto label1 = Label::createWithSystemFont("ì‹±ê¸€ í”Œë ˆì´", "Thonburi", 50);
+	auto label2 = Label::createWithSystemFont("ë©€í‹° í”Œë ˆì´", "Thonburi", 50);
+	auto label3 = Label::createWithSystemFont("ê²Œì„ ì¢…ë£Œ", "Thonburi", 50);
 
 	auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(MainScene::menuCallback1, this));
 	auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(MainScene::menuCallback2, this));

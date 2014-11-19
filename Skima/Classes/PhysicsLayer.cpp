@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "PhysicsLayer.h"
 #include "SingleGameScene.h"
 #include "GameManager.h"
@@ -81,7 +81,7 @@ void PhysicsLayer::ScreenMove()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	¸¶¿ì½º ¸®½º³Ê
+	ë§ˆìš°ìŠ¤ ë¦¬ìŠ¤ë„ˆ
 */
 ///////////////////////////////////////////////////////////////////////////
 void PhysicsLayer::OnMouseDown(Event *event)
@@ -127,7 +127,7 @@ void PhysicsLayer::OnMouseMove(Event *event)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	Å°º¸µå ¸®½º³Ê
+	í‚¤ë³´ë“œ ë¦¬ìŠ¤ë„ˆ
 */
 ///////////////////////////////////////////////////////////////////////////
 void PhysicsLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)

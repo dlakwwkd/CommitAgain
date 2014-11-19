@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include "CircularBuffer.h"
 #include "PacketType.h"
@@ -36,7 +36,7 @@ public:
 	void joinRoomRequest();
 	void outRoomRequest(int roomId);
 	void startGameRequest();
-	void runCompleteRequest(); //ÀÌ¸§ Ã¼ÀÎÁö + bool°ª ÀÎÀÚ
+	void runCompleteRequest(); //ì´ë¦„ ì²´ì¸ì§€ + boolê°’ ì¸ì
 
 	void moveRequest(Point curPos, Point targetPos);
 	void skillRequest(Point curPos, Point targetPos, SkillKey skillKey);

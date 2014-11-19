@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "RoomScene.h"
 #include "NetworkScene.h"
 #include "TcpClient.h"
@@ -24,8 +24,8 @@ bool RoomScene::init()
 	m_RoomID = -1;
 	m_IsReady = false;
 
-	auto label1 = Label::createWithSystemFont("°ÔÀÓ ½ÃÀÛ", "Thonburi", 50);
-	auto label2 = Label::createWithSystemFont("³ª°¡±â", "Thonburi", 50);
+	auto label1 = Label::createWithSystemFont("ê²Œìž„ ì‹œìž‘", "Thonburi", 50);
+	auto label2 = Label::createWithSystemFont("ë‚˜ê°€ê¸°", "Thonburi", 50);
 
 	auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(RoomScene::menuCallback1, this));
 	auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(RoomScene::menuCallback2, this));
@@ -35,17 +35,17 @@ bool RoomScene::init()
 	this->addChild(menu, 0, "RoomMenu");
 
 
-	auto label = Label::createWithSystemFont("¿¬°á Áß...", "Thonburi", 50);
+	auto label = Label::createWithSystemFont("ì—°ê²° ì¤‘...", "Thonburi", 50);
 	label->setAnchorPoint(Point::ZERO);
 	label->setHorizontalAlignment(TextHAlignment::CENTER);
 	this->addChild(label, 0, "RoomStateLabel");
 
-	// 1ÃÊ ¸¶´Ù Tick ÇÔ¼ö¸¦ È£ÃâÇÑ´Ù.
+	// 1ì´ˆ ë§ˆë‹¤ Tick í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œë‹¤.
 	this->schedule(schedule_selector(RoomScene::Tick), 1.0f);
 	return true;
 }
 
-void RoomScene::menuCallback1(Ref* sender)	// °ÔÀÓ ½ÃÀÛ
+void RoomScene::menuCallback1(Ref* sender)	// ê²Œìž„ ì‹œìž‘
 {
 	if (TcpClient::getInstance()->checkSocket() == NULL || m_IsReady)
 		return;
@@ -54,7 +54,7 @@ void RoomScene::menuCallback1(Ref* sender)	// °ÔÀÓ ½ÃÀÛ
 	TcpClient::getInstance()->startGameRequest();
 }
 
-void RoomScene::menuCallback2(Ref* sender)	// ³ª°¡±â
+void RoomScene::menuCallback2(Ref* sender)	// ë‚˜ê°€ê¸°
 {
 	if (TcpClient::getInstance()->checkSocket() != NULL)
 		TcpClient::getInstance()->outRoomRequest(m_RoomID);
@@ -72,11 +72,11 @@ void RoomScene::Tick(float dt)
 	if(label == nullptr)
 		return;
 
-	// ¹æ ¹øÈ£¸¦ ¹®ÀÚ¿­·Î º¯È¯ ÈÄ ¶óº§¿¡ Àû¿ë
+	// ë°© ë²ˆí˜¸ë¥¼ ë¬¸ìžì—´ë¡œ ë³€í™˜ í›„ ë¼ë²¨ì— ì ìš©
 	char buf[32];
 	_itoa(m_RoomID, buf, 32);
 	std::string roomNum = buf;
-	roomNum += "¹ø ¹æ";
+	roomNum += "ë²ˆ ë°©";
 	label->setString(roomNum.c_str());
 }
 //////////////////////////////////////////////////////////////////////////

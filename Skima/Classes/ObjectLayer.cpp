@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ObjectLayer.h"
 #include "PhysicsLayer.h"
 #include "LoadingBGLayer.h"
@@ -47,7 +47,7 @@ void ObjectLayer::TickM(float dt)
 
 void ObjectLayer::FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos)
 {
-	//todo unitType ³Ö¾îÁÖ±â
+	//todo unitType ë„£ì–´ì£¼ê¸°
 	CreateHero(playerID, unitID, pos, heroType);
 }
 
@@ -201,7 +201,7 @@ void ObjectLayer::DeleteMissile(int missileID)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	°ÔÀÓ ¸ğµå¿¡ µû¶ó ³ª´µ´Â ÇÔ¼öµé
+	ê²Œì„ ëª¨ë“œì— ë”°ë¼ ë‚˜ë‰˜ëŠ” í•¨ìˆ˜ë“¤
 */
 ///////////////////////////////////////////////////////////////////////////
 void ObjectLayer::UnitMoveS(Point pos)

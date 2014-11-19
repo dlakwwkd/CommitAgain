@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Hero.h"
 class Magician :
 	public Hero

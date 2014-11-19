@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Enums.h"
 #include "InputManager.h"
 

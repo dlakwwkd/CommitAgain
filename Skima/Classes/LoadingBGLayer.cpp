@@ -1,11 +1,11 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "LoadingBGLayer.h"
 #include "TcpClient.h"
 
 
 bool LoadingBGLayer::init()
 {
-	if (!LayerColor::initWithColor(Color4B(0,0,0,0))) //°ËÀº»ö ¼¼ÆÃ
+	if (!LayerColor::initWithColor(Color4B(0,0,0,0))) //ê²€ì€ìƒ‰ ì„¸íŒ…
 	{
 		return false;
 	}

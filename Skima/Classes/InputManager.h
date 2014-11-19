@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ListenerLayer.h"
 
 USING_NS_CC;

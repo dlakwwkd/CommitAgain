@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Skill.h"
 
 USING_NS_CC;

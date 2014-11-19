@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "NetworkScene.h"
 #include "SingleGameScene.h"
 #include "RoomScene.h"
@@ -21,10 +21,10 @@ bool NetworkScene::init()
 		return false;
 	}
 	
-	auto label0 = Label::createWithSystemFont("¼­¹ö Á¢¼Ó", "Thonburi", 50);
-	auto label1 = Label::createWithSystemFont("¹æ »ı¼º", "Thonburi", 50);
-	auto label2 = Label::createWithSystemFont("¹æ Âü¿©", "Thonburi", 50);
-	auto label3 = Label::createWithSystemFont("³ª°¡±â", "Thonburi", 50);
+	auto label0 = Label::createWithSystemFont("ì„œë²„ ì ‘ì†", "Thonburi", 50);
+	auto label1 = Label::createWithSystemFont("ë°© ìƒì„±", "Thonburi", 50);
+	auto label2 = Label::createWithSystemFont("ë°© ì°¸ì—¬", "Thonburi", 50);
+	auto label3 = Label::createWithSystemFont("ë‚˜ê°€ê¸°", "Thonburi", 50);
 
 	auto menuItem0 = MenuItemLabel::create(label0, CC_CALLBACK_1(NetworkScene::menuCallback0, this));
 	auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(NetworkScene::menuCallback1, this));
@@ -35,45 +35,45 @@ bool NetworkScene::init()
 	menu->alignItemsVertically();
 	this->addChild(menu, 0, "NetworkMenu");
 
-	// 3ÃÊ ¸¶´Ù Tick ÇÔ¼ö¸¦ È£ÃâÇÑ´Ù.
+	// 3ì´ˆ ë§ˆë‹¤ Tick í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œë‹¤.
 	this->schedule(schedule_selector(NetworkScene::Tick), 3.0f);
 	return true;
 }
 
-void NetworkScene::menuCallback0(Ref* sender)	// ¼­¹ö Á¢¼Ó
+void NetworkScene::menuCallback0(Ref* sender)	// ì„œë²„ ì ‘ì†
 {
 	if (TcpClient::getInstance()->checkSocket() != NULL)
 		return;
 
-	ConnectLabelCreate("¼­¹ö¿¡ Á¢¼Ó Áß......", this);
+	ConnectLabelCreate("ì„œë²„ì— ì ‘ì† ì¤‘......", this);
 	if (TcpClient::getInstance()->connect() == false)
 	{
 		TcpClient::getInstance()->disconnect();
-		GET_CONNECT_LABEL->setString("¼­¹ö ¿¬°á ½ÇÆĞ.");
+		GET_CONNECT_LABEL->setString("ì„œë²„ ì—°ê²° ì‹¤íŒ¨.");
 		return;
 	}
 	TcpClient::getInstance()->loginRequest();
 }
 
-void NetworkScene::menuCallback1(Ref* sender)	// ¹æ »ı¼º
+void NetworkScene::menuCallback1(Ref* sender)	// ë°© ìƒì„±
 {
 	if (TcpClient::getInstance()->checkSocket() == NULL)
 		return;
 
-	ConnectLabelChange("¹æ »ı¼º Áß...");
+	ConnectLabelChange("ë°© ìƒì„± ì¤‘...");
 	TcpClient::getInstance()->makeRoomRequest();	
 }
 
-void NetworkScene::menuCallback2(Ref* sender)	// ¹æ Âü¿©
+void NetworkScene::menuCallback2(Ref* sender)	// ë°© ì°¸ì—¬
 {
 	if (TcpClient::getInstance()->checkSocket() == NULL)
 		return;
 
-	ConnectLabelChange("¹æ¿¡ µé¾î°¡´Â Áß...");
+	ConnectLabelChange("ë°©ì— ë“¤ì–´ê°€ëŠ” ì¤‘...");
 	TcpClient::getInstance()->joinRoomRequest();
 }
 
-void NetworkScene::menuCallback3(Ref* sender)	// ³ª°¡±â
+void NetworkScene::menuCallback3(Ref* sender)	// ë‚˜ê°€ê¸°
 {
 	TcpClient::getInstance()->disconnect();
 	Director::getInstance()->popScene();
@@ -85,9 +85,9 @@ void NetworkScene::menuCallback3(Ref* sender)	// ³ª°¡±â
 void NetworkScene::Tick(float dt)
 {
 	if (TcpClient::getInstance()->checkSocket() == NULL)
-		ConnectLabelChange("¼­¹ö ¿¬°á ²÷±è.");
+		ConnectLabelChange("ì„œë²„ ì—°ê²° ëŠê¹€.");
 	else
-		ConnectLabelChange("¼­¹ö ¿¬°á ¾çÈ£.");
+		ConnectLabelChange("ì„œë²„ ì—°ê²° ì–‘í˜¸.");
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -114,7 +114,7 @@ void NetworkScene::ConnectLabelChange(const char* str)
 
 void NetworkScene::MakeRoomComplete(int roomId)
 {
-	ConnectLabelChange("¼­¹ö ¿¬°á ¾çÈ£.");
+	ConnectLabelChange("ì„œë²„ ì—°ê²° ì–‘í˜¸.");
 	auto scene = RoomScene::createScene();
 	auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
 	layer->SetRoomID(roomId);
@@ -123,7 +123,7 @@ void NetworkScene::MakeRoomComplete(int roomId)
 
 void NetworkScene::JoinRoomComplete(int roomId)
 {
-	ConnectLabelChange("¼­¹ö ¿¬°á ¾çÈ£.");
+	ConnectLabelChange("ì„œë²„ ì—°ê²° ì–‘í˜¸.");
 	auto scene = RoomScene::createScene();
 	auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
 	layer->SetRoomID(roomId);

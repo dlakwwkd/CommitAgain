@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include <thread>
 #include "TcpClient.h"
 #include "platform/CCFileUtils.h"
@@ -22,7 +22,7 @@ static TcpClient* s_TcpClient = nullptr;
 
 TcpClient::TcpClient() : mRecvBuffer(BUF_SIZE), mSock(NULL), mLoginId(-1)
 {
-	/// ¾²·¹µå »ı¼º
+	/// ì“°ë ˆë“œ ìƒì„±
 	auto t = std::thread(CC_CALLBACK_0(TcpClient::networkThread, this));
 	t.detach();
 }
@@ -59,7 +59,7 @@ void TcpClient::destroyInstance()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	¼­¹ö¿ÍÀÇ ¿¬°á, ¿¬°áÇØÁ¦ ÇÔ¼ö
+	ì„œë²„ì™€ì˜ ì—°ê²°, ì—°ê²°í•´ì œ í•¨ìˆ˜
 */
 ///////////////////////////////////////////////////////////////////////////
 bool TcpClient::connect()
@@ -90,7 +90,7 @@ bool TcpClient::connect()
 
 	memset(&hostAddr, 0, sizeof(hostAddr));
 	hostAddr.sin_family = AF_INET;
-	hostAddr.sin_addr.s_addr = inet_addr("10.73.38.194");
+	hostAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 	hostAddr.sin_port = htons(port);
 
 	if (SOCKET_ERROR == ::connect(mSock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))
@@ -99,7 +99,7 @@ bool TcpClient::connect()
 		return false;
 	}
 
-	/// nagle ¾Ë°í¸®Áò ²ô±â
+	/// nagle ì•Œê³ ë¦¬ì¦˜ ë„ê¸°
 	int opt = 1;
 	setsockopt(mSock, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int));
 
@@ -126,7 +126,7 @@ void TcpClient::disconnect()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	½ÇÁ¦ ÆĞÅ¶À» º¸³»°í, ¹Ş´Â ÇÔ¼ö
+	ì‹¤ì œ íŒ¨í‚·ì„ ë³´ë‚´ê³ , ë°›ëŠ” í•¨ìˆ˜
 */
 ///////////////////////////////////////////////////////////////////////////
 bool TcpClient::send(const char* data, int length)
@@ -163,7 +163,7 @@ void TcpClient::networkThread()
 
 		if (!mRecvBuffer.Write(inBuf, n))
 		{
-			/// ¹öÆÛ ²ËÃ¡´Ù. 
+			/// ë²„í¼ ê½‰ì°¼ë‹¤. 
 			assert(false);
 		}
 
@@ -174,14 +174,14 @@ void TcpClient::networkThread()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	¹ŞÀº ÆĞÅ¶ ÆÄ½ÌÇÏ¿© Ã³¸®ÇÏ´Â ÇÔ¼ö
+	ë°›ì€ íŒ¨í‚· íŒŒì‹±í•˜ì—¬ ì²˜ë¦¬í•˜ëŠ” í•¨ìˆ˜
 */
 ///////////////////////////////////////////////////////////////////////////
 void TcpClient::processPacket()
 {
 	auto scheduler = cocos2d::Director::getInstance()->getScheduler();
 
-	/// ÆĞÅ¶À» ÆÄ½ÌÇØ¼­ ¿Ï¼ºµÇ´Â ÆĞÅ¶ÀÌ ÀÖÀ¸¸é, ÇØ´ç Äİ¹éÀ» ºÒ·¯ÁØ´Ù. 
+	/// íŒ¨í‚·ì„ íŒŒì‹±í•´ì„œ ì™„ì„±ë˜ëŠ” íŒ¨í‚·ì´ ìˆìœ¼ë©´, í•´ë‹¹ ì½œë°±ì„ ë¶ˆëŸ¬ì¤€ë‹¤. 
 	while (true)
 	{
 		PacketHeader header;
@@ -204,7 +204,7 @@ void TcpClient::processPacket()
 
 				auto scene = GET_NETWORK_SCENE;		assert(scene != nullptr);
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ConnectLabelChange, scene,
-					"¼­¹ö Á¢¼Ó ¼º°ø!!"));
+					"ì„œë²„ ì ‘ì† ì„±ê³µ!!"));
 			}
 			break;
 
@@ -234,7 +234,7 @@ void TcpClient::processPacket()
 				}
 				else
 				{
-					//³ª°£ ÇÃ·¹ÀÌ¾î Ã³¸® ÇÊ¿ä
+					//ë‚˜ê°„ í”Œë ˆì´ì–´ ì²˜ë¦¬ í•„ìš”
 				}
 			}
 			break;
@@ -248,7 +248,7 @@ void TcpClient::processPacket()
 				auto scene = GET_ROOM_SCENE;		assert(scene != nullptr);
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::GameStartComplete, scene));
 			}
-			return; // ÀÌ ´ÙÀ½ ÆĞÅ¶ ¼ö½Å Àü¿¡ Äİ¹éÇÔ¼ö È£ÃâÀÌ ÇÊ¿äÇÏ¹Ç·Î ¸®ÅÏ
+			return; // ì´ ë‹¤ìŒ íŒ¨í‚· ìˆ˜ì‹  ì „ì— ì½œë°±í•¨ìˆ˜ í˜¸ì¶œì´ í•„ìš”í•˜ë¯€ë¡œ ë¦¬í„´
 
 		case PKT_SC_CREATE_HERO:
 			{
@@ -273,7 +273,7 @@ void TcpClient::processPacket()
 				auto layer = GET_LOADING_LAYER;		assert(layer != nullptr);
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(LoadingBGLayer::SetLoadingFin, layer));
 			}
-			return; // ÀÌ ´ÙÀ½ ÆĞÅ¶ ¼ö½Å Àü¿¡ Äİ¹éÇÔ¼ö È£ÃâÀÌ ÇÊ¿äÇÏ¹Ç·Î ¸®ÅÏ
+			return; // ì´ ë‹¤ìŒ íŒ¨í‚· ìˆ˜ì‹  ì „ì— ì½œë°±í•¨ìˆ˜ í˜¸ì¶œì´ í•„ìš”í•˜ë¯€ë¡œ ë¦¬í„´
 
 		case PKT_SC_START_GAME:
 			{	
@@ -372,7 +372,7 @@ void TcpClient::processPacket()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	º¸³¾ ÆĞÅ¶ ÆÄ½ÌÇÏ´Â ÇÔ¼öµé
+	ë³´ë‚¼ íŒ¨í‚· íŒŒì‹±í•˜ëŠ” í•¨ìˆ˜ë“¤
 */
 ///////////////////////////////////////////////////////////////////////////
 void TcpClient::loginRequest()
@@ -383,7 +383,7 @@ void TcpClient::loginRequest()
 	srand(time(NULL));
 
 	LoginRequest sendData;
-	sendData.mPlayerId = 1000 + rand() % 101;	// ¾ÆÀÌµğ ÀÓ½Ã·Î ·£´ı »ı¼º
+	sendData.mPlayerId = 1000 + rand() % 101;	// ì•„ì´ë”” ì„ì‹œë¡œ ëœë¤ ìƒì„±
 
 	send((const char*)&sendData, sizeof(LoginRequest));
 }

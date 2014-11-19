@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ListenerLayer.h"
 #include "MapLayer.h"
 #include "ObjectLayer.h"
@@ -92,7 +92,7 @@ void ListenerLayer::ScreenMove()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	¸¶¿ì½º ¸®½º³Ê
+	ë§ˆìš°ìŠ¤ ë¦¬ìŠ¤ë„ˆ
 */
 ///////////////////////////////////////////////////////////////////////////
 void ListenerLayer::OnMouseDown(Event *event)
@@ -153,7 +153,7 @@ void ListenerLayer::OnMouseMove(Event *event)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	Å°º¸µå ¸®½º³Ê
+	í‚¤ë³´ë“œ ë¦¬ìŠ¤ë„ˆ
 */
 ///////////////////////////////////////////////////////////////////////////
 void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)

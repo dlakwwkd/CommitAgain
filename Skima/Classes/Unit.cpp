@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Unit.h"
 #include "GameManager.h"
 
@@ -20,7 +20,7 @@ Unit::Unit(const std::string& filename, Point createPos, float scale)
 	{
 	case SINGLE:
 	{
-		auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // ¹Ğµµ, Åº¼º·Â, ¸¶Âû·Â
+		auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // ë°€ë„, íƒ„ì„±ë ¥, ë§ˆì°°ë ¥
 
 		m_Body = PhysicsBody::createCircle(m_Sprite->getContentSize().width*(scale / 2), material);
 		m_Body->setMass(1.0f);
@@ -65,7 +65,7 @@ void Unit::Crash()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	°ÔÀÓ ¸ğµå¿¡ µû¶ó ³ª´µ´Â ÇÔ¼öµé
+	ê²Œì„ ëª¨ë“œì— ë”°ë¼ ë‚˜ë‰˜ëŠ” í•¨ìˆ˜ë“¤
 */
 ///////////////////////////////////////////////////////////////////////////
 void Unit::MoveS()
