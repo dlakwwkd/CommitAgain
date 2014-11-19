@@ -1,9 +1,9 @@
 ﻿#include "stdafx.h"
-#include "Main.h"
-#include "..\..\PacketType.h"
-#include "ThreadLocal.h"
-#include "ClientSession.h"
 #include "ClientManager.h"
+#include "ClientSession.h"
+#include "..\..\PacketType.h"
+#include "Main.h"
+#include "ThreadLocal.h"
 //#include "DatabaseJobContext.h"
 //#include "DatabaseJobManager.h"
 

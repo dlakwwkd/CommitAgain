@@ -4,6 +4,6 @@ class FireballMissile : public Missile
 {
 public:
 	FireballMissile();
-	~FireballMissile();
+	virtual ~FireballMissile();
 };
 

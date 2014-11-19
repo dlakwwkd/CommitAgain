@@ -6,7 +6,7 @@ class Missile :	public Unit
 
 public:
 	Missile();
-	~Missile();
+	virtual ~Missile();
 
 	void	SetMissileInit(int playerId, b2Vec2 initPos);
 	void	SetMissileTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }

@@ -1,15 +1,13 @@
 ﻿#pragma once
 #include "ShootingSkill.h"
 
-class FireballMissile;
-
 class FireballSkill : public ShootingSkill
 {
 public:
 	FireballSkill(int playerid,float heroBodySize);
-	~FireballSkill();
+	virtual ~FireballSkill();
 
-	void SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos);
+	virtual void SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos);
 
 };
 

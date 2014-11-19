@@ -27,6 +27,7 @@ void Game::InitGame()
 
 void Game::PlayerOut(int playerId)
 {
+	if (playerId < 0) return;
 	for (auto& iter = m_PlayerList.begin(); iter != m_PlayerList.end(); ++iter)
 	{
 		if (iter->first == playerId)

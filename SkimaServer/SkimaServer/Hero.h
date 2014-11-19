@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "Unit.h"
-#include "Skill.h"
-#include <map>
+class Skill;
 
 typedef std::map<SkillKey, Skill*> SkillList;
 
@@ -10,7 +9,7 @@ class Hero : public Unit
 public:
 	Hero();
 	Hero(int playerId, int unitId, HeroType heroType, b2Vec2 pos);
-	~Hero();
+	virtual ~Hero();
 
 	HeroType			GetHeroType(){ return m_HeroType; }
 	const SkillList&	GetSkillList(){ return m_SkillList; }

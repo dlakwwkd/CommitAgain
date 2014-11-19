@@ -1,14 +1,10 @@
 ﻿#pragma once
-
-#include <map>
 #include <WinSock2.h>
 #include "Config.h"
 #include "..\..\PacketType.h"
 #include "CircularBuffer.h"
 #include "ObjectPool.h"
 #include "RefCountable.h"
-
-
 class ClientSession;
 class ClientManager;
 class Player;

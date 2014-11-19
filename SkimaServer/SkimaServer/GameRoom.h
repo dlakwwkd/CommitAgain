@@ -1,12 +1,7 @@
 ﻿#pragma once
-#include <vector>
-#include <map>
-
 class Player;
 
 typedef std::map<int, Player*> PlayerList;
-
-
 
 class GameRoom
 {

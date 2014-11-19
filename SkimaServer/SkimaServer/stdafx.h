@@ -15,13 +15,13 @@
 #include <assert.h>
 #include <limits.h>
 #include <vector>
+#include <map>
 #include <algorithm>
 #include <atomic>
 #include <typeinfo>
 #include <Box2D\Box2D.h>
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
-
 
 #define PTM_RATIO 29
 

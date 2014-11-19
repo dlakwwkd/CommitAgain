@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include <map>
-
 class Player;
 
 typedef std::map<int, Player*> PlayerList;

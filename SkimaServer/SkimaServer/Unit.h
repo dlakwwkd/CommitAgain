@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "..\..\PacketType.h"
 #include "FSM.h"
-
 class b2World;
+
 #define CRASHTIME 0.1f
 
 class Unit
@@ -10,7 +10,7 @@ class Unit
 public:
 	Unit(int playerId, UnitType m_unitType, b2Vec2 pos);
 	Unit();
-	virtual~Unit();
+	virtual ~Unit();
 
 public:
 	int				GetUnitID(){ return m_UnitID; }
