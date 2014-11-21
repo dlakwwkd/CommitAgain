@@ -50,6 +50,8 @@ void Missile::MissileShoot()
 	m_TargetPos = rangePos;
 
 	direction = rangePos - currentPos;
+	distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
+
 	direction *= m_Speed / distance;
 	m_Body->SetLinearVelocity(direction);
 

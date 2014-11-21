@@ -11,6 +11,7 @@ Magician::Magician(int playerId, HeroType heroType, b2Vec2 pos)
 {
 	m_PlayerID = playerId;
 	m_HeroType = heroType;
+	m_Hp = 300;
 
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
