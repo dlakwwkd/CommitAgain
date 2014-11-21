@@ -11,8 +11,9 @@ public:
 
 
 protected:
-	int	m_Damage;
-	int m_PlayerId;
-	float m_HeroBodySize;
+	int		m_Damage;
+	int		m_PlayerId;
+	float	m_Range;
+	float	m_HeroBodySize;
 };
 

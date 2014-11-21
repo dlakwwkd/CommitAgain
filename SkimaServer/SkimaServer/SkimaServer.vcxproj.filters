@@ -86,6 +86,9 @@
     <ClCompile Include="Magician.cpp">
       <Filter>Game\Component\Object\Unit\Hero</Filter>
     </ClCompile>
+    <ClCompile Include="TeleportSkill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -191,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Shared\FSM.h">
       <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TeleportSkill.h">
+      <Filter>Game\Component\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Magician.h"
 #include "FireballSkill.h"
+#include "TeleportSkill.h"
 #include "GameManager.h"
 
 Magician::Magician()
@@ -33,6 +34,7 @@ Magician::Magician(int playerId, HeroType heroType, b2Vec2 pos)
 	m_HeroType = HERO_MAGICIAN;
 	
 	m_SkillList[SKILL_Q] = new FireballSkill(m_PlayerID,circle.m_radius);
+	m_SkillList[SKILL_E] = new TeleportSkill(m_PlayerID);
 }
 
 
