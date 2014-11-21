@@ -11,12 +11,17 @@ void GameRoom::ReadySign()
 	}
 }
 
-void GameRoom::JoinPlayer(int id, Player* player)
+void GameRoom::JoinPlayer(Player* player)
 {
-	m_PlayerList[id] = player;
+	if (player == nullptr)
+	{
+		printf(" - JoinPlayer Failed ! : player is invalid \n");
+		return;
+	}
+	m_PlayerList[player->GetPlayerID()] = player;
+	player->SetRoomID(m_RoomID);
 
-	printf("\n [Join Room] Room ID %d, Player ID: %d \n", m_RoomID, id);
-
+	printf("\n [Join Room] Room ID %d, Player ID: %d \n", m_RoomID, player->GetPlayerID());
 	if (m_PlayerList.size() >= 2)
 	{
 		m_JoinAble = false;
@@ -24,19 +29,32 @@ void GameRoom::JoinPlayer(int id, Player* player)
 	}
 }
 
-void GameRoom::OutPlayer(int id)
+void GameRoom::OutPlayer(int playerId)
 {
-	for (auto& it = m_PlayerList.begin(); it != m_PlayerList.end(); ++it)
+	if (playerId < 0)
 	{
-		if (it->first == id)
-		{
-			delete it->second;
-			m_PlayerList.erase(it);
-			break;
-		}
+		printf(" - OutPlayer Failed ! : playerId is invalid \n");
+		return;
 	}
-	if (m_PlayerList.size() != 0)
-		m_JoinAble = true;
+	auto player = m_PlayerList.find(playerId);
+	if (player == m_PlayerList.end())
+	{
+		printf(" - OutPlayer Failed ! : relevant player isn't \n");
+		return;
+	}
+	if (player->second->IsReady())
+	{
+		--m_ReadyNum;
+		m_IsAllReady = false;
+	}
+	player->second->SetRoomID(-1);
+	player->second->SetReady(false);
 
-	printf("\n [Out  Room] Room ID %d, Player ID: %d \n", m_RoomID, id);
+	m_PlayerList.erase(player);
+
+	printf("\n [Out  Room] Room ID %d, Player ID: %d \n", m_RoomID, playerId);
+	if (m_PlayerList.size() != 0)
+	{
+		m_JoinAble = true;
+	}
 }

@@ -15,23 +15,12 @@ FireballSkill::FireballSkill(int playerid, float heroBodySize)
 
 	m_Missile = new FireballMissile();
 	auto player = GGameManager->SearchPlayer(playerid);
-	player->SetUnitPush(m_Missile->GetUnitID(), m_Missile);
+	player->UnitListPush(m_Missile->GetUnitID(), m_Missile);
 }
 
 
 FireballSkill::~FireballSkill()
 {
-	auto player = GGameManager->SearchPlayer(m_PlayerId);
-	auto unitList = player->GetUnitList();
-	for (auto& iter = unitList.begin(); iter != unitList.end(); ++iter)
-	{
-		if (iter->first == m_Missile->GetUnitID())
-		{
-			delete m_Missile;
-			unitList.erase(iter);
-			break;
-		}
-	}
 }
 
 void FireballSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)

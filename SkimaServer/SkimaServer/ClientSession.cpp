@@ -74,6 +74,12 @@ void ClientSession::Disconnect()
 	if (!IsConnected())
 		return;
 
+	if (mPlayer != nullptr)
+	{
+		GGameManager->PlayerOut(mPlayer->GetPlayerID());
+		delete mPlayer;
+		mPlayer = nullptr;
+	}
 	printf("[DEBUG] Client Disconnected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port));
 
 	/// 즉각 해제
@@ -92,12 +98,6 @@ void ClientSession::Disconnect()
 	closesocket(mSocket);
 
 	mConnected = false;
-	
-	if (mRoomId > 0)
-	{
-		OutGameRoom();
-	}
-	GGameManager->PlayerOut(mPlayerId);
 }
 
 
@@ -202,25 +202,6 @@ void ClientSession::OnTick()
 	
 	CallFuncAfter(PLAYER_HEART_BEAT, this, &ClientSession::OnTick);
 }
-
-//////////////////////////////////////////////////////////////////////////
-/*
-	Player 만들고 설정
-*/
-//////////////////////////////////////////////////////////////////////////
-
-void ClientSession::MakePlayer()
-{
-	mPlayer = new Player(mPlayerId);
-}
-
-void ClientSession::SetHeroType(HeroType herotype)
-{
-	mPlayer->SetHeroType(herotype);
-}
-
-
-
 
 
 

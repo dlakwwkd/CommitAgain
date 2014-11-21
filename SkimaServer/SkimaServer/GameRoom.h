@@ -11,15 +11,15 @@ public:
 	}
 	~GameRoom(){}
 
-	int								GetRoomID(){ return m_RoomID; }
-	const PlayerList&				GetPlayerList(){ return m_PlayerList; }
-	bool							IsJoinAble(){ return m_JoinAble; }
-	bool							IsAllReady(){ return m_IsAllReady; }
-	void							InitReady(){ m_IsAllReady = false; }
-	
-	void							ReadySign();
-	void							JoinPlayer(int id, Player* player);
-	void							OutPlayer(int id);
+	int				 	GetRoomID(){ return m_RoomID; }
+	const PlayerList&	GetPlayerList(){ return m_PlayerList; }
+	bool			 	IsJoinAble(){ return m_JoinAble; }
+	bool			 	IsAllReady(){ return m_IsAllReady; }
+	void			 	InitReady(){ m_IsAllReady = false; }
+
+	void			 	ReadySign();
+	void			 	JoinPlayer(Player* player);
+	void			 	OutPlayer(int id);
 
 private:
 	PlayerList			m_PlayerList;

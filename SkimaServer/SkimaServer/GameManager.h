@@ -17,11 +17,11 @@ public:
 
 	GameRoom*			SearchRoom(int roomId);
 	int					SearchEmptyRoom();
-	void				JoinRoom(int id, Player* player, int roomId);
-	void				OutRoom(int playerId, int roomId);
+	void				JoinRoom(int roomId, Player* player);
+	void				OutRoom(int roomId, int playerId);
 
-	Game*				SearchGame(int playerId);
-	void				CreateGame(int roomId);
+	Game*				SearchGame(int gameId);
+	void				CreateGame(int gameId);
 	void				DeleteGame(int gameId);
 
 	Player*				SearchPlayer(int playerId);

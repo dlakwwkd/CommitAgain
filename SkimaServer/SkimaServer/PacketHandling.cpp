@@ -17,7 +17,7 @@ static HandlerFunc HandlerTable[PKT_MAX];
 
 static void DefaultHandler(ClientSession* session)
 {
-	printf("[DEBUG] Invalid packet handler \n", session->GetPlayerId());
+	printf("[DEBUG] Invalid packet handler \n");
 	session->Disconnect();
 }
 
@@ -133,7 +133,7 @@ void ClientSession::OnRead(size_t len)
 
 		if (header.mType >= PKT_MAX || header.mType <= PKT_NONE)
 		{
-			printf("[DEBUG] Invalid packet type \n", GetPlayerId());
+			printf("[DEBUG] Invalid packet type \n");
 			Disconnect();
 			return;
 		}
@@ -162,7 +162,7 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 		session->Disconnect();
 		return;
 	}
-	session->LoginSuccessInform(inPacket.mPlayerId);
+	session->LoginProcess(inPacket.mPlayerId);
 
 	// 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
 	// 	GDatabaseJobManager->PushDatabaseJobRequest(newDbJob);
@@ -176,7 +176,7 @@ REGISTER_HANDLER(PKT_CS_MAKE_ROOM)
 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-	session->MakeGameRoom(inPacket.mPlayerId);
+	session->MakeGameRoom();
 }
 
 REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
@@ -187,7 +187,7 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-	if (session->GetPlayerId() != inPacket.mPlayerId)
+	if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
 	{
 		printf("[DEBUG] Player Info error! \n");
 		return;
@@ -211,23 +211,23 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-	if (session->GetPlayerId() != inPacket.mPlayerId)
+	if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
 	{
 		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
-	printf(" - Player %d is Ready ! \n", inPacket.mPlayerId);
 
-	auto room = GGameManager->SearchRoom(session->GetRoomId());			_ASSERT(room != nullptr);
+	auto player = session->GetPlayer();								_ASSERT(player != nullptr);
+	auto room = GGameManager->SearchRoom(player->GetRoomID());		_ASSERT(room != nullptr);
 	room->ReadySign();
-	session->SetReady();
+	player->SetReady(true);
+	player->SetHeroType(inPacket.mHeroType);
+	printf(" - Player %d is Ready ! \n", inPacket.mPlayerId);
 
 	if (room->IsAllReady())
 	{
 		session->AllReadyNotify();
 	}
-
-	session->SetHeroType(inPacket.mHeroType);
 }
 
 REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
@@ -238,12 +238,14 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-	if (session->GetPlayerId() != inPacket.mPlayerId)
+	if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
 	{
 		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
-	auto game = GGameManager->SearchGame(session->GetPlayerId());		_ASSERT(game != nullptr);
+
+	auto player = session->GetPlayer();								_ASSERT(player != nullptr);
+	auto game = GGameManager->SearchGame(player->GetRoomID());		_ASSERT(game != nullptr);
 	game->SetLoadedPlayerNum();
 }
 
@@ -255,12 +257,12 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-	if (session->GetPlayerId() != inPacket.mPlayerId)
+	if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
 	{
 		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
-	printf(" Receive: LoginID: %d\t\t X : %.f\tY : %.f\n", session->GetPlayerId(), inPacket.mTargetPosX, inPacket.mTargetPosY);
+	printf(" Receive: LoginID: %d\t\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPosX, inPacket.mTargetPosY);
 
 	b2Vec2 targetPos;
 	b2Vec2 currentPos;
@@ -269,8 +271,8 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 	currentPos.x = inPacket.mCurrentPosX / PTM_RATIO;
 	currentPos.y = inPacket.mCurrentPosY / PTM_RATIO;
 
-	auto player = GGameManager->SearchPlayer(session->GetPlayerId());	_ASSERT(player != nullptr);
-	auto hero = player->GetMyHero();										_ASSERT(hero != nullptr);
+	auto player = session->GetPlayer();								_ASSERT(player != nullptr);
+	auto hero = player->GetMyHero();									_ASSERT(hero != nullptr);
 	hero->TryMove(currentPos, targetPos);
 
 	//session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
@@ -284,12 +286,12 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
 		return;
 	}
-	if (session->GetPlayerId() != inPacket.mPlayerId)
+	if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
 	{
 		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
-	printf(" SkillReceive: LoginID: %d\t\t X : %.f\tY : %.f\n", session->GetPlayerId(), inPacket.mTargetPosX, inPacket.mTargetPosY);
+	printf(" SkillReceive: LoginID: %d\t\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPosX, inPacket.mTargetPosY);
 
 	b2Vec2 targetPos;
 	b2Vec2 currentPos;
@@ -298,8 +300,8 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 	currentPos.x = inPacket.mCurrentPosX / PTM_RATIO;
 	currentPos.y = inPacket.mCurrentPosY / PTM_RATIO;
 
-	auto player = GGameManager->SearchPlayer(session->GetPlayerId());	_ASSERT(player != nullptr);
-	auto hero = player->GetMyHero();										_ASSERT(hero != nullptr);
+	auto player = session->GetPlayer();								_ASSERT(player != nullptr);
+	auto hero = player->GetMyHero();									_ASSERT(hero != nullptr);
 	hero->UseSkill(inPacket.mKey,currentPos, targetPos);
 
 	//session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
@@ -346,30 +348,27 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 	보낼 패킷 파싱하는 함수들
 	*/
 ///////////////////////////////////////////////////////////////////////////
-void ClientSession::LoginSuccessInform(int id)
+void ClientSession::LoginProcess(int playerId)
 {
-	LoginResult outPacket;
-	outPacket.mPlayerId = mPlayerId = id;
-	MakePlayer();
-
-	// 여기서는 일단 ID로 닉네임을 덮어썼는데,
-	// 나중에 DB를 이용해 ID별로 닉네임을 적용해야 할듯. -수빈
-	itoa(mPlayerId, mPlayerName, 10);
-	strcpy_s(outPacket.mName, mPlayerName);
-
+	mPlayer = new Player(playerId);
 	mLogon = true;
+
+	LoginResult outPacket;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
+	strcpy_s(outPacket.mName, mPlayer->GetPlayerName());
+
 	SendRequest(&outPacket);
 	printf(" Send:   Login ID: %d \n", outPacket.mPlayerId);
 }
 
-void ClientSession::MakeGameRoom(int id)
+void ClientSession::MakeGameRoom()
 {
 	GameRoom* gameRoom = GGameManager->CreateRoom();
-	GGameManager->JoinRoom(id, mPlayer, gameRoom->GetRoomID());
+	GGameManager->JoinRoom(gameRoom->GetRoomID(), mPlayer);
 
 	MakeRoomResult outPacket;
-	outPacket.mPlayerId = mPlayerId = id;
-	outPacket.mRoomId = mRoomId = gameRoom->GetRoomID();
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
+	outPacket.mRoomId = gameRoom->GetRoomID();
 
 	SendRequest(&outPacket);
 	printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
@@ -377,16 +376,16 @@ void ClientSession::MakeGameRoom(int id)
 
 void ClientSession::JoinGameRoom()
 {
-	auto roomNum = GGameManager->SearchEmptyRoom();
-	if (roomNum < 0)
+	auto roomId = GGameManager->SearchEmptyRoom();
+	if (roomId < 0)
 	{
 		return;
 	}
-	GGameManager->JoinRoom(mPlayerId, mPlayer, roomNum);
+	GGameManager->JoinRoom(roomId, mPlayer);
 
 	InOutRoomResult outPacket;
-	outPacket.mPlayerId = mPlayerId;
-	outPacket.mRoomId = mRoomId = roomNum;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
+	outPacket.mRoomId = roomId;
 
 	SendRequest(&outPacket);
 	printf(" Send: Join Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
@@ -394,43 +393,45 @@ void ClientSession::JoinGameRoom()
 
 void ClientSession::OutGameRoom()
 {
-	if(mRoomId < 0 || mPlayerId < 0)
+	auto playerId = mPlayer->GetPlayerID();
+	auto roomId = mPlayer->GetRoomID();
+	if (playerId < 0 || roomId < 0)
+	{
 		return;
-	GGameManager->OutRoom(mPlayerId, mRoomId);
+	}
+	GGameManager->OutRoom(roomId, playerId);
 
-	mRoomId = -1;
-	mIsReady = false;
-	printf(" Send:  Out Room ID: %d, Player ID: %d \n", mRoomId, mPlayerId);
+	printf(" Send:  Out Room ID: %d, Player ID: %d \n", roomId, playerId);
 }
 
 void ClientSession::ServerRunComplete()
 {
 	ServerRunCompleteNotify outPacket;
-	outPacket.mPlayerId = mPlayerId;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
 
 	if (!Broadcast(&outPacket))
 	{
 		Disconnect();
 	}
-	printf(" Send: ServerRunCompleteNotify Room ID: %d \n", mRoomId);
+	printf(" Send: ServerRunCompleteNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
 void ClientSession::AllReadyNotify()
 {
 	GameRunNotify outPacket;
-	outPacket.mPlayerId = mPlayerId;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
 
 	if (!Broadcast(&outPacket))
 	{
 		Disconnect();
 	}
-	printf(" Send: GameRunNotify Room ID: %d \n", mRoomId);
+	printf(" Send: GameRunNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
 void ClientSession::SendCreateHeroResult(int unitId, HeroType unitType, b2Vec2 pos)
 {
 	CreateHeroResult outPacket;
-	outPacket.mPlayerId = mPlayerId;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
 	outPacket.mUnitId = unitId;
 	outPacket.mUnitType = unitType;
 	outPacket.mPosX = pos.x*PTM_RATIO;
@@ -440,25 +441,25 @@ void ClientSession::SendCreateHeroResult(int unitId, HeroType unitType, b2Vec2 p
 	{
 		Disconnect();
 	}
-	printf(" Send: CreateHeroResult Player ID: %d \n", mPlayerId);
+	printf(" Send: CreateHeroResult Player ID: %d \n", mPlayer->GetPlayerID());
 }
 
 void ClientSession::StartGame()
 {
 	StartGameNotify outPacket;
-	outPacket.mPlayerId = mPlayerId;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
 
 	if (!Broadcast(&outPacket))
 	{
 		Disconnect();
 	}
-	printf(" Send: StartGameNotify Room ID: %d \n", mRoomId);
+	printf(" Send: StartGameNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
 void ClientSession::SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	MoveBroadcastResult outPacket;
-	outPacket.mPlayerId = mPlayerId;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
 	outPacket.mUnitId = unitId;
 	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
 	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
@@ -474,7 +475,7 @@ void ClientSession::SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos
 void ClientSession::CrashedBroadCast(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 expectPos, bool isCrashed)
 {
 	CrashedBroadcastResult outPacket;
-	outPacket.mPlayerId = mPlayerId;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
 	outPacket.mUnitId = unitId;
 	outPacket.mUnitType = unitType;
 	outPacket.mIsCrashed = isCrashed;
@@ -493,7 +494,7 @@ void ClientSession::CrashedBroadCast(int unitId, UnitType unitType, b2Vec2 curre
 void ClientSession::SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	SkillBroadcastResult outPacket;
-	outPacket.mPlayerId = mPlayerId;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
 	outPacket.mUnitId = heroId;
 	outPacket.mKey = key;
 	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;

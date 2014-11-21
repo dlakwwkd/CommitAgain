@@ -3,13 +3,12 @@
 #include "Player.h"
 #include "Map.h"
 
-void Game::SetPlayerList(PlayerList playerlist)
-{
-	m_PlayerList = playerlist;
 
+void Game::InitGame()
+{
 	int i = 1;
 
-	for (auto& it : playerlist)
+	for (auto& it : *m_PlayerList)
 	{
 		if (i == 1)
 			it.second->CreateHero({ 100 / PTM_RATIO, 100 / PTM_RATIO });
@@ -20,33 +19,18 @@ void Game::SetPlayerList(PlayerList playerlist)
 	}
 }
 
-void Game::InitGame()
-{
-
-}
-
-void Game::PlayerOut(int playerId)
-{
-	if (playerId < 0) return;
-	for (auto& iter = m_PlayerList.begin(); iter != m_PlayerList.end(); ++iter)
-	{
-		if (iter->first == playerId)
-		{
-			delete iter->second;
-			m_PlayerList.erase(iter);
-			break;
-		}
-	}
-}
-
 Player* Game::GetPlayer(int playerId)
 {
-	for (auto& player : m_PlayerList)
+	if (playerId < 0)
 	{
-		if (player.first == playerId)
-		{
-			return player.second;
-		}
+		printf(" - GetPlayer Failed ! : playerId is invalid \n");
+		return nullptr;
 	}
-	return nullptr;
+	auto player = m_PlayerList->find(playerId);
+	if (player == m_PlayerList->end())
+	{
+		printf(" - GetPlayer Failed ! : relevant player isn't \n");
+		return nullptr;
+	}
+	return player->second;
 }

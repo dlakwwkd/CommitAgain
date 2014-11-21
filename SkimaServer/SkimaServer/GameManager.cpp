@@ -22,41 +22,47 @@ GameRoom* GameManager::CreateRoom()
 	if (m_MakeRoomNum == 0)
 		LowTick();
 
-	GameRoom* room = new GameRoom(++m_MakeRoomNum);
-
-	if (m_RoomList[m_MakeRoomNum] != nullptr)
+	if (m_RoomList.find(m_MakeRoomNum) != m_RoomList.end())
 	{
-		delete m_RoomList[m_MakeRoomNum];
+		DeleteRoom(m_MakeRoomNum);
 	}
+	GameRoom* room = new GameRoom(++m_MakeRoomNum);
 	m_RoomList[m_MakeRoomNum] = room;
 	return room;
 }
 
 void GameManager::DeleteRoom(int roomId)
 {
-	for (auto& iter = m_RoomList.begin(); iter != m_RoomList.end(); ++iter)
+	if (roomId < 0)
 	{
-		if (iter->first == roomId)
-		{
-			delete iter->second;
-			m_RoomList.erase(iter);
-			break;
-		}
+		printf(" - DeleteRoom Failed ! : roomId is invalid \n");
+		return;
 	}
+	auto room = m_RoomList.find(roomId);
+	if (room == m_RoomList.end())
+	{
+		printf(" - DeleteRoom Failed ! : relevant room isn't \n");
+		return;
+	}
+	delete room->second;
+	m_RoomList.erase(room);
 	printf(" - Destroy %d Room ! \n", roomId);
 }
 
 GameRoom* GameManager::SearchRoom(int roomId)
 {
-	for (auto& room : m_RoomList)
+	if (roomId < 0)
 	{
-		if (room.first == roomId)
-		{
-			return room.second;
-		}
+		printf(" - SearchRoom Failed ! : roomId is invalid \n");
+		return nullptr;
 	}
-	printf(" - Room Search Failed ! \n");
-	return nullptr;
+	auto room = m_RoomList.find(roomId);
+	if (room == m_RoomList.end())
+	{
+		printf(" - SearchRoom Failed ! : relevant room isn't \n");
+		return nullptr;
+	}
+	return room->second;
 }
 
 int GameManager::SearchEmptyRoom()
@@ -72,16 +78,32 @@ int GameManager::SearchEmptyRoom()
 	return -1;
 }
 
-void GameManager::JoinRoom(int id, Player* player, int roomId)
+void GameManager::JoinRoom(int roomId, Player* player)
 {
-	m_RoomList[roomId]->JoinPlayer(id, player);
+	if (roomId < 0 || player == nullptr)
+	{
+		printf(" - JoinRoom Failed ! : invalid info \n");
+		return;
+	}
+	m_RoomList[roomId]->JoinPlayer(player);
 }
 
-void GameManager::OutRoom(int playerId, int roomId)
+void GameManager::OutRoom(int roomId, int playerId)
 {
-	m_RoomList[roomId]->OutPlayer(playerId);
+	if (roomId < 0 || playerId < 0)
+	{
+		printf(" - OutRoom Failed ! : invalid ID \n");
+		return;
+	}
+	auto room = m_RoomList.find(roomId);
+	if (room == m_RoomList.end())
+	{
+		printf(" - OutRoom Failed ! : relevant room isn't \n");
+		return;
+	}
+	room->second->OutPlayer(playerId);
 
-	if (m_RoomList[roomId]->GetPlayerList().size() == 0)
+	if (room->second->GetPlayerList().size() == 0)
 	{
 		DeleteRoom(roomId);
 	}
@@ -94,45 +116,60 @@ void GameManager::OutRoom(int playerId, int roomId)
 	Game 관련
 */
 ///////////////////////////////////////////////////////////////////////////
-Game* GameManager::SearchGame(int playerId)
+Game* GameManager::SearchGame(int gameId)
 {
-	for (auto& game : m_GameList)
+	if (gameId < 0)
 	{
-		for (auto& player : game.second->GetPlayerList())
-		{
-			if (player.first == playerId)
-			{
-				return game.second;
-			}
-		}
+		printf(" - SearchGame Failed ! : gameId is invalid \n");
+		return nullptr;
 	}
-	printf(" - Game Search Failed ! \n");
-	return nullptr;
+	auto game = m_GameList.find(gameId);
+	if (game == m_GameList.end())
+	{
+		printf(" - SearchGame Failed ! : relevant game isn't \n");
+		return nullptr;
+	}
+	return game->second;
 }
 
-void GameManager::CreateGame(int roomId)
+void GameManager::CreateGame(int gameId)
 {
-	Game* game = new Game(roomId);
-
-	if (m_GameList[roomId] != nullptr)
+	if (gameId < 0)
 	{
-		delete m_GameList[roomId];
+		printf(" - CreateGame Failed ! : gameId is invalid \n");
+		return;
 	}
-	m_GameList[roomId] = game;
-	game->SetPlayerList(m_RoomList[roomId]->GetPlayerList());
+	auto room = m_RoomList.find(gameId);
+	if (room == m_RoomList.end())
+	{
+		printf(" - CreateGame Failed ! : room info is invalid \n");
+		return;
+	}
+	if (m_GameList.find(gameId) != m_GameList.end())
+	{
+		DeleteGame(gameId);
+	}
+	Game* game = new Game(gameId);
+	m_GameList[gameId] = game;
+	game->SetPlayerList(&(room->second->GetPlayerList()));
+	game->InitGame();
 }
 
 void GameManager::DeleteGame(int gameId)
 {
-	for (auto& iter = m_GameList.begin(); iter != m_GameList.end(); ++iter)
+	if (gameId < 0)
 	{
-		if (iter->first == gameId)
-		{
-			delete iter->second;
-			m_GameList.erase(iter);
-			break;
-		}
+		printf(" - DeleteGame Failed ! : gameId is invalid \n");
+		return;
 	}
+	auto game = m_GameList.find(gameId);
+	if (game == m_GameList.end())
+	{
+		printf(" - DeleteGame Failed ! : relevant game isn't \n");
+		return;
+	}
+	delete game->second;
+	m_GameList.erase(game);
 	printf(" - Destroy %d Game ! \n", gameId);
 }
 
@@ -145,18 +182,39 @@ void GameManager::DeleteGame(int gameId)
 ///////////////////////////////////////////////////////////////////////////
 Player* GameManager::SearchPlayer(int playerId)
 {
-	return SearchGame(playerId)->GetPlayer(playerId);
+	if (playerId < 0)
+	{
+		printf(" - SearchPlayer Failed ! : playerId is invalid \n");
+		return nullptr;
+	}
+	for (auto& room : m_RoomList)
+	{
+		for (auto& player : room.second->GetPlayerList())
+		{
+			if (player.first == playerId)
+			{
+				return player.second;
+			}
+		}
+	}
+	printf(" - SearchPlayer Failed ! : relevant player isn't \n");
+	return nullptr;
 }
 
 void GameManager::PlayerOut(int playerId)
 {
-	for (auto& game : m_GameList)
+	if (playerId < 0)
 	{
-		for (auto& player : game.second->GetPlayerList())
+		printf(" - PlayerOut Failed ! : playerId is invalid \n");
+		return;
+	}
+	for (auto& room : m_RoomList)
+	{
+		for (auto& player : room.second->GetPlayerList())
 		{
 			if (player.first == playerId)
 			{
-				game.second->PlayerOut(playerId);
+				room.second->OutPlayer(playerId);
 				break;
 			}
 		}
@@ -205,9 +263,15 @@ void GameManager::Tick(float dt)
 
 	for (auto& game : m_GameList)
 	{
-		for (auto& player : game.second->GetPlayerList())
+		for (auto& player : *(game.second->GetPlayerList()))
 		{
-			auto client = GClientManager->GetClient(player.first);	_ASSERT(client != nullptr);
+			auto client = GClientManager->GetClient(player.first);
+			if (client == nullptr)
+			{
+				auto room = m_RoomList.find(player.first);
+				room->second->OutPlayer(player.first);
+				continue;
+			}
 
 			if (game.second->IsReady())
 			{

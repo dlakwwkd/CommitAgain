@@ -21,38 +21,28 @@ class ClientSession : public RefCountable, public ObjectPool<ClientSession>
 {
 public:
 	ClientSession(SOCKET sock)
-		: mConnected(false), mLogon(false), mSocket(sock), mPlayerId(-1), mRoomId(-1), mIsReady(false),
-		mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE)
+		: mConnected(false), mLogon(false), mSocket(sock), mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE), mPlayer(nullptr)
 	{
-		memset(&mClientAddr, 0, sizeof(SOCKADDR_IN));
-		memset(mPlayerName, 0, sizeof(mPlayerName));
+		ZeroMemory(&mClientAddr, sizeof(SOCKADDR_IN));
 	}
 	virtual ~ClientSession() {}
 
 public:
-	int			GetPlayerId() const	{ return mPlayerId; }
-	int			GetRoomId() const	{ return mRoomId; }
-	const char* GetPlayerName() const { return mPlayerName; }
-	SOCKET		GetSocketKey() const { return mSocket; }
-	
-	void		SetReady() { mIsReady = true; }
-	bool		IsReady() { return mIsReady; }
+	SOCKET	GetSocketKey() const { return mSocket; }
+	Player*	GetPlayer() const { return mPlayer; }
 
-	void		MakePlayer();
-	void		SetHeroType(HeroType herotype);
-
-	void		LoginSuccessInform(int id);
-	void		MakeGameRoom(int id);
-	void		JoinGameRoom();
-	void		OutGameRoom();
-	void		AllReadyNotify();
-	void		SendCreateHeroResult(int unitId, HeroType unitType, b2Vec2 pos);
-	void		SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
-	void		CrashedBroadCast(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 expectPos, bool mIsCrashed);
-	void		SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos);
-	void		MissileBroadCast(int playerId,int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
-	void		ServerRunComplete();
-	void		StartGame();
+	void	LoginProcess(int playerId);
+	void	MakeGameRoom();
+	void	JoinGameRoom();
+	void	OutGameRoom();
+	void	AllReadyNotify();
+	void	SendCreateHeroResult(int unitId, HeroType unitType, b2Vec2 pos);
+	void	SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
+	void	CrashedBroadCast(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 expectPos, bool mIsCrashed);
+	void	SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos);
+	void	MissileBroadCast(int playerId, int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
+	void	ServerRunComplete();
+	void	StartGame();
 
 	// 	void	LoginDone(int pid, const char* name);
 	// 	void	UpdateDone();
@@ -79,11 +69,6 @@ public:
 	void OnRead(size_t len);
 
 private:
-	int				mRoomId;
-	int				mPlayerId;
-	char			mPlayerName[MAX_NAME_LEN];
-	bool			mIsReady;
-
 	Player*			mPlayer;
 
 private:

@@ -4,6 +4,7 @@
 #include "..\..\PacketType.h"
 #include "Main.h"
 #include "ThreadLocal.h"
+#include "Player.h"
 //#include "DatabaseJobContext.h"
 //#include "DatabaseJobManager.h"
 
@@ -28,9 +29,19 @@ ClientSession* ClientManager::CreateClient(SOCKET sock)
 
 ClientSession* ClientManager::GetClient(int playerId)
 {
+	if (playerId < 0)
+	{
+		printf(" - GetClient Failed ! : playerId is invalid \n");
+		return nullptr;
+	}
 	for (auto& client : mClientList)
 	{
-		if (client.second->GetPlayerId() == playerId)
+		auto player = client.second->GetPlayer();
+		if (player == nullptr)
+		{
+			continue;
+		}
+		if (player->GetPlayerID() == playerId)
 		{
 			return client.second;
 		}
@@ -40,9 +51,19 @@ ClientSession* ClientManager::GetClient(int playerId)
 
 bool ClientManager::IsValidPlayerId(int playerId)
 {
+	if (playerId < 0)
+	{
+		printf(" - IsValidPlayerId Failed ! : playerId is invalid \n");
+		return false;
+	}
 	for (auto& client : mClientList)
 	{
-		if (client.second->GetPlayerId() == playerId)
+		auto player = client.second->GetPlayer();
+		if (player == nullptr)
+		{
+			continue;
+		}
+		if (player->GetPlayerID() == playerId)
 		{
 			return false;
 		}
@@ -67,7 +88,7 @@ void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 			continue;
 
 		// 같은 방에 있는 애들에게만 방송한다.
-		if (client->GetRoomId() == from->GetRoomId())
+		if (client->GetPlayer()->GetRoomID() == from->GetPlayer()->GetRoomID())
 		{
 			client->SendRequest(pkt);
 		}
