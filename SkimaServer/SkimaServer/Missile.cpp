@@ -51,18 +51,11 @@ void Missile::MissileShoot()
 
 	direction = rangePos - currentPos;
 	distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
-
 	direction *= m_Speed / distance;
 	m_Body->SetLinearVelocity(direction);
 
 	GClientManager->GetClient(m_PlayerID)->MissileBroadCast(m_PlayerID, m_UnitID, currentPos, m_TargetPos);
 	m_State->TryMove(this);
-
-// 	if (distance < 0.6f)
-// 	{
-// 		m_Body->SetLinearVelocity(b2Vec2(0, 0));
-// 		return;
-// 	}
 }
 
 void Missile::ConsumeLiveTime(float costTime)
