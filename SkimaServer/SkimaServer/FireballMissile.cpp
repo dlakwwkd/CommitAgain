@@ -5,6 +5,7 @@
 
 FireballMissile::FireballMissile()
 {
+	m_Range = 200.0f;
 }
 
 
