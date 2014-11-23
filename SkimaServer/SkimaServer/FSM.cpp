@@ -15,8 +15,8 @@ void StandbyState::TryMove(Unit* unit)
 
 void StandbyState::Crashed(Unit* unit)
 {
+	unit->GetBody()->SetLinearDamping(DAMPING);
 	unit->SetState(unit->GetCrashedState());
-	unit->GetBody()->SetLinearDamping(10.0f);
 }
 
 void StandbyState::EndMove(Unit* unit){}
@@ -32,8 +32,8 @@ void StandbyState::Movement(Unit* unit){}
 void MovingState::TryMove(Unit* unit){}
 void MovingState::Crashed(Unit* unit)
 {
+	unit->GetBody()->SetLinearDamping(DAMPING);
 	unit->SetState(unit->GetCrashedState());
-	unit->GetBody()->SetLinearDamping(10.0f);
 }
 
 void MovingState::EndMove(Unit* unit)
@@ -41,17 +41,16 @@ void MovingState::EndMove(Unit* unit)
 	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
 	unit->SetState(unit->GetStandbyState());
 
-
 	if (unit->GetUnitType() == UNIT_MISSILE)
 	{
-		GGameManager->GetWolrd()->DestroyBody(unit->GetBody());
+		Crashed(unit);
 	}
 }
 
 void MovingState::EndCrash(Unit* unit){}
 void MovingState::Movement(Unit* unit)
 {
-	unit->UnitMove();
+	unit->Moving();
 }
 
 
@@ -63,10 +62,9 @@ void MovingState::Movement(Unit* unit)
 void CrashedState::TryMove(Unit* unit){}
 void CrashedState::Crashed(Unit* unit)
 {
-	auto velo = unit->GetBody()->GetLinearVelocity();
-	velo.x /= 5;
-	velo.y /= 5;
-	unit->GetBody()->SetLinearVelocity(velo);
+	auto velocity = unit->GetBody()->GetLinearVelocity();
+	velocity *= 0.2f;
+	unit->GetBody()->SetLinearVelocity(velocity);
 }
 
 void CrashedState::EndMove(Unit* unit){}
@@ -79,13 +77,15 @@ void CrashedState::EndCrash(Unit* unit)
 
 void CrashedState::Movement(Unit* unit)
 {
-	if (!(abs(unit->GetBody()->GetLinearVelocity().x) > 0.1f ||
-		abs(unit->GetBody()->GetLinearVelocity().y) > 0.1f))
+	if (unit->GetContectState() == true)
 	{
-		EndCrash(unit);
+		return;
+	}
+
+	auto velocity = unit->GetBody()->GetLinearVelocity();
+	if (!(abs(velocity.x) > 0.1f ||	abs(velocity.y) > 0.1f))
+	{
 		unit->Crashing(false);
-		printf(" - CrashEnd: UnitID:  %d, \t\t\t\t X : %.f\tY : %.f\n", unit->GetUnitID(),
-			unit->GetBody()->GetPosition().x*PTM_RATIO, unit->GetBody()->GetPosition().y*PTM_RATIO);
 	}
 
 	if (unit->GetUnitType() == UNIT_MISSILE)

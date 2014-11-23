@@ -1,21 +1,22 @@
 ﻿#include "stdafx.h"
+#include "Unit.h"
 #include "ClientSession.h"
 #include "ClientManager.h"
 #include "GameManager.h"
-#include "Unit.h"
 
-
-Unit::Unit(int playerId, UnitType m_unitType, b2Vec2 pos)
-{
-	
-}
 
 Unit::Unit()
 {
 	static int makeId = 0;
 	m_UnitID = ++makeId;
+
+	m_PlayerID = -1;
+	m_Hp = m_MaxHp = -1;
+	m_Speed = -1;
+	m_Contacting = false;
 	m_UnitType = UNIT_NONE;
-	m_Hp = 0;
+	m_TargetPos = { -1, -1 };
+	m_Body = nullptr;
 
 	m_State = m_StandbyState = new StandbyState;
 	m_MovingState = new MovingState;
@@ -30,12 +31,67 @@ Unit::~Unit()
 }
 
 
+void Unit::Moving()
+{
+	auto curPos = m_Body->GetPosition();
+	if (!(curPos.x < m_TargetPos.x - 0.1f ||
+		curPos.y < m_TargetPos.y - 0.1f ||
+		curPos.x > m_TargetPos.x + 0.1f ||
+		curPos.y > m_TargetPos.y + 0.1f))
+	{
+		EndMove();
+		printf(" - Reach: UnitID:  %d, \t\t\t\t\t X : %.f\tY : %.f\n", m_UnitID,
+			curPos.x*PTM_RATIO, curPos.y*PTM_RATIO);
+	}
+}
+
+void Unit::Crashing(bool isCrashing)
+{
+	auto client = GClientManager->GetClient(m_PlayerID);
+	if (client == nullptr)
+	{
+		EndCrash();
+		printf(" - Crashing Failed ! : playerId is invalid \n");
+		return;
+	}
+
+	auto curPos = m_Body->GetPosition();
+	auto expectPos = curPos;
+
+	if (isCrashing)
+	{
+		auto velocity = m_Body->GetLinearVelocity();
+		velocity *= 5;
+		m_Body->SetLinearVelocity(velocity);
+
+		expectPos.x = curPos.x + velocity.x / DAMPING;
+		expectPos.y = curPos.y + velocity.y / DAMPING;
+
+		printf(" - Crashing: UnitID:  %d, \t\t\t expectPos: X : %.f\tY : %.f\n", m_UnitID,
+			expectPos.x*PTM_RATIO, expectPos.y*PTM_RATIO);
+	}
+	else
+	{
+		EndCrash();
+		printf(" - CrashEnd: UnitID:  %d, \t\t\t reachPos:  X : %.f\tY : %.f\n", m_UnitID,
+			curPos.x*PTM_RATIO, curPos.y*PTM_RATIO);
+	}
+
+	client->CrashedBroadCast(m_UnitID, m_UnitType, curPos, expectPos, isCrashing);
+}
+
+
 void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 {
-	m_TargetPos = targetPos;
+	auto client = GClientManager->GetClient(m_PlayerID);
+	if (client == nullptr)
+	{
+		printf(" - TryMove Failed ! : playerId is invalid \n");
+		return;
+	}
 
-	auto direction = targetPos - m_Body->GetPosition();
-	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
+	auto displacement = targetPos - m_Body->GetPosition();
+	auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2));
 
 	if (distance < 0.6f)
 	{
@@ -43,44 +99,14 @@ void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 		return;
 	}
 
-	direction *= m_Speed / distance;
-	m_Body->SetLinearVelocity(direction);
+	b2Vec2 velocity;
+	velocity.x = (displacement.x / distance) * m_Speed;
+	velocity.y = (displacement.y / distance) * m_Speed;
+	m_Body->SetLinearVelocity(velocity);
 
-	GClientManager->GetClient(m_PlayerID)->SendHeroInfo(m_UnitID, currentPos, targetPos);
-
+	m_TargetPos = targetPos;
 	m_State->TryMove(this);
+
+	client->SendHeroInfo(m_UnitID, currentPos, m_TargetPos);
 }
 
-
-void Unit::UnitMove()
-{
-	if (!(m_Body->GetPosition().x < m_TargetPos.x - 0.1f ||
-		m_Body->GetPosition().y < m_TargetPos.y - 0.1f ||
-		m_Body->GetPosition().x > m_TargetPos.x + 0.1f ||
-		m_Body->GetPosition().y > m_TargetPos.y + 0.1f))
-	{
-		printf(" - Reach: UnitID:  %d, \t\t\t\t\t X : %.f\tY : %.f\n", m_UnitID,
-			m_Body->GetPosition().x*PTM_RATIO, m_Body->GetPosition().y*PTM_RATIO);
-		EndMove();
-	}
-}
-
-void Unit::Crashing(bool isCrashing)
-{
-	auto client = GClientManager->GetClient(m_PlayerID);		_ASSERT(client != nullptr);
-
-	auto velo = m_Body->GetLinearVelocity();
-	velo.x *= 5;
-	velo.y *= 5;
-	m_Body->SetLinearVelocity(velo);
-	auto pos = m_Body->GetPosition();
-
-	printf("Velocity unitId: %d, x: %f, y: %f\n", m_UnitID, velo.x*PTM_RATIO, velo.y*PTM_RATIO);
-
-	b2Vec2 expectpos;
-
-	expectpos.x = pos.x + velo.x * CRASHTIME; //예상 값
-	expectpos.y = pos.y + velo.y * CRASHTIME;
-
-	client->CrashedBroadCast(m_UnitID, m_UnitType, m_Body->GetPosition(), expectpos, isCrashing);
-}

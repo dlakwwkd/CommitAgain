@@ -268,7 +268,7 @@ void GameManager::Tick(float dt)
 			auto client = GClientManager->GetClient(player.first);
 			if (client == nullptr)
 			{
-				auto room = m_RoomList.find(player.first);
+				auto room = m_RoomList.find(player.first);	_ASSERT(room != m_RoomList.end());
 				room->second->OutPlayer(player.first);
 				continue;
 			}

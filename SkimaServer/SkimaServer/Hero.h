@@ -14,7 +14,7 @@ public:
 	HeroType			GetHeroType(){ return m_HeroType; }
 	const SkillList&	GetSkillList(){ return m_SkillList; }
 
-	void				UnitMove();
+	void				Moving();
 	virtual void		UseSkill(SkillKey skillKey,b2Vec2 heroPos, b2Vec2 targetPos);
 	
 protected:

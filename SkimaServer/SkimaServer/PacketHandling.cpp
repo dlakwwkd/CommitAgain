@@ -262,7 +262,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
-	printf(" Receive: LoginID: %d\t\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPosX, inPacket.mTargetPosY);
+	printf(" Receive: LoginID: %d\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPosX, inPacket.mTargetPosY);
 
 	b2Vec2 targetPos;
 	b2Vec2 currentPos;
@@ -488,7 +488,7 @@ void ClientSession::CrashedBroadCast(int unitId, UnitType unitType, b2Vec2 curre
 	{
 		Disconnect();
 	}
-	printf(" Send: Crashed!  UnitID: %d, \t\t X : %.f\tY : %.f\n", unitId, outPacket.mExpectPosX, outPacket.mExpectPosY);
+	//printf(" Send: Crashed!  UnitID: %d, \t\t X : %.f\tY : %.f\n", unitId, outPacket.mExpectPosX, outPacket.mExpectPosY);
 }
 
 void ClientSession::SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos)
