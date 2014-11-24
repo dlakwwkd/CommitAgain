@@ -187,16 +187,31 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	switch (keyCode)
 	{
 	case KEY_Q:
-		GET_IM->SetTargeting(keyCode, true);
+		{
+			GET_IM->SetTargeting(keyCode, true);
 
-		auto layer = GET_UI_LAYER;						_ASSERT(layer != nullptr);
-		layer->CursorChange(CURSOR_ATTACK);
+			auto layer = GET_UI_LAYER;						_ASSERT(layer != nullptr);
+			layer->CursorChange(CURSOR_ATTACK);
 
-		auto cursorShape = layer->GetCurrentShape();		_ASSERT(cursorShape != nullptr);
-		cursorShape->setPosition(GET_IM->GetMouseLocation());
+			auto cursorShape = layer->GetCurrentShape();		_ASSERT(cursorShape != nullptr);
+			cursorShape->setPosition(GET_IM->GetMouseLocation());
 		
-		m_Targeting = true;
-		break;
+			m_Targeting = true;
+			break;
+		}
+	case KEY_W:
+		{
+			GET_IM->SetTargeting(keyCode, true);
+
+			auto layer = GET_UI_LAYER;						_ASSERT(layer != nullptr);
+			layer->CursorChange(CURSOR_ATTACK);
+
+			auto cursorShape = layer->GetCurrentShape();		_ASSERT(cursorShape != nullptr);
+			cursorShape->setPosition(GET_IM->GetMouseLocation());
+
+			m_Targeting = true;
+			break;
+		}
 	}
 }
 

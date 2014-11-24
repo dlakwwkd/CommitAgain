@@ -35,6 +35,11 @@ MissileManager::~MissileManager()
 
 Missile* MissileManager::Assign(int unitId, MissileType type)
 {
+	if (unitId < 0)
+	{
+		return nullptr;
+	}
+
 	for (auto& missile : m_MissileList)
 	{
 		if (missile->m_UnitID == unitId)

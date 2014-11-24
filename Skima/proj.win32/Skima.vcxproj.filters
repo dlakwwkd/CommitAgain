@@ -162,6 +162,9 @@
     <ClCompile Include="..\Classes\MissileManager.cpp">
       <Filter>Game\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\IceballSkill.cpp">
+      <Filter>Game\Component\Skill\ShootType</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MissileManager.h">
       <Filter>Game\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\IceballSkill.h">
+      <Filter>Game\Component\Skill\ShootType</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

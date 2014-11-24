@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "PacketType.h"
 #include "FireballSkill.h"
+#include "IceballSkill.h"
 
 
 Magician::Magician(Point createPos, float scale)
@@ -15,6 +16,7 @@ Magician::Magician(Point createPos, float scale)
 	m_Hp = m_MaxHp;
 	SetHpBar(createPos);
 	m_SkillList[SKILL_Q] = new FireballSkill();
+	m_SkillList[SKILL_W] = new IceballSkill();
 
 	switch (GET_GM.GetGameMode())
 	{
