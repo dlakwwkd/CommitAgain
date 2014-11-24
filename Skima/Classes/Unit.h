@@ -61,8 +61,8 @@ protected:
 	std::string		m_Name;
 	int				m_PlayerID;
 	int				m_UnitID;
-	int				m_MaxHp;
-	int				m_Hp;
+	float			m_MaxHp;
+	float			m_Hp;
 	float			m_Speed;
 
 	Point			m_TargetPos;
