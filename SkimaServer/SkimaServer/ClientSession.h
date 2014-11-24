@@ -42,7 +42,7 @@ public:
 	void	SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos);
 	void	MissileBroadCast(int playerId, int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
 	void	TeleportBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
-	void	DamageBroadCast(int playerId, int unitId, UnitType unitType, int damage);
+	void	HpBroadCast(int playerId, int unitId, UnitType unitType, int hp);
 	void	ServerRunComplete();
 	void	StartGame();
 

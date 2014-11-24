@@ -67,7 +67,7 @@ enum PacketTypes
 
 	PKT_SC_MISSILE = 48,
 	PKT_SC_TELEPORT = 52,
-	PKT_SC_DAMAGE = 54,
+	PKT_SC_HP = 54,
 
 	PKT_CS_CHAT = 91,
 	PKT_SC_CHAT = 92,
@@ -466,21 +466,20 @@ struct TeleportBroadcastResult : public PacketHeader
 
 };
 
-struct DamageBroadcastResult : public PacketHeader
+struct HpBroadcastResult : public PacketHeader
 {
-	DamageBroadcastResult()
+	HpBroadcastResult()
 	{
-		mSize = sizeof(CrashedBroadcastResult);
-		mType = PKT_SC_DAMAGE;
-		mPlayerId = -1;
+		mSize = sizeof(HpBroadcastResult);
+		mType = PKT_SC_HP;
 		mUnitId = -1;
 		mUnitType = UNIT_NONE;
-		mDamage = 0;
+		mHp = 0;
 	}
 	int			mPlayerId;
 	int			mUnitId;
 	UnitType	mUnitType;
-	int			mDamage;
+	int			mHp;
 };
 ///////////////////////////////////////////////////////////////////////////
 /*

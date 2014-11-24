@@ -540,13 +540,13 @@ void ClientSession::TeleportBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 targ
 	}
 }
 
-void ClientSession::DamageBroadCast(int playerId, int unitId, UnitType unitType, int damage)
+void ClientSession::HpBroadCast(int playerId, int unitId, UnitType unitType, int hp)
 {
-	DamageBroadcastResult outPacket;
+	HpBroadcastResult outPacket;
 	outPacket.mPlayerId = playerId;
 	outPacket.mUnitId = unitId;
 	outPacket.mUnitType = unitType;
-	outPacket.mDamage = damage;
+	outPacket.mHp = hp;
 
 	if (!Broadcast(&outPacket))
 	{

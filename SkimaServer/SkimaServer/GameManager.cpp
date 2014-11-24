@@ -10,6 +10,7 @@
 #include "Scheduler.h"
 #include "Config.h"
 
+
 GameManager* GGameManager = nullptr;
 
 
@@ -328,9 +329,17 @@ void GameManager::ExchangeDamage(Unit* unitA, Unit* unitB)
 {
 	int damageA = unitA->GetUnitDamage();
 	int damageB = unitB->GetUnitDamage();
+	int unitAHp = unitA->GetUnitHp() - damageB;
+	int unitBHp = unitB->GetUnitHp() - damageA;
 	
-	unitA->SetUnitHp(unitA->GetUnitHp() - damageB);
-	unitB->SetUnitHp(unitB->GetUnitHp() - damageA);
+	unitA->SetUnitHp(unitAHp);
+	unitB->SetUnitHp(unitBHp);
+
+	int AplayerId = unitA->GetPlayerID();
+	int BplayerId = unitB->GetPlayerID();
+	GClientManager->GetClient(AplayerId)->HpBroadCast(AplayerId, unitA->GetUnitID(), unitA->GetUnitType(), unitAHp);
+	GClientManager->GetClient(BplayerId)->HpBroadCast(BplayerId, unitB->GetUnitID(), unitB->GetUnitType(), unitBHp);
+
 }
 
 
