@@ -4,15 +4,13 @@
 #include "TeleportSkill.h"
 #include "GameManager.h"
 
-Magician::Magician()
-{
-}
 
-Magician::Magician(int playerId, HeroType heroType, b2Vec2 pos)
+Magician::Magician(int playerId, b2Vec2 pos)
 {
 	m_PlayerID = playerId;
-	m_HeroType = heroType;
-	m_Hp = 300;
+	m_Hp = m_MaxHp = 300;
+	m_Speed = 10.0f;
+	m_HeroType = HERO_MAGICIAN;
 
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
@@ -31,9 +29,7 @@ Magician::Magician(int playerId, HeroType heroType, b2Vec2 pos)
 	m_Body->CreateFixture(&fixtureDef);
 	m_Body->SetUserData(this);
 	
-	m_HeroType = HERO_MAGICIAN;
-	
-	m_SkillList[SKILL_Q] = new FireballSkill(m_PlayerID,circle.m_radius);
+	m_SkillList[SKILL_Q] = new FireballSkill(m_PlayerID, circle.m_radius);
 	m_SkillList[SKILL_E] = new TeleportSkill(m_PlayerID);
 }
 

@@ -8,8 +8,8 @@
 FireballSkill::FireballSkill(int playerid, float heroBodySize)
 {
 	m_PlayerId = playerid;
-	m_MissileSpeed = 10.0f;
 	m_Damage = 50;
+	m_MissileSpeed = 10.0f;
 	m_MissileLiveTime = 500.0f;
 	m_HeroBodySize = heroBodySize;
 

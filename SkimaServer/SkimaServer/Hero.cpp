@@ -7,15 +7,8 @@
 Hero::Hero()
 {
 	m_UnitType = UNIT_HERO;
-	m_Speed = 10.0f;
-	m_TargetPos = { 0, 0 };
+	m_HeroType = HERO_NONE;
 }
-
-Hero::Hero(int playerId, int unitId, HeroType heroType, b2Vec2 pos)
-{
-	
-}
-
 
 Hero::~Hero()
 {
