@@ -73,23 +73,23 @@ void UILayer::CursorChange(CursorMode cursormode)
 	}
 }
 
-// void UILayer::SetSkillUse(SkillKey key, bool skillon)
-// {
-// 	switch (key)
-// 	{
-// 	case SKILL_Q:
-// 		m_Q_Skill_On = skillon;
-// 		break;
-// 	case SKILL_W:
-// 		break;
-// 	case SKILL_E:
-// 		break;
-// 	case SKILL_R:
-// 		break;
-// 	default:
-// 		break;
-// 	}
-// }
+void UILayer::SetSkillUse(SkillKey key, bool skillon)
+{
+	switch (key)
+	{
+	case SKILL_Q:
+		m_Q_Skill_On = skillon;
+		break;
+	case SKILL_W:
+		break;
+	case SKILL_E:
+		break;
+	case SKILL_R:
+		break;
+	default:
+		break;
+	}
+}
 
 void UILayer::ClickExit(Ref* sender)
 {

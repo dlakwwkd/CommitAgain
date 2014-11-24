@@ -10,7 +10,8 @@ public:
 	Hero();
 	virtual ~Hero();
 
-	HeroType GetHeroType(){ return m_HeroType; }
+	HeroType	GetHeroType(){ return m_HeroType; }
+	int			GetSkillCoolTime(SkillKey key);
 
 protected:
 	HeroType					m_HeroType;

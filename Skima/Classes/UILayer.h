@@ -12,7 +12,7 @@ public:
 	void	Tick(float dt);
 
 	void	CursorChange(CursorMode cursormode);
-	//void	SetSkillUse(SkillKey key, bool skillon);
+	void	SetSkillUse(SkillKey key, bool skillon);
 	void	ClickExit(Ref* sender);
 	void	loadingMessage();
 

@@ -15,3 +15,8 @@ Hero::~Hero()
 		delete skill.second;
 	}
 }
+
+int Hero::GetSkillCoolTime(SkillKey key)
+{
+	return m_SkillList[key]->GetCoolTime();
+}

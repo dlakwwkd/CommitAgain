@@ -5,6 +5,7 @@
 
 FireballSkill::FireballSkill()
 {
+	m_CoolTime = 5;
 	m_Missile = new FireballMissile;
 }
 
