@@ -1,5 +1,6 @@
 #pragma once
 #include "..\..\PacketType.h"
+#include "RefCountable.h"
 class Missile;
 
 enum InitPoolSize
@@ -17,11 +18,11 @@ enum IDBoundary
 	ICE_BALL_ID_START	= FIRE_BALL_ID_START + ID_INTERVAL,
 };
 
-class MissileManager
+class MissileManager : public RefCountable
 {
 public:
 	MissileManager();
-	~MissileManager();
+	virtual ~MissileManager();
 
 	Missile*	Assign(MissileType type);
 	void		Release(Missile* missile);

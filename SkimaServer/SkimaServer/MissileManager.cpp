@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MissileManager.h"
+#include "GameManager.h"
 #include "FireballMissile.h"
 #include "IceballMissile.h"
 
@@ -56,6 +57,11 @@ Missile* MissileManager::Assign(MissileType type)
 void MissileManager::Release(Missile* missile)
 {
 	missile->m_InUse = false;
+	auto body = missile->GetBody();
+	if (body != nullptr)
+	{
+		GGameManager->GetWolrd()->DestroyBody(body);
+	}
 }
 
 bool MissileManager::Expand(MissileType type)

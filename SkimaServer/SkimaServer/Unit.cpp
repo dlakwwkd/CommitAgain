@@ -40,7 +40,7 @@ void Unit::Moving()
 		curPos.y > m_TargetPos.y + 0.1f))
 	{
 		EndMove();
-		printf(" - Reach: UnitID:  %d, \t\t\t\t\t X : %.f\tY : %.f\n", m_UnitID,
+		printf(" - Reach: UnitID:  %d, \t\t\t\t X : %.f\tY : %.f\n", m_UnitID,
 			curPos.x*PTM_RATIO, curPos.y*PTM_RATIO);
 	}
 }

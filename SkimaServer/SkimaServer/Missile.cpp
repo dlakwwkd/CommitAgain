@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Missile.h"
+#include "Scheduler.h"
 #include "ClientManager.h"
 #include "ClientSession.h"
 #include "GameManager.h"
@@ -70,11 +71,13 @@ void Missile::ConsumeLiveTime(float costTime)
 
 void Missile::Extinction()
 {
-	m_State = m_StandbyState;
+	Crashing(false);
 
 	auto player = GGameManager->SearchPlayer(m_PlayerID);
 	player->UnitListPop(m_UnitID);
 
-	GGameManager->GetWolrd()->DestroyBody(m_Body);
-	GMissileManager->Release(this);
+	if (m_InUse)
+	{
+		CallFuncAfter(1, GMissileManager, &MissileManager::Release, this);
+	}
 }
