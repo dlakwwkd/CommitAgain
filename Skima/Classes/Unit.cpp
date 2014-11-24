@@ -54,13 +54,13 @@ Unit::~Unit()
 
 void Unit::UpdateHpBar()
 {
-	//m_HpBar->setScaleX(m_Hp / m_MaxHp);
+	m_HpBar->setScaleX(m_Hp / m_MaxHp);
 }
 
 void Unit::SetHpBar(Point unitPos)
 {
 	m_HpBar = Sprite::create("Images/HpBar_Unit.png");
-	m_HpBar->setPosition(Point(unitPos.x, unitPos.y + 5));
+	m_HpBar->setPosition(Point(unitPos.x - 110, unitPos.y + 5));
 	m_HpBar->setAnchorPoint(Point(0,0));
 }
 

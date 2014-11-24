@@ -8,10 +8,12 @@
 Magician::Magician(Point createPos, float scale)
 {
 	SetMoveMotionByDir();
-	m_Sprite = Sprite::createWithSpriteFrameName("MoveMotion_NE_01.PNG");
+	m_Sprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
-	//SetHpBar(createPos);
+	m_MaxHp = 300;
+	m_Hp = m_MaxHp;
+	SetHpBar(createPos);
 	m_SkillList[SKILL_Q] = new FireballSkill();
 
 	switch (GET_GM.GetGameMode())
@@ -31,8 +33,6 @@ Magician::Magician(Point createPos, float scale)
 	case MULTI:
 		break;
 	}
-	m_MaxHp = 300;
-	m_Hp = m_MaxHp;
 	m_Speed = 10.0f;
 	m_HeroType = HERO_MAGICIAN;
 }
