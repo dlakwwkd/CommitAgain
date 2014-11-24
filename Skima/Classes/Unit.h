@@ -18,6 +18,9 @@ public:
 	void			SetMoveTargetPos(Point pos){ m_TargetPos = pos; }
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
+	Sprite*			GetHpBar(){ return m_HpBar; }
+	void SetHpBar(Point unitPos);
+	void			UpdateHpBar();
 	Point			GetMoveTargetPos(){ return m_TargetPos; }
 
 	MoveState*		GetMoveState(){ return m_MoveState; }
@@ -62,5 +65,6 @@ protected:
 
 protected:
 	Sprite*			m_Sprite;
+	Sprite*			m_HpBar;
 	PhysicsBody*	m_Body;
 };

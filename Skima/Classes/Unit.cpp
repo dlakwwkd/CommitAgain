@@ -3,8 +3,10 @@
 #include "GameManager.h"
 
 Unit::Unit()
+:m_UnitType(UNIT_NONE), m_Name(NULL), m_PlayerID(-1), m_UnitID(-1),
+m_MaxHp(0), m_Hp(0), m_Speed(0), m_TargetPos(Point(0,0)),
+m_Sprite(nullptr), m_HpBar(nullptr), m_Body(nullptr)
 {
-	m_Speed = 10.0f;
 	m_MoveState = m_StandbyState = new StandbyState();
 	m_MovingState = new MovingState();
 	m_CrashedState = new CrashedState();
@@ -40,6 +42,18 @@ Unit::~Unit()
 	delete m_StandbyState;
 	delete m_MovingState;
 	delete m_CrashedState;
+}
+
+void Unit::UpdateHpBar()
+{
+	m_HpBar->setScaleX(m_Hp / m_MaxHp);
+}
+
+void Unit::SetHpBar(Point unitPos)
+{
+	m_HpBar = Sprite::create("Images/HpBar_Unit.png");
+	m_HpBar->setPosition(Point(unitPos.x, unitPos.y + 5));
+	m_HpBar->setAnchorPoint(Point(0,0));
 }
 
 

@@ -8,7 +8,7 @@ class Hero :
 {
 public:
 	Hero();
-	~Hero();
+	virtual ~Hero();
 
 	HeroType GetHeroType(){ return m_HeroType; }
 
