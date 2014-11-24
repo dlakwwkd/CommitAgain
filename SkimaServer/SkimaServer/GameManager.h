@@ -6,6 +6,9 @@ class Player;
 class b2World;
 class ContactListener;
 
+typedef std::map<int, Game*> GameList;
+typedef std::map<int, GameRoom*> RoomList;
+
 class GameManager : public RefCountable
 {
 public:
@@ -27,8 +30,6 @@ public:
 	Player*				SearchPlayer(int playerId);
 	void				PlayerOut(int playerId);
 
-	//void				UnitMoveSet(b2Vec2 targetPos, b2Vec2 currentPos, int playerId);
-
 	void				Tick(float dt);
 	void				LowTick();
 
@@ -41,8 +42,6 @@ private:
 	void				DeletePhyWorld();
 
 private:
-	typedef std::map<int, Game*> GameList;
-	typedef std::map<int, GameRoom*> RoomList;
 	GameList			m_GameList;
 	RoomList			m_RoomList;
 	int					m_MakeRoomNum;

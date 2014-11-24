@@ -122,9 +122,8 @@ void ListenerLayer::OnMouseDown(Event *event)
 				TcpClient::getInstance()->skillRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation(),
 					static_cast<SkillKey>(key));
 			}
-			GET_UI_LAYER->CursorChange(CURSOR_DEFAULT);
-			auto cursor_shape = GET_UI_LAYER->GetCurrentShape();
-			cursor_shape->setPosition(GET_IM->GetMouseLocation());
+			auto layer = GET_UI_LAYER;		_ASSERT(layer != nullptr);
+			layer->CursorChange(CURSOR_DEFAULT);
 			m_Targeting = false;
 		}
 		break;
@@ -136,9 +135,8 @@ void ListenerLayer::OnMouseDown(Event *event)
 				TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
 			}
 			GET_IM->InitTargetingKey();
-			GET_UI_LAYER->CursorChange(CURSOR_DEFAULT);
-			auto cursor_shape = GET_UI_LAYER->GetCurrentShape();
-			cursor_shape->setPosition(GET_IM->GetMouseLocation());
+			auto layer = GET_UI_LAYER;		_ASSERT(layer != nullptr);
+			layer->CursorChange(CURSOR_DEFAULT);
 			m_Targeting = false;
 		}
 		break;
@@ -158,7 +156,8 @@ void ListenerLayer::OnMouseMove(Event *event)
 
 	GET_IM->SetMouseLocation(location);
 	GET_IM->CheckMouseScroll();
-	auto cursor_shape = GET_UI_LAYER->GetCurrentShape();
+	auto layer = GET_UI_LAYER;		_ASSERT(layer != nullptr);
+	auto cursor_shape = layer->GetCurrentShape();
 	cursor_shape->setPosition(location);
 }
 
@@ -178,9 +177,8 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	{
 	case KEY_Q:
 		GET_IM->SetTargeting(keyCode, true);
-		GET_UI_LAYER->CursorChange(CURSOR_ATTACK);
-		auto cursor_shape = GET_UI_LAYER->GetCurrentShape();
-		cursor_shape->setPosition(GET_IM->GetMouseLocation());
+		auto layer = GET_UI_LAYER;		_ASSERT(layer != nullptr);
+		layer->CursorChange(CURSOR_ATTACK);
 		m_Targeting = true;
 		break;
 	}
