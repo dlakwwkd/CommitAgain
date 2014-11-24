@@ -11,3 +11,8 @@ enum GameMode
 	MULTI,
 };
 
+enum CursorMode
+{
+	CURSOR_DEFAULT,
+	CURSOR_ATTACK,
+};

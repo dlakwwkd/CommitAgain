@@ -20,6 +20,9 @@ Scene* SingleGameScene::createScene()
 
 	scene->addChild(layer1, 0, "SingleGameScene");
 	layer1->addChild(layer2, 0, "PhysicsLayer");
+
+	ShowCursor(false);
+
 	return scene;
 }
 
@@ -33,5 +36,6 @@ bool SingleGameScene::init()
 
 	auto layer = UILayer::create();
 	this->addChild(layer, 5, "UILayer");
+
 	return true;
 }

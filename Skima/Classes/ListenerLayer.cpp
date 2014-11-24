@@ -6,11 +6,15 @@
 #include "InputManager.h"
 #include "MultiGameScene.h"
 #include "Hero.h"
+#include "UILayer.h"
 
-#define GET_OBJECT_LAYER dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
+#define GET_OBJECT_LAYER	dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
+#define GET_UI_LAYER		dynamic_cast<UILayer*>(this->getParent()->getChildByName("UILayer"))
+
 
 bool ListenerLayer::init()
 {
+	
 	if (!Layer::init())
 	{
 		return false;
@@ -118,6 +122,7 @@ void ListenerLayer::OnMouseDown(Event *event)
 				TcpClient::getInstance()->skillRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation(),
 					static_cast<SkillKey>(key));
 			}
+			GET_UI_LAYER->CursorChange(CURSOR_DEFAULT);
 			m_Targeting = false;
 		}
 		break;
@@ -148,6 +153,8 @@ void ListenerLayer::OnMouseMove(Event *event)
 
 	GET_IM->SetMouseLocation(location);
 	GET_IM->CheckMouseScroll();
+	auto cursor_shape = GET_UI_LAYER->GetCurrentShape();
+	cursor_shape->setPosition(location);
 }
 
 
@@ -166,6 +173,7 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	{
 	case KEY_Q:
 		GET_IM->SetTargeting(keyCode, true);
+		GET_UI_LAYER->CursorChange(CURSOR_ATTACK);
 		m_Targeting = true;
 		break;
 	}

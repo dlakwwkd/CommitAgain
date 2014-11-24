@@ -15,7 +15,7 @@ AppDelegate::~AppDelegate()
 
 void AppDelegate::initGLContextAttrs()
 {
-    //red,green,blue,alpha,depth,stencil
+    //red,green,blue,alpha,depth,stencilx
     GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
     GLView::setGLContextAttrs(glContextAttrs);
 }
@@ -41,7 +41,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto scene = MainScene::createScene();
 
     // run
-    director->runWithScene(scene);
+	director->runWithScene(scene);
+
+
     return true;
 }
 

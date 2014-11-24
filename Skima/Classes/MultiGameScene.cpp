@@ -6,6 +6,7 @@
 #include "ListenerLayer.h"
 #include "GameManager.h"
 #include "UILayer.h"
+#include "windows.h"
 
 Scene* MultiGameScene::createScene()
 {
@@ -14,6 +15,7 @@ Scene* MultiGameScene::createScene()
 	auto layer2 = ListenerLayer::create();
 	scene->addChild(layer1, 0, "MultiGameScene");
 	layer1->addChild(layer2, 0, "ListenerLayer");
+	ShowCursor(false);
 	return scene;
 }
 

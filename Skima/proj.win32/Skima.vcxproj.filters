@@ -64,6 +64,9 @@
     <Filter Include="Game\Component\Skill\ShootType">
       <UniqueIdentifier>{60123690-516a-4373-8779-c201ab14c357}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Mouse">
+      <UniqueIdentifier>{acf579fa-1a71-452d-83f6-cc067a3af5ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
