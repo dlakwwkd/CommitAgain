@@ -31,8 +31,8 @@ void TeleportSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
 		auto player = GGameManager->SearchPlayer(m_PlayerId);
 		player->GetMyHero()->GetBody()->SetTransform(targetPos, 0);
 
-		auto client = GClientManager->GetClient(m_PlayerID);
-		client->SendCreateHeroResult(m_Hero->GetUnitID(), m_Hero->GetHeroType(), pos);
+// 		auto client = GClientManager->GetClient(m_PlayerID);
+// 		client->SendCreateHeroResult(m_Hero->GetUnitID(), m_Hero->GetHeroType(), pos);
 	//보내주기
 	}
 
