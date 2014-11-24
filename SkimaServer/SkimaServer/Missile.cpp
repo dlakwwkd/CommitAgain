@@ -50,14 +50,14 @@ void Missile::MissileShoot()
 	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
 
 	b2Vec2 rangePos;
-	rangePos.x = direction.x*m_Range / distance;
-	rangePos.y = direction.y*m_Range / distance;
+	rangePos.x = direction.x*m_Range / distance + currentPos.x;
+	rangePos.y = direction.y*m_Range / distance + currentPos.y;
 	m_TargetPos = rangePos;
 
-	direction = rangePos - currentPos;
-	distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
-	direction *= m_Speed / distance;
-	m_Body->SetLinearVelocity(direction);
+	auto newDirection = rangePos - currentPos;
+	newDirection *= m_Speed / m_Range;
+
+	m_Body->SetLinearVelocity(newDirection);
 
 	GClientManager->GetClient(m_PlayerID)->MissileBroadCast(m_PlayerID, m_UnitID, currentPos, m_TargetPos);
 	m_State->TryMove(this);
