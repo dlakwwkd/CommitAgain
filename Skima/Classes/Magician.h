@@ -7,5 +7,8 @@ public:
 	Magician(Point createPos, float scale);
 	virtual ~Magician();
 
+public:
+	void SetMoveMotionByDir();
+
 };
 

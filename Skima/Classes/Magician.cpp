@@ -41,3 +41,97 @@ Magician::Magician(Point createPos, float scale)
 Magician::~Magician()
 {
 }
+
+void Magician::SetMoveMotionByDir()
+{
+	SpriteFrameCache::getInstance()->
+		addSpriteFramesWithFile("Images/MoveMotion_E.plist");
+	SpriteFrameCache::getInstance()->
+		addSpriteFramesWithFile("Images/MoveMotion_W.plist");
+	SpriteFrameCache::getInstance()->
+		addSpriteFramesWithFile("Images/MoveMotion_S.plist");
+	SpriteFrameCache::getInstance()->
+		addSpriteFramesWithFile("Images/MoveMotion_N.plist");
+	SpriteFrameCache::getInstance()->
+		addSpriteFramesWithFile("Images/MoveMotion_SE.plist");
+	SpriteFrameCache::getInstance()->
+		addSpriteFramesWithFile("Images/MoveMotion_SW.plist");
+	SpriteFrameCache::getInstance()->
+		addSpriteFramesWithFile("Images/MoveMotion_NE.plist");
+	SpriteFrameCache::getInstance()->
+		addSpriteFramesWithFile("Images/MoveMotion_NW.plist");
+
+	auto animation_E = Animation::create();
+	animation_E->setDelayPerUnit(0.2);
+	auto animation_W = Animation::create();
+	animation_W->setDelayPerUnit(0.2);
+	auto animation_S = Animation::create();
+	animation_S->setDelayPerUnit(0.2);
+	auto animation_N = Animation::create();
+	animation_N->setDelayPerUnit(0.2);
+	auto animation_SE = Animation::create();
+	animation_SE->setDelayPerUnit(0.2);
+	auto animation_SW = Animation::create();
+	animation_SW->setDelayPerUnit(0.2);
+	auto animation_NE = Animation::create();
+	animation_NE->setDelayPerUnit(0.2);
+	auto animation_NW = Animation::create();
+	animation_NW->setDelayPerUnit(0.2);
+
+	for (int i = 0; i < 7; ++i)
+	{
+		auto frame = SpriteFrameCache::getInstance()->
+			getSpriteFrameByName(StringUtils::format("MoveMotion_E_%02d.PNG", i));
+		animation_E->addSpriteFrame(frame);
+	}
+	for (int i = 0; i < 7; ++i)
+	{
+		auto frame = SpriteFrameCache::getInstance()->
+			getSpriteFrameByName(StringUtils::format("MoveMotion_W_%02d.PNG", i));
+		animation_W->addSpriteFrame(frame);
+	}
+	for (int i = 0; i < 7; ++i)
+	{
+		auto frame = SpriteFrameCache::getInstance()->
+			getSpriteFrameByName(StringUtils::format("MoveMotion_S_%02d.PNG", i));
+		animation_S->addSpriteFrame(frame);
+	}
+	for (int i = 0; i < 7; ++i)
+	{
+		auto frame = SpriteFrameCache::getInstance()->
+			getSpriteFrameByName(StringUtils::format("MoveMotion_N_%02d.PNG", i));
+		animation_N->addSpriteFrame(frame);
+	}
+	for (int i = 0; i < 7; ++i)
+	{
+		auto frame = SpriteFrameCache::getInstance()->
+			getSpriteFrameByName(StringUtils::format("MoveMotion_SE_%02d.PNG", i));
+		animation_SE->addSpriteFrame(frame);
+	}
+	for (int i = 0; i < 7; ++i)
+	{
+		auto frame = SpriteFrameCache::getInstance()->
+			getSpriteFrameByName(StringUtils::format("MoveMotion_SW_%02d.PNG", i));
+		animation_SW->addSpriteFrame(frame);
+	}
+	for (int i = 0; i < 7; ++i)
+	{
+		auto frame = SpriteFrameCache::getInstance()->
+			getSpriteFrameByName(StringUtils::format("MoveMotion_NE_%02d.PNG", i));
+		animation_NE->addSpriteFrame(frame);
+	}
+	for (int i = 0; i < 7; ++i)
+	{
+		auto frame = SpriteFrameCache::getInstance()->
+			getSpriteFrameByName(StringUtils::format("MoveMotion_NW_%02d.PNG", i));
+		animation_NW->addSpriteFrame(frame);
+	}
+	m_MoveMotionByDir[E] = Animate::create(animation_E);
+	m_MoveMotionByDir[W] = Animate::create(animation_W);
+	m_MoveMotionByDir[S] = Animate::create(animation_S);
+	m_MoveMotionByDir[N] = Animate::create(animation_N);
+	m_MoveMotionByDir[SE] = Animate::create(animation_SE);
+	m_MoveMotionByDir[SW] = Animate::create(animation_SW);
+	m_MoveMotionByDir[NE] = Animate::create(animation_NE);
+	m_MoveMotionByDir[NW] = Animate::create(animation_NW);
+}

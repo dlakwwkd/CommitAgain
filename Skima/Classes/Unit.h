@@ -4,6 +4,7 @@
 #include "FSM.h"
 
 USING_NS_CC;
+typedef std::map<Direction, Animate*> MoveMotion;
 
 class Unit
 {
@@ -19,7 +20,8 @@ public:
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
 	Sprite*			GetHpBar(){ return m_HpBar; }
-	void SetHpBar(Point unitPos);
+	virtual void	SetMoveMotionByDir() = 0;
+	void			SetHpBar(Point unitPos);
 	void			UpdateHpBar();
 	Point			GetMoveTargetPos(){ return m_TargetPos; }
 
@@ -53,6 +55,7 @@ protected:
 	MoveState*		m_CrashedState;
 
 protected:
+	MoveMotion		m_MoveMotionByDir;
 	UnitType		m_UnitType;
 	std::string		m_Name;
 	int				m_PlayerID;
