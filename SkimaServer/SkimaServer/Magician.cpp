@@ -8,7 +8,7 @@
 Magician::Magician(int playerId, b2Vec2 pos, float scale)
 {
 	m_PlayerID = playerId;
-	m_Hp = m_MaxHp = 300;
+	m_Hp = m_MaxHp = 1000;
 	m_Speed = 10.0f;
 	m_HeroType = HERO_MAGICIAN;
 

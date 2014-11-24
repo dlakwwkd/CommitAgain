@@ -5,6 +5,7 @@ class GameRoom;
 class Player;
 class b2World;
 class ContactListener;
+class Unit;
 
 typedef std::map<int, Game*> GameList;
 typedef std::map<int, GameRoom*> RoomList;
@@ -32,6 +33,9 @@ public:
 
 	void				Tick(float dt);
 	void				LowTick();
+
+	bool				ApplyDamage(Unit* unitA, Unit* unitB);
+	void				ExchangeDamage(Unit* unitA, Unit* unitB);
 
 public:
 	b2World*			GetWolrd(){ return m_World; }

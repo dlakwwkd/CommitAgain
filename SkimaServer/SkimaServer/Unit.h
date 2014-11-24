@@ -22,6 +22,7 @@ public:
 	int				GetUnitID(){ return m_UnitID; }
 	int				GetMaxHp(){ return m_MaxHp; }
 	int				GetUnitHp(){ return m_Hp; }
+	int				GetUnitDamage(){ return m_Damage; }
 	float			GetSpeed(){ return m_Speed; }
 	bool			GetContectState(){ return m_Contacting; }
 	UnitType		GetUnitType(){ return m_UnitType; }
@@ -49,6 +50,7 @@ protected:
 	int			m_UnitID; 
 	int			m_MaxHp;
 	int			m_Hp;
+	int			m_Damage;
 	float		m_Speed; 
 	bool		m_Contacting;
 	UnitType	m_UnitType; 

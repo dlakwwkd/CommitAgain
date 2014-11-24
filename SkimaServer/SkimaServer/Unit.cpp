@@ -12,6 +12,7 @@ Unit::Unit()
 
 	m_PlayerID = -1;
 	m_Hp = m_MaxHp = -1;
+	m_Damage = 0;
 	m_Speed = -1;
 	m_Contacting = false;
 	m_UnitType = UNIT_NONE;

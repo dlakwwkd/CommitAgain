@@ -12,6 +12,7 @@ public:
 	void	SetMissileSpeed(float missileSpeed) { m_Speed = missileSpeed; }
 	void	SetMissileLivetime(float missileLivetime) { m_Livetime = missileLivetime; }
 	void	SetMissileRange(float missileRange) { m_Range = missileRange; }
+	void	SetMissileHp(int missileHp) { m_Hp = missileHp; }
 
 	void	MissileShoot();
 	void	ConsumeLiveTime(float costTime);
@@ -20,7 +21,6 @@ public:
 protected:
 	MissileType		m_MissileType;
 	bool			m_InUse;
-	int				m_Damage;
 	float			m_Range;
 	float			m_Livetime;
 

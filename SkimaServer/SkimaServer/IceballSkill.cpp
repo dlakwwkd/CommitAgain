@@ -13,7 +13,9 @@ IceballSkill::IceballSkill(int playerid, float heroBodySize)
 	m_MissileSpeed = 10.0f;
 	m_MissileLiveTime = 500.0f;
 	m_HeroBodySize = heroBodySize;
-	m_Range = 100.0f;
+	m_Range = 50.0f;
+	m_Hp = 100;
+
 	//fireball이랑 설정이 같음.
 }
 
@@ -36,5 +38,6 @@ void IceballSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
 	missile->SetMissileDamage(m_Damage);
 	missile->SetMissileLivetime(m_MissileLiveTime);
 	missile->SetMissileRange(m_Range);
+	missile->SetMissileHp(m_Hp);
 	missile->MissileShoot();
 }

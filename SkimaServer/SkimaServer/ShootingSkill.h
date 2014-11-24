@@ -15,5 +15,6 @@ public:
 protected:
 	float		m_MissileSpeed;
 	float		m_MissileLiveTime;
+	int			m_Hp;
 };
 

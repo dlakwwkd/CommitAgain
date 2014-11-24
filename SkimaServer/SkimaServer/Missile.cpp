@@ -13,7 +13,6 @@ Missile::Missile()
 	m_UnitType = UNIT_MISSILE;
 	m_MissileType = MS_NONE;
 	m_InUse = false;
-	m_Damage = 0;
 	m_Range = 0.0f;
 	m_Livetime = 0.0f;
 }

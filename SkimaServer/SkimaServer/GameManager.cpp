@@ -3,6 +3,7 @@
 #include "GameRoom.h"
 #include "Game.h"
 #include "Player.h"
+#include "Unit.h"
 #include "ClientManager.h"
 #include "ClientSession.h"
 #include "ContactListener.h"
@@ -312,6 +313,24 @@ void GameManager::DeletePhyWorld()
 {
 	delete m_World;
 	delete m_Contact;
+}
+
+bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
+{
+	if (unitA->GetPlayerID() == unitB->GetPlayerID())
+		return false;
+
+	else
+		return true;
+}
+
+void GameManager::ExchangeDamage(Unit* unitA, Unit* unitB)
+{
+	int damageA = unitA->GetUnitDamage();
+	int damageB = unitB->GetUnitDamage();
+	
+	unitA->SetUnitHp(unitA->GetUnitHp() - damageB);
+	unitB->SetUnitHp(unitB->GetUnitHp() - damageA);
 }
 
 

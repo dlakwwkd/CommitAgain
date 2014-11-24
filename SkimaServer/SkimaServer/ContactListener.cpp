@@ -3,6 +3,7 @@
 #include "Unit.h"
 #include "Hero.h"
 #include "Missile.h"
+#include "GameManager.h"
 
 void ContactListener::BeginContact(b2Contact *contact)
 {
@@ -18,6 +19,10 @@ void ContactListener::BeginContact(b2Contact *contact)
 	unitB->SetContectState(true);
 	unitA->Crashed();
 	unitB->Crashed();
+
+	if (GGameManager->ApplyDamage(unitA,unitB))
+		GGameManager->ExchangeDamage(unitA, unitB);
+	
 }
 
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold){}
