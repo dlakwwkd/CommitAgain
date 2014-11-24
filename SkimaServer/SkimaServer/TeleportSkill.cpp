@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "TeleportSkill.h"
-
+#include "Player.h"
+#include "GameManager.h"
+#include "ClientManager.h"
+#include "ClientSession.h"
 
 TeleportSkill::TeleportSkill()
 {
@@ -25,7 +28,12 @@ void TeleportSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
 		
 	if (distance <= m_Range)
 	{
-		//todo : 유닛아이디로 hero받아서 m_body를 direction으로 이동
+		auto player = GGameManager->SearchPlayer(m_PlayerId);
+		player->GetMyHero()->GetBody()->SetTransform(targetPos, 0);
+
+		auto client = GClientManager->GetClient(m_PlayerID);
+		client->SendCreateHeroResult(m_Hero->GetUnitID(), m_Hero->GetHeroType(), pos);
+	//보내주기
 	}
 
 	else
@@ -37,6 +45,8 @@ void TeleportSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
 		rangePos.x = direction.x*m_Range;
 		rangePos.y = direction.y*m_Range;
 
-		//todo : 유닛아이디로 hero받아서 m_body를 rangePos로 이동 
+		auto player = GGameManager->SearchPlayer(m_PlayerId);
+		player->GetMyHero()->GetBody()->SetTransform(rangePos, 0);
+
 	}
 }
