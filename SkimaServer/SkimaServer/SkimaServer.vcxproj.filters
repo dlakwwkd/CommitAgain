@@ -92,6 +92,9 @@
     <ClCompile Include="MissileManager.cpp">
       <Filter>Game\Component\Object\Unit\Missile</Filter>
     </ClCompile>
+    <ClCompile Include="IceballSkill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -203,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="MissileManager.h">
       <Filter>Game\Component\Object\Unit\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="IceballSkill.h">
+      <Filter>Game\Component\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

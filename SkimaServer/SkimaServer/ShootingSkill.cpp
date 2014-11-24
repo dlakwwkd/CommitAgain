@@ -5,6 +5,7 @@ ShootingSkill::ShootingSkill()
 {
 	m_MissileSpeed = 0.0f;
 	m_MissileLiveTime = 0.0f;
+	m_Range = 0.0f;
 }
 
 
