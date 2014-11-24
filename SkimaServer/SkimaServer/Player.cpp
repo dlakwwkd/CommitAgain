@@ -24,3 +24,12 @@ void Player::CreateHero(b2Vec2 pos)
 	client->SendCreateHeroResult(m_Hero->GetUnitID(),m_Hero->GetHeroType(), pos);
 }
 
+void Player::UnitListPop(int unitID)
+{
+	auto unit = m_UnitList.find(unitID);
+	if (unit != m_UnitList.end())
+	{
+		m_UnitList.erase(unit);
+	}
+}
+

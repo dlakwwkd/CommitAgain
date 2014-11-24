@@ -2,6 +2,9 @@
 #include "FSM.h"
 #include "Hero.h"
 #include "GameManager.h"
+#include "MissileManager.h"
+#include "Player.h"
+#include "Missile.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -86,11 +89,5 @@ void CrashedState::Movement(Unit* unit)
 	if (!(abs(velocity.x) > 0.1f ||	abs(velocity.y) > 0.1f))
 	{
 		unit->Crashing(false);
-	}
-
-	if (unit->GetUnitType() == UNIT_MISSILE)
-	{
-		GGameManager->GetWolrd()->DestroyBody(unit->GetBody());
-		unit->SetState(unit->GetStandbyState());
 	}
 }

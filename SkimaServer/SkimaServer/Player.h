@@ -26,6 +26,7 @@ public:
 	void		SetRoomID(int roomId){ m_RoomID = roomId; }
 	void		SetHeroType(HeroType herotype) { m_HeroType = herotype; }
 	void		UnitListPush(int unitID, Unit* unit) { m_UnitList[unitID] = unit; }
+	void		UnitListPop(int unitID);
 
 private:
 	char		m_PlayerName[MAX_NAME_LEN];

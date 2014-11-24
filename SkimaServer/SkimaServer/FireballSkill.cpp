@@ -13,10 +13,6 @@ FireballSkill::FireballSkill(int playerid, float heroBodySize)
 	m_MissileSpeed = 10.0f;
 	m_MissileLiveTime = 500.0f;
 	m_HeroBodySize = heroBodySize;
-
-	m_Missile = GMissileManager->Assign(MS_FIRE_BALL);
-	auto player = GGameManager->SearchPlayer(playerid);
-	player->UnitListPush(m_Missile->GetUnitID(), m_Missile);
 }
 
 
@@ -28,10 +24,14 @@ void FireballSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
 {
 	b2Vec2 initPos = GenerateInitPos(heroPos, targetPos);
 
-	m_Missile->SetMissileInit(m_PlayerId, initPos, DEF_SCALE);
-	m_Missile->SetMissileTargetPos(targetPos);
-	m_Missile->SetMissileSpeed(m_MissileSpeed);
-	m_Missile->SetMissileDamage(m_Damage);
-	m_Missile->SetMissileLivetime(m_MissileLiveTime);
-	m_Missile->MissileShoot();
+	auto missile = GMissileManager->Assign(MS_FIRE_BALL);
+	auto player = GGameManager->SearchPlayer(m_PlayerId);
+	player->UnitListPush(missile->GetUnitID(), missile);
+
+	missile->SetMissileInit(m_PlayerId, initPos, DEF_SCALE);
+	missile->SetMissileTargetPos(targetPos);
+	missile->SetMissileSpeed(m_MissileSpeed);
+	missile->SetMissileDamage(m_Damage);
+	missile->SetMissileLivetime(m_MissileLiveTime);
+	missile->MissileShoot();
 }
