@@ -38,6 +38,8 @@ bool UILayer::init()
 
 	m_cursor_default = Sprite::create("Images/mouse_cursor.jpg");
 	m_cursor_attack = Sprite::create("Images/attack_cursor.jpg");
+	m_cursor_default->setAnchorPoint(Point(0, 1.5));
+	m_cursor_attack->setAnchorPoint(Point(0, 1.5));
 	this->addChild(m_cursor_default);
 	this->addChild(m_cursor_attack);
 	m_cursor_attack->setVisible(false);
@@ -67,4 +69,9 @@ void UILayer::CursorChange(CursorMode cursormode)
 		m_cursor_shape = m_cursor_attack;
 		break;
 	}
+}
+
+void UILayer::Tick(float dt)
+{
+	//
 }
