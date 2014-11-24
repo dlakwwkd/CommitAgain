@@ -6,7 +6,7 @@ public:
 	Missile();
 	virtual ~Missile();
 
-	void	SetMissileInit(int playerId, b2Vec2 initPos);
+	void	SetMissileInit(int playerId, b2Vec2 initPos, float scale);
 	void	SetMissileTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
 	void	SetMissileDamage(int missileDamage) { m_Damage = missileDamage; }
 	void	SetMissileSpeed(float missileSpeed) { m_Speed = missileSpeed; }
@@ -17,8 +17,12 @@ public:
 	void	ConsumeLiveTime(float costTime);
 
 protected:
-	int		m_Damage;
-	float   m_Range;
-	float	m_Livetime;
+	MissileType		m_MissileType;
+	bool			m_InUse;
+	int				m_Damage;
+	float			m_Range;
+	float			m_Livetime;
+
+	friend class MissileManager;
 };
 

@@ -89,6 +89,9 @@
     <ClCompile Include="TeleportSkill.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="MissileManager.cpp">
+      <Filter>Game\Component\Object\Unit\Missile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="TeleportSkill.h">
       <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileManager.h">
+      <Filter>Game\Component\Object\Unit\Missile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

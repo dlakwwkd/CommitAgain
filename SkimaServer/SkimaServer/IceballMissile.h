@@ -3,7 +3,7 @@
 class IceballMissile : public Missile
 {
 public:
-	IceballMissile();
+	IceballMissile(int unitId);
 	virtual ~IceballMissile();
 };
 

@@ -3,7 +3,7 @@
 class FireballMissile : public Missile
 {
 public:
-	FireballMissile();
+	FireballMissile(int unitId);
 	virtual ~FireballMissile();
 };
 

@@ -36,6 +36,7 @@ public:
 	b2World*			GetWolrd(){ return m_World; }
 	ContactListener*	GetContact(){ return m_Contact; }
 
+private:
 	void				InitPhyWorld();
 	void				DeletePhyWorld();
 

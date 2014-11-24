@@ -8,6 +8,8 @@
 Missile::Missile()
 {
 	m_UnitType = UNIT_MISSILE;
+	m_MissileType = MS_NONE;
+	m_InUse = false;
 	m_Damage = 0;
 	m_Range = 0.0f;
 	m_Livetime = 0.0f;
@@ -18,7 +20,7 @@ Missile::~Missile()
 }
 
 
-void Missile::SetMissileInit(int playerId, b2Vec2 initPos)
+void Missile::SetMissileInit(int playerId, b2Vec2 initPos, float scale)
 {
 	m_PlayerID = playerId;
 	b2BodyDef bodyDef;
@@ -27,7 +29,7 @@ void Missile::SetMissileInit(int playerId, b2Vec2 initPos)
 	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
 	b2CircleShape circle;
-	circle.m_radius = 15.0f / PTM_RATIO;
+	circle.m_radius = scale / PTM_RATIO;
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;

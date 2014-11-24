@@ -5,7 +5,7 @@
 #include "GameManager.h"
 
 
-Magician::Magician(int playerId, b2Vec2 pos)
+Magician::Magician(int playerId, b2Vec2 pos, float scale)
 {
 	m_PlayerID = playerId;
 	m_Hp = m_MaxHp = 300;
@@ -18,7 +18,7 @@ Magician::Magician(int playerId, b2Vec2 pos)
 	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 	
 	b2CircleShape circle;
-	circle.m_radius = 15.0f / PTM_RATIO;
+	circle.m_radius = scale / PTM_RATIO;
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;

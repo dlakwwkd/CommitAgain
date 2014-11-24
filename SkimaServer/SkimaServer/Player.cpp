@@ -17,7 +17,7 @@ Player::~Player()
 void Player::CreateHero(b2Vec2 pos)
 {
 	//switch로 거르기
-	m_Hero = new Magician(m_PlayerID, pos);
+	m_Hero = new Magician(m_PlayerID, pos, DEF_SCALE);
 	m_UnitList[m_Hero->GetUnitID()] = m_Hero;
 
 	auto client = GClientManager->GetClient(m_PlayerID);
