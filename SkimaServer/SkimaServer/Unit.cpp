@@ -116,5 +116,4 @@ void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 void Unit::IamDead()
 {
 
-	//Crashing(false);
 }

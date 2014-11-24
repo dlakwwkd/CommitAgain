@@ -20,14 +20,6 @@ void ContactListener::BeginContact(b2Contact *contact)
 	unitA->Crashed();
 	unitB->Crashed();
 
-	if (GGameManager->ApplyDamage(unitA,unitB))
-		GGameManager->ExchangeDamage(unitA, unitB);
-	
-	//EndContact()와 관련해서 body같은거 제거해도 될지는 테스트해봐야함
-	if (unitA->GetUnitHp() <= 0)
-		unitA->IamDead();
-	if (unitB->GetUnitHp() <= 0)
-		unitB->IamDead();
 }
 
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold){}
@@ -62,6 +54,18 @@ void ContactListener::EndContact(b2Contact* contact)
 		static_cast<Missile*>(unitB)->Extinction();
 	}
 
+	if (GGameManager->ApplyDamage(unitA,unitB))
+		GGameManager->ExchangeDamage(unitA, unitB); 
+	//todo 나중에 미사일끼리 데미지 교환하여 미사일 없어지는것 구현해야함.
+	
+	if (unitA->GetUnitType() == UNIT_HERO){
+		if (unitA->GetUnitHp() <= 0)
+			unitA->IamDead();
+	}
+	if (unitB->GetUnitType() == UNIT_HERO){
+		if (unitB->GetUnitHp() <= 0)
+			unitB->IamDead();
+	}
 	unitA->SetContectState(false);
 	unitB->SetContectState(false);
 }
