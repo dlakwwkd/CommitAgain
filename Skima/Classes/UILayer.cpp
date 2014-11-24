@@ -56,9 +56,9 @@ void UILayer::Tick(float dt)
 	}
 }
 
-void UILayer::CursorChange(CursorMode cursormode)
+void UILayer::CursorChange(CursorMode cursorMode)
 {
-	switch (cursormode)
+	switch (cursorMode)
 	{
 	case CURSOR_DEFAULT:
 		m_CursorAttack->setVisible(false);
@@ -73,12 +73,12 @@ void UILayer::CursorChange(CursorMode cursormode)
 	}
 }
 
-void UILayer::SetSkillUse(SkillKey key, bool skillon)
+void UILayer::SetSkillUse(SkillKey key, bool skillOn)
 {
 	switch (key)
 	{
 	case SKILL_Q:
-		m_Q_Skill_On = skillon;
+		m_Q_Skill_On = skillOn;
 		break;
 	case SKILL_W:
 		break;
