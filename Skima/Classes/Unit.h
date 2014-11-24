@@ -4,7 +4,7 @@
 #include "FSM.h"
 
 USING_NS_CC;
-typedef std::map<Direction, Animate*> MoveMotion;
+typedef std::map<Direction, Animation*> MoveMotion;
 
 class Unit
 {
