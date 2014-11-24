@@ -3,19 +3,16 @@
 
 ShootingSkill::ShootingSkill()
 {
-
+	m_Missile = nullptr;
+	m_MissileSpeed = 0.0f;
+	m_MissileLiveTime = 0.0f;
 }
 
-ShootingSkill::ShootingSkill(int playerId, float heroBodySize)
-{
-	m_PlayerId = playerId;
-	m_MissileSpeed = 0;
-	m_HeroBodySize = heroBodySize;
-}
 
 ShootingSkill::~ShootingSkill()
 {
 }
+
 
 void ShootingSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
 {

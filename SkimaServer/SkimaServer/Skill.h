@@ -5,14 +5,13 @@ public:
 	Skill();
 	virtual ~Skill();
 
-
-	virtual void SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos) = 0;
 	int GetSkillDamage() { return m_Damage; }
 
+	virtual void SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos) = 0;
 
 protected:
-	int		m_Damage;
 	int		m_PlayerId;
+	int		m_Damage;
 	float	m_Range;
 	float	m_HeroBodySize;
 };

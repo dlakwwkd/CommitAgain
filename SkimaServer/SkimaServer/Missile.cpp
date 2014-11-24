@@ -5,17 +5,18 @@
 #include "GameManager.h"
 
 
-
 Missile::Missile()
 {
 	m_UnitType = UNIT_MISSILE;
+	m_Damage = 0;
 	m_Range = 0.0f;
+	m_Livetime = 0.0f;
 }
-
 
 Missile::~Missile()
 {
 }
+
 
 void Missile::SetMissileInit(int playerId, b2Vec2 initPos)
 {

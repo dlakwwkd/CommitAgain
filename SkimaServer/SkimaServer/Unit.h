@@ -8,7 +8,6 @@ class Unit
 {
 public:
 	Unit();
-	Unit(int playerId, UnitType unitType, b2Vec2 createPos){}
 	virtual ~Unit();
 
 public:
