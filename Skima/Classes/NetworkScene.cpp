@@ -129,5 +129,3 @@ void NetworkScene::JoinRoomComplete(int roomId)
 	layer->SetRoomID(roomId);
 	Director::getInstance()->pushScene(scene);
 }
-
-

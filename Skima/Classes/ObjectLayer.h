@@ -26,6 +26,7 @@ public:
 	void UnitCrash(int unitID, Point recvPos);
 	void UnitCrashEnd(int unitID, Point revisePos);
 	void UnitSkillUse(int unitID, SkillKey key, Point recvCurPos, Point targetPos);
+	void UnitHpUpdate(int unitID, int curHp);
 
 	void ShootMissile(int missileID, Point createPos, Point targetPos);
 	void MissileCrash(int missileID);
@@ -45,6 +46,8 @@ protected:
 	void ShootMissileM(int missileID, Point createPos, Point targetPos);
 	void MissileCrashS();
 	void MissileCrashM(int missileID);
+	void UnitHpUpdateS(int curHp);
+	void UnitHpUpdateM(int unitID, int curHP);
 
 protected:
 	std::shared_ptr<Hero>					m_Hero;

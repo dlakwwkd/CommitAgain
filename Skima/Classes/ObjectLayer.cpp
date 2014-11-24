@@ -157,6 +157,18 @@ void ObjectLayer::MissileCrash(int missileID)
 	}
 }
 
+void ObjectLayer::UnitHpUpdate(int unitID, int curHp)
+{
+	switch (GET_GM.GetGameMode())
+	{
+	case SINGLE:
+		UnitHpUpdateS(curHp);
+		break;
+	case MULTI:
+		UnitHpUpdateM(unitID, curHp);
+		break;
+	}
+}
 
 void ObjectLayer::DeleteMissile(int missileID)
 {
@@ -299,6 +311,21 @@ void ObjectLayer::MissileCrashM(int missileID)
 		return;
 	}
 	missile->second->MissileCrash();
+}
+
+void ObjectLayer::UnitHpUpdateS(int curHp)
+{
+
+}
+
+void ObjectLayer::UnitHpUpdateM(int unitID, int curHp)
+{
+	auto unit = m_UnitList.find(unitID);
+	if (unit == m_UnitList.end())
+	{
+		return;
+	}
+	unit->second->SetHp(curHp);
 }
 
 

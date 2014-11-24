@@ -23,6 +23,7 @@ public:
 	bool		IsReady() { return m_IsReady; }
 
 
+
 	void		CreateHero(b2Vec2 pos);
 	void		SetRoomID(int roomId){ m_RoomID = roomId; }
 	void		SetHeroType(HeroType herotype) { m_HeroType = herotype; }

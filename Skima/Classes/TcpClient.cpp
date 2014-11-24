@@ -367,7 +367,9 @@ void TcpClient::processPacket()
 			bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 			assert(ret && recvData.mPlayerId != -1);
 
-
+			auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
+			scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitHpUpdate, layer,
+				recvData.mUnitId, recvData.mHp));
 		}
 		break;
 

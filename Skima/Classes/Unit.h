@@ -21,6 +21,7 @@ public:
 	Sprite*			GetSprite(){ return m_Sprite; }
 	Sprite*			GetHpBar(){ return m_HpBar; }
 	void			SetMoveMotionByDir();
+	void			SetHp(int curHp){ m_Hp = curHp; }
 	void			SetHpBar(Point unitPos);
 	void			UpdateHpBar();
 	Point			GetMoveTargetPos(){ return m_TargetPos; }
