@@ -39,8 +39,8 @@ bool UILayer::init()
 
 	m_CursorDefault = Sprite::create("Images/mouse_cursor.jpg");
 	m_CursorAttack = Sprite::create("Images/attack_cursor.jpg");
-	m_CursorDefault->setAnchorPoint(Point(0, 1.5));
-	m_CursorAttack->setAnchorPoint(Point(0, 1.5));
+	m_CursorDefault->setAnchorPoint(Point(0, 1.0f));
+	m_CursorAttack->setAnchorPoint(Point(0, 1.0f));
 	this->addChild(m_CursorDefault);
 	this->addChild(m_CursorAttack);
 	m_CursorAttack->setVisible(false);

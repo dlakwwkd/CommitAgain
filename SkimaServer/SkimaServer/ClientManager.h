@@ -4,6 +4,8 @@ class ClientSession;
 struct PacketHeader;
 //struct DatabaseJobContext ;
 
+typedef std::map<SOCKET, ClientSession*> ClientList;
+
 class ClientManager
 {
 public:
@@ -33,7 +35,6 @@ private:
 
 
 private:
-	typedef std::map<SOCKET, ClientSession*> ClientList;
 	ClientList	mClientList;
 	DWORD		mLastGCTick;
 };

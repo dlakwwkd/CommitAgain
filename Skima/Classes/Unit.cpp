@@ -54,7 +54,7 @@ Unit::~Unit()
 
 void Unit::UpdateHpBar()
 {
-	m_HpBar->setScaleX(m_Hp / m_MaxHp);
+	//m_HpBar->setScaleX(m_Hp / m_MaxHp);
 }
 
 void Unit::SetHpBar(Point unitPos)

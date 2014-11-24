@@ -209,35 +209,14 @@ void GameManager::PlayerOut(int playerId)
 		printf(" - PlayerOut Failed ! : playerId is invalid \n");
 		return;
 	}
-	for (auto& room : m_RoomList)
+	auto player = SearchPlayer(playerId);
+	if (player == nullptr)
 	{
-		for (auto& player : room.second->GetPlayerList())
-		{
-			if (player.first == playerId)
-			{
-				room.second->OutPlayer(playerId);
-				break;
-			}
-		}
+		printf(" - PlayerOut Failed ! : relevant player isn't \n");
+		return;
 	}
+	OutRoom(player->GetRoomID(), playerId);
 }
-
-// void GameManager::UnitMoveSet(b2Vec2 targetPos, b2Vec2 currentPos, int playerId)
-// {
-// 	for (auto& game : m_GameList)
-// 	{
-// 		for (auto& player : game.second->GetPlayerList())
-// 		{
-// 			if (player.first == playerId)
-// 			{
-// 				player.second->GetMyHero()->SetCurrentPos(currentPos);
-// 				player.second->GetMyHero()->SetTargetPos(targetPos);
-// 				player.second->GetMyHero()->SetAverageMove(targetPos);
-// 				break;
-// 			}
-// 		}
-// 	}
-// }
 
 
 
