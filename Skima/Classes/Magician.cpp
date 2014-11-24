@@ -62,21 +62,21 @@ void Magician::SetMoveMotionByDir()
 		addSpriteFramesWithFile("Images/MoveMotion_NW.plist");
 
 	auto animation_E = Animation::create();
-	animation_E->setDelayPerUnit(0.2);
+	animation_E->setDelayPerUnit(0.2f);
 	auto animation_W = Animation::create();
-	animation_W->setDelayPerUnit(0.2);
+	animation_W->setDelayPerUnit(0.2f);
 	auto animation_S = Animation::create();
-	animation_S->setDelayPerUnit(0.2);
+	animation_S->setDelayPerUnit(0.2f);
 	auto animation_N = Animation::create();
-	animation_N->setDelayPerUnit(0.2);
+	animation_N->setDelayPerUnit(0.2f);
 	auto animation_SE = Animation::create();
-	animation_SE->setDelayPerUnit(0.2);
+	animation_SE->setDelayPerUnit(0.2f);
 	auto animation_SW = Animation::create();
-	animation_SW->setDelayPerUnit(0.2);
+	animation_SW->setDelayPerUnit(0.2f);
 	auto animation_NE = Animation::create();
-	animation_NE->setDelayPerUnit(0.2);
+	animation_NE->setDelayPerUnit(0.2f);
 	auto animation_NW = Animation::create();
-	animation_NW->setDelayPerUnit(0.2);
+	animation_NW->setDelayPerUnit(0.2f);
 
 	for (int i = 0; i < 7; ++i)
 	{
