@@ -539,3 +539,17 @@ void ClientSession::TeleportBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 targ
 		Disconnect();
 	}
 }
+
+void ClientSession::DamageBroadCast(int playerId, int unitId, UnitType unitType, int damage)
+{
+	DamageBroadcastResult outPacket;
+	outPacket.mPlayerId = playerId;
+	outPacket.mUnitId = unitId;
+	outPacket.mUnitType = unitType;
+	outPacket.mDamage = damage;
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+}
