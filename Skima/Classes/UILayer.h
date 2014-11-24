@@ -9,17 +9,20 @@ public:
 	virtual bool init();
 	CREATE_FUNC(UILayer);
 
-	void CursorChange(CursorMode cursormode);
-	void ClickExit(Ref* sender);
-	void loadingMessage();
+	void	Tick(float dt);
 
-	Sprite* GetCurrentShape() { return m_cursor_shape; }
+	void	CursorChange(CursorMode cursormode);
+	void	ClickExit(Ref* sender);
+	void	loadingMessage();
+
+	Sprite*	GetCurrentShape() { return m_cursor_shape; }
 
 private:
 	Sprite* m_cursor_shape;
-
 	Sprite* m_cursor_default;
 	Sprite* m_cursor_attack;
+
+	Sprite* m_Q_SKill_black;
 
 };
 
