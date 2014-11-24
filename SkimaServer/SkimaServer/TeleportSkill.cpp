@@ -28,12 +28,11 @@ void TeleportSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
 		
 	if (distance <= m_Range)
 	{
-		auto player = GGameManager->SearchPlayer(m_PlayerId);
-		player->GetMyHero()->GetBody()->SetTransform(targetPos, 0);
+		auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
+		hero->GetBody()->SetTransform(targetPos, 0);
 
-// 		auto client = GClientManager->GetClient(m_PlayerID);
-// 		client->SendCreateHeroResult(m_Hero->GetUnitID(), m_Hero->GetHeroType(), pos);
-	//보내주기
+		auto client = GClientManager->GetClient(m_PlayerId);
+		client->TeleportBroadCast(hero->GetUnitID(),heroPos,targetPos);
 	}
 
 	else
@@ -45,8 +44,10 @@ void TeleportSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
 		rangePos.x = direction.x*m_Range;
 		rangePos.y = direction.y*m_Range;
 
-		auto player = GGameManager->SearchPlayer(m_PlayerId);
-		player->GetMyHero()->GetBody()->SetTransform(rangePos, 0);
+		auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
+		hero->GetBody()->SetTransform(rangePos, 0);
 
+		auto client = GClientManager->GetClient(m_PlayerId);
+		client->TeleportBroadCast(hero->GetUnitID(), heroPos, rangePos);
 	}
 }

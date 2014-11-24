@@ -66,6 +66,7 @@ enum PacketTypes
 	PKT_SC_SKILL = 46,
 
 	PKT_SC_MISSILE = 48,
+	PKT_SC_TELEPORT = 52,
 
 	PKT_CS_CHAT = 91,
 	PKT_SC_CHAT = 92,
@@ -424,6 +425,29 @@ struct MissileBroadcastResult : public PacketHeader
 	{
 		mSize = sizeof(MissileBroadcastResult);
 		mType = PKT_SC_MISSILE;
+		mPlayerId = -1;
+		mUnitId = -1;
+		mCurrentPosX = 0;
+		mCurrentPosY = 0;
+		mTargetPosX = 0;
+		mTargetPosY = 0;
+
+	}
+	int			mPlayerId;
+	int			mUnitId;
+	float		mCurrentPosX;
+	float		mCurrentPosY;
+	float		mTargetPosX;
+	float		mTargetPosY;
+
+};
+
+struct TeleportBroadcastResult : public PacketHeader
+{
+	TeleportBroadcastResult()
+	{
+		mSize = sizeof(TeleportBroadcastResult);
+		mType = PKT_SC_TELEPORT;
 		mPlayerId = -1;
 		mUnitId = -1;
 		mCurrentPosX = 0;
