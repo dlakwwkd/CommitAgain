@@ -15,6 +15,7 @@ public:
 
 	void	MissileShoot();
 	void	ConsumeLiveTime(float costTime);
+	void	Extinction();
 
 protected:
 	MissileType		m_MissileType;

@@ -3,6 +3,8 @@
 #include "ClientManager.h"
 #include "ClientSession.h"
 #include "GameManager.h"
+#include "MissileManager.h"
+#include "Player.h"
 
 
 Missile::Missile()
@@ -64,4 +66,15 @@ void Missile::MissileShoot()
 void Missile::ConsumeLiveTime(float costTime)
 {
 
+}
+
+void Missile::Extinction()
+{
+	m_State = m_StandbyState;
+
+	auto player = GGameManager->SearchPlayer(m_PlayerID);
+	player->UnitListPop(m_UnitID);
+
+	GGameManager->GetWolrd()->DestroyBody(m_Body);
+	GMissileManager->Release(this);
 }

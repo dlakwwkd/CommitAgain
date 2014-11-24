@@ -105,6 +105,7 @@ void GameManager::OutRoom(int roomId, int playerId)
 
 	if (room->second->GetPlayerList().size() == 0)
 	{
+		DeleteGame(roomId);
 		DeleteRoom(roomId);
 	}
 }
