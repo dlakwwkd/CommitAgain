@@ -20,7 +20,7 @@ public:
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
 	Sprite*			GetHpBar(){ return m_HpBar; }
-	//virtual void	SetMoveMotionByDir() = 0;
+	void			SetMoveMotionByDir();
 	void			SetHpBar(Point unitPos);
 	void			UpdateHpBar();
 	Point			GetMoveTargetPos(){ return m_TargetPos; }

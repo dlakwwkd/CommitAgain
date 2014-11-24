@@ -7,7 +7,8 @@
 
 Magician::Magician(Point createPos, float scale)
 {
-	m_Sprite = Sprite::create("Images/Magician.png");
+	SetMoveMotionByDir();
+	m_Sprite = Sprite::createWithSpriteFrameName("MoveMotion_NE_01.PNG");
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
 	//SetHpBar(createPos);
@@ -30,7 +31,6 @@ Magician::Magician(Point createPos, float scale)
 	case MULTI:
 		break;
 	}
-
 	m_MaxHp = 300;
 	m_Hp = m_MaxHp;
 	m_Speed = 10.0f;
@@ -78,60 +78,68 @@ void Magician::SetMoveMotionByDir()
 	auto animation_NW = Animation::create();
 	animation_NW->setDelayPerUnit(0.2f);
 
-	for (int i = 0; i < 7; ++i)
+	for (int i = 1; i < 8; ++i)
 	{
 		auto frame = SpriteFrameCache::getInstance()->
 			getSpriteFrameByName(StringUtils::format("MoveMotion_E_%02d.PNG", i));
 		animation_E->addSpriteFrame(frame);
 	}
-	for (int i = 0; i < 7; ++i)
+	for (int i = 1; i < 8; ++i)
 	{
 		auto frame = SpriteFrameCache::getInstance()->
 			getSpriteFrameByName(StringUtils::format("MoveMotion_W_%02d.PNG", i));
 		animation_W->addSpriteFrame(frame);
 	}
-	for (int i = 0; i < 7; ++i)
+	for (int i = 1; i < 8; ++i)
 	{
 		auto frame = SpriteFrameCache::getInstance()->
 			getSpriteFrameByName(StringUtils::format("MoveMotion_S_%02d.PNG", i));
 		animation_S->addSpriteFrame(frame);
 	}
-	for (int i = 0; i < 7; ++i)
+	for (int i = 1; i < 8; ++i)
 	{
 		auto frame = SpriteFrameCache::getInstance()->
 			getSpriteFrameByName(StringUtils::format("MoveMotion_N_%02d.PNG", i));
 		animation_N->addSpriteFrame(frame);
 	}
-	for (int i = 0; i < 7; ++i)
+	for (int i = 1; i < 8; ++i)
 	{
 		auto frame = SpriteFrameCache::getInstance()->
 			getSpriteFrameByName(StringUtils::format("MoveMotion_SE_%02d.PNG", i));
 		animation_SE->addSpriteFrame(frame);
 	}
-	for (int i = 0; i < 7; ++i)
+	for (int i = 1; i < 8; ++i)
 	{
 		auto frame = SpriteFrameCache::getInstance()->
 			getSpriteFrameByName(StringUtils::format("MoveMotion_SW_%02d.PNG", i));
 		animation_SW->addSpriteFrame(frame);
 	}
-	for (int i = 0; i < 7; ++i)
+	for (int i = 1; i < 8; ++i)
 	{
 		auto frame = SpriteFrameCache::getInstance()->
 			getSpriteFrameByName(StringUtils::format("MoveMotion_NE_%02d.PNG", i));
 		animation_NE->addSpriteFrame(frame);
 	}
-	for (int i = 0; i < 7; ++i)
+	for (int i = 1; i < 8; ++i)
 	{
 		auto frame = SpriteFrameCache::getInstance()->
 			getSpriteFrameByName(StringUtils::format("MoveMotion_NW_%02d.PNG", i));
 		animation_NW->addSpriteFrame(frame);
 	}
-	m_MoveMotionByDir[E] = Animate::create(animation_E);
-	m_MoveMotionByDir[W] = Animate::create(animation_W);
-	m_MoveMotionByDir[S] = Animate::create(animation_S);
-	m_MoveMotionByDir[N] = Animate::create(animation_N);
-	m_MoveMotionByDir[SE] = Animate::create(animation_SE);
-	m_MoveMotionByDir[SW] = Animate::create(animation_SW);
-	m_MoveMotionByDir[NE] = Animate::create(animation_NE);
-	m_MoveMotionByDir[NW] = Animate::create(animation_NW);
+	auto animate_E = Animate::create(animation_E);
+	auto animate_W = Animate::create(animation_W);
+	auto animate_S = Animate::create(animation_S);
+	auto animate_N = Animate::create(animation_N);
+	auto animate_SE = Animate::create(animation_SE);
+	auto animate_SW = Animate::create(animation_SW);
+	auto animate_NE = Animate::create(animation_NE);
+	auto animate_NW = Animate::create(animation_NW);
+	m_MoveMotionByDir[E] = animate_E;
+	m_MoveMotionByDir[W] = animate_W;
+	m_MoveMotionByDir[S] = animate_S;
+	m_MoveMotionByDir[N] = animate_N;
+	m_MoveMotionByDir[SE] = animate_SE;
+	m_MoveMotionByDir[SW] = animate_SW;
+	m_MoveMotionByDir[NE] = animate_NE;
+	m_MoveMotionByDir[NW] = animate_NW;
 }
