@@ -361,6 +361,15 @@ void TcpClient::processPacket()
 					recvData.mUnitId, curPos, targetPos));
 			}
 			break;
+		case PKT_SC_HP:
+		{
+			HpBroadcastResult recvData;
+			bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+			assert(ret && recvData.mPlayerId != -1);
+
+
+		}
+		break;
 
 		default:
 			assert(false);
