@@ -23,6 +23,11 @@ void ContactListener::BeginContact(b2Contact *contact)
 	if (GGameManager->ApplyDamage(unitA,unitB))
 		GGameManager->ExchangeDamage(unitA, unitB);
 	
+	//EndContact()와 관련해서 body같은거 제거해도 될지는 테스트해봐야함
+	if (unitA->GetUnitHp() <= 0)
+		unitA->IamDead();
+	if (unitB->GetUnitHp() <= 0)
+		unitB->IamDead();
 }
 
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold){}

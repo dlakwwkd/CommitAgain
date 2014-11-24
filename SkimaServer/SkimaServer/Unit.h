@@ -31,6 +31,7 @@ public:
 
 	void			Moving();
 	void			Crashing(bool isCrashing);
+	void			IamDead();
 
 	void			TryMove(b2Vec2 currentPos, b2Vec2 targetPos);
 	void			Crashed(){ m_State->Crashed(this); }
@@ -52,6 +53,7 @@ protected:
 	int			m_Hp;
 	int			m_Damage;
 	float		m_Speed; 
+	bool		m_InUse;
 	bool		m_Contacting;
 	UnitType	m_UnitType; 
 	b2Vec2		m_TargetPos; 

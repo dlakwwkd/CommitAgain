@@ -3,7 +3,9 @@
 #include "ClientSession.h"
 #include "ClientManager.h"
 #include "GameManager.h"
-
+#include "Player.h"
+#include "Scheduler.h"
+#include "MissileManager.h"
 
 Unit::Unit()
 {
@@ -111,3 +113,8 @@ void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 	client->SendHeroInfo(m_UnitID, currentPos, m_TargetPos);
 }
 
+void Unit::IamDead()
+{
+
+	//Crashing(false);
+}
