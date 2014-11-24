@@ -6,9 +6,7 @@ typedef std::map<int, Player*> PlayerList;
 class GameRoom
 {
 public:
-	GameRoom(int id) : m_RoomID(id), m_JoinAble(true), m_ReadyNum(0), m_IsAllReady(false)
-	{
-	}
+	GameRoom(int id) : m_RoomID(id), m_JoinAble(true), m_ReadyNum(0), m_IsAllReady(false){}
 	~GameRoom(){}
 
 	int				 	GetRoomID(){ return m_RoomID; }

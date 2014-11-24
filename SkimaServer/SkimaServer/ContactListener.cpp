@@ -8,6 +8,11 @@ void ContactListener::BeginContact(b2Contact *contact)
 {
 	auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
 	auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
+	if (unitA->GetPlayerID() < 0 || unitB->GetPlayerID() < 0)
+	{
+		printf(" - BeginContact Failed ! : unit is invalid \n");
+		return;
+	}
 
 	unitA->SetContectState(true);
 	unitB->SetContectState(true);
@@ -29,6 +34,11 @@ void ContactListener::EndContact(b2Contact* contact)
 {
 	auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
 	auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
+	if (unitA->GetPlayerID() < 0 || unitB->GetPlayerID() < 0)
+	{
+		printf(" - EndContact Failed ! : unit is invalid \n");
+		return;
+	}
 
 	unitA->Crashing(true);
 	unitB->Crashing(true);

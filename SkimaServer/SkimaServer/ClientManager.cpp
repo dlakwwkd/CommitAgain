@@ -87,6 +87,12 @@ void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 		if (from == client)
 			continue;
 
+		if (client == nullptr || client->GetPlayer() == nullptr)
+		{
+			printf(" - BroadcastPacket Failed ! : client is invalid \n");
+			continue;
+		}
+
 		// 같은 방에 있는 애들에게만 방송한다.
 		if (client->GetPlayer()->GetRoomID() == from->GetPlayer()->GetRoomID())
 		{

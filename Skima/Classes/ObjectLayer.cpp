@@ -105,8 +105,13 @@ void ObjectLayer::UnitCrash(int unitID, Point recvPos)
 
 void ObjectLayer::UnitCrashEnd(int unitID, Point revisePos)
 {
-	m_Hero->SetMoveTargetPos(revisePos);
-	m_UnitList[unitID]->EndCrash();
+	auto unit = m_UnitList.find(unitID);
+	if (unit == m_UnitList.end())
+	{
+		return;
+	}
+	unit->second->SetMoveTargetPos(revisePos);
+	unit->second->EndCrash();
 }
 
 void ObjectLayer::UnitSkillUse(int unitId, SkillKey key, Point recvCurPos, Point targetPos)
@@ -155,14 +160,12 @@ void ObjectLayer::MissileCrash(int missileID)
 
 void ObjectLayer::DeleteMissile(int missileID)
 {
-	for (auto& iter = m_MissileList.begin(); iter != m_MissileList.end(); ++iter)
+	auto missile = m_MissileList.find(missileID);
+	if (missile == m_MissileList.end())
 	{
-		if (iter->first == missileID)
-		{
-			m_MissileList.erase(iter);
-			break;
-		}
+		return;
 	}
+	m_MissileList.erase(missile);
 }
 
 // 
@@ -219,8 +222,13 @@ void ObjectLayer::UnitMoveS(Point pos)
 }
 void ObjectLayer::UnitMoveM(int unitID, Point recvCurPos, Point targetPos)
 {
-	m_UnitList[unitID]->SetMoveTargetPos(targetPos);
-	m_UnitList[unitID]->TryMove();
+	auto unit = m_UnitList.find(unitID);
+	if (unit == m_UnitList.end())
+	{
+		return;
+	}
+	unit->second->SetMoveTargetPos(targetPos);
+	unit->second->TryMove();
 }
 
 
@@ -231,8 +239,13 @@ void ObjectLayer::UnitCrashS(Point pos)
 
 void ObjectLayer::UnitCrashM(int unitID, Point recvPos)
 {
-	m_UnitList[unitID]->SetMoveTargetPos(recvPos);
-	m_UnitList[unitID]->Crashed();
+	auto unit = m_UnitList.find(unitID);
+	if (unit == m_UnitList.end())
+	{
+		return;
+	}
+	unit->second->SetMoveTargetPos(recvPos);
+	unit->second->Crashed();
 }
 
 void ObjectLayer::UnitSkillUseS(SkillKey key, Point pos)
@@ -242,7 +255,12 @@ void ObjectLayer::UnitSkillUseS(SkillKey key, Point pos)
 
 void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Point targetPos)
 {
-	m_UnitList[unitID]->EndMove();
+	auto unit = m_UnitList.find(unitID);
+	if (unit == m_UnitList.end())
+	{
+		return;
+	}
+	unit->second->EndMove();
 }
 
 void ObjectLayer::ShootMissileS(Point createPos, Point targetPos)
@@ -278,7 +296,12 @@ void ObjectLayer::MissileCrashS()
 
 void ObjectLayer::MissileCrashM(int missileID)
 {
-	m_MissileList[missileID]->MissileCrash();
+	auto missile = m_MissileList.find(missileID);
+	if (missile == m_MissileList.end())
+	{
+		return;
+	}
+	missile->second->MissileCrash();
 }
 
 

@@ -62,7 +62,11 @@ void MovingState::Movement(Unit* unit)
 */
 //////////////////////////////////////////////////////////////////////////
 void CrashedState::TryMove(Unit* unit){}
-void CrashedState::Crashed(Unit* unit){}
+void CrashedState::Crashed(Unit* unit)
+{
+	unit->GetSprite()->stopAllActions();
+	unit->Crash();
+}
 void CrashedState::EndMove(Unit* unit){}
 void CrashedState::EndCrash(Unit* unit)
 {

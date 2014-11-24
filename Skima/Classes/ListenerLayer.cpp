@@ -107,7 +107,7 @@ void ListenerLayer::OnMouseDown(Event *event)
 	auto button = dynamic_cast<EventMouse*>(event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, true);
 
-	auto layer = GET_OBJECT_LAYER;		_ASSERT(layer != nullptr);
+	auto layer = GET_OBJECT_LAYER;						_ASSERT(layer != nullptr);
 	auto hero = layer->GetMyHero();
 
 	switch (button)
@@ -122,8 +122,13 @@ void ListenerLayer::OnMouseDown(Event *event)
 				TcpClient::getInstance()->skillRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation(),
 					static_cast<SkillKey>(key));
 			}
-			auto layer = GET_UI_LAYER;		_ASSERT(layer != nullptr);
+
+			auto layer = GET_UI_LAYER;					_ASSERT(layer != nullptr);
 			layer->CursorChange(CURSOR_DEFAULT);
+
+			auto cursorShape = layer->GetCurrentShape();	_ASSERT(cursorShape != nullptr);
+			cursorShape->setPosition(GET_IM->GetMouseLocation());
+
 			m_Targeting = false;
 		}
 		break;
@@ -135,8 +140,13 @@ void ListenerLayer::OnMouseDown(Event *event)
 				TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
 			}
 			GET_IM->InitTargetingKey();
-			auto layer = GET_UI_LAYER;		_ASSERT(layer != nullptr);
+
+			auto layer = GET_UI_LAYER;					_ASSERT(layer != nullptr);
 			layer->CursorChange(CURSOR_DEFAULT);
+
+			auto cursorShape = layer->GetCurrentShape();	_ASSERT(cursorShape != nullptr);
+			cursorShape->setPosition(GET_IM->GetMouseLocation());
+
 			m_Targeting = false;
 		}
 		break;
@@ -156,9 +166,10 @@ void ListenerLayer::OnMouseMove(Event *event)
 
 	GET_IM->SetMouseLocation(location);
 	GET_IM->CheckMouseScroll();
-	auto layer = GET_UI_LAYER;		_ASSERT(layer != nullptr);
-	auto cursor_shape = layer->GetCurrentShape();
-	cursor_shape->setPosition(location);
+
+	auto layer = GET_UI_LAYER;							_ASSERT(layer != nullptr);
+	auto cursorShape = layer->GetCurrentShape();			_ASSERT(cursorShape != nullptr);
+	cursorShape->setPosition(location);
 }
 
 
@@ -177,8 +188,13 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	{
 	case KEY_Q:
 		GET_IM->SetTargeting(keyCode, true);
-		auto layer = GET_UI_LAYER;		_ASSERT(layer != nullptr);
+
+		auto layer = GET_UI_LAYER;						_ASSERT(layer != nullptr);
 		layer->CursorChange(CURSOR_ATTACK);
+
+		auto cursorShape = layer->GetCurrentShape();		_ASSERT(cursorShape != nullptr);
+		cursorShape->setPosition(GET_IM->GetMouseLocation());
+		
 		m_Targeting = true;
 		break;
 	}
