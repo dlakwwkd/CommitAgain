@@ -141,18 +141,18 @@ void Unit::SetMoveMotionByDir()
 		animation_NW->addSpriteFrame(frame);
 	}
 	Point direction = m_TargetPos - m_Sprite->getPosition();
-	float slope = direction.y / direction.x;
 	if (direction.x > 0)
 	{
-		if (slope > -0.41f && slope < 0.41f)
+		float slope = direction.y / direction.x;
+		if (slope > -0.41f && slope <= 0.41f)
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_E)));
 		}
-		else if (slope > 0.41f && slope < 2.41f)
+		else if (slope > 0.41f && slope <= 2.41f)
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_NE)));
 		}
-		else if (slope <-0.41f && slope > -2.41f)
+		else if (slope <=-0.41f && slope > -2.41f)
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_SE)));
 		}
@@ -160,22 +160,23 @@ void Unit::SetMoveMotionByDir()
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_N)));
 		}
-		else if (slope < -2.41f)
+		else if (slope <= -2.41f)
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_S)));
 		}
 	}
 	else if (direction.x < 0)
 	{
-		if (slope > -0.41f && slope < 0.41f)
+		float slope = direction.y / direction.x;
+		if (slope > -0.41f && slope <= 0.41f)
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_W)));
 		}
-		else if (slope > 0.41f && slope < 2.41f)
+		else if (slope > 0.41f && slope <= 2.41f)
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_SW)));
 		}
-		else if (slope <-0.41f && slope > -2.41f)
+		else if (slope <=-0.41f && slope > -2.41f)
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_NW)));
 		}
@@ -183,18 +184,18 @@ void Unit::SetMoveMotionByDir()
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_S)));
 		}
-		else if (slope < -2.41f)
+		else if (slope <= -2.41f)
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_N)));
 		}
 	}
 	else if (direction.x == 0)
 	{
-		if (slope > 2.41f)
+		if (direction.y < 0)
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_S)));
 		}
-		else if (slope < -2.41f)
+		else if (direction.y >= 0)
 		{
 			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_N)));
 		}
