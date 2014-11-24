@@ -10,12 +10,12 @@
 
 Scene* MultiGameScene::createScene()
 {
+	ShowCursor(false);
     auto scene = Scene::create();
 	auto layer1 = MultiGameScene::create();
 	auto layer2 = ListenerLayer::create();
 	scene->addChild(layer1, 0, "MultiGameScene");
 	layer1->addChild(layer2, 0, "ListenerLayer");
-	ShowCursor(false);
 	return scene;
 }
 

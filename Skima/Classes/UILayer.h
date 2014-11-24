@@ -12,6 +12,7 @@ public:
 	void	Tick(float dt);
 
 	void	CursorChange(CursorMode cursormode);
+	//void	SetSkillUse(SkillKey key, bool skillon);
 	void	ClickExit(Ref* sender);
 	void	loadingMessage();
 
@@ -22,7 +23,8 @@ private:
 	Sprite* m_cursor_default;
 	Sprite* m_cursor_attack;
 
-	Sprite* m_Q_SKill_black;
+	Sprite* m_Q_Skill_black;
+	bool	m_Q_Skill_On;
 
 };
 

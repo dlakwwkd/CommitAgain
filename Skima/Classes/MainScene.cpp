@@ -31,7 +31,6 @@ bool MainScene::init()
 	auto menu = Menu::create(menuItem1, menuItem2, menuItem3, NULL);
 	menu->alignItemsVertically();
 	this->addChild(menu, 0, "MainMenu");
-
 	return true;
 }
 

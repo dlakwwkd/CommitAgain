@@ -110,6 +110,8 @@ void ObjectLayer::UnitCrashEnd(int unitID, Point revisePos)
 
 void ObjectLayer::UnitSkillUse(int unitId, SkillKey key, Point recvCurPos, Point targetPos)
 {
+
+
 	switch (GET_GM.GetGameMode())
 	{
 	case SINGLE:

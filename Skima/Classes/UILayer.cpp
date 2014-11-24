@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "UILayer.h"
 #include "TcpClient.h"
+#include "PacketType.h"
 
 bool UILayer::init()
 {
@@ -25,11 +26,11 @@ bool UILayer::init()
 	fireball->setScale(0.03f, 0.033f);
 	this->addChild(fireball);
 	
-	m_Q_SKill_black = Sprite::create("Images/black.jpg");
-	m_Q_SKill_black->setPosition(Point(443, 38));
-	m_Q_SKill_black->setScale(0.03f, 0.033f);
-	m_Q_SKill_black->setOpacity(180);
-	this->addChild(m_Q_SKill_black);
+	m_Q_Skill_black = Sprite::create("Images/black.jpg");
+	m_Q_Skill_black->setPosition(Point(443, 38));
+	m_Q_Skill_black->setScale(0.03f, 0.033f);
+	m_Q_Skill_black->setOpacity(180);
+	this->addChild(m_Q_Skill_black);
 
 	auto winSize = Director::getInstance()->getWinSize();
 	auto menu = Menu::create(menuItem1, NULL);
@@ -48,10 +49,11 @@ bool UILayer::init()
 	return true;
 }
 
-void UILayer::ClickExit(Ref* sender)
+void UILayer::Tick(float dt)
 {
-	TcpClient::getInstance()->disconnect();
-	Director::getInstance()->popScene();
+	if (m_Q_Skill_On)
+	{
+	}
 }
 
 void UILayer::CursorChange(CursorMode cursormode)
@@ -71,7 +73,27 @@ void UILayer::CursorChange(CursorMode cursormode)
 	}
 }
 
-void UILayer::Tick(float dt)
+// void UILayer::SetSkillUse(SkillKey key, bool skillon)
+// {
+// 	switch (key)
+// 	{
+// 	case SKILL_Q:
+// 		m_Q_Skill_On = skillon;
+// 		break;
+// 	case SKILL_W:
+// 		break;
+// 	case SKILL_E:
+// 		break;
+// 	case SKILL_R:
+// 		break;
+// 	default:
+// 		break;
+// 	}
+// }
+
+void UILayer::ClickExit(Ref* sender)
 {
-	//
+	TcpClient::getInstance()->disconnect();
+	Director::getInstance()->popScene();
+	ShowCursor(true);
 }
