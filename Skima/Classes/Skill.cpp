@@ -4,6 +4,7 @@
 
 Skill::Skill()
 {
+	m_CoolTime = 0;
 }
 
 
