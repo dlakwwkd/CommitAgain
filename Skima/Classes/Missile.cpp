@@ -4,6 +4,8 @@
 
 Missile::Missile()
 {
+	m_MissileType = MS_NONE;
+	m_InUse = false;
 }
 
 

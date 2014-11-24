@@ -3,6 +3,8 @@
 
 GameManager::GameManager()
 {
-	std::shared_ptr<InputManager> temp(new InputManager());
-	m_IM = temp;
+	std::shared_ptr<InputManager> temp1(new InputManager());
+	std::shared_ptr<MissileManager> temp2(new MissileManager());
+	m_IM = temp1;
+	m_MM = temp2;
 }

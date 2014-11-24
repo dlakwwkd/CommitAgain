@@ -156,6 +156,12 @@
     <ClCompile Include="..\Classes\Hero.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\IceballMissile.cpp">
+      <Filter>Game\Component\Object\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MissileManager.cpp">
+      <Filter>Game\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -250,6 +256,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Hero.h">
       <Filter>Game\Component\Object\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\IceballMissile.h">
+      <Filter>Game\Component\Object\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MissileManager.h">
+      <Filter>Game\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

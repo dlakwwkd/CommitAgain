@@ -165,6 +165,7 @@ void ObjectLayer::DeleteMissile(int missileID)
 	{
 		return;
 	}
+	GET_MM->Release(missile->second);
 	m_MissileList.erase(missile);
 }
 
@@ -270,20 +271,16 @@ void ObjectLayer::ShootMissileS(Point createPos, Point targetPos)
 
 void ObjectLayer::ShootMissileM(int missileID, Point createPos, Point targetPos)
 {
-	std::shared_ptr<Missile> missile;
+	Missile* missile;
 
 	switch (m_Hero->GetHeroType())
 	{
 	case HERO_MAGICIAN:
-		{
-			std::shared_ptr<Missile> temp(new FireballMissile());
-			missile = temp;
-		}
+		missile = GET_MM->Assign(missileID, MS_FIRE_BALL);
 		break;
 	case HERO_NONE:
 		return;
 	}
-	missile->SetUnitID(missileID);
 	missile->MissileCast(createPos, targetPos);
 
 	m_MissileList[missileID] = missile;

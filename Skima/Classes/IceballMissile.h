@@ -2,11 +2,11 @@
 #include "Missile.h"
 
 
-class FireballMissile :	public Missile
+class IceballMissile : public Missile
 {
 public:
-	FireballMissile(int unitId);
-	virtual ~FireballMissile();
+	IceballMissile(int unitId);
+	virtual ~IceballMissile();
 
 public:
 	virtual void MissileCast(Point createPos, Point targetPos);

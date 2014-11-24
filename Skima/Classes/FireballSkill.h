@@ -12,9 +12,7 @@ public:
 	virtual ~FireballSkill();
 
 public:
-	void SkillCast(Point heroPos, Point targetPos, int missileID);
+	//void SkillCast(Point heroPos, Point targetPos, int missileID);
 	
-private:
-	FireballMissile* m_Missile;
 };
 
