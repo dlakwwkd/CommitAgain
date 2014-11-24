@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Enums.h"
+#include "PacketType.h"
 
 USING_NS_CC;
 
@@ -16,12 +17,12 @@ public:
 	void	ClickExit(Ref* sender);
 	void	loadingMessage();
 
-	Sprite*	GetCurrentShape() { return m_cursor_shape; }
+	Sprite*	GetCurrentShape() { return m_CursorShape; }
 
 private:
-	Sprite* m_cursor_shape;
-	Sprite* m_cursor_default;
-	Sprite* m_cursor_attack;
+	Sprite* m_CursorShape;
+	Sprite* m_CursorDefault;
+	Sprite* m_CursorAttack;
 
 	Sprite* m_Q_Skill_black;
 	bool	m_Q_Skill_On;

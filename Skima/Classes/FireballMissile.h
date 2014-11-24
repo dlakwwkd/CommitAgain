@@ -2,16 +2,15 @@
 #include "Missile.h"
 
 
-class FireballMissile :
-	public Missile
+class FireballMissile :	public Missile
 {
 public:
 	FireballMissile();
-	~FireballMissile();
+	virtual ~FireballMissile();
 
 public:
-	void MissileCast(Point createPos, Point targetPos);
-	void MissileCrash();
+	virtual void MissileCast(Point createPos, Point targetPos);
+	virtual void MissileCrash();
 	void MissileDelete();
 	
 private:

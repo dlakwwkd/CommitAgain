@@ -5,12 +5,11 @@ USING_NS_CC;
 
 class FireballMissile;
 
-class FireballSkill :
-	public Skill
+class FireballSkill : public Skill
 {
 public:
 	FireballSkill();
-	~FireballSkill();
+	virtual ~FireballSkill();
 
 public:
 	void SkillCast(Point heroPos, Point targetPos, int missileID);

@@ -1,11 +1,10 @@
 ﻿#pragma once
 #include "Unit.h"
-class Missile :
-	public Unit
+class Missile :	public Unit
 {
 public:
 	Missile();
-	~Missile();
+	virtual ~Missile();
 
 public:
 	virtual void MissileCast(Point createPos, Point targetPos) = 0;

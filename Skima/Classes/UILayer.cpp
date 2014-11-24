@@ -37,14 +37,14 @@ bool UILayer::init()
 	menu->setPosition(winSize.width -40 , 12);
 	this->addChild(menu);
 
-	m_cursor_default = Sprite::create("Images/mouse_cursor.jpg");
-	m_cursor_attack = Sprite::create("Images/attack_cursor.jpg");
-	m_cursor_default->setAnchorPoint(Point(0, 1.5));
-	m_cursor_attack->setAnchorPoint(Point(0, 1.5));
-	this->addChild(m_cursor_default);
-	this->addChild(m_cursor_attack);
-	m_cursor_attack->setVisible(false);
-	m_cursor_shape = m_cursor_default;
+	m_CursorDefault = Sprite::create("Images/mouse_cursor.jpg");
+	m_CursorAttack = Sprite::create("Images/attack_cursor.jpg");
+	m_CursorDefault->setAnchorPoint(Point(0, 1.5));
+	m_CursorAttack->setAnchorPoint(Point(0, 1.5));
+	this->addChild(m_CursorDefault);
+	this->addChild(m_CursorAttack);
+	m_CursorAttack->setVisible(false);
+	m_CursorShape = m_CursorDefault;
 
 	return true;
 }
@@ -61,14 +61,14 @@ void UILayer::CursorChange(CursorMode cursormode)
 	switch (cursormode)
 	{
 	case CURSOR_DEFAULT:
-		m_cursor_attack->setVisible(false);
-		m_cursor_default->setVisible(true);
-		m_cursor_shape = m_cursor_default;
+		m_CursorAttack->setVisible(false);
+		m_CursorDefault->setVisible(true);
+		m_CursorShape = m_CursorDefault;
 		break;
 	case CURSOR_ATTACK:
-		m_cursor_attack->setVisible(true);
-		m_cursor_default->setVisible(false);
-		m_cursor_shape = m_cursor_attack;
+		m_CursorAttack->setVisible(true);
+		m_CursorDefault->setVisible(false);
+		m_CursorShape = m_CursorAttack;
 		break;
 	}
 }

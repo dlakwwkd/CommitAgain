@@ -3,39 +3,47 @@
 #include "GameManager.h"
 
 Unit::Unit()
-:m_UnitType(UNIT_NONE), m_Name(NULL), m_PlayerID(-1), m_UnitID(-1),
-m_MaxHp(0), m_Hp(0), m_Speed(0), m_TargetPos(Point(0,0)),
-m_Sprite(nullptr), m_HpBar(nullptr), m_Body(nullptr)
 {
+	m_UnitType = UNIT_NONE;
+	m_Name = "";
+	m_PlayerID = -1;
+	m_UnitID = -1;
+	m_Hp = m_MaxHp = 0;
+	m_Speed = 0;
+	m_TargetPos = { 0, 0 };
+	m_Sprite = nullptr;
+	m_HpBar = nullptr;
+	m_Body = nullptr;
+
 	m_MoveState = m_StandbyState = new StandbyState();
 	m_MovingState = new MovingState();
 	m_CrashedState = new CrashedState();
 }
-
-Unit::Unit(const std::string& filename, Point createPos, float scale)
-{
-	m_Sprite = Sprite::create(filename);
-	m_Sprite->setPosition(createPos);
-	m_Sprite->setScale(scale);
-
-	switch (GET_GM.GetGameMode())
-	{
-	case SINGLE:
-	{
-		auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // 밀도, 탄성력, 마찰력
-
-		m_Body = PhysicsBody::createCircle(m_Sprite->getContentSize().width*(scale / 2), material);
-		m_Body->setMass(1.0f);
-		m_Body->setLinearDamping(3);
-		m_Body->setRotationEnable(false);
-
-		m_Sprite->setPhysicsBody(m_Body);
-		break;
-	}
-	case MULTI:
-		break;
-	}
-}
+// 
+// Unit::Unit(const std::string& filename, Point createPos, float scale)
+// {
+// 	m_Sprite = Sprite::create(filename);
+// 	m_Sprite->setPosition(createPos);
+// 	m_Sprite->setScale(scale);
+// 
+// 	switch (GET_GM.GetGameMode())
+// 	{
+// 	case SINGLE:
+// 	{
+// 		auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // 밀도, 탄성력, 마찰력
+// 
+// 		m_Body = PhysicsBody::createCircle(m_Sprite->getContentSize().width*(scale / 2), material);
+// 		m_Body->setMass(1.0f);
+// 		m_Body->setLinearDamping(3);
+// 		m_Body->setRotationEnable(false);
+// 
+// 		m_Sprite->setPhysicsBody(m_Body);
+// 		break;
+// 	}
+// 	case MULTI:
+// 		break;
+// 	}
+// }
 
 Unit::~Unit()
 {
