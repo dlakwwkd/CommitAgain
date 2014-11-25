@@ -7,6 +7,7 @@
 #include "MultiGameScene.h"
 #include "Hero.h"
 #include "UILayer.h"
+#include "math.h"
 
 #define GET_OBJECT_LAYER	dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
 #define GET_UI_LAYER		dynamic_cast<UILayer*>(this->getParent()->getChildByName("UILayer"))
@@ -46,6 +47,8 @@ bool ListenerLayer::init()
 void ListenerLayer::Tick(float dt)
 {
 	//ScreenMove();
+
+	
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -116,6 +119,7 @@ void ListenerLayer::OnMouseDown(Event *event)
 		{
 			if (!m_Targeting)
 				break;
+
 			auto key = GET_IM->SearchTargetingKey();		_ASSERT(key != EventKeyboard::KeyCode(-1));
 			if (key != EventKeyboard::KeyCode(-1))
 			{
@@ -173,6 +177,18 @@ void ListenerLayer::OnMouseMove(Event *event)
 	auto layer = GET_UI_LAYER;							_ASSERT(layer != nullptr);
 	auto cursorShape = layer->GetCurrentShape();			_ASSERT(cursorShape != nullptr);
 	cursorShape->setPosition(location);
+
+	//공격 방향 화살표
+	if (GET_OBJECT_LAYER->GetMyHero() == nullptr)
+	{
+		return;
+	}
+ 	auto displacement = location - GET_OBJECT_LAYER->GetMyHero()->GetHeroPos();
+ 	auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2));
+ 	auto arrow = GET_OBJECT_LAYER->GetMyHero()->GetArrow();
+	arrow->setPosition(Point(30, 50) + displacement / distance * 100);
+	int degree = acos(displacement.y / distance) / M_PI * 180; //내적
+	arrow->setRotation(degree);
 }
 
 
@@ -185,8 +201,11 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, true);
 
-	if (!(!m_Targeting && GET_OBJECT_LAYER->GetMyHero()->GetSkillCanUse(KeyboardToSkillKey(keyCode))))
+	if (m_Targeting)
 		return;
+	if (!(GET_OBJECT_LAYER->GetMyHero()->GetSkillCanUse(KeyboardToSkillKey(keyCode))))
+		return;
+	
 	switch (keyCode)
 	{
 	case KEY_Q:

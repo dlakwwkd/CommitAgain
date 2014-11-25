@@ -25,5 +25,7 @@ private:
 	Sprite* m_CursorAttack;
 
 	Sprite* m_Q_Skill_black;
+	
+	Sprite*	m_Arrow;
 };
 

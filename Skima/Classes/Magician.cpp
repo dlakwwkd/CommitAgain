@@ -12,10 +12,11 @@ Magician::Magician(Point createPos, float scale)
 	m_Sprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
+	m_Sprite->addChild(m_Arrow);
 	m_MaxHp = 1000.0f;
 	m_CurHp = m_MaxHp;
 	SetHpBar();
-	m_SkillList[SKILL_Q] = new FireballSkill();
+	m_SkillList[SKILL_Q] = new FireballSkill(this);
 	m_SkillList[SKILL_W] = new IceballSkill();
 
 	switch (GET_GM.GetGameMode())

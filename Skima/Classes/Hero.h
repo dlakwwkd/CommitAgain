@@ -13,11 +13,15 @@ public:
 	HeroType	GetHeroType(){ return m_HeroType; }
 	int			GetSkillCoolTime(SkillKey key);
 	bool		GetSkillCanUse(SkillKey key);
+	Point		GetHeroPos() { return m_Sprite->getPosition(); }
+	Sprite*		GetArrow() { return m_Arrow; }
 
 	void		SetSkillCanUse(SkillKey key, bool isUse);
 
 protected:
 	HeroType					m_HeroType;
 	std::map<SkillKey, Skill*>	m_SkillList;
+
+	Sprite*						m_Arrow;
 };
 
