@@ -7,6 +7,7 @@
 FireballSkill::FireballSkill()
 {
 	m_CoolTime = 5;
+	m_CanUse = true;
 }
 
 

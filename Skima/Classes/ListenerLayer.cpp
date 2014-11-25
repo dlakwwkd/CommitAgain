@@ -130,6 +130,8 @@ void ListenerLayer::OnMouseDown(Event *event)
 			auto cursorShape = layer->GetCurrentShape();	_ASSERT(cursorShape != nullptr);
 			cursorShape->setPosition(GET_IM->GetMouseLocation());
 
+			CoolTimeStart(KeyboardToSkillKey(key));
+
 			m_Targeting = false;
 		}
 		break;
@@ -183,7 +185,7 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, true);
 
-	if (m_Targeting)
+	if (!(!m_Targeting && GET_OBJECT_LAYER->GetMyHero()->GetSkillCanUse(KeyboardToSkillKey(keyCode))))
 		return;
 	switch (keyCode)
 	{
@@ -219,4 +221,57 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, false);
+}
+
+
+
+
+void ListenerLayer::CoolTimeStart(SkillKey key)
+{
+	Sprite* skillBlack;
+	auto reduceWidth = ScaleBy::create(GET_OBJECT_LAYER->GetMyHero()->GetSkillCoolTime(key), 0.0f, 1.0f);
+	auto coolTimeEnd = CallFunc::create(CC_CALLBACK_0(ListenerLayer::CoolTimeEnd, this, key));
+	auto action = Sequence::create(reduceWidth, coolTimeEnd, NULL);
+
+	switch (key)
+	{
+	case SKILL_Q:
+		GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, false);
+		skillBlack = GET_UI_LAYER->GetQSkillBlack();
+		skillBlack->setVisible(true);
+		skillBlack->runAction(action);
+		break;
+	}
+}
+
+void ListenerLayer::CoolTimeEnd(SkillKey key)
+{
+	switch (key)
+	{
+	case SKILL_Q:
+		GET_UI_LAYER->InvisibleSkillBlack(key);
+		GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, true);
+		break;
+	case SKILL_W:
+		break;
+	case SKILL_E:
+		break;
+	case SKILL_R:
+		break;
+	default:
+		break;
+	}
+}
+
+SkillKey ListenerLayer::KeyboardToSkillKey(EventKeyboard::KeyCode keyCode)
+{
+	switch (keyCode)
+	{
+	case KEY_Q:
+		return SKILL_Q;
+		break;
+	case KEY_W:
+		return SKILL_W;
+		break;
+	}
 }

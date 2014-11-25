@@ -20,3 +20,13 @@ int Hero::GetSkillCoolTime(SkillKey key)
 {
 	return m_SkillList[key]->GetCoolTime();
 }
+
+bool Hero::GetSkillCanUse(SkillKey key)
+{
+	return m_SkillList[key]->GetCanUse();
+}
+
+void Hero::SetSkillCanUse(SkillKey key, bool isUse)
+{
+	m_SkillList[key]->SetCanUse(isUse);
+}

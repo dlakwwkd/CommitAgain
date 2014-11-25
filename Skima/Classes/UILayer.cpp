@@ -3,14 +3,15 @@
 #include "TcpClient.h"
 #include "PacketType.h"
 
+#define SKILLBLACK_WIDTHSCALE 0.03f
+#define SKILLBLACK_HIGHTSCALE 0.033f
+
 bool UILayer::init()
 {
 	if (!Layer::init())
 	{
 		return false;
 	}
-
-	this->schedule(schedule_selector(UILayer::Tick));
 
 	auto menuItem1 = MenuItemImage::create(	"Images/Exit.png","Images/Exit_selected.png",
 		CC_CALLBACK_1(UILayer::ClickExit, this));
@@ -34,9 +35,10 @@ bool UILayer::init()
 	this->addChild(fireball);
 	
 	m_Q_Skill_black = Sprite::create("Images/black.jpg");
-	m_Q_Skill_black->setPosition(Point(443, 38));
-	m_Q_Skill_black->setScale(0.03f, 0.033f);
-	m_Q_Skill_black->setOpacity(180);
+	m_Q_Skill_black->setAnchorPoint(Point(0, 0));
+	m_Q_Skill_black->setPosition(Point(413, 8));
+	m_Q_Skill_black->setScale(SKILLBLACK_WIDTHSCALE, SKILLBLACK_HIGHTSCALE);
+	m_Q_Skill_black->setOpacity(200);
 	this->addChild(m_Q_Skill_black);
 
 	auto winSize = Director::getInstance()->getWinSize();
@@ -56,15 +58,13 @@ bool UILayer::init()
 	return true;
 }
 
-void UILayer::Tick(float dt)
-{
-	if (m_Q_Skill_On)
-	{
-	}
-}
-
 void UILayer::CursorChange(CursorMode cursorMode)
 {
+	auto reduceWidth = ScaleBy::create(5.0f, 0.0f, 1.0f);
+	auto invisible = CallFunc::create(CC_CALLBACK_0(UILayer::InvisibleSkillBlack, this, SKILL_Q));
+	auto action = Sequence::create(reduceWidth, invisible, NULL);
+	m_Q_Skill_black->runAction(action);
+
 	switch (cursorMode)
 	{
 	case CURSOR_DEFAULT:
@@ -80,20 +80,20 @@ void UILayer::CursorChange(CursorMode cursorMode)
 	}
 }
 
-void UILayer::SetSkillUse(SkillKey key, bool skillOn)
+
+void UILayer::InvisibleSkillBlack(SkillKey key)
 {
 	switch (key)
 	{
 	case SKILL_Q:
-		m_Q_Skill_On = skillOn;
+		m_Q_Skill_black->setVisible(false);
+		m_Q_Skill_black->setScale(SKILLBLACK_WIDTHSCALE, SKILLBLACK_HIGHTSCALE);
 		break;
 	case SKILL_W:
 		break;
 	case SKILL_E:
 		break;
 	case SKILL_R:
-		break;
-	default:
 		break;
 	}
 }

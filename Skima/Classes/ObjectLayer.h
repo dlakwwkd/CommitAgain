@@ -56,6 +56,5 @@ protected:
 
 
 	std::vector<std::shared_ptr<Unit>>		m_MobList;
-
 };
 

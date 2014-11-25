@@ -12,6 +12,9 @@ public:
 
 	HeroType	GetHeroType(){ return m_HeroType; }
 	int			GetSkillCoolTime(SkillKey key);
+	bool		GetSkillCanUse(SkillKey key);
+
+	void		SetSkillCanUse(SkillKey key, bool isUse);
 
 protected:
 	HeroType					m_HeroType;

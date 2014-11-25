@@ -10,15 +10,14 @@ public:
 	virtual bool init();
 	CREATE_FUNC(UILayer);
 
-	void	Tick(float dt);
-
 	void	CursorChange(CursorMode cursormode);
-	void	SetSkillUse(SkillKey key, bool skillOn);
+	void	InvisibleSkillBlack(SkillKey key);
 	void	ClickExit(Ref* sender);
-	void	loadingMessage();
-	void UpdateHpBar(float curHp, float maxHp);
+	void	LoadingMessage();
+	void	UpdateHpBar(float curHp, float maxHp);
 
 	Sprite*	GetCurrentShape() { return m_CursorShape; }
+	Sprite* GetQSkillBlack() { return m_Q_Skill_black; }
 
 private:
 	Sprite* m_CursorShape;
@@ -26,7 +25,5 @@ private:
 	Sprite* m_CursorAttack;
 
 	Sprite* m_Q_Skill_black;
-	bool	m_Q_Skill_On;
-
 };
 

@@ -5,6 +5,7 @@
 Skill::Skill()
 {
 	m_CoolTime = 0;
+	m_CanUse = false;
 }
 
 
