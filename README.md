@@ -16,8 +16,11 @@
 
 
 ##Skima.sln 빌드하는 법
-1. 깃허브의 Skima > cocos2d @4e645c > Download ZIP   
-2. ZIP 압축을 푼 후, cocos2d 폴더 안의 download-deps.py 실행  
+1. 깃허브의 Skima > cocos2d @4e645c > Download ZIP    
+
+2. ZIP 압축을 푼 후, cocos2d 폴더 안의 download-deps.py 실행   
+
 3. cocos2d-x-custom-3 폴더 안의 모든 파일 및 폴더를   
-       \CommitAgain-Release_v0.4\CommitAgain-Release_v0.4\Skima\cocos2d에 넣습니다  
-4. Skima.sln 실행후 솔루션 탐색기에서 Skima프로젝트를 시작 프로젝트로 설정후 빌드
+       \CommitAgain-Release_v0.4\CommitAgain-Release_v0.4\Skima\cocos2d에 넣습니다   
+
+4. Skima.sln 실행후 솔루션 탐색기에서 Skima프로젝트를 시작 프로젝트로 설정후 빌드   
