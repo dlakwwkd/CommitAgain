@@ -57,148 +57,67 @@ void Unit::UpdateHpBar()
 	m_HpBar->setScaleX(m_CurHp / m_MaxHp);
 }
 
-void Unit::SetHpBar(Point unitPos)
+void Unit::SetHpBar()
 {
 	m_HpBar = Sprite::create("Images/HpBar_Unit.png");
-	m_HpBar->setPosition(Point(unitPos.x - 110, unitPos.y + 5));
+	m_HpBar->setPosition(Point(-20, 85));
 	m_HpBar->setAnchorPoint(Point(0,0));
 }
 
 void Unit::SetMoveMotionByDir()
 {
-	auto animation_E = Animation::create();
-	animation_E->setDelayPerUnit(0.1f);
-	auto animation_W = Animation::create();
-	animation_W->setDelayPerUnit(0.1f);
-	auto animation_S = Animation::create();
-	animation_S->setDelayPerUnit(0.1f);
-	auto animation_N = Animation::create();
-	animation_N->setDelayPerUnit(0.1f);
-	auto animation_SE = Animation::create();
-	animation_SE->setDelayPerUnit(0.1f);
-	auto animation_SW = Animation::create();
-	animation_SW->setDelayPerUnit(0.1f);
-	auto animation_NE = Animation::create();
-	animation_NE->setDelayPerUnit(0.1f);
-	auto animation_NW = Animation::create();
-	animation_NW->setDelayPerUnit(0.1f);
+	auto animation = [](const char* format)
+	{
+		auto temp = Animation::create();
+		temp->setDelayPerUnit(0.1f);
 
-	for (int i = 1; i < 8; ++i)
-	{
-		auto frame = SpriteFrameCache::getInstance()->
-			getSpriteFrameByName(StringUtils::format("MoveMotion_E_%02d.PNG", i));
-		assert(frame);
-		animation_E->addSpriteFrame(frame);
-	}
-	for (int i = 1; i < 8; ++i)
-	{
-		auto frame = SpriteFrameCache::getInstance()->
-			getSpriteFrameByName(StringUtils::format("MoveMotion_W_%02d.PNG", i));
-		assert(frame);
-		animation_W->addSpriteFrame(frame);
-	}
-	for (int i = 1; i < 8; ++i)
-	{
-		auto frame = SpriteFrameCache::getInstance()->
-			getSpriteFrameByName(StringUtils::format("MoveMotion_S_%02d.PNG", i));
+		for (int i = 1; i < 8; ++i)
+		{
+			auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+			temp->addSpriteFrame(frame);
+		}
 
-		assert(frame);
-		animation_S->addSpriteFrame(frame);
-	}
-	for (int i = 1; i < 8; ++i)
+		return temp;
+	};
+
+	auto direction = [](Point displacement)
 	{
-		auto frame = SpriteFrameCache::getInstance()->
-			getSpriteFrameByName(StringUtils::format("MoveMotion_N_%02d.PNG", i));
-		assert(frame);
-		animation_N->addSpriteFrame(frame);
-	}
-	for (int i = 1; i < 8; ++i)
+		float slope = displacement.y / displacement.x;
+
+		if (displacement.x > 0)
+		{
+			if (slope > -0.41f	&& slope <= 0.41f)	return Direction::E;
+			if (slope > 0.41f	&& slope <= 2.41f)	return Direction::NE;
+			if (slope <= -0.41f && slope > -2.41f)	return Direction::SE;
+			if (slope > 2.41f)						return Direction::NE;
+			if (slope <= -2.41f)						return Direction::S;
+		}
+		else if (displacement.x < 0)
+		{
+			if (slope > -0.41f	&& slope <= 0.41f)	return Direction::W;
+			if (slope > 0.41f	&& slope <= 2.41f)	return Direction::SW;
+			if (slope <= -0.41f && slope > -2.41f)	return Direction::NW;
+			if (slope > 2.41f)						return Direction::SW;
+			if (slope <= -2.41f)						return Direction::N;
+		}
+		else if (displacement.x == 0)
+		{
+			if (displacement.y < 0)					return Direction::S;
+			if (displacement.y >= 0)				return Direction::N;
+		}
+		return Direction::E;
+	};
+
+	switch (direction(m_TargetPos - m_Sprite->getPosition()))
 	{
-		auto frame = SpriteFrameCache::getInstance()->
-			getSpriteFrameByName(StringUtils::format("MoveMotion_SE_%02d.PNG", i));
-		assert(frame);
-		animation_SE->addSpriteFrame(frame);
-	}
-	for (int i = 1; i < 8; ++i)
-	{
-		auto frame = SpriteFrameCache::getInstance()->
-			getSpriteFrameByName(StringUtils::format("MoveMotion_SW_%02d.PNG", i));
-		assert(frame);
-		animation_SW->addSpriteFrame(frame);
-	}
-	for (int i = 1; i < 8; ++i)
-	{
-		auto frame = SpriteFrameCache::getInstance()->
-			getSpriteFrameByName(StringUtils::format("MoveMotion_NE_%02d.PNG", i));
-		assert(frame);
-		animation_NE->addSpriteFrame(frame);
-	}
-	for (int i = 1; i < 8; ++i)
-	{
-		auto frame = SpriteFrameCache::getInstance()->
-			getSpriteFrameByName(StringUtils::format("MoveMotion_NW_%02d.PNG", i));
-		assert(frame);
-		animation_NW->addSpriteFrame(frame);
-	}
-	Point direction = m_TargetPos - m_Sprite->getPosition();
-	if (direction.x > 0)
-	{
-		float slope = direction.y / direction.x;
-		if (slope > -0.41f && slope <= 0.41f)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_E)));
-		}
-		else if (slope > 0.41f && slope <= 2.41f)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_NE)));
-		}
-		else if (slope <=-0.41f && slope > -2.41f)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_SE)));
-		}
-		else if (slope > 2.41f)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_N)));
-		}
-		else if (slope <= -2.41f)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_S)));
-		}
-	}
-	else if (direction.x < 0)
-	{
-		float slope = direction.y / direction.x;
-		if (slope > -0.41f && slope <= 0.41f)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_W)));
-		}
-		else if (slope > 0.41f && slope <= 2.41f)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_SW)));
-		}
-		else if (slope <=-0.41f && slope > -2.41f)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_NW)));
-		}
-		else if (slope > 2.41f)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_S)));
-		}
-		else if (slope <= -2.41f)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_N)));
-		}
-	}
-	else if (direction.x == 0)
-	{
-		if (direction.y < 0)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_S)));
-		}
-		else if (direction.y >= 0)
-		{
-			m_Sprite->runAction(RepeatForever::create(Animate::create(animation_N)));
-		}
+	case Direction::E:	m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_E_%02d.PNG"))));		break;
+	case Direction::W:	m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_W_%02d.PNG"))));		break;
+	case Direction::S:	m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_S_%02d.PNG"))));		break;
+	case Direction::N:	m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_N_%02d.PNG"))));		break;
+	case Direction::SE: m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_SE_%02d.PNG"))));	break;
+	case Direction::SW: m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_SW_%02d.PNG"))));	break;
+	case Direction::NE: m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_NE_%02d.PNG"))));	break;
+	case Direction::NW: m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_NW_%02d.PNG"))));	break;
 	}
 }
 

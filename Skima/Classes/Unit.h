@@ -24,7 +24,7 @@ public:
 	void			SetMoveMotionByDir();
 	void			SetHp(int curHp){ m_CurHp = curHp; }
 	float			GetMaxHp(){ return m_MaxHp; }
-	void			SetHpBar(Point unitPos);
+	void			SetHpBar();
 	void			UpdateHpBar();
 	Point			GetMoveTargetPos(){ return m_TargetPos; }
 
