@@ -28,7 +28,7 @@ void IceballMissile::MissileCast(Point createPos, Point targetPos)
 	auto action3 = CallFunc::create(CC_CALLBACK_0(IceballMissile::MissileDelete, this));
 	auto action4 = Sequence::create(action1, action2, action3, NULL);
 	m_Particle->runAction(action4);
-	GET_OBJECT_LAYER->addChild(m_Particle);
+	GET_OBJECT_LAYER->addChild(m_Particle, 19);
 }
 
 void IceballMissile::MissileCrash()

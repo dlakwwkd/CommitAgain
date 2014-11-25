@@ -28,7 +28,7 @@ void FireballMissile::MissileCast(Point createPos, Point targetPos)
 	auto action3 = CallFunc::create(CC_CALLBACK_0(FireballMissile::MissileDelete, this));
 	auto action4 = Sequence::create(action1, action2, action3, NULL);
 	m_Particle->runAction(action4);
-	GET_OBJECT_LAYER->addChild(m_Particle);
+	GET_OBJECT_LAYER->addChild(m_Particle, 19);
 }
 
 void FireballMissile::MissileCrash()
@@ -46,6 +46,7 @@ void FireballMissile::MissileCrash()
 
 void FireballMissile::MissileDelete()
 {
+	m_Particle->stopAllActions();
 	GET_OBJECT_LAYER->removeChild(m_Particle);
 	GET_OBJECT_LAYER->DeleteMissile(m_UnitID);
 }

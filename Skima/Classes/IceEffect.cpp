@@ -24,7 +24,7 @@ void IceEffect::CreateEffect(Point createPos)
 	auto action2 = CallFunc::create(CC_CALLBACK_0(IceEffect::ExtinctEffect, this));
 	auto action3 = Sequence::create(action1, action2, NULL);
 	m_Particle->runAction(action3);
-	GET_OBJECT_LAYER->addChild(m_Particle);
+	GET_OBJECT_LAYER->addChild(m_Particle, 20);
 }
 
 void IceEffect::ExtinctEffect()

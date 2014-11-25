@@ -122,6 +122,7 @@ void ListenerLayer::OnMouseDown(Event *event)
 				TcpClient::getInstance()->skillRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation(),
 					static_cast<SkillKey>(key));
 			}
+			GET_IM->InitTargetingKey();
 
 			auto layer = GET_UI_LAYER;					_ASSERT(layer != nullptr);
 			layer->CursorChange(CURSOR_DEFAULT);

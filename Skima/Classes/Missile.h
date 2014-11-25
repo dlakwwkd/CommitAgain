@@ -9,6 +9,7 @@ public:
 public:
 	virtual void MissileCast(Point createPos, Point targetPos) = 0;
 	virtual void MissileCrash() = 0;
+	virtual void MissileDelete() = 0;
 
 protected:
 	MissileType		m_MissileType;

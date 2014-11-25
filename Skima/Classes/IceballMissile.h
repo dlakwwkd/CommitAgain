@@ -11,7 +11,7 @@ public:
 public:
 	virtual void MissileCast(Point createPos, Point targetPos);
 	virtual void MissileCrash();
-	void MissileDelete();
+	virtual void MissileDelete();
 	
 private:
 	ParticleSystemQuad* m_Particle;
