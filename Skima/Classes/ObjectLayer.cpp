@@ -157,7 +157,7 @@ void ObjectLayer::MissileCrash(int missileID)
 	}
 }
 
-void ObjectLayer::UnitHpUpdate(int unitID, int curHp)
+void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
 {
 	switch (GET_GM.GetGameMode())
 	{
@@ -165,7 +165,7 @@ void ObjectLayer::UnitHpUpdate(int unitID, int curHp)
 		UnitHpUpdateS(curHp);
 		break;
 	case MULTI:
-		UnitHpUpdateM(unitID, curHp);
+		UnitHpUpdateM(playerID, unitID, curHp);
 		break;
 	}
 }
@@ -326,18 +326,21 @@ void ObjectLayer::UnitHpUpdateS(int curHp)
 
 }
 
-void ObjectLayer::UnitHpUpdateM(int unitID, float curHp)
+void ObjectLayer::UnitHpUpdateM(int playerID, int unitID, float curHP)
 {
 	auto unit = m_UnitList.find(unitID);
 	if (unit == m_UnitList.end())
 	{
 		return;
 	}
-	unit->second->SetHp(curHp);
+	unit->second->SetHp(curHP);
 	unit->second->UpdateHpBar();
 
-	auto layer = dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"));
-	layer->UpdateHpBar(curHp, unit->second->GetMaxHp());
+	if (m_Hero->GetUnitPlayerID() == playerID)
+	{
+		auto layer = dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"));
+		layer->UpdateHpBar(curHP, unit->second->GetMaxHp());
+	}
 }
 
 

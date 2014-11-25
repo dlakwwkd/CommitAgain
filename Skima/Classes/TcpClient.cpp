@@ -369,7 +369,7 @@ void TcpClient::processPacket()
 
 			auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
 			scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitHpUpdate, layer,
-				recvData.mUnitId, recvData.mHp));
+				recvData.mPlayerId, recvData.mUnitId, recvData.mHp));
 		}
 		break;
 

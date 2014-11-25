@@ -15,6 +15,7 @@ public:
 
 	void			SetUnitID(int unitID){ m_UnitID = unitID; }
 	void			SetUnitPlayerID(int playerID){ m_PlayerID = playerID; }
+	int				GetUnitPlayerID(){ return m_PlayerID; }
 	void			SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
 	void			SetMoveTargetPos(Point pos){ m_TargetPos = pos; }
 	int				GetUnitID(){ return m_UnitID; }
