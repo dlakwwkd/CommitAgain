@@ -373,6 +373,14 @@ void TcpClient::processPacket()
 		}
 		break;
 
+		case  PKT_SC_TELEPORT:
+		{
+								 TeleportBroadcastResult recvData;
+								 bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+								 assert(ret && recvData.mPlayerId != -1);
+		}
+			break;
+
 		default:
 			assert(false);
 		}
