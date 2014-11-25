@@ -46,6 +46,7 @@ void FireballMissile::MissileCrash()
 
 void FireballMissile::MissileDelete()
 {
+	m_Particle->stopAllActions();
 	GET_OBJECT_LAYER->removeChild(m_Particle);
 	GET_OBJECT_LAYER->DeleteMissile(m_UnitID);
 }

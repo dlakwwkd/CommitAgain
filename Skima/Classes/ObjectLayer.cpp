@@ -285,6 +285,12 @@ void ObjectLayer::ShootMissileS(Point createPos, Point targetPos)
 
 void ObjectLayer::ShootMissileM(int missileID, Point createPos, Point targetPos)
 {
+	auto temp = m_MissileList.find(missileID);
+	if (temp != m_MissileList.end())
+	{
+		temp->second->MissileDelete();
+	}
+
 	Missile* missile;
 
 	switch (m_Hero->GetHeroType())
