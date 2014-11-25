@@ -73,8 +73,8 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location, HeroType 
 	{
 		m_Hero = unit;
 	}
-	this->addChild(unit->GetSprite(),16);
-	unit->GetSprite()->addChild(unit->GetHpBar(),16);
+	unit->GetSprite()->addChild(unit->GetHpBar(), 16);
+	this->addChild(unit->GetSprite(), 16);
 }
 
 void ObjectLayer::UnitMove(int unitID, Point recvCurPos, Point targetPos)

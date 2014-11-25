@@ -60,7 +60,7 @@ void Unit::UpdateHpBar()
 void Unit::SetHpBar(Point unitPos)
 {
 	m_HpBar = Sprite::create("Images/HpBar_Unit.png");
-	m_HpBar->setPosition(Point(unitPos.x - 110, unitPos.y + 5));
+	m_HpBar->setPosition(Point(-20.0f, 90.0f));
 	m_HpBar->setAnchorPoint(Point(0,0));
 }
 
