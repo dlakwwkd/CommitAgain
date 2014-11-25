@@ -5,6 +5,8 @@ GameManager::GameManager()
 {
 	std::shared_ptr<InputManager> temp1(new InputManager());
 	std::shared_ptr<MissileManager> temp2(new MissileManager());
+	std::shared_ptr<EffectManager> temp3(new EffectManager());
 	m_IM = temp1;
 	m_MM = temp2;
+	m_EM = temp3;
 }

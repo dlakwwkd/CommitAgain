@@ -165,6 +165,15 @@
     <ClCompile Include="..\Classes\IceballSkill.cpp">
       <Filter>Game\Component\Skill\ShootType</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\FireEffect.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\IceEffect.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EffectManager.cpp">
+      <Filter>Game\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -268,6 +277,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\IceballSkill.h">
       <Filter>Game\Component\Skill\ShootType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FireEffect.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\IceEffect.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EffectManager.h">
+      <Filter>Game\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

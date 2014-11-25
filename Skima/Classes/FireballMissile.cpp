@@ -2,6 +2,8 @@
 #include "FireballMissile.h"
 #include "TcpClient.h"
 #include "ObjectLayer.h"
+#include "GameManager.h"
+#include "Effect.h"
 
 
 FireballMissile::FireballMissile(int unitId)
@@ -37,6 +39,9 @@ void FireballMissile::MissileCrash()
 	auto action2 = CallFunc::create(CC_CALLBACK_0(FireballMissile::MissileDelete, this));
 	auto action3 = Sequence::create(action1, action2, NULL);
 	m_Particle->runAction(action3);
+
+	auto effect = GET_EM->Assign(EF_FIRE);
+	effect->CreateEffect(m_Particle->getPosition());
 }
 
 void FireballMissile::MissileDelete()

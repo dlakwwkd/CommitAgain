@@ -2,6 +2,8 @@
 #include "IceballMissile.h"
 #include "TcpClient.h"
 #include "ObjectLayer.h"
+#include "GameManager.h"
+#include "Effect.h"
 
 
 IceballMissile::IceballMissile(int unitId)
@@ -37,6 +39,9 @@ void IceballMissile::MissileCrash()
 	auto action2 = CallFunc::create(CC_CALLBACK_0(IceballMissile::MissileDelete, this));
 	auto action3 = Sequence::create(action1, action2, NULL);
 	m_Particle->runAction(action3);
+
+	auto effect = GET_EM->Assign(EF_ICE);
+	effect->CreateEffect(m_Particle->getPosition());
 }
 
 void IceballMissile::MissileDelete()
