@@ -19,31 +19,6 @@ Unit::Unit()
 	m_MovingState = new MovingState();
 	m_CrashedState = new CrashedState();
 }
-// 
-// Unit::Unit(const std::string& filename, Point createPos, float scale)
-// {
-// 	m_Sprite = Sprite::create(filename);
-// 	m_Sprite->setPosition(createPos);
-// 	m_Sprite->setScale(scale);
-// 
-// 	switch (GET_GM.GetGameMode())
-// 	{
-// 	case SINGLE:
-// 	{
-// 		auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // 밀도, 탄성력, 마찰력
-// 
-// 		m_Body = PhysicsBody::createCircle(m_Sprite->getContentSize().width*(scale / 2), material);
-// 		m_Body->setMass(1.0f);
-// 		m_Body->setLinearDamping(3);
-// 		m_Body->setRotationEnable(false);
-// 
-// 		m_Sprite->setPhysicsBody(m_Body);
-// 		break;
-// 	}
-// 	case MULTI:
-// 		break;
-// 	}
-// }
 
 Unit::~Unit()
 {
@@ -66,18 +41,18 @@ void Unit::SetHpBar()
 
 void Unit::SetMoveMotionByDir()
 {
-	auto animation = [](const char* format)
+	auto action = [](const char* format)
 	{
-		auto temp = Animation::create();
-		temp->setDelayPerUnit(0.1f);
+		auto animation = Animation::create();
+		animation->setDelayPerUnit(0.1f);
 
 		for (int i = 1; i < 8; ++i)
 		{
 			auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-			temp->addSpriteFrame(frame);
+			animation->addSpriteFrame(frame);
 		}
 
-		return temp;
+		return RepeatForever::create(Animate::create(animation));
 	};
 
 	auto direction = [](Point displacement)
@@ -110,14 +85,14 @@ void Unit::SetMoveMotionByDir()
 
 	switch (direction(m_TargetPos - m_Sprite->getPosition()))
 	{
-	case Direction::E:	m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_E_%02d.PNG"))));		break;
-	case Direction::W:	m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_W_%02d.PNG"))));		break;
-	case Direction::S:	m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_S_%02d.PNG"))));		break;
-	case Direction::N:	m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_N_%02d.PNG"))));		break;
-	case Direction::SE: m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_SE_%02d.PNG"))));	break;
-	case Direction::SW: m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_SW_%02d.PNG"))));	break;
-	case Direction::NE: m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_NE_%02d.PNG"))));	break;
-	case Direction::NW: m_Sprite->runAction(RepeatForever::create(Animate::create(animation("MoveMotion_NW_%02d.PNG"))));	break;
+	case Direction::E:	m_Sprite->runAction(action("MoveMotion_E_%02d.PNG"));	break;
+	case Direction::W:	m_Sprite->runAction(action("MoveMotion_W_%02d.PNG"));	break;
+	case Direction::S:	m_Sprite->runAction(action("MoveMotion_S_%02d.PNG"));	break;
+	case Direction::N:	m_Sprite->runAction(action("MoveMotion_N_%02d.PNG"));	break;
+	case Direction::SE: m_Sprite->runAction(action("MoveMotion_SE_%02d.PNG"));	break;
+	case Direction::SW: m_Sprite->runAction(action("MoveMotion_SW_%02d.PNG"));	break;
+	case Direction::NE: m_Sprite->runAction(action("MoveMotion_NE_%02d.PNG"));	break;
+	case Direction::NW: m_Sprite->runAction(action("MoveMotion_NW_%02d.PNG"));	break;
 	}
 }
 
