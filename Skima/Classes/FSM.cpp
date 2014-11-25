@@ -17,7 +17,6 @@ void StandbyState::Crashed(Unit* unit)
 {
 	unit->SetMoveState(unit->GetCrashedState());
 	unit->Crash();
-	unit->UpdateHpBar();
 }
 
 void StandbyState::EndMove(Unit* unit){}
@@ -41,7 +40,6 @@ void MovingState::Crashed(Unit* unit)
 	unit->SetMoveState(unit->GetCrashedState());
 	unit->GetSprite()->stopAllActions();
 	unit->Crash();
-	unit->UpdateHpBar();
 }
 
 void MovingState::EndMove(Unit* unit)

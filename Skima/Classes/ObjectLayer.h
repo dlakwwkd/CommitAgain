@@ -47,7 +47,7 @@ protected:
 	void MissileCrashS();
 	void MissileCrashM(int missileID);
 	void UnitHpUpdateS(int curHp);
-	void UnitHpUpdateM(int unitID, int curHP);
+	void UnitHpUpdateM(int unitID, float curHP);
 
 protected:
 	std::shared_ptr<Hero>					m_Hero;

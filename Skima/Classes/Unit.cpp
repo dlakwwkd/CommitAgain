@@ -8,7 +8,7 @@ Unit::Unit()
 	m_Name = "";
 	m_PlayerID = -1;
 	m_UnitID = -1;
-	m_Hp = m_MaxHp = 0;
+	m_CurHp = m_MaxHp = 0;
 	m_Speed = 0;
 	m_TargetPos = { 0, 0 };
 	m_Sprite = nullptr;
@@ -54,7 +54,7 @@ Unit::~Unit()
 
 void Unit::UpdateHpBar()
 {
-	m_HpBar->setScaleX(m_Hp / m_MaxHp);
+	m_HpBar->setScaleX(m_CurHp / m_MaxHp);
 }
 
 void Unit::SetHpBar(Point unitPos)

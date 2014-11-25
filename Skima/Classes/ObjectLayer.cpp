@@ -2,6 +2,7 @@
 #include "ObjectLayer.h"
 #include "PhysicsLayer.h"
 #include "LoadingBGLayer.h"
+#include "UILayer.h"
 #include "Magician.h"
 #include "GameManager.h"
 #include "Hero.h"
@@ -272,6 +273,8 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Poin
 	{
 		return;
 	}
+	unit->second->SetMoveTargetPos(targetPos);
+	unit->second->SetMoveMotionByDir();
 	unit->second->EndMove();
 }
 
@@ -317,7 +320,7 @@ void ObjectLayer::UnitHpUpdateS(int curHp)
 
 }
 
-void ObjectLayer::UnitHpUpdateM(int unitID, int curHp)
+void ObjectLayer::UnitHpUpdateM(int unitID, float curHp)
 {
 	auto unit = m_UnitList.find(unitID);
 	if (unit == m_UnitList.end())
@@ -325,6 +328,10 @@ void ObjectLayer::UnitHpUpdateM(int unitID, int curHp)
 		return;
 	}
 	unit->second->SetHp(curHp);
+	unit->second->UpdateHpBar();
+
+	auto layer = dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"));
+	layer->UpdateHpBar(curHp, unit->second->GetMaxHp());
 }
 
 

@@ -16,6 +16,7 @@ public:
 	void	SetSkillUse(SkillKey key, bool skillOn);
 	void	ClickExit(Ref* sender);
 	void	loadingMessage();
+	void	UpdateHpBar(float curHp, float maxHp);
 
 	Sprite*	GetCurrentShape() { return m_CursorShape; }
 

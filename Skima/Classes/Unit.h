@@ -21,7 +21,8 @@ public:
 	Sprite*			GetSprite(){ return m_Sprite; }
 	Sprite*			GetHpBar(){ return m_HpBar; }
 	void			SetMoveMotionByDir();
-	void			SetHp(int curHp){ m_Hp = curHp; }
+	void			SetHp(int curHp){ m_CurHp = curHp; }
+	float			GetMaxHp(){ return m_MaxHp; }
 	void			SetHpBar(Point unitPos);
 	void			UpdateHpBar();
 	Point			GetMoveTargetPos(){ return m_TargetPos; }
@@ -62,7 +63,7 @@ protected:
 	int				m_PlayerID;
 	int				m_UnitID;
 	float			m_MaxHp;
-	float			m_Hp;
+	float			m_CurHp;
 	float			m_Speed;
 
 	Point			m_TargetPos;

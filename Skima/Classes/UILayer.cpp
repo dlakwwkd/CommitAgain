@@ -16,10 +16,17 @@ bool UILayer::init()
 		CC_CALLBACK_1(UILayer::ClickExit, this));
 	menuItem1->setScale(0.3f, 0.3f);
 
-	auto interfaceimage = Sprite::create("Images/interface.jpg");
+	auto interfaceimage = Sprite::create("Images/interface.png");
 	interfaceimage->setPosition(Point(400, 95));
 	interfaceimage->setScale(1.03f, 1.03f);
 	this->addChild(interfaceimage);
+
+	auto HpBar = Sprite::create("Images/HpBar_interface.png");
+	HpBar->setPosition(Point(400, 88));
+	HpBar->setScaleX(0.68f);
+	HpBar->setScaleY(1.03f);
+	HpBar->setAnchorPoint(Point(0, 0));
+	this->addChild(HpBar,10,"HpBar");
 
 	auto fireball = Sprite::create("Images/fireball.jpg");
 	fireball->setPosition(Point(443, 38));
@@ -96,4 +103,10 @@ void UILayer::ClickExit(Ref* sender)
 	TcpClient::getInstance()->disconnect();
 	Director::getInstance()->popScene();
 	ShowCursor(true);
+}
+
+void UILayer::UpdateHpBar(float curHp, float maxHp)
+{
+	auto hpBar = dynamic_cast<Sprite*>(this->getChildByName("HpBar"));
+	hpBar->setScaleX(0.68f*(curHp / maxHp));
 }

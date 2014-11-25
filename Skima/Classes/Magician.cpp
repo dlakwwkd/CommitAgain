@@ -13,7 +13,7 @@ Magician::Magician(Point createPos, float scale)
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
 	m_MaxHp = 1000.0f;
-	m_Hp = m_MaxHp;
+	m_CurHp = m_MaxHp;
 	SetHpBar(createPos);
 	m_SkillList[SKILL_Q] = new FireballSkill();
 	m_SkillList[SKILL_W] = new IceballSkill();
