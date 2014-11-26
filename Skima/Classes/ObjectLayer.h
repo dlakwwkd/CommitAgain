@@ -31,6 +31,7 @@ public:
 	void ShootMissile(int missileID, Point createPos, Point targetPos);
 	void MissileCrash(int missileID);
 	void DeleteMissile(int missileID);
+	void UnitTeleport(int unitID, Point recvCurPos, Point targetPos);
 
 // 	void AddNewSpriteAtPosition(Point pos);
 // 	void MobAi();
@@ -48,6 +49,9 @@ protected:
 	void MissileCrashM(int missileID);
 	void UnitHpUpdateS(int curHp);
 	void UnitHpUpdateM(int playerID, int unitID, float curHP);
+	void UnitTeleportS(Point targetPos);
+	void UnitTeleportM(int unitID, Point recvCurPos, Point targetPos);
+
 
 protected:
 	std::shared_ptr<Hero>					m_Hero;

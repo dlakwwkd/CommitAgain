@@ -109,7 +109,7 @@ void ObjectLayer::UnitCrashEnd(int unitID, Point revisePos)
 	{
 		return;
 	}
-	unit->second->SetMoveTargetPos(revisePos);
+	unit->second->SetTargetPos(revisePos);
 	unit->second->EndCrash();
 }
 
@@ -177,6 +177,20 @@ void ObjectLayer::DeleteMissile(int missileID)
 	GET_MM->Release(missile->second);
 	m_MissileList.erase(missile);
 }
+void ObjectLayer::UnitTeleport(int unitID, Point recvCurPos, Point targetPos)
+{
+	switch (GET_GM.GetGameMode())
+	{
+	case SINGLE:
+		UnitTeleportS(targetPos);
+		break;
+	case MULTI:
+		UnitTeleportM(unitID, recvCurPos, targetPos);
+		break;
+	}
+}
+
+
 
 // 
 // void ObjectLayer::AddNewSpriteAtPosition(Point pos)
@@ -237,7 +251,7 @@ void ObjectLayer::UnitMoveM(int unitID, Point recvCurPos, Point targetPos)
 	{
 		return;
 	}
-	unit->second->SetMoveTargetPos(targetPos);
+	unit->second->SetTargetPos(targetPos);
 	unit->second->TryMove();
 }
 
@@ -254,7 +268,7 @@ void ObjectLayer::UnitCrashM(int unitID, Point recvPos)
 	{
 		return;
 	}
-	unit->second->SetMoveTargetPos(recvPos);
+	unit->second->SetTargetPos(recvPos);
 	unit->second->Crashed();
 }
 
@@ -270,7 +284,7 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Poin
 	{
 		return;
 	}
-	unit->second->SetMoveTargetPos(targetPos);
+	unit->second->SetTargetPos(targetPos);
 	unit->second->SetMoveMotionByDir();
 	unit->second->EndMove();
 }
@@ -340,4 +354,22 @@ void ObjectLayer::UnitHpUpdateM(int playerID, int unitID, float curHP)
 	}
 }
 
+void ObjectLayer::UnitTeleportS(Point targetPos)
+{
+
+}
+
+void ObjectLayer::UnitTeleportM(int unitID, Point curPos, Point targetPos)
+{
+	auto unit = m_UnitList.find(unitID);
+	if (unit == m_UnitList.end())
+	{
+		return;
+	}
+	//unit->second->SetMoveTargetPos(targetPos);
+	//unit->second->TryTeleport();
+	unit->second->SetTargetPos(targetPos);
+	unit->second->SetMoveMotionByDir();
+	unit->second->EndMove();
+}
 

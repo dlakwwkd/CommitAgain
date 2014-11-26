@@ -17,7 +17,7 @@ public:
 	void			SetUnitPlayerID(int playerID){ m_PlayerID = playerID; }
 	int				GetUnitPlayerID(){ return m_PlayerID; }
 	void			SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
-	void			SetMoveTargetPos(Point pos){ m_TargetPos = pos; }
+	void			SetTargetPos(Point pos){ m_TargetPos = pos; }
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
 	Sprite*			GetHpBar(){ return m_HpBar; }
@@ -49,6 +49,9 @@ protected:
 	void			MoveM();
 	void			CrashS();
 	void			CrashM();
+	void			TeleportS();
+	void			TeleportM();
+
 
 
 protected:

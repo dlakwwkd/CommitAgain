@@ -375,11 +375,18 @@ void TcpClient::processPacket()
 
 		case  PKT_SC_TELEPORT:
 		{
-								 TeleportBroadcastResult recvData;
-								 bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-								 assert(ret && recvData.mPlayerId != -1);
+			 TeleportBroadcastResult recvData;
+			 bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+			 assert(ret && recvData.mPlayerId != -1);
+
+			 auto curPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
+			 auto targetPos = Point(recvData.mTargetPosX, recvData.mTargetPosY);
+
+			 auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
+			 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitTeleport, layer,
+				 recvData.mUnitId, curPos, targetPos));
 		}
-			break;
+		break;
 
 		default:
 			assert(false);
