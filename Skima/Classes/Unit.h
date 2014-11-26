@@ -22,7 +22,7 @@ public:
 	Sprite*			GetSprite(){ return m_Sprite; }
 	Sprite*			GetHpBar(){ return m_HpBar; }
 	void			SetMoveMotionByDir();
-	void			SetHp(int curHp){ m_CurHp = curHp; }
+	void			SetHp(int curHp);
 	float			GetMaxHp(){ return m_MaxHp; }
 	void			SetHpBar();
 	void			UpdateHpBar();
