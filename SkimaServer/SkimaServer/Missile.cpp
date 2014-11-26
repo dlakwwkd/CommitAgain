@@ -19,6 +19,7 @@ Missile::Missile()
 
 Missile::~Missile()
 {
+	GMissileManager->Release(this);
 }
 
 
