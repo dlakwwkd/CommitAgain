@@ -26,11 +26,14 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto glview = director->getOpenGLView();
     if(!glview) 
 	{
-        glview = GLViewImpl::create("Amaging PVP Game: Skima");
+        glview = GLViewImpl::createWithFullScreen("Amaging PVP Game: Skima");
         director->setOpenGLView(glview);
 
-		glview->setFrameSize(800, 600);
-		glview->setDesignResolutionSize(800, 600, ResolutionPolicy::NO_BORDER);
+		int w = GetSystemMetrics(SM_CXSCREEN);
+		int h = GetSystemMetrics(SM_CYSCREEN);
+
+		glview->setFrameSize(w, h);
+		glview->setDesignResolutionSize(1280, 800, ResolutionPolicy::NO_BORDER);
     }
 
     // turn on display FPS
