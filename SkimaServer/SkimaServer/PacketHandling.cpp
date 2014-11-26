@@ -524,10 +524,10 @@ void ClientSession::MissileBroadCast(int playerId,int unitId, b2Vec2 currentPos,
 	}
 }
 
-void ClientSession::TeleportBroadCast(int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::TeleportBroadCast(int playerId, int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
 {
 	TeleportBroadcastResult outPacket;
-	outPacket.mPlayerId = mPlayer->GetPlayerID();
+	outPacket.mPlayerId = playerId;
 	outPacket.mUnitId = unitId;
 	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
 	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
