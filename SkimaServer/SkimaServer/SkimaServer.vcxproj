@@ -77,8 +77,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\SUBIN\Documents\GitHub\CommitAgain\Skima\cocos2d\external\Box2D;C:\Users\SUBIN\Documents\GitHub\CommitAgain\Skima\cocos2d\external;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\SUBIN\Documents\GitHub\CommitAgain\Skima\cocos2d\external\Box2D\proj.win32\Release.win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\..\Shared;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\..\Shared\Library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
