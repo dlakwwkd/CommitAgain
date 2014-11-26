@@ -1,17 +1,8 @@
 #include "pch.h"
 #include "AppDelegate.h"
-#include "SingleGameScene.h"
 #include "MainScene.h"
 
 USING_NS_CC;
-
-AppDelegate::AppDelegate() {
-
-}
-
-AppDelegate::~AppDelegate() 
-{
-}
 
 void AppDelegate::initGLContextAttrs()
 {
@@ -33,7 +24,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 		int h = GetSystemMetrics(SM_CYSCREEN);
 
 		glview->setFrameSize(w, h);
-		glview->setDesignResolutionSize(1280, 800, ResolutionPolicy::NO_BORDER);
+		glview->setDesignResolutionSize(DISPLAY_X, DISPLAY_Y, ResolutionPolicy::NO_BORDER);
     }
 
     // turn on display FPS
@@ -45,16 +36,16 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // run
 	director->runWithScene(scene);
-
-
     return true;
 }
 
 
 
-void AppDelegate::applicationDidEnterBackground() {
+void AppDelegate::applicationDidEnterBackground()
+{
     Director::getInstance()->stopAnimation();
 }
-void AppDelegate::applicationWillEnterForeground() {
+void AppDelegate::applicationWillEnterForeground()
+{
     Director::getInstance()->startAnimation();
 }

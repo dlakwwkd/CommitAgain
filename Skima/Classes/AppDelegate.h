@@ -6,8 +6,8 @@
 class  AppDelegate : private cocos2d::Application
 {
 public:
-    AppDelegate();
-    virtual ~AppDelegate();
+	AppDelegate(){}
+	virtual ~AppDelegate(){}
 
     virtual void initGLContextAttrs();
     virtual bool applicationDidFinishLaunching();

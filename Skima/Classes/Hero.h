@@ -1,10 +1,8 @@
 ﻿#pragma once
 #include "Unit.h"
-
 class Skill;
 
-class Hero :
-	public Unit
+class Hero : public Unit
 {
 public:
 	Hero();

@@ -1,5 +1,4 @@
 ﻿#pragma once
-
 class Hero;
 
 class Skill

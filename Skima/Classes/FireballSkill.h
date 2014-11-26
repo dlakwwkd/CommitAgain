@@ -1,8 +1,5 @@
 ﻿#pragma once
 #include "Skill.h"
-
-USING_NS_CC;
-
 class FireballMissile;
 class Hero;
 
