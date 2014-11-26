@@ -23,6 +23,7 @@ private:
 	Sprite* m_CursorShape;
 	Sprite* m_CursorDefault;
 	Sprite* m_CursorAttack;
+	Sprite* m_CursorTeleport;
 
 	Sprite* m_Q_Skill_Black;
 	Sprite* m_W_Skill_Black;

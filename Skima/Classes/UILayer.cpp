@@ -67,6 +67,11 @@ bool UILayer::init()
 	m_CursorAttack->setVisible(false);
 	m_CursorShape = m_CursorDefault;
 
+	m_CursorTeleport = Sprite::create("Images/cursor_teleport.png");
+	m_CursorTeleport->setScale(0.2, 0.08);
+	this->addChild(m_CursorTeleport);
+	m_CursorShape = m_CursorTeleport;
+
 	return true;
 }
 
