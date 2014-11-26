@@ -79,7 +79,4 @@ protected:
 	Sprite*			m_HpBar;
 	PhysicsBody*	m_Body;
 
-private:
-	ParticleSystemQuad* m_TeleportParticle;
-
 };

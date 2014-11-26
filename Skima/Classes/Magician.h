@@ -9,5 +9,8 @@ public:
 public:
 	void SetMoveMotionByDir();
 
+private:
+	ParticleSystemQuad* m_TeleportParticle;
+
 };
 

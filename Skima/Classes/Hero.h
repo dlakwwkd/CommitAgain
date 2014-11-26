@@ -24,5 +24,6 @@ protected:
 	std::map<SkillKey, Skill*>	m_SkillList;
 
 	Sprite*						m_Arrow;
+
 };
 
