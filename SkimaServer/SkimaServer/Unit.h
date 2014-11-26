@@ -28,6 +28,7 @@ public:
 	UnitType		GetUnitType(){ return m_UnitType; }
 	b2Vec2			GetTargetPos(){ return m_TargetPos; }
 	b2Body*			GetBody(){ return m_Body; }
+	void			InitBody(){ m_Body = nullptr; }
 
 	void			Moving();
 	void			Crashing(bool isCrashing);

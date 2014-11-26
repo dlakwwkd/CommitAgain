@@ -21,6 +21,7 @@ void IceballMissile::MissileCast(Point createPos, Point targetPos)
 {
 	m_Particle = ParticleSystemQuad::create("Images/ice.plist");
 	m_Particle->setPosition(createPos);
+	m_Particle->setScale(0.60f);
 	auto distance = targetPos - createPos;
 	auto scala = sqrt(pow(distance.x, 2) + pow(distance.y, 2)) / 300;
 	auto action1 = MoveTo::create(scala, targetPos);

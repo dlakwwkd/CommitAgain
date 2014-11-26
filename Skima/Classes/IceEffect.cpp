@@ -20,6 +20,7 @@ void IceEffect::CreateEffect(Point createPos)
 {
 	m_Particle = ParticleSystemQuad::create("Images/ice_break.plist");
 	m_Particle->setPosition(createPos);
+	m_Particle->setScale(0.40f);
 	auto action1 = DelayTime::create(2.0f);
 	auto action2 = CallFunc::create(CC_CALLBACK_0(IceEffect::ExtinctEffect, this));
 	auto action3 = Sequence::create(action1, action2, NULL);

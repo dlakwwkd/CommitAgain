@@ -61,6 +61,7 @@ void MissileManager::Release(Missile* missile)
 	if (body != nullptr)
 	{
 		GGameManager->GetWolrd()->DestroyBody(body);
+		missile->InitBody();
 	}
 }
 

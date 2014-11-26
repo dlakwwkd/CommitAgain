@@ -74,6 +74,10 @@ void Missile::Extinction()
 	Crashing(false);
 
 	auto player = GGameManager->SearchPlayer(m_PlayerID);
+	if(player == nullptr)
+	{
+		return;
+	}
 	player->UnitListPop(m_UnitID);
 
 	if (m_InUse)
