@@ -4,6 +4,9 @@
 
 Unit::Unit()
 {
+
+	m_TeleportParticle = ParticleSystemQuad::create("Images/ice.plist");
+	//m_TeleportParticle->setPosition(createPos);
 	m_UnitType = UNIT_NONE;
 	m_Name = "";
 	m_PlayerID = -1;
@@ -182,7 +185,8 @@ void Unit::TeleportM()
 	// 타겟 포즈로 스프라이트 setpos
 
 	SetMoveMotionByDir(); // test
-	auto action1 = MoveTo::create(
+	auto action1 = MoveTo::create(0.0f, m_TargetPos);  // another : CALLFUNC로 m_Sprite->setPosition(m_TargetPos); 하는 함수
+//	auto action2 =
 
 
 
