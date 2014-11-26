@@ -18,6 +18,9 @@ public:
 
 	void		SetSkillCanUse(SkillKey key, bool isUse);
 
+	void		SkillReady(SkillKey key);
+	void		SkillEnd(SkillKey key);
+
 protected:
 	HeroType					m_HeroType;
 	std::map<SkillKey, Skill*>	m_SkillList;

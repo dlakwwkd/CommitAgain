@@ -24,6 +24,7 @@ public:
 
 private:
 	bool			m_Targeting;
+	void			SetArrowPos();
 	void			CoolTimeStart(SkillKey key);
 	void			CoolTimeEnd(SkillKey key);
 	SkillKey		KeyboardToSkillKey(EventKeyboard::KeyCode keyCode);

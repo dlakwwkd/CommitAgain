@@ -134,6 +134,8 @@ void ListenerLayer::OnMouseDown(Event *event)
 			auto cursorShape = layer->GetCurrentShape();	_ASSERT(cursorShape != nullptr);
 			cursorShape->setPosition(GET_IM->GetMouseLocation());
 
+			GET_OBJECT_LAYER->GetMyHero()->SkillEnd(KeyboardToSkillKey(key));
+
 			CoolTimeStart(KeyboardToSkillKey(key));
 
 			m_Targeting = false;
@@ -146,6 +148,13 @@ void ListenerLayer::OnMouseDown(Event *event)
 			{
 				TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
 			}
+
+			auto key = GET_IM->SearchTargetingKey();
+			if (key == EventKeyboard::KeyCode(-1))
+				break;
+
+			GET_OBJECT_LAYER->GetMyHero()->SkillEnd(KeyboardToSkillKey(key));
+
 			GET_IM->InitTargetingKey();
 
 			auto layer = GET_UI_LAYER;					_ASSERT(layer != nullptr);
@@ -178,17 +187,7 @@ void ListenerLayer::OnMouseMove(Event *event)
 	auto cursorShape = layer->GetCurrentShape();			_ASSERT(cursorShape != nullptr);
 	cursorShape->setPosition(location);
 
-	//공격 방향 화살표
-	if (GET_OBJECT_LAYER->GetMyHero() == nullptr)
-	{
-		return;
-	}
- 	auto displacement = location - GET_OBJECT_LAYER->GetMyHero()->GetHeroPos();
- 	auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2));
- 	auto arrow = GET_OBJECT_LAYER->GetMyHero()->GetArrow();
-	arrow->setPosition(Point(30, 50) + displacement / distance * 100);
-	int degree = acos(displacement.y / distance) / M_PI * 180; //내적
-	arrow->setRotation(degree);
+	SetArrowPos();
 }
 
 
@@ -217,6 +216,8 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 
 			auto cursorShape = layer->GetCurrentShape();		_ASSERT(cursorShape != nullptr);
 			cursorShape->setPosition(GET_IM->GetMouseLocation());
+
+			GET_OBJECT_LAYER->GetMyHero()->SkillReady(KeyboardToSkillKey(keyCode));
 		
 			m_Targeting = true;
 			break;
@@ -261,6 +262,25 @@ void ListenerLayer::CoolTimeStart(SkillKey key)
 		skillBlack->runAction(action);
 		break;
 	}
+}
+
+
+void ListenerLayer::SetArrowPos()
+{
+	if (GET_OBJECT_LAYER->GetMyHero() == nullptr)
+	{
+		return;
+	}
+	auto displacement = GET_IM->GetMouseLocation() - GET_OBJECT_LAYER->GetMyHero()->GetHeroPos();
+	auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2));
+	auto arrow = GET_OBJECT_LAYER->GetMyHero()->GetArrow();
+	arrow->setPosition(Point(30, 50) + displacement / distance * 100);
+	int degree = acos(displacement.y / distance) / M_PI * 180; //내적
+	if (displacement.x < 0)
+	{
+		degree = degree * -1;
+	}
+	arrow->setRotation(degree);
 }
 
 void ListenerLayer::CoolTimeEnd(SkillKey key)

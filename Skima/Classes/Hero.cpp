@@ -8,7 +8,7 @@ Hero::Hero()
 	m_Arrow = Sprite::create("Images/arrow.png");
 	m_Arrow->setScale(0.09f, 0.09f);
 	m_Arrow->setPosition(Point(50, 50));
-	//m_Arrow->setVisible(false);
+	m_Arrow->setVisible(false);
 }
 
 
@@ -33,4 +33,15 @@ bool Hero::GetSkillCanUse(SkillKey key)
 void Hero::SetSkillCanUse(SkillKey key, bool isUse)
 {
 	m_SkillList[key]->SetCanUse(isUse);
+}
+
+void Hero::SkillReady(SkillKey key)
+{
+	m_SkillList[key]->SkillReady();
+}
+
+void Hero::SkillEnd(SkillKey key)
+{
+	m_SkillList[key]->SkillEnd();
+
 }
