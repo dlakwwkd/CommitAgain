@@ -2,11 +2,11 @@
 
 USING_NS_CC;
 
-class MultiGameScene : public cocos2d::Layer
+class MultiGameScene : public Layer
 {
 public:
     
-    static cocos2d::Scene* createScene();
+    static Scene* createScene();
 	virtual bool init();  
     CREATE_FUNC(MultiGameScene);
 

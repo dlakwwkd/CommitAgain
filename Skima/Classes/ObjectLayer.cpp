@@ -366,10 +366,8 @@ void ObjectLayer::UnitTeleportM(int unitID, Point curPos, Point targetPos)
 	{
 		return;
 	}
-	//unit->second->SetMoveTargetPos(targetPos);
-	//unit->second->TryTeleport();
 	unit->second->SetTargetPos(targetPos);
 	unit->second->SetMoveMotionByDir();
-	unit->second->EndMove();
+	unit->second->TryTeleport();
 }
 

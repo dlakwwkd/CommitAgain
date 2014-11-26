@@ -4,8 +4,6 @@
 
 USING_NS_CC;
 
-
-
 class ListenerLayer : public Layer
 {
 public:

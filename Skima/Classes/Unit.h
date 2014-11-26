@@ -33,6 +33,7 @@ public:
 	MoveState*		GetMovingState(){ return (MoveState*)m_MovingState; }
 	MoveState*		GetCrashedState(){ return (MoveState*)m_CrashedState; }
 	void			TryMove(){ m_MoveState->TryMove(this); }
+	void			TryTeleport(){ m_MoveState->TryTeleport(this); }
 	void			EndMove(){ m_MoveState->EndMove(this); }
 	void			Crashed(){ m_MoveState->Crashed(this); }
 	void			EndCrash(){ m_MoveState->EndCrash(this); }
@@ -40,6 +41,7 @@ public:
 
 	void			Move();
 	void			Crash();
+	void			Teleport();
 
 public:
 	PhysicsBody*	GetBody(){ return m_Body; }
@@ -76,4 +78,8 @@ protected:
 	Sprite*			m_Sprite;
 	Sprite*			m_HpBar;
 	PhysicsBody*	m_Body;
+
+private:
+	ParticleSystemQuad* m_TeleportParticle;
+
 };
