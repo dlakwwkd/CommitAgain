@@ -350,7 +350,7 @@ void ObjectLayer::UnitHpUpdateM(int playerID, int unitID, float curHP)
 	if (m_Hero->GetUnitPlayerID() == playerID)
 	{
 		auto layer = dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"));
-		layer->UpdateHpBar(curHP, unit->second->GetMaxHp());
+		layer->UpdateHpBar(unit->second->GetCurHp(), unit->second->GetMaxHp());
 	}
 }
 
