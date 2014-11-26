@@ -8,7 +8,7 @@
 
 Magician::Magician(Point createPos, float scale)
 {
-	m_TeleportParticle = ParticleSystemQuad::create("");
+	//m_TeleportParticle = ParticleSystemQuad::create("");
 	//m_TeleportParticle->setPosition(createPos);
 	SetMoveMotionByDir();
 	m_Sprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");
