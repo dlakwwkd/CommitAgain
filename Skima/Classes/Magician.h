@@ -10,7 +10,7 @@ public:
 	void SetMoveMotionByDir();
 
 private:
-	ParticleSystemQuad* m_TeleportParticle;
+	//ParticleSystemQuad* m_TeleportParticle;
 
 };
 
