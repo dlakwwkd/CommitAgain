@@ -33,13 +33,25 @@ bool UILayer::init()
 	fireball->setPosition(Point(443, 38));
 	fireball->setScale(0.03f, 0.033f);
 	this->addChild(fireball);
+
+	auto iceball = Sprite::create("Images/iceball.jpg");
+	iceball->setPosition(Point(518, 38));
+	iceball->setScale(0.55f, 0.8f);
+	this->addChild(iceball);
 	
-	m_Q_Skill_black = Sprite::create("Images/black.jpg");
-	m_Q_Skill_black->setAnchorPoint(Point(0, 0));
-	m_Q_Skill_black->setPosition(Point(413, 8));
-	m_Q_Skill_black->setScale(SKILLBLACK_WIDTHSCALE, SKILLBLACK_HIGHTSCALE);
-	m_Q_Skill_black->setOpacity(200);
-	this->addChild(m_Q_Skill_black);
+	m_Q_Skill_Black = Sprite::create("Images/black.jpg");
+	m_Q_Skill_Black->setAnchorPoint(Point(0, 0));
+	m_Q_Skill_Black->setPosition(Point(413, 8));
+	m_Q_Skill_Black->setScale(SKILLBLACK_WIDTHSCALE, SKILLBLACK_HIGHTSCALE);
+	m_Q_Skill_Black->setOpacity(200);
+	this->addChild(m_Q_Skill_Black);
+
+	m_W_Skill_Black = Sprite::create("Images/black.jpg");
+	m_W_Skill_Black->setAnchorPoint(Point(0, 0));
+	m_W_Skill_Black->setPosition(Point(490, 8));
+	m_W_Skill_Black->setScale(SKILLBLACK_WIDTHSCALE, SKILLBLACK_HIGHTSCALE);
+	m_W_Skill_Black->setOpacity(200);
+	this->addChild(m_W_Skill_Black);
 
 	auto winSize = Director::getInstance()->getWinSize();
 	auto menu = Menu::create(menuItem1, NULL);
@@ -63,7 +75,7 @@ void UILayer::CursorChange(CursorMode cursorMode)
 	auto reduceWidth = ScaleBy::create(5.0f, 0.0f, 1.0f);
 	auto invisible = CallFunc::create(CC_CALLBACK_0(UILayer::InvisibleSkillBlack, this, SKILL_Q));
 	auto action = Sequence::create(reduceWidth, invisible, NULL);
-	m_Q_Skill_black->runAction(action);
+	m_Q_Skill_Black->runAction(action);
 
 	switch (cursorMode)
 	{
@@ -86,10 +98,13 @@ void UILayer::InvisibleSkillBlack(SkillKey key)
 	switch (key)
 	{
 	case SKILL_Q:
-		m_Q_Skill_black->setVisible(false);
-		m_Q_Skill_black->setScale(SKILLBLACK_WIDTHSCALE, SKILLBLACK_HIGHTSCALE);
+		m_Q_Skill_Black->setVisible(false);
+		m_Q_Skill_Black->setScale(SKILLBLACK_WIDTHSCALE, SKILLBLACK_HIGHTSCALE);
 		break;
 	case SKILL_W:
+		m_W_Skill_Black->setVisible(false);
+		m_W_Skill_Black->setScale(SKILLBLACK_WIDTHSCALE, SKILLBLACK_HIGHTSCALE);
+		break;
 		break;
 	case SKILL_E:
 		break;
@@ -109,4 +124,21 @@ void UILayer::UpdateHpBar(float curHp, float maxHp)
 {
 	auto hpBar = dynamic_cast<Sprite*>(this->getChildByName("HpBar"));
 	hpBar->setScaleX(0.68f*(curHp / maxHp));
+}
+
+Sprite* UILayer::GetSkillBlack(SkillKey key)
+{
+	switch (key)
+	{
+	case SKILL_Q:
+		return m_Q_Skill_Black;
+		break;
+	case SKILL_W:
+		return m_W_Skill_Black;
+		break;
+	case SKILL_E:
+		break;
+	case SKILL_R:
+		break;
+	}
 }

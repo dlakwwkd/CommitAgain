@@ -17,7 +17,7 @@ Magician::Magician(Point createPos, float scale)
 	m_CurHp = m_MaxHp;
 	SetHpBar();
 	m_SkillList[SKILL_Q] = new FireballSkill(this);
-	m_SkillList[SKILL_W] = new IceballSkill();
+	m_SkillList[SKILL_W] = new IceballSkill(this);
 
 	switch (GET_GM.GetGameMode())
 	{

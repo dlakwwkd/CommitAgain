@@ -17,14 +17,15 @@ public:
 	void	UpdateHpBar(float curHp, float maxHp);
 
 	Sprite*	GetCurrentShape() { return m_CursorShape; }
-	Sprite* GetQSkillBlack() { return m_Q_Skill_black; }
+	Sprite* GetSkillBlack(SkillKey key);
 
 private:
 	Sprite* m_CursorShape;
 	Sprite* m_CursorDefault;
 	Sprite* m_CursorAttack;
 
-	Sprite* m_Q_Skill_black;
+	Sprite* m_Q_Skill_Black;
+	Sprite* m_W_Skill_Black;
 	
 	Sprite*	m_Arrow;
 };

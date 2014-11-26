@@ -243,28 +243,6 @@ void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	GET_IM->SetKeyStatus(keyCode, false);
 }
 
-
-
-
-void ListenerLayer::CoolTimeStart(SkillKey key)
-{
-	Sprite* skillBlack;
-	auto reduceWidth = ScaleBy::create(GET_OBJECT_LAYER->GetMyHero()->GetSkillCoolTime(key), 0.0f, 1.0f);
-	auto coolTimeEnd = CallFunc::create(CC_CALLBACK_0(ListenerLayer::CoolTimeEnd, this, key));
-	auto action = Sequence::create(reduceWidth, coolTimeEnd, NULL);
-
-	switch (key)
-	{
-	case SKILL_Q:
-		GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, false);
-		skillBlack = GET_UI_LAYER->GetQSkillBlack();
-		skillBlack->setVisible(true);
-		skillBlack->runAction(action);
-		break;
-	}
-}
-
-
 void ListenerLayer::SetArrowPos()
 {
 	if (GET_OBJECT_LAYER->GetMyHero() == nullptr)
@@ -283,23 +261,23 @@ void ListenerLayer::SetArrowPos()
 	arrow->setRotation(degree);
 }
 
+void ListenerLayer::CoolTimeStart(SkillKey key)
+{
+	Sprite* skillBlack;
+	auto reduceWidth = ScaleBy::create(GET_OBJECT_LAYER->GetMyHero()->GetSkillCoolTime(key), 0.0f, 1.0f);
+	auto coolTimeEnd = CallFunc::create(CC_CALLBACK_0(ListenerLayer::CoolTimeEnd, this, key));
+	auto action = Sequence::create(reduceWidth, coolTimeEnd, NULL);
+
+	GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, false);
+	skillBlack = GET_UI_LAYER->GetSkillBlack(key);
+	skillBlack->setVisible(true);
+	skillBlack->runAction(action);
+}
+
 void ListenerLayer::CoolTimeEnd(SkillKey key)
 {
-	switch (key)
-	{
-	case SKILL_Q:
-		GET_UI_LAYER->InvisibleSkillBlack(key);
-		GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, true);
-		break;
-	case SKILL_W:
-		break;
-	case SKILL_E:
-		break;
-	case SKILL_R:
-		break;
-	default:
-		break;
-	}
+	GET_UI_LAYER->InvisibleSkillBlack(key);
+	GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, true);
 }
 
 SkillKey ListenerLayer::KeyboardToSkillKey(EventKeyboard::KeyCode keyCode)
