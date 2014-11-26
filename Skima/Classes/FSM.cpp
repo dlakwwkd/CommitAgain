@@ -12,6 +12,10 @@ void StandbyState::TryMove(Unit* unit)
 	unit->SetMoveState(unit->GetMovingState());
 	unit->Move();
 }
+void StandbyState::TryTeleport(Unit* unit)
+{
+	unit->Teleport();
+}
 
 void StandbyState::Crashed(Unit* unit)
 {
@@ -34,6 +38,11 @@ void MovingState::TryMove(Unit* unit)
 	unit->GetSprite()->stopAllActions();
 	unit->Move();
 
+}
+void MovingState::TryTeleport(Unit* unit)
+{
+	unit->GetSprite()->stopAllActions();
+	unit->Teleport();
 }
 void MovingState::Crashed(Unit* unit)
 {
@@ -60,6 +69,7 @@ void MovingState::Movement(Unit* unit)
 */
 //////////////////////////////////////////////////////////////////////////
 void CrashedState::TryMove(Unit* unit){}
+void CrashedState::TryTeleport(Unit* unit){}
 void CrashedState::Crashed(Unit* unit)
 {
 	unit->GetSprite()->stopAllActions();

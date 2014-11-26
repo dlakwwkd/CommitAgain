@@ -26,12 +26,12 @@ public:
 	void UnitCrash(int unitID, Point recvPos);
 	void UnitCrashEnd(int unitID, Point revisePos);
 	void UnitSkillUse(int unitID, SkillKey key, Point recvCurPos, Point targetPos);
+	void UnitTeleport(int unitID, Point recvCurPos, Point targetPos);
 	void UnitHpUpdate(int playerID, int unitID, int curHp);
 
 	void ShootMissile(int missileID, Point createPos, Point targetPos);
 	void MissileCrash(int missileID);
 	void DeleteMissile(int missileID);
-	void UnitTeleport(int unitID, Point recvCurPos, Point targetPos);
 
 // 	void AddNewSpriteAtPosition(Point pos);
 // 	void MobAi();

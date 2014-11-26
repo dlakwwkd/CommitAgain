@@ -114,6 +114,14 @@ void Unit::Crash()
 	}
 }
 
+void Unit::Teleport()
+{
+	switch (GET_GM.GetGameMode())
+	{
+	case SINGLE:	TeleportS();	break;
+	case MULTI:		TeleportM();	break;
+	}
+}
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -149,7 +157,6 @@ void Unit::MoveM()
 	m_Sprite->runAction(action3);
 }
 
-
 void Unit::CrashS()
 {
 
@@ -164,3 +171,19 @@ void Unit::CrashM()
 	m_Sprite->runAction(action2);
 }
 
+void Unit::TeleportS()
+{
+	
+}
+
+void Unit::TeleportM()
+{
+	// 스프라이트의 현재좌표에 파티클 띄워주고
+	// 타겟 포즈로 스프라이트 setpos
+
+	SetMoveMotionByDir(); // test
+	auto action1 = MoveTo::create(
+
+
+
+}
