@@ -164,3 +164,13 @@ void Unit::CrashM()
 	m_Sprite->runAction(action2);
 }
 
+void Unit::SetHp(int curHp)
+{
+	if (curHp <= 0)
+	{
+		m_CurHp = 0;
+		return;
+	}
+	m_CurHp = curHp;
+}
+

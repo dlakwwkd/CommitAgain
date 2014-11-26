@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#define MAX_MAP_SIZE_X 800
-#define MAX_MAP_SIZE_Y 600
+#define MAX_MAP_SIZE_X 1280
+#define MAX_MAP_SIZE_Y 800
 
 class Map
 {
