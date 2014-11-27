@@ -133,6 +133,10 @@ unsigned int WINAPI ClientHandlingThread(LPVOID lpParam)
 		{
 			/// 소켓 정보 구조체 할당과 초기화
 			ClientSession* client = GClientManager->CreateClient(acceptSock);
+            if (client == nullptr)
+            {
+                continue;
+            }
 
 			SOCKADDR_IN clientaddr;
 			int addrlen = sizeof(clientaddr);

@@ -22,8 +22,13 @@ ClientSession* ClientManager::CreateClient(SOCKET sock)
 	assert(LThreadType == THREAD_CLIENT);
 
 	ClientSession* client = new ClientSession(sock);
+    if (mClientList.find(sock) != mClientList.end())
+    {
+        client->CloseSocketNoWait();
+        delete client;
+        return nullptr;
+    }
 	mClientList.insert(ClientList::value_type(sock, client));
-
 	return client;
 }
 

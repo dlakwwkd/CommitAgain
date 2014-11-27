@@ -57,6 +57,7 @@ public:
 	bool	OnConnect(SOCKADDR_IN* addr);
 	bool	PostRecv();
 	void	Disconnect();
+    void    CloseSocketNoWait();
 
 	bool	SendRequest(PacketHeader* pkt);
 	bool	SendFlush();

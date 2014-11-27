@@ -82,25 +82,26 @@ void ClientSession::Disconnect()
 	}
 	printf("[DEBUG] Client Disconnected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port));
 
-	/// 즉각 해제
-
-	LINGER lingerOption;
-	lingerOption.l_onoff = 1;
-	lingerOption.l_linger = 0;
-
-	/// no TCP TIME_WAIT
-	if (SOCKET_ERROR == setsockopt(mSocket, SOL_SOCKET, SO_LINGER, (char*)&lingerOption, sizeof(LINGER)))
-	{
-		printf_s("[DEBUG] setsockopt linger option error: %d\n", GetLastError());
-		return;
-	}
-
-	closesocket(mSocket);
-
+    CloseSocketNoWait();
 	mConnected = false;
 }
 
+void ClientSession::CloseSocketNoWait()
+{
+    /// 즉각 해제
+    LINGER lingerOption;
+    lingerOption.l_onoff = 1;
+    lingerOption.l_linger = 0;
 
+    /// no TCP TIME_WAIT
+    if (SOCKET_ERROR == setsockopt(mSocket, SOL_SOCKET, SO_LINGER, (char*)&lingerOption, sizeof(LINGER)))
+    {
+        printf_s("[DEBUG] setsockopt linger option error: %d\n", GetLastError());
+        return;
+    }
+
+    closesocket(mSocket);
+}
 
 ///////////////////////////////////////////////////////////////////////////
 /*
