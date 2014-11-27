@@ -10,24 +10,18 @@ public:
 	virtual bool init();
 	CREATE_FUNC(UILayer);
 
-	void	CursorChange(CursorMode cursormode);
-	void	InvisibleSkillBlack(SkillKey key);
+	void	CursorChange(CursorMode cursorMode);
+	void	HideCooltimeBox(SkillKey key);
 	void	ClickExit(Ref* sender);
 	void	LoadingMessage();
 	void	UpdateHpBar(float curHp, float maxHp);
 
-	Sprite*	GetCurrentShape() { return m_CursorShape; }
-	Sprite* GetSkillBlack(SkillKey key);
+	Sprite*	GetCurrentCursor() { return m_Cursor; }
+	Sprite* GetCooltimeBox(SkillKey key);
 
 private:
-	Sprite* m_CursorShape;
-	Sprite* m_CursorDefault;
-	Sprite* m_CursorAttack;
-	Sprite* m_CursorTeleport;
-
-	Sprite* m_Q_Skill_Black;
-	Sprite* m_W_Skill_Black;
-	
-	Sprite*	m_Arrow;
+	Sprite*							m_Cursor;
+	std::map<CursorMode, Sprite*>	m_CursorShape;
+	std::map<SkillKey, Sprite*>		m_CooltimeBox;
 };
 

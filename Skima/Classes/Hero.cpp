@@ -22,26 +22,50 @@ Hero::~Hero()
 
 int Hero::GetSkillCoolTime(SkillKey key)
 {
-	return m_SkillList[key]->GetCoolTime();
+	auto skill = m_SkillList.find(key);
+	if (skill == m_SkillList.end())
+	{
+		return 1;
+	}
+	return skill->second->GetCoolTime();
 }
 
 bool Hero::GetSkillCanUse(SkillKey key)
 {
-	return m_SkillList[key]->GetCanUse();
+	auto skill = m_SkillList.find(key);
+	if (skill == m_SkillList.end())
+	{
+		return false;
+	}
+	return skill->second->GetCanUse();
 }
 
 void Hero::SetSkillCanUse(SkillKey key, bool isUse)
 {
-	m_SkillList[key]->SetCanUse(isUse);
+	auto skill = m_SkillList.find(key);
+	if (skill == m_SkillList.end())
+	{
+		return;
+	}
+	skill->second->SetCanUse(isUse);
 }
 
 void Hero::SkillReady(SkillKey key)
 {
-	m_SkillList[key]->SkillReady();
+	auto skill = m_SkillList.find(key);
+	if (skill == m_SkillList.end())
+	{
+		return;
+	}
+	skill->second->SkillReady();
 }
 
 void Hero::SkillEnd(SkillKey key)
 {
-	m_SkillList[key]->SkillEnd();
-
+	auto skill = m_SkillList.find(key);
+	if (skill == m_SkillList.end())
+	{
+		return;
+	}
+	skill->second->SkillEnd();
 }

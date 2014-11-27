@@ -13,8 +13,8 @@ public:
 
 	void			SetCanUse(bool isUse) { m_CanUse = isUse; }
 
-	virtual void	SkillReady();
-	virtual void	SkillEnd();
+	virtual void	SkillReady() = 0;
+	virtual void	SkillEnd() = 0;
 
 protected:
 	Hero*	m_Hero;

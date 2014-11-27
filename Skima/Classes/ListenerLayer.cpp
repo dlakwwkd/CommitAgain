@@ -53,14 +53,9 @@ void ListenerLayer::Tick(float dt)
 //////////////////////////////////////////////////////////////////////////
 
 
-void ListenerLayer::UpdateKeyInput()
-{
-
-}
-
 void ListenerLayer::ScreenMove()
 {
-	Point mouseLocation = GET_IM->GetMouseLocation();
+	auto mouseLocation = GET_IM->GetMouseLocation();
 	auto winSize = Director::getInstance()->getWinSize();
 
 	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && GET_IM->GetMouseScrollStatus(SCROLL_UP))
@@ -69,7 +64,6 @@ void ListenerLayer::ScreenMove()
 		Point gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
 		gap *= 7;
 		this->setPosition(this->getPosition() + gap);
-
 	}
 	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && GET_IM->GetMouseScrollStatus(SCROLL_UP))
 	{
@@ -97,6 +91,7 @@ void ListenerLayer::ScreenMove()
 }
 
 
+
 ///////////////////////////////////////////////////////////////////////////
 /*
 	마우스 리스너
@@ -105,39 +100,32 @@ void ListenerLayer::ScreenMove()
 void ListenerLayer::OnMouseDown(Event *event)
 {
 	if (!dynamic_cast<MultiGameScene*>(this->getParent())->IsStartGame())
+	{
 		return;
-
-	auto button = dynamic_cast<EventMouse*>(event)->getMouseButton();
+	}
+	auto hero = GET_OBJECT_LAYER->GetMyHero();	_ASSERT(hero != nullptr);
+	auto sprite = hero->GetSprite();				_ASSERT(sprite != nullptr);
+	auto heroPos = sprite->getPosition();
+	auto mousePos = GET_IM->GetMouseLocation();
+	auto key = KeyboardToSkillKey(GET_IM->SearchTargetingKey());
+	auto button = static_cast<EventMouse*>(event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, true);
-
-	auto layer = GET_OBJECT_LAYER;						_ASSERT(layer != nullptr);
-	auto hero = layer->GetMyHero();
 
 	switch (button)
 	{
 	case MOUSE_BUTTON_LEFT:
 		{
-			if (!m_Targeting)
-				break;
-
-			auto key = GET_IM->SearchTargetingKey();		_ASSERT(key != EventKeyboard::KeyCode(-1));
-			if (key != EventKeyboard::KeyCode(-1))
+			if (!m_Targeting || key == SKILL_NONE)
 			{
-				TcpClient::getInstance()->skillRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation(),
-					static_cast<SkillKey>(key));
+				break;
 			}
+			TcpClient::getInstance()->skillRequest(heroPos, mousePos, key);
+			CoolTimeStart(key);
+
+			hero->SkillEnd(key);
+			GET_UI_LAYER->CursorChange(CURSOR_DEFAULT);
+			GET_UI_LAYER->GetCurrentCursor()->setPosition(mousePos);
 			GET_IM->InitTargetingKey();
-
-			auto layer = GET_UI_LAYER;					_ASSERT(layer != nullptr);
-			layer->CursorChange(CURSOR_DEFAULT);
-
-			auto cursorShape = layer->GetCurrentShape();	_ASSERT(cursorShape != nullptr);
-			cursorShape->setPosition(GET_IM->GetMouseLocation());
-
-			GET_OBJECT_LAYER->GetMyHero()->SkillEnd(KeyboardToSkillKey(key));
-
-			CoolTimeStart(KeyboardToSkillKey(key));
-
 			m_Targeting = false;
 		}
 		break;
@@ -146,24 +134,16 @@ void ListenerLayer::OnMouseDown(Event *event)
 		{
 			if (hero->GetMoveState() != hero->GetCrashedState())
 			{
-				TcpClient::getInstance()->moveRequest(hero->GetSprite()->getPosition(), GET_IM->GetMouseLocation());
+				TcpClient::getInstance()->moveRequest(heroPos, mousePos);
 			}
-
-			auto key = GET_IM->SearchTargetingKey();
-			if (key == EventKeyboard::KeyCode(-1))
-				break;
-
-			GET_OBJECT_LAYER->GetMyHero()->SkillEnd(KeyboardToSkillKey(key));
-
-			GET_IM->InitTargetingKey();
-
-			auto layer = GET_UI_LAYER;					_ASSERT(layer != nullptr);
-			layer->CursorChange(CURSOR_DEFAULT);
-
-			auto cursorShape = layer->GetCurrentShape();	_ASSERT(cursorShape != nullptr);
-			cursorShape->setPosition(GET_IM->GetMouseLocation());
-
-			m_Targeting = false;
+			if (key != SKILL_NONE)
+			{
+				hero->SkillEnd(key);
+				GET_UI_LAYER->CursorChange(CURSOR_DEFAULT);
+				GET_UI_LAYER->GetCurrentCursor()->setPosition(mousePos);
+				GET_IM->InitTargetingKey();
+				m_Targeting = false;
+			}
 		}
 		break;
 	}
@@ -171,24 +151,21 @@ void ListenerLayer::OnMouseDown(Event *event)
 
 void ListenerLayer::OnMouseUp(Event *event)
 {
-	auto button = dynamic_cast<EventMouse*>(event)->getMouseButton();
+	auto button = static_cast<EventMouse*>(event)->getMouseButton();
 	GET_IM->SetMouseStatus(button, false);
 }
 
 void ListenerLayer::OnMouseMove(Event *event)
 {
-	auto location = dynamic_cast<EventMouse*>(event)->getLocation();
+	auto location = static_cast<EventMouse*>(event)->getLocation();
 	location.y = Director::getInstance()->getWinSize().height - location.y;
 
 	GET_IM->SetMouseLocation(location);
 	GET_IM->CheckMouseScroll();
-
-	auto layer = GET_UI_LAYER;							_ASSERT(layer != nullptr);
-	auto cursorShape = layer->GetCurrentShape();			_ASSERT(cursorShape != nullptr);
-	cursorShape->setPosition(location);
-
+	GET_UI_LAYER->GetCurrentCursor()->setPosition(location);
 	SetArrowPos();
 }
+
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -200,41 +177,16 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	GET_IM->SetKeyStatus(keyCode, true);
 
-	if (m_Targeting)
-		return;
-	if (!(GET_OBJECT_LAYER->GetMyHero()->GetSkillCanUse(KeyboardToSkillKey(keyCode))))
-		return;
-	
-	switch (keyCode)
+	auto hero = GET_OBJECT_LAYER->GetMyHero();	_ASSERT(hero != nullptr);
+	auto key = KeyboardToSkillKey(keyCode);
+
+	if (!m_Targeting && hero->GetSkillCanUse(key))
 	{
-	case KEY_Q:
-		{
-			GET_IM->SetTargeting(keyCode, true);
-
-			auto layer = GET_UI_LAYER;						_ASSERT(layer != nullptr);
-			layer->CursorChange(CURSOR_ATTACK);
-
-			auto cursorShape = layer->GetCurrentShape();		_ASSERT(cursorShape != nullptr);
-			cursorShape->setPosition(GET_IM->GetMouseLocation());
-
-			GET_OBJECT_LAYER->GetMyHero()->SkillReady(KeyboardToSkillKey(keyCode));
-		
-			m_Targeting = true;
-			break;
-		}
-	case KEY_W:
-		{
-			GET_IM->SetTargeting(keyCode, true);
-
-			auto layer = GET_UI_LAYER;						_ASSERT(layer != nullptr);
-			layer->CursorChange(CURSOR_ATTACK);
-
-			auto cursorShape = layer->GetCurrentShape();		_ASSERT(cursorShape != nullptr);
-			cursorShape->setPosition(GET_IM->GetMouseLocation());
-
-			m_Targeting = true;
-			break;
-		}
+		hero->SkillReady(key);
+		GET_UI_LAYER->CursorChange(CURSOR_ATTACK);
+		GET_UI_LAYER->GetCurrentCursor()->setPosition(GET_IM->GetMouseLocation());
+		GET_IM->SetTargeting(keyCode, true);
+		m_Targeting = true;
 	}
 }
 
@@ -243,9 +195,46 @@ void ListenerLayer::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	GET_IM->SetKeyStatus(keyCode, false);
 }
 
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	private 함수들
+*/
+///////////////////////////////////////////////////////////////////////////
+SkillKey ListenerLayer::KeyboardToSkillKey(EventKeyboard::KeyCode keyCode)
+{
+	switch (keyCode)
+	{
+	case KEY_Q:	return SKILL_Q;
+	case KEY_W:	return SKILL_W;
+	case KEY_E: return SKILL_E;
+	default:	return SKILL_NONE;
+	}
+}
+
+void ListenerLayer::CoolTimeStart(SkillKey key)
+{
+	auto reduceWidth = ScaleBy::create(GET_OBJECT_LAYER->GetMyHero()->GetSkillCoolTime(key), 0.0f, 1.0f);
+	auto coolTimeEnd = CallFunc::create(CC_CALLBACK_0(ListenerLayer::CoolTimeEnd, this, key));
+	auto action = Sequence::create(reduceWidth, coolTimeEnd, NULL);
+
+	auto cooltimeBox = GET_UI_LAYER->GetCooltimeBox(key);
+	cooltimeBox->setVisible(true);
+	cooltimeBox->runAction(action);
+
+	GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, false);
+}
+
+void ListenerLayer::CoolTimeEnd(SkillKey key)
+{
+	GET_UI_LAYER->HideCooltimeBox(key);
+	GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, true);
+}
+
 void ListenerLayer::SetArrowPos()
 {
-	if (GET_OBJECT_LAYER->GetMyHero() == nullptr)
+	if (!m_Targeting || GET_OBJECT_LAYER->GetMyHero() == nullptr)
 	{
 		return;
 	}
@@ -259,36 +248,4 @@ void ListenerLayer::SetArrowPos()
 		degree = degree * -1;
 	}
 	arrow->setRotation(degree);
-}
-
-void ListenerLayer::CoolTimeStart(SkillKey key)
-{
-	Sprite* skillBlack;
-	auto reduceWidth = ScaleBy::create(GET_OBJECT_LAYER->GetMyHero()->GetSkillCoolTime(key), 0.0f, 1.0f);
-	auto coolTimeEnd = CallFunc::create(CC_CALLBACK_0(ListenerLayer::CoolTimeEnd, this, key));
-	auto action = Sequence::create(reduceWidth, coolTimeEnd, NULL);
-
-	GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, false);
-	skillBlack = GET_UI_LAYER->GetSkillBlack(key);
-	skillBlack->setVisible(true);
-	skillBlack->runAction(action);
-}
-
-void ListenerLayer::CoolTimeEnd(SkillKey key)
-{
-	GET_UI_LAYER->InvisibleSkillBlack(key);
-	GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, true);
-}
-
-SkillKey ListenerLayer::KeyboardToSkillKey(EventKeyboard::KeyCode keyCode)
-{
-	switch (keyCode)
-	{
-	case KEY_Q:
-		return SKILL_Q;
-		break;
-	case KEY_W:
-		return SKILL_W;
-		break;
-	}
 }

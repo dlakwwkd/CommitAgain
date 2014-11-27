@@ -20,13 +20,3 @@ Skill::Skill(Hero* hero) :m_Hero(hero)
 Skill::~Skill()
 {
 }
-
-void Skill::SkillReady()
-{
-
-}
-
-void Skill::SkillEnd()
-{
-
-}

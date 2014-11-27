@@ -83,6 +83,8 @@ enum SkillKey
 	SKILL_W = 143,
 	SKILL_E = 125,
 	SKILL_R = 138,
+
+	SKILL_MAX_NUM = 5,
 };
 
 #pragma pack(push, 1)

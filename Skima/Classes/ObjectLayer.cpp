@@ -23,15 +23,15 @@ bool ObjectLayer::init()
 //////////////////////////////////////////////////////////////////////////
 void ObjectLayer::TickS(float dt)
 {
-	if (m_Hero == nullptr) return;
-	
-	m_Hero->Move();
-	m_Hero->GetSprite()->setZOrder(-m_Hero->GetSprite()->getPosition().y);
-	for (auto& b : m_MobList)
-	{
-		b->Move();
-		b->GetSprite()->setZOrder(-b->GetSprite()->getPosition().y);
-	}
+// 	if (m_Hero == nullptr) return;
+// 	
+// 	m_Hero->Move();
+// 	m_Hero->GetSprite()->setZOrder(-m_Hero->GetSprite()->getPosition().y);
+// 	for (auto& b : m_MobList)
+// 	{
+// 		b->Move();
+// 		b->GetSprite()->setZOrder(-b->GetSprite()->getPosition().y);
+// 	}
 }
 void ObjectLayer::TickM(float dt)
 {

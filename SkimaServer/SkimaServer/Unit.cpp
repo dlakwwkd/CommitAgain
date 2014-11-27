@@ -64,8 +64,6 @@ void Unit::Crashing(bool isCrashing)
 	if (isCrashing)
 	{
 		auto velocity = m_Body->GetLinearVelocity();
-		velocity *= 5;
-		m_Body->SetLinearVelocity(velocity);
 
 		expectPos.x = curPos.x + velocity.x / DAMPING;
 		expectPos.y = curPos.y + velocity.y / DAMPING;

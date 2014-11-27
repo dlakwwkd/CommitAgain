@@ -11,7 +11,6 @@ public:
 	CREATE_FUNC(ListenerLayer);
 		
 	void			Tick(float dt);
-	void			UpdateKeyInput();
 	void			ScreenMove();
 
 	virtual void	OnMouseDown(Event *event);
@@ -21,10 +20,12 @@ public:
 	virtual void	OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 
 private:
-	bool			m_Targeting;
-	void			SetArrowPos();
+	SkillKey		KeyboardToSkillKey(EventKeyboard::KeyCode keyCode);
 	void			CoolTimeStart(SkillKey key);
 	void			CoolTimeEnd(SkillKey key);
-	SkillKey		KeyboardToSkillKey(EventKeyboard::KeyCode keyCode);
+	void			SetArrowPos();
+
+private:
+	bool			m_Targeting;
 };
 

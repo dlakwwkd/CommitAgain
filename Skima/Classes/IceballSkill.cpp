@@ -7,14 +7,14 @@
 
 IceballSkill::IceballSkill()
 {
-	m_CoolTime = 5;
+	m_CoolTime = 3;
 	m_CanUse = true;
 }
 
 IceballSkill::IceballSkill(Hero* hero)
 {
 	m_Hero = hero;
-	m_CoolTime = 5;
+	m_CoolTime = 3;
 	m_CanUse = true;
 }
 

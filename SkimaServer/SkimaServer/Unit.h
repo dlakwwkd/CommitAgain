@@ -2,7 +2,7 @@
 #include "..\..\PacketType.h"
 #include "FSM.h"
 
-#define DAMPING 10.0f
+#define DAMPING 5.0f
 #define DEF_SCALE 15.0f
 
 class Unit

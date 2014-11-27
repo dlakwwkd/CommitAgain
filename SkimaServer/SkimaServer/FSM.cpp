@@ -68,9 +68,6 @@ void CrashedState::TryTeleport(Unit* unit){}
 void CrashedState::TryMove(Unit* unit){}
 void CrashedState::Crashed(Unit* unit)
 {
-	auto velocity = unit->GetBody()->GetLinearVelocity();
-	velocity *= 0.2f;
-	unit->GetBody()->SetLinearVelocity(velocity);
 }
 
 void CrashedState::EndMove(Unit* unit){}
