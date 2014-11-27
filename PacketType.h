@@ -18,6 +18,7 @@ enum HeroType
 	HERO_NONE,
 
 	HERO_MAGICIAN,
+	HERO_JUPITER,
 };
 
 enum MissileType
