@@ -29,7 +29,7 @@ class EffectManager
 {
 public:
 	EffectManager();
-	virtual ~EffectManager();
+	~EffectManager();
 
 	Effect*		Assign(EffectType type);
 	void		Release(Effect* effect);

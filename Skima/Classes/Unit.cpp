@@ -85,14 +85,14 @@ void Unit::SetMoveMotionByDir()
 
 	switch (direction(m_TargetPos - m_Sprite->getPosition()))
 	{
-	case Direction::E:	m_Sprite->runAction(action("MoveMotion_E_%02d.PNG"));	break;
-	case Direction::W:	m_Sprite->runAction(action("MoveMotion_W_%02d.PNG"));	break;
-	case Direction::S:	m_Sprite->runAction(action("MoveMotion_S_%02d.PNG"));	break;
-	case Direction::N:	m_Sprite->runAction(action("MoveMotion_N_%02d.PNG"));	break;
-	case Direction::SE: m_Sprite->runAction(action("MoveMotion_SE_%02d.PNG"));	break;
-	case Direction::SW: m_Sprite->runAction(action("MoveMotion_SW_%02d.PNG"));	break;
-	case Direction::NE: m_Sprite->runAction(action("MoveMotion_NE_%02d.PNG"));	break;
-	case Direction::NW: m_Sprite->runAction(action("MoveMotion_NW_%02d.PNG"));	break;
+	case E:	 m_Sprite->runAction(action("MoveMotion_E_%02d.PNG"));	break;
+	case W:	 m_Sprite->runAction(action("MoveMotion_W_%02d.PNG"));	break;
+	case S:	 m_Sprite->runAction(action("MoveMotion_S_%02d.PNG"));	break;
+	case N:	 m_Sprite->runAction(action("MoveMotion_N_%02d.PNG"));	break;
+	case SE: m_Sprite->runAction(action("MoveMotion_SE_%02d.PNG"));	break;
+	case SW: m_Sprite->runAction(action("MoveMotion_SW_%02d.PNG"));	break;
+	case NE: m_Sprite->runAction(action("MoveMotion_NE_%02d.PNG"));	break;
+	case NW: m_Sprite->runAction(action("MoveMotion_NW_%02d.PNG"));	break;
 	}
 }
 

@@ -22,22 +22,11 @@ static TcpClient* s_TcpClient = nullptr;
 
 TcpClient::TcpClient() : mRecvBuffer(BUF_SIZE), mSock(NULL), mLoginId(-1)
 {
-	/// 쓰레드 생성
-	auto t = std::thread(CC_CALLBACK_0(TcpClient::networkThread, this));
-	t.detach();
 }
 
 TcpClient::~TcpClient()
 {
-	if(mSock == NULL)
-		return;
-
-#ifndef _WIN32
-	close(mSock);
-#else
-	closesocket(mSock);
-	WSACleanup();
-#endif
+    disconnect();
 }
 
 TcpClient* TcpClient::getInstance()
@@ -68,7 +57,6 @@ bool TcpClient::connect()
 	{
 		TcpClient::getInstance()->disconnect();
 	}
-
 #ifdef _WIN32
 	WSADATA wsa;
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
@@ -88,7 +76,7 @@ bool TcpClient::connect()
 	if ((host = gethostbyname(ipaddr.c_str())) == 0)
 		return false;
 
-	memset(&hostAddr, 0, sizeof(hostAddr));
+	ZeroMemory(&hostAddr, sizeof(hostAddr));
 	hostAddr.sin_family = AF_INET;
 	hostAddr.sin_addr.s_addr = inet_addr("10.73.45.143");
 	hostAddr.sin_port = htons(port);
@@ -103,6 +91,10 @@ bool TcpClient::connect()
 	int opt = 1;
 	setsockopt(mSock, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int));
 
+    /// 쓰레드 생성
+    auto t = std::thread(CC_CALLBACK_0(TcpClient::networkThread, this));
+    t.detach();
+
 	return true;
 }
 
@@ -111,12 +103,13 @@ void TcpClient::disconnect()
 	if (mSock == NULL)
 		return;
 
-#ifndef _WIN32
-	close(mSock);
+#ifdef _WIN32
+    closesocket(mSock);
+    WSACleanup();
 #else
-	closesocket(mSock);
-	WSACleanup();
+    close(mSock);
 #endif
+
 	mSock = NULL;
 	mLoginId = -1;
 
@@ -149,7 +142,7 @@ bool TcpClient::send(const char* data, int length)
 
 void TcpClient::networkThread()
 {
-	while ( true ) 
+	while (mSock) 
 	{
 		char inBuf[4096] = { 0, };
 
@@ -157,8 +150,8 @@ void TcpClient::networkThread()
 
 		if (n < 1)
 		{
-			sleep(10); ///< for cpu low-utilization
-			continue;
+            disconnect();
+			return;
 		}
 
 		if (!mRecvBuffer.Write(inBuf, n))

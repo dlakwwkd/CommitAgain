@@ -84,11 +84,18 @@ void NetworkScene::menuCallback3(Ref* sender)	// 나가기
 //////////////////////////////////////////////////////////////////////////
 void NetworkScene::Tick(float dt)
 {
-	if (TcpClient::getInstance()->checkSocket() == NULL)
-		ConnectLabelChange("서버 연결 끊김.");
-	else
-		ConnectLabelChange("서버 연결 양호.");
-
+    if (TcpClient::getInstance()->checkSocket() == NULL)
+    {
+        ConnectLabelChange("서버 연결 끊김.");
+    }
+    else if (TcpClient::getInstance()->getLoginId() == -1)
+    {
+        TcpClient::getInstance()->loginRequest();
+    }
+    else
+    {
+        ConnectLabelChange("서버 연결 양호.");
+    }
 	ShowCursor(true);
 }
 //////////////////////////////////////////////////////////////////////////
@@ -110,8 +117,10 @@ void NetworkScene::ConnectLabelCreate(const char* str, NetworkScene* scene)
 void NetworkScene::ConnectLabelChange(const char* str)
 {
 	auto label = GET_CONNECT_LABEL;
-	if (label != nullptr)
-		label->setString(str);
+    if (label != nullptr)
+    {
+        label->setString(str);
+    }
 }
 
 void NetworkScene::MakeRoomComplete(int roomId)

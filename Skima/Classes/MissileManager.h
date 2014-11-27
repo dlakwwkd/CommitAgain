@@ -21,7 +21,7 @@ class MissileManager
 {
 public:
 	MissileManager();
-	virtual ~MissileManager();
+	~MissileManager();
 
 	Missile*	Assign(int unitId, MissileType type);
 	void		Release(Missile* missile);

@@ -1,8 +1,14 @@
 #include "pch.h"
 #include "AppDelegate.h"
 #include "MainScene.h"
+#include "TcpClient.h"
 
 USING_NS_CC;
+
+AppDelegate::~AppDelegate()
+{
+    TcpClient::getInstance()->destroyInstance();
+}
 
 void AppDelegate::initGLContextAttrs()
 {
