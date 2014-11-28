@@ -10,8 +10,9 @@ public:
 	~GameRoom(){}
 
 	int				 	GetRoomID(){ return m_RoomID; }
-	const PlayerList&	GetPlayerList(){ return m_PlayerList; }
-	bool			 	IsJoinAble(){ return m_JoinAble; }
+    const PlayerList&	GetPlayerList(){ return m_PlayerList; }
+
+    bool			 	IsJoinAble(){ return m_JoinAble; }
 	bool			 	IsAllReady(){ return m_IsAllReady; }
 	void			 	InitReady(){ m_IsAllReady = false; }
 
@@ -25,5 +26,7 @@ private:
 	int					m_ReadyNum;
 	bool				m_JoinAble;
 	bool				m_IsAllReady;
+
+    friend class Game;
 };
 

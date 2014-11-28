@@ -90,26 +90,31 @@ void GameManager::JoinRoom(int roomId, Player* player)
 	m_RoomList[roomId]->JoinPlayer(player);
 }
 
-void GameManager::OutRoom(int roomId, int playerId)
+void GameManager::OutPlayer(int roomId, int playerId)
 {
 	if (roomId < 0 || playerId < 0)
 	{
-		printf(" - OutRoom Failed ! : invalid ID \n");
+		printf(" - OutPlayer Failed ! : invalid ID \n");
 		return;
 	}
-	auto room = m_RoomList.find(roomId);
-	if (room == m_RoomList.end())
-	{
-		printf(" - OutRoom Failed ! : relevant room isn't \n");
-		return;
-	}
-	room->second->OutPlayer(playerId);
-
-	if (room->second->GetPlayerList().size() == 0)
-	{
-		DeleteGame(roomId);
-		DeleteRoom(roomId);
-	}
+    auto game = m_GameList.find(roomId);
+    if (game != m_GameList.end())
+    {
+        game->second->OutPlayer(playerId);
+        if (game->second->GetPlayerList().size() == 0)
+        {
+            DeleteGame(roomId);
+        }
+    }
+    auto room = m_RoomList.find(roomId);
+    if (room != m_RoomList.end())
+    {
+        room->second->OutPlayer(playerId);
+        if (room->second->GetPlayerList().size() == 0)
+        {
+            DeleteRoom(roomId);
+        }
+    }
 }
 
 
@@ -152,9 +157,9 @@ void GameManager::CreateGame(int gameId)
 	{
 		DeleteGame(gameId);
 	}
-	Game* game = new Game(gameId);
+	Game* game = new Game(room->second);
+    DeleteRoom(gameId);
 	m_GameList[gameId] = game;
-	game->SetPlayerList(&(room->second->GetPlayerList()));
 	game->InitGame();
 }
 
@@ -190,9 +195,9 @@ Player* GameManager::SearchPlayer(int playerId)
 		printf(" - SearchPlayer Failed ! : playerId is invalid \n");
 		return nullptr;
 	}
-	for (auto& room : m_RoomList)
+	for (auto& game : m_GameList)
 	{
-		for (auto& player : room.second->GetPlayerList())
+        for (auto& player : game.second->GetPlayerList())
 		{
 			if (player.first == playerId)
 			{
@@ -217,7 +222,7 @@ void GameManager::PlayerOut(int playerId)
 		printf(" - PlayerOut Failed ! : relevant player isn't \n");
 		return;
 	}
-	OutRoom(player->GetRoomID(), playerId);
+	OutPlayer(player->GetRoomID(), playerId);
 }
 
 
@@ -245,13 +250,12 @@ void GameManager::Tick(float dt)
 
 	for (auto& game : m_GameList)
 	{
-		for (auto& player : *(game.second->GetPlayerList()))
+		for (auto& player : game.second->GetPlayerList())
 		{
 			auto client = GClientManager->GetClient(player.first);
 			if (client == nullptr)
 			{
-				auto room = m_RoomList.find(player.first);	_ASSERT(room != m_RoomList.end());
-				room->second->OutPlayer(player.first);
+                PlayerOut(player.first);
 				continue;
 			}
 
@@ -261,7 +265,7 @@ void GameManager::Tick(float dt)
 				game.second->SetIsReady(false);
 			}
 
-			if (game.second->GetLoadedPlayerNum() >= 2 && !game.second->IsStart())
+            if (!game.second->IsStart() && game.second->GetLoadedPlayerNum() >= 2)
 			{
 				client->StartGame();
 				game.second->SetIsStart(true);
@@ -292,6 +296,43 @@ void GameManager::LowTick()
 
 
 
+///////////////////////////////////////////////////////////////////////////
+/*
+    데미지 계산 함수들
+*/
+///////////////////////////////////////////////////////////////////////////
+bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
+{
+    if (unitA->GetPlayerID() == unitB->GetPlayerID())
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+void GameManager::ExchangeDamage(Unit* unitA, Unit* unitB)
+{
+    int damageA = unitA->GetUnitDamage();
+    int damageB = unitB->GetUnitDamage();
+    int unitAHp = unitA->GetUnitHp() - damageB;
+    int unitBHp = unitB->GetUnitHp() - damageA;
+
+    unitA->SetUnitHp(unitAHp);
+    unitB->SetUnitHp(unitBHp);
+
+    int AplayerId = unitA->GetPlayerID();
+    int BplayerId = unitB->GetPlayerID();
+
+    GClientManager->GetClient(AplayerId)->HpBroadCast(AplayerId, unitA->GetUnitID(), unitA->GetUnitType(), unitAHp);
+    GClientManager->GetClient(BplayerId)->HpBroadCast(BplayerId, unitB->GetUnitID(), unitB->GetUnitType(), unitBHp);
+}
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -315,31 +356,3 @@ void GameManager::DeletePhyWorld()
 	delete m_World;
 	delete m_Contact;
 }
-
-bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
-{
-	if (unitA->GetPlayerID() == unitB->GetPlayerID())
-		return false;
-
-	else
-		return true;
-}
-
-void GameManager::ExchangeDamage(Unit* unitA, Unit* unitB)
-{
-	int damageA = unitA->GetUnitDamage();
-	int damageB = unitB->GetUnitDamage();
-	int unitAHp = unitA->GetUnitHp() - damageB;
-	int unitBHp = unitB->GetUnitHp() - damageA;
-	
-	unitA->SetUnitHp(unitAHp);
-	unitB->SetUnitHp(unitBHp);
-
-	int AplayerId = unitA->GetPlayerID();
-	int BplayerId = unitB->GetPlayerID();
-
-	GClientManager->GetClient(AplayerId)->HpBroadCast(AplayerId, unitA->GetUnitID(), unitA->GetUnitType(), unitAHp);
-	GClientManager->GetClient(BplayerId)->HpBroadCast(BplayerId, unitB->GetUnitID(), unitB->GetUnitType(), unitBHp);
-}
-
-

@@ -8,10 +8,7 @@
 
 Player::~Player()
 {
-	for (auto& unit : m_UnitList)
-	{
-		delete unit.second;
-	}
+    UnitListClear();
 }
 
 void Player::CreateHero(b2Vec2 pos)
@@ -30,6 +27,23 @@ void Player::UnitListPop(int unitID)
 	if (unit != m_UnitList.end())
 	{
 		m_UnitList.erase(unit);
-	}
+        printf(" - UnitListPop() : player %d : unitList.size : %d \n", m_PlayerID, m_UnitList.size());
+    }
+}
+
+void Player::UnitListClear()
+{
+    if (m_Hero != nullptr)
+    {
+        m_UnitList.erase(m_Hero->GetUnitID());
+        delete m_Hero;
+        m_Hero = nullptr;
+    }
+    for (auto& unit : m_UnitList)
+    {
+        unit.second->Extinction();
+    }
+    m_UnitList.clear();
+    printf(" - UnitListClear() : player %d \n", m_PlayerID);
 }
 

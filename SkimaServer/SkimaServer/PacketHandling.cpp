@@ -391,7 +391,7 @@ void ClientSession::OutGameRoom()
 	{
 		return;
 	}
-	GGameManager->OutRoom(roomId, playerId);
+	GGameManager->OutPlayer(roomId, playerId);
 
 	printf(" Send:  Out Room ID: %d, Player ID: %d \n", roomId, playerId);
 }

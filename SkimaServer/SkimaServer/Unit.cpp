@@ -50,13 +50,23 @@ void Unit::Moving()
 
 void Unit::Crashing(bool isCrashing)
 {
-	auto client = GClientManager->GetClient(m_PlayerID);
-	if (client == nullptr)
-	{
-		EndCrash();
-		printf(" - Crashing Failed ! : playerId is invalid \n");
-		return;
-	}
+    if (m_UnitType == UNIT_HERO)
+    {
+        if (m_Hp <= 0) IamDead();
+    }
+    else if (m_UnitType == UNIT_MISSILE)
+    {
+        isCrashing = false;
+        Extinction();
+    }
+
+    auto client = GClientManager->GetClient(m_PlayerID);
+    if (client == nullptr)
+    {
+        EndCrash();
+        printf(" - Crashing Failed ! : playerId is invalid \n");
+        return;
+    }
 
 	auto curPos = m_Body->GetPosition();
     auto velocity = m_Body->GetLinearVelocity();

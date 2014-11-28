@@ -12,15 +12,15 @@ enum EffectType
 
 enum EffectPoolSize
 {
-	E_TOTAL	= 1000,
-	FIRE	= 200,
-	ICE		= 200,
+	E_TOTAL	= 100,
+	FIRE	= 50,
+	ICE		= 50,
 };
 
 enum EffectIDBoundary
 {
-	E_ID_INTERVAL	= 1000,
-	EFFECT_ID_START	= 20001,
+	E_ID_INTERVAL	= 200,
+	EFFECT_ID_START	= 2001,
 	FIRE_ID_START	= EFFECT_ID_START + E_ID_INTERVAL,
 	ICE_ID_START	= FIRE_ID_START + E_ID_INTERVAL,
 };

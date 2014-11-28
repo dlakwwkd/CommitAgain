@@ -66,17 +66,9 @@ void Missile::ConsumeLiveTime(float costTime)
 
 void Missile::Extinction()
 {
-	Crashing(false);
-
-	auto player = GGameManager->SearchPlayer(m_PlayerID);
-	if(player == nullptr)
-	{
-		return;
-	}
-	player->UnitListPop(m_UnitID);
-
 	if (m_InUse)
 	{
 		CallFuncAfter(1, GMissileManager, &MissileManager::Release, this);
 	}
+    printf("Extinction()!! : UnitID : %d \n", m_UnitID);
 }

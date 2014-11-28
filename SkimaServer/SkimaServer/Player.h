@@ -22,13 +22,12 @@ public:
 	void		SetReady(bool ready) { m_IsReady = ready; }
 	bool		IsReady() { return m_IsReady; }
 
-
-
 	void		CreateHero(b2Vec2 pos);
 	void		SetRoomID(int roomId){ m_RoomID = roomId; }
 	void		SetHeroType(HeroType herotype) { m_HeroType = herotype; }
 	void		UnitListPush(int unitID, Unit* unit) { m_UnitList[unitID] = unit; }
 	void		UnitListPop(int unitID);
+    void        UnitListClear();
 
 private:
 	char		m_PlayerName[MAX_NAME_LEN];

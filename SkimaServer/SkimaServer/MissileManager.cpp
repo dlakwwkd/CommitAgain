@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "FireballMissile.h"
 #include "IceballMissile.h"
+#include "Player.h"
 
 MissileManager* GMissileManager = nullptr;
 
@@ -63,6 +64,11 @@ void MissileManager::Release(Missile* missile)
 		GGameManager->GetWolrd()->DestroyBody(body);
 		missile->InitBody();
 	}
+    auto player = GGameManager->SearchPlayer(missile->GetPlayerID());
+    if (player != nullptr)
+    {
+        player->UnitListPop(missile->GetUnitID());
+    }
 }
 
 bool MissileManager::Expand(MissileType type)

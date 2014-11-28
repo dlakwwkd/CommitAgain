@@ -6,17 +6,17 @@ public:
 	Missile();
 	virtual ~Missile();
 
-	void	SetMissileInit(int playerId, b2Vec2 initPos, float scale);
-	void	SetMissileTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
-	void	SetMissileDamage(int missileDamage) { m_Damage = missileDamage; }
-	void	SetMissileSpeed(float missileSpeed) { m_Speed = missileSpeed; }
-	void	SetMissileLivetime(float missileLivetime) { m_Livetime = missileLivetime; }
-	void	SetMissileRange(float missileRange) { m_Range = missileRange; }
-	void	SetMissileHp(int missileHp) { m_Hp = missileHp; }
+    void	        SetMissileInit(int playerId, b2Vec2 initPos, float scale);
+    void	        SetMissileTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
+    void	        SetMissileDamage(int missileDamage) { m_Damage = missileDamage; }
+    void	        SetMissileSpeed(float missileSpeed) { m_Speed = missileSpeed; }
+    void	        SetMissileLivetime(float missileLivetime) { m_Livetime = missileLivetime; }
+    void	        SetMissileRange(float missileRange) { m_Range = missileRange; }
+    void	        SetMissileHp(int missileHp) { m_Hp = missileHp; }
 
-	void	MissileShoot();
-	void	ConsumeLiveTime(float costTime);
-	void	Extinction();
+    void	        MissileShoot();
+    void	        ConsumeLiveTime(float costTime);
+	virtual void	Extinction();
 
 protected:
 	MissileType		m_MissileType;

@@ -33,6 +33,7 @@ public:
 	void			Moving();
 	void			Crashing(bool isCrashing);
 	void			IamDead();
+    virtual void    Extinction(){}
 
 	void			TryMove(b2Vec2 currentPos, b2Vec2 targetPos);
 	void			Crashed(){ m_State->Crashed(this); }
@@ -45,7 +46,6 @@ public:
 	MoveState*		GetStandbyState(){ return (MoveState*)m_StandbyState; }
 	MoveState*		GetMovingState(){ return (MoveState*)m_MovingState; }
 	MoveState*		GetCrashedState(){ return (MoveState*)m_CrashedState; }
-
 
 protected:
 	int			m_PlayerID;

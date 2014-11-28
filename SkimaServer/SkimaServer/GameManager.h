@@ -22,7 +22,7 @@ public:
 	GameRoom*			SearchRoom(int roomId);
 	int					SearchEmptyRoom();
 	void				JoinRoom(int roomId, Player* player);
-	void				OutRoom(int roomId, int playerId);
+	void				OutPlayer(int roomId, int playerId);
 
 	Game*				SearchGame(int gameId);
 	void				CreateGame(int gameId);
