@@ -20,7 +20,7 @@ void StandbyState::TryTeleport(Unit* unit)
 void StandbyState::Crashed(Unit* unit)
 {
 	unit->SetMoveState(unit->GetCrashedState());
-	unit->Crash();
+    unit->Crash();
 }
 
 void StandbyState::EndMove(Unit* unit){}
@@ -48,7 +48,7 @@ void MovingState::Crashed(Unit* unit)
 {
 	unit->SetMoveState(unit->GetCrashedState());
 	unit->GetSprite()->stopAllActions();
-	unit->Crash();
+    unit->Crash();
 }
 
 void MovingState::EndMove(Unit* unit)
@@ -73,7 +73,7 @@ void CrashedState::TryTeleport(Unit* unit){}
 void CrashedState::Crashed(Unit* unit)
 {
 	unit->GetSprite()->stopAllActions();
-	unit->Crash();
+    unit->Crash();
 }
 void CrashedState::EndMove(Unit* unit){}
 void CrashedState::EndCrash(Unit* unit)

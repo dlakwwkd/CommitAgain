@@ -10,7 +10,7 @@ IceballMissile::IceballMissile(int unitId)
 {
 	m_MissileType = MS_ICE_BALL;
 	m_UnitID = unitId;
-	m_Speed = 20.0f;
+	m_Speed = 400.0f;
 }
 
 
@@ -18,14 +18,14 @@ IceballMissile::~IceballMissile()
 {
 }
 
-void IceballMissile::MissileCast(Point createPos, Point targetPos)
+void IceballMissile::MissileCast(Vec2 createPos, Vec2 targetPos)
 {
 	m_Particle = ParticleSystemQuad::create("Images/ice.plist");
 	m_Particle->setPosition(createPos);
 	m_Particle->setScale(0.60f);
-	auto distance = targetPos - createPos;
-	auto scala = sqrt(pow(distance.x, 2) + pow(distance.y, 2)) / (28.5f * m_Speed + 15);
-	auto action1 = MoveTo::create(scala, targetPos);
+    auto distance = createPos.distance(targetPos);
+    auto time = distance / m_Speed;
+    auto action1 = MoveTo::create(time, targetPos);
 	auto action2 = DelayTime::create(1.0f);
 	auto action3 = CallFunc::create(CC_CALLBACK_0(IceballMissile::MissileDelete, this));
 	auto action4 = Sequence::create(action1, action2, action3, NULL);

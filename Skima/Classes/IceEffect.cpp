@@ -16,7 +16,7 @@ IceEffect::~IceEffect()
 {
 }
 
-void IceEffect::CreateEffect(Point createPos)
+void IceEffect::CreateEffect(Vec2 createPos)
 {
 	m_Particle = ParticleSystemQuad::create("Images/ice_break.plist");
 	m_Particle->setPosition(createPos);

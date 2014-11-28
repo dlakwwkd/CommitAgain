@@ -7,7 +7,7 @@ public:
 	virtual ~Missile();
 
 public:
-	virtual void MissileCast(Point createPos, Point targetPos) = 0;
+	virtual void MissileCast(Vec2 createPos, Vec2 targetPos) = 0;
 	virtual void MissileCrash() = 0;
 	virtual void MissileDelete() = 0;
 

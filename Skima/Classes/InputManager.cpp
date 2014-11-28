@@ -3,7 +3,7 @@
 
 InputManager::InputManager()
 {
-	m_MouseLocation = Point::ZERO;
+	m_MouseLocation = Vec2::ZERO;
 	m_MouseScrollStatus[SCROLL_LEFT] = false;
 	m_MouseScrollStatus[SCROLL_RIGHT] = false;
 	m_MouseScrollStatus[SCROLL_UP] = false;

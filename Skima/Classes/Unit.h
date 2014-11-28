@@ -10,14 +10,14 @@ class Unit
 {
 public:
 	Unit();
-	Unit(const std::string& filename, Point createPos, float scale);
+	Unit(const std::string& filename, Vec2 createPos, float scale);
 	virtual ~Unit();
 
 	void			SetUnitID(int unitID){ m_UnitID = unitID; }
 	void			SetUnitPlayerID(int playerID){ m_PlayerID = playerID; }
 	int				GetUnitPlayerID(){ return m_PlayerID; }
 	void			SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
-	void			SetTargetPos(Point pos){ m_TargetPos = pos; }
+	void			SetTargetPos(Vec2 pos){ m_TargetPos = pos; }
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
 	Sprite*			GetHpBar(){ return m_HpBar; }
@@ -27,7 +27,7 @@ public:
 	float			GetCurHp(){ return m_CurHp; }
 	void			SetHpBar();
 	void			UpdateHpBar();
-	Point			GetMoveTargetPos(){ return m_TargetPos; }
+	Vec2			GetMoveTargetPos(){ return m_TargetPos; }
 
 	MoveState*		GetMoveState(){ return m_MoveState; }
 	MoveState*		GetStandbyState(){ return (MoveState*)m_StandbyState; }
@@ -41,7 +41,7 @@ public:
 	void			Movement(){ m_MoveState->Movement(this); }
 
 	void			Move();
-	void			Crash();
+	void            Crash();
 	void			Teleport();
 
 public:
@@ -51,7 +51,7 @@ protected:
 	void			MoveS();
 	void			MoveM();
 	void			CrashS();
-	void			CrashM();
+	void            CrashM();
 	void			TeleportS();
 	void			TeleportM();
 
@@ -73,7 +73,7 @@ protected:
 	float			m_CurHp;
 	float			m_Speed;
 
-	Point			m_TargetPos;
+	Vec2			m_TargetPos;
 
 protected:
 	Sprite*			m_Sprite;

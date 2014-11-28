@@ -9,7 +9,7 @@ public:
 	Effect();
 	virtual ~Effect();
 
-	virtual void CreateEffect(Point createPos) = 0;
+	virtual void CreateEffect(Vec2 createPos) = 0;
 	virtual void ExtinctEffect() = 0;
 
 protected:

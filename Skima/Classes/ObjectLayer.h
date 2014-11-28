@@ -20,16 +20,16 @@ public:
 
 	std::shared_ptr<Hero> GetMyHero(){ return m_Hero; }
 
-	void FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos);
-	void CreateHero(int playerID, int unitID, Point location, HeroType heroType);
-	void UnitMove(int unitID, Point recvCurPos, Point targetPos);
-	void UnitCrash(int unitID, Point recvPos);
-	void UnitCrashEnd(int unitID, Point revisePos);
-	void UnitSkillUse(int unitID, SkillKey key, Point recvCurPos, Point targetPos);
-	void UnitTeleport(int unitID, Point recvCurPos, Point targetPos);
+	void FirstDrawUnit(int playerID, int unitID, HeroType heroType, Vec2 pos);
+	void CreateHero(int playerID, int unitID, Vec2 location, HeroType heroType);
+	void UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos);
+	void UnitCrash(int unitID, Vec2 exPos);
+	void UnitCrashEnd(int unitID, Vec2 revisePos);
+	void UnitSkillUse(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);
+	void UnitTeleport(int unitID, Vec2 recvCurPos, Vec2 targetPos);
 	void UnitHpUpdate(int playerID, int unitID, int curHp);
 
-	void ShootMissile(int missileID, Point createPos, Point targetPos);
+	void ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos);
 	void MissileCrash(int missileID);
 	void DeleteMissile(int missileID);
 
@@ -37,20 +37,20 @@ public:
 // 	void MobAi();
 
 protected:
-	void UnitMoveS(Point pos);
-	void UnitMoveM(int unitID, Point recvCurPos, Point targetPos);
-	void UnitCrashS(Point pos);
-	void UnitCrashM(int unitID, Point recvPos);
-	void UnitSkillUseS(SkillKey key, Point pos);
-	void UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Point targetPos);
-	void ShootMissileS(Point createPos, Point targetPos);
-	void ShootMissileM(int missileID, Point createPos, Point targetPos);
+	void UnitMoveS(Vec2 pos);
+	void UnitMoveM(int unitID, Vec2 recvCurPos, Vec2 targetPos);
+	void UnitCrashS(Vec2 pos);
+	void UnitCrashM(int unitID, Vec2 exPos);
+	void UnitSkillUseS(SkillKey key, Vec2 pos);
+	void UnitSkillUseM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);
+	void ShootMissileS(Vec2 createPos, Vec2 targetPos);
+	void ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos);
 	void MissileCrashS();
 	void MissileCrashM(int missileID);
 	void UnitHpUpdateS(int curHp);
 	void UnitHpUpdateM(int playerID, int unitID, float curHP);
-	void UnitTeleportS(Point targetPos);
-	void UnitTeleportM(int unitID, Point recvCurPos, Point targetPos);
+	void UnitTeleportS(Vec2 targetPos);
+	void UnitTeleportM(int unitID, Vec2 recvCurPos, Vec2 targetPos);
 
 
 protected:

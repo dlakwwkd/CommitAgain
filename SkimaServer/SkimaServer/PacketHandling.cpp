@@ -262,14 +262,10 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
-	printf(" Receive: LoginID: %d\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPosX, inPacket.mTargetPosY);
+	printf(" Receive: LoginID: %d\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
-	b2Vec2 targetPos;
-	b2Vec2 currentPos;
-	targetPos.x = inPacket.mTargetPosX / PTM_RATIO;
-	targetPos.y = inPacket.mTargetPosY / PTM_RATIO;
-	currentPos.x = inPacket.mCurrentPosX / PTM_RATIO;
-	currentPos.y = inPacket.mCurrentPosY / PTM_RATIO;
+    b2Vec2 targetPos = DECREASE(inPacket.mTargetPos);
+    b2Vec2 currentPos = DECREASE(inPacket.mCurrentPos);
 
 	auto player = session->GetPlayer();								_ASSERT(player != nullptr);
 	auto hero = player->GetMyHero();									_ASSERT(hero != nullptr);
@@ -291,14 +287,10 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 		printf("[DEBUG] Player Info error! \n");
 		return;
 	}
-	printf(" SkillReceive: LoginID: %d\t\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPosX, inPacket.mTargetPosY);
+	printf(" SkillReceive: ID: %d\t\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
-	b2Vec2 targetPos;
-	b2Vec2 currentPos;
-	targetPos.x = inPacket.mTargetPosX / PTM_RATIO;
-	targetPos.y = inPacket.mTargetPosY / PTM_RATIO;
-	currentPos.x = inPacket.mCurrentPosX / PTM_RATIO;
-	currentPos.y = inPacket.mCurrentPosY / PTM_RATIO;
+    b2Vec2 targetPos = DECREASE(inPacket.mTargetPos);
+    b2Vec2 currentPos = DECREASE(inPacket.mCurrentPos);
 
 	auto player = session->GetPlayer();								_ASSERT(player != nullptr);
 	auto hero = player->GetMyHero();									_ASSERT(hero != nullptr);
@@ -434,8 +426,7 @@ void ClientSession::SendCreateHeroResult(int unitId, HeroType unitType, b2Vec2 p
 	outPacket.mPlayerId = mPlayer->GetPlayerID();
 	outPacket.mUnitId = unitId;
 	outPacket.mUnitType = unitType;
-	outPacket.mPosX = pos.x*PTM_RATIO;
-	outPacket.mPosY = pos.y*PTM_RATIO;
+	outPacket.mPos = INCREASE(pos);
 
 	if (!Broadcast(&outPacket))
 	{
@@ -460,11 +451,9 @@ void ClientSession::SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos
 {
 	MoveBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayer->GetPlayerID();
-	outPacket.mUnitId = unitId;
-	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
-	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
-	outPacket.mTargetPosX = targetPos.x*PTM_RATIO;
-	outPacket.mTargetPosY = targetPos.y*PTM_RATIO;
+    outPacket.mUnitId = unitId;
+    outPacket.mCurrentPos = INCREASE(currentPos);
+    outPacket.mTargetPos = INCREASE(targetPos);
 
 	if (!Broadcast(&outPacket))
 	{
@@ -472,17 +461,15 @@ void ClientSession::SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos
 	}
 }
 
-void ClientSession::CrashedBroadCast(int unitId, UnitType unitType, b2Vec2 currentPos, b2Vec2 expectPos, bool isCrashed)
+void ClientSession::CrashedBroadCast(int unitId, UnitType unitType, b2Vec2 curPos, b2Vec2 expectPos, bool isCrashed)
 {
 	CrashedBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayer->GetPlayerID();
 	outPacket.mUnitId = unitId;
 	outPacket.mUnitType = unitType;
-	outPacket.mIsCrashed = isCrashed;
-	outPacket.mCurrentPosX = currentPos.x * PTM_RATIO;
-	outPacket.mCurrentPosY = currentPos.y * PTM_RATIO;
-	outPacket.mExpectPosX = expectPos.x*PTM_RATIO;
-	outPacket.mExpectPosY = expectPos.y*PTM_RATIO;
+    outPacket.mIsCrashed = isCrashed;
+    outPacket.mCurrentPos = INCREASE(curPos);
+    outPacket.mExpectPos = INCREASE(expectPos);
 
 	if (!Broadcast(&outPacket))
 	{
@@ -496,11 +483,9 @@ void ClientSession::SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, 
 	SkillBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayer->GetPlayerID();
 	outPacket.mUnitId = heroId;
-	outPacket.mKey = key;
-	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
-	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
-	outPacket.mTargetPosX = targetPos.x*PTM_RATIO;
-	outPacket.mTargetPosY = targetPos.y*PTM_RATIO;
+    outPacket.mKey = key;
+    outPacket.mCurrentPos = INCREASE(currentPos);
+    outPacket.mTargetPos = INCREASE(targetPos);
 
 	if (!Broadcast(&outPacket))
 	{
@@ -512,11 +497,9 @@ void ClientSession::MissileBroadCast(int playerId,int unitId, b2Vec2 currentPos,
 {
 	MissileBroadcastResult outPacket;
 	outPacket.mPlayerId = playerId;
-	outPacket.mUnitId = unitId;
-	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
-	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
-	outPacket.mTargetPosX = targetPos.x*PTM_RATIO;
-	outPacket.mTargetPosY = targetPos.y*PTM_RATIO;
+    outPacket.mUnitId = unitId;
+    outPacket.mCurrentPos = INCREASE(currentPos);
+    outPacket.mTargetPos = INCREASE(targetPos);
 
 	if (!Broadcast(&outPacket))
 	{
@@ -529,10 +512,8 @@ void ClientSession::TeleportBroadCast(int playerId, int unitId, b2Vec2 currentPo
 	TeleportBroadcastResult outPacket;
 	outPacket.mPlayerId = playerId;
 	outPacket.mUnitId = unitId;
-	outPacket.mCurrentPosX = currentPos.x*PTM_RATIO;
-	outPacket.mCurrentPosY = currentPos.y*PTM_RATIO;
-	outPacket.mTargetPosX = targetPos.x*PTM_RATIO;
-	outPacket.mTargetPosY = targetPos.y*PTM_RATIO;
+    outPacket.mCurrentPos = INCREASE(currentPos);
+    outPacket.mTargetPos = INCREASE(targetPos);
 
 	if (!Broadcast(&outPacket))
 	{

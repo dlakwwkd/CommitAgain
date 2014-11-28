@@ -36,7 +36,7 @@ bool RoomScene::init()
 
 
 	auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
-	label->setAnchorPoint(Point::ZERO);
+	label->setAnchorPoint(Vec2::ZERO);
 	label->setHorizontalAlignment(TextHAlignment::CENTER);
 	this->addChild(label, 0, "RoomStateLabel");
 

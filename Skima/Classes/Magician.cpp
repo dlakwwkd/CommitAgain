@@ -6,7 +6,7 @@
 #include "IceballSkill.h"
 
 
-Magician::Magician(Point createPos, float scale)
+Magician::Magician(Vec2 createPos, float scale)
 {
 	//m_TeleportParticle = ParticleSystemQuad::create("");
 	//m_TeleportParticle->setPosition(createPos);
@@ -38,7 +38,7 @@ Magician::Magician(Point createPos, float scale)
 	case MULTI:
 		break;
 	}
-	m_Speed = 10.0f;
+	m_Speed = 360.0f;
 	m_HeroType = HERO_MAGICIAN;
 }
 

@@ -10,10 +10,10 @@ void Game::InitGame()
 
 	for (auto& it : *m_PlayerList)
 	{
-		if (i == 1)
-			it.second->CreateHero({ 100 / PTM_RATIO, 100 / PTM_RATIO });
+        if (i == 1)
+            it.second->CreateHero({ REDUCE(MAX_MAP_SIZE_X / 4), REDUCE(MAX_MAP_SIZE_Y / 2) });
 		else
-			it.second->CreateHero({ (MAX_MAP_SIZE_X - 100) / PTM_RATIO, (MAX_MAP_SIZE_Y - 100) / PTM_RATIO });
+            it.second->CreateHero({ REDUCE(MAX_MAP_SIZE_X - MAX_MAP_SIZE_X / 4), REDUCE(MAX_MAP_SIZE_Y / 2) });
 
 		i++;
 	}

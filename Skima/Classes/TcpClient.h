@@ -20,6 +20,8 @@ USING_NS_CC;
 #define GET_LOADING_LAYER	dynamic_cast<LoadingBGLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("LoadingBGLayer"))
 #define GET_OBJECT_LAYER	dynamic_cast<ObjectLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer"))
 
+#define CONVERT(v) {(v).x, (v).y}
+
 class TcpClient
 {
 public:
@@ -38,8 +40,8 @@ public:
 	void startGameRequest();
 	void runCompleteRequest(); //이름 체인지 + bool값 인자
 
-	void moveRequest(Point curPos, Point targetPos);
-	void skillRequest(Point curPos, Point targetPos, SkillKey skillKey);
+    void moveRequest(Vec2 curPos, Vec2 targetPos);
+    void skillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey);
 
 //	void chatRequest(const char* chat);
 

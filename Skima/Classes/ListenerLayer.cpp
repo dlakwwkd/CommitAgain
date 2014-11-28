@@ -60,30 +60,30 @@ void ListenerLayer::ScreenMove()
 
 	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && GET_IM->GetMouseScrollStatus(SCROLL_UP))
 	{
-		Point creteria = { 50, 50 };
-		Point gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
+		Vec2 creteria = { 50, 50 };
+		Vec2 gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
 		gap *= 7;
 		this->setPosition(this->getPosition() + gap);
 	}
 	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && GET_IM->GetMouseScrollStatus(SCROLL_UP))
 	{
-		Point creteria = { winSize.width-50, 50 };
-		Point gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
+		Vec2 creteria = { winSize.width-50, 50 };
+		Vec2 gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
 		gap *= 7;
 		this->setPositionX(this->getPositionX() - gap.x);
 		this->setPositionY(this->getPositionY() + gap.y);
 	}
 	if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && GET_IM->GetMouseScrollStatus(SCROLL_DOWN))
 	{
-		Point creteria = { winSize.width - 50, winSize.height - 50 };
-		Point gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
+		Vec2 creteria = { winSize.width - 50, winSize.height - 50 };
+		Vec2 gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
 		gap *= 7;
 		this->setPosition(this->getPosition() - gap);
 	}
 	if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && GET_IM->GetMouseScrollStatus(SCROLL_DOWN))
 	{
-		Point creteria = { 50, winSize.height-50 };
-		Point gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
+		Vec2 creteria = { 50, winSize.height-50 };
+		Vec2 gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
 		gap *= 7;
 		this->setPositionX(this->getPositionX() + gap.x);
 		this->setPositionY(this->getPositionY() - gap.y);
@@ -241,7 +241,7 @@ void ListenerLayer::SetArrowPos()
 	auto displacement = GET_IM->GetMouseLocation() - GET_OBJECT_LAYER->GetMyHero()->GetHeroPos();
 	auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2));
 	auto arrow = GET_OBJECT_LAYER->GetMyHero()->GetArrow();
-	arrow->setPosition(Point(30, 50) + displacement / distance * 100);
+	arrow->setPosition(Vec2(30, 50) + displacement / distance * 100);
 	int degree = acos(displacement.y / distance) / M_PI * 180; //내적
 	if (displacement.x < 0)
 	{

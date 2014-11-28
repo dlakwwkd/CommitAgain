@@ -3,7 +3,7 @@
 class Magician : public Hero
 {
 public:
-	Magician(Point createPos, float scale);
+	Magician(Vec2 createPos, float scale);
 	virtual ~Magician();
 
 public:

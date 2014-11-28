@@ -7,7 +7,7 @@ public:
 	virtual ~IceballMissile();
 
 public:
-	virtual void MissileCast(Point createPos, Point targetPos);
+	virtual void MissileCast(Vec2 createPos, Vec2 targetPos);
 	virtual void MissileCrash();
 	virtual void MissileDelete();
 	

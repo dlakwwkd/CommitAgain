@@ -11,7 +11,7 @@ public:
 	HeroType	GetHeroType(){ return m_HeroType; }
 	int			GetSkillCoolTime(SkillKey key);
 	bool		GetSkillCanUse(SkillKey key);
-	Point		GetHeroPos() { return m_Sprite->getPosition(); }
+	Vec2		GetHeroPos() { return m_Sprite->getPosition(); }
 	Sprite*		GetArrow() { return m_Arrow; }
 
 	void		SetSkillCanUse(SkillKey key, bool isUse);

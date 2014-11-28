@@ -6,7 +6,7 @@ public:
 	IceEffect(int ID);
 	virtual ~IceEffect();
 
-	virtual void CreateEffect(Point createPos);
+	virtual void CreateEffect(Vec2 createPos);
 	virtual void ExtinctEffect();
 
 private:

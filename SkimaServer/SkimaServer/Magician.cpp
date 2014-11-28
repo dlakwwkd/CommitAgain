@@ -10,7 +10,7 @@ Magician::Magician(int playerId, b2Vec2 pos, float scale)
 {
 	m_PlayerID = playerId;
 	m_Hp = m_MaxHp = 1000;
-	m_Speed = 10.0f;
+	m_Speed = REDUCE(360);
 	m_HeroType = HERO_MAGICIAN;
 
 	b2BodyDef bodyDef;
@@ -19,7 +19,7 @@ Magician::Magician(int playerId, b2Vec2 pos, float scale)
 	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 	
 	b2CircleShape circle;
-	circle.m_radius = scale / PTM_RATIO;
+	circle.m_radius = REDUCE(scale);
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;

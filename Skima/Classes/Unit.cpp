@@ -35,8 +35,8 @@ void Unit::UpdateHpBar()
 void Unit::SetHpBar()
 {
 	m_HpBar = Sprite::create("Images/HpBar_Unit.png");
-	m_HpBar->setPosition(Point(-20, 85));
-	m_HpBar->setAnchorPoint(Point(0,0));
+	m_HpBar->setPosition(Vec2(-20, 85));
+	m_HpBar->setAnchorPoint(Vec2(0,0));
 }
 
 void Unit::SetMoveMotionByDir()
@@ -55,7 +55,7 @@ void Unit::SetMoveMotionByDir()
 		return RepeatForever::create(Animate::create(animation));
 	};
 
-	auto direction = [](Point displacement)
+	auto direction = [](Vec2 displacement)
 	{
 		float slope = displacement.y / displacement.x;
 
@@ -110,7 +110,7 @@ void Unit::Crash()
 	switch (GET_GM.GetGameMode())
 	{
 	case SINGLE:	CrashS();	break;
-	case MULTI:		CrashM();	break;
+    case MULTI:		CrashM();	break;
 	}
 }
 
@@ -149,9 +149,9 @@ void Unit::MoveS()
 void Unit::MoveM()
 {
 	SetMoveMotionByDir();
-	auto displacement = m_TargetPos - m_Sprite->getPosition();
-	auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2)) / 300;
-	auto action1 = MoveTo::create(distance, m_TargetPos);
+    auto distance = m_Sprite->getPosition().distance(m_TargetPos);
+	auto time = distance / m_Speed;
+    auto action1 = MoveTo::create(time, m_TargetPos);
 	auto action2 = CallFunc::create(CC_CALLBACK_0(Unit::EndMove, this));
 	auto action3 = Sequence::create(action1, action2, NULL);
 	m_Sprite->runAction(action3);
@@ -164,10 +164,10 @@ void Unit::CrashS()
 
 void Unit::CrashM()
 {
-	auto displacement = m_TargetPos - m_Sprite->getPosition();
-	auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2)) / 150;
-	auto action1 = MoveTo::create(distance, m_TargetPos);
-	auto action2 = EaseOut::create(action1, 3.5f);
+    auto distance = m_Sprite->getPosition().distance(m_TargetPos);
+    auto time = sqrt(distance) / 12;
+    auto action1 = MoveTo::create(time, m_TargetPos);
+	auto action2 = EaseOut::create(action1, 3.0f);
 	m_Sprite->runAction(action2);
 }
 

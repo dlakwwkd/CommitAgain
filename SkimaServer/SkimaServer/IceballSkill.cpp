@@ -10,13 +10,11 @@ IceballSkill::IceballSkill(int playerid, float heroBodySize)
 {
 	m_PlayerId = playerid;
 	m_Damage = 50;
-	m_MissileSpeed = 20.0f;
+    m_MissileSpeed = REDUCE(400);
 	m_MissileLiveTime = 500.0f;
 	m_HeroBodySize = heroBodySize;
-	m_Range = 50.0f;
+    m_Range = REDUCE(600);
 	m_Hp = 100;
-
-	//fireball이랑 설정이 같음.
 }
 
 

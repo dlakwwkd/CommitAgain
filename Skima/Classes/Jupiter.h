@@ -3,7 +3,7 @@
 class Jupiter : public Hero
 {
 public:
-	Jupiter(Point createPos, float scale);
+	Jupiter(Vec2 createPos, float scale);
 	virtual ~Jupiter();
 
 public:

@@ -44,13 +44,13 @@ void ObjectLayer::TickM(float dt)
 
 
 
-void ObjectLayer::FirstDrawUnit(int playerID, int unitID, HeroType heroType, Point pos)
+void ObjectLayer::FirstDrawUnit(int playerID, int unitID, HeroType heroType, Vec2 pos)
 {
 	//todo unitType 넣어주기
 	CreateHero(playerID, unitID, pos, heroType);
 }
 
-void ObjectLayer::CreateHero(int playerID, int unitID, Point location, HeroType heroType)
+void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location, HeroType heroType)
 {
 	std::shared_ptr<Hero> unit;
 
@@ -76,7 +76,7 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Point location, HeroType 
 	unit->GetSprite()->addChild(unit->GetHpBar(),16);
 }
 
-void ObjectLayer::UnitMove(int unitID, Point recvCurPos, Point targetPos)
+void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)
 {
 	switch (GET_GM.GetGameMode())
 	{
@@ -89,20 +89,20 @@ void ObjectLayer::UnitMove(int unitID, Point recvCurPos, Point targetPos)
 	}
 }
 
-void ObjectLayer::UnitCrash(int unitID, Point recvPos)
+void ObjectLayer::UnitCrash(int unitID, Vec2 exPos)
 {
 	switch (GET_GM.GetGameMode())
 	{
 	case SINGLE:
-		UnitCrashS(recvPos);
+		UnitCrashS(exPos);
 		break;
 	case MULTI:
-		UnitCrashM(unitID, recvPos);
+		UnitCrashM(unitID, exPos);
 		break;
 	}
 }
 
-void ObjectLayer::UnitCrashEnd(int unitID, Point revisePos)
+void ObjectLayer::UnitCrashEnd(int unitID, Vec2 revisePos)
 {
 	auto unit = m_UnitList.find(unitID);
 	if (unit == m_UnitList.end())
@@ -113,7 +113,7 @@ void ObjectLayer::UnitCrashEnd(int unitID, Point revisePos)
 	unit->second->EndCrash();
 }
 
-void ObjectLayer::UnitSkillUse(int unitId, SkillKey key, Point recvCurPos, Point targetPos)
+void ObjectLayer::UnitSkillUse(int unitId, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
 {
 	switch (GET_GM.GetGameMode())
 	{
@@ -127,7 +127,7 @@ void ObjectLayer::UnitSkillUse(int unitId, SkillKey key, Point recvCurPos, Point
 }
 
 
-void ObjectLayer::ShootMissile(int missileID, Point createPos, Point targetPos)
+void ObjectLayer::ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos)
 {
 	switch (GET_GM.GetGameMode())
 	{
@@ -177,7 +177,7 @@ void ObjectLayer::DeleteMissile(int missileID)
 	GET_MM->Release(missile->second);
 	m_MissileList.erase(missile);
 }
-void ObjectLayer::UnitTeleport(int unitID, Point recvCurPos, Point targetPos)
+void ObjectLayer::UnitTeleport(int unitID, Vec2 recvCurPos, Vec2 targetPos)
 {
 	switch (GET_GM.GetGameMode())
 	{
@@ -234,7 +234,7 @@ void ObjectLayer::UnitTeleport(int unitID, Point recvCurPos, Point targetPos)
 	게임 모드에 따라 나뉘는 함수들
 */
 ///////////////////////////////////////////////////////////////////////////
-void ObjectLayer::UnitMoveS(Point pos)
+void ObjectLayer::UnitMoveS(Vec2 pos)
 {
 // 	m_Hero->SetMoveTargetPos(pos);
 // 	m_Hero->TryMove();
@@ -244,7 +244,7 @@ void ObjectLayer::UnitMoveS(Point pos)
 // 
 // 	m_Hero->GetBody()->setVelocity(vect);
 }
-void ObjectLayer::UnitMoveM(int unitID, Point recvCurPos, Point targetPos)
+void ObjectLayer::UnitMoveM(int unitID, Vec2 recvCurPos, Vec2 targetPos)
 {
 	auto unit = m_UnitList.find(unitID);
 	if (unit == m_UnitList.end())
@@ -256,28 +256,28 @@ void ObjectLayer::UnitMoveM(int unitID, Point recvCurPos, Point targetPos)
 }
 
 
-void ObjectLayer::UnitCrashS(Point pos)
+void ObjectLayer::UnitCrashS(Vec2 pos)
 {
 
 }
 
-void ObjectLayer::UnitCrashM(int unitID, Point recvPos)
+void ObjectLayer::UnitCrashM(int unitID, Vec2 exPos)
 {
 	auto unit = m_UnitList.find(unitID);
 	if (unit == m_UnitList.end())
 	{
 		return;
 	}
-	unit->second->SetTargetPos(recvPos);
+	unit->second->SetTargetPos(exPos);
 	unit->second->Crashed();
 }
 
-void ObjectLayer::UnitSkillUseS(SkillKey key, Point pos)
+void ObjectLayer::UnitSkillUseS(SkillKey key, Vec2 pos)
 {
 
 }
 
-void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Point targetPos)
+void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
 {
 	auto unit = m_UnitList.find(unitID);
 	if (unit == m_UnitList.end())
@@ -289,12 +289,12 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Point recvCurPos, Poin
 	unit->second->EndMove();
 }
 
-void ObjectLayer::ShootMissileS(Point createPos, Point targetPos)
+void ObjectLayer::ShootMissileS(Vec2 createPos, Vec2 targetPos)
 {
 
 }
 
-void ObjectLayer::ShootMissileM(int missileID, Point createPos, Point targetPos)
+void ObjectLayer::ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos)
 {
 	auto temp = m_MissileList.find(missileID);
 	if (temp != m_MissileList.end())
@@ -354,12 +354,12 @@ void ObjectLayer::UnitHpUpdateM(int playerID, int unitID, float curHP)
 	}
 }
 
-void ObjectLayer::UnitTeleportS(Point targetPos)
+void ObjectLayer::UnitTeleportS(Vec2 targetPos)
 {
 
 }
 
-void ObjectLayer::UnitTeleportM(int unitID, Point curPos, Point targetPos)
+void ObjectLayer::UnitTeleportM(int unitID, Vec2 curPos, Vec2 targetPos)
 {
 	auto unit = m_UnitList.find(unitID);
 	if (unit == m_UnitList.end())

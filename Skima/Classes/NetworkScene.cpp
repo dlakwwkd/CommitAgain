@@ -109,7 +109,7 @@ void NetworkScene::ConnectLabelCreate(const char* str, NetworkScene* scene)
 		scene->removeChildByName("ConnectLabel");
 	}
 	auto label = Label::createWithSystemFont(str, "Thonburi", 50);
-	label->setAnchorPoint(Point::ZERO);
+	label->setAnchorPoint(Vec2::ZERO);
 	label->setHorizontalAlignment(TextHAlignment::CENTER);
 	scene->addChild(label, 0, "ConnectLabel");
 }

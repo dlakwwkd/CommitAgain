@@ -98,6 +98,12 @@ struct PacketHeader
 	short mType;
 };
 
+struct Coord
+{
+    float x;
+    float y;
+};
+
 ///////////////////////////////////////////////////////////////////////////
 /*
 	로그인 관련
@@ -202,8 +208,8 @@ struct GameReadyNotify : public PacketHeader
 		mPlayerId = -1;
 		mHeroType = HERO_NONE;
 	}
-	int		mPlayerId;
-	HeroType mHeroType;
+	int		    mPlayerId;
+	HeroType    mHeroType;
 };
 struct GameRunNotify : public PacketHeader
 {
@@ -213,7 +219,7 @@ struct GameRunNotify : public PacketHeader
 		mType = PKT_SC_ALL_READY;
 		mPlayerId = -1;
 	}
-	int		mPlayerId;
+	int		    mPlayerId;
 };
 
 
@@ -228,14 +234,12 @@ struct CreateHeroResult : public PacketHeader
 		mPlayerId = -1;
 		mUnitId = -1;
 		mUnitType = HERO_NONE;
-		mPosX = 0;
-		mPosY = 0;
+        mPos = { 0, };
 	}
 	int			mPlayerId;
 	int			mUnitId;
 	HeroType	mUnitType;
-	float		mPosX;
-	float		mPosY;
+	Coord		mPos;
 };
 //////////////////////////////////////////////////////////////////////////
 
@@ -309,18 +313,12 @@ struct MoveRequest : public PacketHeader
 		mSize = sizeof(MoveRequest);
 		mType = PKT_CS_MOVE;
 		mPlayerId = -1;
-		mCurrentPosX = 0;
-		mCurrentPosY = 0;
-		mTargetPosX = 0;
-		mTargetPosY = 0;
-
+        mCurrentPos = { 0, };
+        mTargetPos = { 0, };
 	}
-	int		mPlayerId;
-	float	mCurrentPosX;
-	float	mCurrentPosY;
-	float	mTargetPosX;
-	float	mTargetPosY;
-
+	int		    mPlayerId;
+	Coord	    mCurrentPos;
+	Coord	    mTargetPos;
 };
 
 struct MoveBroadcastResult : public PacketHeader
@@ -331,21 +329,15 @@ struct MoveBroadcastResult : public PacketHeader
 		mType = PKT_SC_MOVE;
 		mIsMove = false;
 		mPlayerId = -1;
-		mUnitId = -1;
-		mCurrentPosX = 0;
-		mCurrentPosY = 0;
-		mTargetPosX = 0;
-		mTargetPosY = 0;
-
+        mUnitId = -1;
+        mCurrentPos = { 0, };
+        mTargetPos = { 0, };
 	}
 	int			mPlayerId;
 	int			mUnitId;
-	bool		mIsMove;
-	float		mCurrentPosX;
-	float		mCurrentPosY;
-	float		mTargetPosX;
-	float		mTargetPosY;
-
+    bool		mIsMove;
+    Coord   	mCurrentPos;
+    Coord   	mTargetPos;
 };
 
 struct CrashedBroadcastResult : public PacketHeader
@@ -357,21 +349,16 @@ struct CrashedBroadcastResult : public PacketHeader
 		mPlayerId = -1;
 		mUnitId = -1;
 		mUnitType = UNIT_NONE;
-		mIsCrashed = true;
-		mCurrentPosX = 0;
-		mCurrentPosY = 0;
-		mExpectPosX = 0;
-		mExpectPosY = 0;
+        mIsCrashed = true;
+        mCurrentPos = { 0, };
+        mExpectPos = { 0, };
 	}
 	int			mPlayerId;
 	int			mUnitId;
 	UnitType	mUnitType;
-	bool		mIsCrashed;
-	float		mCurrentPosX;
-	float		mCurrentPosY;
-	float		mExpectPosX;
-	float		mExpectPosY;
-
+    bool		mIsCrashed;
+    Coord   	mCurrentPos;
+    Coord   	mExpectPos;
 };
 
 struct SkillRequest : public PacketHeader
@@ -381,20 +368,14 @@ struct SkillRequest : public PacketHeader
 		mSize = sizeof(SkillRequest);
 		mType = PKT_CS_SKILL;
 		mPlayerId = -1;
-		mKey = SKILL_NONE;
-		mCurrentPosX = 0;
-		mCurrentPosY = 0;
-		mTargetPosX = 0;
-		mTargetPosY = 0;
-
+        mKey = SKILL_NONE;
+        mCurrentPos = { 0, };
+        mTargetPos = { 0, };
 	}
 	int			mPlayerId;
-	SkillKey	mKey;
-	float		mCurrentPosX;
-	float		mCurrentPosY;
-	float		mTargetPosX;
-	float		mTargetPosY;
-
+    SkillKey	mKey;
+    Coord   	mCurrentPos;
+    Coord   	mTargetPos;
 };
 
 struct SkillBroadcastResult : public PacketHeader
@@ -405,21 +386,15 @@ struct SkillBroadcastResult : public PacketHeader
 		mType = PKT_SC_SKILL;
 		mPlayerId = -1;
 		mUnitId = -1;
-		mKey = SKILL_NONE;
-		mCurrentPosX = 0;
-		mCurrentPosY = 0;
-		mTargetPosX = 0;
-		mTargetPosY = 0;
-
+        mKey = SKILL_NONE;
+        mCurrentPos = { 0, };
+        mTargetPos = { 0, };
 	}
 	int			mPlayerId;
 	int			mUnitId;
-	SkillKey	mKey;
-	float		mCurrentPosX;
-	float		mCurrentPosY;
-	float		mTargetPosX;
-	float		mTargetPosY;
-
+    SkillKey	mKey;
+    Coord   	mCurrentPos;
+    Coord   	mTargetPos;
 };
 
 
@@ -430,20 +405,14 @@ struct MissileBroadcastResult : public PacketHeader
 		mSize = sizeof(MissileBroadcastResult);
 		mType = PKT_SC_MISSILE;
 		mPlayerId = -1;
-		mUnitId = -1;
-		mCurrentPosX = 0;
-		mCurrentPosY = 0;
-		mTargetPosX = 0;
-		mTargetPosY = 0;
-
+        mUnitId = -1;
+        mCurrentPos = { 0, };
+        mTargetPos = { 0, };
 	}
 	int			mPlayerId;
-	int			mUnitId;
-	float		mCurrentPosX;
-	float		mCurrentPosY;
-	float		mTargetPosX;
-	float		mTargetPosY;
-
+    int			mUnitId;
+    Coord   	mCurrentPos;
+    Coord   	mTargetPos;
 };
 
 struct TeleportBroadcastResult : public PacketHeader
@@ -453,20 +422,14 @@ struct TeleportBroadcastResult : public PacketHeader
 		mSize = sizeof(TeleportBroadcastResult);
 		mType = PKT_SC_TELEPORT;
 		mPlayerId = -1;
-		mUnitId = -1;
-		mCurrentPosX = 0;
-		mCurrentPosY = 0;
-		mTargetPosX = 0;
-		mTargetPosY = 0;
-
+        mUnitId = -1;
+        mCurrentPos = { 0, };
+        mTargetPos = { 0, };
 	}
 	int			mPlayerId;
-	int			mUnitId;
-	float		mCurrentPosX;
-	float		mCurrentPosY;
-	float		mTargetPosX;
-	float		mTargetPosY;
-
+    int			mUnitId;
+    Coord   	mCurrentPos;
+    Coord   	mTargetPos;
 };
 
 struct HpBroadcastResult : public PacketHeader

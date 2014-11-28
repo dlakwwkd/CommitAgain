@@ -23,5 +23,10 @@
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
 
-#define PTM_RATIO 29
+#define PTM_RATIO 32
 
+#define EXTEND(f) (f)*PTM_RATIO
+#define REDUCE(f) (f)/PTM_RATIO
+
+#define INCREASE(v) {EXTEND((v).x), EXTEND((v).y)}
+#define DECREASE(v) {REDUCE((v).x), REDUCE((v).y)}

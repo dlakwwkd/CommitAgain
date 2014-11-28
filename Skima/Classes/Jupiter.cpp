@@ -4,7 +4,7 @@
 #include "PacketType.h"
 
 
-Jupiter::Jupiter(Point createPos, float scale)
+Jupiter::Jupiter(Vec2 createPos, float scale)
 {
 	//SetMoveMotionByDir();
 	m_Sprite->setPosition(createPos);

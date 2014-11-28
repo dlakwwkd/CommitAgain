@@ -32,7 +32,7 @@ void Missile::SetMissileInit(int playerId, b2Vec2 initPos, float scale)
 	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
 	b2CircleShape circle;
-	circle.m_radius = scale / PTM_RATIO;
+	circle.m_radius = REDUCE(scale);
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;
@@ -47,18 +47,13 @@ void Missile::SetMissileInit(int playerId, b2Vec2 initPos, float scale)
 void Missile::MissileShoot()
 {
 	auto currentPos = m_Body->GetPosition();
-	auto direction = m_TargetPos - currentPos;
-	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
+	auto displacement = m_TargetPos - currentPos;
+	displacement.Normalize();
+    displacement *= m_Speed;
+    m_Body->SetLinearVelocity(displacement);
 
-	b2Vec2 rangePos;
-	rangePos.x = direction.x*m_Range / distance + currentPos.x;
-	rangePos.y = direction.y*m_Range / distance + currentPos.y;
-	m_TargetPos = rangePos;
-
-	auto newDirection = rangePos - currentPos;
-	newDirection *= m_Speed / m_Range;
-
-	m_Body->SetLinearVelocity(newDirection);
+    displacement *= m_Range / m_Speed;
+    m_TargetPos = currentPos + displacement;
 
 	GClientManager->GetClient(m_PlayerID)->MissileBroadCast(m_PlayerID, m_UnitID, currentPos, m_TargetPos);
 	m_State->TryMove(this);

@@ -20,7 +20,7 @@ bool UILayer::init()
 	this->addChild(menu);
 
 
-	auto sprite = [](const char* image, Point pos, Point scale, Point anchor)
+	auto sprite = [](const char* image, Vec2 pos, Vec2 scale, Vec2 anchor)
 	{
 		auto sprite = Sprite::create(image);
 		sprite->setPosition(pos);
@@ -28,33 +28,33 @@ bool UILayer::init()
 		sprite->setAnchorPoint(anchor);
 		return sprite;
 	};
-	this->addChild(sprite("Images/interface.png",		Point(400, 95), Point(1.03f, 1.030f), Point(0.5, 0.5)));
-	this->addChild(sprite("Images/HpBar_interface.png", Point(400, 88), Point(0.68f, 1.030f), Point(0.0, 0.0)), 10, "HpBar");
-	this->addChild(sprite("Images/fireball.jpg",			Point(443, 38), Point(0.03f, 0.033f), Point(0.5, 0.5)));
-	this->addChild(sprite("Images/iceball.jpg",			Point(518, 38), Point(0.55f, 0.800f), Point(0.5, 0.5)));
+	this->addChild(sprite("Images/interface.png",		Vec2(400, 95), Vec2(1.03f, 1.030f), Vec2(0.5, 0.5)));
+	this->addChild(sprite("Images/HpBar_interface.png", Vec2(400, 88), Vec2(0.68f, 1.030f), Vec2(0.0, 0.0)), 10, "HpBar");
+	this->addChild(sprite("Images/fireball.jpg",			Vec2(443, 38), Vec2(0.03f, 0.033f), Vec2(0.5, 0.5)));
+	this->addChild(sprite("Images/iceball.jpg",			Vec2(518, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
 	
 
-	auto cooltimeBox = [&](SkillKey key, Point pos)
+	auto cooltimeBox = [&](SkillKey key, Vec2 pos)
 	{
-		m_CooltimeBox[key] = sprite("Images/black.jpg", pos, Point(COOLTIME_BOX_X, COOLTIME_BOX_Y), Point(0.0, 0.0));
+		m_CooltimeBox[key] = sprite("Images/black.jpg", pos, Vec2(COOLTIME_BOX_X, COOLTIME_BOX_Y), Vec2(0.0, 0.0));
 		m_CooltimeBox[key]->setOpacity(200);
 		return m_CooltimeBox[key];
 	};
-	this->addChild(cooltimeBox(SKILL_Q, Point(413, 8)));
-	this->addChild(cooltimeBox(SKILL_W, Point(490, 8)));
+	this->addChild(cooltimeBox(SKILL_Q, Vec2(413, 8)));
+	this->addChild(cooltimeBox(SKILL_W, Vec2(490, 8)));
 
 	
-	auto cursor = [&](CursorMode mode, const char* image, Point scale)
+	auto cursor = [&](CursorMode mode, const char* image, Vec2 scale)
 	{
-		m_CursorShape[mode] = sprite(image, Point::ZERO, scale, Point(0, 1));
+		m_CursorShape[mode] = sprite(image, Vec2::ZERO, scale, Vec2(0, 1));
 		m_CursorShape[mode]->setVisible(false);
 		return m_CursorShape[mode];
 	};
-	m_Cursor = cursor(CURSOR_DEFAULT, "Images/cursor_defualt.png", Point(1, 1));
+	m_Cursor = cursor(CURSOR_DEFAULT, "Images/cursor_defualt.png", Vec2(1, 1));
 	m_Cursor->setVisible(true);
 	this->addChild(m_Cursor, 10);
-	this->addChild(cursor(CURSOR_ATTACK,		"Images/cursor_attack.png",		Point(1, 1)),		 10);
-	this->addChild(cursor(CURSOR_TELEPORT,	"Images/cursor_teleport.png",	Point(0.2f, 0.08f)), 10);
+	this->addChild(cursor(CURSOR_ATTACK,		"Images/cursor_attack.png",		Vec2(1, 1)),		 10);
+	this->addChild(cursor(CURSOR_TELEPORT,	"Images/cursor_teleport.png",	Vec2(0.2f, 0.08f)), 10);
 
 	return true;
 }

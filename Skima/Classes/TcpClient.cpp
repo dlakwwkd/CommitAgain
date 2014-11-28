@@ -249,7 +249,7 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto pos = Point(recvData.mPosX, recvData.mPosY);
+                Vec2 pos = CONVERT(recvData.mPos);
 
 				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::FirstDrawUnit, layer,
@@ -284,9 +284,9 @@ void TcpClient::processPacket()
 				MoveBroadcastResult recvData;
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
-							
-				auto curPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
-				auto targetPos = Point(recvData.mTargetPosX, recvData.mTargetPosY);
+			    
+                Vec2 curPos = CONVERT(recvData.mCurrentPos);
+                Vec2 targetPos = CONVERT(recvData.mTargetPos);
 
 				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitMove, layer,
@@ -300,8 +300,8 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto exPos = Point(recvData.mExpectPosX, recvData.mExpectPosY);
-				auto revisionPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
+                Vec2 expectPos = CONVERT(recvData.mExpectPos);
+                Vec2 revisionPos = CONVERT(recvData.mCurrentPos);
 
 				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
 
@@ -309,7 +309,7 @@ void TcpClient::processPacket()
 				{
 				case UNIT_HERO:
 					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
-						recvData.mUnitId, exPos));
+						recvData.mUnitId, expectPos));
 
 					if (!recvData.mIsCrashed)
 					{
@@ -331,8 +331,8 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto curPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
-				auto targetPos = Point(recvData.mTargetPosX, recvData.mTargetPosY);
+                Vec2 curPos = CONVERT(recvData.mCurrentPos);
+                Vec2 targetPos = CONVERT(recvData.mTargetPos);
 
 				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSkillUse, layer,
@@ -346,8 +346,8 @@ void TcpClient::processPacket()
 				bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 				assert(ret && recvData.mPlayerId != -1);
 
-				auto curPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
-				auto targetPos = Point(recvData.mTargetPosX, recvData.mTargetPosY);
+                Vec2 curPos = CONVERT(recvData.mCurrentPos);
+                Vec2 targetPos = CONVERT(recvData.mTargetPos);
 
 				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::ShootMissile, layer,
@@ -372,8 +372,8 @@ void TcpClient::processPacket()
 			 bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
 			 assert(ret && recvData.mPlayerId != -1);
 
-			 auto curPos = Point(recvData.mCurrentPosX, recvData.mCurrentPosY);
-			 auto targetPos = Point(recvData.mTargetPosX, recvData.mTargetPosY);
+             Vec2 curPos = CONVERT(recvData.mCurrentPos);
+             Vec2 targetPos = CONVERT(recvData.mTargetPos);
 
 			 auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
 			 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitTeleport, layer,
@@ -466,32 +466,28 @@ void TcpClient::runCompleteRequest()
 	send((const char*)&sendData, sizeof(ClientRunCompleteNotify));
 }
 
-void TcpClient::moveRequest(Point curPos, Point targetPos)
+void TcpClient::moveRequest(Vec2 curPos, Vec2 targetPos)
 {
 	if (mLoginId < 0)
 		return;
 
 	MoveRequest sendData;
 	sendData.mPlayerId = mLoginId;
-	sendData.mCurrentPosX = curPos.x;
-	sendData.mCurrentPosY = curPos.y;
-	sendData.mTargetPosX = targetPos.x;
-	sendData.mTargetPosY = targetPos.y;
+	sendData.mCurrentPos = CONVERT(curPos);
+    sendData.mTargetPos = CONVERT(targetPos);
 
 	send((const char*)&sendData, sizeof(MoveRequest));
 }
 
-void TcpClient::skillRequest(Point curPos, Point targetPos, SkillKey skillKey)
+void TcpClient::skillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey)
 {
 	if (mLoginId < 0)
 		return;
 
 	SkillRequest sendData;
-	sendData.mPlayerId = mLoginId;
-	sendData.mCurrentPosX = curPos.x;
-	sendData.mCurrentPosY = curPos.y;
-	sendData.mTargetPosX = targetPos.x;
-	sendData.mTargetPosY = targetPos.y;
+    sendData.mPlayerId = mLoginId;
+    sendData.mCurrentPos = CONVERT(curPos);
+    sendData.mTargetPos = CONVERT(targetPos);
 	sendData.mKey = skillKey;
 
 	send((const char*)&sendData, sizeof(SkillRequest));

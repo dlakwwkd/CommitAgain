@@ -27,13 +27,13 @@ class InputManager
 public:
 	InputManager();
 
-	Point	GetMouseLocation()										{ return m_MouseLocation; }
+	Vec2	GetMouseLocation()										{ return m_MouseLocation; }
 	bool	GetMouseStatus(int button)								{ return m_MouseStatus[button]; }
 	bool    GetMouseScrollStatus(ScrollDir dir)						{ return m_MouseScrollStatus[dir]; }
 	bool	GetKeyStatus(EventKeyboard::KeyCode key)				{ return m_KeyStatus[key]; }
 	bool	GetTargeting(EventKeyboard::KeyCode key)				{ return m_Targeting[key]; }
 
-	void	SetMouseLocation(Point p)								{ m_MouseLocation = p; }
+	void	SetMouseLocation(Vec2 p)								{ m_MouseLocation = p; }
 	void	SetMouseStatus(int button, bool status)					{ m_MouseStatus[button] = status; }
 	void	SetMouseScrollStatus(ScrollDir dir, bool status)		{ m_MouseScrollStatus[dir] = status; }
 	void	SetKeyStatus(EventKeyboard::KeyCode key, bool status)	{ m_KeyStatus[key] = status; }
@@ -44,7 +44,7 @@ public:
 	EventKeyboard::KeyCode	SearchTargetingKey();
 
 private:
-	Point									m_MouseLocation;
+	Vec2									m_MouseLocation;
 	std::map<int, bool>						m_MouseStatus;
 	std::map<ScrollDir,bool>				m_MouseScrollStatus;
 	std::map<EventKeyboard::KeyCode, bool>	m_KeyStatus;

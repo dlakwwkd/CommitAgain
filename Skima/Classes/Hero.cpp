@@ -7,7 +7,7 @@ Hero::Hero()
 {
 	m_Arrow = Sprite::create("Images/arrow.png");
 	m_Arrow->setScale(0.09f, 0.09f);
-	m_Arrow->setPosition(Point(50, 50));
+	m_Arrow->setPosition(Vec2(50, 50));
 	m_Arrow->setVisible(false);
 }
 

@@ -44,7 +44,7 @@ void Unit::Moving()
 	{
 		EndMove();
 		printf(" - Reach: UnitID:  %d, \t\t\t\t X : %.f\tY : %.f\n", m_UnitID,
-			curPos.x*PTM_RATIO, curPos.y*PTM_RATIO);
+            EXTEND(curPos.x), EXTEND(curPos.y));
 	}
 }
 
@@ -59,26 +59,24 @@ void Unit::Crashing(bool isCrashing)
 	}
 
 	auto curPos = m_Body->GetPosition();
+    auto velocity = m_Body->GetLinearVelocity();
 	auto expectPos = curPos;
 
 	if (isCrashing)
 	{
-		auto velocity = m_Body->GetLinearVelocity();
-
-		expectPos.x = curPos.x + velocity.x / DAMPING;
-		expectPos.y = curPos.y + velocity.y / DAMPING;
-
+        velocity *= 1.0f / DAMPING;
+		expectPos += velocity;
 		printf(" - Crashing: UnitID:  %d, \t\t\t expectPos: X : %.f\tY : %.f\n", m_UnitID,
-			expectPos.x*PTM_RATIO, expectPos.y*PTM_RATIO);
-	}
+            EXTEND(expectPos.x), EXTEND(expectPos.y));
+	} 
 	else
 	{
 		EndCrash();
 		printf(" - CrashEnd: UnitID:  %d, \t\t\t reachPos:  X : %.f\tY : %.f\n", m_UnitID,
-			curPos.x*PTM_RATIO, curPos.y*PTM_RATIO);
+            EXTEND(curPos.x), EXTEND(curPos.y));
 	}
 
-	client->CrashedBroadCast(m_UnitID, m_UnitType, curPos, expectPos, isCrashing);
+    client->CrashedBroadCast(m_UnitID, m_UnitType, curPos, expectPos, isCrashing);
 }
 
 
@@ -92,18 +90,13 @@ void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 	}
 
 	auto displacement = targetPos - m_Body->GetPosition();
-	auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2));
-
-	if (distance < 0.6f)
+    if (displacement.Normalize() < 0.6f)
 	{
 		m_Body->SetLinearVelocity(b2Vec2(0, 0));
 		return;
 	}
-
-	b2Vec2 velocity;
-	velocity.x = (displacement.x / distance) * m_Speed;
-	velocity.y = (displacement.y / distance) * m_Speed;
-	m_Body->SetLinearVelocity(velocity);
+    displacement *= m_Speed;
+    m_Body->SetLinearVelocity(displacement);
 
 	m_TargetPos = targetPos;
 	m_State->TryMove(this);

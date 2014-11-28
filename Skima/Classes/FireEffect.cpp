@@ -16,7 +16,7 @@ FireEffect::~FireEffect()
 {
 }
 
-void FireEffect::CreateEffect(Point createPos)
+void FireEffect::CreateEffect(Vec2 createPos)
 {
 	m_Particle = ParticleSystemQuad::create("Images/fire_explosion.plist");
 	m_Particle->setPosition(createPos);
