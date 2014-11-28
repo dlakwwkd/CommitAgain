@@ -10,7 +10,7 @@ IceballMissile::IceballMissile(int unitId)
 {
 	m_MissileType = MS_ICE_BALL;
 	m_UnitID = unitId;
-	m_Speed = 400.0f;
+	m_Speed = 800.0f;
 }
 
 

@@ -165,9 +165,9 @@ void Unit::CrashS()
 void Unit::CrashM()
 {
     auto distance = m_Sprite->getPosition().distance(m_TargetPos);
-    auto time = sqrt(distance) / 12;
+    auto time = sqrt(distance) / 15;
     auto action1 = MoveTo::create(time, m_TargetPos);
-	auto action2 = EaseOut::create(action1, 3.0f);
+	auto action2 = EaseOut::create(action1, 2.5f);
 	m_Sprite->runAction(action2);
 }
 

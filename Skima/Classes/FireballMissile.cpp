@@ -10,7 +10,7 @@ FireballMissile::FireballMissile(int unitId)
 {
 	m_MissileType = MS_FIRE_BALL;
 	m_UnitID = unitId;
-	m_Speed = 600.0f;
+	m_Speed = 1200.0f;
 }
 
 

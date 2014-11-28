@@ -37,10 +37,8 @@ Unit::~Unit()
 void Unit::Moving()
 {
 	auto curPos = m_Body->GetPosition();
-	if (!(curPos.x < m_TargetPos.x - 0.1f ||
-		curPos.y < m_TargetPos.y - 0.1f ||
-		curPos.x > m_TargetPos.x + 0.1f ||
-		curPos.y > m_TargetPos.y + 0.1f))
+    auto distance = m_TargetPos - curPos;
+    if (distance.Length() < 0.5f)
 	{
 		EndMove();
 		printf(" - Reach: UnitID:  %d, \t\t\t\t X : %.f\tY : %.f\n", m_UnitID,
@@ -100,7 +98,7 @@ void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 	}
 
 	auto displacement = targetPos - m_Body->GetPosition();
-    if (displacement.Normalize() < 0.6f)
+    if (displacement.Normalize() < 0.5f)
 	{
 		m_Body->SetLinearVelocity(b2Vec2(0, 0));
 		return;

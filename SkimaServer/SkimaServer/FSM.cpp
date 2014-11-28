@@ -84,9 +84,8 @@ void CrashedState::Movement(Unit* unit)
 	{
 		return;
 	}
-
 	auto velocity = unit->GetBody()->GetLinearVelocity();
-	if (!(abs(velocity.x) > 0.1f ||	abs(velocity.y) > 0.1f))
+	if (velocity.Length() < 0.5f)
 	{
 		unit->Crashing(false);
 	}
