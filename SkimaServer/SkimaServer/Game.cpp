@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Game.h"
 #include "GameRoom.h"
+#include "GameManager.h"
 #include "Player.h"
 #include "Map.h"
 
@@ -20,16 +21,16 @@ Game::Game(GameRoom* room)
 
 void Game::InitGame()
 {
-	int i = 1;
-
+	int i = 0;
 	for (auto& it : m_PlayerList)
 	{
-        if (i == 1)
-            it.second->CreateHero({ REDUCE(MAX_MAP_SIZE_X / 4), REDUCE(MAX_MAP_SIZE_Y / 2) });
-		else
-            it.second->CreateHero({ REDUCE(MAX_MAP_SIZE_X - MAX_MAP_SIZE_X / 4), REDUCE(MAX_MAP_SIZE_Y / 2) });
-
-		i++;
+        b2Vec2 createPos = { MAX_MAP_SIZE_X / 4, MAX_MAP_SIZE_Y / 2 };
+        auto roomId = it.second->GetRoomID();
+        if (++i == 2)
+        {
+            createPos.x += MAX_MAP_SIZE_X / 2;
+        }
+        it.second->CreateHero(CONVERT_IN(createPos, roomId));
 	}
 }
 
