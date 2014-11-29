@@ -43,7 +43,7 @@ void MovingState::Crashed(Unit* unit)
 
 void MovingState::EndMove(Unit* unit)
 {
-	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
+    unit->GetBody()->SetAwake(false);
 	unit->SetState(unit->GetStandbyState());
 
 	if (unit->GetUnitType() == UNIT_MISSILE)
@@ -73,7 +73,7 @@ void CrashedState::Crashed(Unit* unit)
 void CrashedState::EndMove(Unit* unit){}
 void CrashedState::EndCrash(Unit* unit)
 {
-	unit->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
+    unit->GetBody()->SetAwake(false);
 	unit->GetBody()->SetLinearDamping(0.0f);
 	unit->SetState(unit->GetStandbyState());
 }

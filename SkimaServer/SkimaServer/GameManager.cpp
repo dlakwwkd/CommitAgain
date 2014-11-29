@@ -284,14 +284,24 @@ void GameManager::Tick(float dt)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	MANAGER_UPDATE_INTERVAL 주기로 실행
+	낮은 주기로 반복 실행
 */
 ///////////////////////////////////////////////////////////////////////////
 void GameManager::LowTick()
 {
-	
-
-	CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::LowTick);
+    int i = 0, j = 0;
+    for (b2Body* b = m_World->GetBodyList(); b; b = b->GetNext())
+    {
+        if (!b->IsAwake())
+        {
+            auto unit = static_cast<Unit*>(b->GetUserData());
+            unit->Crashing(false);
+            ++j;
+        }
+        ++i;
+    }
+    printf(" - Total Sleeping Body Num [%2d/%2d] \n", j, i);
+    CallFuncAfter(MANAGER_UPDATE_INTERVAL*3, this, &GameManager::LowTick);
 }
 
 

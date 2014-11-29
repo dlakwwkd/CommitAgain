@@ -80,8 +80,8 @@ void Unit::Crashing(bool isCrashing)
 	else
 	{
 		EndCrash();
-		printf(" - CrashEnd: UnitID:  %d, \t\t\t reachPos:  X : %.f\tY : %.f\n", m_UnitID,
-            EXTEND(curPos.x), EXTEND(curPos.y));
+// 		printf(" - CrashEnd: UnitID:  %d, \t\t\t reachPos:  X : %.f\tY : %.f\n", m_UnitID,
+//             EXTEND(curPos.x), EXTEND(curPos.y));
 	}
 
     client->CrashedBroadCast(m_UnitID, m_UnitType, curPos, expectPos, isCrashing);

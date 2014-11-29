@@ -24,7 +24,12 @@ void StandbyState::Crashed(Unit* unit)
 }
 
 void StandbyState::EndMove(Unit* unit){}
-void StandbyState::EndCrash(Unit* unit){}
+void StandbyState::EndCrash(Unit* unit)
+{
+    auto action1 = MoveTo::create(1.0f, unit->GetMoveTargetPos());
+    auto action2 = EaseSineIn::create(action1);
+    unit->GetSprite()->runAction(action2);
+}
 void StandbyState::Movement(Unit* unit){}
 
 

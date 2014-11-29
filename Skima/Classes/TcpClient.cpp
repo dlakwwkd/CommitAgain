@@ -308,10 +308,12 @@ void TcpClient::processPacket()
 				switch (recvData.mUnitType)
 				{
 				case UNIT_HERO:
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
-						recvData.mUnitId, expectPos));
-
-					if (!recvData.mIsCrashed)
+                    if (recvData.mIsCrashed)
+                    {
+                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
+                            recvData.mUnitId, expectPos));
+                    }
+                    else
 					{
 						scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
 							recvData.mUnitId, revisionPos));
