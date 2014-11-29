@@ -76,7 +76,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	// 	if (hDbThread == NULL)
 	// 		return -1 ;
 
-	printf("EasyGameServer Started...\n");
+	printf("SkimaServer Started...\n");
 
 	/// accept loop
 	while (true)
