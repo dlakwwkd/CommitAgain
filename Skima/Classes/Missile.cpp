@@ -36,10 +36,10 @@ void Missile::MissileCrash()
     if (m_Particle == nullptr) return;
 	m_Particle->stopAllActions();
 
-// 	auto action1 = DelayTime::create(1.0f);
-// 	auto action2 = CallFunc::create(CC_CALLBACK_0(Missile::MissileDelete, this));
-// 	auto action3 = Sequence::create(action1, action2, NULL);
-// 	m_Particle->runAction(action3);
+	auto action1 = DelayTime::create(1.0f);
+	auto action2 = CallFunc::create(CC_CALLBACK_0(Missile::MissileDelete, this));
+	auto action3 = Sequence::create(action1, action2, NULL);
+	m_Particle->runAction(action3);
 
     auto type = m_UnitID & 0x0F000000;
     switch (type)
@@ -50,8 +50,6 @@ void Missile::MissileCrash()
     }
 	auto effect = GET_EM->Assign(EffectType(type));
 	effect->CreateEffect(m_Particle->getPosition());
-
-    MissileDelete();
 }
 
 void Missile::MissileDelete()
