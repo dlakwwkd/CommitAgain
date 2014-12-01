@@ -26,7 +26,7 @@ void TeleportSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
 	auto direction = targetPos - heroPos;
 	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
 		
-	if (distance <= m_Range)
+	if (distance <= m_Range) 
 	{
 		auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
 		hero->GetBody()->SetTransform(targetPos, 0);
@@ -35,14 +35,14 @@ void TeleportSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
 		client->TeleportBroadCast(m_PlayerId,hero->GetUnitID(),heroPos,targetPos);
 	}
 
-	else
+	else //사거리보다 클때
 	{
 		direction.x = direction.x / distance;
 		direction.y = direction.y / distance;
 
 		b2Vec2 rangePos; 
-		rangePos.x = direction.x*m_Range;
-		rangePos.y = direction.y*m_Range;
+		rangePos.x = direction.x*m_Range+heroPos.x;
+		rangePos.y = direction.y*m_Range+heroPos.y;
 
 		auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
 		hero->GetBody()->SetTransform(rangePos, 0);

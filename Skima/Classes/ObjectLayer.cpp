@@ -368,6 +368,10 @@ void ObjectLayer::UnitTeleportM(int unitID, Vec2 curPos, Vec2 targetPos)
 	}
 	unit->second->SetTargetPos(targetPos);
 	unit->second->SetMoveMotionByDir();
-	unit->second->TryTeleport();
+	//curPos에 hero 가 가지고 있는 텔레포트 텔레포트 파티클을 띄워줌
+
+	unit->second->GetSprite()->setPosition(targetPos);
+
+//그냥 스파리이트를 받아서 포지션바까줌
 }
 
