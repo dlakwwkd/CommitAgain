@@ -23,16 +23,16 @@ ObjectManager::~ObjectManager()
 	}
 }
 
-Unit* ObjectManager::Assign(UnitType type)
+Unit* ObjectManager::Assign(int unitId)
 {
-	switch (type)
+	switch (unitId & 0xF0000000)
 	{
 	default:
 	case UNIT_NONE: return nullptr;
 	case UNIT_MISSILE:
 		for (auto& missile : m_MissileList)
 		{
-			if (!missile->m_InUse)
+            if ((missile->m_UnitID & 0xF0FFFFFF) == (unitId & 0xF0FFFFFF))
 			{
 				missile->m_InUse = true;
 				return missile;
@@ -40,7 +40,7 @@ Unit* ObjectManager::Assign(UnitType type)
 		}
 		break;
 	}
-	return Expand(type);
+	return Expand(unitId);
 }
 
 void ObjectManager::Release(Unit* unit)
@@ -49,9 +49,9 @@ void ObjectManager::Release(Unit* unit)
 	unit->m_UnitID = unit->m_UnitID & 0xF0FFFFFF;
 }
 
-Unit* ObjectManager::Expand(UnitType type)
+Unit* ObjectManager::Expand(int unitId)
 {
-	switch (type)
+    switch (unitId & 0xF0000000)
 	{
 	default:
 	case UNIT_NONE: return nullptr;
@@ -63,8 +63,8 @@ Unit* ObjectManager::Expand(UnitType type)
 			m_MissileList.push_back(new Missile(i));
 		}
 		m_LastID_Missile = i;
-		return m_MissileList.back();
+		return Assign(unitId);
 	}
 	}
-	return Expand(type);
+	return Expand(unitId);
 }

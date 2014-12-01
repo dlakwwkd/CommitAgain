@@ -21,12 +21,12 @@ IceballSkill::IceballSkill(Hero* hero)
 IceballSkill::~IceballSkill()
 {
 }
-
-void IceballSkill::SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID)
-{
-	auto missile = static_cast<Missile*>(GET_MM->Assign(UNIT_MISSILE));
-	missile->MissileCast(heroPos, targetPos);
-}
+// 
+// void IceballSkill::SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID)
+// {
+// 	auto missile = static_cast<Missile*>(GET_MM->Assign(UNIT_MISSILE));
+// 	missile->MissileCast(heroPos, targetPos);
+// }
 
 void IceballSkill::SkillReady()
 {

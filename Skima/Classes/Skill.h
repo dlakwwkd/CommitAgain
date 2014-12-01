@@ -15,7 +15,7 @@ public:
 
 	void			SetCanUse(bool isUse) { m_CanUse = isUse; }
 
-	virtual void	SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID) = 0;
+	//virtual void	SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID) = 0;
 	virtual void	SkillReady() = 0;
 	virtual void	SkillEnd() = 0;
 

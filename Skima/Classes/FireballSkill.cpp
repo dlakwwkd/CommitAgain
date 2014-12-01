@@ -22,12 +22,12 @@ FireballSkill::FireballSkill(Hero* hero)
 FireballSkill::~FireballSkill()
 {
 }
-
-void FireballSkill::SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID)
-{
-	auto missile = static_cast<Missile*>(GET_MM->Assign(UNIT_MISSILE));
-	missile->MissileCast(heroPos, targetPos);
-}
+// 
+// void FireballSkill::SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID)
+// {
+// 	auto missile = static_cast<Missile*>(GET_MM->Assign(UNIT_MISSILE));
+// 	missile->MissileCast(heroPos, targetPos);
+// }
 
 void FireballSkill::SkillReady()
 {

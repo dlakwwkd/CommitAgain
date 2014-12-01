@@ -303,18 +303,18 @@ void ObjectLayer::ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos)
 		temp->second->MissileDelete();
 	}
 
-	Missile* missile;
-	auto heroType = m_Hero->GetUnitID() & 0x0F000000;
-	switch (heroType)
-	{
-	case HERO_MAGICIAN:
-		missile = static_cast<Missile*>(GET_MM->Assign(UNIT_MISSILE));
-		break;
-	case HERO_NONE:
-		return;
-	}
-	missile->MissileCast(createPos, targetPos);
-
+    auto missile = static_cast<Missile*>(GET_MM->Assign(missileID));
+    auto missileType = UnitType(missileID & 0x0F000000);
+    missile->SetType(missileType);
+    switch (missileType)
+    {
+    case MS_FIRE_BALL:
+        missile->MissileCast("Images/fire.plist", 1200.0f, createPos, targetPos);
+        break;
+    case MS_ICE_BALL:
+        missile->MissileCast("Images/ice.plist", 800.0f, createPos, targetPos);
+        break;
+    }
 	m_MissileList[missileID] = missile;
 }
 

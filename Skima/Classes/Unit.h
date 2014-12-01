@@ -13,7 +13,8 @@ public:
 	Unit(const std::string& filename, Vec2 createPos, float scale);
 	virtual ~Unit();
 
-	void			SetUnitID(int unitID){ m_UnitID = unitID; }
+    void            SetType(UnitType type){ m_UnitID = (m_UnitID & 0xF0FFFFFF) + type; }
+    void			SetUnitID(int unitID){ m_UnitID = unitID; }
 	void			SetUnitPlayerID(int playerID){ m_PlayerID = playerID; }
 	int				GetUnitPlayerID(){ return m_PlayerID; }
 	void			SetMoveState(MoveState* moveState) { m_MoveState = moveState; }

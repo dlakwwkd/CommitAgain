@@ -7,7 +7,7 @@ public:
 	virtual ~Missile();
 
 public:
-	void MissileCast(Vec2 createPos, Vec2 targetPos);
+	void MissileCast(const char* image, float speed, Vec2 createPos, Vec2 targetPos);
 	void MissileCrash();
 	void MissileDelete();
 

@@ -10,7 +10,7 @@ public:
 	virtual ~IceballSkill();
 
 public:
-	virtual void SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID);
+	//virtual void SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID);
 	virtual void SkillReady();
 	virtual void SkillEnd();
 };

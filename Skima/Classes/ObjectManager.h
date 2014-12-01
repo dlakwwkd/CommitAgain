@@ -11,10 +11,10 @@ public:
 	ObjectManager();
 	virtual ~ObjectManager();
 
-	Unit*	Assign(UnitType type);
+	Unit* Assign(int unitId);
 	void	Release(Unit* unit);
 private:
-	Unit*	Expand(UnitType type);
+	Unit* Expand(int unitId);
 
 private:
 	std::vector<Missile*>	m_MissileList;
