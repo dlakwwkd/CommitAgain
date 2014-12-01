@@ -1,5 +1,5 @@
 #pragma once
-#include "C:\CommitAgain\Skima\Classes\Skill.h"
+#include "Skill.h"
 class TeleportSkill :	public Skill
 {
 public:
@@ -11,5 +11,8 @@ public:
 public:
 	virtual void SkillReady();
 	virtual void SkillEnd();
+
+private:
+	Sprite*	m_RangeShape;
 };
 
