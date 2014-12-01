@@ -6,8 +6,6 @@
 
 Hero::Hero()
 {
-	m_UnitType = UNIT_HERO;
-	m_HeroType = HERO_NONE;
 }
 
 Hero::~Hero()

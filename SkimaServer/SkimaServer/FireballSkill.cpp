@@ -1,8 +1,8 @@
 ﻿#include "stdafx.h"
 #include "FireballSkill.h"
-#include "FireballMissile.h"
-#include "MissileManager.h"
+#include "ObjectManager.h"
 #include "GameManager.h"
+#include "Missile.h"
 #include "Player.h"
 #include "Hero.h"
 
@@ -22,14 +22,15 @@ FireballSkill::~FireballSkill()
 {
 }
 
-void FireballSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
+void FireballSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
 {
 	b2Vec2 initPos = GenerateInitPos(heroPos, targetPos);
 
-	auto missile = GMissileManager->Assign(MS_FIRE_BALL);
-	auto player = GGameManager->SearchPlayer(m_PlayerId);
+	auto missile = static_cast<Missile*>(GObjectManager->Assign(UNIT_MISSILE));
+    auto player = GGameManager->SearchPlayer(m_PlayerId);
 	player->UnitListPush(missile->GetUnitID(), missile);
 
+    missile->SetType(MS_FIRE_BALL);
 	missile->SetMissileInit(m_PlayerId, initPos, DEF_SCALE);
 	missile->SetMissileTargetPos(targetPos);
 	missile->SetMissileSpeed(m_MissileSpeed);

@@ -12,7 +12,8 @@ public:
 	virtual ~Unit();
 
 public:
-	void			SetMaxHp(int MaxHp){ m_MaxHp = MaxHp; }
+    void            SetType(UnitType type){ m_UnitID += type; }
+    void			SetMaxHp(int MaxHp){ m_MaxHp = MaxHp; }
 	void			SetUnitHp(int Hp){ m_Hp = Hp; }
 	void			SetSpeed(float speed){ m_Speed = speed; }
 	void			SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
@@ -64,6 +65,8 @@ protected:
 	MoveState*	m_StandbyState;
 	MoveState*	m_MovingState;
 	MoveState*	m_CrashedState;
+
+    friend class ObjectManager;
 };
 
 

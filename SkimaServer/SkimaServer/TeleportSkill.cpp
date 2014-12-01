@@ -21,7 +21,7 @@ TeleportSkill::~TeleportSkill()
 {
 }
 
-void TeleportSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
+void TeleportSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
 {
 	auto direction = targetPos - heroPos;
 	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));

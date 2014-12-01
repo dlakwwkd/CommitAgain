@@ -16,7 +16,7 @@ ShootingSkill::~ShootingSkill()
 }
 
 
-void ShootingSkill::SkillCast(int unitId, b2Vec2 heroPos, b2Vec2 targetPos)
+void ShootingSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
 {
 
 }

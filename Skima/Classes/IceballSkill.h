@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "Skill.h"
-class IceballMissile;
 class Hero;
 
 class IceballSkill : public Skill
@@ -11,7 +10,7 @@ public:
 	virtual ~IceballSkill();
 
 public:
-	//void SkillCast(Point heroPos, Point targetPos, int missileID);
+	virtual void SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID);
 	virtual void SkillReady();
 	virtual void SkillEnd();
 };

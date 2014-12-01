@@ -20,8 +20,8 @@ public:
 
 	std::shared_ptr<Hero> GetMyHero(){ return m_Hero; }
 
-	void FirstDrawUnit(int playerID, int unitID, HeroType heroType, Vec2 pos);
-	void CreateHero(int playerID, int unitID, Vec2 location, HeroType heroType);
+	void FirstDrawUnit(int playerID, int unitID, Vec2 pos);
+	void CreateHero(int playerID, int unitID, Vec2 location);
 	void UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos);
 	void UnitCrash(int unitID, Vec2 exPos);
 	void UnitCrashEnd(int unitID, Vec2 revisePos);

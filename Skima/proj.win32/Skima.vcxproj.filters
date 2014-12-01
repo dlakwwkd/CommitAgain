@@ -129,9 +129,6 @@
     <ClCompile Include="..\Classes\ObjectLayer.cpp">
       <Filter>Game\Component\Object</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\FireballMissile.cpp">
-      <Filter>Game\Component\Object\Missile</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\FireballSkill.cpp">
       <Filter>Game\Component\Skill\ShootType</Filter>
     </ClCompile>
@@ -156,12 +153,6 @@
     <ClCompile Include="..\Classes\Hero.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\IceballMissile.cpp">
-      <Filter>Game\Component\Object\Missile</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MissileManager.cpp">
-      <Filter>Game\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\IceballSkill.cpp">
       <Filter>Game\Component\Skill\ShootType</Filter>
     </ClCompile>
@@ -176,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Jupiter.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ObjectManager.cpp">
+      <Filter>Game\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,9 +236,6 @@
     <ClInclude Include="..\Classes\ObjectLayer.h">
       <Filter>Game\Component\Object</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\FireballMissile.h">
-      <Filter>Game\Component\Object\Missile</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\FireballSkill.h">
       <Filter>Game\Component\Skill\ShootType</Filter>
     </ClInclude>
@@ -272,12 +263,6 @@
     <ClInclude Include="..\Classes\Hero.h">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\IceballMissile.h">
-      <Filter>Game\Component\Object\Missile</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MissileManager.h">
-      <Filter>Game\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\IceballSkill.h">
       <Filter>Game\Component\Skill\ShootType</Filter>
     </ClInclude>
@@ -292,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Jupiter.h">
       <Filter>Game\Component\Object\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ObjectManager.h">
+      <Filter>Game\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

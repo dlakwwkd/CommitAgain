@@ -39,7 +39,6 @@ Magician::Magician(Vec2 createPos, float scale)
 		break;
 	}
 	m_Speed = 360.0f;
-	m_HeroType = HERO_MAGICIAN;
 }
 
 

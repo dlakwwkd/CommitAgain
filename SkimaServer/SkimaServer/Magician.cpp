@@ -11,7 +11,6 @@ Magician::Magician(int playerId, b2Vec2 pos, float scale)
 	m_PlayerID = playerId;
 	m_Hp = m_MaxHp = 1000;
 	m_Speed = REDUCE(360);
-	m_HeroType = HERO_MAGICIAN;
 
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
@@ -47,5 +46,5 @@ Magician::~Magician()
 
 void Magician::UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
 {
-	m_SkillList[skillKey]->SkillCast(m_UnitID, heroPos, targetPos);
+	m_SkillList[skillKey]->SkillCast(heroPos, targetPos);
 }

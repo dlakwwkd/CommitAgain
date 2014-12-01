@@ -425,12 +425,11 @@ void ClientSession::AllReadyNotify()
 	printf(" Send: GameRunNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
-void ClientSession::SendCreateHeroResult(int unitId, HeroType unitType, b2Vec2 pos)
+void ClientSession::SendCreateHeroResult(int unitId, b2Vec2 pos)
 {
 	CreateHeroResult outPacket;
 	outPacket.mPlayerId = mPlayer->GetPlayerID();
 	outPacket.mUnitId = unitId;
-	outPacket.mUnitType = unitType;
 	outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
 
 	if (!Broadcast(&outPacket))
@@ -466,12 +465,11 @@ void ClientSession::SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos
 	}
 }
 
-void ClientSession::CrashedBroadCast(int unitId, UnitType unitType, b2Vec2 curPos, b2Vec2 expectPos, bool isCrashed)
+void ClientSession::CrashedBroadCast(int unitId, b2Vec2 curPos, b2Vec2 expectPos, bool isCrashed)
 {
 	CrashedBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayer->GetPlayerID();
 	outPacket.mUnitId = unitId;
-	outPacket.mUnitType = unitType;
     outPacket.mIsCrashed = isCrashed;
     outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
     outPacket.mExpectPos = CONVERT_OUT(expectPos, mPlayer->GetRoomID());
@@ -526,12 +524,11 @@ void ClientSession::TeleportBroadCast(int playerId, int unitId, b2Vec2 currentPo
 	}
 }
 
-void ClientSession::HpBroadCast(int playerId, int unitId, UnitType unitType, int hp)
+void ClientSession::HpBroadCast(int playerId, int unitId, int hp)
 {
 	HpBroadcastResult outPacket;
 	outPacket.mPlayerId = playerId;
 	outPacket.mUnitId = unitId;
-	outPacket.mUnitType = unitType;
 	outPacket.mHp = hp;
 
 	if (!Broadcast(&outPacket))

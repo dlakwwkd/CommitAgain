@@ -3,10 +3,9 @@
 class Missile :	public Unit
 {
 public:
-	Missile();
+    Missile(int unitId);
 	virtual ~Missile();
 
-    void	        SetMissileInit(int playerId, b2Vec2 initPos, float scale);
     void	        SetMissileTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
     void	        SetMissileDamage(int missileDamage) { m_Damage = missileDamage; }
     void	        SetMissileSpeed(float missileSpeed) { m_Speed = missileSpeed; }
@@ -14,16 +13,14 @@ public:
     void	        SetMissileRange(float missileRange) { m_Range = missileRange; }
     void	        SetMissileHp(int missileHp) { m_Hp = missileHp; }
 
+    void	        SetMissileInit(int playerId, b2Vec2 initPos, float scale);
+
     void	        MissileShoot();
     void	        ConsumeLiveTime(float costTime);
 	virtual void	Extinction();
 
 protected:
-	MissileType		m_MissileType;
-	bool			m_InUse;
 	float			m_Range;
 	float			m_Livetime;
-
-	friend class MissileManager;
 };
 

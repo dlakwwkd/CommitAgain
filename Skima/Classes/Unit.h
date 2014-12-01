@@ -72,6 +72,7 @@ protected:
 	float			m_MaxHp;
 	float			m_CurHp;
 	float			m_Speed;
+	bool			m_InUse;
 
 	Vec2			m_TargetPos;
 
@@ -80,4 +81,6 @@ protected:
 	Sprite*			m_HpBar;
 	PhysicsBody*	m_Body;
 
+
+	friend class ObjectManager;
 };

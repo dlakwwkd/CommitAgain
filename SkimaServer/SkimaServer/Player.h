@@ -6,7 +6,7 @@ typedef std::map<int, Unit*> UnitList;
 class Player
 {
 public:
-	Player(int playerId) : m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_Hero(nullptr), m_HeroType(HERO_NONE)
+	Player(int playerId) : m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_Hero(nullptr)
 	{
 		ZeroMemory(m_PlayerName, sizeof(m_PlayerName));
 		itoa(playerId, m_PlayerName, 10);	// 임시로..
@@ -24,7 +24,8 @@ public:
 
 	void		CreateHero(b2Vec2 pos);
 	void		SetRoomID(int roomId){ m_RoomID = roomId; }
-	void		SetHeroType(HeroType herotype) { m_HeroType = herotype; }
+    void        SetHeroType(UnitType heroType){ m_HeroType = heroType; }
+
 	void		UnitListPush(int unitID, Unit* unit) { m_UnitList[unitID] = unit; }
 	void		UnitListPop(int unitID);
     void        UnitListClear();
@@ -36,7 +37,7 @@ private:
 	bool		m_IsReady;
 
 	Hero*		m_Hero;
-	HeroType	m_HeroType;
+    UnitType    m_HeroType;
 	UnitList	m_UnitList;
 };
 

@@ -1,32 +1,34 @@
 ﻿#pragma once
 
 #define MAX_CHAT_LEN	256
-
 #define MAX_NAME_LEN	30
 #define MAX_COMMENT_LEN	40
 
 enum UnitType
 {
-	UNIT_NONE,
-
-	UNIT_HERO,
-	UNIT_MISSILE,
+	UNIT_NONE       = 0x00000000,
+    UNIT_HERO       = 0x10000000,
+	UNIT_MISSILE    = 0x20000000,
+    
+	HERO_NONE       = 0x00000000,
+    HERO_MAGICIAN   = 0x01000000,
+    HERO_JUPITER    = 0x02000000,
+    
+	MS_NONE         = 0x00000000,
+    MS_FIRE_BALL    = 0x01000000,
+    MS_ICE_BALL     = 0x02000000,
 };
 
-enum HeroType
+enum SkillKey
 {
-	HERO_NONE,
+	SKILL_NONE,
 
-	HERO_MAGICIAN,
-	HERO_JUPITER,
-};
+	SKILL_Q = 137,
+	SKILL_W = 143,
+	SKILL_E = 125,
+	SKILL_R = 138,
 
-enum MissileType
-{
-	MS_NONE,
-
-	MS_FIRE_BALL,
-	MS_ICE_BALL,
+	SKILL_MAX_NUM = 5,
 };
 
 enum PacketTypes
@@ -76,20 +78,7 @@ enum PacketTypes
 	PKT_MAX = 1024
 };
 
-enum SkillKey
-{
-	SKILL_NONE,
-
-	SKILL_Q = 137,
-	SKILL_W = 143,
-	SKILL_E = 125,
-	SKILL_R = 138,
-
-	SKILL_MAX_NUM = 5,
-};
-
 #pragma pack(push, 1)
-
 
 struct PacketHeader
 {
@@ -209,7 +198,7 @@ struct GameReadyNotify : public PacketHeader
 		mHeroType = HERO_NONE;
 	}
 	int		    mPlayerId;
-	HeroType    mHeroType;
+	UnitType    mHeroType;
 };
 struct GameRunNotify : public PacketHeader
 {
@@ -233,12 +222,10 @@ struct CreateHeroResult : public PacketHeader
 		mType = PKT_SC_CREATE_HERO;
 		mPlayerId = -1;
 		mUnitId = -1;
-		mUnitType = HERO_NONE;
         mPos = { 0, };
 	}
 	int			mPlayerId;
 	int			mUnitId;
-	HeroType	mUnitType;
 	Coord		mPos;
 };
 //////////////////////////////////////////////////////////////////////////
@@ -348,14 +335,12 @@ struct CrashedBroadcastResult : public PacketHeader
 		mType = PKT_SC_CRASH;
 		mPlayerId = -1;
 		mUnitId = -1;
-		mUnitType = UNIT_NONE;
         mIsCrashed = true;
         mCurrentPos = { 0, };
         mExpectPos = { 0, };
 	}
 	int			mPlayerId;
 	int			mUnitId;
-	UnitType	mUnitType;
     bool		mIsCrashed;
     Coord   	mCurrentPos;
     Coord   	mExpectPos;
@@ -439,12 +424,10 @@ struct HpBroadcastResult : public PacketHeader
 		mSize = sizeof(HpBroadcastResult);
 		mType = PKT_SC_HP;
 		mUnitId = -1;
-		mUnitType = UNIT_NONE;
 		mHp = 0;
 	}
 	int			mPlayerId;
 	int			mUnitId;
-	UnitType	mUnitType;
 	int			mHp;
 };
 ///////////////////////////////////////////////////////////////////////////

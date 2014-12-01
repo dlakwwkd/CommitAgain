@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "IceballSkill.h"
-#include "IceballMissile.h"
 #include "GameManager.h"
+#include "Missile.h"
 #include "Hero.h"
 
 
@@ -22,6 +22,12 @@ IceballSkill::~IceballSkill()
 {
 }
 
+void IceballSkill::SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID)
+{
+	auto missile = static_cast<Missile*>(GET_MM->Assign(UNIT_MISSILE));
+	missile->MissileCast(heroPos, targetPos);
+}
+
 void IceballSkill::SkillReady()
 {
 	auto arrow = m_Hero->GetArrow();
@@ -33,10 +39,3 @@ void IceballSkill::SkillEnd()
 	auto arrow = m_Hero->GetArrow();
 	arrow->setVisible(false);
 }
-
-// 
-// void IceballSkill::SkillCast(Point heroPos, Point targetPos, int missileID)
-// {
-// 	auto missile = GET_MM->Assign(missileID, MS_ICE_BALL);
-// 	missile->MissileCast(heroPos, targetPos);
-// }

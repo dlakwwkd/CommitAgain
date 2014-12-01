@@ -5,7 +5,7 @@
 #include "GameManager.h"
 #include "Player.h"
 #include "Scheduler.h"
-#include "MissileManager.h"
+#include "ObjectManager.h"
 
 Unit::Unit()
 {
@@ -48,11 +48,11 @@ void Unit::Moving()
 
 void Unit::Crashing(bool isCrashing)
 {
-    if (m_UnitType == UNIT_HERO)
+    if (m_UnitID & UNIT_HERO)
     {
         if (m_Hp <= 0) IamDead();
     }
-    else if (m_UnitType == UNIT_MISSILE)
+    else if (m_UnitID & UNIT_MISSILE)
     {
         isCrashing = false;
         Extinction();
@@ -84,7 +84,7 @@ void Unit::Crashing(bool isCrashing)
 //             EXTEND(curPos.x), EXTEND(curPos.y));
 	}
 
-    client->CrashedBroadCast(m_UnitID, m_UnitType, curPos, expectPos, isCrashing);
+    client->CrashedBroadCast(m_UnitID, curPos, expectPos, isCrashing);
 }
 
 

@@ -50,6 +50,16 @@ void Hero::SetSkillCanUse(SkillKey key, bool isUse)
 	skill->second->SetCanUse(isUse);
 }
 
+void Hero::SkillCast(SkillKey key)
+{
+	auto skill = m_SkillList.find(key);
+	if (skill == m_SkillList.end())
+	{
+		return;
+	}
+	skill->second->SkillReady();
+}
+
 void Hero::SkillReady(SkillKey key)
 {
 	auto skill = m_SkillList.find(key);

@@ -1,14 +1,53 @@
 ﻿#include "pch.h"
 #include "Missile.h"
+#include "GameManager.h"
+#include "ObjectLayer.h"
+#include "Effect.h"
 
 
-Missile::Missile()
+Missile::Missile(int unitId)
 {
-	m_MissileType = MS_NONE;
+	m_UnitID = unitId;
 	m_InUse = false;
+	m_Speed = 1200.0f;
 }
 
 
 Missile::~Missile()
 {
+}
+
+void Missile::MissileCast(Vec2 createPos, Vec2 targetPos)
+{
+	m_Particle = ParticleSystemQuad::create("Images/fire.plist");
+	m_Particle->setPosition(createPos);
+	m_Particle->setScale(0.70f);
+	auto distance = createPos.distance(targetPos);
+	auto time = distance / m_Speed;
+	auto action1 = MoveTo::create(time, targetPos);
+	auto action2 = DelayTime::create(1.0f);
+	auto action3 = CallFunc::create(CC_CALLBACK_0(Missile::MissileDelete, this));
+	auto action4 = Sequence::create(action1, action2, action3, NULL);
+	m_Particle->runAction(action4);
+	GET_OBJECT_LAYER->addChild(m_Particle, 19);
+}
+
+void Missile::MissileCrash()
+{
+	m_Particle->stopAllActions();
+
+	auto action1 = DelayTime::create(1.0f);
+	auto action2 = CallFunc::create(CC_CALLBACK_0(Missile::MissileDelete, this));
+	auto action3 = Sequence::create(action1, action2, NULL);
+	m_Particle->runAction(action3);
+
+	auto effect = GET_EM->Assign(EF_FIRE);
+	effect->CreateEffect(m_Particle->getPosition());
+}
+
+void Missile::MissileDelete()
+{
+	m_Particle->stopAllActions();
+	GET_OBJECT_LAYER->removeChild(m_Particle);
+	GET_OBJECT_LAYER->DeleteMissile(m_UnitID);
 }

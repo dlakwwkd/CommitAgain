@@ -2,7 +2,7 @@
 #include "FSM.h"
 #include "Hero.h"
 #include "GameManager.h"
-#include "MissileManager.h"
+#include "ObjectManager.h"
 #include "Player.h"
 #include "Missile.h"
 
@@ -46,7 +46,7 @@ void MovingState::EndMove(Unit* unit)
     unit->GetBody()->SetAwake(false);
 	unit->SetState(unit->GetStandbyState());
 
-	if (unit->GetUnitType() == UNIT_MISSILE)
+	if (unit->GetUnitID() & UNIT_MISSILE)
 	{
 		Crashed(unit);
 	}

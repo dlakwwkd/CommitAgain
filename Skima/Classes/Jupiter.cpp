@@ -32,7 +32,6 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
 		break;
 	}
 	m_Speed = 10.0f;
-	m_HeroType = HERO_JUPITER;
 }
 
 

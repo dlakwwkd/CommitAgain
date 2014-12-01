@@ -3,18 +3,15 @@
 class Missile :	public Unit
 {
 public:
-	Missile();
+	Missile(int unitId);
 	virtual ~Missile();
 
 public:
-	virtual void MissileCast(Vec2 createPos, Vec2 targetPos) = 0;
-	virtual void MissileCrash() = 0;
-	virtual void MissileDelete() = 0;
+	void MissileCast(Vec2 createPos, Vec2 targetPos);
+	void MissileCrash();
+	void MissileDelete();
 
 protected:
-	MissileType		m_MissileType;
-	bool			m_InUse;
-
-	friend class MissileManager;
+	ParticleSystemQuad* m_Particle;
 };
 

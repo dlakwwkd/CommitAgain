@@ -336,8 +336,8 @@ void GameManager::ExchangeDamage(Unit* unitA, Unit* unitB)
     int AplayerId = unitA->GetPlayerID();
     int BplayerId = unitB->GetPlayerID();
 
-    GClientManager->GetClient(AplayerId)->HpBroadCast(AplayerId, unitA->GetUnitID(), unitA->GetUnitType(), unitAHp);
-    GClientManager->GetClient(BplayerId)->HpBroadCast(BplayerId, unitB->GetUnitID(), unitB->GetUnitType(), unitBHp);
+    GClientManager->GetClient(AplayerId)->HpBroadCast(AplayerId, unitA->GetUnitID(), unitAHp);
+    GClientManager->GetClient(BplayerId)->HpBroadCast(BplayerId, unitB->GetUnitID(), unitBHp);
 }
 
 

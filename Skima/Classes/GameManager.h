@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Enums.h"
 #include "InputManager.h"
-#include "MissileManager.h"
+#include "ObjectManager.h"
 #include "EffectManager.h"
 
 USING_NS_CC;
@@ -20,7 +20,7 @@ public:
 		return instance;
 	}
 	std::shared_ptr<InputManager>	getInputManager(){ return m_IM; }
-	std::shared_ptr<MissileManager>	getMissileManager(){ return m_MM; }
+	std::shared_ptr<ObjectManager>	getMissileManager(){ return m_OM; }
 	std::shared_ptr<EffectManager>	getEffectManger(){ return m_EM; }
 
 	void							SetGameMode(GameMode mode){ m_Mode = mode; }
@@ -29,7 +29,7 @@ public:
 private:
 	GameManager();
 	std::shared_ptr<InputManager>	m_IM;
-	std::shared_ptr<MissileManager>	m_MM;
+	std::shared_ptr<ObjectManager>	m_OM;
 	std::shared_ptr<EffectManager>	m_EM;
 
 	GameMode						m_Mode;

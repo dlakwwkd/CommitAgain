@@ -68,12 +68,6 @@
     <ClCompile Include="FireballSkill.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="FireballMissile.cpp">
-      <Filter>Game\Component\Object\Unit\Missile</Filter>
-    </ClCompile>
-    <ClCompile Include="IceballMissile.cpp">
-      <Filter>Game\Component\Object\Unit\Missile</Filter>
-    </ClCompile>
     <ClCompile Include="Missile.cpp">
       <Filter>Game\Component\Object\Unit\Missile</Filter>
     </ClCompile>
@@ -89,11 +83,11 @@
     <ClCompile Include="TeleportSkill.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="MissileManager.cpp">
-      <Filter>Game\Component\Object\Unit\Missile</Filter>
-    </ClCompile>
     <ClCompile Include="IceballSkill.cpp">
       <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Game\Component\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,12 +174,6 @@
     <ClInclude Include="FireballSkill.h">
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="FireballMissile.h">
-      <Filter>Game\Component\Object\Unit\Missile</Filter>
-    </ClInclude>
-    <ClInclude Include="IceballMissile.h">
-      <Filter>Game\Component\Object\Unit\Missile</Filter>
-    </ClInclude>
     <ClInclude Include="Missile.h">
       <Filter>Game\Component\Object\Unit\Missile</Filter>
     </ClInclude>
@@ -204,11 +192,14 @@
     <ClInclude Include="TeleportSkill.h">
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="MissileManager.h">
-      <Filter>Game\Component\Object\Unit\Missile</Filter>
-    </ClInclude>
     <ClInclude Include="IceballSkill.h">
       <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Game\Component\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

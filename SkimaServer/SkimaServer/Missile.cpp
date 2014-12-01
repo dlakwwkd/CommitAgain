@@ -4,24 +4,21 @@
 #include "ClientManager.h"
 #include "ClientSession.h"
 #include "GameManager.h"
-#include "MissileManager.h"
+#include "ObjectManager.h"
 #include "Player.h"
 
 
-Missile::Missile()
+Missile::Missile(int unitId)
 {
-	m_UnitType = UNIT_MISSILE;
-	m_MissileType = MS_NONE;
-	m_InUse = false;
+    m_UnitID = unitId;
 	m_Range = 0.0f;
 	m_Livetime = 0.0f;
 }
 
 Missile::~Missile()
 {
-	GMissileManager->Release(this);
+	GObjectManager->Release(this);
 }
-
 
 void Missile::SetMissileInit(int playerId, b2Vec2 initPos, float scale)
 {
@@ -68,7 +65,7 @@ void Missile::Extinction()
 {
 	if (m_InUse)
 	{
-		CallFuncAfter(1, GMissileManager, &MissileManager::Release, this);
+		CallFuncAfter(1, GObjectManager, &ObjectManager::Release, this);
 	}
     printf("Extinction()!! : UnitID : %d \n", m_UnitID);
 }

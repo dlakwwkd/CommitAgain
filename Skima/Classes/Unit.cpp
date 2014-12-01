@@ -14,6 +14,7 @@ Unit::Unit()
 	m_Sprite = nullptr;
 	m_HpBar = nullptr;
 	m_Body = nullptr;
+	m_InUse = false;
 
 	m_MoveState = m_StandbyState = new StandbyState();
 	m_MovingState = new MovingState();

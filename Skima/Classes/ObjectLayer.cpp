@@ -44,16 +44,17 @@ void ObjectLayer::TickM(float dt)
 
 
 
-void ObjectLayer::FirstDrawUnit(int playerID, int unitID, HeroType heroType, Vec2 pos)
+void ObjectLayer::FirstDrawUnit(int playerID, int unitID, Vec2 pos)
 {
 	//todo unitType 넣어주기
-	CreateHero(playerID, unitID, pos, heroType);
+	CreateHero(playerID, unitID, pos);
 }
 
-void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location, HeroType heroType)
+void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
 {
 	std::shared_ptr<Hero> unit;
 
+	auto heroType = unitID & 0x0F000000;
 	switch (heroType)
 	{
 	case HERO_NONE:
@@ -303,11 +304,11 @@ void ObjectLayer::ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos)
 	}
 
 	Missile* missile;
-
-	switch (m_Hero->GetHeroType())
+	auto heroType = m_Hero->GetUnitID() & 0x0F000000;
+	switch (heroType)
 	{
 	case HERO_MAGICIAN:
-		missile = GET_MM->Assign(missileID, MS_FIRE_BALL);
+		missile = static_cast<Missile*>(GET_MM->Assign(UNIT_MISSILE));
 		break;
 	case HERO_NONE:
 		return;

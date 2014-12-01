@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "FireballSkill.h"
-#include "FireballMissile.h"
 #include "GameManager.h"
+#include "Missile.h"
 #include "Hero.h"
 
 
@@ -23,6 +23,12 @@ FireballSkill::~FireballSkill()
 {
 }
 
+void FireballSkill::SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID)
+{
+	auto missile = static_cast<Missile*>(GET_MM->Assign(UNIT_MISSILE));
+	missile->MissileCast(heroPos, targetPos);
+}
+
 void FireballSkill::SkillReady()
 {
 	auto arrow = m_Hero->GetArrow();
@@ -35,9 +41,3 @@ void FireballSkill::SkillEnd()
 	arrow->setVisible(false);
 }
 
-// 
-// void FireballSkill::SkillCast(Point heroPos, Point targetPos, int missileID)
-// {
-// 	auto missile = GET_MM->Assign(missileID, MS_FIRE_BALL);
-// 	missile->MissileCast(heroPos, targetPos);
-// }
