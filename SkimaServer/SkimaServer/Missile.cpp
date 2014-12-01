@@ -66,7 +66,8 @@ void Missile::Extinction()
 {
 	if (m_InUse)
 	{
-		CallFuncAfter(1000, GObjectManager, &ObjectManager::Release, this);
+        CallFuncAfter(1, GObjectManager, &ObjectManager::Except, this);
+        CallFuncAfter(1000, GObjectManager, &ObjectManager::Release, this);
 	}
     printf("Extinction()!! : UnitID : %d \n", m_UnitID);
 }

@@ -259,6 +259,11 @@ void GameManager::Tick(float dt)
 				continue;
 			}
 
+			if (client->GetPlayer()->GetMyHero()->GetUnitHp() <= 0)
+			{
+
+			}
+
 			if (game.second->IsReady())
 			{
 				CallFuncAfter(MANAGER_UPDATE_INTERVAL, client, &ClientSession::ServerRunComplete);

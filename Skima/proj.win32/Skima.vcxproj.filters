@@ -171,6 +171,9 @@
     <ClCompile Include="..\Classes\ObjectManager.cpp">
       <Filter>Game\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="TeleportSkill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -283,6 +286,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Macros.h">
       <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="TeleportSkill.h">
+      <Filter>Game\Component\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

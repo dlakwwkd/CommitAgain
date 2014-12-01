@@ -536,3 +536,15 @@ void ClientSession::HpBroadCast(int playerId, int unitId, int hp)
 		Disconnect();
 	}
 }
+
+void ClientSession::GameOverCast(int playerId)
+{
+	GameOverNotify outPacket;
+	outPacket.mPlayerId = playerId;
+	outPacket.mLoseId = playerId;
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+}

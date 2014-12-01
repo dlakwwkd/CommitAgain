@@ -45,6 +45,7 @@ public:
 	void    HpBroadCast(int playerId, int unitId, int hp);
 	void	ServerRunComplete();
 	void	StartGame();
+	void	GameOverCast(int playerId);
 
 	// 	void	LoginDone(int pid, const char* name);
 	// 	void	UpdateDone();
