@@ -7,6 +7,8 @@ public:
 	virtual ~Jupiter();
 
 public:
+	void			SetMoveMotionToCache();
+	virtual void	SetMoveMotionByDir();
 private:
 };
 

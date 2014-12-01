@@ -7,7 +7,8 @@ public:
 	virtual ~Magician();
 
 public:
-	void SetMoveMotionToCache();
+	void			SetMoveMotionToCache();
+	virtual void	SetMoveMotionByDir();
 
 private:
 	//ParticleSystemQuad* m_TeleportParticle;

@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "Unit.h"
+#include "Hero.h"
 #include "GameManager.h"
 
 Unit::Unit()
@@ -37,63 +38,6 @@ void Unit::SetHpBar()
 	m_HpBar = Sprite::create("Images/HpBar_Unit.png");
 	m_HpBar->setPosition(Vec2(-20, 85));
 	m_HpBar->setAnchorPoint(Vec2(0,0));
-}
-
-void Unit::SetMoveMotionByDir()
-{
-	auto action = [](const char* format)
-	{
-		auto animation = Animation::create();
-		animation->setDelayPerUnit(0.1f);
-
-		for (int i = 1; i < 8; ++i)
-		{
-			auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-			animation->addSpriteFrame(frame);
-		}
-
-		return RepeatForever::create(Animate::create(animation));
-	};
-
-	auto direction = [](Vec2 displacement)
-	{
-		float slope = displacement.y / displacement.x;
-
-		if (displacement.x > 0)
-		{
-			if (slope > -0.41f	&& slope <= 0.41f)	return Direction::E;
-			if (slope > 0.41f	&& slope <= 2.41f)	return Direction::NE;
-			if (slope <= -0.41f && slope > -2.41f)	return Direction::SE;
-			if (slope > 2.41f)						return Direction::NE;
-			if (slope <= -2.41f)						return Direction::S;
-		}
-		else if (displacement.x < 0)
-		{
-			if (slope > -0.41f	&& slope <= 0.41f)	return Direction::W;
-			if (slope > 0.41f	&& slope <= 2.41f)	return Direction::SW;
-			if (slope <= -0.41f && slope > -2.41f)	return Direction::NW;
-			if (slope > 2.41f)						return Direction::SW;
-			if (slope <= -2.41f)						return Direction::N;
-		}
-		else if (displacement.x == 0)
-		{
-			if (displacement.y < 0)					return Direction::S;
-			if (displacement.y >= 0)				return Direction::N;
-		}
-		return Direction::E;
-	};
-
-	switch (direction(m_TargetPos - m_Sprite->getPosition()))
-	{
-	case E:	 m_Sprite->runAction(action("MoveMotion_E_%02d.PNG"));	break;
-	case W:	 m_Sprite->runAction(action("MoveMotion_W_%02d.PNG"));	break;
-	case S:	 m_Sprite->runAction(action("MoveMotion_S_%02d.PNG"));	break;
-	case N:	 m_Sprite->runAction(action("MoveMotion_N_%02d.PNG"));	break;
-	case SE: m_Sprite->runAction(action("MoveMotion_SE_%02d.PNG"));	break;
-	case SW: m_Sprite->runAction(action("MoveMotion_SW_%02d.PNG"));	break;
-	case NE: m_Sprite->runAction(action("MoveMotion_NE_%02d.PNG"));	break;
-	case NW: m_Sprite->runAction(action("MoveMotion_NW_%02d.PNG"));	break;
-	}
 }
 
 void Unit::Move()
@@ -148,7 +92,8 @@ void Unit::MoveS()
 
 void Unit::MoveM()
 {
-    SetMoveMotionByDir();
+	auto hero = dynamic_cast<Hero*>(this);
+    hero->SetMoveMotionByDir();
     auto gap = m_TargetPos - m_Sprite->getPosition();
     gap.normalize();
     m_TargetPos -= gap * 15;
@@ -191,7 +136,7 @@ void Unit::TeleportS()
 
 void Unit::TeleportM()
 {
-	SetMoveMotionByDir(); // test
+	//SetMoveMotionByDir(); // test
 	auto action1 = MoveTo::create(0.0f, m_TargetPos);  // another : CALLFUNC로 m_Sprite->setPosition(m_TargetPos); 하는 함수
 //	auto action2 = CALLFUNC로 hero의 m_teleportparticle시전
 

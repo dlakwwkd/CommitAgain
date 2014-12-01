@@ -285,7 +285,7 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 
 		return;
 	}
 	unit->second->SetTargetPos(targetPos);
-	unit->second->SetMoveMotionByDir();
+	//unit->second->SetMoveMotionByDir();
 	unit->second->EndMove();
 }
 
@@ -367,7 +367,7 @@ void ObjectLayer::UnitTeleportM(int unitID, Vec2 curPos, Vec2 targetPos)
 		return;
 	}
 	unit->second->SetTargetPos(targetPos);
-	unit->second->SetMoveMotionByDir();
+	//unit->second->SetMoveMotionByDir();
 	unit->second->TryTeleport();
 }
 

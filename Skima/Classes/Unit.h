@@ -37,7 +37,6 @@ public:
 	void			EndCrash(){ m_MoveState->EndCrash(this); }
 	void			Movement(){ m_MoveState->Movement(this); }
 
-    void			SetMoveMotionByDir();
     void			SetHp(int curHp);
     void			SetHpBar();
     void			UpdateHpBar();

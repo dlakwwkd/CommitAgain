@@ -13,10 +13,11 @@ public:
 	Vec2		GetHeroPos() { return m_Sprite->getPosition(); }
 	Sprite*		GetArrow() { return m_Arrow; }
 
-	void		SetSkillCanUse(SkillKey key, bool isUse);
-	void		SkillCast(SkillKey key);
-	void		SkillReady(SkillKey key);
-	void		SkillEnd(SkillKey key);
+	virtual void	SetMoveMotionByDir() = 0;
+	void			SetSkillCanUse(SkillKey key, bool isUse);
+	void			SkillCast(SkillKey key);
+	void			SkillReady(SkillKey key);
+	void			SkillEnd(SkillKey key);
 
 protected:
 	std::map<SkillKey, Skill*>	m_SkillList;
