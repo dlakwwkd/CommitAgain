@@ -13,149 +13,149 @@ ClientManager* GClientManager = nullptr;
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	aceept된 패킷을 관리하는(즉, 연결된 클라와 1:1로 대응되는)
-	ClientSession 생성
-	*/
+    aceept된 패킷을 관리하는(즉, 연결된 클라와 1:1로 대응되는)
+    ClientSession 생성
+    */
 ///////////////////////////////////////////////////////////////////////////
 ClientSession* ClientManager::CreateClient(SOCKET sock)
 {
-	assert(LThreadType == THREAD_CLIENT);
+    assert(LThreadType == THREAD_CLIENT);
 
-	ClientSession* client = new ClientSession(sock);
+    ClientSession* client = new ClientSession(sock);
     if (mClientList.find(sock) != mClientList.end())
     {
         client->CloseSocketNoWait();
         delete client;
         return nullptr;
     }
-	mClientList.insert(ClientList::value_type(sock, client));
-	return client;
+    mClientList.insert(ClientList::value_type(sock, client));
+    return client;
 }
 
 ClientSession* ClientManager::GetClient(int playerId)
 {
-	if (playerId < 0)
-	{
-		printf(" - GetClient Failed ! : playerId is invalid \n");
-		return nullptr;
-	}
-	for (auto& client : mClientList)
-	{
-		auto player = client.second->GetPlayer();
-		if (player == nullptr)
-		{
-			continue;
-		}
-		if (player->GetPlayerID() == playerId)
-		{
-			return client.second;
-		}
-	}
-	return nullptr;
+    if (playerId < 0)
+    {
+        printf(" - GetClient Failed ! : playerId is invalid \n");
+        return nullptr;
+    }
+    for (auto& client : mClientList)
+    {
+        auto player = client.second->GetPlayer();
+        if (player == nullptr)
+        {
+            continue;
+        }
+        if (player->GetPlayerID() == playerId)
+        {
+            return client.second;
+        }
+    }
+    return nullptr;
 }
 
 bool ClientManager::IsValidPlayerId(int playerId)
 {
-	if (playerId < 0)
-	{
-		printf(" - IsValidPlayerId Failed ! : playerId is invalid \n");
-		return false;
-	}
-	for (auto& client : mClientList)
-	{
-		auto player = client.second->GetPlayer();
-		if (player == nullptr)
-		{
-			continue;
-		}
-		if (player->GetPlayerID() == playerId)
-		{
-			return false;
-		}
-	}
-	return true;
+    if (playerId < 0)
+    {
+        printf(" - IsValidPlayerId Failed ! : playerId is invalid \n");
+        return false;
+    }
+    for (auto& client : mClientList)
+    {
+        auto player = client.second->GetPlayer();
+        if (player == nullptr)
+        {
+            continue;
+        }
+        if (player->GetPlayerID() == playerId)
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	연결된 모든 클라의 출력버퍼에 동일한 패킷을 적재하는 함수
-	(방송을 요청한 클라는 이미 보내기 처리한 상태이므로 제외)
-	*/
+    연결된 모든 클라의 출력버퍼에 동일한 패킷을 적재하는 함수
+    (방송을 요청한 클라는 이미 보내기 처리한 상태이므로 제외)
+    */
 ///////////////////////////////////////////////////////////////////////////
 void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 {
-	///FYI: C++ STL iterator 스타일의 루프
-	for (ClientList::const_iterator it = mClientList.begin(); it != mClientList.end(); ++it)
-	{
-		ClientSession* client = it->second;
+    ///FYI: C++ STL iterator 스타일의 루프
+    for (ClientList::const_iterator it = mClientList.begin(); it != mClientList.end(); ++it)
+    {
+        ClientSession* client = it->second;
 
-		if (from == client)
-			continue;
+        if (from == client)
+            continue;
 
-		if (client == nullptr || client->GetPlayer() == nullptr)
-		{
-			printf(" - BroadcastPacket Failed ! : client is invalid \n");
-			continue;
-		}
+        if (client == nullptr || client->GetPlayer() == nullptr)
+        {
+            printf(" - BroadcastPacket Failed ! : client is invalid \n");
+            continue;
+        }
 
-		// 같은 방에 있는 애들에게만 방송한다.
-		if (client->GetPlayer()->GetRoomID() == from->GetPlayer()->GetRoomID())
-		{
-			client->SendRequest(pkt);
-		}
-	}
+        // 같은 방에 있는 애들에게만 방송한다.
+        if (client->GetPlayer()->GetRoomID() == from->GetPlayer()->GetRoomID())
+        {
+            client->SendRequest(pkt);
+        }
+    }
 }
 
 
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	서버의 매 프레임마다 실행되는 함수
-	*/
+    서버의 매 프레임마다 실행되는 함수
+    */
 ///////////////////////////////////////////////////////////////////////////
 void ClientManager::OnPeriodWork()
 {
-	/// 접속이 끊긴 세션들 주기적으로 정리 (1초 정도 마다 해주자)
-	DWORD currTick = GetTickCount();
-	if (currTick - mLastGCTick >= 1000)
-	{
-		CollectGarbageSessions();
-		mLastGCTick = currTick;
-	}
+    /// 접속이 끊긴 세션들 주기적으로 정리 (1초 정도 마다 해주자)
+    DWORD currTick = GetTickCount();
+    if (currTick - mLastGCTick >= 1000)
+    {
+        CollectGarbageSessions();
+        mLastGCTick = currTick;
+    }
 
-	/// 처리 완료된 DB 작업들 각각의 Client로 dispatch
-	//DispatchDatabaseJobResults() ;
+    /// 처리 완료된 DB 작업들 각각의 Client로 dispatch
+    //DispatchDatabaseJobResults() ;
 }
 
 
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	연결이 끊긴 클라이언트 세션 제거 처리
-	*/
+    연결이 끊긴 클라이언트 세션 제거 처리
+    */
 ///////////////////////////////////////////////////////////////////////////
 void ClientManager::CollectGarbageSessions()
 {
-	std::vector<ClientSession*> disconnectedSessions;
+    std::vector<ClientSession*> disconnectedSessions;
 
-	///FYI: C++ 11 람다를 이용한 스타일
-	std::for_each(mClientList.begin(), mClientList.end(),
-		[&](ClientList::const_reference it)
-	{
-		ClientSession* client = it.second;
+    ///FYI: C++ 11 람다를 이용한 스타일
+    std::for_each(mClientList.begin(), mClientList.end(),
+        [&](ClientList::const_reference it)
+    {
+        ClientSession* client = it.second;
 
-		if (false == client->IsConnected() && 0 == client->GetRefCount())
-			disconnectedSessions.push_back(client);
-	}
-	);
+        if (false == client->IsConnected() && 0 == client->GetRefCount())
+            disconnectedSessions.push_back(client);
+    }
+    );
 
-	///FYI: C언어 스타일의 루프
-	for (size_t i = 0; i < disconnectedSessions.size(); ++i)
-	{
-		ClientSession* client = disconnectedSessions[i];
-		mClientList.erase(client->mSocket);
-		delete client;
-	}
+    ///FYI: C언어 스타일의 루프
+    for (size_t i = 0; i < disconnectedSessions.size(); ++i)
+    {
+        ClientSession* client = disconnectedSessions[i];
+        mClientList.erase(client->mSocket);
+        delete client;
+    }
 
 }
 
@@ -163,27 +163,27 @@ void ClientManager::CollectGarbageSessions()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	연결된 모든 클라의 출력버퍼에 쌓인 패킷들 전부 전송하는 함수
-	*/
+    연결된 모든 클라의 출력버퍼에 쌓인 패킷들 전부 전송하는 함수
+    */
 ///////////////////////////////////////////////////////////////////////////
 void ClientManager::FlushClientSend()
 {
-	for (auto& it : mClientList)
-	{
-		ClientSession* client = it.second;
-		if (false == client->SendFlush())
-		{
-			client->Disconnect();
-		}
-	}
+    for (auto& it : mClientList)
+    {
+        ClientSession* client = it.second;
+        if (false == client->SendFlush())
+        {
+            client->Disconnect();
+        }
+    }
 }
 
 
 
 
 /*
-	DB 작업
-	*/
+    DB 작업
+    */
 // void ClientManager::DispatchDatabaseJobResults()
 // {
 // 	/// 쌓여 있는 DB 작업 처리 결과들을 각각의 클라에게 넘긴다

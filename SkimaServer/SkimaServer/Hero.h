@@ -7,15 +7,15 @@ typedef std::map<SkillKey, Skill*> SkillList;
 class Hero : public Unit
 {
 public:
-	Hero();
-	virtual ~Hero();
+    Hero();
+    virtual ~Hero();
 
-	const SkillList&	GetSkillList(){ return m_SkillList; }
+    const SkillList&	GetSkillList(){ return m_SkillList; }
 
     virtual void		UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos);
     virtual void        Extinction(){}
 
 protected:
-	SkillList	m_SkillList;
+    SkillList	m_SkillList;
 };
 

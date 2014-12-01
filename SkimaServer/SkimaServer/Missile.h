@@ -4,7 +4,7 @@ class Missile :	public Unit
 {
 public:
     Missile(int unitId);
-	virtual ~Missile();
+    virtual ~Missile();
 
     void	        SetMissileTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
     void	        SetMissileDamage(int missileDamage) { m_Damage = missileDamage; }
@@ -16,10 +16,10 @@ public:
     void            SetMissileInit(int playerId, int type, b2Vec2 initPos, float scale);
     void	        MissileShoot();
     void	        ConsumeLiveTime(float costTime);
-	virtual void	Extinction();
+    virtual void	Extinction();
 
 protected:
-	float			m_Range;
-	float			m_Livetime;
+    float			m_Range;
+    float			m_Livetime;
 };
 

@@ -8,13 +8,13 @@ ObjectManager* GObjectManager = nullptr;
 
 ObjectManager::ObjectManager()
 {
-	m_MissileList.reserve(INIT_POOL_SIZE);
+    m_MissileList.reserve(INIT_POOL_SIZE);
 
-	int i;
+    int i;
     for (i = 0; i < INIT_POOL_SIZE; ++i)
-	{
+    {
         m_MissileList.push_back(new Missile(i));
-	}
+    }
     m_LastID_Missile = i;
 }
 
@@ -22,9 +22,9 @@ ObjectManager::ObjectManager()
 ObjectManager::~ObjectManager()
 {
     for (auto& missile : m_MissileList)
-	{
-		delete missile;
-	}
+    {
+        delete missile;
+    }
 }
 
 Unit* ObjectManager::Assign(UnitType type)
@@ -53,11 +53,11 @@ void ObjectManager::Release(Unit* unit)
     unit->m_UnitID = INIT_SIDE_TYPE(unit->m_UnitID);
 
     auto body = unit->GetBody();
-	if (body != nullptr)
-	{
-		GGameManager->GetWolrd()->DestroyBody(body);
+    if (body != nullptr)
+    {
+        GGameManager->GetWolrd()->DestroyBody(body);
         unit->InitBody();
-	}
+    }
     auto player = GGameManager->SearchPlayer(unit->GetPlayerID());
     if (player != nullptr)
     {
