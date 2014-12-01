@@ -173,6 +173,7 @@
     <ClInclude Include="GameRoom.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="IceballSkill.h" />
+    <ClInclude Include="Jupiter.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Magician.h" />
     <ClInclude Include="Main.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="ShootingSkill.h" />
     <ClInclude Include="Skill.h" />
+    <ClInclude Include="SparkSkill.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sqlite3ext.h" />
     <ClInclude Include="SQLStatement.h" />
@@ -210,6 +212,7 @@
     <ClCompile Include="GameRoom.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="IceballSkill.cpp" />
+    <ClCompile Include="Jupiter.cpp" />
     <ClCompile Include="Magician.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Exception.cpp" />
@@ -221,6 +224,7 @@
     <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="ShootingSkill.cpp" />
     <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="SparkSkill.cpp" />
     <ClCompile Include="sqlite3.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

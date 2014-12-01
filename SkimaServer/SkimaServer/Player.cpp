@@ -4,6 +4,7 @@
 #include "ClientManager.h"
 #include "ClientSession.h"
 #include "Magician.h"
+#include "Jupiter.h"
 
 
 Player::~Player()
@@ -21,6 +22,7 @@ void Player::CreateHero(b2Vec2 pos)
         m_Hero = new Magician(m_PlayerID, pos, DEF_SCALE);
         break;
     case HERO_JUPITER:
+		m_Hero = new Jupiter(m_PlayerID, pos, DEF_SCALE);
         break;
     }
     m_UnitList[m_Hero->GetUnitID()] = m_Hero;

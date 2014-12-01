@@ -21,6 +21,7 @@ enum MissileType
     MS_NONE,
     MS_FIRE_BALL,
     MS_ICE_BALL,
+	MS_SPARK
 };
 
 enum SkillKey

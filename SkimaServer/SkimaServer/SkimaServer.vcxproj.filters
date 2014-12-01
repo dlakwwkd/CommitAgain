@@ -89,6 +89,12 @@
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Game\Component\Object</Filter>
     </ClCompile>
+    <ClCompile Include="SparkSkill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Jupiter.cpp">
+      <Filter>Game\Component\Object\Unit\Hero</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -200,6 +206,12 @@
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>Game\Component\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SparkSkill.h">
+      <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Jupiter.h">
+      <Filter>Game\Component\Object\Unit\Hero</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

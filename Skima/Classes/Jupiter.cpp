@@ -1,19 +1,21 @@
 #include "pch.h"
 #include "Jupiter.h"
 #include "GameManager.h"
+#include "SparkSkill.h"
 #include "PacketType.h"
 
 
 Jupiter::Jupiter(Vec2 createPos, float scale)
 {
 	SetMoveMotionToCache();
-	m_Sprite = Sprite::createWithSpriteFrameName("JupiterMove_S_01");
+	m_Sprite = Sprite::createWithSpriteFrameName("JupiterMove_S_01.png");
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
 	m_Sprite->addChild(m_Arrow);
 	m_MaxHp = 1000.0f;
 	m_CurHp = m_MaxHp;
 	SetHpBar();
+	m_SkillList[SKILL_Q] = new SparkSkill(this);
 
 	switch (GET_GM.GetGameMode())
 	{
@@ -32,7 +34,7 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
 	case MULTI:
 		break;
 	}
-	m_Speed = 10.0f;
+	m_Speed = 500.0f;
 }
 
 

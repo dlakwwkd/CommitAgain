@@ -177,6 +177,9 @@
     <ClCompile Include="..\Classes\TeleportEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SparkSkill.cpp">
+      <Filter>Game\Component\Skill\ShootType</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\TeleportEffect.h">
       <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SparkSkill.h">
+      <Filter>Game\Component\Skill\ShootType</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

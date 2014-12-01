@@ -4,6 +4,7 @@
 #include "LoadingBGLayer.h"
 #include "UILayer.h"
 #include "Magician.h"
+#include "Jupiter.h"
 #include "GameManager.h"
 #include "Hero.h"
 #include "Missile.h"
@@ -60,10 +61,18 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
     {
     case HERO_NONE:
         return;
-    case HERO_MAGICIAN:
-        std::shared_ptr<Hero> temp(new Magician(location, 1.0f));
-        unit = temp;
-        break;
+	case HERO_MAGICIAN:
+	{
+		std::shared_ptr<Hero> temp(new Magician(location, 1.0f));
+		unit = temp;
+		break;
+	}
+	case HERO_JUPITER:
+	{
+		std::shared_ptr<Hero> temp2(new Jupiter(location, 1.0f));
+		unit = temp2;
+		break;
+	}
     }
 
     unit->SetUnitID(unitID);
@@ -312,6 +321,9 @@ void ObjectLayer::ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos)
     case MS_ICE_BALL:
         missile->MissileCast("Images/ice.plist", 800.0f, createPos, targetPos);
         break;
+	case MS_SPARK:
+		missile->MissileCast("Images/spark.plist", 1400.0f, createPos, targetPos);
+		break;
     }
     m_MissileList[missileID] = missile;
 }
