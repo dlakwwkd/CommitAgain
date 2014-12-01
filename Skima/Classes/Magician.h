@@ -3,15 +3,16 @@
 class Magician : public Hero
 {
 public:
-	Magician(Vec2 createPos, float scale);
-	virtual ~Magician();
+    Magician(Vec2 createPos, float scale);
+    virtual ~Magician();
 
 public:
-	void			SetMoveMotionToCache();
-	virtual void	SetMoveMotionByDir();
+    void			    SetMoveMotionToCache();
+    virtual void	    SetMoveMotionByDir();
+    ParticleSystemQuad* GetTeleportParticle(){ return m_TeleportParticle; }
 
 private:
-	//ParticleSystemQuad* m_TeleportParticle;
-
+    Sprite*             m_TeleportRangeShape;
+    ParticleSystemQuad* m_TeleportParticle;
 };
 
