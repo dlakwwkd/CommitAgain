@@ -10,7 +10,5 @@ public:
     void			    SetMoveMotionToCache();
     virtual void	    SetMoveMotionByDir();
 
-private:
-    //Sprite*             m_TeleportRangeShape;
 };
 

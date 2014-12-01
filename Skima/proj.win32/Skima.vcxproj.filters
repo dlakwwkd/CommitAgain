@@ -168,11 +168,14 @@
     <ClCompile Include="..\Classes\Jupiter.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
-    <ClCompile Include="TeleportSkill.cpp">
-      <Filter>Game\Component\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameOverScene.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TeleportSkill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TeleportEffect.cpp">
+      <Filter>Game\Component\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,11 +287,14 @@
     <ClInclude Include="..\Classes\Macros.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="TeleportSkill.h">
-      <Filter>Game\Component\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GameOverScene.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TeleportSkill.h">
+      <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TeleportEffect.h">
+      <Filter>Game\Component\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
