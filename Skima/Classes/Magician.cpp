@@ -17,7 +17,7 @@ Magician::Magician(Vec2 createPos, float scale)
     m_MaxHp = 1000.0f;
     m_CurHp = m_MaxHp;
     SetHpBar();
-    m_TeleportRangeShape = Sprite::create("TeleportRange.PNG");
+    //m_TeleportRangeShape = Sprite::create("TeleportRange.png");
     m_SkillList[SKILL_Q] = new FireballSkill(this);
     m_SkillList[SKILL_W] = new IceballSkill(this);
     m_SkillList[SKILL_E] = new TeleportSkill(this);

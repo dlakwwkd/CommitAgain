@@ -11,6 +11,6 @@ public:
     virtual void	    SetMoveMotionByDir();
 
 private:
-    Sprite*             m_TeleportRangeShape;
+    //Sprite*             m_TeleportRangeShape;
 };
 

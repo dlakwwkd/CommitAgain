@@ -174,7 +174,6 @@ void ObjectLayer::DeleteMissile(int missileID)
     {
         return;
     }
-    GET_OM->Release(missile->second);
     m_MissileList.erase(missile);
 }
 void ObjectLayer::UnitTeleport(int unitID, Vec2 recvCurPos, Vec2 targetPos)
@@ -301,10 +300,8 @@ void ObjectLayer::ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos)
     {
         temp->second->MissileDelete();
     }
-
-    auto missile = static_cast<Missile*>(GET_OM->Assign(missileID));
+    std::shared_ptr<Missile> missile(new Missile(missileID));
     auto missileType = GET_SIDE_TYPE(missileID);
-    missile->SetType(missileType);
     switch (missileType)
     {
     case MS_FIRE_BALL:

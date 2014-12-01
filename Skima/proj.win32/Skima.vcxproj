@@ -151,7 +151,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Jupiter.cpp" />
     <ClCompile Include="..\Classes\Magician.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
-    <ClCompile Include="..\Classes\ObjectManager.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\ShootType.cpp" />
     <ClCompile Include="..\Classes\SingleGameScene.cpp" />
@@ -194,7 +193,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Macros.h" />
     <ClInclude Include="..\Classes\Magician.h" />
     <ClInclude Include="..\Classes\Missile.h" />
-    <ClInclude Include="..\Classes\ObjectManager.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\ShootType.h" />
     <ClInclude Include="..\Classes\SingleGameScene.h" />

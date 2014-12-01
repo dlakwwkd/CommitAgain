@@ -7,7 +7,7 @@
 
 Missile::Missile(int unitId)
 {
-    m_UnitID = SET_MAIN_TYPE(unitId, UNIT_MISSILE);
+    m_UnitID = unitId;
     m_InUse = false;
 }
 

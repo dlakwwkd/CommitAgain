@@ -168,9 +168,6 @@
     <ClCompile Include="..\Classes\Jupiter.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ObjectManager.cpp">
-      <Filter>Game\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="TeleportSkill.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
@@ -280,9 +277,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Jupiter.h">
       <Filter>Game\Component\Object\Hero</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ObjectManager.h">
-      <Filter>Game\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Macros.h">
       <Filter>Base</Filter>
