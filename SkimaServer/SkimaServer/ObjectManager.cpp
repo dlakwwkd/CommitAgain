@@ -67,7 +67,11 @@ void ObjectManager::Release(Unit* unit)
 
 void ObjectManager::Except(Unit* unit)
 {
-    unit->GetBody()->SetActive(false);
+    auto body = unit->GetBody();
+    if (body != nullptr)
+    {
+        unit->GetBody()->SetActive(false);
+    }
 }
 
 Unit* ObjectManager::Expand(UnitType type)

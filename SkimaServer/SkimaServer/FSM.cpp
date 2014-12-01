@@ -11,7 +11,6 @@
     /*대기상태*/
 
 //////////////////////////////////////////////////////////////////////////
-void StandbyState::TryTeleport(Unit* unit){}
 void StandbyState::TryMove(Unit* unit)
 {
     unit->SetState(unit->GetMovingState());
@@ -33,7 +32,6 @@ void StandbyState::Movement(Unit* unit){}
     /*이동중 상태*/
 
 //////////////////////////////////////////////////////////////////////////
-void MovingState::TryTeleport(Unit* unit){}
 void MovingState::TryMove(Unit* unit){}
 void MovingState::Crashed(Unit* unit)
 {
@@ -66,7 +64,6 @@ void MovingState::Movement(Unit* unit)
     /*밀려남상태*/
 
 //////////////////////////////////////////////////////////////////////////
-void CrashedState::TryTeleport(Unit* unit){}
 void CrashedState::TryMove(Unit* unit){}
 void CrashedState::Crashed(Unit* unit)
 {
