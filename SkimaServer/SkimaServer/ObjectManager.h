@@ -14,6 +14,7 @@ public:
 
     Unit*	Assign(UnitType type);
     void	Release(Unit* unit);
+    void    Except(Unit* unit);
 private:
     Unit*	Expand(UnitType type);
 

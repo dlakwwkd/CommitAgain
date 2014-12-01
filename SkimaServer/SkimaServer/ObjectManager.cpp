@@ -65,6 +65,11 @@ void ObjectManager::Release(Unit* unit)
     }
 }
 
+void ObjectManager::Except(Unit* unit)
+{
+    unit->GetBody()->SetActive(false);
+}
+
 Unit* ObjectManager::Expand(UnitType type)
 {
     switch (type)
