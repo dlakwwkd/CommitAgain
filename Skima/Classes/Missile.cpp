@@ -7,7 +7,7 @@
 
 Missile::Missile(int unitId)
 {
-	m_UnitID = unitId;
+    m_UnitID = SET_MAIN_TYPE(unitId, UNIT_MISSILE);
 	m_InUse = false;
 }
 
@@ -41,7 +41,7 @@ void Missile::MissileCrash()
 	auto action3 = Sequence::create(action1, action2, NULL);
 	m_Particle->runAction(action3);
 
-    auto type = m_UnitID & 0x0F000000;
+    auto type = GET_SIDE_TYPE(m_UnitID);
     switch (type)
     {
     case MS_FIRE_BALL:  type = EF_FIRE; break;

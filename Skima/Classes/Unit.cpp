@@ -4,7 +4,6 @@
 
 Unit::Unit()
 {
-	m_UnitType = UNIT_NONE;
 	m_Name = "";
 	m_PlayerID = -1;
 	m_UnitID = -1;

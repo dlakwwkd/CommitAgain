@@ -17,7 +17,6 @@ Unit::Unit()
 	m_Damage = 0;
 	m_Speed = -1;
 	m_Contacting = false;
-	m_UnitType = UNIT_NONE;
 	m_TargetPos = { -1, -1 };
 	m_Body = nullptr;
 
@@ -48,15 +47,16 @@ void Unit::Moving()
 
 void Unit::Crashing(bool isCrashing)
 {
-    if (m_UnitID & UNIT_HERO)
+    switch (GET_MAIN_TYPE(m_UnitID))
     {
+    case UNIT_HERO:
         if (m_Hp <= 0) IamDead();
-    }
-    else if (m_UnitID & UNIT_MISSILE)
-    {
+        break;
+    case UNIT_MISSILE:
         isCrashing = false;
         Extinction();
-    }
+        break;
+    };
 
     auto client = GClientManager->GetClient(m_PlayerID);
     if (client == nullptr)

@@ -304,8 +304,7 @@ void TcpClient::processPacket()
                 Vec2 revisionPos = CONVERT(recvData.mCurrentPos);
 
 				auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
-				auto unitType = recvData.mUnitId & 0xF0000000;
-				switch (unitType)
+                switch (GET_MAIN_TYPE(recvData.mUnitId))
 				{
 				case UNIT_HERO:
                     if (recvData.mIsCrashed)

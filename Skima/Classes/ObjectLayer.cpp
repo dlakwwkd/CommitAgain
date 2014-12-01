@@ -54,8 +54,7 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
 {
 	std::shared_ptr<Hero> unit;
 
-	auto heroType = unitID & 0x0F000000;
-	switch (heroType)
+    switch (GET_SIDE_TYPE(unitID))
 	{
 	case HERO_NONE:
 		return;
@@ -175,7 +174,7 @@ void ObjectLayer::DeleteMissile(int missileID)
 	{
 		return;
 	}
-	GET_MM->Release(missile->second);
+	GET_OM->Release(missile->second);
 	m_MissileList.erase(missile);
 }
 void ObjectLayer::UnitTeleport(int unitID, Vec2 recvCurPos, Vec2 targetPos)
@@ -303,8 +302,8 @@ void ObjectLayer::ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos)
 		temp->second->MissileDelete();
 	}
 
-    auto missile = static_cast<Missile*>(GET_MM->Assign(missileID));
-    auto missileType = UnitType(missileID & 0x0F000000);
+    auto missile = static_cast<Missile*>(GET_OM->Assign(missileID));
+    auto missileType = GET_SIDE_TYPE(missileID);
     missile->SetType(missileType);
     switch (missileType)
     {

@@ -10,7 +10,7 @@
 
 Missile::Missile(int unitId)
 {
-    m_UnitID = unitId;
+    m_UnitID = SET_MAIN_TYPE(unitId, UNIT_MISSILE);
 	m_Range = 0.0f;
 	m_Livetime = 0.0f;
 }
@@ -20,8 +20,9 @@ Missile::~Missile()
 	GObjectManager->Release(this);
 }
 
-void Missile::SetMissileInit(int playerId, b2Vec2 initPos, float scale)
+void Missile::SetMissileInit(int playerId, int type, b2Vec2 initPos, float scale)
 {
+    m_UnitID = SET_SIDE_TYPE(m_UnitID, type);
 	m_PlayerID = playerId;
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;

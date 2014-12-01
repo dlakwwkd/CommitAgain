@@ -13,10 +13,16 @@ Player::~Player()
 
 void Player::CreateHero(b2Vec2 pos)
 {
-	//switch로 거르기
-	m_Hero = new Magician(m_PlayerID, pos, DEF_SCALE);
-    m_Hero->SetType(UNIT_HERO);
-    m_Hero->SetType(m_HeroType);
+    switch (m_HeroType)
+    {
+    default:
+    case HERO_NONE: return;
+    case HERO_MAGICIAN:
+        m_Hero = new Magician(m_PlayerID, pos, DEF_SCALE);
+        break;
+    case HERO_JUPITER:
+        break;
+    }
 	m_UnitList[m_Hero->GetUnitID()] = m_Hero;
 
 	auto client = GClientManager->GetClient(m_PlayerID);

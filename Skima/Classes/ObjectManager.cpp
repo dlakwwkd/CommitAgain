@@ -6,12 +6,12 @@ ObjectManager::ObjectManager()
 {
 	m_MissileList.reserve(INIT_POOL_SIZE);
 
-	int i;
-	for (i = UNIT_MISSILE; i < UNIT_MISSILE + INIT_POOL_SIZE; ++i)
-	{
-		m_MissileList.push_back(new Missile(i));
-	}
-	m_LastID_Missile = i;
+    int i;
+    for (i = 0; i < INIT_POOL_SIZE; ++i)
+    {
+        m_MissileList.push_back(new Missile(i));
+    }
+    m_LastID_Missile = i;
 }
 
 
@@ -25,14 +25,15 @@ ObjectManager::~ObjectManager()
 
 Unit* ObjectManager::Assign(int unitId)
 {
-	switch (unitId & 0xF0000000)
+    switch (GET_MAIN_TYPE(unitId))
 	{
 	default:
 	case UNIT_NONE: return nullptr;
 	case UNIT_MISSILE:
+        unitId = INIT_SIDE_TYPE(unitId);
 		for (auto& missile : m_MissileList)
 		{
-            if ((missile->m_UnitID & 0xF0FFFFFF) == (unitId & 0xF0FFFFFF))
+            if (missile->m_UnitID == unitId)
 			{
 				missile->m_InUse = true;
 				return missile;
@@ -46,12 +47,12 @@ Unit* ObjectManager::Assign(int unitId)
 void ObjectManager::Release(Unit* unit)
 {
 	unit->m_InUse = false;
-	unit->m_UnitID = unit->m_UnitID & 0xF0FFFFFF;
+    unit->m_UnitID = INIT_SIDE_TYPE(unit->m_UnitID);
 }
 
 Unit* ObjectManager::Expand(int unitId)
 {
-    switch (unitId & 0xF0000000)
+    switch (GET_MAIN_TYPE(unitId))
 	{
 	default:
 	case UNIT_NONE: return nullptr;

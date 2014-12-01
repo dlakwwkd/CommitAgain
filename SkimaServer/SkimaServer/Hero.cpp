@@ -6,6 +6,7 @@
 
 Hero::Hero()
 {
+    m_UnitID = SET_MAIN_TYPE(m_UnitID, UNIT_HERO);
 }
 
 Hero::~Hero()

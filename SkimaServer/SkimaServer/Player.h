@@ -24,7 +24,7 @@ public:
 
 	void		CreateHero(b2Vec2 pos);
 	void		SetRoomID(int roomId){ m_RoomID = roomId; }
-    void        SetHeroType(UnitType heroType){ m_HeroType = heroType; }
+    void        SetHeroType(HeroType heroType){ m_HeroType = heroType; }
 
 	void		UnitListPush(int unitID, Unit* unit) { m_UnitList[unitID] = unit; }
 	void		UnitListPop(int unitID);
@@ -37,7 +37,7 @@ private:
 	bool		m_IsReady;
 
 	Hero*		m_Hero;
-    UnitType    m_HeroType;
+    HeroType    m_HeroType;
 	UnitList	m_UnitList;
 };
 

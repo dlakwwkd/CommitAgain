@@ -13,8 +13,7 @@ public:
     void	        SetMissileRange(float missileRange) { m_Range = missileRange; }
     void	        SetMissileHp(int missileHp) { m_Hp = missileHp; }
 
-    void	        SetMissileInit(int playerId, b2Vec2 initPos, float scale);
-
+    void            SetMissileInit(int playerId, int type, b2Vec2 initPos, float scale);
     void	        MissileShoot();
     void	        ConsumeLiveTime(float costTime);
 	virtual void	Extinction();

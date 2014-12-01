@@ -46,10 +46,12 @@ void MovingState::EndMove(Unit* unit)
     unit->GetBody()->SetAwake(false);
 	unit->SetState(unit->GetStandbyState());
 
-	if (unit->GetUnitID() & UNIT_MISSILE)
-	{
-		Crashed(unit);
-	}
+    switch (GET_MAIN_TYPE(unit->GetUnitID()))
+    {
+    case UNIT_MISSILE:
+        Crashed(unit);
+        break;
+    }
 }
 
 void MovingState::EndCrash(Unit* unit){}

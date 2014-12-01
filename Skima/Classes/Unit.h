@@ -13,21 +13,17 @@ public:
 	Unit(const std::string& filename, Vec2 createPos, float scale);
 	virtual ~Unit();
 
-    void            SetType(UnitType type){ m_UnitID = (m_UnitID & 0xF0FFFFFF) + type; }
-    void			SetUnitID(int unitID){ m_UnitID = unitID; }
+    void            SetType(int type){ m_UnitID = SET_SIDE_TYPE(m_UnitID, type); }
 	void			SetUnitPlayerID(int playerID){ m_PlayerID = playerID; }
-	int				GetUnitPlayerID(){ return m_PlayerID; }
-	void			SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
+    void			SetUnitID(int unitID){ m_UnitID = unitID; }
 	void			SetTargetPos(Vec2 pos){ m_TargetPos = pos; }
+	void			SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
+	int				GetUnitPlayerID(){ return m_PlayerID; }
 	int				GetUnitID(){ return m_UnitID; }
 	Sprite*			GetSprite(){ return m_Sprite; }
 	Sprite*			GetHpBar(){ return m_HpBar; }
-	void			SetMoveMotionByDir();
-	void			SetHp(int curHp);
 	float			GetMaxHp(){ return m_MaxHp; }
 	float			GetCurHp(){ return m_CurHp; }
-	void			SetHpBar();
-	void			UpdateHpBar();
 	Vec2			GetMoveTargetPos(){ return m_TargetPos; }
 
 	MoveState*		GetMoveState(){ return m_MoveState; }
@@ -40,6 +36,11 @@ public:
 	void			Crashed(){ m_MoveState->Crashed(this); }
 	void			EndCrash(){ m_MoveState->EndCrash(this); }
 	void			Movement(){ m_MoveState->Movement(this); }
+
+    void			SetMoveMotionByDir();
+    void			SetHp(int curHp);
+    void			SetHpBar();
+    void			UpdateHpBar();
 
 	void			Move();
 	void            Crash();
@@ -66,7 +67,6 @@ protected:
 
 protected:
 	MoveMotion		m_MoveMotionByDir;
-	UnitType		m_UnitType;
 	std::string		m_Name;
 	int				m_PlayerID;
 	int				m_UnitID;

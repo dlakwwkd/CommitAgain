@@ -30,8 +30,7 @@ void FireballSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
     auto player = GGameManager->SearchPlayer(m_PlayerId);
 	player->UnitListPush(missile->GetUnitID(), missile);
 
-    missile->SetType(MS_FIRE_BALL);
-	missile->SetMissileInit(m_PlayerId, initPos, DEF_SCALE);
+    missile->SetMissileInit(m_PlayerId, MS_FIRE_BALL, initPos, DEF_SCALE);
 	missile->SetMissileTargetPos(targetPos);
 	missile->SetMissileSpeed(m_MissileSpeed);
 	missile->SetMissileDamage(m_Damage);

@@ -11,7 +11,7 @@ ObjectManager::ObjectManager()
 	m_MissileList.reserve(INIT_POOL_SIZE);
 
 	int i;
-    for (i = UNIT_MISSILE; i < UNIT_MISSILE + INIT_POOL_SIZE; ++i)
+    for (i = 0; i < INIT_POOL_SIZE; ++i)
 	{
         m_MissileList.push_back(new Missile(i));
 	}
@@ -50,7 +50,8 @@ Unit* ObjectManager::Assign(UnitType type)
 void ObjectManager::Release(Unit* unit)
 {
     unit->m_InUse = false;
-    unit->m_UnitID = unit->m_UnitID & 0xF0FFFFFF;
+    unit->m_UnitID = INIT_SIDE_TYPE(unit->m_UnitID);
+
     auto body = unit->GetBody();
 	if (body != nullptr)
 	{

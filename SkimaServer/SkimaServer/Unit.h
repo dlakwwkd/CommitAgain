@@ -12,7 +12,7 @@ public:
 	virtual ~Unit();
 
 public:
-    void            SetType(UnitType type){ m_UnitID += type; }
+    void            SetType(int type){ m_UnitID += type; }
     void			SetMaxHp(int MaxHp){ m_MaxHp = MaxHp; }
 	void			SetUnitHp(int Hp){ m_Hp = Hp; }
 	void			SetSpeed(float speed){ m_Speed = speed; }
@@ -26,7 +26,6 @@ public:
 	int				GetUnitDamage(){ return m_Damage; }
 	float			GetSpeed(){ return m_Speed; }
 	bool			GetContectState(){ return m_Contacting; }
-	UnitType		GetUnitType(){ return m_UnitType; }
 	b2Vec2			GetTargetPos(){ return m_TargetPos; }
 	b2Body*			GetBody(){ return m_Body; }
 	void			InitBody(){ m_Body = nullptr; }
@@ -57,7 +56,6 @@ protected:
 	float		m_Speed; 
 	bool		m_InUse;
 	bool		m_Contacting;
-	UnitType	m_UnitType; 
 	b2Vec2		m_TargetPos; 
 	b2Body*		m_Body; 
 	

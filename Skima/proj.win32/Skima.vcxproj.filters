@@ -281,6 +281,9 @@
     <ClInclude Include="..\Classes\ObjectManager.h">
       <Filter>Game\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Macros.h">
+      <Filter>Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

@@ -6,17 +6,21 @@
 
 enum UnitType
 {
-	UNIT_NONE       = 0x00000000,
-    UNIT_HERO       = 0x10000000,
-	UNIT_MISSILE    = 0x20000000,
-    
-	HERO_NONE       = 0x00000000,
-    HERO_MAGICIAN   = 0x01000000,
-    HERO_JUPITER    = 0x02000000,
-    
-	MS_NONE         = 0x00000000,
-    MS_FIRE_BALL    = 0x01000000,
-    MS_ICE_BALL     = 0x02000000,
+    UNIT_NONE,
+    UNIT_HERO,
+    UNIT_MISSILE,
+};
+enum HeroType
+{
+    HERO_NONE,
+    HERO_MAGICIAN,
+    HERO_JUPITER,
+};
+enum MissileType
+{
+	MS_NONE,
+    MS_FIRE_BALL,
+    MS_ICE_BALL,
 };
 
 enum SkillKey
@@ -198,7 +202,7 @@ struct GameReadyNotify : public PacketHeader
 		mHeroType = HERO_NONE;
 	}
 	int		    mPlayerId;
-	UnitType    mHeroType;
+	HeroType    mHeroType;
 };
 struct GameRunNotify : public PacketHeader
 {

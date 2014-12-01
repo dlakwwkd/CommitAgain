@@ -8,6 +8,7 @@
 
 Magician::Magician(int playerId, b2Vec2 pos, float scale)
 {
+    m_UnitID = SET_SIDE_TYPE(m_UnitID, HERO_MAGICIAN);
 	m_PlayerID = playerId;
 	m_Hp = m_MaxHp = 1000;
 	m_Speed = REDUCE(360);
