@@ -10,7 +10,7 @@ Magician::Magician(Vec2 createPos, float scale)
 {
 	//m_TeleportParticle = ParticleSystemQuad::create("");
 	//m_TeleportParticle->setPosition(createPos);
-	SetMoveMotionByDir();
+	SetMoveMotionToCache();
 	m_Sprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
@@ -46,7 +46,14 @@ Magician::~Magician()
 {
 }
 
-void Magician::SetMoveMotionByDir()
+void Magician::SetMoveMotionToCache()
 {
-
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_E.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_W.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_S.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_N.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_SE.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_SW.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_NE.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_NW.plist");
 }
