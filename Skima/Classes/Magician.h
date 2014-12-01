@@ -9,10 +9,8 @@ public:
 public:
     void			    SetMoveMotionToCache();
     virtual void	    SetMoveMotionByDir();
-    ParticleSystemQuad* GetTeleportParticle(){ return m_TeleportParticle; }
 
 private:
     Sprite*             m_TeleportRangeShape;
-    ParticleSystemQuad* m_TeleportParticle;
 };
 

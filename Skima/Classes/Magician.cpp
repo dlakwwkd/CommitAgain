@@ -17,8 +17,6 @@ Magician::Magician(Vec2 createPos, float scale)
     m_MaxHp = 1000.0f;
     m_CurHp = m_MaxHp;
     SetHpBar();
-    m_TeleportParticle = ParticleSystemQuad::create("PT_Teleport.plist");
-    m_TeleportParticle->setPosition(createPos);
     m_TeleportRangeShape = Sprite::create("TeleportRange.PNG");
     m_SkillList[SKILL_Q] = new FireballSkill(this);
     m_SkillList[SKILL_W] = new IceballSkill(this);
