@@ -79,6 +79,8 @@ enum PacketTypes
 	PKT_CS_CHAT = 91,
 	PKT_SC_CHAT = 92,
 
+	PKT_SC_GAMEOVER = 100,
+
 	PKT_MAX = 1024
 };
 
@@ -464,6 +466,24 @@ struct ChatBroadcastResult : public PacketHeader
 	int	mPlayerId;
 	char mName[MAX_NAME_LEN];
 	char mChat[MAX_CHAT_LEN];
+};
+
+///////////////////////////////////////////////////////////////////////////
+/*
+	게임 오버
+*/
+///////////////////////////////////////////////////////////////////////////
+struct GameOverNotify : public PacketHeader
+{
+	GameOverNotify()
+	{
+		mSize = sizeof(GameOverNotify);
+		mType = PKT_CS_MOVE;
+		mPlayerId = -1;
+		mLoseId = -1;
+	}
+	int		    mPlayerId;
+	int			mLoseId;
 };
 
 
