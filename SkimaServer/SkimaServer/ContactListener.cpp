@@ -45,8 +45,8 @@ void ContactListener::EndContact(b2Contact* contact)
 	unitA->Crashing(true);
 	unitB->Crashing(true);
 
-	if (GGameManager->ApplyDamage(unitA,unitB))
-		GGameManager->ExchangeDamage(unitA, unitB); 
+	if (GGameManager->ApplyDamage(unitA, unitB))
+		GGameManager->ExchangeDamage(unitA, unitB);
 	//todo 나중에 미사일끼리 데미지 교환하여 미사일 없어지는것 구현해야함. 지금은 부딫히면 걍 없어짐
 	
 
