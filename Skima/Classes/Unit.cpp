@@ -58,14 +58,6 @@ void Unit::Crash()
 	}
 }
 
-void Unit::Teleport()
-{
-	switch (GET_GM.GetGameMode())
-	{
-	case SINGLE:	TeleportS();	break;
-	case MULTI:		TeleportM();	break;
-	}
-}
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -127,19 +119,4 @@ void Unit::SetHp(int curHp)
 		return;
 	}
 	m_CurHp = curHp;
-}
-
-void Unit::TeleportS()
-{
-	
-}
-
-void Unit::TeleportM()
-{
-	//SetMoveMotionByDir(); // test
-	auto action1 = MoveTo::create(0.0f, m_TargetPos);  // another : CALLFUNC로 m_Sprite->setPosition(m_TargetPos); 하는 함수
-//	auto action2 = CALLFUNC로 hero의 m_teleportparticle시전
-
-
-
 }

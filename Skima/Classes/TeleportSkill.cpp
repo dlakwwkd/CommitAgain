@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "TeleportSkill.h"
+#include "GameManager.h"
+#include "Hero.h"
 
 
 TeleportSkill::TeleportSkill()
@@ -21,12 +23,12 @@ TeleportSkill::~TeleportSkill()
 
 void TeleportSkill::SkillReady()
 {
-    
-    //내 스프라이트 주변에서 원그림 그리기
+    auto rangeCircle = m_Hero->GetSkillRange();
+    rangeCircle->setVisible(true);
 }
 
 void TeleportSkill::SkillEnd()
 {
-    
-    //setvisible(false)
+    auto rangeCircle = m_Hero->GetSkillRange();
+    rangeCircle->setVisible(false);
 }

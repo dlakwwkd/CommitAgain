@@ -42,7 +42,6 @@ public:
 
     void			Move();
     void            Crash();
-    void			Teleport();
 
 public:
     PhysicsBody*	GetBody(){ return m_Body; }
@@ -52,9 +51,6 @@ protected:
     void			MoveM();
     void			CrashS();
     void            CrashM();
-    void			TeleportS();
-    void			TeleportM();
-
 
 
 protected:

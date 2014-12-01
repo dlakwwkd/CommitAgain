@@ -11,7 +11,7 @@ Hero::Hero()
     m_Arrow->setVisible(false);
 
     m_SkillRange = Sprite::create("Images/SkillRange.png");
-    m_SkillRange->setScale(1.5f, 1.5f);
+    m_SkillRange->setScale(1.2f, 1.2f);
     m_SkillRange->setPosition(Vec2(0, 0));
     m_SkillRange->setVisible(false);
 }

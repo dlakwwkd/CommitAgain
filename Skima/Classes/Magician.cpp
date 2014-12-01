@@ -14,6 +14,7 @@ Magician::Magician(Vec2 createPos, float scale)
     m_Sprite->setPosition(createPos);
     m_Sprite->setScale(scale);
     m_Sprite->addChild(m_Arrow);
+    m_Sprite->addChild(m_SkillRange);
     m_MaxHp = 1000.0f;
     m_CurHp = m_MaxHp;
     SetHpBar();
