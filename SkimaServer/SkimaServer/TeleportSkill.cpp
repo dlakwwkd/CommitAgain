@@ -7,13 +7,13 @@
 
 TeleportSkill::TeleportSkill()
 {
-	m_Range = 20.0f;
+    m_Range = 20.0f;
 }
 
 TeleportSkill::TeleportSkill(int playerId)
 {
-	m_Range = 20.0f;
-	m_PlayerId = playerId;
+    m_Range = 20.0f;
+    m_PlayerId = playerId;
 }
 
 
@@ -23,31 +23,31 @@ TeleportSkill::~TeleportSkill()
 
 void TeleportSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
 {
-	auto direction = targetPos - heroPos;
-	auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
-		
-	if (distance <= m_Range) 
-	{
-		auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
-		hero->GetBody()->SetTransform(targetPos, 0);
+    auto direction = targetPos - heroPos;
+    auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
+        
+    if (distance <= m_Range) 
+    {
+        auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
+        hero->GetBody()->SetTransform(targetPos, 0);
 
-		auto client = GClientManager->GetClient(m_PlayerId);
-		client->TeleportBroadCast(m_PlayerId,hero->GetUnitID(),heroPos,targetPos);
-	}
+        auto client = GClientManager->GetClient(m_PlayerId);
+        client->TeleportBroadCast(m_PlayerId,hero->GetUnitID(),heroPos,targetPos);
+    }
 
-	else //사거리보다 클때
-	{
-		direction.x = direction.x / distance;
-		direction.y = direction.y / distance;
+    else //사거리보다 클때
+    {
+        direction.x = direction.x / distance;
+        direction.y = direction.y / distance;
 
-		b2Vec2 rangePos; 
-		rangePos.x = direction.x*m_Range+heroPos.x;
-		rangePos.y = direction.y*m_Range+heroPos.y;
+        b2Vec2 rangePos; 
+        rangePos.x = direction.x*m_Range+heroPos.x;
+        rangePos.y = direction.y*m_Range+heroPos.y;
 
-		auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
-		hero->GetBody()->SetTransform(rangePos, 0);
+        auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
+        hero->GetBody()->SetTransform(rangePos, 0);
 
-		auto client = GClientManager->GetClient(m_PlayerId);
-		client->TeleportBroadCast(m_PlayerId,hero->GetUnitID(), heroPos, rangePos);
-	}
+        auto client = GClientManager->GetClient(m_PlayerId);
+        client->TeleportBroadCast(m_PlayerId,hero->GetUnitID(), heroPos, rangePos);
+    }
 }

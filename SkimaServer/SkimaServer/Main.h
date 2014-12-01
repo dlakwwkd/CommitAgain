@@ -2,9 +2,9 @@
 
 enum ThreadType
 {
-	THREAD_MAIN = 1,
-	THREAD_CLIENT = 2,
-	THREAD_DATABASE = 3
+    THREAD_MAIN = 1,
+    THREAD_CLIENT = 2,
+    THREAD_DATABASE = 3
 };
 
 unsigned int WINAPI ClientHandlingThread(LPVOID lpParam);

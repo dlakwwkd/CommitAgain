@@ -23,18 +23,18 @@ void Player::CreateHero(b2Vec2 pos)
     case HERO_JUPITER:
         break;
     }
-	m_UnitList[m_Hero->GetUnitID()] = m_Hero;
+    m_UnitList[m_Hero->GetUnitID()] = m_Hero;
 
-	auto client = GClientManager->GetClient(m_PlayerID);
+    auto client = GClientManager->GetClient(m_PlayerID);
     client->SendCreateHeroResult(m_Hero->GetUnitID(), pos);
 }
 
 void Player::UnitListPop(int unitID)
 {
-	auto unit = m_UnitList.find(unitID);
-	if (unit != m_UnitList.end())
-	{
-		m_UnitList.erase(unit);
+    auto unit = m_UnitList.find(unitID);
+    if (unit != m_UnitList.end())
+    {
+        m_UnitList.erase(unit);
         printf(" - UnitListPop() : player %d : unitList.size : %d \n", m_PlayerID, m_UnitList.size());
     }
 }

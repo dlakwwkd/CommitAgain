@@ -8,19 +8,19 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-	/*대기상태*/
+    /*대기상태*/
 
 //////////////////////////////////////////////////////////////////////////
 void StandbyState::TryTeleport(Unit* unit){}
 void StandbyState::TryMove(Unit* unit)
 {
-	unit->SetState(unit->GetMovingState());
+    unit->SetState(unit->GetMovingState());
 }
 
 void StandbyState::Crashed(Unit* unit)
 {
-	unit->GetBody()->SetLinearDamping(DAMPING);
-	unit->SetState(unit->GetCrashedState());
+    unit->GetBody()->SetLinearDamping(DAMPING);
+    unit->SetState(unit->GetCrashedState());
 }
 
 void StandbyState::EndMove(Unit* unit){}
@@ -30,21 +30,21 @@ void StandbyState::Movement(Unit* unit){}
 
 //////////////////////////////////////////////////////////////////////////
 
-	/*이동중 상태*/
+    /*이동중 상태*/
 
 //////////////////////////////////////////////////////////////////////////
 void MovingState::TryTeleport(Unit* unit){}
 void MovingState::TryMove(Unit* unit){}
 void MovingState::Crashed(Unit* unit)
 {
-	unit->GetBody()->SetLinearDamping(DAMPING);
-	unit->SetState(unit->GetCrashedState());
+    unit->GetBody()->SetLinearDamping(DAMPING);
+    unit->SetState(unit->GetCrashedState());
 }
 
 void MovingState::EndMove(Unit* unit)
 {
     unit->GetBody()->SetAwake(false);
-	unit->SetState(unit->GetStandbyState());
+    unit->SetState(unit->GetStandbyState());
 
     switch (GET_MAIN_TYPE(unit->GetUnitID()))
     {
@@ -57,13 +57,13 @@ void MovingState::EndMove(Unit* unit)
 void MovingState::EndCrash(Unit* unit){}
 void MovingState::Movement(Unit* unit)
 {
-	unit->Moving();
+    unit->Moving();
 }
 
 
 //////////////////////////////////////////////////////////////////////////
 
-	/*밀려남상태*/
+    /*밀려남상태*/
 
 //////////////////////////////////////////////////////////////////////////
 void CrashedState::TryTeleport(Unit* unit){}
@@ -76,19 +76,19 @@ void CrashedState::EndMove(Unit* unit){}
 void CrashedState::EndCrash(Unit* unit)
 {
     unit->GetBody()->SetAwake(false);
-	unit->GetBody()->SetLinearDamping(0.0f);
-	unit->SetState(unit->GetStandbyState());
+    unit->GetBody()->SetLinearDamping(0.0f);
+    unit->SetState(unit->GetStandbyState());
 }
 
 void CrashedState::Movement(Unit* unit)
 {
-	if (unit->GetContectState() == true)
-	{
-		return;
-	}
-	auto velocity = unit->GetBody()->GetLinearVelocity();
-	if (velocity.Length() < 0.5f)
-	{
-		unit->Crashing(false);
-	}
+    if (unit->GetContectState() == true)
+    {
+        return;
+    }
+    auto velocity = unit->GetBody()->GetLinearVelocity();
+    if (velocity.Length() < 0.5f)
+    {
+        unit->Crashing(false);
+    }
 }

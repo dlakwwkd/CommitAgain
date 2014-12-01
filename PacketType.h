@@ -18,79 +18,79 @@ enum HeroType
 };
 enum MissileType
 {
-	MS_NONE,
+    MS_NONE,
     MS_FIRE_BALL,
     MS_ICE_BALL,
 };
 
 enum SkillKey
 {
-	SKILL_NONE,
+    SKILL_NONE,
 
-	SKILL_Q = 137,
-	SKILL_W = 143,
-	SKILL_E = 125,
-	SKILL_R = 138,
+    SKILL_Q = 137,
+    SKILL_W = 143,
+    SKILL_E = 125,
+    SKILL_R = 138,
 
-	SKILL_MAX_NUM = 5,
+    SKILL_MAX_NUM = 5,
 };
 
 enum PacketTypes
 {
-	PKT_NONE = 0,
+    PKT_NONE = 0,
 
-	PKT_CS_LOGIN = 1,
-	PKT_SC_LOGIN = 2,
+    PKT_CS_LOGIN = 1,
+    PKT_SC_LOGIN = 2,
 
-	PKT_CS_MAKE_ROOM = 11,
-	PKT_SC_MAKE_ROOM = 12,
-	PKT_CS_INOUT_ROOM = 13,
-	PKT_SC_INOUT_ROOM = 14,
-	PKT_CS_GAME_READY = 15,
-	PKT_SC_ALL_READY = 16,
+    PKT_CS_MAKE_ROOM = 11,
+    PKT_SC_MAKE_ROOM = 12,
+    PKT_CS_INOUT_ROOM = 13,
+    PKT_SC_INOUT_ROOM = 14,
+    PKT_CS_GAME_READY = 15,
+    PKT_SC_ALL_READY = 16,
 
-	///////////////
-	// SC로만 로딩 정보 전달(맵, 유닛 등) 
-	PKT_SC_CREATE_MAP = 21,
-	PKT_SC_CREATE_HERO = 22,
-	///////////////
+    ///////////////
+    // SC로만 로딩 정보 전달(맵, 유닛 등) 
+    PKT_SC_CREATE_MAP = 21,
+    PKT_SC_CREATE_HERO = 22,
+    ///////////////
 
-	PKT_SC_RUN_COMPLETE = 31,
-	PKT_CS_RUN_COMPLETE = 32,
+    PKT_SC_RUN_COMPLETE = 31,
+    PKT_CS_RUN_COMPLETE = 32,
 
-	PKT_SC_START_GAME = 33,
+    PKT_SC_START_GAME = 33,
 
-	PKT_CS_OUT_GAME = 34,
-	PKT_SC_OUT_GAME = 35,
+    PKT_CS_OUT_GAME = 34,
+    PKT_SC_OUT_GAME = 35,
 
 
-	PKT_CS_MOVE = 41,
-	PKT_SC_MOVE = 42,
+    PKT_CS_MOVE = 41,
+    PKT_SC_MOVE = 42,
 
-	PKT_SC_CRASH = 44,
+    PKT_SC_CRASH = 44,
 
-	PKT_CS_SKILL = 45,
-	PKT_SC_SKILL = 46,
+    PKT_CS_SKILL = 45,
+    PKT_SC_SKILL = 46,
 
-	PKT_SC_MISSILE = 48,
-	PKT_SC_TELEPORT = 52,
-	PKT_SC_HP = 54,
+    PKT_SC_MISSILE = 48,
+    PKT_SC_TELEPORT = 52,
+    PKT_SC_HP = 54,
 
-	PKT_CS_CHAT = 91,
-	PKT_SC_CHAT = 92,
+    PKT_CS_CHAT = 91,
+    PKT_SC_CHAT = 92,
 
-	PKT_SC_GAMEOVER = 100,
+    PKT_SC_GAMEOVER = 100,
 
-	PKT_MAX = 1024
+    PKT_MAX = 1024
 };
 
 #pragma pack(push, 1)
 
 struct PacketHeader
 {
-	PacketHeader() : mSize(0), mType(PKT_NONE) 	{}
-	short mSize;
-	short mType;
+    PacketHeader() : mSize(0), mType(PKT_NONE) 	{}
+    short mSize;
+    short mType;
 };
 
 struct Coord
@@ -101,120 +101,120 @@ struct Coord
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	로그인 관련
-	*/
+    로그인 관련
+    */
 ///////////////////////////////////////////////////////////////////////////
 struct LoginRequest : public PacketHeader
 {
-	LoginRequest()
-	{
-		mSize = sizeof(LoginRequest);
-		mType = PKT_CS_LOGIN;
-		mPlayerId = -1;
-	}
-	int	mPlayerId;
+    LoginRequest()
+    {
+        mSize = sizeof(LoginRequest);
+        mType = PKT_CS_LOGIN;
+        mPlayerId = -1;
+    }
+    int	mPlayerId;
 };
 struct LoginResult : public PacketHeader
 {
-	LoginResult()
-	{
-		mSize = sizeof(LoginResult);
-		mType = PKT_SC_LOGIN;
-		mPlayerId = -1;
-		memset(mName, 0, MAX_NAME_LEN);
-	}
-	int		mPlayerId;
-	char	mName[MAX_NAME_LEN];
+    LoginResult()
+    {
+        mSize = sizeof(LoginResult);
+        mType = PKT_SC_LOGIN;
+        mPlayerId = -1;
+        memset(mName, 0, MAX_NAME_LEN);
+    }
+    int		mPlayerId;
+    char	mName[MAX_NAME_LEN];
 
 };
 
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	게임 대기방 관련
-	*/
+    게임 대기방 관련
+    */
 ///////////////////////////////////////////////////////////////////////////
 struct MakeRoomRequest : public PacketHeader
 {
-	MakeRoomRequest()
-	{
-		mSize = sizeof(MakeRoomRequest);
-		mType = PKT_CS_MAKE_ROOM;
-		mPlayerId = -1;
-	}
-	int		mPlayerId;
+    MakeRoomRequest()
+    {
+        mSize = sizeof(MakeRoomRequest);
+        mType = PKT_CS_MAKE_ROOM;
+        mPlayerId = -1;
+    }
+    int		mPlayerId;
 };
 struct MakeRoomResult : public PacketHeader
 {
-	MakeRoomResult()
-	{
-		mSize = sizeof(MakeRoomResult);
-		mType = PKT_SC_MAKE_ROOM;
-		mPlayerId = -1;
-		mRoomId = -1;
-	}
-	int		mPlayerId;
-	int		mRoomId;
+    MakeRoomResult()
+    {
+        mSize = sizeof(MakeRoomResult);
+        mType = PKT_SC_MAKE_ROOM;
+        mPlayerId = -1;
+        mRoomId = -1;
+    }
+    int		mPlayerId;
+    int		mRoomId;
 };
 
 
 struct InOutRoomRequest : public PacketHeader
 {
-	InOutRoomRequest()
-	{
-		mSize = sizeof(InOutRoomRequest);
-		mType = PKT_CS_INOUT_ROOM;
-		mPlayerId = -1;
-		mRoomId = -1;
-		mIsIn = true;
-	}
-	int		mPlayerId;
-	int		mRoomId;
-	bool	mIsIn;
+    InOutRoomRequest()
+    {
+        mSize = sizeof(InOutRoomRequest);
+        mType = PKT_CS_INOUT_ROOM;
+        mPlayerId = -1;
+        mRoomId = -1;
+        mIsIn = true;
+    }
+    int		mPlayerId;
+    int		mRoomId;
+    bool	mIsIn;
 };
 struct InOutRoomResult : public PacketHeader
 {
-	InOutRoomResult()
-	{
-		mSize = sizeof(InOutRoomResult);
-		mType = PKT_SC_INOUT_ROOM;
-		mPlayerId = -1;
-		mRoomId = -1;
-		mIsIn = true;
-	}
-	int		mPlayerId;
-	int		mRoomId;
-	bool	mIsIn;
+    InOutRoomResult()
+    {
+        mSize = sizeof(InOutRoomResult);
+        mType = PKT_SC_INOUT_ROOM;
+        mPlayerId = -1;
+        mRoomId = -1;
+        mIsIn = true;
+    }
+    int		mPlayerId;
+    int		mRoomId;
+    bool	mIsIn;
 };
 
 
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	게임 로딩, 구동 관련
-	*/
+    게임 로딩, 구동 관련
+    */
 ///////////////////////////////////////////////////////////////////////////
 struct GameReadyNotify : public PacketHeader
 {
-	GameReadyNotify()
-	{
-		mSize = sizeof(GameReadyNotify);
-		mType = PKT_CS_GAME_READY;
-		mPlayerId = -1;
-		mHeroType = HERO_NONE;
-	}
-	int		    mPlayerId;
-	HeroType    mHeroType;
+    GameReadyNotify()
+    {
+        mSize = sizeof(GameReadyNotify);
+        mType = PKT_CS_GAME_READY;
+        mPlayerId = -1;
+        mHeroType = HERO_NONE;
+    }
+    int		    mPlayerId;
+    HeroType    mHeroType;
 };
 struct GameRunNotify : public PacketHeader
 {
-	GameRunNotify()
-	{
-		mSize = sizeof(GameRunNotify);
-		mType = PKT_SC_ALL_READY;
-		mPlayerId = -1;
-	}
-	int		    mPlayerId;
+    GameRunNotify()
+    {
+        mSize = sizeof(GameRunNotify);
+        mType = PKT_SC_ALL_READY;
+        mPlayerId = -1;
+    }
+    int		    mPlayerId;
 };
 
 
@@ -222,112 +222,112 @@ struct GameRunNotify : public PacketHeader
 // 로딩 관련 데이터 전송
 struct CreateHeroResult : public PacketHeader
 {
-	CreateHeroResult()
-	{
-		mSize = sizeof(CreateHeroResult);
-		mType = PKT_SC_CREATE_HERO;
-		mPlayerId = -1;
-		mUnitId = -1;
+    CreateHeroResult()
+    {
+        mSize = sizeof(CreateHeroResult);
+        mType = PKT_SC_CREATE_HERO;
+        mPlayerId = -1;
+        mUnitId = -1;
         mPos = { 0, };
-	}
-	int			mPlayerId;
-	int			mUnitId;
-	Coord		mPos;
+    }
+    int			mPlayerId;
+    int			mUnitId;
+    Coord		mPos;
 };
 //////////////////////////////////////////////////////////////////////////
 
 
 struct ServerRunCompleteNotify : public PacketHeader
 {
-	ServerRunCompleteNotify()
-	{
-		mSize = sizeof(ServerRunCompleteNotify);
-		mType = PKT_SC_RUN_COMPLETE;
-		mPlayerId = -1;
-	}
-	int		mPlayerId;
+    ServerRunCompleteNotify()
+    {
+        mSize = sizeof(ServerRunCompleteNotify);
+        mType = PKT_SC_RUN_COMPLETE;
+        mPlayerId = -1;
+    }
+    int		mPlayerId;
 };
 struct ClientRunCompleteNotify : public PacketHeader
 {
-	ClientRunCompleteNotify()
-	{
-		mSize = sizeof(ClientRunCompleteNotify);
-		mType = PKT_CS_RUN_COMPLETE;
-		mPlayerId = -1;
-	}
-	int		mPlayerId;
+    ClientRunCompleteNotify()
+    {
+        mSize = sizeof(ClientRunCompleteNotify);
+        mType = PKT_CS_RUN_COMPLETE;
+        mPlayerId = -1;
+    }
+    int		mPlayerId;
 };
 
 struct StartGameNotify : public PacketHeader
 {
-	StartGameNotify()
-	{
-		mSize = sizeof(StartGameNotify);
-		mType = PKT_SC_START_GAME;
-		mPlayerId = -1;
-	}
-	int		mPlayerId;
+    StartGameNotify()
+    {
+        mSize = sizeof(StartGameNotify);
+        mType = PKT_SC_START_GAME;
+        mPlayerId = -1;
+    }
+    int		mPlayerId;
 };
 
 
 
 struct OutGameRequest : public PacketHeader
 {
-	OutGameRequest()
-	{
-		mSize = sizeof(OutGameRequest);
-		mType = PKT_CS_OUT_GAME;
-		mPlayerId = -1;
-	}
-	int		mPlayerId;
+    OutGameRequest()
+    {
+        mSize = sizeof(OutGameRequest);
+        mType = PKT_CS_OUT_GAME;
+        mPlayerId = -1;
+    }
+    int		mPlayerId;
 };
 struct OutGameResult : public PacketHeader
 {
-	OutGameResult()
-	{
-		mSize = sizeof(OutGameResult);
-		mType = PKT_SC_OUT_GAME;
-		mPlayerId = -1;
-	}
-	int		mPlayerId;
+    OutGameResult()
+    {
+        mSize = sizeof(OutGameResult);
+        mType = PKT_SC_OUT_GAME;
+        mPlayerId = -1;
+    }
+    int		mPlayerId;
 };
 
 
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	게임 내 유닛 관련
-	*/
+    게임 내 유닛 관련
+    */
 ///////////////////////////////////////////////////////////////////////////
 struct MoveRequest : public PacketHeader
 {
-	MoveRequest()
-	{
-		mSize = sizeof(MoveRequest);
-		mType = PKT_CS_MOVE;
-		mPlayerId = -1;
+    MoveRequest()
+    {
+        mSize = sizeof(MoveRequest);
+        mType = PKT_CS_MOVE;
+        mPlayerId = -1;
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
-	}
-	int		    mPlayerId;
-	Coord	    mCurrentPos;
-	Coord	    mTargetPos;
+    }
+    int		    mPlayerId;
+    Coord	    mCurrentPos;
+    Coord	    mTargetPos;
 };
 
 struct MoveBroadcastResult : public PacketHeader
 {
-	MoveBroadcastResult()
-	{
-		mSize = sizeof(MoveBroadcastResult);
-		mType = PKT_SC_MOVE;
-		mIsMove = false;
-		mPlayerId = -1;
+    MoveBroadcastResult()
+    {
+        mSize = sizeof(MoveBroadcastResult);
+        mType = PKT_SC_MOVE;
+        mIsMove = false;
+        mPlayerId = -1;
         mUnitId = -1;
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
-	}
-	int			mPlayerId;
-	int			mUnitId;
+    }
+    int			mPlayerId;
+    int			mUnitId;
     bool		mIsMove;
     Coord   	mCurrentPos;
     Coord   	mTargetPos;
@@ -335,18 +335,18 @@ struct MoveBroadcastResult : public PacketHeader
 
 struct CrashedBroadcastResult : public PacketHeader
 {
-	CrashedBroadcastResult()
-	{
-		mSize = sizeof(CrashedBroadcastResult);
-		mType = PKT_SC_CRASH;
-		mPlayerId = -1;
-		mUnitId = -1;
+    CrashedBroadcastResult()
+    {
+        mSize = sizeof(CrashedBroadcastResult);
+        mType = PKT_SC_CRASH;
+        mPlayerId = -1;
+        mUnitId = -1;
         mIsCrashed = true;
         mCurrentPos = { 0, };
         mExpectPos = { 0, };
-	}
-	int			mPlayerId;
-	int			mUnitId;
+    }
+    int			mPlayerId;
+    int			mUnitId;
     bool		mIsCrashed;
     Coord   	mCurrentPos;
     Coord   	mExpectPos;
@@ -354,16 +354,16 @@ struct CrashedBroadcastResult : public PacketHeader
 
 struct SkillRequest : public PacketHeader
 {
-	SkillRequest()
-	{
-		mSize = sizeof(SkillRequest);
-		mType = PKT_CS_SKILL;
-		mPlayerId = -1;
+    SkillRequest()
+    {
+        mSize = sizeof(SkillRequest);
+        mType = PKT_CS_SKILL;
+        mPlayerId = -1;
         mKey = SKILL_NONE;
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
-	}
-	int			mPlayerId;
+    }
+    int			mPlayerId;
     SkillKey	mKey;
     Coord   	mCurrentPos;
     Coord   	mTargetPos;
@@ -371,18 +371,18 @@ struct SkillRequest : public PacketHeader
 
 struct SkillBroadcastResult : public PacketHeader
 {
-	SkillBroadcastResult()
-	{
-		mSize = sizeof(SkillBroadcastResult);
-		mType = PKT_SC_SKILL;
-		mPlayerId = -1;
-		mUnitId = -1;
+    SkillBroadcastResult()
+    {
+        mSize = sizeof(SkillBroadcastResult);
+        mType = PKT_SC_SKILL;
+        mPlayerId = -1;
+        mUnitId = -1;
         mKey = SKILL_NONE;
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
-	}
-	int			mPlayerId;
-	int			mUnitId;
+    }
+    int			mPlayerId;
+    int			mUnitId;
     SkillKey	mKey;
     Coord   	mCurrentPos;
     Coord   	mTargetPos;
@@ -391,16 +391,16 @@ struct SkillBroadcastResult : public PacketHeader
 
 struct MissileBroadcastResult : public PacketHeader
 {
-	MissileBroadcastResult()
-	{
-		mSize = sizeof(MissileBroadcastResult);
-		mType = PKT_SC_MISSILE;
-		mPlayerId = -1;
+    MissileBroadcastResult()
+    {
+        mSize = sizeof(MissileBroadcastResult);
+        mType = PKT_SC_MISSILE;
+        mPlayerId = -1;
         mUnitId = -1;
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
-	}
-	int			mPlayerId;
+    }
+    int			mPlayerId;
     int			mUnitId;
     Coord   	mCurrentPos;
     Coord   	mTargetPos;
@@ -408,16 +408,16 @@ struct MissileBroadcastResult : public PacketHeader
 
 struct TeleportBroadcastResult : public PacketHeader
 {
-	TeleportBroadcastResult()
-	{
-		mSize = sizeof(TeleportBroadcastResult);
-		mType = PKT_SC_TELEPORT;
-		mPlayerId = -1;
+    TeleportBroadcastResult()
+    {
+        mSize = sizeof(TeleportBroadcastResult);
+        mType = PKT_SC_TELEPORT;
+        mPlayerId = -1;
         mUnitId = -1;
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
-	}
-	int			mPlayerId;
+    }
+    int			mPlayerId;
     int			mUnitId;
     Coord   	mCurrentPos;
     Coord   	mTargetPos;
@@ -425,65 +425,65 @@ struct TeleportBroadcastResult : public PacketHeader
 
 struct HpBroadcastResult : public PacketHeader
 {
-	HpBroadcastResult()
-	{
-		mSize = sizeof(HpBroadcastResult);
-		mType = PKT_SC_HP;
-		mUnitId = -1;
-		mHp = 0;
-	}
-	int			mPlayerId;
-	int			mUnitId;
-	int			mHp;
+    HpBroadcastResult()
+    {
+        mSize = sizeof(HpBroadcastResult);
+        mType = PKT_SC_HP;
+        mUnitId = -1;
+        mHp = 0;
+    }
+    int			mPlayerId;
+    int			mUnitId;
+    int			mHp;
 };
 ///////////////////////////////////////////////////////////////////////////
 /*
-	채팅 관련
-	*/
+    채팅 관련
+    */
 ///////////////////////////////////////////////////////////////////////////
 struct ChatBroadcastRequest : public PacketHeader
 {
-	ChatBroadcastRequest()
-	{
-		mSize = sizeof(ChatBroadcastRequest);
-		mType = PKT_CS_CHAT;
-		mPlayerId = -1;
-		memset(mChat, 0, MAX_CHAT_LEN);
-	}
-	int	mPlayerId;
-	char mChat[MAX_CHAT_LEN];
+    ChatBroadcastRequest()
+    {
+        mSize = sizeof(ChatBroadcastRequest);
+        mType = PKT_CS_CHAT;
+        mPlayerId = -1;
+        memset(mChat, 0, MAX_CHAT_LEN);
+    }
+    int	mPlayerId;
+    char mChat[MAX_CHAT_LEN];
 };
 struct ChatBroadcastResult : public PacketHeader
 {
-	ChatBroadcastResult()
-	{
-		mSize = sizeof(ChatBroadcastResult);
-		mType = PKT_SC_CHAT;
-		mPlayerId = -1;
-		memset(mName, 0, MAX_NAME_LEN);
-		memset(mChat, 0, MAX_CHAT_LEN);
-	}
-	int	mPlayerId;
-	char mName[MAX_NAME_LEN];
-	char mChat[MAX_CHAT_LEN];
+    ChatBroadcastResult()
+    {
+        mSize = sizeof(ChatBroadcastResult);
+        mType = PKT_SC_CHAT;
+        mPlayerId = -1;
+        memset(mName, 0, MAX_NAME_LEN);
+        memset(mChat, 0, MAX_CHAT_LEN);
+    }
+    int	mPlayerId;
+    char mName[MAX_NAME_LEN];
+    char mChat[MAX_CHAT_LEN];
 };
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	게임 오버
+    게임 오버
 */
 ///////////////////////////////////////////////////////////////////////////
 struct GameOverNotify : public PacketHeader
 {
-	GameOverNotify()
-	{
-		mSize = sizeof(GameOverNotify);
-		mType = PKT_CS_MOVE;
-		mPlayerId = -1;
-		mLoseId = -1;
-	}
-	int		    mPlayerId;
-	int			mLoseId;
+    GameOverNotify()
+    {
+        mSize = sizeof(GameOverNotify);
+        mType = PKT_CS_MOVE;
+        mPlayerId = -1;
+        mLoseId = -1;
+    }
+    int		    mPlayerId;
+    int			mLoseId;
 };
 
 

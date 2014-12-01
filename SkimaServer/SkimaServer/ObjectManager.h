@@ -9,8 +9,8 @@ class Missile;
 class ObjectManager : public RefCountable
 {
 public:
-	ObjectManager();
-	virtual ~ObjectManager();
+    ObjectManager();
+    virtual ~ObjectManager();
 
     Unit*	Assign(UnitType type);
     void	Release(Unit* unit);

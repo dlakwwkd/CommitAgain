@@ -3,10 +3,10 @@
 class TeleportSkill : public Skill
 {
 public:
-	TeleportSkill();
-	TeleportSkill(int playerId);
-	virtual~TeleportSkill();
+    TeleportSkill();
+    TeleportSkill(int playerId);
+    virtual~TeleportSkill();
 
-	virtual void SkillCast(b2Vec2 heroPos, b2Vec2 targetPos);
+    virtual void SkillCast(b2Vec2 heroPos, b2Vec2 targetPos);
 };
 

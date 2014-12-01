@@ -21,9 +21,9 @@ Game::Game(GameRoom* room)
 
 void Game::InitGame()
 {
-	int i = 0;
-	for (auto& it : m_PlayerList)
-	{
+    int i = 0;
+    for (auto& it : m_PlayerList)
+    {
         b2Vec2 createPos = { MAX_MAP_SIZE_X / 4, MAX_MAP_SIZE_Y / 2 };
         auto roomId = it.second->GetRoomID();
         if (++i == 2)
@@ -31,23 +31,23 @@ void Game::InitGame()
             createPos.x += MAX_MAP_SIZE_X / 2;
         }
         it.second->CreateHero(CONVERT_IN(createPos, roomId));
-	}
+    }
 }
 
 Player* Game::GetPlayer(int playerId)
 {
-	if (playerId < 0)
-	{
-		printf(" - GetPlayer Failed ! : playerId is invalid \n");
-		return nullptr;
-	}
-	auto player = m_PlayerList.find(playerId);
-	if (player == m_PlayerList.end())
-	{
-		printf(" - GetPlayer Failed ! : relevant player isn't \n");
-		return nullptr;
-	}
-	return player->second;
+    if (playerId < 0)
+    {
+        printf(" - GetPlayer Failed ! : playerId is invalid \n");
+        return nullptr;
+    }
+    auto player = m_PlayerList.find(playerId);
+    if (player == m_PlayerList.end())
+    {
+        printf(" - GetPlayer Failed ! : relevant player isn't \n");
+        return nullptr;
+    }
+    return player->second;
 }
 
 void Game::OutPlayer(int playerId)
