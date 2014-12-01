@@ -18,7 +18,7 @@ TeleportEffect::~TeleportEffect()
 
 void TeleportEffect::CreateEffect(Vec2 createPos)
 {
-    m_Particle = ParticleSystemQuad::create("Images/PT_Teleport.plist");
+    m_Particle = ParticleSystemQuad::create("Images/tele1.plist");
     m_Particle->setPosition(createPos);
     m_Particle->setScale(0.40f);
     auto action1 = DelayTime::create(2.0f);
