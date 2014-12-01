@@ -45,3 +45,8 @@ Magician::Magician(Vec2 createPos, float scale)
 Magician::~Magician()
 {
 }
+
+void Magician::SetMoveMotionByDir()
+{
+
+}
