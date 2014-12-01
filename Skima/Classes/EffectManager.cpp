@@ -2,85 +2,100 @@
 #include "EffectManager.h"
 #include "FireEffect.h"
 #include "IceEffect.h"
+#include "TeleportEffect.h"
 
 EffectManager::EffectManager()
 {
-	m_EffectList.reserve(EffectPoolSize::E_TOTAL);
+    m_EffectList.reserve(EffectPoolSize::E_TOTAL);
 
-	int i, ID;
+    int i, ID;
 
-	for (i = 0; i < EffectPoolSize::FIRE; ++i)
-	{
-		ID = EffectIDBoundary::FIRE_ID_START + i;
-		m_EffectList.push_back(new FireEffect(ID));
-	}
-	m_LastID_FireEffect = ID;
+    for (i = 0; i < EffectPoolSize::FIRE; ++i)
+    {
+        ID = EffectIDBoundary::FIRE_ID_START + i;
+        m_EffectList.push_back(new FireEffect(ID));
+    }
+    m_LastID_FireEffect = ID;
 
-	for (i = 0; i < EffectPoolSize::ICE; ++i)
-	{
-		ID = EffectIDBoundary::ICE_ID_START + i;
-		m_EffectList.push_back(new IceEffect(ID));
-	}
-	m_LastID_IceEffect = ID;
+    for (i = 0; i < EffectPoolSize::ICE; ++i)
+    {
+        ID = EffectIDBoundary::ICE_ID_START + i;
+        m_EffectList.push_back(new IceEffect(ID));
+    }
+    m_LastID_IceEffect = ID;
+
+    for (i = 0; i < EffectPoolSize::TELE; ++i)
+    {
+        ID = EffectIDBoundary::TELE_ID_START + i;
+        m_EffectList.push_back(new TeleportEffect(ID));
+    }
+    m_LastID_TeleEffect = ID;
 }
 
 
 EffectManager::~EffectManager()
 {
-	for (auto& effect : m_EffectList)
-	{
-		delete effect;
-	}
+    for (auto& effect : m_EffectList)
+    {
+        delete effect;
+    }
 }
 
 Effect* EffectManager::Assign(EffectType type)
 {
-	for (auto& effect : m_EffectList)
-	{
-		if (effect->m_EffectType == type && !effect->m_InUse)
-		{
-			effect->m_InUse = true;
-			return effect;
-		}
-	}
+    for (auto& effect : m_EffectList)
+    {
+        if (effect->m_EffectType == type && !effect->m_InUse)
+        {
+            effect->m_InUse = true;
+            return effect;
+        }
+    }
 
-	if (!Expand(type))
-	{
-		return nullptr;
-	}
-	return m_EffectList.back();
+    if (!Expand(type))
+    {
+        return nullptr;
+    }
+    return m_EffectList.back();
 }
 
 void EffectManager::Release(Effect* effect)
 {
-	effect->m_InUse = false;
+    effect->m_InUse = false;
 }
 
 bool EffectManager::Expand(EffectType type)
 {
-	int i, ID;
+    int i, ID;
 
-	switch (type)
-	{
-	case EF_NONE:
-		return false;
-		break;
-	case EF_FIRE:
-		for (i = 1; i < EffectPoolSize::FIRE; ++i)
-		{
-			ID = m_LastID_FireEffect + i;
-			m_EffectList.push_back(new FireEffect(ID));
-		}
-		m_LastID_FireEffect = ID;
-		break;
-	case EF_ICE:
-		for (i = 1; i < EffectPoolSize::ICE; ++i)
-		{
-			ID = m_LastID_IceEffect + i;
-			m_EffectList.push_back(new IceEffect(ID));
-		}
-		m_LastID_IceEffect = ID;
-		break;
-	}
-	return true;
+    switch (type)
+    {
+    case EF_NONE:
+        return false;
+        break;
+    case EF_FIRE:
+        for (i = 1; i < EffectPoolSize::FIRE; ++i)
+        {
+            ID = m_LastID_FireEffect + i;
+            m_EffectList.push_back(new FireEffect(ID));
+        }
+        m_LastID_FireEffect = ID;
+        break;
+    case EF_ICE:
+        for (i = 1; i < EffectPoolSize::ICE; ++i)
+        {
+            ID = m_LastID_IceEffect + i;
+            m_EffectList.push_back(new IceEffect(ID));
+        }
+        m_LastID_IceEffect = ID;
+        break;
+    case EF_TELE:
+        for (i = 1; i < EffectPoolSize::TELE; ++i)
+        {
+            ID = m_LastID_IceEffect + i;
+            m_EffectList.push_back(new TeleportEffect(ID));
+        }
+        m_LastID_IceEffect = ID;
+    }
+    return true;
 }

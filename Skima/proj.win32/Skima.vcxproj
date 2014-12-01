@@ -168,13 +168,14 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\RoomScene.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp" />
     <ClCompile Include="..\Classes\TcpClient.cpp" />
+    <ClCompile Include="..\Classes\TeleportEffect.cpp" />
+    <ClCompile Include="..\Classes\TeleportSkill.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\Unit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TeleportSkill.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\PacketType.h" />
@@ -210,11 +211,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\RoomScene.h" />
     <ClInclude Include="..\Classes\Skill.h" />
     <ClInclude Include="..\Classes\TcpClient.h" />
+    <ClInclude Include="..\Classes\TeleportEffect.h" />
+    <ClInclude Include="..\Classes\TeleportSkill.h" />
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\Unit.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="TeleportSkill.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">

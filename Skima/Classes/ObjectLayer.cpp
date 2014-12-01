@@ -8,6 +8,8 @@
 #include "Hero.h"
 #include "Missile.h"
 #include "Enums.h"
+#include "EffectManager.h"
+#include "TeleportEffect.h"
 
 bool ObjectLayer::init()
 {
@@ -364,10 +366,9 @@ void ObjectLayer::UnitTeleportM(int unitID, Vec2 curPos, Vec2 targetPos)
         return;
     }
     unit->second->SetTargetPos(targetPos);
-    //curPos에 hero 가 가지고 있는 텔레포트 텔레포트 파티클을 띄워줌
-   // unit->second->
+    auto effect = GET_EM->Assign(EF_TELE);
+    effect->CreateEffect(curPos);
     unit->second->GetSprite()->setPosition(targetPos);
 
-//그냥 스파리이트를 받아서 포지션바까줌
 }
 
