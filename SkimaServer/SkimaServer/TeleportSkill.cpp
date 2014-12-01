@@ -7,12 +7,12 @@
 
 TeleportSkill::TeleportSkill()
 {
-    m_Range = 20.0f;
+    m_Range = 7.0f;
 }
 
 TeleportSkill::TeleportSkill(int playerId)
 {
-    m_Range = 20.0f;
+    m_Range = 7.0f;
     m_PlayerId = playerId;
 }
 
