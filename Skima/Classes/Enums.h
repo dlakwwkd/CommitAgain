@@ -29,3 +29,9 @@ enum Direction
 	NE,
 	NW
 };
+
+enum GameResult
+{
+	WIN,
+	LOSE,
+};

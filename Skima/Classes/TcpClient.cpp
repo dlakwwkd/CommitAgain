@@ -12,6 +12,7 @@
 #include "RoomScene.h"
 #include "ObjectLayer.h"
 #include "LoadingBGLayer.h"
+#include "Enums.h"
 
 #ifdef _WIN32
 #pragma comment(lib,"ws2_32.lib")
@@ -381,6 +382,29 @@ void TcpClient::processPacket()
                  recvData.mUnitId, curPos, targetPos));
         }
         break;
+
+		case  PKT_SC_GAMEOVER:
+		{
+			GameOverNotify recvData;
+			bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+			assert(ret && recvData.mPlayerId != -1);
+
+			GameResult result;
+
+			if (recvData.mLoseId == mLoginId)
+			{
+				result = LOSE;
+			}
+			else
+			{
+				result = WIN;
+			}
+
+			auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
+			scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitTeleport, layer,
+				recvData.mUnitId, curPos, targetPos));
+		}
+			break;
 
         default:
             assert(false);

@@ -6,22 +6,39 @@
 
 #define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
 
-Scene* GameOverScene::createScene()
+Scene* GameOverScene::createScene(GameResult result)
 {
 	auto scene = Scene::create();
 	auto layer = GameOverScene::create();
 	scene->addChild(layer, 0, "GameOverScene");
+
+	char* strResult;
+
+	if (result == WIN)
+	{
+		strResult = "WIN!!";
+	}
+	else
+	{
+		strResult = "Lose...";
+	}
+
+	auto label = Label::createWithSystemFont(strResult, "Thonburi", 50);
+	label->setPosition(Point(300, 300));
+	layer->addChild(label);
 	return scene;
 }
 
 bool GameOverScene::init()
 {
+	ShowCursor(true);
+
 	if (!LayerColor::initWithColor(Color4B(100, 100, 200, 255)))
 	{
 		return false;
 	}
 
-	auto label1 = Label::createWithSystemFont("게임 시작", "Thonburi", 50);
+	auto label1 = Label::createWithSystemFont("재시작", "Thonburi", 50);
 	auto label2 = Label::createWithSystemFont("나가기", "Thonburi", 50);
 
 	auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(GameOverScene::menuCallback1, this));
@@ -29,8 +46,8 @@ bool GameOverScene::init()
 
 	auto menu = Menu::create(menuItem1, menuItem2, NULL);
 	menu->alignItemsVertically();
-	this->addChild(menu, 0, "RoomMenu");
-
+	menu->setPosition(Point(0, 30));
+	this->addChild(menu, 0, "GameOverMenu");
 
 	auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
 	label->setAnchorPoint(Vec2::ZERO);
@@ -38,7 +55,7 @@ bool GameOverScene::init()
 	this->addChild(label, 0, "RoomStateLabel");
 
 	// 1초 마다 Tick 함수를 호출한다.
-	this->schedule(schedule_selector(RoomScene::Tick), 1.0f);
+	this->schedule(schedule_selector(GameOverScene::Tick), 1.0f);
 	return true;
 }
 
@@ -60,7 +77,6 @@ void GameOverScene::menuCallback2(Ref* sender)	// 나가기
 	m_IsReady = false;
 	Director::getInstance()->popScene();
 }
-
 
 
 //////////////////////////////////////////////////////////////////////////

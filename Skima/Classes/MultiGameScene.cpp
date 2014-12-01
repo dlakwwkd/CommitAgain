@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "MultiGameScene.h"
+#include "GameOverScene.h"
 #include "LoadingBGLayer.h"
 #include "MapLayer.h"
 #include "ObjectLayer.h"
@@ -47,4 +48,11 @@ void MultiGameScene::StartGame()
 void MultiGameScene::RemoveLoadingLayer()
 {
 	this->removeChildByName("LoadingBGLayer");
+}
+
+void MultiGameScene::GameOver(GameResult result)
+{
+	auto scene = GameOverScene::createScene();
+	Director::getInstance()->popScene();
+	Director::getInstance()->pushScene(result);
 }

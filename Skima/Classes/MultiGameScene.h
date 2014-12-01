@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Enums.h"
 
 USING_NS_CC;
 
@@ -14,6 +15,7 @@ public:
 
 	void StartGame();
 	void RemoveLoadingLayer();
+	void GameOver(GameResult result);
 
 private:
 	bool m_IsStartGame;
