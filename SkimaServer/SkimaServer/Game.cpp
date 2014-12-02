@@ -13,6 +13,7 @@ Game::Game(GameRoom* room)
     m_IsStart = false;
     m_LoadedPlayerNum = 0;
 
+	///# 앵 아래 코드는 뭔가? 맵을 복사??? 그러면 std::copy를 써도 좋고.. 더 좋은 것은 맵을 복사하지 않고 참조(레퍼런스)를 들고 있는게 더 좋다.
     for (auto& player : room->m_PlayerList)
     {
         m_PlayerList[player.first] = player.second;

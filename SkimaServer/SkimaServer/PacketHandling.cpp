@@ -218,8 +218,8 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
         return;
     }
 
-    auto player = session->GetPlayer();								_ASSERT(player != nullptr);
-    auto room = GGameManager->SearchRoom(player->GetRoomID());		_ASSERT(room != nullptr);
+    auto player = session->GetPlayer();								_ASSERT(player != nullptr); ///# 플레이어가 없다고 크래시 하면 안되지.. 
+    auto room = GGameManager->SearchRoom(player->GetRoomID());		_ASSERT(room != nullptr); ///# 룸이 없다고 크래시를 시키면 안되지!! 예외 처리를 해야지.. 룸이 없다고 표시하고 리셋시킨다던가..
     room->ReadySign();
     player->SetReady(true);
     player->SetHeroType(inPacket.mHeroType);

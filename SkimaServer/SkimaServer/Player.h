@@ -9,7 +9,7 @@ public:
     Player(int playerId) : m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_Hero(nullptr)
     {
         ZeroMemory(m_PlayerName, sizeof(m_PlayerName));
-        itoa(playerId, m_PlayerName, 10);	// 임시로..
+        itoa(playerId, m_PlayerName, 10);	// 임시로.. ///# -.-; 그냥 string("xxxx")쓰지..
     }
     ~Player();
 

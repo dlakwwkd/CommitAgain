@@ -248,6 +248,7 @@ void GameManager::Tick(float dt)
         }
     }
 
+	/// 매 프레임마다 모든 게임 리스트와 그 플레이어를 순회하는 것은 좋은 선택이 아님! 사실 게임 시작 전까지의 모든 과정은 프레임 처리 없이 되는거다..
     for (auto& game : m_GameList)
     {
         for (auto& player : game.second->GetPlayerList())

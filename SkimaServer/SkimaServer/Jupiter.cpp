@@ -43,5 +43,5 @@ Jupiter::~Jupiter()
 
 void Jupiter::UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
 {
-	m_SkillList[skillKey]->SkillCast(heroPos, targetPos);
+	m_SkillList[skillKey]->SkillCast(heroPos, targetPos); ///# skillKey가 없는 경우도 고려되어 있는가? 
 }

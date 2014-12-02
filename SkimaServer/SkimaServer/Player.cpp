@@ -16,7 +16,7 @@ void Player::CreateHero(b2Vec2 pos)
 {
     switch (m_HeroType)
     {
-    default:
+    default: ///# 디폴트는 맨 아래로 보내는 습관을 들일 것... 
     case HERO_NONE: return;
     case HERO_MAGICIAN:
         m_Hero = new Magician(m_PlayerID, pos, DEF_SCALE);
@@ -25,7 +25,7 @@ void Player::CreateHero(b2Vec2 pos)
 		m_Hero = new Jupiter(m_PlayerID, pos, DEF_SCALE);
         break;
     }
-    m_UnitList[m_Hero->GetUnitID()] = m_Hero;
+    m_UnitList[m_Hero->GetUnitID()] = m_Hero; ///# 맵을 이런식으로 쓰는 것은 지양.. key가 있는지에 대한 평가하는 방식으로 써야 안전하다.
 
     auto client = GClientManager->GetClient(m_PlayerID);
     client->SendCreateHeroResult(m_Hero->GetUnitID(), pos);

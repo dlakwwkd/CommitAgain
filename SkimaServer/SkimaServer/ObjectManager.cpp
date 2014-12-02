@@ -31,9 +31,11 @@ Unit* ObjectManager::Assign(UnitType type)
 {
     switch (type)
     {
-    default:
+    default: ///# ????
+
     case UNIT_NONE: return nullptr;
     case UNIT_MISSILE:
+		///# 헐.. 미사일 할당 받을 때마다 O(n)만큼 걸리는데... 풀을 만드려면 push/pop이 O(1)이 되도록 만들어야 함.
         for (auto& missile : m_MissileList)
         {
             if (!missile->m_InUse)
@@ -44,6 +46,8 @@ Unit* ObjectManager::Assign(UnitType type)
         }
         break;
     }
+
+	///# 여기에 진입할 수 있는 조건이 NONE/MISSILE이 아닌 경우도 있는데.. 그것도 고려된건가?? 코드로 봐서는 전혀 아닌데..
     return Expand(type);
 }
 
@@ -80,7 +84,7 @@ Unit* ObjectManager::Expand(UnitType type)
     {
     default:
     case UNIT_NONE: return nullptr;
-    case UNIT_MISSILE:
+    case UNIT_MISSILE: ///# 애초에 풀이라는 것의 개념은 이렇게 계속 추가 할당하는게 아니라, 유한한 자원을 돌려쓰는것임..
         {
             int i;
             for (i = 1 + m_LastID_Missile; i < 1 + m_LastID_Missile + INIT_POOL_SIZE; ++i)
@@ -91,5 +95,7 @@ Unit* ObjectManager::Expand(UnitType type)
             return m_MissileList.back();
         }
     }
+
+	///# 헐.. 리커시브하게?? 
     return Expand(type);
 }
