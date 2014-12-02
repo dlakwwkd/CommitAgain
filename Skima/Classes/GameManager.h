@@ -12,21 +12,21 @@ USING_NS_CC;
 class GameManager
 {
 public:
-	static GameManager& getInstance()
-	{
-		static GameManager instance;
-		return instance;
-	}
-	std::shared_ptr<InputManager>	getInputManager(){ return m_IM; }
-	std::shared_ptr<EffectManager>	getEffectManger(){ return m_EM; }
+    static GameManager& getInstance()
+    {
+        static GameManager instance;
+        return instance;
+    }
+    std::shared_ptr<InputManager>   getInputManager(){ return m_IM; }
+    std::shared_ptr<EffectManager>  getEffectManger(){ return m_EM; }
 
-	void							SetGameMode(GameMode mode){ m_Mode = mode; }
-	GameMode						GetGameMode(){ return m_Mode; }
+    void                            SetGameMode(GameMode mode){ m_Mode = mode; }
+    GameMode                        GetGameMode(){ return m_Mode; }
 
 private:
-	GameManager();
-	std::shared_ptr<InputManager>	m_IM;
-	std::shared_ptr<EffectManager>	m_EM;
+    GameManager();
+    std::shared_ptr<InputManager>   m_IM;
+    std::shared_ptr<EffectManager>  m_EM;
 
-	GameMode						m_Mode;
+    GameMode                        m_Mode;
 };

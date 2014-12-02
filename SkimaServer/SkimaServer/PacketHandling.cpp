@@ -218,8 +218,8 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
         return;
     }
 
-    auto player = session->GetPlayer();								_ASSERT(player != nullptr);
-    auto room = GGameManager->SearchRoom(player->GetRoomID());		_ASSERT(room != nullptr);
+    auto player = session->GetPlayer();								if (!player)    return;
+    auto room = GGameManager->SearchRoom(player->GetRoomID());		if (!room)      return;
     room->ReadySign();
     player->SetReady(true);
     player->SetHeroType(inPacket.mHeroType);
@@ -245,8 +245,8 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
         return;
     }
 
-    auto player = session->GetPlayer();								_ASSERT(player != nullptr);
-    auto game = GGameManager->SearchGame(player->GetRoomID());		_ASSERT(game != nullptr);
+    auto player = session->GetPlayer();								if (!player)    return;
+    auto game = GGameManager->SearchGame(player->GetRoomID());		if (!game)      return;
     game->SetLoadedPlayerNum();
 }
 
@@ -265,9 +265,9 @@ REGISTER_HANDLER(PKT_CS_MOVE)
     }
     printf(" Receive: LoginID: %d\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
-    auto player = session->GetPlayer();								_ASSERT(player != nullptr);
-    auto roomId = player->GetRoomID();                              _ASSERT(roomId != -1);
-    auto hero = player->GetMyHero();									_ASSERT(hero != nullptr);
+    auto player = session->GetPlayer();								if (!player)    return;
+    auto hero = player->GetMyHero();									if (!hero)      return;
+    auto roomId = player->GetRoomID();                              if (roomId < 0) return;
 
     b2Vec2 targetPos = CONVERT_IN(inPacket.mTargetPos, roomId);
     b2Vec2 currentPos = CONVERT_IN(inPacket.mCurrentPos, roomId);
@@ -292,9 +292,9 @@ REGISTER_HANDLER(PKT_CS_SKILL)
     }
     printf(" SkillReceive: ID: %d\t\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
-    auto player = session->GetPlayer();								_ASSERT(player != nullptr);
-    auto roomId = player->GetRoomID();                              _ASSERT(roomId != -1);
-    auto hero = player->GetMyHero();									_ASSERT(hero != nullptr);
+    auto player = session->GetPlayer();								if (!player)    return;
+    auto hero = player->GetMyHero();									if (!hero)      return;
+    auto roomId = player->GetRoomID();                              if (roomId < 0) return;
 
     b2Vec2 targetPos = CONVERT_IN(inPacket.mTargetPos, roomId);
     b2Vec2 currentPos = CONVERT_IN(inPacket.mCurrentPos, roomId);

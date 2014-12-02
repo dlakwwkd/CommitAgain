@@ -1,31 +1,37 @@
 ﻿#pragma once
 enum BodyShape
 {
-	CIRCLE,
-	BOX,
+    CIRCLE,
+    BOX,
 };
 
 enum GameMode
 {
-	SINGLE,
-	MULTI,
+    SINGLE,
+    MULTI,
 };
 
 enum CursorMode
 {
-	CURSOR_DEFAULT,
-	CURSOR_ATTACK,
-	CURSOR_TELEPORT,
+    CURSOR_DEFAULT,
+    CURSOR_ATTACK,
+    CURSOR_TELEPORT,
 };
 
 enum Direction
 {
-	E,
-	W,
-	S,
-	N,
-	SE,
-	SW,
-	NE,
-	NW
+    E,
+    W,
+    S,
+    N,
+    SE,
+    SW,
+    NE,
+    NW
+};
+
+enum GameResult
+{
+    WIN,
+    LOSE,
 };

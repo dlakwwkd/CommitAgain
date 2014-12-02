@@ -3,14 +3,14 @@
 class IceEffect : public Effect
 {
 public:
-	IceEffect(int ID);
-	virtual ~IceEffect();
+    IceEffect(int ID);
+    virtual ~IceEffect();
 
-	virtual void CreateEffect(Vec2 createPos);
-	virtual void ExtinctEffect();
+    virtual void CreateEffect(Vec2 createPos);
+    virtual void ExtinctEffect();
 
 private:
-	ParticleSystemQuad* m_Particle;
+    ParticleSystemQuad* m_Particle;
 
 };
 

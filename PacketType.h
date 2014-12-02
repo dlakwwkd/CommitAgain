@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#define MAX_CHAT_LEN	256
-#define MAX_NAME_LEN	30
+#define MAX_CHAT_LEN    256
+#define MAX_NAME_LEN    30
 #define MAX_COMMENT_LEN	40
 
 enum UnitType
@@ -21,7 +21,7 @@ enum MissileType
     MS_NONE,
     MS_FIRE_BALL,
     MS_ICE_BALL,
-	MS_SPARK
+    MS_SPARK
 };
 
 enum SkillKey
@@ -92,7 +92,7 @@ enum PacketTypes
 
 struct PacketHeader
 {
-    PacketHeader() : mSize(0), mType(PKT_NONE) 	{}
+    PacketHeader() : mSize(0), mType(PKT_NONE){}
     short mSize;
     short mType;
 };
@@ -116,7 +116,7 @@ struct LoginRequest : public PacketHeader
         mType = PKT_CS_LOGIN;
         mPlayerId = -1;
     }
-    int	mPlayerId;
+    int     mPlayerId;
 };
 struct LoginResult : public PacketHeader
 {
@@ -127,8 +127,8 @@ struct LoginResult : public PacketHeader
         mPlayerId = -1;
         memset(mName, 0, MAX_NAME_LEN);
     }
-    int		mPlayerId;
-    char	mName[MAX_NAME_LEN];
+    int     mPlayerId;
+    char    mName[MAX_NAME_LEN];
 
 };
 
@@ -146,7 +146,7 @@ struct MakeRoomRequest : public PacketHeader
         mType = PKT_CS_MAKE_ROOM;
         mPlayerId = -1;
     }
-    int		mPlayerId;
+    int     mPlayerId;
 };
 struct MakeRoomResult : public PacketHeader
 {
@@ -157,8 +157,8 @@ struct MakeRoomResult : public PacketHeader
         mPlayerId = -1;
         mRoomId = -1;
     }
-    int		mPlayerId;
-    int		mRoomId;
+    int     mPlayerId;
+    int     mRoomId;
 };
 
 
@@ -172,9 +172,9 @@ struct InOutRoomRequest : public PacketHeader
         mRoomId = -1;
         mIsIn = true;
     }
-    int		mPlayerId;
-    int		mRoomId;
-    bool	mIsIn;
+    int     mPlayerId;
+    int     mRoomId;
+    bool    mIsIn;
 };
 struct InOutRoomResult : public PacketHeader
 {
@@ -186,9 +186,9 @@ struct InOutRoomResult : public PacketHeader
         mRoomId = -1;
         mIsIn = true;
     }
-    int		mPlayerId;
-    int		mRoomId;
-    bool	mIsIn;
+    int     mPlayerId;
+    int     mRoomId;
+    bool    mIsIn;
 };
 
 
@@ -207,7 +207,7 @@ struct GameReadyNotify : public PacketHeader
         mPlayerId = -1;
         mHeroType = HERO_NONE;
     }
-    int		    mPlayerId;
+    int         mPlayerId;
     HeroType    mHeroType;
 };
 struct GameRunNotify : public PacketHeader
@@ -218,7 +218,7 @@ struct GameRunNotify : public PacketHeader
         mType = PKT_SC_ALL_READY;
         mPlayerId = -1;
     }
-    int		    mPlayerId;
+    int         mPlayerId;
 };
 
 
@@ -234,9 +234,9 @@ struct CreateHeroResult : public PacketHeader
         mUnitId = -1;
         mPos = { 0, };
     }
-    int			mPlayerId;
-    int			mUnitId;
-    Coord		mPos;
+    int         mPlayerId;
+    int         mUnitId;
+    Coord       mPos;
 };
 //////////////////////////////////////////////////////////////////////////
 
@@ -249,7 +249,7 @@ struct ServerRunCompleteNotify : public PacketHeader
         mType = PKT_SC_RUN_COMPLETE;
         mPlayerId = -1;
     }
-    int		mPlayerId;
+    int         mPlayerId;
 };
 struct ClientRunCompleteNotify : public PacketHeader
 {
@@ -259,7 +259,7 @@ struct ClientRunCompleteNotify : public PacketHeader
         mType = PKT_CS_RUN_COMPLETE;
         mPlayerId = -1;
     }
-    int		mPlayerId;
+    int         mPlayerId;
 };
 
 struct StartGameNotify : public PacketHeader
@@ -270,7 +270,7 @@ struct StartGameNotify : public PacketHeader
         mType = PKT_SC_START_GAME;
         mPlayerId = -1;
     }
-    int		mPlayerId;
+    int         mPlayerId;
 };
 
 
@@ -283,7 +283,7 @@ struct OutGameRequest : public PacketHeader
         mType = PKT_CS_OUT_GAME;
         mPlayerId = -1;
     }
-    int		mPlayerId;
+    int         mPlayerId;
 };
 struct OutGameResult : public PacketHeader
 {
@@ -293,7 +293,7 @@ struct OutGameResult : public PacketHeader
         mType = PKT_SC_OUT_GAME;
         mPlayerId = -1;
     }
-    int		mPlayerId;
+    int         mPlayerId;
 };
 
 
@@ -313,9 +313,9 @@ struct MoveRequest : public PacketHeader
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
     }
-    int		    mPlayerId;
-    Coord	    mCurrentPos;
-    Coord	    mTargetPos;
+    int         mPlayerId;
+    Coord       mCurrentPos;
+    Coord       mTargetPos;
 };
 
 struct MoveBroadcastResult : public PacketHeader
@@ -330,11 +330,11 @@ struct MoveBroadcastResult : public PacketHeader
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
     }
-    int			mPlayerId;
-    int			mUnitId;
-    bool		mIsMove;
-    Coord   	mCurrentPos;
-    Coord   	mTargetPos;
+    int         mPlayerId;
+    int         mUnitId;
+    bool        mIsMove;
+    Coord       mCurrentPos;
+    Coord       mTargetPos;
 };
 
 struct CrashedBroadcastResult : public PacketHeader
@@ -349,11 +349,11 @@ struct CrashedBroadcastResult : public PacketHeader
         mCurrentPos = { 0, };
         mExpectPos = { 0, };
     }
-    int			mPlayerId;
-    int			mUnitId;
-    bool		mIsCrashed;
-    Coord   	mCurrentPos;
-    Coord   	mExpectPos;
+    int         mPlayerId;
+    int         mUnitId;
+    bool        mIsCrashed;
+    Coord       mCurrentPos;
+    Coord       mExpectPos;
 };
 
 struct SkillRequest : public PacketHeader
@@ -367,10 +367,10 @@ struct SkillRequest : public PacketHeader
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
     }
-    int			mPlayerId;
-    SkillKey	mKey;
-    Coord   	mCurrentPos;
-    Coord   	mTargetPos;
+    int         mPlayerId;
+    SkillKey    mKey;
+    Coord       mCurrentPos;
+    Coord       mTargetPos;
 };
 
 struct SkillBroadcastResult : public PacketHeader
@@ -385,11 +385,11 @@ struct SkillBroadcastResult : public PacketHeader
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
     }
-    int			mPlayerId;
-    int			mUnitId;
-    SkillKey	mKey;
-    Coord   	mCurrentPos;
-    Coord   	mTargetPos;
+    int         mPlayerId;
+    int         mUnitId;
+    SkillKey    mKey;
+    Coord       mCurrentPos;
+    Coord       mTargetPos;
 };
 
 struct SplashSkillRequest : public PacketHeader
@@ -439,10 +439,10 @@ struct MissileBroadcastResult : public PacketHeader
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
     }
-    int			mPlayerId;
-    int			mUnitId;
-    Coord   	mCurrentPos;
-    Coord   	mTargetPos;
+    int         mPlayerId;
+    int         mUnitId;
+    Coord       mCurrentPos;
+    Coord       mTargetPos;
 };
 
 struct TeleportBroadcastResult : public PacketHeader
@@ -456,10 +456,10 @@ struct TeleportBroadcastResult : public PacketHeader
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
     }
-    int			mPlayerId;
-    int			mUnitId;
-    Coord   	mCurrentPos;
-    Coord   	mTargetPos;
+    int         mPlayerId;
+    int         mUnitId;
+    Coord       mCurrentPos;
+    Coord       mTargetPos;
 };
 
 struct HpBroadcastResult : public PacketHeader
@@ -471,9 +471,9 @@ struct HpBroadcastResult : public PacketHeader
         mUnitId = -1;
         mHp = 0;
     }
-    int			mPlayerId;
-    int			mUnitId;
-    int			mHp;
+    int         mPlayerId;
+    int         mUnitId;
+    int         mHp;
 };
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -489,8 +489,8 @@ struct ChatBroadcastRequest : public PacketHeader
         mPlayerId = -1;
         memset(mChat, 0, MAX_CHAT_LEN);
     }
-    int	mPlayerId;
-    char mChat[MAX_CHAT_LEN];
+    int         mPlayerId;
+    char        mChat[MAX_CHAT_LEN];
 };
 struct ChatBroadcastResult : public PacketHeader
 {
@@ -502,9 +502,9 @@ struct ChatBroadcastResult : public PacketHeader
         memset(mName, 0, MAX_NAME_LEN);
         memset(mChat, 0, MAX_CHAT_LEN);
     }
-    int	mPlayerId;
-    char mName[MAX_NAME_LEN];
-    char mChat[MAX_CHAT_LEN];
+    int         mPlayerId;
+    char        mName[MAX_NAME_LEN];
+    char        mChat[MAX_CHAT_LEN];
 };
 
 ///////////////////////////////////////////////////////////////////////////
@@ -521,8 +521,8 @@ struct GameOverNotify : public PacketHeader
         mPlayerId = -1;
         mLoseId = -1;
     }
-    int		    mPlayerId;
-    int			mLoseId;
+    int         mPlayerId;
+    int         mLoseId;
 };
 
 

@@ -84,3 +84,45 @@ void Hero::SkillEnd(SkillKey key)
     }
     skill->second->SkillEnd();
 }
+
+RepeatForever* Hero::MakeAnimation(const char* format)
+{
+    auto animation = Animation::create();
+    animation->setDelayPerUnit(0.1f);
+
+    for (int i = 1; i < 8; ++i)
+    {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+        animation->addSpriteFrame(frame);
+    }
+
+    return RepeatForever::create(Animate::create(animation));
+}
+
+Direction Hero::CalcDirection(Vec2 displacement)
+{
+    float slope = displacement.y / displacement.x;
+
+    if (displacement.x > 0)
+    {
+        if (slope > -0.41f  && slope <= 0.41f)  return Direction::E;
+        if (slope > 0.41f   && slope <= 2.41f)  return Direction::NE;
+        if (slope <= -0.41f && slope > -2.41f)  return Direction::SE;
+        if (slope > 2.41f)                      return Direction::NE;
+        if (slope <= -2.41f)                    return Direction::S;
+    }
+    else if (displacement.x < 0)
+    {
+        if (slope > -0.41f  && slope <= 0.41f)  return Direction::W;
+        if (slope > 0.41f   && slope <= 2.41f)  return Direction::SW;
+        if (slope <= -0.41f && slope > -2.41f)  return Direction::NW;
+        if (slope > 2.41f)                      return Direction::SW;
+        if (slope <= -2.41f)                    return Direction::N;
+    }
+    else if (displacement.x == 0)
+    {
+        if (displacement.y < 0)                 return Direction::S;
+        if (displacement.y >= 0)                return Direction::N;
+    }
+    return Direction::E;
+}

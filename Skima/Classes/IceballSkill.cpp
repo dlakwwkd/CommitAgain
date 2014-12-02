@@ -7,15 +7,15 @@
 
 IceballSkill::IceballSkill()
 {
-	m_CoolTime = 3;
-	m_CanUse = true;
+    m_CoolTime = 3;
+    m_CanUse = true;
 }
 
 IceballSkill::IceballSkill(Hero* hero)
 {
-	m_Hero = hero;
-	m_CoolTime = 3;
-	m_CanUse = true;
+    m_Hero = hero;
+    m_CoolTime = 3;
+    m_CanUse = true;
 }
 
 IceballSkill::~IceballSkill()
@@ -30,12 +30,12 @@ IceballSkill::~IceballSkill()
 
 void IceballSkill::SkillReady()
 {
-	auto arrow = m_Hero->GetArrow();
-	arrow->setVisible(true);
+    auto arrow = m_Hero->GetArrow();
+    arrow->setVisible(true);
 }
 
 void IceballSkill::SkillEnd()
 {
-	auto arrow = m_Hero->GetArrow();
-	arrow->setVisible(false);
+    auto arrow = m_Hero->GetArrow();
+    arrow->setVisible(false);
 }

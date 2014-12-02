@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Enums.h"
 
 USING_NS_CC;
 
@@ -19,5 +20,6 @@ public:
 	void GameStartComplete();
 
 private:
-
+	bool m_IsReady;
+	int m_RoomID;
 };

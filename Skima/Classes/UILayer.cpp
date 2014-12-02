@@ -28,11 +28,11 @@ bool UILayer::init()
         sprite->setAnchorPoint(anchor);
         return sprite;
     };
-    this->addChild(sprite("Images/interface.png",		Vec2(400, 95), Vec2(1.03f, 1.030f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/interface.png",       Vec2(400, 95), Vec2(1.03f, 1.030f), Vec2(0.5, 0.5)));
     this->addChild(sprite("Images/HpBar_interface.png", Vec2(400, 88), Vec2(0.68f, 1.030f), Vec2(0.0, 0.0)), 10, "HpBar");
-    this->addChild(sprite("Images/fireball.jpg",			Vec2(443, 38), Vec2(0.03f, 0.033f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/iceball.jpg",			Vec2(518, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/teleport_icon.png", Vec2(593, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/fireball.jpg",        Vec2(443, 38), Vec2(0.03f, 0.033f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/iceball.jpg",         Vec2(518, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/teleport_icon.png",   Vec2(593, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
 
     
 
@@ -55,8 +55,8 @@ bool UILayer::init()
     m_Cursor = cursor(CURSOR_DEFAULT, "Images/cursor_defualt.png", Vec2(1, 1));
     m_Cursor->setVisible(true);
     this->addChild(m_Cursor, 10);
-    this->addChild(cursor(CURSOR_ATTACK,		"Images/cursor_attack.png",		Vec2(1, 1)),		 10);
-    this->addChild(cursor(CURSOR_TELEPORT,	"Images/cursor_teleport.png",	Vec2(0.2f, 0.08f)), 10);
+    this->addChild(cursor(CURSOR_ATTACK,	    "Images/cursor_attack.png",     Vec2(1, 1)),        10);
+    this->addChild(cursor(CURSOR_TELEPORT,  "Images/cursor_teleport.png",   Vec2(0.2f, 0.08f)), 10);
 
     return true;
 }

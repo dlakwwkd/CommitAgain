@@ -8,10 +8,10 @@ public:
     Hero();
     virtual ~Hero();
 
-    int			    GetSkillCoolTime(SkillKey key);
-    bool		    GetSkillCanUse(SkillKey key);
-    Vec2		    GetHeroPos() { return m_Sprite->getPosition(); }
-    Sprite*		    GetArrow() { return m_Arrow; }
+    int             GetSkillCoolTime(SkillKey key);
+    bool            GetSkillCanUse(SkillKey key);
+    Vec2            GetHeroPos() { return m_Sprite->getPosition(); }
+    Sprite*         GetArrow() { return m_Arrow; }
     Sprite*         GetSkillRange(){ return m_SkillRange; }
     Skill*          GetSkill(SkillKey key){ return m_SkillList[key]; }
     virtual void	SetMoveMotionByDir() = 0;
@@ -21,9 +21,13 @@ public:
     void			SkillEnd(SkillKey key);
 
 protected:
-    std::map<SkillKey, Skill*>	m_SkillList;
+    RepeatForever*  MakeAnimation(const char* format);
+    Direction       CalcDirection(Vec2 displacement);
 
-    Sprite*						m_Arrow;
+protected:
+    std::map<SkillKey, Skill*>  m_SkillList;
+
+    Sprite*                     m_Arrow;
     Sprite*                     m_SkillRange;
 };
 

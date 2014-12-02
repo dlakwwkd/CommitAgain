@@ -6,15 +6,15 @@
 #define LISTEN_PORT	9001
 
 /// 타이머 실행 간격 (ms)
-#define APC_TIMER_INTERVAL	1
+#define APC_TIMER_INTERVAL  1
 #define MANAGER_UPDATE_INTERVAL	1000
 
 
 /// 플레이어의 HeartBeat 주기
-#define PLAYER_HEART_BEAT	1000
+#define PLAYER_HEART_BEAT   1000
 
 /// 1분마다 플레이어 상태 저장
-#define PLAYER_DB_UPDATE_INTERVAL	(60*1000)
+#define PLAYER_DB_UPDATE_INTERVAL   (60*1000)
 
 
 /// 세션별 send/recv 버퍼 크기
