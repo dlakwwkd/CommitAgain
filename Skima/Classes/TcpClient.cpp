@@ -391,18 +391,8 @@ void TcpClient::processPacket()
 
 			GameResult result;
 
-			if (recvData.mLoseId == mLoginId)
-			{
-				result = LOSE;
-			}
-			else
-			{
-				result = WIN;
-			}
-
-			auto layer = GET_OBJECT_LAYER;		assert(layer != nullptr);
-			scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitTeleport, layer,
-				recvData.mUnitId, curPos, targetPos));
+			auto scene = GET_M_GAME_SCENE;		assert(scene != nullptr);
+			scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MultiGameScene::GameOver, scene, mLoginId, recvData.mLoseId));
 		}
 			break;
 

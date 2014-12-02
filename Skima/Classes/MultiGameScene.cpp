@@ -50,9 +50,9 @@ void MultiGameScene::RemoveLoadingLayer()
 	this->removeChildByName("LoadingBGLayer");
 }
 
-void MultiGameScene::GameOver(GameResult result)
+void MultiGameScene::GameOver(int playerId, int loseId)
 {
-	auto scene = GameOverScene::createScene();
-	Director::getInstance()->popScene();
-	Director::getInstance()->pushScene(result);
+// 	auto scene = GameOverScene::createScene();
+// 	Director::getInstance()->popScene();
+// 	Director::getInstance()->pushScene(scene);
 }

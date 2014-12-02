@@ -6,7 +6,7 @@
 
 #define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
 
-Scene* GameOverScene::createScene(GameResult result)
+Scene* GameOverScene::createScene()
 {
 	auto scene = Scene::create();
 	auto layer = GameOverScene::create();
@@ -14,14 +14,14 @@ Scene* GameOverScene::createScene(GameResult result)
 
 	char* strResult;
 
-	if (result == WIN)
-	{
-		strResult = "WIN!!";
-	}
-	else
-	{
-		strResult = "Lose...";
-	}
+// 	if (playerId != loseId)
+// 	{
+// 		strResult = "WIN!!";
+// 	}
+// 	else
+// 	{
+// 		strResult = "Lose...";
+// 	}
 
 	auto label = Label::createWithSystemFont(strResult, "Thonburi", 50);
 	label->setPosition(Point(300, 300));

@@ -1,11 +1,12 @@
 ﻿#pragma once
+#include "Enums.h"
 
 USING_NS_CC;
 
 class GameOverScene : public LayerColor
 {
 public:
-	static Scene* createScene(GameResult);
+	static Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(GameOverScene);
 
