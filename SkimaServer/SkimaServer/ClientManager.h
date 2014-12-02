@@ -35,8 +35,8 @@ private:
 
 
 private:
-    ClientList	mClientList;
-    DWORD		mLastGCTick;
+    ClientList  mClientList;
+    DWORD       mLastGCTick;
 };
 
 extern ClientManager* GClientManager;

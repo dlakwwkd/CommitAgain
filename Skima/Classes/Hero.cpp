@@ -117,7 +117,7 @@ Direction Hero::CalcDirection(Vec2 displacement)
         if (slope > 0.41f   && slope <= 2.41f)  return Direction::SW;
         if (slope <= -0.41f && slope > -2.41f)  return Direction::NW;
         if (slope > 2.41f)                      return Direction::SW;
-        if (slope <= -2.41f)	                    return Direction::N;
+        if (slope <= -2.41f)                    return Direction::N;
     }
     else if (displacement.x == 0)
     {
