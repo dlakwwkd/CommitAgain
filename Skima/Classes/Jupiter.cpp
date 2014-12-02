@@ -19,15 +19,6 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
 	m_CurHp = m_MaxHp;
 	SetHpBar();
     m_SkillList[SKILL_Q] = new SparkSkill(this);
-    SetMoveMotionToCache();
-    m_Sprite = Sprite::createWithSpriteFrameName("JupiterMove_S_01.png");
-    m_Sprite->setPosition(createPos);
-    m_Sprite->setScale(scale);
-    m_Sprite->addChild(m_Arrow);
-    m_MaxHp = 1000.0f;
-    m_CurHp = m_MaxHp;
-    SetHpBar();
-    m_SkillList[SKILL_Q] = new SparkSkill(this);
 
     switch (GET_GM.GetGameMode())
     {
