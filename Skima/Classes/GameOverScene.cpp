@@ -12,22 +12,32 @@ Scene* GameOverScene::createScene()
 	auto layer = GameOverScene::create();
 	scene->addChild(layer, 0, "GameOverScene");
 
-	char* strResult;
-
-// 	if (playerId != loseId)
-// 	{
-// 		strResult = "WIN!!";
-// 	}
-// 	else
-// 	{
-// 		strResult = "Lose...";
-// 	}
-
-	auto label = Label::createWithSystemFont(strResult, "Thonburi", 50);
-	label->setPosition(Point(300, 300));
-	layer->addChild(label);
 	return scene;
 }
+
+
+// Scene* GameOverScene::createScene()
+// {
+// 	auto scene = Scene::create();
+// 	auto layer = GameOverScene::create();
+// 	scene->addChild(layer, 0, "GameOverScene");
+// 
+// 	char* strResult;
+// 
+// // 	if (playerId != loseId)
+// // 	{
+// // 		strResult = "WIN!!";
+// // 	}
+// // 	else
+// // 	{
+// // 		strResult = "Lose...";
+// // 	}
+// 
+// 	auto label = Label::createWithSystemFont(strResult, "Thonburi", 50);
+// 	label->setPosition(Point(300, 300));
+// 	layer->addChild(label);
+// 	return scene;
+// }
 
 bool GameOverScene::init()
 {

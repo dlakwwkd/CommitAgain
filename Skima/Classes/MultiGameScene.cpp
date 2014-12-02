@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 #include "MultiGameScene.h"
-#include "GameOverScene.h"
 #include "LoadingBGLayer.h"
 #include "MapLayer.h"
 #include "ObjectLayer.h"
@@ -8,6 +7,7 @@
 #include "GameManager.h"
 #include "UILayer.h"
 #include "windows.h"
+#include "GameOverScene.h"
 
 Scene* MultiGameScene::createScene()
 {
@@ -52,7 +52,7 @@ void MultiGameScene::RemoveLoadingLayer()
 
 void MultiGameScene::GameOver(int playerId, int loseId)
 {
-// 	auto scene = GameOverScene::createScene();
-// 	Director::getInstance()->popScene();
-// 	Director::getInstance()->pushScene(scene);
+	auto scene = GameOverScene::createScene();
+	Director::getInstance()->popScene();
+	Director::getInstance()->pushScene(scene);
 }

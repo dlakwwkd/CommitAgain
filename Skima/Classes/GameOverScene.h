@@ -20,6 +20,6 @@ public:
 	void GameStartComplete();
 
 private:
-	bool m_IsReady;
-	int m_RoomID;
+	bool	m_IsReady;
+	int		m_RoomID;
 };
