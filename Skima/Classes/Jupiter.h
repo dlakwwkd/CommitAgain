@@ -3,12 +3,12 @@
 class Jupiter : public Hero
 {
 public:
-	Jupiter(Vec2 createPos, float scale);
-	virtual ~Jupiter();
+    Jupiter(Vec2 createPos, float scale);
+    virtual ~Jupiter();
 
 public:
-	void			SetMoveMotionToCache();
-	virtual void	SetMoveMotionByDir();
+    void            SetMoveMotionToCache();
+    virtual void    SetMoveMotionByDir();
 private:
 };
 

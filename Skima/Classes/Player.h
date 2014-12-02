@@ -2,7 +2,7 @@
 class Player
 {
 public:
-	Player();
-	~Player();
+    Player();
+    ~Player();
 };
 

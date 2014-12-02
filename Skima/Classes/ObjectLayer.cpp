@@ -61,18 +61,18 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
     {
     case HERO_NONE:
         return;
-	case HERO_MAGICIAN:
-	{
-		std::shared_ptr<Hero> temp(new Magician(location, 1.0f));
-		unit = temp;
-		break;
-	}
-	case HERO_JUPITER:
-	{
-		std::shared_ptr<Hero> temp2(new Jupiter(location, 1.0f));
-		unit = temp2;
-		break;
-	}
+    case HERO_MAGICIAN:
+    {
+        std::shared_ptr<Hero> temp(new Magician(location, 1.0f));
+        unit = temp;
+        break;
+    }
+    case HERO_JUPITER:
+    {
+        std::shared_ptr<Hero> temp2(new Jupiter(location, 1.0f));
+        unit = temp2;
+        break;
+    }
     }
 
     unit->SetUnitID(unitID);
@@ -185,6 +185,7 @@ void ObjectLayer::DeleteMissile(int missileID)
     {
         return;
     }
+    CC_SAFE_DELETE(missile->second);
     m_MissileList.erase(missile);
 }
 void ObjectLayer::UnitTeleport(int unitID, Vec2 recvCurPos, Vec2 targetPos)
@@ -311,7 +312,8 @@ void ObjectLayer::ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos)
     {
         temp->second->MissileDelete();
     }
-    std::shared_ptr<Missile> missile(new Missile(missileID));
+    auto missile = new Missile(missileID);
+    //std::shared_ptr<Missile> missile(new Missile(missileID));
     auto missileType = GET_SIDE_TYPE(missileID);
     switch (missileType)
     {
@@ -321,9 +323,9 @@ void ObjectLayer::ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos)
     case MS_ICE_BALL:
         missile->MissileCast("Images/ice.plist", 800.0f, createPos, targetPos);
         break;
-	case MS_SPARK:
-		missile->MissileCast("Images/spark.plist", 1400.0f, createPos, targetPos);
-		break;
+    case MS_SPARK:
+        missile->MissileCast("Images/spark.plist", 1400.0f, createPos, targetPos);
+        break;
     }
     m_MissileList[missileID] = missile;
 }

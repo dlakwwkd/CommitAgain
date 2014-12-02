@@ -5,63 +5,63 @@
 
 Unit::Unit()
 {
-	m_Name = "";
-	m_PlayerID = -1;
-	m_UnitID = -1;
-	m_CurHp = m_MaxHp = 0;
-	m_Speed = 0;
-	m_TargetPos = { 0, 0 };
-	m_Sprite = nullptr;
-	m_HpBar = nullptr;
-	m_Body = nullptr;
-	m_InUse = false;
+    m_Name = "";
+    m_PlayerID = -1;
+    m_UnitID = -1;
+    m_CurHp = m_MaxHp = 0;
+    m_Speed = 0;
+    m_TargetPos = { 0, 0 };
+    m_Sprite = nullptr;
+    m_HpBar = nullptr;
+    m_Body = nullptr;
+    m_InUse = false;
 
-	m_MoveState = m_StandbyState = new StandbyState();
-	m_MovingState = new MovingState();
-	m_CrashedState = new CrashedState();
+    m_MoveState = m_StandbyState = new StandbyState();
+    m_MovingState = new MovingState();
+    m_CrashedState = new CrashedState();
 }
 
 Unit::~Unit()
 {
-	delete m_StandbyState;
-	delete m_MovingState;
-	delete m_CrashedState;
+    delete m_StandbyState;
+    delete m_MovingState;
+    delete m_CrashedState;
 }
 
 void Unit::UpdateHpBar()
 {
-	m_HpBar->setScaleX(m_CurHp / m_MaxHp);
+    m_HpBar->setScaleX(m_CurHp / m_MaxHp);
 }
 
 void Unit::SetHpBar()
 {
-	m_HpBar = Sprite::create("Images/HpBar_Unit.png");
-	m_HpBar->setPosition(Vec2(-20, 85));
-	m_HpBar->setAnchorPoint(Vec2(0,0));
+    m_HpBar = Sprite::create("Images/HpBar_Unit.png");
+    m_HpBar->setPosition(Vec2(-20, 85));
+    m_HpBar->setAnchorPoint(Vec2(0,0));
 }
 
 void Unit::Move()
 {
-	switch (GET_GM.GetGameMode())
-	{
-	case SINGLE:	MoveS();	break;
-	case MULTI:		MoveM();	break;
-	}
+    switch (GET_GM.GetGameMode())
+    {
+    case SINGLE:    MoveS();    break;
+    case MULTI:     MoveM();    break;
+    }
 }
 
 void Unit::Crash()
 {
-	switch (GET_GM.GetGameMode())
-	{
-	case SINGLE:	CrashS();	break;
-    case MULTI:		CrashM();	break;
-	}
+    switch (GET_GM.GetGameMode())
+    {
+    case SINGLE:    CrashS();   break;
+    case MULTI:     CrashM();   break;
+    }
 }
 
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	게임 모드에 따라 나뉘는 함수들
+    게임 모드에 따라 나뉘는 함수들
 */
 ///////////////////////////////////////////////////////////////////////////
 void Unit::MoveS()
@@ -84,17 +84,17 @@ void Unit::MoveS()
 
 void Unit::MoveM()
 {
-	auto hero = dynamic_cast<Hero*>(this);
+    auto hero = dynamic_cast<Hero*>(this);
     hero->SetMoveMotionByDir();
     auto gap = m_TargetPos - m_Sprite->getPosition();
     gap.normalize();
     m_TargetPos -= gap * 15;
     auto distance = m_Sprite->getPosition().distance(m_TargetPos);
-	auto time = distance / m_Speed;
+    auto time = distance / m_Speed;
     auto action1 = MoveTo::create(time, m_TargetPos);
-	auto action2 = CallFunc::create(CC_CALLBACK_0(Unit::EndMove, this));
-	auto action3 = Sequence::create(action1, action2, NULL);
-	m_Sprite->runAction(action3);
+    auto action2 = CallFunc::create(CC_CALLBACK_0(Unit::EndMove, this));
+    auto action3 = Sequence::create(action1, action2, NULL);
+    m_Sprite->runAction(action3);
 }
 
 void Unit::CrashS()
@@ -107,16 +107,16 @@ void Unit::CrashM()
     auto distance = m_Sprite->getPosition().distance(m_TargetPos);
     auto time = sqrt(distance) / 15;
     auto action1 = MoveTo::create(time, m_TargetPos);
-	auto action2 = EaseOut::create(action1, 2.5f);
-	m_Sprite->runAction(action2);
+    auto action2 = EaseOut::create(action1, 2.5f);
+    m_Sprite->runAction(action2);
 }
 
 void Unit::SetHp(int curHp)
 {
-	if (curHp <= 0)
-	{
-		m_CurHp = 0;
-		return;
-	}
-	m_CurHp = curHp;
+    if (curHp <= 0)
+    {
+        m_CurHp = 0;
+        return;
+    }
+    m_CurHp = curHp;
 }

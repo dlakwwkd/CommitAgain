@@ -7,15 +7,15 @@
 
 FireballSkill::FireballSkill()
 {
-	m_CoolTime = 3;
-	m_CanUse = true;
+    m_CoolTime = 3;
+    m_CanUse = true;
 }
 
 FireballSkill::FireballSkill(Hero* hero)
 {
-	m_Hero = hero;
-	m_CoolTime = 3;
-	m_CanUse = true;
+    m_Hero = hero;
+    m_CoolTime = 3;
+    m_CanUse = true;
 }
 
 
@@ -31,13 +31,13 @@ FireballSkill::~FireballSkill()
 
 void FireballSkill::SkillReady()
 {
-	auto arrow = m_Hero->GetArrow();
-	arrow->setVisible(true);
+    auto arrow = m_Hero->GetArrow();
+    arrow->setVisible(true);
 }
 
 void FireballSkill::SkillEnd()
 {
-	auto arrow = m_Hero->GetArrow();
-	arrow->setVisible(false);
+    auto arrow = m_Hero->GetArrow();
+    arrow->setVisible(false);
 }
 

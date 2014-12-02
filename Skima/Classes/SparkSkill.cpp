@@ -7,15 +7,15 @@
 
 SparkSkill::SparkSkill()
 {
-	m_CoolTime = 3;
-	m_CanUse = true;
+    m_CoolTime = 3;
+    m_CanUse = true;
 }
 
 SparkSkill::SparkSkill(Hero* hero)
 {
-	m_Hero = hero;
-	m_CoolTime = 3;
-	m_CanUse = true;
+    m_Hero = hero;
+    m_CoolTime = 3;
+    m_CanUse = true;
 }
 
 SparkSkill::~SparkSkill()
@@ -24,12 +24,12 @@ SparkSkill::~SparkSkill()
 
 void SparkSkill::SkillReady()
 {
-	auto arrow = m_Hero->GetArrow();
-	arrow->setVisible(true);
+    auto arrow = m_Hero->GetArrow();
+    arrow->setVisible(true);
 }
 
 void SparkSkill::SkillEnd()
 {
-	auto arrow = m_Hero->GetArrow();
-	arrow->setVisible(false);
+    auto arrow = m_Hero->GetArrow();
+    arrow->setVisible(false);
 }

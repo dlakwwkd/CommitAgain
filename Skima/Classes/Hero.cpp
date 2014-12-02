@@ -105,24 +105,24 @@ Direction Hero::CalcDirection(Vec2 displacement)
 
     if (displacement.x > 0)
     {
-        if (slope > -0.41f	&& slope <= 0.41f)	return Direction::E;
-        if (slope > 0.41f	&& slope <= 2.41f)	return Direction::NE;
-        if (slope <= -0.41f && slope > -2.41f)	return Direction::SE;
-        if (slope > 2.41f)						return Direction::NE;
-        if (slope <= -2.41f)						return Direction::S;
+        if (slope > -0.41f  && slope <= 0.41f)  return Direction::E;
+        if (slope > 0.41f   && slope <= 2.41f)  return Direction::NE;
+        if (slope <= -0.41f && slope > -2.41f)  return Direction::SE;
+        if (slope > 2.41f)                      return Direction::NE;
+        if (slope <= -2.41f)                    return Direction::S;
     }
     else if (displacement.x < 0)
     {
-        if (slope > -0.41f	&& slope <= 0.41f)	return Direction::W;
-        if (slope > 0.41f	&& slope <= 2.41f)	return Direction::SW;
-        if (slope <= -0.41f && slope > -2.41f)	return Direction::NW;
-        if (slope > 2.41f)						return Direction::SW;
-        if (slope <= -2.41f)						return Direction::N;
+        if (slope > -0.41f  && slope <= 0.41f)  return Direction::W;
+        if (slope > 0.41f   && slope <= 2.41f)  return Direction::SW;
+        if (slope <= -0.41f && slope > -2.41f)  return Direction::NW;
+        if (slope > 2.41f)                      return Direction::SW;
+        if (slope <= -2.41f)	                    return Direction::N;
     }
     else if (displacement.x == 0)
     {
-        if (displacement.y < 0)					return Direction::S;
-        if (displacement.y >= 0)				return Direction::N;
+        if (displacement.y < 0)                 return Direction::S;
+        if (displacement.y >= 0)                return Direction::N;
     }
     return Direction::E;
 }

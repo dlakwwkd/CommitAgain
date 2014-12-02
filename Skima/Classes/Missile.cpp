@@ -55,8 +55,7 @@ void Missile::MissileCrash()
 void Missile::MissileDelete()
 {
     if (m_Particle == nullptr) return;
-    m_Particle->stopAllActions();
     GET_OBJECT_LAYER->removeChild(m_Particle);
-    GET_OBJECT_LAYER->DeleteMissile(m_UnitID);
     m_Particle = nullptr;
+    GET_OBJECT_LAYER->DeleteMissile(m_UnitID);
 }

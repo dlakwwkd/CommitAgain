@@ -56,7 +56,8 @@ protected:
 protected:
 	std::shared_ptr<Hero>					m_Hero;
 	std::map<int, std::shared_ptr<Unit>>	m_UnitList;
-    std::map<int, std::shared_ptr<Missile>>	m_MissileList;
+    //std::map<int, std::shared_ptr<Missile>>	m_MissileList;
+    std::map<int, Missile*>	m_MissileList;
 
 
 	std::vector<std::shared_ptr<Unit>>		m_MobList;

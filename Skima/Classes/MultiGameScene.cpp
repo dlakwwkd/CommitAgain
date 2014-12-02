@@ -11,13 +11,13 @@
 
 Scene* MultiGameScene::createScene()
 {
-	ShowCursor(false);
+    ShowCursor(false);
     auto scene = Scene::create();
-	auto layer1 = MultiGameScene::create();
-	auto layer2 = ListenerLayer::create();
-	scene->addChild(layer1, 0, "MultiGameScene");
-	layer1->addChild(layer2, 0, "ListenerLayer");
-	return scene;
+    auto layer1 = MultiGameScene::create();
+    auto layer2 = ListenerLayer::create();
+    scene->addChild(layer1, 0, "MultiGameScene");
+    layer1->addChild(layer2, 0, "ListenerLayer");
+    return scene;
 }
 
 
@@ -28,26 +28,26 @@ bool MultiGameScene::init()
         return false;
     }
 
-	GET_GM.SetGameMode(MULTI);
-	m_IsStartGame = false;
+    GET_GM.SetGameMode(MULTI);
+    m_IsStartGame = false;
 
-	auto layer1 = LoadingBGLayer::create();
-	auto layer2 = UILayer::create();
-	this->addChild(layer1, 10, "LoadingBGLayer");
-	this->addChild(layer2, 5, "UILayer");
-	
-	return true;
+    auto layer1 = LoadingBGLayer::create();
+    auto layer2 = UILayer::create();
+    this->addChild(layer1, 10, "LoadingBGLayer");
+    this->addChild(layer2, 5, "UILayer");
+    
+    return true;
 }
 
 void MultiGameScene::StartGame()
 {
-	RemoveLoadingLayer();
-	m_IsStartGame = true;
+    RemoveLoadingLayer();
+    m_IsStartGame = true;
 }
 
 void MultiGameScene::RemoveLoadingLayer()
 {
-	this->removeChildByName("LoadingBGLayer");
+    this->removeChildByName("LoadingBGLayer");
 }
 
 void MultiGameScene::GameOver(int playerId, int loseId)

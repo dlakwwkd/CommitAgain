@@ -9,14 +9,14 @@
 //////////////////////////////////////////////////////////////////////////
 void StandbyState::TryMove(Unit* unit)
 {
-	if (unit == nullptr) return;
+    if (unit == nullptr) return;
     unit->SetMoveState(unit->GetMovingState());
     unit->Move();
 }
 
 void StandbyState::Crashed(Unit* unit)
 {
-	if (unit == nullptr) return;
+    if (unit == nullptr) return;
     unit->SetMoveState(unit->GetCrashedState());
     unit->Crash();
 }
@@ -24,7 +24,7 @@ void StandbyState::Crashed(Unit* unit)
 void StandbyState::EndMove(Unit* unit){}
 void StandbyState::EndCrash(Unit* unit)
 {
-	if (unit == nullptr) return;
+    if (unit == nullptr) return;
     auto action1 = MoveTo::create(1.0f, unit->GetMoveTargetPos());
     auto action2 = EaseSineIn::create(action1);
     unit->GetSprite()->runAction(action2);
@@ -39,14 +39,14 @@ void StandbyState::Movement(Unit* unit){}
 //////////////////////////////////////////////////////////////////////////
 void MovingState::TryMove(Unit* unit)
 {
-	if (unit == nullptr) return;
+    if (unit == nullptr) return;
     unit->GetSprite()->stopAllActions();
     unit->Move();
 }
 
 void MovingState::Crashed(Unit* unit)
 {
-	if (unit == nullptr) return;
+    if (unit == nullptr) return;
     unit->SetMoveState(unit->GetCrashedState());
     unit->GetSprite()->stopAllActions();
     unit->Crash();
@@ -54,7 +54,7 @@ void MovingState::Crashed(Unit* unit)
 
 void MovingState::EndMove(Unit* unit)
 {
-	if (unit == nullptr) return;
+    if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
     unit->GetSprite()->stopAllActions();
 }
@@ -73,14 +73,14 @@ void MovingState::Movement(Unit* unit)
 void CrashedState::TryMove(Unit* unit){}
 void CrashedState::Crashed(Unit* unit)
 {
-	if (unit == nullptr) return;
+    if (unit == nullptr) return;
     unit->GetSprite()->stopAllActions();
     unit->Crash();
 }
 void CrashedState::EndMove(Unit* unit){}
 void CrashedState::EndCrash(Unit* unit)
 {
-	if (unit == nullptr) return;
+    if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
     unit->GetSprite()->stopAllActions();
 

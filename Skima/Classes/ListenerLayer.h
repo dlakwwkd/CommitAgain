@@ -7,25 +7,25 @@ USING_NS_CC;
 class ListenerLayer : public Layer
 {
 public:
-	virtual bool init();
-	CREATE_FUNC(ListenerLayer);
-		
-	void			Tick(float dt);
-	void			ScreenMove();
+    virtual bool init();
+    CREATE_FUNC(ListenerLayer);
 
-	virtual void	OnMouseDown(Event *event);
-	virtual void	OnMouseUp(Event *event);
-	virtual void	OnMouseMove(Event *event);
-	virtual void	OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
-	virtual void	OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
+    void            Tick(float dt);
+    void            ScreenMove();
 
-private:
-	SkillKey		KeyboardToSkillKey(EventKeyboard::KeyCode keyCode);
-	void			CoolTimeStart(SkillKey key);
-	void			CoolTimeEnd(SkillKey key);
-	void			SetArrowPos();
+    virtual void    OnMouseDown(Event *event);
+    virtual void    OnMouseUp(Event *event);
+    virtual void    OnMouseMove(Event *event);
+    virtual void    OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
+    virtual void    OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 
 private:
-	bool			m_Targeting;
+    SkillKey        KeyboardToSkillKey(EventKeyboard::KeyCode keyCode);
+    void            CoolTimeStart(SkillKey key);
+    void            CoolTimeEnd(SkillKey key);
+    void            SetArrowPos();
+
+private:
+    bool            m_Targeting;
 };
 

@@ -7,8 +7,8 @@ public:
     virtual ~Magician();
 
 public:
-    void			    SetMoveMotionToCache();
-    virtual void	    SetMoveMotionByDir();
+    void            SetMoveMotionToCache();
+    virtual void    SetMoveMotionByDir();
 
 };
 

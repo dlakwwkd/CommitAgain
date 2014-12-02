@@ -3,7 +3,7 @@
 class ShootType : public Skill
 {
 public:
-	ShootType();
-	virtual ~ShootType();
+    ShootType();
+    virtual ~ShootType();
 };
 
