@@ -13,6 +13,7 @@ public:
     Vec2		    GetHeroPos() { return m_Sprite->getPosition(); }
     Sprite*		    GetArrow() { return m_Arrow; }
     Sprite*         GetSkillRange(){ return m_SkillRange; }
+    Skill*          GetSkill(SkillKey key){ return m_SkillList[key]; }
     virtual void	SetMoveMotionByDir() = 0;
     void			SetSkillCanUse(SkillKey key, bool isUse);
     void			SkillCast(SkillKey key);

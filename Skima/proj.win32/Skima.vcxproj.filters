@@ -180,6 +180,12 @@
     <ClCompile Include="..\Classes\SparkSkill.cpp">
       <Filter>Game\Component\Skill\ShootType</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\LightningEffect.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LightningSkill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -301,6 +307,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SparkSkill.h">
       <Filter>Game\Component\Skill\ShootType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LightningEffect.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LightningSkill.h">
+      <Filter>Game\Component\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

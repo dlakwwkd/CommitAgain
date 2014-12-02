@@ -66,8 +66,8 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)..\..\Shared;$(ProjectDir)..\..;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\..\Shared\json\lib_json;$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\..\Shared\json;$(ProjectDir)..\..\Shared;$(ProjectDir)..\..;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
@@ -152,6 +152,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\IceballSkill.cpp" />
     <ClCompile Include="..\Classes\IceEffect.cpp" />
     <ClCompile Include="..\Classes\Jupiter.cpp" />
+    <ClCompile Include="..\Classes\LightningSkill.cpp" />
+    <ClCompile Include="..\Classes\LightningEffect.cpp" />
     <ClCompile Include="..\Classes\Magician.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
@@ -198,6 +200,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\IceballSkill.h" />
     <ClInclude Include="..\Classes\IceEffect.h" />
     <ClInclude Include="..\Classes\Jupiter.h" />
+    <ClInclude Include="..\Classes\LightningSkill.h" />
+    <ClInclude Include="..\Classes\LightningEffect.h" />
     <ClInclude Include="..\Classes\Macros.h" />
     <ClInclude Include="..\Classes\Magician.h" />
     <ClInclude Include="..\Classes\Missile.h" />

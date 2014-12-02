@@ -73,7 +73,10 @@ enum PacketTypes
     PKT_CS_SKILL = 45,
     PKT_SC_SKILL = 46,
 
-    PKT_SC_MISSILE = 48,
+    PKT_CS_SPLASH = 47,
+    PKT_SC_SPLASH = 48,
+
+    PKT_SC_MISSILE = 50,
     PKT_SC_TELEPORT = 52,
     PKT_SC_HP = 54,
 
@@ -389,6 +392,41 @@ struct SkillBroadcastResult : public PacketHeader
     Coord   	mTargetPos;
 };
 
+struct SplashSkillRequest : public PacketHeader
+{
+    SplashSkillRequest()
+    {
+        mSize = sizeof(SplashSkillRequest);
+        mType = PKT_CS_SPLASH;
+        mPlayerId = -1;
+        mKey = SKILL_NONE;
+        mCurrentPos = { 0, };
+        mTargetPos = { 0, };
+    }
+    int			mPlayerId;
+    SkillKey	mKey;
+    Coord   	mCurrentPos;
+    Coord   	mTargetPos;
+};
+
+struct SplashSkillBroadcastResult : public PacketHeader
+{
+    SplashSkillBroadcastResult()
+    {
+        mSize = sizeof(SplashSkillBroadcastResult);
+        mType = PKT_SC_SPLASH;
+        mPlayerId = -1;
+        mUnitId = -1;
+        mKey = SKILL_NONE;
+        mCurrentPos = { 0, };
+        mTargetPos = { 0, };
+    }
+    int			mPlayerId;
+    int			mUnitId;
+    SkillKey	mKey;
+    Coord   	mCurrentPos;
+    Coord   	mTargetPos;
+};
 
 struct MissileBroadcastResult : public PacketHeader
 {

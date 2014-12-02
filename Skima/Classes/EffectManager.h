@@ -8,6 +8,8 @@ enum EffectType
 
 	EF_FIRE,
 	EF_ICE,
+    EF_SPARK,
+    EF_LIGHTNING,
     EF_TELE,
 };
 

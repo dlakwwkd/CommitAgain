@@ -26,6 +26,7 @@ public:
 	void UnitCrash(int unitID, Vec2 exPos);
 	void UnitCrashEnd(int unitID, Vec2 revisePos);
 	void UnitSkillUse(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);
+    void UnitSplash(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);
 	void UnitTeleport(int unitID, Vec2 recvCurPos, Vec2 targetPos);
 	void UnitHpUpdate(int playerID, int unitID, int curHp);
 
@@ -43,6 +44,8 @@ protected:
 	void UnitCrashM(int unitID, Vec2 exPos);
 	void UnitSkillUseS(SkillKey key, Vec2 pos);
 	void UnitSkillUseM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);
+    void UnitSplashS(SkillKey key, Vec2 pos);
+    void UnitSplashM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);
 	void ShootMissileS(Vec2 createPos, Vec2 targetPos);
 	void ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos);
 	void MissileCrashS();

@@ -9,6 +9,9 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
 {
 	SetMoveMotionToCache();
 	m_Sprite = Sprite::createWithSpriteFrameName("JupiterMove_S_01.png");
+	auto shadow = Sprite::create("Images/Jupiter_shadow.png");
+	shadow->setPosition(Vec2(45.0f, -25.0f));
+	m_Sprite->addChild(shadow);
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
 	m_Sprite->addChild(m_Arrow);

@@ -27,8 +27,8 @@ void Missile::MissileCast(const char* image, float speed, Vec2 createPos, Vec2 t
     auto action2 = DelayTime::create(1.0f);
     auto action3 = CallFunc::create(CC_CALLBACK_0(Missile::MissileDelete, this));
     auto action4 = Sequence::create(action1, action2, action3, NULL);
+	GET_OBJECT_LAYER->addChild(m_Particle, 19);
     m_Particle->runAction(action4);
-    GET_OBJECT_LAYER->addChild(m_Particle, 19);
 }
 
 void Missile::MissileCrash()

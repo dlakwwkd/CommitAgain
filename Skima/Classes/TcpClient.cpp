@@ -451,7 +451,7 @@ void TcpClient::startGameRequest()
 
     GameReadyNotify sendData;
     sendData.mPlayerId = mLoginId;
-    sendData.mHeroType = HERO_MAGICIAN;
+    sendData.mHeroType = HERO_JUPITER;
 
     send((const char*)&sendData, sizeof(GameReadyNotify));
 }

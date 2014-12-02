@@ -299,6 +299,23 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 
     unit->second->EndMove();
 }
 
+void ObjectLayer::UnitSplashS(SkillKey key, Vec2 pos)
+{
+
+}
+
+void ObjectLayer::UnitSplashM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
+{
+    auto unit = m_UnitList.find(unitID);
+    if (unit == m_UnitList.end())
+    {
+        return;
+    }
+    unit->second->SetTargetPos(targetPos);
+    auto effect = GET_EM->Assign(EF_LIGHTNING);
+    effect->CreateEffect(targetPos);
+}
+
 void ObjectLayer::ShootMissileS(Vec2 createPos, Vec2 targetPos)
 {
 
