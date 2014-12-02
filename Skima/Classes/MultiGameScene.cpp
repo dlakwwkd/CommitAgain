@@ -42,6 +42,7 @@ bool MultiGameScene::init()
 void MultiGameScene::StartGame()
 {
 	RemoveLoadingLayer();
+    ShowCursor(false);
 	m_IsStartGame = true;
 }
 
