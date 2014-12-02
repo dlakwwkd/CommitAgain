@@ -95,6 +95,9 @@
     <ClCompile Include="Jupiter.cpp">
       <Filter>Game\Component\Object\Unit\Hero</Filter>
     </ClCompile>
+    <ClCompile Include="LightningSkill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -212,6 +215,9 @@
     </ClInclude>
     <ClInclude Include="Jupiter.h">
       <Filter>Game\Component\Object\Unit\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="LightningSkill.h">
+      <Filter>Game\Component\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

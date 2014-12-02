@@ -42,6 +42,7 @@ public:
 
     void moveRequest(Vec2 curPos, Vec2 targetPos);
     void skillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey);
+    void splashSkillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey);
 
 //	void chatRequest(const char* chat);
 

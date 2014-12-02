@@ -2,6 +2,7 @@
 #include "Jupiter.h"
 #include "GameManager.h"
 #include "SparkSkill.h"
+#include "LightningSkill.h"
 
 
 Jupiter::Jupiter(int playerId, b2Vec2 pos, float scale)
@@ -29,6 +30,7 @@ Jupiter::Jupiter(int playerId, b2Vec2 pos, float scale)
 	m_Body->SetUserData(this);
 
 	m_SkillList[SKILL_Q] = new SparkSkill(m_PlayerID, circle.m_radius);
+    m_SkillList[SKILL_W] = new LightningSkill(m_PlayerID);
 }
 
 

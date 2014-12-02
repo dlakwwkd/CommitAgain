@@ -6,7 +6,7 @@
 
 LightningEffect::LightningEffect(int ID)
 {
-    m_EffectType = EF_FIRE;
+    m_EffectType = EF_LIGHTNING;
     m_ID = ID;
 }
 
@@ -20,8 +20,13 @@ void LightningEffect::CreateEffect(Vec2 createPos)
     m_Particle = ParticleSystemQuad::create("Images/lightning_effect.plist");
     auto particle2 = ParticleSystemQuad::create("Images/lightning.plist");
     auto particle3 = ParticleSystemQuad::create("Images/lightning_cloud.plist");
+    particle2->setAnchorPoint(Vec2(0.50f, 0.0f));
     m_Particle->setPosition(createPos);
-    m_Particle->setScale(0.50f);
+    particle2->setPosition(Vec2(0, 190.0f));
+    particle3->setPosition(Vec2(0, 400.0f));
+    m_Particle->setScale(0.70f);
+    particle2->setScale(0.70f);
+    particle3->setScale(0.90f);
     m_Particle->addChild(particle2);
     m_Particle->addChild(particle3);
 

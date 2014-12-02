@@ -137,6 +137,18 @@ void ObjectLayer::UnitSkillUse(int unitId, SkillKey key, Vec2 recvCurPos, Vec2 t
     }
 }
 
+void ObjectLayer::UnitSplash(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
+{
+    switch (GET_GM.GetGameMode())
+    {
+    case SINGLE:
+        UnitSplashS(key, targetPos);
+        break;
+    case MULTI:
+        UnitSplashM(unitID, key, recvCurPos, targetPos);
+        break;
+    }
+}
 
 void ObjectLayer::ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos)
 {

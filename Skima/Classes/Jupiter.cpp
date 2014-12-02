@@ -2,6 +2,7 @@
 #include "Jupiter.h"
 #include "GameManager.h"
 #include "SparkSkill.h"
+#include "LightningSkill.h"
 #include "PacketType.h"
 
 
@@ -15,10 +16,12 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
 	m_Sprite->addChild(m_Arrow);
+    m_Sprite->addChild(m_SkillRange);
 	m_MaxHp = 1000.0f;
 	m_CurHp = m_MaxHp;
 	SetHpBar();
     m_SkillList[SKILL_Q] = new SparkSkill(this);
+    m_SkillList[SKILL_W] = new LightningSkill(this);
 
     switch (GET_GM.GetGameMode())
     {
