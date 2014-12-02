@@ -52,7 +52,7 @@ void MultiGameScene::RemoveLoadingLayer()
 
 void MultiGameScene::GameOver(int playerId, int loseId)
 {
-	auto scene = GameOverScene::createScene();
-	Director::getInstance()->popScene();
-	Director::getInstance()->pushScene(scene);
+	//auto scene = GameOverScene::createScene();
+	//Director::getInstance()->popScene();
+	//Director::getInstance()->pushScene(scene);
 }

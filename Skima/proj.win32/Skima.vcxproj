@@ -145,9 +145,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\FireballSkill.cpp" />
     <ClCompile Include="..\Classes\FireEffect.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
-    <ClCompile Include="..\Classes\GameOverScene.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="..\Classes\GameOverScene.cpp" />
     <ClCompile Include="..\Classes\Hero.cpp" />
     <ClCompile Include="..\Classes\IceballSkill.cpp" />
     <ClCompile Include="..\Classes\IceEffect.cpp" />
@@ -193,9 +191,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\FireballSkill.h" />
     <ClInclude Include="..\Classes\FireEffect.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
-    <ClInclude Include="..\Classes\GameOverScene.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="..\Classes\GameOverScene.h" />
     <ClInclude Include="..\Classes\Hero.h" />
     <ClInclude Include="..\Classes\IceballSkill.h" />
     <ClInclude Include="..\Classes\IceEffect.h" />

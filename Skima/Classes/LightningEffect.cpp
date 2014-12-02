@@ -18,7 +18,7 @@ LightningEffect::~LightningEffect()
 void LightningEffect::CreateEffect(Vec2 createPos)
 {
     m_Particle = ParticleSystemQuad::create("Images/lightning_effect.plist");
-    auto particle2 = ParticleSystemQuad::create("Images/lightning.plsit");
+    auto particle2 = ParticleSystemQuad::create("Images/lightning.plist");
     auto particle3 = ParticleSystemQuad::create("Images/lightning_cloud.plist");
     m_Particle->setPosition(createPos);
     m_Particle->setScale(0.50f);

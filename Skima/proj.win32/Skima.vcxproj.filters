@@ -168,9 +168,6 @@
     <ClCompile Include="..\Classes\Jupiter.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameOverScene.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\TeleportSkill.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
@@ -185,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\LightningSkill.cpp">
       <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameOverScene.cpp">
+      <Filter>Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -296,9 +296,6 @@
     <ClInclude Include="..\Classes\Macros.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameOverScene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\TeleportSkill.h">
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
@@ -313,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\LightningSkill.h">
       <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameOverScene.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
