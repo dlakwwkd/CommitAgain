@@ -20,6 +20,10 @@ public:
     void			SkillEnd(SkillKey key);
 
 protected:
+    RepeatForever*  MakeAnimation(const char* format);
+    Direction       CalcDirection(Vec2 displacement);
+
+protected:
     std::map<SkillKey, Skill*>	m_SkillList;
 
     Sprite*						m_Arrow;

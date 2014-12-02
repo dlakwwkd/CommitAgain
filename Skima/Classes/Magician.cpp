@@ -61,57 +61,15 @@ void Magician::SetMoveMotionToCache()
 
 void Magician::SetMoveMotionByDir()
 {
-    auto action = [](const char* format)
+    switch (CalcDirection(m_TargetPos - m_Sprite->getPosition()))
     {
-        auto animation = Animation::create();
-        animation->setDelayPerUnit(0.1f);
-
-        for (int i = 1; i < 8; ++i)
-        {
-            auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-            animation->addSpriteFrame(frame);
-        }
-
-        return RepeatForever::create(Animate::create(animation));
-    };
-
-    auto direction = [](Vec2 displacement)
-    {
-        float slope = displacement.y / displacement.x;
-
-        if (displacement.x > 0)
-        {
-            if (slope > -0.41f	&& slope <= 0.41f)	return Direction::E;
-            if (slope > 0.41f	&& slope <= 2.41f)	return Direction::NE;
-            if (slope <= -0.41f && slope > -2.41f)	return Direction::SE;
-            if (slope > 2.41f)						return Direction::NE;
-            if (slope <= -2.41f)						return Direction::S;
-        }
-        else if (displacement.x < 0)
-        {
-            if (slope > -0.41f	&& slope <= 0.41f)	return Direction::W;
-            if (slope > 0.41f	&& slope <= 2.41f)	return Direction::SW;
-            if (slope <= -0.41f && slope > -2.41f)	return Direction::NW;
-            if (slope > 2.41f)						return Direction::SW;
-            if (slope <= -2.41f)						return Direction::N;
-        }
-        else if (displacement.x == 0)
-        {
-            if (displacement.y < 0)					return Direction::S;
-            if (displacement.y >= 0)				return Direction::N;
-        }
-        return Direction::E;
-    };
-
-    switch (direction(m_TargetPos - m_Sprite->getPosition()))
-    {
-    case E:	 m_Sprite->runAction(action("MoveMotion_E_%02d.PNG"));	break;
-    case W:	 m_Sprite->runAction(action("MoveMotion_W_%02d.PNG"));	break;
-    case S:	 m_Sprite->runAction(action("MoveMotion_S_%02d.PNG"));	break;
-    case N:	 m_Sprite->runAction(action("MoveMotion_N_%02d.PNG"));	break;
-    case SE: m_Sprite->runAction(action("MoveMotion_SE_%02d.PNG"));	break;
-    case SW: m_Sprite->runAction(action("MoveMotion_SW_%02d.PNG"));	break;
-    case NE: m_Sprite->runAction(action("MoveMotion_NE_%02d.PNG"));	break;
-    case NW: m_Sprite->runAction(action("MoveMotion_NW_%02d.PNG"));	break;
+    case E:	 m_Sprite->runAction(MakeAnimation("MoveMotion_E_%02d.PNG"));	break;
+    case W:	 m_Sprite->runAction(MakeAnimation("MoveMotion_W_%02d.PNG"));	break;
+    case S:	 m_Sprite->runAction(MakeAnimation("MoveMotion_S_%02d.PNG"));	break;
+    case N:	 m_Sprite->runAction(MakeAnimation("MoveMotion_N_%02d.PNG"));	break;
+    case SE: m_Sprite->runAction(MakeAnimation("MoveMotion_SE_%02d.PNG"));	break;
+    case SW: m_Sprite->runAction(MakeAnimation("MoveMotion_SW_%02d.PNG"));	break;
+    case NE: m_Sprite->runAction(MakeAnimation("MoveMotion_NE_%02d.PNG"));	break;
+    case NW: m_Sprite->runAction(MakeAnimation("MoveMotion_NW_%02d.PNG"));	break;
     }
 }
