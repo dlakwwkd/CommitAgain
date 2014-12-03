@@ -11,6 +11,7 @@ Game::Game(GameRoom* room)
     m_GameID = room->m_RoomID;
     m_IsReady = true;
     m_IsStart = false;
+	m_IsEnd = false;
     m_LoadedPlayerNum = 0;
 
     for (auto& player : room->m_PlayerList)
@@ -21,6 +22,8 @@ Game::Game(GameRoom* room)
 
 void Game::InitGame()
 {
+	m_IsEnd = false;
+
     int i = 0;
     for (auto& it : m_PlayerList)
     {
@@ -32,6 +35,16 @@ void Game::InitGame()
         }
         it.second->CreateHero(CONVERT_IN(createPos, roomId));
     }
+}
+
+void Game::EndGame()
+{
+	m_IsEnd = true;
+
+	for (auto& player : m_PlayerList)
+	{
+		player.second->UnitListClear();
+	}
 }
 
 Player* Game::GetPlayer(int playerId)

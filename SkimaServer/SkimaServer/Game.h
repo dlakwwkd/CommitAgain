@@ -15,13 +15,16 @@ public:
     
     void                SetIsStart(bool isStart){ m_IsStart = isStart; }
     void                SetIsReady(bool isReady){ m_IsReady = isReady; }
+	void				SetIsEnd(bool isEnd){ m_IsEnd = isEnd; }
     bool                IsStart(){ return m_IsStart; }
     bool                IsReady(){ return m_IsReady; }
+	bool				IsEnd(){ return m_IsEnd; }
 
     void                SetLoadedPlayerNum(){ m_LoadedPlayerNum++; }
     int                 GetLoadedPlayerNum(){ return m_LoadedPlayerNum; }
 
     void                InitGame();
+	void				EndGame();
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int id);
 
@@ -30,6 +33,7 @@ private:
     int                 m_GameID;
     bool                m_IsReady;
     bool                m_IsStart;
+	bool				m_IsEnd;
     int                 m_LoadedPlayerNum;
 
 };

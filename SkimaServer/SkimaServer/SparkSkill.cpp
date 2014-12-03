@@ -10,7 +10,7 @@
 SparkSkill::SparkSkill(int playerid, float heroBodySize)
 {
 	m_PlayerId = playerid;
-	m_Damage = 100;
+	m_Damage = 500;
 	m_MissileSpeed = REDUCE(1200);
 	m_MissileLiveTime = 500.0f;
 	m_HeroBodySize = heroBodySize;

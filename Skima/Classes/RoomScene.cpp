@@ -56,8 +56,8 @@ void RoomScene::menuCallback1(Ref* sender)	// 게임 시작
 
 void RoomScene::menuCallback2(Ref* sender)	// 나가기
 {
-    if (TcpClient::getInstance()->checkSocket() != NULL)
-        TcpClient::getInstance()->outRoomRequest(m_RoomID);
+	if (TcpClient::getInstance()->checkSocket() != NULL)
+		TcpClient::getInstance()->outRoomRequest(m_RoomID);
 
     m_IsReady = false;
     Director::getInstance()->popScene();
@@ -85,7 +85,6 @@ void RoomScene::Tick(float dt)
 
 void RoomScene::GameStartComplete()
 {
-    auto scene = MultiGameScene::createScene();
-    Director::getInstance()->popScene();
+    auto scene = MultiGameScene::createScene(m_RoomID);
     Director::getInstance()->pushScene(scene);
 }

@@ -9,13 +9,15 @@
 #include "windows.h"
 #include "GameOverScene.h"
 
-Scene* MultiGameScene::createScene()
+Scene* MultiGameScene::createScene(int roomId)
 {
     auto scene = Scene::create();
     auto layer1 = MultiGameScene::create();
     auto layer2 = ListenerLayer::create();
     scene->addChild(layer1, 0, "MultiGameScene");
     layer1->addChild(layer2, 0, "ListenerLayer");
+	layer1->SetRoomID(roomId);
+
     return scene;
 }
 
@@ -52,7 +54,7 @@ void MultiGameScene::RemoveLoadingLayer()
 
 void MultiGameScene::GameOver(int playerId, int loseId)
 {
-	//auto scene = GameOverScene::createScene();
-	//Director::getInstance()->popScene();
-	//Director::getInstance()->pushScene(scene);
+	auto scene = GameOverScene::createScene(m_RoomId, playerId, loseId);
+	Director::getInstance()->popScene();
+	Director::getInstance()->pushScene(scene);
 }

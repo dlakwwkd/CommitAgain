@@ -7,10 +7,11 @@ class MultiGameScene : public Layer
 {
 public:
 
-    static Scene* createScene();
+    static Scene* createScene(int roomId);
     virtual bool init();
     CREATE_FUNC(MultiGameScene);
 
+	void SetRoomID(int id) { m_RoomId = id; };
     bool IsStartGame(){ return m_IsStartGame; }
 
     void StartGame();
@@ -18,5 +19,6 @@ public:
     void GameOver(int playerId, int loseId);
 
 private:
-    bool m_IsStartGame;
+    bool	m_IsStartGame;
+	int		m_RoomId;
 };

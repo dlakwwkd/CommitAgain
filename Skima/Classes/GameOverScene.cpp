@@ -4,40 +4,29 @@
 #include "TcpClient.h"
 #include "MultiGameScene.h"
 
-#define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
-
-Scene* GameOverScene::createScene()
+Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 {
 	auto scene = Scene::create();
 	auto layer = GameOverScene::create();
 	scene->addChild(layer, 0, "GameOverScene");
+	layer->SetRoomID(roomId);
 
+	char* strResult;
+
+	if (playerId != loseId)
+	{
+		strResult = "WIN!!";
+	}
+	else
+	{
+		strResult = "Lose...";
+	}
+
+	auto label = Label::createWithSystemFont(strResult, "Thonburi", 50);
+	label->setPosition(Point(300, 300));
+	layer->addChild(label);
 	return scene;
 }
-
-
-// Scene* GameOverScene::createScene()
-// {
-// 	auto scene = Scene::create();
-// 	auto layer = GameOverScene::create();
-// 	scene->addChild(layer, 0, "GameOverScene");
-// 
-// 	char* strResult;
-// 
-// // 	if (playerId != loseId)
-// // 	{
-// // 		strResult = "WIN!!";
-// // 	}
-// // 	else
-// // 	{
-// // 		strResult = "Lose...";
-// // 	}
-// 
-// 	auto label = Label::createWithSystemFont(strResult, "Thonburi", 50);
-// 	label->setPosition(Point(300, 300));
-// 	layer->addChild(label);
-// 	return scene;
-// }
 
 bool GameOverScene::init()
 {
@@ -58,58 +47,18 @@ bool GameOverScene::init()
 	menu->alignItemsVertically();
 	menu->setPosition(Point(0, 30));
 	this->addChild(menu, 0, "GameOverMenu");
-
-	auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
-	label->setAnchorPoint(Vec2::ZERO);
-	label->setHorizontalAlignment(TextHAlignment::CENTER);
-	this->addChild(label, 0, "RoomStateLabel");
-
-	// 1초 마다 Tick 함수를 호출한다.
-	this->schedule(schedule_selector(GameOverScene::Tick), 1.0f);
-	return true;
 }
 
 void GameOverScene::menuCallback1(Ref* sender)	// 게임 시작
 {
-	if (TcpClient::getInstance()->checkSocket() == NULL || m_IsReady)
-		return;
-
-	m_IsReady = true;
-	ShowCursor(false);
-	TcpClient::getInstance()->startGameRequest();
+	Director::getInstance()->popScene();
 }
 
 void GameOverScene::menuCallback2(Ref* sender)	// 나가기
 {
 	if (TcpClient::getInstance()->checkSocket() != NULL)
-		TcpClient::getInstance()->outRoomRequest(m_RoomID);
+		TcpClient::getInstance()->outRoomRequest(m_RoomId);
 
-	m_IsReady = false;
 	Director::getInstance()->popScene();
-}
-
-
-//////////////////////////////////////////////////////////////////////////
-void GameOverScene::Tick(float dt)
-{
-	auto label = GET_ROOM_STATE_LABEL;
-	if(label == nullptr)
-		return;
-
-	// 방 번호를 문자열로 변환 후 라벨에 적용
-	char buf[32];
-	_itoa(m_RoomID, buf, 32);
-	std::string roomNum = buf;
-	roomNum += "번 방";
-	label->setString(roomNum.c_str());
-}
-//////////////////////////////////////////////////////////////////////////
-
-
-
-void GameOverScene::GameStartComplete()
-{
-	auto scene = MultiGameScene::createScene();
 	Director::getInstance()->popScene();
-	Director::getInstance()->pushScene(scene);
 }

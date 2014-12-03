@@ -250,6 +250,11 @@ void GameManager::Tick(float dt)
 
     for (auto& game : m_GameList)
     {
+		if (game.second->IsEnd())
+		{
+			continue;
+		}
+
         for (auto& player : game.second->GetPlayerList())
         {
             auto client = GClientManager->GetClient(player.first);
@@ -261,7 +266,9 @@ void GameManager::Tick(float dt)
 
             if (client->GetPlayer()->GetMyHero()->GetUnitHp() <= 0)
             {
-
+				client->GameOverCast(client->GetPlayer()->GetPlayerID());
+				game.second->EndGame();
+				continue;
             }
 
             if (game.second->IsReady())
