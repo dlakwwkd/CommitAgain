@@ -24,7 +24,8 @@ void Player::CreateHero(b2Vec2 pos)
 		m_Hero = new Jupiter(m_PlayerID, pos, DEF_SCALE);
         break;
     default:
-    }
+        break;
+    };
     m_UnitList[m_Hero->GetUnitID()] = m_Hero;
 
     auto client = GClientManager->GetClient(m_PlayerID);
