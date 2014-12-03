@@ -354,6 +354,7 @@ void TcpClient::processPacket()
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSplash, layer,
                      recvData.mUnitId, recvData.mKey, curPos, targetPos));
             }
+            break;
         case PKT_SC_MISSILE:
             {
                 MissileBroadcastResult recvData;
@@ -477,7 +478,7 @@ void TcpClient::startGameRequest()
 
     GameReadyNotify sendData;
     sendData.mPlayerId = mLoginId;
-    sendData.mHeroType = HERO_MAGICIAN;
+    sendData.mHeroType = HERO_JUPITER;
 
     send((const char*)&sendData, sizeof(GameReadyNotify));
 }

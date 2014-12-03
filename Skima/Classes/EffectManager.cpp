@@ -3,6 +3,7 @@
 #include "FireEffect.h"
 #include "IceEffect.h"
 #include "TeleportEffect.h"
+#include "LightningEffect.h"
 
 EffectManager::EffectManager()
 {
@@ -30,6 +31,13 @@ EffectManager::EffectManager()
         m_EffectList.push_back(new TeleportEffect(ID));
     }
     m_LastID_TeleEffect = ID;
+
+    for (i = 0; i < EffectPoolSize::LIGHTNING; ++i)
+    {
+        ID = EffectIDBoundary::LIGHTNING_ID_START + i;
+        m_EffectList.push_back(new LightningEffect(ID));
+    }
+    m_LastID_LightningEffect = ID;
 }
 
 
@@ -92,10 +100,19 @@ bool EffectManager::Expand(EffectType type)
     case EF_TELE:
         for (i = 1; i < EffectPoolSize::TELE; ++i)
         {
-            ID = m_LastID_IceEffect + i;
+            ID = m_LastID_TeleEffect + i;
             m_EffectList.push_back(new TeleportEffect(ID));
         }
         m_LastID_IceEffect = ID;
+        break;
+    case EF_LIGHTNING:
+        for (i = 1; i < EffectPoolSize::LIGHTNING; ++i)
+        {
+            ID = m_LastID_LightningEffect + i;
+            m_EffectList.push_back(new LightningEffect(ID));
+        }
+        m_LastID_IceEffect = ID;
+        break;
     }
     return true;
 }

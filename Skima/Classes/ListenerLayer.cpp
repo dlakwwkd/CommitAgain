@@ -119,7 +119,10 @@ void ListenerLayer::OnMouseDown(Event *event)
             {
                 break;
             }
-            TcpClient::getInstance()->skillRequest(heroPos, mousePos, key);
+            if (key == SKILL_W) // hard coding
+                TcpClient::getInstance()->splashSkillRequest(heroPos, mousePos, key);
+            else
+                TcpClient::getInstance()->skillRequest(heroPos, mousePos, key);
             CoolTimeStart(key);
 
             hero->SkillEnd(key);

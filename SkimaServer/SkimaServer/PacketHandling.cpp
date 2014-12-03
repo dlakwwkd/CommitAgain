@@ -317,7 +317,7 @@ REGISTER_HANDLER(PKT_CS_SPLASH)
         printf("[DEBUG] Player Info error! \n");
         return;
     }
-    printf(" SkillReceive: ID: %d\t\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
+    printf(" SplashSkillReceive: ID: %d\t\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto hero = player->GetMyHero();									if (!hero)      return;
