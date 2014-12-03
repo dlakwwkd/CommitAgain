@@ -22,8 +22,8 @@ Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 		strResult = "Lose...";
 	}
 
-	auto label = Label::createWithSystemFont(strResult, "Thonburi", 50);
-	label->setPosition(Point(300, 300));
+	auto label = Label::createWithSystemFont(strResult, "Thonburi", 150);
+	label->setPosition(Point(650, 500));
 	layer->addChild(label);
 	return scene;
 }
@@ -45,7 +45,7 @@ bool GameOverScene::init()
 
 	auto menu = Menu::create(menuItem1, menuItem2, NULL);
 	menu->alignItemsVertically();
-	menu->setPosition(Point(0, 30));
+	menu->setPositionY(300);
 	this->addChild(menu, 0, "GameOverMenu");
 }
 
