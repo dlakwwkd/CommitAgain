@@ -11,6 +11,7 @@
 #include "Enums.h"
 #include "EffectManager.h"
 #include "TeleportEffect.h"
+#include "Unit.h"
 
 bool ObjectLayer::init()
 {
@@ -412,6 +413,7 @@ void ObjectLayer::UnitTeleportM(int unitID, Vec2 curPos, Vec2 targetPos)
     auto effect = GET_EM->Assign(EF_TELE);
     effect->CreateEffect(curPos);
     unit->second->GetSprite()->setPosition(targetPos);
-
+    unit->second->SetTargetPos(targetPos);
+    unit->second->EndMove();
 }
 

@@ -32,7 +32,6 @@ void TeleportSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
         hero->GetBody()->SetLinearVelocity(b2Vec2{ 0, 0 });
         hero->GetBody()->SetTransform(targetPos, 0);
         hero->SetState(hero->GetStandbyState());
-
         auto client = GClientManager->GetClient(m_PlayerId);
         client->TeleportBroadCast(m_PlayerId,hero->GetUnitID(),heroPos,targetPos);
     }
@@ -50,7 +49,6 @@ void TeleportSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
         hero->GetBody()->SetLinearVelocity(b2Vec2{ 0, 0 });
         hero->GetBody()->SetTransform(rangePos, 0);
         hero->SetState(hero->GetStandbyState());
-
         auto client = GClientManager->GetClient(m_PlayerId);
         client->TeleportBroadCast(m_PlayerId,hero->GetUnitID(), heroPos, rangePos);
     }
