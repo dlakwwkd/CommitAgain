@@ -21,7 +21,7 @@ TeleportSkill::~TeleportSkill()
 {
 }
 
-void TeleportSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
+void TeleportSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos)
 {
     auto direction = targetPos - heroPos;
     auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
@@ -33,7 +33,7 @@ void TeleportSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
         hero->GetBody()->SetTransform(targetPos, 0);
         hero->SetState(hero->GetStandbyState());
         auto client = GClientManager->GetClient(m_PlayerId);
-        client->TeleportBroadCast(m_PlayerId,hero->GetUnitID(),heroPos,targetPos);
+        client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_E, heroPos, targetPos);
     }
 
     else //사거리보다 클때
@@ -50,6 +50,6 @@ void TeleportSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
         hero->GetBody()->SetTransform(rangePos, 0);
         hero->SetState(hero->GetStandbyState());
         auto client = GClientManager->GetClient(m_PlayerId);
-        client->TeleportBroadCast(m_PlayerId,hero->GetUnitID(), heroPos, rangePos);
+        client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_E, heroPos, targetPos);
     }
 }

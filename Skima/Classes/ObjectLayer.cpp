@@ -125,7 +125,7 @@ void ObjectLayer::UnitCrashEnd(int unitID, Vec2 revisePos)
     unit->second->EndCrash();
 }
 
-void ObjectLayer::UnitSkillUse(int unitId, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
+void ObjectLayer::UnitSkillUse(int unitID, SkillType type, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
 {
     switch (GET_GM.GetGameMode())
     {
@@ -133,23 +133,23 @@ void ObjectLayer::UnitSkillUse(int unitId, SkillKey key, Vec2 recvCurPos, Vec2 t
         UnitSkillUseS(key, targetPos);
         break;
     case MULTI:
-        UnitSkillUseM(unitId, key, recvCurPos, targetPos);
+        UnitSkillUseM(unitID, type, key, recvCurPos, targetPos);
         break;
     }
 }
 
-void ObjectLayer::UnitSplash(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
-{
-    switch (GET_GM.GetGameMode())
-    {
-    case SINGLE:
-        UnitSplashS(key, targetPos);
-        break;
-    case MULTI:
-        UnitSplashM(unitID, key, recvCurPos, targetPos);
-        break;
-    }
-}
+//void ObjectLayer::UnitSplash(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
+//{
+//    switch (GET_GM.GetGameMode())
+//    {
+//    case SINGLE:
+//        UnitSplashS(key, targetPos);
+//        break;
+//    case MULTI:
+//        UnitSplashM(unitID, key, recvCurPos, targetPos);
+//        break;
+//    }
+//}
 
 void ObjectLayer::ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos)
 {
@@ -201,18 +201,18 @@ void ObjectLayer::DeleteMissile(int missileID)
     CC_SAFE_DELETE(missile->second);
     m_MissileList.erase(missile);
 }
-void ObjectLayer::UnitTeleport(int unitID, Vec2 recvCurPos, Vec2 targetPos)
-{
-    switch (GET_GM.GetGameMode())
-    {
-    case SINGLE:
-        UnitTeleportS(targetPos);
-        break;
-    case MULTI:
-        UnitTeleportM(unitID, recvCurPos, targetPos);
-        break;
-    }
-}
+//void ObjectLayer::UnitTeleport(int unitID, Vec2 recvCurPos, Vec2 targetPos)
+//{
+//    switch (GET_GM.GetGameMode())
+//    {
+//    case SINGLE:
+//        UnitTeleportS(targetPos);
+//        break;
+//    case MULTI:
+//        UnitTeleportM(unitID, recvCurPos, targetPos);
+//        break;
+//    }
+//}
 
 
 
@@ -301,16 +301,39 @@ void ObjectLayer::UnitSkillUseS(SkillKey key, Vec2 pos)
 
 }
 
-void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
+void ObjectLayer::UnitSkillUseM(int unitID, SkillType type, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
 {
-    auto unit = m_UnitList.find(unitID);
+    auto unit = m_UnitList.find(unitID); //어차피 Skill쓰는건 hero뿐인데 왜 unit을 찾는거지
     if (unit == m_UnitList.end())
     {
         return;
     }
     unit->second->SetTargetPos(targetPos);
-    //unit->second->SetMoveMotionByDir();
     unit->second->EndMove();
+
+    switch (type)
+    {
+    case MISSILE_SKILL:
+        break;
+    case SPLASH_SKILL:
+    {
+        auto effect = GET_EM->Assign(EF_LIGHTNING);
+        effect->CreateEffect(targetPos);
+        break;
+    }
+    case MOVEMENT_SKILL:
+    {
+        unit->second->SetTargetPos(targetPos);
+        auto effect = GET_EM->Assign(EF_TELE);
+        effect->CreateEffect(recvCurPos);
+        unit->second->GetSprite()->setPosition(targetPos);
+        unit->second->SetTargetPos(targetPos);
+        unit->second->EndMove();
+        break;
+    }
+    default:
+        break;
+    }
 }
 
 void ObjectLayer::UnitSplashS(SkillKey key, Vec2 pos)
@@ -318,17 +341,17 @@ void ObjectLayer::UnitSplashS(SkillKey key, Vec2 pos)
 
 }
 
-void ObjectLayer::UnitSplashM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
-{
-    auto unit = m_UnitList.find(unitID);
-    if (unit == m_UnitList.end())
-    {
-        return;
-    }
-    unit->second->SetTargetPos(targetPos);
-    auto effect = GET_EM->Assign(EF_LIGHTNING);
-    effect->CreateEffect(targetPos);
-}
+//void ObjectLayer::UnitSplashM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
+//{
+//    auto unit = m_UnitList.find(unitID); //어차피 Skill쓰는건 hero뿐인데 왜 unit을 찾는거지
+//    if (unit == m_UnitList.end())
+//    {
+//        return;
+//    }
+//    unit->second->SetTargetPos(targetPos);
+//    auto effect = GET_EM->Assign(EF_LIGHTNING);
+//    effect->CreateEffect(targetPos);
+//}
 
 void ObjectLayer::ShootMissileS(Vec2 createPos, Vec2 targetPos)
 {
@@ -402,18 +425,18 @@ void ObjectLayer::UnitTeleportS(Vec2 targetPos)
 
 }
 
-void ObjectLayer::UnitTeleportM(int unitID, Vec2 curPos, Vec2 targetPos)
-{
-    auto unit = m_UnitList.find(unitID);
-    if (unit == m_UnitList.end())
-    {
-        return;
-    }
-    unit->second->SetTargetPos(targetPos);
-    auto effect = GET_EM->Assign(EF_TELE);
-    effect->CreateEffect(curPos);
-    unit->second->GetSprite()->setPosition(targetPos);
-    unit->second->SetTargetPos(targetPos);
-    unit->second->EndMove();
-}
+//void ObjectLayer::UnitTeleportM(int unitID, Vec2 curPos, Vec2 targetPos)
+//{
+//    auto unit = m_UnitList.find(unitID);
+//    if (unit == m_UnitList.end())
+//    {
+//        return;
+//    }
+//    unit->second->SetTargetPos(targetPos);
+//    auto effect = GET_EM->Assign(EF_TELE);
+//    effect->CreateEffect(curPos);
+//    unit->second->GetSprite()->setPosition(targetPos);
+//    unit->second->SetTargetPos(targetPos);
+//    unit->second->EndMove();
+//}
 

@@ -7,12 +7,14 @@
 
 SparkSkill::SparkSkill()
 {
+    m_SkillType = MISSILE_SKILL;
     m_CoolTime = 3;
     m_CanUse = true;
 }
 
 SparkSkill::SparkSkill(Hero* hero)
 {
+    m_SkillType = MISSILE_SKILL;
     m_Hero = hero;
     m_CoolTime = 3;
     m_CanUse = true;

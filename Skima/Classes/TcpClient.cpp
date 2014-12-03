@@ -338,23 +338,23 @@ void TcpClient::processPacket()
 
                 auto layer = GET_OBJECT_LAYER;      assert(layer != nullptr);
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSkillUse, layer,
-                    recvData.mUnitId, recvData.mKey, curPos, targetPos));
+                    recvData.mUnitId, recvData.mSkillType, recvData.mKey, curPos, targetPos));
             }
             break;
-        case PKT_SC_SPLASH:
-            {
-                SplashSkillBroadcastResult recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
+            /*  case PKT_SC_SPLASH:
+                  {
+                  SplashSkillBroadcastResult recvData;
+                  bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+                  assert(ret && recvData.mPlayerId != -1);
 
-                Vec2 curPos = CONVERT(recvData.mCurrentPos);
-                Vec2 targetPos = CONVERT(recvData.mTargetPos);
+                  Vec2 curPos = CONVERT(recvData.mCurrentPos);
+                  Vec2 targetPos = CONVERT(recvData.mTargetPos);
 
-                auto layer = GET_OBJECT_LAYER;      assert(layer != nullptr);
-                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSplash, layer,
-                     recvData.mUnitId, recvData.mKey, curPos, targetPos));
-            }
-            break;
+                  auto layer = GET_OBJECT_LAYER;      assert(layer != nullptr);
+                  scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSplash, layer,
+                  recvData.mUnitId, recvData.mKey, curPos, targetPos));
+                  }
+                  break;*/
         case PKT_SC_MISSILE:
             {
                 MissileBroadcastResult recvData;
@@ -381,7 +381,7 @@ void TcpClient::processPacket()
         }
         break;
 
-        case  PKT_SC_TELEPORT:
+       /* case  PKT_SC_TELEPORT:
         {
              TeleportBroadcastResult recvData;
              bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
@@ -394,7 +394,7 @@ void TcpClient::processPacket()
              scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitTeleport, layer,
                  recvData.mUnitId, curPos, targetPos));
         }
-        break;
+        break;*/
 
         case  PKT_SC_GAMEOVER:
         {
@@ -478,7 +478,7 @@ void TcpClient::startGameRequest()
 
     GameReadyNotify sendData;
     sendData.mPlayerId = mLoginId;
-    sendData.mHeroType = HERO_JUPITER;
+    sendData.mHeroType = HERO_MAGICIAN;
 
     send((const char*)&sendData, sizeof(GameReadyNotify));
 }
@@ -507,7 +507,7 @@ void TcpClient::moveRequest(Vec2 curPos, Vec2 targetPos)
     send((const char*)&sendData, sizeof(MoveRequest));
 }
 
-void TcpClient::skillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey)
+void TcpClient::skillRequest(Vec2 curPos, Vec2 targetPos, SkillType skillType, SkillKey skillKey)
 {
     if (mLoginId < 0)
         return;
@@ -516,24 +516,25 @@ void TcpClient::skillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey)
     sendData.mPlayerId = mLoginId;
     sendData.mCurrentPos = CONVERT(curPos);
     sendData.mTargetPos = CONVERT(targetPos);
+    sendData.mSkillType = skillType;
     sendData.mKey = skillKey;
 
     send((const char*)&sendData, sizeof(SkillRequest));
 }
 
-void TcpClient::splashSkillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey)
-{
-    if (mLoginId < 0)
-        return;
-
-    SplashSkillRequest sendData;
-    sendData.mPlayerId = mLoginId;
-    sendData.mCurrentPos = CONVERT(curPos);
-    sendData.mTargetPos = CONVERT(targetPos);
-    sendData.mKey = skillKey;
-
-    send((const char*)&sendData, sizeof(SplashSkillRequest));
-}
+//void TcpClient::splashSkillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey)
+//{
+//    if (mLoginId < 0)
+//        return;
+//
+//    SplashSkillRequest sendData;
+//    sendData.mPlayerId = mLoginId;
+//    sendData.mCurrentPos = CONVERT(curPos);
+//    sendData.mTargetPos = CONVERT(targetPos);
+//    sendData.mKey = skillKey;
+//
+//    send((const char*)&sendData, sizeof(SplashSkillRequest));
+//}
 
 
 

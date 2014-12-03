@@ -39,7 +39,7 @@ public:
     void    SendCreateHeroResult(int unitId, b2Vec2 pos);
     void    SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
     void    CrashedBroadCast(int unitId, b2Vec2 curPos, b2Vec2 expectPos, bool isCrashed);
-    void    SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos);
+    void    SkillBroadCast(int heroId, SkillType type, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos);
 	void    SplashSkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos);
     void    MissileBroadCast(int playerId, int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
     void    TeleportBroadCast(int playerId, int unitId, b2Vec2 currentPos, b2Vec2 targetPos);

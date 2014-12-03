@@ -4,7 +4,6 @@
 
 Effect::Effect()
 {
-    m_EffectType = EF_NONE;
     m_Sprite = nullptr;
     m_InUse = false;
     m_ID = -1;

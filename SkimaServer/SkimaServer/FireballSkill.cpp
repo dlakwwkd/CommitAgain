@@ -22,7 +22,7 @@ FireballSkill::~FireballSkill()
 {
 }
 
-void FireballSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
+void FireballSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos)
 {
     b2Vec2 initPos = GenerateInitPos(heroPos, targetPos);
 

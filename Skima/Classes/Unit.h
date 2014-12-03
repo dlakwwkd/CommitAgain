@@ -5,6 +5,7 @@
 
 USING_NS_CC;
 typedef std::map<Direction, Animation*> MoveMotion;
+class Skill;
 
 class Unit
 {
@@ -22,6 +23,7 @@ public:
     int             GetUnitID(){ return m_UnitID; }
     Sprite*         GetSprite(){ return m_Sprite; }
     Sprite*         GetHpBar(){ return m_HpBar; }
+    Skill*          GetSkill(SkillKey key){ return m_SkillList[key]; }
     float           GetMaxHp(){ return m_MaxHp; }
     float           GetCurHp(){ return m_CurHp; }
     Vec2            GetMoveTargetPos(){ return m_TargetPos; }
@@ -72,9 +74,10 @@ protected:
     Vec2            m_TargetPos;
 
 protected:
-    Sprite*         m_Sprite;
-    Sprite*         m_HpBar;
-    PhysicsBody*    m_Body;
+    std::map<SkillKey, Skill*>  m_SkillList;
+    Sprite*                     m_Sprite;
+    Sprite*                     m_HpBar;
+    PhysicsBody*                m_Body;
 
 
     friend class ObjectManager;

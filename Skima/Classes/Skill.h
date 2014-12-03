@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include "PacketType.h"
+#include "EffectManager.h"
 class Hero;
 
 USING_NS_CC;
@@ -12,6 +14,8 @@ public:
 
     int             GetCoolTime() { return m_CoolTime; }
     int             GetCanUse() { return m_CanUse; }
+    EffectType      GetEffectType(){ return m_EffectType; }
+    SkillType       GetSkillType(){ return m_SkillType; }
 
     void            SetCanUse(bool isUse) { m_CanUse = isUse; }
 
@@ -20,9 +24,11 @@ public:
     virtual void    SkillEnd() = 0;
 
 protected:
-    Hero*   m_Hero;
+    Hero*       m_Hero;
 
-    int     m_CoolTime;
-    bool    m_CanUse;
+    SkillType   m_SkillType;
+    EffectType  m_EffectType;
+    int         m_CoolTime;
+    bool        m_CanUse;
 };
 

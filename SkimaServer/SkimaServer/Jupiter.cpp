@@ -43,7 +43,7 @@ Jupiter::~Jupiter()
 	}
 }
 
-void Jupiter::UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
+void Jupiter::UseSkill(SkillType skillType, SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
 {
-	m_SkillList[skillKey]->SkillCast(heroPos, targetPos);
+	m_SkillList[skillKey]->SkillCast(skillType, heroPos, targetPos);
 }

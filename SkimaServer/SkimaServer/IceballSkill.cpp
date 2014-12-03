@@ -22,7 +22,7 @@ IceballSkill::~IceballSkill()
 {
 }
 
-void IceballSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
+void IceballSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos)
 {
     b2Vec2 initPos = GenerateInitPos(heroPos, targetPos);
 

@@ -13,7 +13,6 @@ public:
     Vec2            GetHeroPos() { return m_Sprite->getPosition(); }
     Sprite*         GetArrow() { return m_Arrow; }
     Sprite*         GetSkillRange(){ return m_SkillRange; }
-    Skill*          GetSkill(SkillKey key){ return m_SkillList[key]; }
     virtual void	SetMoveMotionByDir() = 0;
     void			SetSkillCanUse(SkillKey key, bool isUse);
     void			SkillCast(SkillKey key);
@@ -25,7 +24,6 @@ protected:
     Direction       CalcDirection(Vec2 displacement);
 
 protected:
-    std::map<SkillKey, Skill*>  m_SkillList;
 
     Sprite*                     m_Arrow;
     Sprite*                     m_SkillRange;

@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "Unit.h"
 #include "Hero.h"
+#include "Skill.h"
 #include "GameManager.h"
 
 Unit::Unit()

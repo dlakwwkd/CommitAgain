@@ -5,6 +5,8 @@
 #include "GameManager.h"
 #include "InputManager.h"
 #include "MultiGameScene.h"
+#include "Skill.h"
+#include "PacketType.h"
 #include "Hero.h"
 #include "UILayer.h"
 #include "math.h"
@@ -119,10 +121,8 @@ void ListenerLayer::OnMouseDown(Event *event)
             {
                 break;
             }
-            if (key == SKILL_W) // hard coding
-                TcpClient::getInstance()->splashSkillRequest(heroPos, mousePos, key);
-            else
-                TcpClient::getInstance()->skillRequest(heroPos, mousePos, key);
+            auto skillType = hero->GetSkill(key)->GetSkillType();
+            TcpClient::getInstance()->skillRequest(heroPos, mousePos, skillType, key);
             CoolTimeStart(key);
 
             hero->SkillEnd(key);
