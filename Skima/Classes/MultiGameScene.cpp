@@ -11,7 +11,6 @@
 
 Scene* MultiGameScene::createScene()
 {
-    ShowCursor(false);
     auto scene = Scene::create();
     auto layer1 = MultiGameScene::create();
     auto layer2 = ListenerLayer::create();
@@ -42,6 +41,7 @@ bool MultiGameScene::init()
 void MultiGameScene::StartGame()
 {
     RemoveLoadingLayer();
+    ShowCursor(false);
     m_IsStartGame = true;
 }
 
