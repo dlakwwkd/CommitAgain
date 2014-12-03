@@ -79,7 +79,7 @@ bool TcpClient::connect()
 
     ZeroMemory(&hostAddr, sizeof(hostAddr));
     hostAddr.sin_family = AF_INET;
-    hostAddr.sin_addr.s_addr = inet_addr("10.73.45.143");
+    hostAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     hostAddr.sin_port = htons(port);
 
     if (SOCKET_ERROR == ::connect(mSock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))

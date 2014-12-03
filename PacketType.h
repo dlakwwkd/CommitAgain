@@ -517,7 +517,7 @@ struct GameOverNotify : public PacketHeader
     GameOverNotify()
     {
         mSize = sizeof(GameOverNotify);
-        mType = PKT_CS_MOVE;
+        mType = PKT_SC_GAMEOVER;
         mPlayerId = -1;
         mLoseId = -1;
     }
