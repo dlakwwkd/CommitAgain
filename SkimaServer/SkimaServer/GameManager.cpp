@@ -243,6 +243,7 @@ void GameManager::Tick(float dt)
         {
             // 게임 구동 시작!;
             printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", room.first);
+            if (room.second->IsGameExist)
             CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::CreateGame, room.first);
             room.second->InitReady();
         }
@@ -268,7 +269,7 @@ void GameManager::Tick(float dt)
             {
 				client->GameOverCast(client->GetPlayer()->GetPlayerID());
 				game.second->EndGame();
-				continue;
+                break;
             }
 
             if (game.second->IsReady())

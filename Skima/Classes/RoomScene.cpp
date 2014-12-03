@@ -51,7 +51,7 @@ void RoomScene::menuCallback1(Ref* sender)	// 게임 시작
         return;
 
     m_IsReady = true;
-    TcpClient::getInstance()->startGameRequest();
+    TcpClient::getInstance()->startGameRequest(m_RoomID);
 }
 
 void RoomScene::menuCallback2(Ref* sender)	// 나가기

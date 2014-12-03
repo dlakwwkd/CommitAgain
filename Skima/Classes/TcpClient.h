@@ -37,7 +37,7 @@ public:
     void makeRoomRequest();
     void joinRoomRequest();
     void outRoomRequest(int roomId);
-    void startGameRequest();
+    void startGameRequest(int roomId);
     void runCompleteRequest(); //이름 체인지 + bool값 인자
 
     void moveRequest(Vec2 curPos, Vec2 targetPos);

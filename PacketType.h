@@ -213,9 +213,11 @@ struct GameReadyNotify : public PacketHeader
         mSize = sizeof(GameReadyNotify);
         mType = PKT_CS_GAME_READY;
         mPlayerId = -1;
+        mRoomId = -1;
         mHeroType = HERO_NONE;
     }
     int         mPlayerId;
+    int         mRoomId;
     HeroType    mHeroType;
 };
 struct GameRunNotify : public PacketHeader

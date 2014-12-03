@@ -471,7 +471,7 @@ void TcpClient::outRoomRequest(int roomId)
     send((const char*)&sendData, sizeof(InOutRoomRequest));
 }
 
-void TcpClient::startGameRequest()
+void TcpClient::startGameRequest(int roomId)
 {
     if (mLoginId < 0)
         return;
