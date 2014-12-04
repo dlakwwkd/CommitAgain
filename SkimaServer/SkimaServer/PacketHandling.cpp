@@ -220,10 +220,16 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto room = GGameManager->SearchRoom(player->GetRoomID());		if (!room)      return;
+    auto game = GGameManager->SearchGame(inPacket.mRoomId);
     room->ReadySign();
     player->SetReady(true);
     player->SetHeroType(inPacket.mHeroType);
     printf(" - Player %d is Ready ! \n", inPacket.mPlayerId);
+
+//     if (room->IsGameExist())
+//     {
+//         game->SetIsEnd(false);
+//     }
 
     if (room->IsAllReady())
     {

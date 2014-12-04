@@ -11,6 +11,13 @@ void GameRoom::ReadySign()
     }
 }
 
+void GameRoom::InitReady()
+{
+    m_IsAllReady = false;
+    m_ReadyNum = 0;
+}
+
+
 void GameRoom::JoinPlayer(Player* player)
 {
     if (player == nullptr)

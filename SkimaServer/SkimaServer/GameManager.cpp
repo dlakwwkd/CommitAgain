@@ -243,15 +243,17 @@ void GameManager::Tick(float dt)
         {
             // 게임 구동 시작!;
             printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", room.first);
-            if (room.second->IsGameExist)
+           
             CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::CreateGame, room.first);
+            room.second->SetIsGameExist(true);
+
             room.second->InitReady();
         }
     }
 
     for (auto& game : m_GameList)
     {
-		if (game.second->IsEnd())
+		if (game.second != NULL && game.second->IsEnd())
 		{
 			continue;
 		}
@@ -268,7 +270,8 @@ void GameManager::Tick(float dt)
             if (client->GetPlayer()->GetMyHero()->GetUnitHp() <= 0)
             {
 				client->GameOverCast(client->GetPlayer()->GetPlayerID());
-				game.second->EndGame();
+                game.second->EndGame();
+                DeleteGame(game.second->GetGameID());
                 break;
             }
 
