@@ -46,6 +46,7 @@ void Missile::MissileCrash()
     {
     case MS_FIRE_BALL:  type = EF_FIRE; break;
     case MS_ICE_BALL:   type = EF_ICE;  break;
+    case MS_SPARK:      type = EF_SPARK; break;
     default: return;
     }
     auto effect = GET_EM->Assign(EffectType(type));

@@ -4,6 +4,7 @@
 #include "IceEffect.h"
 #include "TeleportEffect.h"
 #include "LightningEffect.h"
+#include "SparkEffect.h"
 
 EffectManager::EffectManager()
 {
@@ -38,6 +39,13 @@ EffectManager::EffectManager()
         m_EffectList.push_back(new LightningEffect(ID));
     }
     m_LastID_LightningEffect = ID;
+
+    for (i = 0; i < EffectPoolSize::SPARK; ++i)
+    {
+        ID = EffectIDBoundary::SPARK_ID_START + i;
+        m_EffectList.push_back(new SparkEffect(ID));
+    }
+    m_LastID_SparkEffect = ID;
 }
 
 
@@ -97,13 +105,21 @@ bool EffectManager::Expand(EffectType type)
         }
         m_LastID_IceEffect = ID;
         break;
+    case EF_SPARK:
+        for (i = 1; i < EffectPoolSize::SPARK; ++i)
+        {
+            ID = m_LastID_SparkEffect + i;
+            m_EffectList.push_back(new IceEffect(ID));
+        }
+        m_LastID_SparkEffect = ID;
+        break;
     case EF_TELE:
         for (i = 1; i < EffectPoolSize::TELE; ++i)
         {
             ID = m_LastID_TeleEffect + i;
             m_EffectList.push_back(new TeleportEffect(ID));
         }
-        m_LastID_IceEffect = ID;
+        m_LastID_TeleEffect = ID;
         break;
     case EF_LIGHTNING:
         for (i = 1; i < EffectPoolSize::LIGHTNING; ++i)
@@ -111,7 +127,7 @@ bool EffectManager::Expand(EffectType type)
             ID = m_LastID_LightningEffect + i;
             m_EffectList.push_back(new LightningEffect(ID));
         }
-        m_LastID_IceEffect = ID;
+        m_LastID_LightningEffect = ID;
         break;
     }
     return true;

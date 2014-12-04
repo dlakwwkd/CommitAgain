@@ -7,8 +7,10 @@ public:
     virtual ~Magician();
 
 public:
-    void            SetMoveMotionToCache();
+    virtual void    SetMoveMotionToCache();
+    virtual void    SetSkillMotionToCache();
     virtual void    SetMoveMotionByDir();
+    virtual void    SetSkillMotionByDir(SkillKey key);
 
 };
 

@@ -1,5 +1,7 @@
 #pragma once
 #include "Hero.h"
+#include "PacketType.h"
+
 class Jupiter : public Hero
 {
 public:
@@ -7,8 +9,10 @@ public:
     virtual ~Jupiter();
 
 public:
-    void            SetMoveMotionToCache();
+    virtual void    SetMoveMotionToCache();
+    virtual void    SetSkillMotionToCache();
     virtual void    SetMoveMotionByDir();
+    virtual void    SetSkillMotionByDir(SkillKey key);
 private:
 };
 

@@ -13,7 +13,7 @@ public:
     virtual ~Skill();
 
     int             GetCoolTime() { return m_CoolTime; }
-    int             GetCanUse() { return m_CanUse; }
+    bool            GetCanUse() { return m_CanUse; }
     EffectType      GetEffectType(){ return m_EffectType; }
     SkillType       GetSkillType(){ return m_SkillType; }
 

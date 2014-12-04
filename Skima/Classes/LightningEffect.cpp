@@ -17,9 +17,9 @@ LightningEffect::~LightningEffect()
 
 void LightningEffect::CreateEffect(Vec2 createPos)
 {
-    m_Particle = ParticleSystemQuad::create("Images/lightning_effect.plist");
-    auto particle2 = ParticleSystemQuad::create("Images/lightning.plist");
-    auto particle3 = ParticleSystemQuad::create("Images/lightning_cloud.plist");
+    m_Particle = ParticleSystemQuad::create("Jupiter/lightning_effect.plist");
+    auto particle2 = ParticleSystemQuad::create("Jupiter/lightning.plist");
+    auto particle3 = ParticleSystemQuad::create("Jupiter/lightning_cloud.plist");
     particle2->setAnchorPoint(Vec2(0.50f, 0.0f));
     m_Particle->setPosition(createPos);
     particle2->setPosition(Vec2(0, 190.0f));
@@ -30,7 +30,7 @@ void LightningEffect::CreateEffect(Vec2 createPos)
     m_Particle->addChild(particle2);
     m_Particle->addChild(particle3);
 
-    auto action1 = DelayTime::create(4.0f);
+    auto action1 = DelayTime::create(1.0f);
     auto action2 = CallFunc::create(CC_CALLBACK_0(LightningEffect::ExtinctEffect, this));
     auto action3 = Sequence::create(action1, action2, NULL);
     m_Particle->runAction(action3);

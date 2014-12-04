@@ -310,30 +310,6 @@ REGISTER_HANDLER(PKT_CS_SKILL)
     //session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
 }
 
-//REGISTER_HANDLER(PKT_CS_SPLASH)
-//{
-//    SplashSkillRequest inPacket;
-//    if (false == session->ParsePacket(inPacket))
-//    {
-//        printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
-//        return;
-//    }
-//    if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
-//    {
-//        printf("[DEBUG] Player Info error! \n");
-//        return;
-//    }
-//    printf(" SplashSkillReceive: ID: %d\t\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
-//
-//    auto player = session->GetPlayer();								if (!player)    return;
-//    auto hero = player->GetMyHero();									if (!hero)      return;
-//    auto roomId = player->GetRoomID();                              if (roomId < 0) return;
-//
-//    b2Vec2 targetPos = CONVERT_IN(inPacket.mTargetPos, roomId);
-//    b2Vec2 currentPos = CONVERT_IN(inPacket.mCurrentPos, roomId);
-//
-//    hero->UseSkill(TODO, inPacket.mKey, currentPos, targetPos);
-//}
 // 
 // REGISTER_HANDLER(PKT_CS_CHAT)
 // {
@@ -527,21 +503,6 @@ void ClientSession::SkillBroadCast(int heroId, SkillType type, SkillKey key, b2V
     }
 }
 
-//void ClientSession::SplashSkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos)
-//{
-//	SplashSkillBroadcastResult outPacket;
-//	outPacket.mPlayerId = mPlayer->GetPlayerID();
-//	outPacket.mUnitId = heroId;
-//	outPacket.mKey = key;
-//	outPacket.mCurrentPos = CONVERT_OUT(currentPos, mPlayer->GetRoomID());
-//	outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
-//
-//	if (!Broadcast(&outPacket))
-//	{
-//		Disconnect();
-//	}
-//}
-
 void ClientSession::MissileBroadCast(int playerId,int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
 {
     MissileBroadcastResult outPacket;
@@ -555,20 +516,6 @@ void ClientSession::MissileBroadCast(int playerId,int unitId, b2Vec2 currentPos,
         Disconnect();
     }
 }
-
-//void ClientSession::TeleportBroadCast(int playerId, int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
-//{
-//    TeleportBroadcastResult outPacket;
-//    outPacket.mPlayerId = playerId;
-//    outPacket.mUnitId = unitId;
-//    outPacket.mCurrentPos = CONVERT_OUT(currentPos, mPlayer->GetRoomID());
-//    outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
-//
-//    if (!Broadcast(&outPacket))
-//    {
-//        Disconnect();
-//    }
-//}
 
 void ClientSession::HpBroadCast(int playerId, int unitId, int hp)
 {

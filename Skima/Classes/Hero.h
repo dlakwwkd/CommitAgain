@@ -13,18 +13,23 @@ public:
     Vec2            GetHeroPos() { return m_Sprite->getPosition(); }
     Sprite*         GetArrow() { return m_Arrow; }
     Sprite*         GetSkillRange(){ return m_SkillRange; }
-    virtual void	SetMoveMotionByDir() = 0;
+    Skill*          GetSkill(SkillKey key){ return m_SkillList[key]; }
+    virtual void    SetMoveMotionToCache() = 0;
+    virtual void    SetSkillMotionToCache() = 0;
+    virtual void    SetMoveMotionByDir() = 0;
+    virtual void    SetSkillMotionByDir(SkillKey key) = 0;
     void			SetSkillCanUse(SkillKey key, bool isUse);
     void			SkillCast(SkillKey key);
     void			SkillReady(SkillKey key);
     void			SkillEnd(SkillKey key);
 
 protected:
-    RepeatForever*  MakeAnimation(const char* format);
-    Direction       CalcDirection(Vec2 displacement);
+    RepeatForever* MakeAnimation(const char* format, int size);
+    Direction       CalcMoveDirection(Vec2 displacement);
+    Direction       CalcSkillDirection(Vec2 displacement);
 
 protected:
-
+    std::map<SkillKey, Skill*>  m_SkillList;
     Sprite*                     m_Arrow;
     Sprite*                     m_SkillRange;
 };
