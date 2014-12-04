@@ -195,6 +195,9 @@
     <ClCompile Include="..\Classes\SparkSkill.cpp">
       <Filter>Game\Component\Skill\ShootType\Jupiter  Shoot Skill</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CharacterSelectLayer.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SparkSkill.h">
       <Filter>Game\Component\Skill\ShootType\Jupiter  Shoot Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CharacterSelectLayer.h">
+      <Filter>Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
