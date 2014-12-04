@@ -253,7 +253,7 @@ void GameManager::Tick(float dt)
 
     for (auto& game : m_GameList)
     {
-		if (game.second != NULL && game.second->IsEnd())
+		if (game.second != NULL || game.second->IsEnd())
 		{
 			continue;
 		}
@@ -271,7 +271,7 @@ void GameManager::Tick(float dt)
             {
 				client->GameOverCast(client->GetPlayer()->GetPlayerID());
                 game.second->EndGame();
-                DeleteGame(game.second->GetGameID());
+                //DeleteGame(game.second->GetGameID());
                 break;
             }
 
