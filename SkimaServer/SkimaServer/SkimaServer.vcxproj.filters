@@ -65,9 +65,6 @@
     <ClCompile Include="FSM.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
-    <ClCompile Include="FireballSkill.cpp">
-      <Filter>Game\Component\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="Missile.cpp">
       <Filter>Game\Component\Object\Unit\Missile</Filter>
     </ClCompile>
@@ -80,23 +77,26 @@
     <ClCompile Include="Magician.cpp">
       <Filter>Game\Component\Object\Unit\Hero</Filter>
     </ClCompile>
-    <ClCompile Include="TeleportSkill.cpp">
-      <Filter>Game\Component\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="IceballSkill.cpp">
-      <Filter>Game\Component\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Game\Component\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="SparkSkill.cpp">
-      <Filter>Game\Component\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Jupiter.cpp">
       <Filter>Game\Component\Object\Unit\Hero</Filter>
     </ClCompile>
+    <ClCompile Include="FireballSkill.cpp">
+      <Filter>Game\Component\Skill\Magician Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="IceballSkill.cpp">
+      <Filter>Game\Component\Skill\Magician Skill</Filter>
+    </ClCompile>
     <ClCompile Include="LightningSkill.cpp">
-      <Filter>Game\Component\Skill</Filter>
+      <Filter>Game\Component\Skill\Jupiter Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SparkSkill.cpp">
+      <Filter>Game\Component\Skill\Jupiter Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="TeleportSkill.cpp">
+      <Filter>Game\Component\Skill\Magician Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,9 +180,6 @@
     <ClInclude Include="ContactListener.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="FireballSkill.h">
-      <Filter>Game\Component\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="Missile.h">
       <Filter>Game\Component\Object\Unit\Missile</Filter>
     </ClInclude>
@@ -198,26 +195,29 @@
     <ClInclude Include="..\..\Shared\FSM.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="TeleportSkill.h">
-      <Filter>Game\Component\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="IceballSkill.h">
-      <Filter>Game\Component\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="Macros.h">
       <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>Game\Component\Object</Filter>
     </ClInclude>
-    <ClInclude Include="SparkSkill.h">
-      <Filter>Game\Component\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="Jupiter.h">
       <Filter>Game\Component\Object\Unit\Hero</Filter>
     </ClInclude>
+    <ClInclude Include="FireballSkill.h">
+      <Filter>Game\Component\Skill\Magician Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="IceballSkill.h">
+      <Filter>Game\Component\Skill\Magician Skill</Filter>
+    </ClInclude>
     <ClInclude Include="LightningSkill.h">
-      <Filter>Game\Component\Skill</Filter>
+      <Filter>Game\Component\Skill\Jupiter Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SparkSkill.h">
+      <Filter>Game\Component\Skill\Jupiter Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="TeleportSkill.h">
+      <Filter>Game\Component\Skill\Magician Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +265,12 @@
     </Filter>
     <Filter Include="Game\Component\Object\Unit\Missile">
       <UniqueIdentifier>{acd95774-9987-485c-a89c-b2810c0d478d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\Magician Skill">
+      <UniqueIdentifier>{0b2d8b3f-97a8-43c9-acc2-7f5bd0e0195e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\Jupiter Skill">
+      <UniqueIdentifier>{8112a03f-e1bf-4233-bead-0827f5bd06c3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
