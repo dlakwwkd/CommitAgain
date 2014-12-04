@@ -67,6 +67,12 @@
     <Filter Include="Game\Component\Mouse">
       <UniqueIdentifier>{acf579fa-1a71-452d-83f6-cc067a3af5ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Skill\ShootType\Magician Shoot Skill">
+      <UniqueIdentifier>{babde109-567a-498a-9b68-529ebb8c8f2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\ShootType\Jupiter  Shoot Skill">
+      <UniqueIdentifier>{2b93c6fe-ca09-4f3f-9965-fa57495cd574}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -129,9 +135,6 @@
     <ClCompile Include="..\Classes\ObjectLayer.cpp">
       <Filter>Game\Component\Object</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\FireballSkill.cpp">
-      <Filter>Game\Component\Skill\ShootType</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Missile.cpp">
       <Filter>Game\Component\Object\Missile</Filter>
     </ClCompile>
@@ -153,9 +156,6 @@
     <ClCompile Include="..\Classes\Hero.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\IceballSkill.cpp">
-      <Filter>Game\Component\Skill\ShootType</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\FireEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
@@ -174,9 +174,6 @@
     <ClCompile Include="..\Classes\TeleportEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SparkSkill.cpp">
-      <Filter>Game\Component\Skill\ShootType</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\LightningEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
@@ -188,6 +185,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\EscLayer.cpp">
       <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FireballSkill.cpp">
+      <Filter>Game\Component\Skill\ShootType\Magician Shoot Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\IceballSkill.cpp">
+      <Filter>Game\Component\Skill\ShootType\Magician Shoot Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SparkSkill.cpp">
+      <Filter>Game\Component\Skill\ShootType\Jupiter  Shoot Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +260,6 @@
     <ClInclude Include="..\Classes\ObjectLayer.h">
       <Filter>Game\Component\Object</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\FireballSkill.h">
-      <Filter>Game\Component\Skill\ShootType</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Missile.h">
       <Filter>Game\Component\Object\Missile</Filter>
     </ClInclude>
@@ -281,9 +284,6 @@
     <ClInclude Include="..\Classes\Hero.h">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\IceballSkill.h">
-      <Filter>Game\Component\Skill\ShootType</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\FireEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
@@ -305,9 +305,6 @@
     <ClInclude Include="..\Classes\TeleportEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\SparkSkill.h">
-      <Filter>Game\Component\Skill\ShootType</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\LightningEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
@@ -319,6 +316,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\EscLayer.h">
       <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FireballSkill.h">
+      <Filter>Game\Component\Skill\ShootType\Magician Shoot Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\IceballSkill.h">
+      <Filter>Game\Component\Skill\ShootType\Magician Shoot Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SparkSkill.h">
+      <Filter>Game\Component\Skill\ShootType\Jupiter  Shoot Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
