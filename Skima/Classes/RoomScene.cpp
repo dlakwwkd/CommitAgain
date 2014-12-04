@@ -3,6 +3,7 @@
 #include "NetworkScene.h"
 #include "TcpClient.h"
 #include "MultiGameScene.h"
+#include "CharacterSelectLayer.h"
 
 #define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
 
@@ -23,17 +24,23 @@ bool RoomScene::init()
 
     m_RoomID = -1;
     m_IsReady = false;
+    auto winSize = Director::getInstance()->getWinSize();
 
     auto label1 = Label::createWithSystemFont("게임 시작", "Thonburi", 50);
     auto label2 = Label::createWithSystemFont("나가기", "Thonburi", 50);
 
     auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(RoomScene::menuCallback1, this));
     auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(RoomScene::menuCallback2, this));
+    menuItem2->setPositionX(winSize.width * 1 / 8);
 
     auto menu = Menu::create(menuItem1, menuItem2, NULL);
-    menu->alignItemsVertically();
+    menu->alignItemsHorizontally();
+    menu->setPosition(winSize.width * 3 / 8, winSize.height * 7 / 8);
     this->addChild(menu, 0, "RoomMenu");
 
+    auto layer = CharacterSelectLayer::create();
+    this->addChild(layer, 10, "CharacterSelectLayer");
+    
 
     auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
     label->setAnchorPoint(Vec2::ZERO);
@@ -56,8 +63,8 @@ void RoomScene::menuCallback1(Ref* sender)	// 게임 시작
 
 void RoomScene::menuCallback2(Ref* sender)	// 나가기
 {
-	if (TcpClient::getInstance()->checkSocket() != NULL)
-		TcpClient::getInstance()->outRoomRequest(m_RoomID);
+    if (TcpClient::getInstance()->checkSocket() != NULL)
+        TcpClient::getInstance()->outRoomRequest(m_RoomID);
 
     m_IsReady = false;
     Director::getInstance()->popScene();
