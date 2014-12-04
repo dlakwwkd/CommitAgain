@@ -253,7 +253,7 @@ void GameManager::Tick(float dt)
 
     for (auto& game : m_GameList)
     {
-		if (game.second != NULL || game.second->IsEnd())
+		if (game.second->IsEnd())
 		{
 			continue;
 		}
