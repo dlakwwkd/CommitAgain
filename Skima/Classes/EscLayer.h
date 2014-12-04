@@ -8,12 +8,9 @@ public:
     virtual bool init();
     CREATE_FUNC(EscLayer);
 
-    void SetLoadingFin(){ m_IsLoadingFin = true; }
-    bool IsLoadingFin(){ return m_IsLoadingFin; }
-    
-    void Tick(float dt);
+    void menuCallback1(Ref* sender);
+    void menuCallback2(Ref* sender);
 
-private:
-    bool m_IsLoadingFin;
+    void ShowEscLayer();
 };
 

@@ -85,6 +85,11 @@ void RoomScene::Tick(float dt)
 
 void RoomScene::GameStartComplete()
 {
-    auto scene = MultiGameScene::createScene(m_RoomID);
+    auto scene = MultiGameScene::createScene();
+
+    auto layer = dynamic_cast<MultiGameScene*>(scene->getChildByName("MultiGameScene"));
+    layer->SetRoomID(m_RoomID);
+
+    m_IsReady = false;
     Director::getInstance()->pushScene(scene);
 }

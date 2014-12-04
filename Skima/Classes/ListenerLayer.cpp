@@ -9,11 +9,12 @@
 #include "PacketType.h"
 #include "Hero.h"
 #include "UILayer.h"
+#include "EscLayer.h"
 #include "math.h"
 
 #define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
 #define GET_UI_LAYER        dynamic_cast<UILayer*>(this->getParent()->getChildByName("UILayer"))
-
+#define GET_ESC_LAYER       dynamic_cast<EscLayer*>(this->getParent()->getChildByName("EscLayer"))
 
 bool ListenerLayer::init()
 {
@@ -187,10 +188,10 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
         switch (keyCode)
         {
         case KEY_ESC:
-        {
-
-        }
-        break;
+            {
+                GET_ESC_LAYER->ShowEscLayer();
+            }
+            break;
         }
     }
 

@@ -7,11 +7,12 @@ class MultiGameScene : public Layer
 {
 public:
 
-    static Scene* createScene(int roomId);
+    static Scene* createScene();
     virtual bool init();
     CREATE_FUNC(MultiGameScene);
 
-	void SetRoomID(int id) { m_RoomId = id; };
+	void SetRoomID(int id) { m_RoomId = id; }
+    int  GetRoomID(){ return m_RoomId; }
     bool IsStartGame(){ return m_IsStartGame; }
 
     void StartGame();

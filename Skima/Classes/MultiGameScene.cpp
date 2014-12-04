@@ -8,15 +8,15 @@
 #include "UILayer.h"
 #include "windows.h"
 #include "GameOverScene.h"
+#include "EscLayer.h"
 
-Scene* MultiGameScene::createScene(int roomId)
+Scene* MultiGameScene::createScene()
 {
     auto scene = Scene::create();
     auto layer1 = MultiGameScene::create();
     auto layer2 = ListenerLayer::create();
-    scene->addChild(layer1, 0, "MultiGameScene");
+    scene->addChild(layer1, 3, "MultiGameScene");
     layer1->addChild(layer2, 0, "ListenerLayer");
-	layer1->SetRoomID(roomId);
 
     return scene;
 }
@@ -34,8 +34,11 @@ bool MultiGameScene::init()
 
     auto layer1 = LoadingBGLayer::create();
     auto layer2 = UILayer::create();
+    auto layer3 = EscLayer::create();
     this->addChild(layer1, 10, "LoadingBGLayer");
     this->addChild(layer2, 5, "UILayer");
+    this->addChild(layer3, 20, "EscLayer");
+    layer3->setVisible(false);
     
     return true;
 }
