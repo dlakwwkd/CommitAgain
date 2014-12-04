@@ -182,6 +182,17 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 
     auto hero = GET_OBJECT_LAYER->GetMyHero();	_ASSERT(hero != nullptr);
     auto key = KeyboardToSkillKey(keyCode);
+    if (key == SKILL_NONE)
+    {
+        switch (keyCode)
+        {
+        case KEY_ESC:
+        {
+
+        }
+        break;
+        }
+    }
 
     if (!m_Targeting && hero->GetSkillCanUse(key))
     {

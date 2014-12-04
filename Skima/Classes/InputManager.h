@@ -5,6 +5,7 @@ USING_NS_CC;
 
 #define KEY_ENTER           EventKeyboard::KeyCode::KEY_ENTER
 #define KEY_SPACE           EventKeyboard::KeyCode::KEY_SPACE
+#define KEY_ESC             EventKeyboard::KeyCode::KEY_ESCAPE
 #define KEY_UP_ARROW        EventKeyboard::KeyCode::KEY_UP_ARROW
 #define KEY_DOWN_ARROW      EventKeyboard::KeyCode::KEY_DOWN_ARROW
 #define KEY_LEFT_ARROW      EventKeyboard::KeyCode::KEY_LEFT_ARROW

@@ -142,6 +142,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\CircularBuffer.cpp" />
     <ClCompile Include="..\Classes\Effect.cpp" />
     <ClCompile Include="..\Classes\EffectManager.cpp" />
+    <ClCompile Include="..\Classes\EscLayer.cpp" />
     <ClCompile Include="..\Classes\FireballSkill.cpp" />
     <ClCompile Include="..\Classes\FireEffect.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
@@ -188,6 +189,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Effect.h" />
     <ClInclude Include="..\Classes\EffectManager.h" />
     <ClInclude Include="..\Classes\Enums.h" />
+    <ClInclude Include="..\Classes\EscLayer.h" />
     <ClInclude Include="..\Classes\FireballSkill.h" />
     <ClInclude Include="..\Classes\FireEffect.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
