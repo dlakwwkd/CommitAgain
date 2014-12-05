@@ -158,7 +158,7 @@ void GameManager::CreateGame(int gameId)
         DeleteGame(gameId);
     }
     Game* game = new Game(room->second);
-    DeleteRoom(gameId);
+    //DeleteRoom(gameId);
     m_GameList[gameId] = game;
     game->InitGame();
 }
@@ -176,6 +176,7 @@ void GameManager::DeleteGame(int gameId)
         printf(" - DeleteGame Failed ! : relevant game isn't \n");
         return;
     }
+
     delete game->second;
     m_GameList.erase(game);
     printf(" - Destroy %d Game ! \n", gameId);
@@ -245,7 +246,6 @@ void GameManager::Tick(float dt)
             printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", room.first);
            
             CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::CreateGame, room.first);
-            room.second->SetIsGameExist(true);
 
             room.second->InitReady();
         }
@@ -253,10 +253,11 @@ void GameManager::Tick(float dt)
 
     for (auto& game : m_GameList)
     {
-		if (game.second->IsEnd())
-		{
-			continue;
-		}
+        if (game.second->IsEnd())
+        {
+            continue;
+        }
+
 
         for (auto& player : game.second->GetPlayerList())
         {
@@ -269,10 +270,17 @@ void GameManager::Tick(float dt)
 
             if (client->GetPlayer()->GetMyHero()->GetUnitHp() <= 0)
             {
-				client->GameOverCast(client->GetPlayer()->GetPlayerID());
                 game.second->EndGame();
-                //DeleteGame(game.second->GetGameID());
+                client->GameOverCast(client->GetPlayer()->GetPlayerID());
+                CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::DeleteGame, game.second->GetGameID());
                 break;
+            }
+
+            if (game.second->GetPlayerList().size < 2)
+            {
+                game.second->EndGame();
+                client->GameOverCast(-(client->GetPlayer()->GetPlayerID()));
+                CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::DeleteGame, game.second->GetGameID());
             }
 
             if (game.second->IsReady())
