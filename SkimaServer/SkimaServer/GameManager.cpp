@@ -276,12 +276,12 @@ void GameManager::Tick(float dt)
                 break;
             }
 
-            if (game.second->GetPlayerList().size < 2)
-            {
-                game.second->EndGame();
-                client->GameOverCast(-(client->GetPlayer()->GetPlayerID()));
-                CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::DeleteGame, game.second->GetGameID());
-            }
+//             if (game.second->GetPlayerList().size < 2)
+//             {
+//                 game.second->EndGame();
+//                 client->GameOverCast(-(client->GetPlayer()->GetPlayerID()));
+//                 CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::DeleteGame, game.second->GetGameID());
+//             }
 
             if (game.second->IsReady())
             {
