@@ -101,8 +101,11 @@ void GameManager::OutPlayer(int roomId, int playerId)
     if (game != m_GameList.end())
     {
         game->second->OutPlayer(playerId);
-        if (game->second->GetPlayerList().size() == 0)
+        if (game->second->GetPlayerList().size() < 2)
         {
+            game->second->EndGame();
+            auto client = GClientManager->GetClient(playerId);
+            client->GameOverCast(client->GetPlayer()->GetPlayerID());
             DeleteGame(roomId);
         }
     }
@@ -240,6 +243,7 @@ void GameManager::Tick(float dt)
 
     for (auto& room : m_RoomList)
     {
+        //printf("room: %d, playerNum: %d\n", room.second->GetRoomID(), room.second->GetPlayerNum());
         if (room.second->IsAllReady())
         {
             // 게임 구동 시작!;
@@ -275,13 +279,6 @@ void GameManager::Tick(float dt)
                 CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::DeleteGame, game.second->GetGameID());
                 break;
             }
-
-//             if (game.second->GetPlayerList().size < 2)
-//             {
-//                 game.second->EndGame();
-//                 client->GameOverCast(-(client->GetPlayer()->GetPlayerID()));
-//                 CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::DeleteGame, game.second->GetGameID());
-//             }
 
             if (game.second->IsReady())
             {
@@ -324,7 +321,7 @@ void GameManager::LowTick()
         }
         ++i;
     }
-    printf(" - Total Sleeping Body Num [%2d/%2d] \n", j, i);
+    //printf(" - Total Sleeping Body Num [%2d/%2d] \n", j, i);
     CallFuncAfter(MANAGER_UPDATE_INTERVAL*3, this, &GameManager::LowTick);
 }
 

@@ -226,11 +226,6 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
     player->SetHeroType(inPacket.mHeroType);
     printf(" - Player %d is Ready ! \n", inPacket.mPlayerId);
 
-//     if (room->IsGameExist())
-//     {
-//         game->SetIsEnd(false);
-//     }
-
     if (room->IsAllReady())
     {
         session->AllReadyNotify();

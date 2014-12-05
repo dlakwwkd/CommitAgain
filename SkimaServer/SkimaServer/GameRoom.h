@@ -11,6 +11,7 @@ public:
 
     int                 GetRoomID(){ return m_RoomID; }
     const PlayerList&   GetPlayerList(){ return m_PlayerList; }
+    int                 GetPlayerNum(){ return m_ReadyNum; }
 
     void                SetIsGameExist(bool isGameExist){ m_IsGameExist = isGameExist; }
 

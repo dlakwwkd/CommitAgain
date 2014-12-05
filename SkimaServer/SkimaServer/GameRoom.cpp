@@ -9,12 +9,19 @@ void GameRoom::ReadySign()
     {
         m_IsAllReady = true;
     }
+
+    printf("roomReadyNum: %d \n", m_ReadyNum);
 }
 
 void GameRoom::InitReady()
 {
     m_IsAllReady = false;
     m_ReadyNum = 0;
+
+    for (auto &player : m_PlayerList)
+    {
+        player.second->SetReady(false);
+    }
 }
 
 
