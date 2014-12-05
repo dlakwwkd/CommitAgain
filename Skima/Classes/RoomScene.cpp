@@ -38,8 +38,8 @@ bool RoomScene::init()
     menu->setPosition(winSize.width * 3 / 8, winSize.height * 7 / 8);
     this->addChild(menu, 0, "RoomMenu");
 
-    //auto layer = CharacterSelectLayer::create();
-    //this->addChild(layer, 10, "CharacterSelectLayer");
+    auto layer = CharacterSelectLayer::create();
+    this->addChild(layer, 10, "CharacterSelectLayer");
     
 
     auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);

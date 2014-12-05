@@ -198,6 +198,9 @@
     <ClCompile Include="..\Classes\SparkEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CharacterSelectLayer.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -331,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SparkEffect.h">
       <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CharacterSelectLayer.h">
+      <Filter>Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
