@@ -31,8 +31,6 @@ Unit* ObjectManager::Assign(UnitType type)
 {
     switch (type)
     {
-    default:
-    case UNIT_NONE: return nullptr;
     case UNIT_MISSILE:
         for (auto& missile : m_MissileList)
         {
@@ -43,6 +41,8 @@ Unit* ObjectManager::Assign(UnitType type)
             }
         }
         break;
+    default:
+        return nullptr;
     }
     return Expand(type);
 }
@@ -78,8 +78,6 @@ Unit* ObjectManager::Expand(UnitType type)
 {
     switch (type)
     {
-    default:
-    case UNIT_NONE: return nullptr;
     case UNIT_MISSILE:
         {
             int i;
@@ -90,6 +88,8 @@ Unit* ObjectManager::Expand(UnitType type)
             m_LastID_Missile = i;
             return m_MissileList.back();
         }
+    default:
+        return nullptr;
     }
     return Expand(type);
 }

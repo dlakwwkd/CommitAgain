@@ -16,7 +16,6 @@ void Player::CreateHero(b2Vec2 pos)
 {
     switch (m_HeroType)
     {
-    case HERO_NONE: return;
     case HERO_MAGICIAN:
         m_Hero = new Magician(m_PlayerID, pos, DEF_SCALE);
         break;
@@ -24,7 +23,7 @@ void Player::CreateHero(b2Vec2 pos)
 		m_Hero = new Jupiter(m_PlayerID, pos, DEF_SCALE);
         break;
     default:
-        break;
+        return;
     };
     m_UnitList[m_Hero->GetUnitID()] = m_Hero;
 
