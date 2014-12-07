@@ -1,7 +1,5 @@
 ﻿#include "pch.h"
 #include "WaitingLayer.h"
-#include "CharacterSelectLayer.h"
-
 
 bool WaitingLayer::init()
 {
