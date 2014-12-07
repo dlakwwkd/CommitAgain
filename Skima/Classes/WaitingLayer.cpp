@@ -9,11 +9,11 @@ bool WaitingLayer::init()
     {
         return false;
     }
-    this->setOpacity(300);
+    this->setOpacity(240);
 
     auto winSize = Director::getInstance()->getWinSize();
 
-    auto label = LabelTTF::create("Plz Wait", "Arial", 50);
+    auto label = LabelTTF::create("Please Wait", "Arial", 50);
     label->setPosition(winSize.width/2, winSize.height/2);
     this->addChild(label);
 

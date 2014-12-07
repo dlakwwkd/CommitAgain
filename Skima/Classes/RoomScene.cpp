@@ -3,7 +3,7 @@
 #include "NetworkScene.h"
 #include "TcpClient.h"
 #include "MultiGameScene.h"
-#include "CharacterSelectLayer.h"
+#include "WaitingLayer.h"
 
 #define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
 
@@ -17,7 +17,7 @@ Scene* RoomScene::createScene()
 
 bool RoomScene::init()
 {
-    if (!LayerColor::initWithColor(Color4B(100, 100, 200, 255)))
+    if (!LayerColor::initWithColor(Color4B(0, 0, 128, 128)))
     {
         return false;
     }
@@ -25,22 +25,38 @@ bool RoomScene::init()
     m_RoomID = -1;
     m_IsReady = false;
     auto winSize = Director::getInstance()->getWinSize();
+        
+    /////////////////////////////////////////////////캐릭터 초상화 추가할 부분/////////////////////////////////////////////
+    /* Ready 캐릭터 띄울 얼굴추가 */
+    MakeFaceSprite("Images/SelectFace/[Select]Magician.png", Vec2(winSize.width * 1 / 8, winSize.height * 3 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_MAGICIAN);
+    MakeFaceSprite("Images/SelectFace/[Select]Jupiter.png", Vec2(winSize.width * 1 / 8, winSize.height * 3 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_JUPITER);
 
-    auto label1 = Label::createWithSystemFont("게임 시작", "Thonburi", 50);
-    auto label2 = Label::createWithSystemFont("나가기", "Thonburi", 50);
-
-    auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(RoomScene::menuCallback1, this));
-    auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(RoomScene::menuCallback2, this));
-    menuItem2->setPositionX(winSize.width * 1 / 8);
-
-    auto menu = Menu::create(menuItem1, menuItem2, NULL);
-    menu->alignItemsHorizontally();
-    menu->setPosition(winSize.width * 3 / 8, winSize.height * 7 / 8);
-    this->addChild(menu, 0, "RoomMenu");
-
-    auto layer = CharacterSelectLayer::create();
-    this->addChild(layer, 10, "CharacterSelectLayer");
+    /* 캐릭터 선택창버튼 초상화 추가 (width 1/8씩 ++) */
+    auto magicanFace = MenuItemImage::create("Images/SelectFace/[Select]Magician.png", "Images/SelectFace/[Select]Magician_selected.png", CC_CALLBACK_0(RoomScene::ClickMagician, this));
+    SetFaceProperty(magicanFace, Vec2(winSize.width * 1 / 8, winSize.height * 1 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1));
+    auto jupiterFace = MenuItemImage::create("Images/SelectFace/[Select]Jupiter.png", "Images/SelectFace/[Select]Jupiter_selected.png", CC_CALLBACK_0(RoomScene::ClickJupiter, this));
+    SetFaceProperty(jupiterFace, Vec2(winSize.width * 2 / 8, winSize.height * 1 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1));
     
+    auto faceTable = Menu::create(magicanFace, jupiterFace, NULL);
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    faceTable->setPosition(winSize.width * 1 / 8, winSize.height * 2 / 8);
+    this->addChild(faceTable);
+
+    m_CurHero = HERO_MAGICIAN;
+    m_Facelist[HERO_MAGICIAN]->setVisible(true);
+
+    auto readyButton = MenuItemImage::create("Images/GameReady.png", "Images/GameReady_selected.png", CC_CALLBACK_1(RoomScene::GameStartCallback, this));
+    auto exitButton = MenuItemImage::create("Images/Gameout.png", "Images/Gameout_selected.png", CC_CALLBACK_1(RoomScene::GameExitCallback, this));
+    exitButton->setPosition(winSize.width*1/8,winSize.height*-4/8);
+    readyButton->setScale(0.8f, 0.8f);
+    exitButton->setScale(0.7f, 0.7f);
+    auto buttonMenu = Menu::create(readyButton, exitButton, NULL); 
+    buttonMenu->setPosition(winSize.width * 3 / 8, winSize.height * 11 / 16);
+    this->addChild(buttonMenu);
+
+    m_WaitingLayer = WaitingLayer::create();
+    m_WaitingLayer->setVisible(false);
+    this->addChild(m_WaitingLayer);
 
     auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
     label->setAnchorPoint(Vec2::ZERO);
@@ -52,25 +68,28 @@ bool RoomScene::init()
     return true;
 }
 
-void RoomScene::menuCallback1(Ref* sender)	// 게임 시작
+void RoomScene::GameStartCallback(Ref* sender)	// 게임 시작
 {
     if (TcpClient::getInstance()->checkSocket() == NULL || m_IsReady)
+    {
         return;
-
+    }
     m_IsReady = true;
+    WaitingCheck();
     TcpClient::getInstance()->startGameRequest(m_RoomID);
 }
 
-void RoomScene::menuCallback2(Ref* sender)	// 나가기
+void RoomScene::GameExitCallback(Ref* sender)	// 나가기
 {
     if (TcpClient::getInstance()->checkSocket() != NULL)
+    {
         TcpClient::getInstance()->outRoomRequest(m_RoomID);
+    }
 
     m_IsReady = false;
+    WaitingCheck();
     Director::getInstance()->popScene();
 }
-
-
 
 //////////////////////////////////////////////////////////////////////////
 void RoomScene::Tick(float dt)
@@ -88,8 +107,6 @@ void RoomScene::Tick(float dt)
 }
 //////////////////////////////////////////////////////////////////////////
 
-
-
 void RoomScene::GameStartComplete()
 {
     auto scene = MultiGameScene::createScene();
@@ -98,5 +115,77 @@ void RoomScene::GameStartComplete()
     layer->SetRoomID(m_RoomID);
 
     m_IsReady = false;
+    WaitingCheck();
     Director::getInstance()->pushScene(scene);
 }
+
+void RoomScene::WaitingCheck()
+{
+    if (m_IsReady == true)
+    {
+        m_WaitingLayer->setVisible(true);
+    }
+    else
+    {
+        m_WaitingLayer->setVisible(false);
+    }
+}
+
+void RoomScene::MakeFaceSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor, HeroType hero)
+{
+    Sprite* sprite = Sprite::create(image);
+    sprite->setPosition(pos);
+    sprite->setScale(scale.x, scale.y);
+    sprite->setAnchorPoint(anchor);
+    sprite->setVisible(false);
+    m_Facelist[hero] = sprite;
+    this->addChild(sprite);
+}
+
+void RoomScene::SetFaceProperty(MenuItemImage* img, Vec2 pos, Vec2 scale, Vec2 anchor)
+{
+    img->setPosition(pos);
+    img->setScale(scale.x, scale.y);
+    img->setAnchorPoint(anchor);
+}
+
+void RoomScene::ChangeSelectedHero()
+{
+    switch (m_CurHero)
+    {
+    case HERO_MAGICIAN:
+        for (auto& select : m_Facelist)
+        {
+            select.second->setVisible(false);
+            if (select.first == HERO_MAGICIAN)
+            {
+                select.second->setVisible(true);
+            }
+        }
+        break;
+    case HERO_JUPITER:
+        for (auto& select : m_Facelist)
+        {
+            select.second->setVisible(false);
+            if (select.first == HERO_JUPITER)
+            {
+                select.second->setVisible(true);
+            }
+        }
+        break;
+    case HERO_NONE:
+        break;
+    }
+}
+
+void RoomScene::ClickMagician()
+{
+    m_CurHero = HERO_MAGICIAN;
+    ChangeSelectedHero();
+}
+void RoomScene::ClickJupiter()
+{
+    m_CurHero = HERO_JUPITER;
+    ChangeSelectedHero();
+}
+
