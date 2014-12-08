@@ -21,14 +21,15 @@ GameManager* GGameManager = nullptr;
 ///////////////////////////////////////////////////////////////////////////
 GameRoom* GameManager::CreateRoom()
 {
-    if (m_MakeRoomNum == 0)
+    if (++m_MakeRoomNum == 1)
+    {
         LowTick();
-
+    }
     if (m_RoomList.find(m_MakeRoomNum) != m_RoomList.end())
     {
         DeleteRoom(m_MakeRoomNum);
     }
-    GameRoom* room = new GameRoom(++m_MakeRoomNum);
+    GameRoom* room = new GameRoom(m_MakeRoomNum);
     m_RoomList[m_MakeRoomNum] = room;
     return room;
 }
