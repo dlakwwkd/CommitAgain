@@ -180,6 +180,7 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapObject.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjectPool.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="PacketHandling.cpp" />
