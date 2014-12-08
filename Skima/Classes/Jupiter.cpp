@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "SparkSkill.h"
 #include "LightningSkill.h"
+#include "FlashSkill.h"
 #include "PacketType.h"
 
 
@@ -11,18 +12,24 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
 	SetMoveMotionToCache();
     SetSkillMotionToCache();
 	m_Sprite = Sprite::createWithSpriteFrameName("JupiterMove_S_01.png");
-	auto shadow = Sprite::create("Images/Jupiter_shadow.png");
-	shadow->setPosition(Vec2(45.0f, -25.0f));
-	m_Sprite->addChild(shadow);
-	m_Sprite->setPosition(createPos);
-	m_Sprite->setScale(scale);
+	auto shadow = Sprite::create("Jupiter/Jupiter_shadow.png");
+    auto particle = ParticleSystemQuad::create("Jupiter/Jupiter_particle.plist");
+    m_Sprite->setPosition(createPos);
+    m_Sprite->setScale(scale);
+    m_Sprite->addChild(shadow);
 	m_Sprite->addChild(m_Arrow);
     m_Sprite->addChild(m_SkillRange);
+    m_Sprite->addChild(particle);
+    shadow->setPosition(Vec2(45.0f, -25.0f));
+    particle->setScale(0.70f);
+    particle->setPosition(Vec2(30.0f, 25.0f));
+    particle->setZOrder(-1);
 	m_MaxHp = 1000.0f;
 	m_CurHp = m_MaxHp;
 	SetHpBar();
     m_SkillList[SKILL_Q] = new SparkSkill(this);
     m_SkillList[SKILL_W] = new LightningSkill(this);
+    m_SkillList[SKILL_E] = new FlashSkill(this);
 
     switch (GET_GM.GetGameMode())
     {
@@ -41,7 +48,7 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
     case MULTI:
         break;
     }
-    m_Speed = 500.0f;
+    m_Speed = 450.0f;
 }
 
 
@@ -86,6 +93,10 @@ void Jupiter::SetSkillMotionToCache()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterWSkill_SW.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterWSkill_NE.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterWSkill_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterESkill_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterESkill_SW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterESkill_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterESkill_NW.plist");
 }
 
 void Jupiter::SetSkillMotionByDir(SkillKey key)
@@ -109,6 +120,16 @@ void Jupiter::SetSkillMotionByDir(SkillKey key)
         case SW: m_Sprite->runAction(MakeAnimation("JupiterWSkill_SW_%02d.png", 3)); break;
         case NE: m_Sprite->runAction(MakeAnimation("JupiterWSkill_NE_%02d.png", 3)); break;
         case NW: m_Sprite->runAction(MakeAnimation("JupiterWSkill_NW_%02d.png", 3)); break;
+        }
+        break;
+
+    case SKILL_E:
+        switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
+        {
+        case SE: m_Sprite->runAction(MakeAnimation("JupiterESkill_SE_%02d.png", 2)); break;
+        case SW: m_Sprite->runAction(MakeAnimation("JupiterESkill_SW_%02d.png", 2)); break;
+        case NE: m_Sprite->runAction(MakeAnimation("JupiterESkill_NE_%02d.png", 2)); break;
+        case NW: m_Sprite->runAction(MakeAnimation("JupiterESkill_NW_%02d.png", 2)); break;
         }
         break;
     }

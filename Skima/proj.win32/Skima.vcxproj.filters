@@ -201,6 +201,9 @@
     <ClCompile Include="..\Classes\WaitingLayer.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\FlashSkill.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -337,6 +340,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\WaitingLayer.h">
       <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FlashSkill.h">
+      <Filter>Game\Component\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

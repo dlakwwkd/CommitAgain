@@ -286,7 +286,7 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillType type, SkillKey key, Vec2 r
         return;
     }
     hero->second->SetTargetPos(targetPos);
-    hero->second->EndMove();
+    hero->second->GetSprite()->stopAllActions();
     hero->second->SetSkillMotionByDir(key);
 
     switch (type)
@@ -306,7 +306,15 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillType type, SkillKey key, Vec2 r
         auto effect = GET_EM->Assign(effectType);
         effect->CreateEffect(recvCurPos);
         hero->second->SetTargetPos(targetPos);
-        hero->second->GetSprite()->setPosition(targetPos);
+        switch (GET_SIDE_TYPE(unitID))
+        {
+        case HERO_MAGICIAN:
+            hero->second->GetSprite()->setPosition(targetPos);
+            break;
+        case HERO_JUPITER:
+            auto action = MoveTo::create(0.50f, targetPos);
+            hero->second->GetSprite()->runAction(action);
+        }
         hero->second->EndMove();
         break;
     }
