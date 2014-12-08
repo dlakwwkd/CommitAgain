@@ -7,7 +7,6 @@
 LightningSkill::LightningSkill()
 {
     m_SkillType = SPLASH_SKILL;
-    m_EffectType = EF_LIGHTNING;
     m_CoolTime = 3;
     m_CanUse = true;
 }
@@ -15,7 +14,6 @@ LightningSkill::LightningSkill()
 LightningSkill::LightningSkill(Hero* hero)
 {
     m_SkillType = SPLASH_SKILL;
-    m_EffectType = EF_LIGHTNING;
     m_Hero = hero;
     m_CoolTime = 3;
     m_CanUse = true;

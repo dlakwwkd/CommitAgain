@@ -9,7 +9,6 @@
 #include "Hero.h"
 #include "Missile.h"
 #include "Enums.h"
-#include "EffectManager.h"
 #include "TeleportEffect.h"
 #include "Unit.h"
 #include "Skill.h"
@@ -295,15 +294,13 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillType type, SkillKey key, Vec2 r
         break;
     case SPLASH_SKILL:
     {
-        auto effectType = hero->second->GetSkill(key)->GetEffectType();
-        auto effect = GET_EM->Assign(effectType);
+        auto effect = new TeleportEffect(); // 임시
         effect->CreateEffect(targetPos);
         break;
     }
     case MOVEMENT_SKILL:
     {
-        auto effectType = hero->second->GetSkill(key)->GetEffectType();
-        auto effect = GET_EM->Assign(effectType);
+        auto effect = new TeleportEffect(); // 임시
         effect->CreateEffect(recvCurPos);
         hero->second->SetTargetPos(targetPos);
         switch (GET_SIDE_TYPE(unitID))

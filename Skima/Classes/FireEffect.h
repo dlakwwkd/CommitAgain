@@ -3,14 +3,11 @@
 class FireEffect : public Effect
 {
 public:
-    FireEffect(int ID);
+    FireEffect();
     virtual ~FireEffect();
 
     virtual void CreateEffect(Vec2 createPos);
     virtual void ExtinctEffect();
-
-private:
-    ParticleSystemQuad* m_Particle;
 
 };
 

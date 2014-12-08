@@ -1,13 +1,10 @@
 #include "pch.h"
 #include "SparkEffect.h"
-#include "TcpClient.h"
 #include "ObjectLayer.h"
-#include "GameManager.h"
+#include "Macros.h"
 
-SparkEffect::SparkEffect(int ID)
+SparkEffect::SparkEffect()
 {
-    m_EffectType = EF_SPARK;
-    m_ID = ID;
 }
 
 
@@ -30,5 +27,5 @@ void SparkEffect::CreateEffect(Vec2 createPos)
 void SparkEffect::ExtinctEffect()
 {
     GET_OBJECT_LAYER->removeChild(m_Particle);
-    GET_EM->Release(this);
+    delete this;
 }

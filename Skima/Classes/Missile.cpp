@@ -2,7 +2,9 @@
 #include "Missile.h"
 #include "GameManager.h"
 #include "ObjectLayer.h"
-#include "Effect.h"
+#include "FireEffect.h"
+#include "IceEffect.h"
+#include "SparkEffect.h"
 
 
 Missile::Missile(int unitId)
@@ -41,15 +43,15 @@ void Missile::MissileCrash()
     auto action3 = Sequence::create(action1, action2, NULL);
     m_Particle->runAction(action3);
 
+    Effect* effect;
     auto type = GET_SIDE_TYPE(m_UnitID);
     switch (type)
     {
-    case MS_FIRE_BALL:  type = EF_FIRE; break;
-    case MS_ICE_BALL:   type = EF_ICE;  break;
-    case MS_SPARK:      type = EF_SPARK; break;
+    case MS_FIRE_BALL:  effect = new FireEffect();  break;
+    case MS_ICE_BALL:   effect = new IceEffect();   break;
+    case MS_SPARK:      effect = new SparkEffect(); break;
     default: return;
     }
-    auto effect = GET_EM->Assign(EffectType(type));
     effect->CreateEffect(m_Particle->getPosition());
 }
 

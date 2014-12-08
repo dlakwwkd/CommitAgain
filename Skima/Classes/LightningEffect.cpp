@@ -1,13 +1,10 @@
 #include "pch.h"
 #include "LightningEffect.h"
-#include "TcpClient.h"
 #include "ObjectLayer.h"
-#include "GameManager.h"
+#include "Macros.h"
 
-LightningEffect::LightningEffect(int ID)
+LightningEffect::LightningEffect()
 {
-    m_EffectType = EF_LIGHTNING;
-    m_ID = ID;
 }
 
 
@@ -40,5 +37,5 @@ void LightningEffect::CreateEffect(Vec2 createPos)
 void LightningEffect::ExtinctEffect()
 {
     GET_OBJECT_LAYER->removeChild(m_Particle);
-    GET_EM->Release(this);
+    delete this;
 }

@@ -1,14 +1,11 @@
 ﻿#include "pch.h"
 #include "FireEffect.h"
-#include "TcpClient.h"
 #include "ObjectLayer.h"
-#include "GameManager.h"
+#include "Macros.h"
 
 
-FireEffect::FireEffect(int ID)
+FireEffect::FireEffect()
 {
-    m_EffectType = EF_FIRE;
-    m_ID = ID;
 }
 
 
@@ -31,5 +28,5 @@ void FireEffect::CreateEffect(Vec2 createPos)
 void FireEffect::ExtinctEffect()
 {
     GET_OBJECT_LAYER->removeChild(m_Particle);
-    GET_EM->Release(this);
+    delete this;
 }

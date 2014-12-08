@@ -1,14 +1,11 @@
 ﻿#include "pch.h"
 #include "IceEffect.h"
-#include "TcpClient.h"
 #include "ObjectLayer.h"
-#include "GameManager.h"
+#include "Macros.h"
 
 
-IceEffect::IceEffect(int ID)
+IceEffect::IceEffect()
 {
-    m_EffectType = EF_ICE;
-    m_ID = ID;
 }
 
 
@@ -31,5 +28,5 @@ void IceEffect::CreateEffect(Vec2 createPos)
 void IceEffect::ExtinctEffect()
 {
     GET_OBJECT_LAYER->removeChild(m_Particle);
-    GET_EM->Release(this);
+    delete this;
 }

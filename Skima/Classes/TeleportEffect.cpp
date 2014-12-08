@@ -1,14 +1,11 @@
 #include "pch.h"
 #include "TeleportEffect.h"
-#include "TcpClient.h"
 #include "ObjectLayer.h"
-#include "GameManager.h"
+#include "Macros.h"
 
 
-TeleportEffect::TeleportEffect(int ID)
+TeleportEffect::TeleportEffect()
 {
-    m_EffectType = EF_TELE;
-    m_ID = ID;
 }
 
 
@@ -31,5 +28,5 @@ void TeleportEffect::CreateEffect(Vec2 createPos)
 void TeleportEffect::ExtinctEffect()
 {
     GET_OBJECT_LAYER->removeChild(m_Particle);
-    GET_EM->Release(this);
+    delete this;
 }

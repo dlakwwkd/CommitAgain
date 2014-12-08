@@ -7,14 +7,12 @@
 TeleportSkill::TeleportSkill()
 {
     m_SkillType = MOVEMENT_SKILL;
-    m_EffectType = EF_TELE;
     m_CoolTime = 3;
     m_CanUse = true;
 }
 TeleportSkill::TeleportSkill(Hero* hero)
 {
     m_SkillType = MOVEMENT_SKILL;
-    m_EffectType = EF_TELE;
     m_Hero = hero;
     m_CoolTime = 5;
     m_CanUse = true;
