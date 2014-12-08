@@ -168,6 +168,7 @@
     <ClInclude Include="DatabaseJobManager.h" />
     <ClInclude Include="DbHelper.h" />
     <ClInclude Include="FireballSkill.h" />
+    <ClInclude Include="FlashSkill.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameRoom.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="DatabaseJobManager.cpp" />
     <ClCompile Include="DbHelper.cpp" />
     <ClCompile Include="FireballSkill.cpp" />
+    <ClCompile Include="FlashSkill.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameRoom.cpp" />

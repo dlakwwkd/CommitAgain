@@ -80,9 +80,6 @@
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Game\Component\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Jupiter.cpp">
-      <Filter>Game\Component\Object\Unit\Hero</Filter>
-    </ClCompile>
     <ClCompile Include="FireballSkill.cpp">
       <Filter>Game\Component\Skill\Magician Skill</Filter>
     </ClCompile>
@@ -100,6 +97,12 @@
     </ClCompile>
     <ClCompile Include="MapObject.cpp">
       <Filter>Game\Component\Object\Unit\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="FlashSkill.cpp">
+      <Filter>Game\Component\Skill\Jupiter Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Jupiter.cpp">
+      <Filter>Game\Component\Object\Unit\Hero</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="MapObject.h">
       <Filter>Game\Component\Object\Unit\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="FlashSkill.h">
+      <Filter>Game\Component\Skill\Jupiter Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
