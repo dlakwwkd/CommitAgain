@@ -9,7 +9,7 @@
 IceballSkill::IceballSkill(int playerid, float heroBodySize)
 {
     m_PlayerId = playerid;
-    m_Damage = 50;
+    m_Damage = 400;
     m_MissileSpeed = REDUCE(800);
     m_MissileLiveTime = 500.0f;
     m_HeroBodySize = heroBodySize;
