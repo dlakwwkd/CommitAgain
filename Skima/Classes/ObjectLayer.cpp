@@ -86,8 +86,9 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
     {
         m_Hero = unit;
     }
-    this->addChild(unit->GetSprite(),16);
-    unit->GetSprite()->addChild(unit->GetHpBar(),16);
+     this->addChild(unit->GetSprite(),16);
+     unit->GetSprite()->addChild(unit->GetHpBar(),16);
+
 }
 
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)
@@ -287,6 +288,7 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillType type, SkillKey key, Vec2 r
     }
     hero->second->SetTargetPos(targetPos);
     hero->second->GetSprite()->stopAllActions();
+    hero->second->GetRealSprite()->stopAllActions();
     hero->second->SetSkillMotionByDir(key);
 
     switch (type)

@@ -21,6 +21,7 @@ public:
     void            SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
     int             GetUnitPlayerID(){ return m_PlayerID; }
     int             GetUnitID(){ return m_UnitID; }
+    Sprite*         GetRealSprite(){ return m_RealSprite; }
     Sprite*         GetSprite(){ return m_Sprite; }
     Sprite*         GetHpBar(){ return m_HpBar; }
     float           GetMaxHp(){ return m_MaxHp; }
@@ -73,7 +74,8 @@ protected:
     Vec2            m_TargetPos;
 
 protected:
-    Sprite*         m_Sprite;
+    Sprite*         m_RealSprite;
+    Sprite*         m_Sprite; // 투명 스프라이트
     Sprite*         m_HpBar;
     PhysicsBody*    m_Body;
 

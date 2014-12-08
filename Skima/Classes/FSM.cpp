@@ -41,6 +41,7 @@ void MovingState::TryMove(Unit* unit)
 {
     if (unit == nullptr) return;
     unit->GetSprite()->stopAllActions();
+    unit->GetRealSprite()->stopAllActions();
     unit->Move();
 }
 
@@ -49,6 +50,7 @@ void MovingState::Crashed(Unit* unit)
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetCrashedState());
     unit->GetSprite()->stopAllActions();
+    unit->GetRealSprite()->stopAllActions();
     unit->Crash();
 }
 
@@ -57,6 +59,7 @@ void MovingState::EndMove(Unit* unit)
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
     unit->GetSprite()->stopAllActions();
+    unit->GetRealSprite()->stopAllActions();
 }
 
 void MovingState::EndCrash(Unit* unit){}
@@ -75,6 +78,7 @@ void CrashedState::Crashed(Unit* unit)
 {
     if (unit == nullptr) return;
     unit->GetSprite()->stopAllActions();
+    unit->GetRealSprite()->stopAllActions();
     unit->Crash();
 }
 void CrashedState::EndMove(Unit* unit){}
@@ -83,6 +87,7 @@ void CrashedState::EndCrash(Unit* unit)
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
     unit->GetSprite()->stopAllActions();
+    unit->GetRealSprite()->stopAllActions();
 
     auto action1 = MoveTo::create(0.1f, unit->GetMoveTargetPos());
     auto action2 = EaseSineIn::create(action1);

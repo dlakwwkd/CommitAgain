@@ -11,11 +11,15 @@ Magician::Magician(Vec2 createPos, float scale)
 {
     SetMoveMotionToCache();
     SetSkillMotionToCache();
-    m_Sprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");
-    m_Sprite->setPosition(createPos);
+    m_RealSprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");
     m_Sprite->setScale(scale);
+    m_Sprite->setPosition(createPos);
+    m_RealSprite->setScale(scale);
+    m_RealSprite->setPosition(scale*35,scale*35);
+    m_Sprite->addChild(m_RealSprite);
     m_Sprite->addChild(m_Arrow);
     m_Sprite->addChild(m_SkillRange);
+
     m_MaxHp = 1000.0f;
     m_CurHp = m_MaxHp;
     SetHpBar();
@@ -64,14 +68,14 @@ void Magician::SetMoveMotionByDir()
 {
     switch (CalcMoveDirection(m_TargetPos - m_Sprite->getPosition()))
     {
-    case E:  m_Sprite->runAction(MakeAnimation("MoveMotion_E_%02d.PNG", 7));   	break;
-    case W:  m_Sprite->runAction(MakeAnimation("MoveMotion_W_%02d.PNG", 7));   	break;
-    case S:  m_Sprite->runAction(MakeAnimation("MoveMotion_S_%02d.PNG", 7));   	break;
-    case N:  m_Sprite->runAction(MakeAnimation("MoveMotion_N_%02d.PNG", 7));   	break;
-    case SE: m_Sprite->runAction(MakeAnimation("MoveMotion_SE_%02d.PNG", 7));  	break;
-    case SW: m_Sprite->runAction(MakeAnimation("MoveMotion_SW_%02d.PNG", 7));  	break;
-    case NE: m_Sprite->runAction(MakeAnimation("MoveMotion_NE_%02d.PNG", 7));  	break;
-    case NW: m_Sprite->runAction(MakeAnimation("MoveMotion_NW_%02d.PNG", 7));  	break;
+    case E:  m_RealSprite->runAction(MakeAnimation("MoveMotion_E_%02d.PNG", 7));   	break;
+    case W:  m_RealSprite->runAction(MakeAnimation("MoveMotion_W_%02d.PNG", 7));   	break;
+    case S:  m_RealSprite->runAction(MakeAnimation("MoveMotion_S_%02d.PNG", 7));   	break;
+    case N:  m_RealSprite->runAction(MakeAnimation("MoveMotion_N_%02d.PNG", 7));   	break;
+    case SE: m_RealSprite->runAction(MakeAnimation("MoveMotion_SE_%02d.PNG", 7));  	break;
+    case SW: m_RealSprite->runAction(MakeAnimation("MoveMotion_SW_%02d.PNG", 7));  	break;
+    case NE: m_RealSprite->runAction(MakeAnimation("MoveMotion_NE_%02d.PNG", 7));  	break;
+    case NW: m_RealSprite->runAction(MakeAnimation("MoveMotion_NW_%02d.PNG", 7));  	break;
     }
 }
 

@@ -14,6 +14,7 @@ Hero::Hero()
     m_SkillRange->setScale(1.2f, 1.2f);
     m_SkillRange->setPosition(Vec2(0, 0));
     m_SkillRange->setVisible(false);
+    m_RealSprite = NULL;
 }
 
 

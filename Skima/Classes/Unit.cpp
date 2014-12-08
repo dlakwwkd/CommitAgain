@@ -12,14 +12,15 @@ Unit::Unit()
     m_CurHp = m_MaxHp = 0;
     m_Speed = 0;
     m_TargetPos = { 0, 0 };
-    m_Sprite = nullptr;
+    //m_Sprite = nullptr;
     m_HpBar = nullptr;
     m_Body = nullptr;
     m_InUse = false;
-
     m_MoveState = m_StandbyState = new StandbyState();
     m_MovingState = new MovingState();
     m_CrashedState = new CrashedState();
+    m_Sprite = Sprite::create("Images/CloackingUnit.png");
+    m_RealSprite = nullptr;
 }
 
 Unit::~Unit()
@@ -40,7 +41,6 @@ void Unit::SetHpBar()
     hpBarOut->setPosition(Vec2(-25, 80));
     hpBarOut->setAnchorPoint(Vec2(0, 0));
     m_Sprite->addChild(hpBarOut);
-
     m_HpBar = Sprite::create("Images/hp_bar_in.png");
     m_HpBar->setPosition(Vec2(-20, 85));
     m_HpBar->setAnchorPoint(Vec2(0,0));
@@ -105,7 +105,7 @@ void Unit::MoveM()
 
 void Unit::CrashS()
 {
-
+    
 }
 
 void Unit::CrashM()
