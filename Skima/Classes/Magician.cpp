@@ -10,6 +10,7 @@
 Magician::Magician(Vec2 createPos, float scale)
 {
     SetMoveMotionToCache();
+    SetSkillMotionToCache();
     m_Sprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");
     m_Sprite->setPosition(createPos);
     m_Sprite->setScale(scale);
