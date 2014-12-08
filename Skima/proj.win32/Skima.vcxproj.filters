@@ -219,6 +219,7 @@
     <ClCompile Include="..\Classes\FlashSkill.cpp">
       <Filter>Game\Component\Skill\MoveType\Jupiter</Filter>
     </ClCompile>
+    <ClCompile Include="LightningPumpkinSkill.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -356,6 +357,7 @@
     <ClInclude Include="..\Classes\FlashSkill.h">
       <Filter>Game\Component\Skill\MoveType\Jupiter</Filter>
     </ClInclude>
+    <ClInclude Include="LightningPumpkinSkill.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

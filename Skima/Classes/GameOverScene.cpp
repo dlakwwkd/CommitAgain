@@ -8,23 +8,24 @@ Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 {
 	auto scene = Scene::create();
 	auto layer = GameOverScene::create();
+    Sprite* endScene;
 	scene->addChild(layer, 0, "GameOverScene");
 	layer->SetRoomID(roomId);
 
 	char* strResult;
 
-	if (playerId != loseId)
-	{
-		strResult = "WIN!!";
-	}
+    if (playerId != loseId)
+    {
+        endScene = Sprite::create("Images/WinScene.png");
+    }
 	else
 	{
-		strResult = "Lose...";
+        endScene = Sprite::create("Images/LoseScene.png");
 	}
+    endScene->setAnchorPoint(Vec2(0, 0));
+    endScene->setZOrder(1);
 
-	auto label = Label::createWithSystemFont(strResult, "Thonburi", 150);
-	label->setPosition(Point(650, 500));
-	layer->addChild(label);
+    layer->addChild(endScene);
 	return scene;
 }
 
@@ -36,17 +37,16 @@ bool GameOverScene::init()
 	{
 		return false;
 	}
-
-	auto label1 = Label::createWithSystemFont("재시작", "Thonburi", 50);
-	auto label2 = Label::createWithSystemFont("나가기", "Thonburi", 50);
+	auto label1 = Label::createWithSystemFont("Play Again", "Thonburi", 50);
+	auto label2 = Label::createWithSystemFont("Exit", "Thonburi", 50);
 
 	auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(GameOverScene::menuCallback1, this));
 	auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(GameOverScene::menuCallback2, this));
 
 	auto menu = Menu::create(menuItem1, menuItem2, NULL);
 	menu->alignItemsVertically();
-	menu->setPositionY(300);
-	this->addChild(menu, 0, "GameOverMenu");
+	menu->setPositionY(200);
+	this->addChild(menu, 2, "GameOverMenu");
 }
 
 void GameOverScene::menuCallback1(Ref* sender)	// 게임 시작
