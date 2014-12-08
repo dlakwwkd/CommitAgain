@@ -94,6 +94,10 @@ void RoomScene::GameExitCallback(Ref* sender)	// 나가기
 //////////////////////////////////////////////////////////////////////////
 void RoomScene::Tick(float dt)
 {
+    if (TcpClient::getInstance()->checkSocket() == NULL)
+    {
+        Director::getInstance()->popScene();
+    }
     auto label = GET_ROOM_STATE_LABEL;
     if(label == nullptr)
         return;

@@ -208,9 +208,9 @@ Player* GameManager::SearchPlayer(int playerId)
         printf(" - SearchPlayer Failed ! : playerId is invalid \n");
         return nullptr;
     }
-    for (auto& game : m_GameList)
+    for (auto& room : m_RoomList)
     {
-        for (auto& player : game.second->GetPlayerList())
+        for (auto& player : room.second->GetPlayerList())
         {
             if (player.first == playerId)
             {
