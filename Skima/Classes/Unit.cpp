@@ -36,7 +36,12 @@ void Unit::UpdateHpBar()
 
 void Unit::SetHpBar()
 {
-    m_HpBar = Sprite::create("Images/HpBar_Unit.png");
+    auto hpBarOut = Sprite::create("Images/hp_bar_out.png");
+    hpBarOut->setPosition(Vec2(-25, 80));
+    hpBarOut->setAnchorPoint(Vec2(0, 0));
+    m_Sprite->addChild(hpBarOut);
+
+    m_HpBar = Sprite::create("Images/hp_bar_in.png");
     m_HpBar->setPosition(Vec2(-20, 85));
     m_HpBar->setAnchorPoint(Vec2(0,0));
 }
