@@ -81,6 +81,8 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
      this->addChild(unit->GetSprite(),16);
      unit->GetSprite()->addChild(unit->GetHpBar(),16);
 
+     auto layer = dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"));
+     layer->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
 }
 
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)

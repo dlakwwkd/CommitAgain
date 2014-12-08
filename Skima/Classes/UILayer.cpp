@@ -2,6 +2,7 @@
 #include "UILayer.h"
 #include "TcpClient.h"
 #include "PacketType.h"
+#include <crtdbg.h>
 
 #define COOLTIME_BOX_X 0.03f
 #define COOLTIME_BOX_Y 0.033f
@@ -18,7 +19,9 @@ bool UILayer::init()
     auto menu = Menu::create(menuItem, NULL);
     menu->setPosition(winSize.width - 40, 12);
     this->addChild(menu);
-
+    auto hpLabel = Label::createWithSystemFont("\0","Thonburi",20);
+    hpLabel->setPosition(Vec2(590, 105));
+    this->addChild(hpLabel, 11, "HpLabel");
 
     auto sprite = [](const char* image, Vec2 pos, Vec2 scale, Vec2 anchor)
     {
@@ -96,6 +99,12 @@ void UILayer::ClickExit(Ref* sender)
 
 void UILayer::UpdateHpBar(float curHp, float maxHp)
 {
+    char* currentHp = (char*)calloc(255,sizeof(char));
+    char* maximumHp = (char*)calloc(255, sizeof(char));
+    itoa(curHp, currentHp, 10); itoa(maxHp, maximumHp, 10);
+    strcat(currentHp, " / "); strcat(currentHp, maximumHp);
+    auto hpLabel = dynamic_cast<Label*>(this->getChildByName("HpLabel"));
+    hpLabel->setString(currentHp);
     auto hpBar = dynamic_cast<Sprite*>(this->getChildByName("HpBar"));
     hpBar->setScaleX(0.68f*(curHp / maxHp));
 }
