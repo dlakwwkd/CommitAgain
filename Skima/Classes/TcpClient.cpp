@@ -442,14 +442,14 @@ void TcpClient::outRoomRequest(int roomId)
     send((const char*)&sendData, sizeof(InOutRoomRequest));
 }
 
-void TcpClient::startGameRequest(int roomId)
+void TcpClient::startGameRequest(int roomId,HeroType heroType)
 {
     if (mLoginId < 0)
         return;
 
     GameReadyNotify sendData;
     sendData.mPlayerId = mLoginId;
-    sendData.mHeroType = HERO_JUPITER;
+    sendData.mHeroType = heroType; 
 
     send((const char*)&sendData, sizeof(GameReadyNotify));
 }
