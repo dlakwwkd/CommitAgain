@@ -45,5 +45,11 @@ Jupiter::~Jupiter()
 
 void Jupiter::UseSkill(SkillType skillType, SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
 {
-	m_SkillList[skillKey]->SkillCast(skillType, heroPos, targetPos);
+    auto skill = m_SkillList.find(skillKey);
+    if (skill == m_SkillList.end())
+    {
+        printf("UseSkill() Failed!! \n");
+        return;
+    }
+	skill->second->SkillCast(skillType, heroPos, targetPos);
 }
