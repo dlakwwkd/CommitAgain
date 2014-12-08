@@ -89,33 +89,3 @@ void CrashedState::Movement(Unit* unit)
         unit->Crashing(false);
     }
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-    /*스킬시전 상태*/
-
-//////////////////////////////////////////////////////////////////////////
-void UseSkillState::TryMove(Unit* unit)
-{
-
-}
-
-void UseSkillState::Crashed(Unit* unit)
-{
-
-}
-
-void UseSkillState::EndMove(Unit* unit)
-{
-
-}
-
-void UseSkillState::EndCrash(Unit* unit)
-{
-
-}
-
-void UseSkillState::Movement(Unit* unit)
-{
-
-}

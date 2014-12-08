@@ -11,7 +11,7 @@ bool MapLayer::init()
     auto layerCenter = this->getAnchorPointInPoints();
     auto visibleSize = Director::getInstance()->getVisibleSize();
 
-    auto sprite = Sprite::create("Images/bg1.png");
+    auto sprite = Sprite::create("Images/bg2.png");
     sprite->setPosition(layerCenter);
     this->addChild(sprite);
     return true;

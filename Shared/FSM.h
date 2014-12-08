@@ -44,13 +44,3 @@ public:
     virtual void EndCrash(Unit* unit);
     virtual void Movement(Unit* unit);
 };
-class UseSkillState : public MoveState
-{
-public:
-    virtual ~UseSkillState(){}
-    virtual void TryMove(Unit* unit);
-    virtual void Crashed(Unit* unit);
-    virtual void EndMove(Unit* unit);
-    virtual void EndCrash(Unit* unit);
-    virtual void Movement(Unit* unit);
-};
