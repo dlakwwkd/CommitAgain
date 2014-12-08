@@ -67,11 +67,29 @@
     <Filter Include="Game\Component\Mouse">
       <UniqueIdentifier>{acf579fa-1a71-452d-83f6-cc067a3af5ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Skill\ShootType\Magician Shoot Skill">
+    <Filter Include="Game\Component\Skill\FieldType">
+      <UniqueIdentifier>{7ef02a78-f087-4f89-98b5-340fb8dbdf7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\MoveType">
+      <UniqueIdentifier>{8f58100d-18cd-4e3c-a23e-f020c9481673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\ShootType\Magician">
       <UniqueIdentifier>{babde109-567a-498a-9b68-529ebb8c8f2f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Skill\ShootType\Jupiter  Shoot Skill">
+    <Filter Include="Game\Component\Skill\ShootType\Jupiter">
       <UniqueIdentifier>{2b93c6fe-ca09-4f3f-9965-fa57495cd574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\MoveType\Jupiter">
+      <UniqueIdentifier>{99b47c0e-5509-4ba6-bc76-e56a9342b613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\MoveType\Magician">
+      <UniqueIdentifier>{17cf64d5-151f-4351-bc8f-c86782ad1e0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\FieldType\Jupiter">
+      <UniqueIdentifier>{c224a1a6-9f0e-497d-9188-a03ef491a404}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\FieldType\Magician">
+      <UniqueIdentifier>{5ff0a045-0312-45d8-b644-597416699331}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,17 +183,11 @@
     <ClCompile Include="..\Classes\Jupiter.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\TeleportSkill.cpp">
-      <Filter>Game\Component\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\TeleportEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LightningEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\LightningSkill.cpp">
-      <Filter>Game\Component\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameOverScene.cpp">
       <Filter>Game\Scene</Filter>
@@ -184,13 +196,13 @@
       <Filter>Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\FireballSkill.cpp">
-      <Filter>Game\Component\Skill\ShootType\Magician Shoot Skill</Filter>
+      <Filter>Game\Component\Skill\ShootType\Magician</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\IceballSkill.cpp">
-      <Filter>Game\Component\Skill\ShootType\Magician Shoot Skill</Filter>
+      <Filter>Game\Component\Skill\ShootType\Magician</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SparkSkill.cpp">
-      <Filter>Game\Component\Skill\ShootType\Jupiter  Shoot Skill</Filter>
+      <Filter>Game\Component\Skill\ShootType\Jupiter</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SparkEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
@@ -198,8 +210,14 @@
     <ClCompile Include="..\Classes\WaitingLayer.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\LightningSkill.cpp">
+      <Filter>Game\Component\Skill\FieldType\Jupiter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TeleportSkill.cpp">
+      <Filter>Game\Component\Skill\MoveType\Magician</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\FlashSkill.cpp">
-      <Filter>Game\Component\Skill</Filter>
+      <Filter>Game\Component\Skill\MoveType\Jupiter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,17 +320,11 @@
     <ClInclude Include="..\Classes\Macros.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\TeleportSkill.h">
-      <Filter>Game\Component\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\TeleportEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LightningEffect.h">
       <Filter>Game\Component\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\LightningSkill.h">
-      <Filter>Game\Component\Skill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameOverScene.h">
       <Filter>Game\Scene</Filter>
@@ -321,13 +333,13 @@
       <Filter>Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\FireballSkill.h">
-      <Filter>Game\Component\Skill\ShootType\Magician Shoot Skill</Filter>
+      <Filter>Game\Component\Skill\ShootType\Magician</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\IceballSkill.h">
-      <Filter>Game\Component\Skill\ShootType\Magician Shoot Skill</Filter>
+      <Filter>Game\Component\Skill\ShootType\Magician</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SparkSkill.h">
-      <Filter>Game\Component\Skill\ShootType\Jupiter  Shoot Skill</Filter>
+      <Filter>Game\Component\Skill\ShootType\Jupiter</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SparkEffect.h">
       <Filter>Game\Component\Effect</Filter>
@@ -335,8 +347,14 @@
     <ClInclude Include="..\Classes\WaitingLayer.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\LightningSkill.h">
+      <Filter>Game\Component\Skill\FieldType\Jupiter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TeleportSkill.h">
+      <Filter>Game\Component\Skill\MoveType\Magician</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\FlashSkill.h">
-      <Filter>Game\Component\Skill</Filter>
+      <Filter>Game\Component\Skill\MoveType\Jupiter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

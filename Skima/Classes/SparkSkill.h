@@ -1,6 +1,6 @@
 #pragma once
-#include "Skill.h"
-class SparkSkill : public Skill
+#include "ShootType.h"
+class SparkSkill : public ShootType
 {
 public:
     SparkSkill();
@@ -8,7 +8,7 @@ public:
     virtual ~SparkSkill();
 
 public:
-    virtual void SkillReady();
-    virtual void SkillEnd();
+//     virtual void SkillReady();
+//     virtual void SkillEnd();
 };
 

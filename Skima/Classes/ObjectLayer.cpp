@@ -10,6 +10,7 @@
 #include "Missile.h"
 #include "Enums.h"
 #include "TeleportEffect.h"
+#include "LightningEffect.h"
 #include "Unit.h"
 #include "Skill.h"
 
@@ -294,7 +295,7 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillType type, SkillKey key, Vec2 r
         break;
     case SPLASH_SKILL:
     {
-        auto effect = new TeleportEffect(); // 임시
+        auto effect = new LightningEffect(); // 임시
         effect->CreateEffect(targetPos);
         break;
     }

@@ -8,7 +8,6 @@ class Skill
 {
 public:
     Skill();
-    Skill(Hero* hero);
     virtual ~Skill();
 
     int             GetCoolTime() { return m_CoolTime; }

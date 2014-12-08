@@ -1,8 +1,6 @@
 ﻿#pragma once
-#include "Skill.h"
-class Hero;
-
-class FireballSkill : public Skill
+#include "ShootType.h"
+class FireballSkill : public ShootType
 {
 public:
     FireballSkill();
@@ -11,8 +9,8 @@ public:
 
 public:
     //virtual void SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID);
-    virtual void SkillReady();
-    virtual void SkillEnd();
+//     virtual void SkillReady();
+//     virtual void SkillEnd();
     
 };
 
