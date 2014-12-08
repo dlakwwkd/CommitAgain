@@ -13,6 +13,7 @@
 #include "ObjectLayer.h"
 #include "LoadingBGLayer.h"
 #include "Enums.h"
+#include "Macros.h"
 
 #ifdef _WIN32
 #pragma comment(lib,"ws2_32.lib")

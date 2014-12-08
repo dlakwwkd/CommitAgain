@@ -1,6 +1,24 @@
 #pragma once
 ///////////////////////////////////////////////////////////////////////////
 /*
+    씬을 불러오기위한 매크로
+*/
+///////////////////////////////////////////////////////////////////////////
+#define GET_NETWORK_SCENE   dynamic_cast<NetworkScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene"))
+#define GET_ROOM_SCENE      dynamic_cast<RoomScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene"))
+#define GET_M_GAME_SCENE    dynamic_cast<MultiGameScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene"))
+#define GET_LOADING_LAYER   dynamic_cast<LoadingBGLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("LoadingBGLayer"))
+#define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer"))
+
+///////////////////////////////////////////////////////////////////////////
+/*
+    좌표타입 변환을 위한 매크로
+*/
+///////////////////////////////////////////////////////////////////////////
+#define CONVERT(v) {(v).x, (v).y}
+
+///////////////////////////////////////////////////////////////////////////
+/*
     UnitID에서 타입 체크를 하기 위한 매크로
 */
 ///////////////////////////////////////////////////////////////////////////
