@@ -34,6 +34,6 @@ void FlashSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos
         hero->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
         return;
     }
-    displacement *= hero->GetSpeed();
+    displacement *= REDUCE(1200);
     hero->GetBody()->SetLinearVelocity(displacement);
 }

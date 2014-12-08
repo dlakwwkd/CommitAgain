@@ -19,6 +19,11 @@ Magician::Magician(Vec2 createPos, float scale)
     m_Sprite->addChild(m_RealSprite);
     m_Sprite->addChild(m_Arrow);
     m_Sprite->addChild(m_SkillRange);
+    auto shadow = Sprite::create("Jupiter/Jupiter_shadow.png");
+    shadow->setScale(0.75f);
+    shadow->setPosition(Vec2(27.5f, 2.5f));
+    shadow->setOpacity(150);
+    m_RealSprite->addChild(shadow, -2);
 
     m_MaxHp = 1000.0f;
     m_CurHp = m_MaxHp;

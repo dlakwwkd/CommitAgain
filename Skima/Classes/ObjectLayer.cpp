@@ -306,7 +306,9 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillType type, SkillKey key, Vec2 r
             hero->second->GetSprite()->setPosition(targetPos);
             break;
         case HERO_JUPITER:
-            auto action = MoveTo::create(0.20f, targetPos);
+            auto distance = recvCurPos.distance(targetPos);
+            auto time = distance / 1200.0f;
+            auto action = MoveTo::create(time, targetPos);
             hero->second->GetSprite()->runAction(action);
         }
         hero->second->EndMove();
