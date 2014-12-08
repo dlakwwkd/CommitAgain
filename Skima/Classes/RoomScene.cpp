@@ -76,7 +76,7 @@ void RoomScene::GameStartCallback(Ref* sender)	// 게임 시작
     }
     m_IsReady = true;
     WaitingCheck();
-    TcpClient::getInstance()->startGameRequest(m_RoomID);
+    TcpClient::getInstance()->startGameRequest(m_RoomID,m_CurHero);
 }
 
 void RoomScene::GameExitCallback(Ref* sender)	// 나가기

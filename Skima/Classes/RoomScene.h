@@ -19,20 +19,20 @@ public:
     void WaitingCheck();
 
     void MakeFaceSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor, HeroType hero);
-	void SetFaceProperty(MenuItemImage* img, Vec2 pos, Vec2 scale, Vec2 anchor);
-	void ChangeSelectedHero();
+    void SetFaceProperty(MenuItemImage* img, Vec2 pos, Vec2 scale, Vec2 anchor);
+    void ChangeSelectedHero();
 
     void Tick(float dt);
-	void ClickMagician();
-	void ClickJupiter();
+    void ClickMagician();
+    void ClickJupiter();
 
     void GameStartComplete();
 
 private:
     int         m_RoomID;
     bool        m_IsReady;
-	HeroType    m_CurHero;
-	FaceList    m_Facelist;
+    HeroType    m_CurHero;
+    FaceList    m_Facelist;
     LayerColor* m_WaitingLayer;
 
 };

@@ -20,7 +20,7 @@ void Player::CreateHero(b2Vec2 pos)
         m_Hero = new Magician(m_PlayerID, pos, DEF_SCALE);
         break;
     case HERO_JUPITER:
-		m_Hero = new Jupiter(m_PlayerID, pos, DEF_SCALE);
+        m_Hero = new Jupiter(m_PlayerID, pos, DEF_SCALE);
         break;
     default:
         return;

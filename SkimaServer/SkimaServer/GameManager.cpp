@@ -185,6 +185,14 @@ void GameManager::DeleteGame(int gameId)
     printf(" - Destroy %d Game ! \n", gameId);
 }
 
+void GameManager::GameOver(Player* player)
+{
+    auto game = SearchGame(player->GetRoomID());
+    auto client = GClientManager->GetClient(player->GetPlayerID());
+    game->EndGame();
+    client->GameOverCast(player->GetPlayerID());
+    DeleteGame(game->GetGameID());
+}
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -272,13 +280,13 @@ void GameManager::Tick(float dt)
                 continue;
             }
 
-            if (client->GetPlayer()->GetMyHero()->GetUnitHp() <= 0)
-            {
-                game.second->EndGame();
-                client->GameOverCast(client->GetPlayer()->GetPlayerID());
-                CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::DeleteGame, game.second->GetGameID());
-                break;
-            }
+//             if (client->GetPlayer()->GetMyHero()->GetUnitHp() <= 0)
+//             {
+//                 game.second->EndGame();
+//                 client->GameOverCast(client->GetPlayer()->GetPlayerID());
+//                 CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::DeleteGame, game.second->GetGameID());
+//                 break;
+//             }
 
             if (game.second->IsReady())
             {
@@ -359,6 +367,29 @@ void GameManager::ExchangeDamage(Unit* unitA, Unit* unitB)
 
     GClientManager->GetClient(AplayerId)->HpBroadCast(AplayerId, unitA->GetUnitID(), unitAHp);
     GClientManager->GetClient(BplayerId)->HpBroadCast(BplayerId, unitB->GetUnitID(), unitBHp);
+   
+    auto typeA = GET_MAIN_TYPE(unitA->GetUnitID());
+    auto typeB = GET_MAIN_TYPE(unitB->GetUnitID());
+
+    auto playerA = SearchPlayer(AplayerId);
+    auto playerB = SearchPlayer(BplayerId);
+
+    if (typeA == UNIT_HERO)
+    {
+        if (unitAHp <= 0)
+        {
+            CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::GameOver, playerA);
+            return;
+        }
+    }
+    if (typeB == UNIT_HERO)
+    {
+        if (unitBHp <= 0)
+        {
+            CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::GameOver, playerB);
+            return;
+        }
+    }
 }
 
 

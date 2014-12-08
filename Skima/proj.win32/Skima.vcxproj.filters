@@ -162,9 +162,6 @@
     <ClCompile Include="..\Classes\IceEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\EffectManager.cpp">
-      <Filter>Game\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Jupiter.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
@@ -201,8 +198,13 @@
     <ClCompile Include="..\Classes\WaitingLayer.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\Classes\FlashSkill.cpp">
       <Filter>Game\Component\Skill</Filter>
+=======
+    <ClCompile Include="..\Classes\EffectManager.cpp">
+      <Filter>Game\Manager</Filter>
+>>>>>>> origin/master
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -299,9 +301,6 @@
     <ClInclude Include="..\Classes\IceEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\EffectManager.h">
-      <Filter>Game\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Jupiter.h">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
@@ -341,8 +340,13 @@
     <ClInclude Include="..\Classes\WaitingLayer.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\Classes\FlashSkill.h">
       <Filter>Game\Component\Skill</Filter>
+=======
+    <ClInclude Include="..\Classes\EffectManager.h">
+      <Filter>Game\Manager</Filter>
+>>>>>>> origin/master
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
