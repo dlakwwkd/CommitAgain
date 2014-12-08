@@ -37,6 +37,8 @@ public:
     bool                ApplyDamage(Unit* unitA, Unit* unitB);
     void                ExchangeDamage(Unit* unitA, Unit* unitB);
 
+    void                GameOver(Player* player);
+
 public:
     b2World*            GetWolrd(){ return m_World; }
     ContactListener*    GetContact(){ return m_Contact; }
