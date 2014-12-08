@@ -50,6 +50,6 @@ void TeleportSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 target
         hero->GetBody()->SetTransform(rangePos, 0);
         hero->SetState(hero->GetStandbyState());
         auto client = GClientManager->GetClient(m_PlayerId);
-        client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_E, heroPos, targetPos);
+        client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_E, heroPos, rangePos);
     }
 }

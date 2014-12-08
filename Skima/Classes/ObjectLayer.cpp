@@ -47,14 +47,6 @@ void ObjectLayer::TickM(float dt)
 }
 //////////////////////////////////////////////////////////////////////////
 
-
-
-void ObjectLayer::FirstDrawUnit(int playerID, int unitID, Vec2 pos)
-{
-    //todo unitType 넣어주기
-    CreateHero(playerID, unitID, pos);
-}
-
 void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
 {
     std::shared_ptr<Hero> unit;

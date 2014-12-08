@@ -254,7 +254,7 @@ void TcpClient::processPacket()
                 Vec2 pos = CONVERT(recvData.mPos);
 
                 auto layer = GET_OBJECT_LAYER;      assert(layer != nullptr);
-                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::FirstDrawUnit, layer,
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateHero, layer,
                     recvData.mPlayerId, recvData.mUnitId, pos));
             }
             break;

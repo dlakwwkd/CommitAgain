@@ -12,7 +12,6 @@ Unit::Unit()
     m_CurHp = m_MaxHp = 0;
     m_Speed = 0;
     m_TargetPos = { 0, 0 };
-    //m_Sprite = nullptr;
     m_HpBar = nullptr;
     m_Body = nullptr;
     m_InUse = false;
