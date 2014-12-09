@@ -4,7 +4,7 @@ class Rock :
     public MapObject
 {
 public:
-    Rock();
+    Rock(b2Vec2 pos);
     ~Rock();
 };
 

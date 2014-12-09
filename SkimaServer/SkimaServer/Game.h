@@ -1,8 +1,10 @@
 ﻿#pragma once
 class Player;
+class MapObject;
 class GameRoom;
 
 typedef std::map<int, Player*> PlayerList;
+typedef std::vector<MapObject*> MapObjectList;
 
 class Game
 {
@@ -25,12 +27,14 @@ public:
     int                 GetLoadedPlayerNum(){ return m_LoadedPlayerNum; }
 
     void                InitGame();
+    void                InitMap();
 	void				EndGame();
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int playerId);
 
 private:
     PlayerList          m_PlayerList;
+    MapObjectList       m_MapObjectList;
     int                 m_GameID;
     bool                m_IsReady;
     bool                m_IsStart;

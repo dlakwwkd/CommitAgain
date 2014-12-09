@@ -104,7 +104,9 @@
     <ClCompile Include="Jupiter.cpp">
       <Filter>Game\Component\Object\Unit\Hero</Filter>
     </ClCompile>
-    <ClCompile Include="Rock.cpp" />
+    <ClCompile Include="Rock.cpp">
+      <Filter>Game\Component\Object\Unit\MapObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -232,7 +234,9 @@
     <ClInclude Include="FlashSkill.h">
       <Filter>Game\Component\Skill\Jupiter Skill</Filter>
     </ClInclude>
-    <ClInclude Include="Rock.h" />
+    <ClInclude Include="Rock.h">
+      <Filter>Game\Component\Object\Unit\MapObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

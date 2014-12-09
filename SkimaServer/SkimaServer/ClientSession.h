@@ -37,7 +37,7 @@ public:
     void    OutGameRoom();
     void    AllReadyNotify();
     void    SendCreateHeroResult(int unitId, b2Vec2 pos);
-    void    SendMapInfo(int unitId, b2Vec2 pos);
+    void    SendMapInfo(int& mapObtList);
     void    SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos);
     void    CrashedBroadCast(int unitId, b2Vec2 curPos, b2Vec2 expectPos, bool isCrashed);
     void    SkillBroadCast(int heroId, SkillType type, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos);

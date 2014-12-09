@@ -3,6 +3,7 @@
 #include "GameRoom.h"
 #include "Player.h"
 #include "Map.h"
+#include "Rock.h"
 
 
 Game::Game(GameRoom* room)
@@ -17,11 +18,13 @@ Game::Game(GameRoom* room)
     {
         m_PlayerList[player.first] = player.second;
     }
+
+    m_MapObjectList.clear();
 }
 
 void Game::InitGame()
 {
-	m_IsEnd = false;
+	m_IsEnd = false; 
 
     int i = 0;
     for (auto& it : m_PlayerList)
@@ -34,6 +37,22 @@ void Game::InitGame()
         }
         it.second->CreateHero(CONVERT_IN(createPos, roomId));
     }
+}
+
+void Game::InitMap()
+{
+    //나중에 "for문"화 할 거임
+
+    b2Vec2 pos = { 100, 100 };
+    auto rock = new Rock(pos);
+
+    m_MapObjectList.push_back(rock);
+
+    MapObt mapObtList[1];
+    mapObtList[0].unitId = rock->GetUnitID();
+    mapObtList[0].pos.x = EXTEND(pos.x);
+    mapObtList[0].pos.x = EXTEND(pos.y);
+
 }
 
 void Game::EndGame()

@@ -111,6 +111,12 @@ struct Coord
     float y;
 };
 
+struct MapObt
+{
+    int unitId;
+    Coord pos;
+};
+
 ///////////////////////////////////////////////////////////////////////////
 /*
     로그인 관련
@@ -256,12 +262,10 @@ struct CreateMapResult : public PacketHeader
         mSize = sizeof(CreateMapResult);
         mType = PKT_SC_CREATE_MAP;
         mPlayerId = -1;
-        mUnitId = -1;
-        mPos = { 0, };
+        //mapobt 초기화???
     }
     int         mPlayerId;
-    int         mUnitId;
-    Coord       mPos;
+    MapObt      mMapObtList[1];
 };
 //////////////////////////////////////////////////////////////////////////
 

@@ -7,7 +7,7 @@ public:
     MapObject();
     ~MapObject();
 
-private:
+protected:
     b2Vec2 m_Pos;
 };
 
