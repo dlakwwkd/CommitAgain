@@ -301,7 +301,6 @@ REGISTER_HANDLER(PKT_CS_SKILL)
     b2Vec2 currentPos = CONVERT_IN(inPacket.mCurrentPos, roomId);
 
     hero->UseSkill(inPacket.mKey, currentPos, targetPos);
-    session->SkillBroadCast(hero->GetUnitID(), inPacket.mKey, currentPos, targetPos);
 }
 
 // 

@@ -19,5 +19,5 @@ void Hero::UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
         printf("UseSkill() Failed!! \n");
         return;
     }
-    skill->second->SkillCast(heroPos, targetPos);
+    skill->second->SkillCast(skillKey, heroPos, targetPos);
 }

@@ -24,8 +24,14 @@ SparkSkill::~SparkSkill()
 {
 }
 
-void SparkSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
+void SparkSkill::SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos)
 {
+    auto hero = m_Owner->GetMyHero();
+    hero->EndMove();
+
     m_TargetPos = targetPos;
     ShootMissile(GenerateInitPos(heroPos, targetPos));
+
+    auto client = m_Owner->GetClient();
+    client->SkillBroadCast(hero->GetUnitID(), key, heroPos, targetPos);
 }

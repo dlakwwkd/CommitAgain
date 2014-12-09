@@ -16,7 +16,6 @@ void ContactListener::BeginContact(b2Contact *contact)
     unitB->SetContectState(true);
     unitA->Crashed();
     unitB->Crashed();
-
 }
 
 void ContactListener::EndContact(b2Contact* contact)

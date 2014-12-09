@@ -18,17 +18,19 @@ FlashSkill::~FlashSkill()
 {
 }
 
-void FlashSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
+void FlashSkill::SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos)
 {
     auto hero = m_Owner->GetMyHero();
-    hero->SetState(hero->GetStandbyState());
+    hero->Crashing(false);
 
     auto displacement = targetPos - hero->GetBody()->GetPosition();
     if (displacement.Normalize() < 0.5f)
     {
-        hero->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
         return;
     }
-    displacement *= REDUCE(1200);
+    displacement *= REDUCE(1500);
     hero->GetBody()->SetLinearVelocity(displacement);
+
+    auto client = m_Owner->GetClient();
+    client->SkillBroadCast(hero->GetUnitID(), key, heroPos, targetPos);
 }

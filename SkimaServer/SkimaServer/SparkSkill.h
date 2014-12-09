@@ -6,6 +6,6 @@ public:
     SparkSkill(Player* owner, float heroBodySize);
 	virtual ~SparkSkill();
 
-	virtual void SkillCast(b2Vec2 heroPos, b2Vec2 targetPos);
+	virtual void SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos);
 };
 

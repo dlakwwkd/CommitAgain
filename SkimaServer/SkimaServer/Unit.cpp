@@ -63,11 +63,11 @@ void Unit::Crashing(bool isCrashing)
     }
 
     auto curPos = m_Body->GetPosition();
-    auto velocity = m_Body->GetLinearVelocity();
     auto expectPos = curPos;
 
     if (isCrashing)
     {
+        auto velocity = m_Body->GetLinearVelocity();
         velocity *= 1.0f / DAMPING;
         expectPos += velocity;
         printf(" - Crashing: UnitID:  %d, \t\t\t expectPos: X : %.f\tY : %.f\n", m_UnitID,

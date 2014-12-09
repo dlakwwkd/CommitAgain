@@ -5,12 +5,12 @@
 
 TeleportSkill::TeleportSkill()
 {
-    m_Range = 7.0f;
+    m_Range = REDUCE(224);
 }
 
 TeleportSkill::TeleportSkill(Player* owner)
 {
-    m_Range = 7.0f;
+    m_Range = REDUCE(224);
     m_Owner = owner;
 }
 
@@ -19,30 +19,21 @@ TeleportSkill::~TeleportSkill()
 {
 }
 
-void TeleportSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
+void TeleportSkill::SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos)
 {
+    auto hero = m_Owner->GetMyHero();
+    hero->EndMove();
+
     auto direction = targetPos - heroPos;
-    auto distance = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
-        
-    if (distance <= m_Range) 
-    {
-        auto hero = m_Owner->GetMyHero();
-        hero->GetBody()->SetLinearVelocity(b2Vec2{ 0, 0 });
-        hero->GetBody()->SetTransform(targetPos, 0);
-        hero->SetState(hero->GetStandbyState());
-    }
-    else //사거리보다 클때
-    {
-        direction.x = direction.x / distance;
-        direction.y = direction.y / distance;
+    auto distance = direction.Normalize();
 
-        b2Vec2 rangePos; 
-        rangePos.x = direction.x*m_Range+heroPos.x;
-        rangePos.y = direction.y*m_Range+heroPos.y;
-
-        auto hero = m_Owner->GetMyHero();
-        hero->GetBody()->SetLinearVelocity(b2Vec2{ 0, 0 });
-        hero->GetBody()->SetTransform(rangePos, 0);
-        hero->SetState(hero->GetStandbyState());
+    if (distance > m_Range)
+    {
+        direction *= m_Range;
+        targetPos = heroPos + direction;
     }
+    hero->GetBody()->SetTransform(targetPos, 0);
+
+    auto client = m_Owner->GetClient();
+    client->SkillBroadCast(hero->GetUnitID(), key, heroPos, targetPos);
 }
