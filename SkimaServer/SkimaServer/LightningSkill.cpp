@@ -14,11 +14,11 @@ LightningSkill::~LightningSkill()
 {
 }
 
-void LightningSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos)
+void LightningSkill::SkillCast(b2Vec2 heroPos, b2Vec2 targetPos)
 {
     auto hero = m_Owner->GetMyHero();
     hero->SetState(hero->GetStandbyState());
 
     auto client = m_Owner->GetClient();
-    client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_W, heroPos, targetPos);
+    client->SkillBroadCast(hero->GetUnitID(), SKILL_W, heroPos, targetPos);
 }

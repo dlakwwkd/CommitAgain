@@ -5,12 +5,16 @@
 
 ShootType::ShootType()
 {
-    m_SkillType = MISSILE_SKILL;
 }
 
 
 ShootType::~ShootType()
 {
+}
+
+void ShootType::SkillCast(Vec2 heroPos, Vec2 targetPos)
+{
+
 }
 
 void ShootType::SkillReady()

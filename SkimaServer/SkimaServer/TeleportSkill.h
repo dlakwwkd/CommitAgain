@@ -7,6 +7,6 @@ public:
     TeleportSkill(Player* owner);
     virtual~TeleportSkill();
 
-    virtual void SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos);
+    virtual void SkillCast(b2Vec2 heroPos, b2Vec2 targetPos);
 };
 

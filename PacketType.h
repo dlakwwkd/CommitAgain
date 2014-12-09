@@ -36,14 +36,6 @@ enum SkillKey
     SKILL_MAX_NUM = 5,
 };
 
-enum SkillType
-{
-    NONE_SKILL,
-    MISSILE_SKILL,
-    SPLASH_SKILL,
-    MOVEMENT_SKILL
-};
-
 enum PacketTypes
 {
     PKT_NONE = 0,
@@ -393,13 +385,11 @@ struct SkillRequest : public PacketHeader
         mType = PKT_CS_SKILL;
         mPlayerId = -1;
         mKey = SKILL_NONE;
-        mSkillType = NONE_SKILL;
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
     }
     int         mPlayerId;
     SkillKey    mKey;
-    SkillType   mSkillType;
     Coord       mCurrentPos;
     Coord       mTargetPos;
 };
@@ -413,14 +403,12 @@ struct SkillBroadcastResult : public PacketHeader
         mPlayerId = -1;
         mUnitId = -1;
         mKey = SKILL_NONE;
-        mSkillType = NONE_SKILL;
         mCurrentPos = { 0, };
         mTargetPos = { 0, };
     }
     int         mPlayerId;
     int         mUnitId;
     SkillKey    mKey;
-    SkillType   mSkillType;
     Coord       mCurrentPos;
     Coord       mTargetPos;
 };

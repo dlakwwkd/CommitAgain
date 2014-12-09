@@ -122,8 +122,7 @@ void ListenerLayer::OnMouseDown(Event *event)
             {
                 break;
             }
-            auto skillType = hero->GetSkill(key)->GetSkillType();
-            TcpClient::getInstance()->skillRequest(heroPos, mousePos, skillType, key);
+            TcpClient::getInstance()->skillRequest(heroPos, mousePos, key);
             CoolTimeStart(key);
 
             hero->SkillEnd(key);

@@ -8,23 +8,26 @@ public:
     Hero();
     virtual ~Hero();
 
-    int             GetSkillCoolTime(SkillKey key);
-    bool            GetSkillCanUse(SkillKey key);
     Vec2            GetHeroPos() { return m_Sprite->getPosition(); }
     Sprite*         GetArrow() { return m_Arrow; }
     Sprite*         GetSkillRange(){ return m_SkillRange; }
-    Skill*          GetSkill(SkillKey key){ return m_SkillList[key]; }
+
+    Skill*          GetSkill(SkillKey key);
+    int             GetSkillCoolTime(SkillKey key);
+    bool            GetSkillCanUse(SkillKey key);
+    void			SetSkillCanUse(SkillKey key, bool isUse);
+
+    void			SkillCast(SkillKey key, Vec2 recvPos, Vec2 targetPos);
+    void			SkillReady(SkillKey key);
+    void			SkillEnd(SkillKey key);
+
     virtual void    SetMoveMotionToCache() = 0;
     virtual void    SetSkillMotionToCache() = 0;
     virtual void    SetMoveMotionByDir() = 0;
     virtual void    SetSkillMotionByDir(SkillKey key) = 0;
-    void			SetSkillCanUse(SkillKey key, bool isUse);
-    void			SkillCast(SkillKey key);
-    void			SkillReady(SkillKey key);
-    void			SkillEnd(SkillKey key);
 
 protected:
-    RepeatForever* MakeAnimation(const char* format, int size);
+    RepeatForever*  MakeAnimation(const char* format, int size);
     Direction       CalcMoveDirection(Vec2 displacement);
     Direction       CalcSkillDirection(Vec2 displacement);
 

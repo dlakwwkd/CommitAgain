@@ -8,13 +8,18 @@ public:
     ShootingSkill();
     virtual ~ShootingSkill();
     
-    b2Vec2          GenerateInitPos(b2Vec2 heroPos, b2Vec2 targetPos);
+    virtual void    SkillCast(b2Vec2 heroPos, b2Vec2 targetPos){}
 
-    virtual void    SkillCast(b2Vec2 heroPos, b2Vec2 targetPos);
+protected:
+    b2Vec2          GenerateInitPos(b2Vec2 heroPos, b2Vec2 targetPos);
+    void            ShootMissile(b2Vec2 initPos);
+    void            ShootMissile(b2Vec2 initPos, b2Vec2 targetPos, MissileType type, float speed, float range, int damage){}
+    void            ShootMissileRepet(b2Vec2 initPos, int repetNum, int repetCycle);
     
 protected:
-    float   m_MissileSpeed;
-    float   m_MissileLiveTime;
-    int     m_Hp;
+    MissileType     m_MissileType;
+    float           m_MissileSpeed;
+    float           m_MissileScale;
+    int             m_MissileHp;
 };
 

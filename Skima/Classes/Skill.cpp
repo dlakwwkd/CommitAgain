@@ -6,7 +6,6 @@
 Skill::Skill()
 {
     m_Hero = nullptr;
-    m_SkillType = NONE_SKILL;
     m_CoolTime = 0;
     m_CanUse = true;
 }

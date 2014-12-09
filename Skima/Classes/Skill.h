@@ -12,17 +12,14 @@ public:
 
     int             GetCoolTime() { return m_CoolTime; }
     bool            GetCanUse() { return m_CanUse; }
-    SkillType       GetSkillType(){ return m_SkillType; }
-
     void            SetCanUse(bool isUse) { m_CanUse = isUse; }
 
-    //virtual void	SkillCast(Vec2 heroPos, Vec2 targetPos, int missileID) = 0;
+    virtual void	SkillCast(Vec2 heroPos, Vec2 targetPos) = 0;
     virtual void    SkillReady() = 0;
     virtual void    SkillEnd() = 0;
 
 protected:
     Hero*       m_Hero;
-    SkillType   m_SkillType;
     int         m_CoolTime;
     bool        m_CanUse;
 };

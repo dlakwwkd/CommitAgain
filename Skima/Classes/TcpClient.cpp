@@ -339,7 +339,7 @@ void TcpClient::processPacket()
 
                 auto layer = GET_OBJECT_LAYER;      assert(layer != nullptr);
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSkillUse, layer,
-                    recvData.mUnitId, recvData.mSkillType, recvData.mKey, curPos, targetPos));
+                    recvData.mUnitId, recvData.mKey, curPos, targetPos));
             }
             break;
         case PKT_SC_MISSILE:
@@ -479,7 +479,7 @@ void TcpClient::moveRequest(Vec2 curPos, Vec2 targetPos)
     send((const char*)&sendData, sizeof(MoveRequest));
 }
 
-void TcpClient::skillRequest(Vec2 curPos, Vec2 targetPos, SkillType skillType, SkillKey skillKey)
+void TcpClient::skillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey)
 {
     if (mLoginId < 0)
         return;
@@ -488,7 +488,6 @@ void TcpClient::skillRequest(Vec2 curPos, Vec2 targetPos, SkillType skillType, S
     sendData.mPlayerId = mLoginId;
     sendData.mCurrentPos = CONVERT(curPos);
     sendData.mTargetPos = CONVERT(targetPos);
-    sendData.mSkillType = skillType;
     sendData.mKey = skillKey;
 
     send((const char*)&sendData, sizeof(SkillRequest));

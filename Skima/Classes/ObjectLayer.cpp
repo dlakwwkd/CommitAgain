@@ -122,7 +122,7 @@ void ObjectLayer::UnitCrashEnd(int unitID, Vec2 revisePos)
     unit->second->EndCrash();
 }
 
-void ObjectLayer::UnitSkillUse(int unitID, SkillType type, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
+void ObjectLayer::UnitSkillUse(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
 {
     switch (GET_GM.GetGameMode())
     {
@@ -130,7 +130,7 @@ void ObjectLayer::UnitSkillUse(int unitID, SkillType type, SkillKey key, Vec2 re
         UnitSkillUseS(key, targetPos);
         break;
     case MULTI:
-        UnitSkillUseM(unitID, type, key, recvCurPos, targetPos);
+        UnitSkillUseM(unitID, key, recvCurPos, targetPos);
         break;
     }
 }
@@ -273,7 +273,7 @@ void ObjectLayer::UnitSkillUseS(SkillKey key, Vec2 pos)
 
 }
 
-void ObjectLayer::UnitSkillUseM(int unitID, SkillType type, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
+void ObjectLayer::UnitSkillUseM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos)
 {
     auto hero = m_HeroList.find(unitID);
     if (hero == m_HeroList.end())
@@ -285,38 +285,7 @@ void ObjectLayer::UnitSkillUseM(int unitID, SkillType type, SkillKey key, Vec2 r
     hero->second->GetRealSprite()->stopAllActions();
     hero->second->SetSkillMotionByDir(key);
 
-    switch (type)
-    {
-    case MISSILE_SKILL:
-        break;
-    case SPLASH_SKILL:
-    {
-        auto effect = new LightningEffect(); // 임시
-        effect->CreateEffect(targetPos);
-        break;
-    }
-    case MOVEMENT_SKILL:
-    {
-        auto effect = new TeleportEffect(); // 임시
-        effect->CreateEffect(recvCurPos);
-        hero->second->SetTargetPos(targetPos);
-        switch (GET_SIDE_TYPE(unitID))
-        {
-        case HERO_MAGICIAN:
-            hero->second->GetSprite()->setPosition(targetPos);
-            break;
-        case HERO_JUPITER:
-            auto distance = recvCurPos.distance(targetPos);
-            auto time = distance / 1200.0f;
-            auto action = MoveTo::create(time, targetPos);
-            hero->second->GetSprite()->runAction(action);
-        }
-        hero->second->EndMove();
-        break;
-    }
-    default:
-        break;
-    }
+    hero->second->SkillCast(key, recvCurPos, targetPos);
 }
 
 void ObjectLayer::ShootMissileS(Vec2 createPos, Vec2 targetPos)

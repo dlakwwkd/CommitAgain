@@ -61,34 +61,13 @@
     <Filter Include="Game\Component\Player">
       <UniqueIdentifier>{658a76a3-8cc3-40a2-80dc-2c3f46f9821b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Skill\ShootType">
-      <UniqueIdentifier>{60123690-516a-4373-8779-c201ab14c357}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Component\Mouse">
       <UniqueIdentifier>{acf579fa-1a71-452d-83f6-cc067a3af5ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Skill\FieldType">
-      <UniqueIdentifier>{7ef02a78-f087-4f89-98b5-340fb8dbdf7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Skill\MoveType">
-      <UniqueIdentifier>{8f58100d-18cd-4e3c-a23e-f020c9481673}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Skill\ShootType\Magician">
-      <UniqueIdentifier>{babde109-567a-498a-9b68-529ebb8c8f2f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Skill\ShootType\Jupiter">
-      <UniqueIdentifier>{2b93c6fe-ca09-4f3f-9965-fa57495cd574}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Skill\MoveType\Jupiter">
-      <UniqueIdentifier>{99b47c0e-5509-4ba6-bc76-e56a9342b613}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Skill\MoveType\Magician">
-      <UniqueIdentifier>{17cf64d5-151f-4351-bc8f-c86782ad1e0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Skill\FieldType\Jupiter">
+    <Filter Include="Game\Component\Skill\Jupiter">
       <UniqueIdentifier>{c224a1a6-9f0e-497d-9188-a03ef491a404}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Skill\FieldType\Magician">
+    <Filter Include="Game\Component\Skill\Magician">
       <UniqueIdentifier>{5ff0a045-0312-45d8-b644-597416699331}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -156,9 +135,6 @@
     <ClCompile Include="..\Classes\Missile.cpp">
       <Filter>Game\Component\Object\Missile</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ShootType.cpp">
-      <Filter>Game\Component\Skill\ShootType</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Skill.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
@@ -195,15 +171,6 @@
     <ClCompile Include="..\Classes\EscLayer.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\FireballSkill.cpp">
-      <Filter>Game\Component\Skill\ShootType\Magician</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\IceballSkill.cpp">
-      <Filter>Game\Component\Skill\ShootType\Magician</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SparkSkill.cpp">
-      <Filter>Game\Component\Skill\ShootType\Jupiter</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\SparkEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
@@ -211,15 +178,27 @@
       <Filter>Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LightningSkill.cpp">
-      <Filter>Game\Component\Skill\FieldType\Jupiter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\TeleportSkill.cpp">
-      <Filter>Game\Component\Skill\MoveType\Magician</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\FlashSkill.cpp">
-      <Filter>Game\Component\Skill\MoveType\Jupiter</Filter>
+      <Filter>Game\Component\Skill\Jupiter</Filter>
     </ClCompile>
     <ClCompile Include="LightningPumpkinSkill.cpp" />
+    <ClCompile Include="..\Classes\FlashSkill.cpp">
+      <Filter>Game\Component\Skill\Jupiter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TeleportSkill.cpp">
+      <Filter>Game\Component\Skill\Magician</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SparkSkill.cpp">
+      <Filter>Game\Component\Skill\Jupiter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FireballSkill.cpp">
+      <Filter>Game\Component\Skill\Magician</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\IceballSkill.cpp">
+      <Filter>Game\Component\Skill\Magician</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ShootType.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -288,9 +267,6 @@
     <ClInclude Include="..\Classes\Missile.h">
       <Filter>Game\Component\Object\Missile</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ShootType.h">
-      <Filter>Game\Component\Skill\ShootType</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Skill.h">
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
@@ -333,15 +309,6 @@
     <ClInclude Include="..\Classes\EscLayer.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\FireballSkill.h">
-      <Filter>Game\Component\Skill\ShootType\Magician</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\IceballSkill.h">
-      <Filter>Game\Component\Skill\ShootType\Magician</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SparkSkill.h">
-      <Filter>Game\Component\Skill\ShootType\Jupiter</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\SparkEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
@@ -349,15 +316,27 @@
       <Filter>Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LightningSkill.h">
-      <Filter>Game\Component\Skill\FieldType\Jupiter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TeleportSkill.h">
-      <Filter>Game\Component\Skill\MoveType\Magician</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\FlashSkill.h">
-      <Filter>Game\Component\Skill\MoveType\Jupiter</Filter>
+      <Filter>Game\Component\Skill\Jupiter</Filter>
     </ClInclude>
     <ClInclude Include="LightningPumpkinSkill.h" />
+    <ClInclude Include="..\Classes\FlashSkill.h">
+      <Filter>Game\Component\Skill\Jupiter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TeleportSkill.h">
+      <Filter>Game\Component\Skill\Magician</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SparkSkill.h">
+      <Filter>Game\Component\Skill\Jupiter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FireballSkill.h">
+      <Filter>Game\Component\Skill\Magician</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\IceballSkill.h">
+      <Filter>Game\Component\Skill\Magician</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ShootType.h">
+      <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

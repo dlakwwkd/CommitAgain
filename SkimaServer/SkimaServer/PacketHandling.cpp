@@ -300,9 +300,8 @@ REGISTER_HANDLER(PKT_CS_SKILL)
     b2Vec2 targetPos = CONVERT_IN(inPacket.mTargetPos, roomId);
     b2Vec2 currentPos = CONVERT_IN(inPacket.mCurrentPos, roomId);
 
-    hero->UseSkill(inPacket.mSkillType, inPacket.mKey, currentPos, targetPos);
-
-    //session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
+    hero->UseSkill(inPacket.mKey, currentPos, targetPos);
+    session->SkillBroadCast(hero->GetUnitID(), inPacket.mKey, currentPos, targetPos);
 }
 
 // 
@@ -438,7 +437,7 @@ void ClientSession::SendCreateHeroResult(int unitId, b2Vec2 pos)
 
 void ClientSession::SendMapInfo(int& mapObtList)
 {
-   
+
 }
 
 void ClientSession::StartGame()
@@ -483,12 +482,11 @@ void ClientSession::CrashedBroadCast(int unitId, b2Vec2 curPos, b2Vec2 expectPos
     //printf(" Send: Crashed!  UnitID: %d, \t\t X : %.f\tY : %.f\n", unitId, outPacket.mExpectPosX, outPacket.mExpectPosY);
 }
 
-void ClientSession::SkillBroadCast(int heroId, SkillType type, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos)
 {
     SkillBroadcastResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
     outPacket.mUnitId = heroId;
-    outPacket.mSkillType = type;
     outPacket.mKey = key;
     outPacket.mCurrentPos = CONVERT_OUT(currentPos, mPlayer->GetRoomID());
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());

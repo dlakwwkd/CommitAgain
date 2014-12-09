@@ -6,9 +6,5 @@ public:
     SparkSkill();
     SparkSkill(Hero* hero);
     virtual ~SparkSkill();
-
-public:
-//     virtual void SkillReady();
-//     virtual void SkillEnd();
 };
 

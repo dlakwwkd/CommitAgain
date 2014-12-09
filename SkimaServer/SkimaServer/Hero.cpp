@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Hero.h"
+#include "Skill.h"
 
 Hero::Hero()
 {
@@ -10,7 +11,13 @@ Hero::~Hero()
 {
 }
 
-void Hero::UseSkill(SkillType skillType, SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
+void Hero::UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
 {
-    //각각의 캐릭터의 useskill만 호출 
+    auto skill = m_SkillList.find(skillKey);
+    if (skill == m_SkillList.end())
+    {
+        printf("UseSkill() Failed!! \n");
+        return;
+    }
+    skill->second->SkillCast(heroPos, targetPos);
 }

@@ -25,65 +25,62 @@ Hero::~Hero()
     }
 }
 
-int Hero::GetSkillCoolTime(SkillKey key)
+
+Skill* Hero::GetSkill(SkillKey key)
 {
     auto skill = m_SkillList.find(key);
     if (skill == m_SkillList.end())
     {
-        return 1;
+        return nullptr;
     }
-    return skill->second->GetCoolTime();
+    return skill->second;
+}
+
+
+int Hero::GetSkillCoolTime(SkillKey key)
+{
+    auto skill = GetSkill(key);
+    if (!skill) return -1;
+    return skill->GetCoolTime();
 }
 
 bool Hero::GetSkillCanUse(SkillKey key)
 {
-    auto skill = m_SkillList.find(key);
-    if (skill == m_SkillList.end())
-    {
-        return false;
-    }
-    return skill->second->GetCanUse();
+    auto skill = GetSkill(key);
+    if (!skill) return false;
+    return skill->GetCanUse();
 }
 
 void Hero::SetSkillCanUse(SkillKey key, bool isUse)
 {
-    auto skill = m_SkillList.find(key);
-    if (skill == m_SkillList.end())
-    {
-        return;
-    }
-    skill->second->SetCanUse(isUse);
+    auto skill = GetSkill(key);
+    if (!skill) return;
+    skill->SetCanUse(isUse);
 }
 
-void Hero::SkillCast(SkillKey key)
+
+void Hero::SkillCast(SkillKey key, Vec2 recvPos, Vec2 targetPos)
 {
-    auto skill = m_SkillList.find(key);
-    if (skill == m_SkillList.end())
-    {
-        return;
-    }
-    skill->second->SkillReady();
+    auto skill = GetSkill(key);
+    if (!skill) return;
+    skill->SkillCast(recvPos, targetPos);
 }
 
 void Hero::SkillReady(SkillKey key)
 {
-    auto skill = m_SkillList.find(key);
-    if (skill == m_SkillList.end())
-    {
-        return;
-    }
-    skill->second->SkillReady();
+    auto skill = GetSkill(key);
+    if (!skill) return;
+    skill->SkillReady();
 }
 
 void Hero::SkillEnd(SkillKey key)
 {
-    auto skill = m_SkillList.find(key);
-    if (skill == m_SkillList.end())
-    {
-        return;
-    }
-    skill->second->SkillEnd();
+    auto skill = GetSkill(key);
+    if (!skill) return;
+    skill->SkillEnd();
 }
+
+
 
 RepeatForever* Hero::MakeAnimation(const char* format, int size)
 {
