@@ -102,6 +102,8 @@ void GameManager::OutPlayer(int roomId, int playerId)
     if (game != m_GameList.end())
     {
         game->second->OutPlayer(playerId);
+
+		///# 이런거는 플레이어 리스트를 다 들고 올 필요가 없지! 그냥 게임룸에다가 Is방폭() 함수 하나 만들어놓고 체크해보면 되지..
         if (game->second->GetPlayerList().size() < 2)
         {
             game->second->EndGame();
@@ -114,6 +116,8 @@ void GameManager::OutPlayer(int roomId, int playerId)
     if (room != m_RoomList.end())
     {
         room->second->OutPlayer(playerId);
+
+		///# 마찬가지.. 리스트를 전부 들고올 필요가 없다
         if (room->second->GetPlayerList().size() == 0)
         {
             DeleteRoom(roomId);
@@ -201,6 +205,12 @@ void GameManager::GameOver(Player* player)
     Player 관련
 */
 ///////////////////////////////////////////////////////////////////////////
+
+///# 이 함수 구조적으로 좋지 못한데.. 모든 룸을 돌면서 플레이어를 찾아야 되는 이유는?? 스킬 판정시마다 모든 룸을 순회할건가?
+/// 보통 스킬 판정을 위해서는 해당 룸 안에서만 순회하면 된다... 대부분의 경우 해당 룸 번호만 알면 되고,
+/// 스킬의 경우에는 그냥 플레이어 포인터를 들고 있으면 깔끔해짐.
+
+
 Player* GameManager::SearchPlayer(int playerId)
 {
     if (playerId < 0)
@@ -208,6 +218,8 @@ Player* GameManager::SearchPlayer(int playerId)
         printf(" - SearchPlayer Failed ! : playerId is invalid \n");
         return nullptr;
     }
+
+	
     for (auto& room : m_RoomList)
     {
         for (auto& player : room.second->GetPlayerList())

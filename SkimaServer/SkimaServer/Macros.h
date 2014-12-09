@@ -6,6 +6,15 @@
 ///////////////////////////////////////////////////////////////////////////
 #define PTM_RATIO 32
 
+///# 암시적인 형변환 매크로들... int -> float. C++에서는 매크로 최소한으로 쓰고, 이런 경우는 템플릿 함수로 쓰도록.
+
+/// 예:
+template <typename T>
+T Extend(T input)
+{
+	return T * PTM_RATIO;
+}
+
 #define EXTEND(f) (f)*PTM_RATIO
 #define REDUCE(f) (f)/PTM_RATIO
 #define INCREASE(v) {EXTEND((v).x), EXTEND((v).y)}
