@@ -10,10 +10,10 @@ TeleportSkill::TeleportSkill()
     m_Range = 7.0f;
 }
 
-TeleportSkill::TeleportSkill(int playerId)
+TeleportSkill::TeleportSkill(Player* owner)
 {
     m_Range = 7.0f;
-    m_PlayerId = playerId;
+    m_Owner = owner;
 }
 
 
@@ -28,11 +28,11 @@ void TeleportSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 target
         
     if (distance <= m_Range) 
     {
-        auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
+        auto hero = m_Owner->GetMyHero();
         hero->GetBody()->SetLinearVelocity(b2Vec2{ 0, 0 });
         hero->GetBody()->SetTransform(targetPos, 0);
         hero->SetState(hero->GetStandbyState());
-        auto client = GClientManager->GetClient(m_PlayerId);
+        auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
         client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_E, heroPos, targetPos);
     }
 
@@ -45,11 +45,11 @@ void TeleportSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 target
         rangePos.x = direction.x*m_Range+heroPos.x;
         rangePos.y = direction.y*m_Range+heroPos.y;
 
-        auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
+        auto hero = m_Owner->GetMyHero();
         hero->GetBody()->SetLinearVelocity(b2Vec2{ 0, 0 });
         hero->GetBody()->SetTransform(rangePos, 0);
         hero->SetState(hero->GetStandbyState());
-        auto client = GClientManager->GetClient(m_PlayerId);
+        auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
         client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_E, heroPos, rangePos);
     }
 }

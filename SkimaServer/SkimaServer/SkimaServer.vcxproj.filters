@@ -62,20 +62,14 @@
     <ClCompile Include="ContactListener.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="FSM.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Missile.cpp">
-      <Filter>Game\Component\Object\Unit\Missile</Filter>
+      <Filter>Game\Component\Object\Missile</Filter>
     </ClCompile>
     <ClCompile Include="Hero.cpp">
-      <Filter>Game\Component\Object\Unit\Hero</Filter>
-    </ClCompile>
-    <ClCompile Include="Unit.cpp">
-      <Filter>Game\Component\Object\Unit</Filter>
+      <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
     <ClCompile Include="Magician.cpp">
-      <Filter>Game\Component\Object\Unit\Hero</Filter>
+      <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Game\Component\Object</Filter>
@@ -96,13 +90,19 @@
       <Filter>Game\Component\Skill\Magician Skill</Filter>
     </ClCompile>
     <ClCompile Include="MapObject.cpp">
-      <Filter>Game\Component\Object\Unit\MapObject</Filter>
+      <Filter>Game\Component\Object\MapObject</Filter>
     </ClCompile>
     <ClCompile Include="FlashSkill.cpp">
       <Filter>Game\Component\Skill\Jupiter Skill</Filter>
     </ClCompile>
     <ClCompile Include="Jupiter.cpp">
-      <Filter>Game\Component\Object\Unit\Hero</Filter>
+      <Filter>Game\Component\Object\Hero</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Game\Component\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="FSM.cpp">
+      <Filter>Game\Component\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,19 +187,13 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Missile.h">
-      <Filter>Game\Component\Object\Unit\Missile</Filter>
+      <Filter>Game\Component\Object\Missile</Filter>
     </ClInclude>
     <ClInclude Include="Hero.h">
-      <Filter>Game\Component\Object\Unit\Hero</Filter>
-    </ClInclude>
-    <ClInclude Include="Unit.h">
-      <Filter>Game\Component\Object\Unit</Filter>
+      <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
     <ClInclude Include="Magician.h">
-      <Filter>Game\Component\Object\Unit\Hero</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Shared\FSM.h">
-      <Filter>Game\Component</Filter>
+      <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
     <ClInclude Include="Macros.h">
       <Filter>Main</Filter>
@@ -208,7 +202,7 @@
       <Filter>Game\Component\Object</Filter>
     </ClInclude>
     <ClInclude Include="Jupiter.h">
-      <Filter>Game\Component\Object\Unit\Hero</Filter>
+      <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
     <ClInclude Include="FireballSkill.h">
       <Filter>Game\Component\Skill\Magician Skill</Filter>
@@ -226,10 +220,16 @@
       <Filter>Game\Component\Skill\Magician Skill</Filter>
     </ClInclude>
     <ClInclude Include="MapObject.h">
-      <Filter>Game\Component\Object\Unit\MapObject</Filter>
+      <Filter>Game\Component\Object\MapObject</Filter>
     </ClInclude>
     <ClInclude Include="FlashSkill.h">
       <Filter>Game\Component\Skill\Jupiter Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Game\Component\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\FSM.h">
+      <Filter>Game\Component\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -269,23 +269,20 @@
     <Filter Include="Game\Component\Object">
       <UniqueIdentifier>{e30175aa-886b-4dea-a476-3cf603bec8da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Object\Unit">
-      <UniqueIdentifier>{5df08bf3-c4f7-45cf-8899-033d74719a18}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Object\Unit\Hero">
-      <UniqueIdentifier>{c3bc629c-e021-453a-ae25-e541fbeab5db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Object\Unit\Missile">
-      <UniqueIdentifier>{acd95774-9987-485c-a89c-b2810c0d478d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Component\Skill\Magician Skill">
       <UniqueIdentifier>{0b2d8b3f-97a8-43c9-acc2-7f5bd0e0195e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Component\Skill\Jupiter Skill">
       <UniqueIdentifier>{8112a03f-e1bf-4233-bead-0827f5bd06c3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Object\Unit\MapObject">
+    <Filter Include="Game\Component\Object\Hero">
+      <UniqueIdentifier>{c3bc629c-e021-453a-ae25-e541fbeab5db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Object\MapObject">
       <UniqueIdentifier>{62122c1a-450e-4572-8e87-7351e50881eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Object\Missile">
+      <UniqueIdentifier>{acd95774-9987-485c-a89c-b2810c0d478d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

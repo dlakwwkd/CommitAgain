@@ -3,7 +3,7 @@
 class IceballSkill : public ShootingSkill
 {
 public:
-    IceballSkill(int playerid, float heroBodySize);
+    IceballSkill(Player* owner, float heroBodySize);
     virtual~IceballSkill();
 
     virtual void SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos);

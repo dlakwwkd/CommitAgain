@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Game.h"
 #include "GameRoom.h"
-#include "GameManager.h"
 #include "Player.h"
 #include "Map.h"
 

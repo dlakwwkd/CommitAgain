@@ -9,9 +9,9 @@
 #include "Hero.h"
 
 
-SparkSkill::SparkSkill(int playerid, float heroBodySize)
+SparkSkill::SparkSkill(Player* owner, float heroBodySize)
 {
-	m_PlayerId = playerid;
+	m_Owner = owner;
 	m_Damage = 500;
 	m_MissileSpeed = REDUCE(1200);
 	m_MissileLiveTime = 500.0f;
@@ -30,17 +30,16 @@ void SparkSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos
 {
 	b2Vec2 initPos = GenerateInitPos(heroPos, targetPos);
 
-    auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
+    auto hero = m_Owner->GetMyHero();
     hero->SetState(hero->GetStandbyState());
 
-    auto client = GClientManager->GetClient(m_PlayerId);
+    auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
     client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_Q, heroPos, targetPos);
 
 	auto missile = static_cast<Missile*>(GObjectManager->Assign(UNIT_MISSILE));
-	auto player = GGameManager->SearchPlayer(m_PlayerId);
-    player->UnitListPush(missile->GetUnitID(), missile);
+    m_Owner->UnitListPush(missile->GetUnitID(), missile);
 
-	missile->SetMissileInit(m_PlayerId, MS_SPARK, initPos, DEF_SCALE);
+    missile->SetMissileInit(m_Owner, MS_SPARK, initPos, DEF_SCALE);
 	missile->SetMissileTargetPos(targetPos);
 	missile->SetMissileSpeed(m_MissileSpeed);
 	missile->SetMissileDamage(m_Damage);

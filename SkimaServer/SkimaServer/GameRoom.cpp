@@ -9,8 +9,7 @@ void GameRoom::ReadySign()
     {
         m_IsAllReady = true;
     }
-
-    printf("roomReadyNum: %d \n", m_ReadyNum);
+    printf(" - Room[%d] ReadyNum: %d \n", m_RoomID, m_ReadyNum);
 }
 
 void GameRoom::InitReady()

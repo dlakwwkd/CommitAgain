@@ -22,14 +22,14 @@ public:
     GameRoom*           SearchRoom(int roomId);
     int                 SearchEmptyRoom();
     void                JoinRoom(int roomId, Player* player);
-    void                OutPlayer(int roomId, int playerId);
+    void                OutPlayer(Player* player);
 
     Game*               SearchGame(int gameId);
     void                CreateGame(int gameId);
     void                DeleteGame(int gameId);
 
     Player*             SearchPlayer(int playerId);
-    void                PlayerOut(int playerId);
+    void                PlayerOut(Player* player);
 
     void                Tick(float dt);
     void                LowTick();

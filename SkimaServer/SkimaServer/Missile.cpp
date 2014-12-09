@@ -20,10 +20,10 @@ Missile::~Missile()
     GObjectManager->Release(this);
 }
 
-void Missile::SetMissileInit(int playerId, int type, b2Vec2 initPos, float scale)
+void Missile::SetMissileInit(Player* owner, int type, b2Vec2 initPos, float scale)
 {
+    m_Owner = owner;
     m_UnitID = SET_SIDE_TYPE(m_UnitID, type);
-    m_PlayerID = playerId;
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(initPos.x, initPos.y);
@@ -53,7 +53,7 @@ void Missile::MissileShoot()
     displacement *= m_Range / m_Speed;
     m_TargetPos = currentPos + displacement;
 
-    GClientManager->GetClient(m_PlayerID)->MissileBroadCast(m_PlayerID, m_UnitID, currentPos, m_TargetPos);
+    GClientManager->GetClient(m_Owner->GetPlayerID())->MissileBroadCast(m_Owner->GetPlayerID(), m_UnitID, currentPos, m_TargetPos);
     m_State->TryMove(this);
 }
 

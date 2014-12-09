@@ -17,10 +17,10 @@ void Player::CreateHero(b2Vec2 pos)
     switch (m_HeroType)
     {
     case HERO_MAGICIAN:
-        m_Hero = new Magician(m_PlayerID, pos, DEF_SCALE);
+        m_Hero = new Magician(this, pos, DEF_SCALE);
         break;
     case HERO_JUPITER:
-        m_Hero = new Jupiter(m_PlayerID, pos, DEF_SCALE);
+        m_Hero = new Jupiter(this, pos, DEF_SCALE);
         break;
     default:
         return;

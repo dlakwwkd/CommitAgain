@@ -348,7 +348,7 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::LoginProcess(int playerId)
 {
-    mPlayer = new Player(playerId);
+    mPlayer = new Player(this, playerId);
     mLogon = true;
 
     LoginResult outPacket;
@@ -391,15 +391,11 @@ void ClientSession::JoinGameRoom()
 
 void ClientSession::OutGameRoom()
 {
-    auto playerId = mPlayer->GetPlayerID();
-    auto roomId = mPlayer->GetRoomID();
-    if (playerId < 0 || roomId < 0)
+    if (mPlayer == nullptr)
     {
         return;
     }
-    GGameManager->OutPlayer(roomId, playerId);
-
-    printf(" Send:  Out Room ID: %d, Player ID: %d \n", roomId, playerId);
+    GGameManager->OutPlayer(mPlayer);
 }
 
 void ClientSession::ServerRunComplete()

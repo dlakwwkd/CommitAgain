@@ -76,7 +76,7 @@ void ClientSession::Disconnect()
 
     if (mPlayer != nullptr)
     {
-        GGameManager->PlayerOut(mPlayer->GetPlayerID());
+        GGameManager->PlayerOut(mPlayer);
         delete mPlayer;
         mPlayer = nullptr;
     }

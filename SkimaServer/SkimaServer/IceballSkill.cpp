@@ -6,9 +6,9 @@
 #include "Player.h"
 #include "Hero.h"
 
-IceballSkill::IceballSkill(int playerid, float heroBodySize)
+IceballSkill::IceballSkill(Player* owner, float heroBodySize)
 {
-    m_PlayerId = playerid;
+    m_Owner = owner;
     m_Damage = 400;
     m_MissileSpeed = REDUCE(800);
     m_MissileLiveTime = 500.0f;
@@ -27,10 +27,9 @@ void IceballSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetP
     b2Vec2 initPos = GenerateInitPos(heroPos, targetPos);
 
     auto missile = static_cast<Missile*>(GObjectManager->Assign(UNIT_MISSILE));
-    auto player = GGameManager->SearchPlayer(m_PlayerId);
-    player->UnitListPush(missile->GetUnitID(), missile);
+    m_Owner->UnitListPush(missile->GetUnitID(), missile);
 
-    missile->SetMissileInit(m_PlayerId, MS_ICE_BALL, initPos, DEF_SCALE);
+    missile->SetMissileInit(m_Owner, MS_ICE_BALL, initPos, DEF_SCALE);
     missile->SetMissileTargetPos(targetPos);
     missile->SetMissileSpeed(m_MissileSpeed);
     missile->SetMissileDamage(m_Damage);

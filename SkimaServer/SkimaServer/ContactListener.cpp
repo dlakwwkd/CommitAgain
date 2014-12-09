@@ -9,7 +9,7 @@ void ContactListener::BeginContact(b2Contact *contact)
 {
     auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
     auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
-    if (unitA->GetPlayerID() < 0 || unitB->GetPlayerID() < 0)
+    if (!unitA->GetOwner() || !unitB->GetOwner())
     {
         printf(" - BeginContact Failed ! : unit is invalid \n");
         return;
@@ -22,21 +22,11 @@ void ContactListener::BeginContact(b2Contact *contact)
 
 }
 
-void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold){}
-void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
-{
-// 	auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
-// 	auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
-// 
-// 	unitA->Crashing(true);
-// 	unitB->Crashing(true);
-}
-
 void ContactListener::EndContact(b2Contact* contact)
 {
     auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
     auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
-    if (unitA->GetPlayerID() < 0 || unitB->GetPlayerID() < 0)
+    if (!unitA->GetOwner() || !unitB->GetOwner())
     {
         printf(" - EndContact Failed ! : unit is invalid \n");
         return;

@@ -12,7 +12,7 @@ Unit::Unit()
     static int makeId = 0;
     m_UnitID = ++makeId;
 
-    m_PlayerID = -1;
+    m_Owner = nullptr;
     m_Hp = m_MaxHp = -1;
     m_Damage = 0;
     m_Speed = -1;
@@ -58,7 +58,7 @@ void Unit::Crashing(bool isCrashing)
         break;
     };
 
-    auto client = GClientManager->GetClient(m_PlayerID);
+    auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
     if (client == nullptr)
     {
         EndCrash();
@@ -90,7 +90,7 @@ void Unit::Crashing(bool isCrashing)
 
 void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 {
-    auto client = GClientManager->GetClient(m_PlayerID);
+    auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
     if (client == nullptr)
     {
         printf(" - TryMove Failed ! : playerId is invalid \n");

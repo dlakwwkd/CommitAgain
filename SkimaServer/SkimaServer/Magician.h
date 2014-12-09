@@ -3,10 +3,10 @@
 class Magician : public Hero
 {
 public:
-    Magician(int playerId, b2Vec2 pos, float scale);
+    Magician(Player* owner, b2Vec2 pos, float scale);
     virtual ~Magician();
     
-    virtual void UseSkill(SkillType skillType, SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos);
+    virtual void    UseSkill(SkillType skillType, SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos);
     virtual void    Extinction(){}
 };
 

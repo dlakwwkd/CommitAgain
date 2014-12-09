@@ -6,10 +6,10 @@
 #include "GameManager.h"
 
 
-Magician::Magician(int playerId, b2Vec2 pos, float scale)
+Magician::Magician(Player* owner, b2Vec2 pos, float scale)
 {
+    m_Owner = owner;
     m_UnitID = SET_SIDE_TYPE(m_UnitID, HERO_MAGICIAN);
-    m_PlayerID = playerId;
     m_Hp = m_MaxHp = 1000;
     m_Speed = REDUCE(360);
 
@@ -30,9 +30,9 @@ Magician::Magician(int playerId, b2Vec2 pos, float scale)
     m_Body->CreateFixture(&fixtureDef);
     m_Body->SetUserData(this);
     
-    m_SkillList[SKILL_Q] = new FireballSkill(m_PlayerID, circle.m_radius);
-    m_SkillList[SKILL_W] = new IceballSkill(m_PlayerID, circle.m_radius);
-    m_SkillList[SKILL_E] = new TeleportSkill(m_PlayerID);
+    m_SkillList[SKILL_Q] = new FireballSkill(m_Owner, circle.m_radius);
+    m_SkillList[SKILL_W] = new IceballSkill(m_Owner, circle.m_radius);
+    m_SkillList[SKILL_E] = new TeleportSkill(m_Owner);
 }
 
 

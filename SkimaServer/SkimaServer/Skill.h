@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "../../PacketType.h"
+class Player;
+
 class Skill
 {
 public:
@@ -11,7 +13,7 @@ public:
     virtual void SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos) = 0;
 
 protected:
-    int     m_PlayerId;
+    Player* m_Owner;
     int     m_Damage;
     float   m_Range;
     float   m_HeroBodySize;

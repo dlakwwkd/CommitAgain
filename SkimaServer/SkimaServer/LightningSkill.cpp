@@ -6,9 +6,9 @@
 #include "ClientSession.h"
 
 
-LightningSkill::LightningSkill(int playerId)
+LightningSkill::LightningSkill(Player* owner)
 {
-    m_PlayerId = playerId;
+    m_Owner = owner;
 }
 
 
@@ -18,9 +18,9 @@ LightningSkill::~LightningSkill()
 
 void LightningSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos)
 {
-    auto hero = GGameManager->SearchPlayer(m_PlayerId)->GetMyHero();
+    auto hero = m_Owner->GetMyHero();
     hero->SetState(hero->GetStandbyState());
 
-    auto client = GClientManager->GetClient(m_PlayerId);
+    auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
     client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_W, heroPos, targetPos);
 }

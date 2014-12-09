@@ -5,10 +5,10 @@
 #include "LightningSkill.h"
 #include "FlashSkill.h"
 
-Jupiter::Jupiter(int playerId, b2Vec2 pos, float scale)
+Jupiter::Jupiter(Player* owner, b2Vec2 pos, float scale)
 {
+	m_Owner = owner;
 	m_UnitID = SET_SIDE_TYPE(m_UnitID, HERO_JUPITER);
-	m_PlayerID = playerId;
 	m_Hp = m_MaxHp = 1000;
 	m_Speed = REDUCE(500);
 
@@ -29,9 +29,9 @@ Jupiter::Jupiter(int playerId, b2Vec2 pos, float scale)
 	m_Body->CreateFixture(&fixtureDef);
 	m_Body->SetUserData(this);
 
-	m_SkillList[SKILL_Q] = new SparkSkill(m_PlayerID, circle.m_radius);
-    m_SkillList[SKILL_W] = new LightningSkill(m_PlayerID);
-    m_SkillList[SKILL_E] = new FlashSkill(m_PlayerID);
+    m_SkillList[SKILL_Q] = new SparkSkill(m_Owner, circle.m_radius);
+    m_SkillList[SKILL_W] = new LightningSkill(m_Owner);
+    m_SkillList[SKILL_E] = new FlashSkill(m_Owner);
 }
 
 

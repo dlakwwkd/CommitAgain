@@ -12,6 +12,7 @@ public:
 
     int                 GetGameID(){ return m_GameID; }
     const PlayerList&   GetPlayerList(){ return m_PlayerList; }
+    int                 GetPlayerListSize(){ return m_PlayerList.size(); }
     
     void                SetIsStart(bool isStart){ m_IsStart = isStart; }
     void                SetIsReady(bool isReady){ m_IsReady = isReady; }
@@ -26,7 +27,7 @@ public:
     void                InitGame();
 	void				EndGame();
     Player*             GetPlayer(int playerId);
-    void                OutPlayer(int id);
+    void                OutPlayer(int playerId);
 
 private:
     PlayerList          m_PlayerList;

@@ -91,18 +91,21 @@ void GameManager::JoinRoom(int roomId, Player* player)
     m_RoomList[roomId]->JoinPlayer(player);
 }
 
-void GameManager::OutPlayer(int roomId, int playerId)
+void GameManager::OutPlayer(Player* player)
 {
-    if (roomId < 0 || playerId < 0)
+    if (player == nullptr)
     {
-        printf(" - OutPlayer Failed ! : invalid ID \n");
+        printf(" - OutPlayer Failed ! : invalid player \n");
         return;
     }
+    auto playerId = player->GetPlayerID();
+    auto roomId = player->GetRoomID();
+
     auto game = m_GameList.find(roomId);
     if (game != m_GameList.end())
     {
         game->second->OutPlayer(playerId);
-        if (game->second->GetPlayerList().size() < 2)
+        if (game->second->GetPlayerListSize() < 2)
         {
             game->second->EndGame();
             auto client = GClientManager->GetClient(playerId);
@@ -114,7 +117,7 @@ void GameManager::OutPlayer(int roomId, int playerId)
     if (room != m_RoomList.end())
     {
         room->second->OutPlayer(playerId);
-        if (room->second->GetPlayerList().size() == 0)
+        if (room->second->GetPlayerListSize() == 0)
         {
             DeleteRoom(roomId);
         }
@@ -162,7 +165,6 @@ void GameManager::CreateGame(int gameId)
         DeleteGame(gameId);
     }
     Game* game = new Game(room->second);
-    //DeleteRoom(gameId);
     m_GameList[gameId] = game;
     game->InitGame();
 }
@@ -222,20 +224,14 @@ Player* GameManager::SearchPlayer(int playerId)
     return nullptr;
 }
 
-void GameManager::PlayerOut(int playerId)
+void GameManager::PlayerOut(Player* player)
 {
-    if (playerId < 0)
-    {
-        printf(" - PlayerOut Failed ! : playerId is invalid \n");
-        return;
-    }
-    auto player = SearchPlayer(playerId);
     if (player == nullptr)
     {
         printf(" - PlayerOut Failed ! : relevant player isn't \n");
         return;
     }
-    OutPlayer(player->GetRoomID(), playerId);
+    OutPlayer(player);
 }
 
 
@@ -252,58 +248,42 @@ void GameManager::Tick(float dt)
 
     for (auto& room : m_RoomList)
     {
-        //printf("room: %d, playerNum: %d\n", room.second->GetRoomID(), room.second->GetPlayerNum());
         if (room.second->IsAllReady())
         {
-            // 게임 구동 시작!;
+            // 게임 구동 시작!
             printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", room.first);
-           
             CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::CreateGame, room.first);
-
             room.second->InitReady();
         }
     }
-
     for (auto& game : m_GameList)
     {
         if (game.second->IsEnd())
         {
             continue;
         }
-
-
         for (auto& player : game.second->GetPlayerList())
         {
             auto client = GClientManager->GetClient(player.first);
             if (client == nullptr)
             {
-                PlayerOut(player.first);
+                PlayerOut(player.second);
                 continue;
             }
-
-//             if (client->GetPlayer()->GetMyHero()->GetUnitHp() <= 0)
-//             {
-//                 game.second->EndGame();
-//                 client->GameOverCast(client->GetPlayer()->GetPlayerID());
-//                 CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::DeleteGame, game.second->GetGameID());
-//                 break;
-//             }
-
             if (game.second->IsReady())
             {
                 CallFuncAfter(MANAGER_UPDATE_INTERVAL, client, &ClientSession::ServerRunComplete);
                 game.second->SetIsReady(false);
             }
-
             if (!game.second->IsStart() && game.second->GetLoadedPlayerNum() >= 2)
             {
                 client->StartGame();
                 game.second->SetIsStart(true);
             }
-
             if (!game.second->IsStart())
+            {
                 continue;
-
+            }
             for (auto& unit : player.second->GetUnitList())
             {
                 unit.second->Movement();
@@ -343,7 +323,7 @@ void GameManager::LowTick()
 ///////////////////////////////////////////////////////////////////////////
 bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
 {
-    if (unitA->GetPlayerID() == unitB->GetPlayerID())
+    if (unitA->GetOwner() == unitB->GetOwner())
     {
         return false;
     }
@@ -363,17 +343,14 @@ void GameManager::ExchangeDamage(Unit* unitA, Unit* unitB)
     unitA->SetUnitHp(unitAHp);
     unitB->SetUnitHp(unitBHp);
 
-    int AplayerId = unitA->GetPlayerID();
-    int BplayerId = unitB->GetPlayerID();
+    auto playerA = unitA->GetOwner();
+    auto playerB = unitB->GetOwner();
 
-    GClientManager->GetClient(AplayerId)->HpBroadCast(AplayerId, unitA->GetUnitID(), unitAHp);
-    GClientManager->GetClient(BplayerId)->HpBroadCast(BplayerId, unitB->GetUnitID(), unitBHp);
-   
+    playerA->GetClient()->HpBroadCast(playerA->GetPlayerID(), unitA->GetUnitID(), unitAHp);
+    playerB->GetClient()->HpBroadCast(playerA->GetPlayerID(), unitB->GetUnitID(), unitBHp);
+
     auto typeA = GET_MAIN_TYPE(unitA->GetUnitID());
     auto typeB = GET_MAIN_TYPE(unitB->GetUnitID());
-
-    auto playerA = SearchPlayer(AplayerId);
-    auto playerB = SearchPlayer(BplayerId);
 
     if (typeA == UNIT_HERO)
     {

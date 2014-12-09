@@ -58,7 +58,7 @@ void ObjectManager::Release(Unit* unit)
         GGameManager->GetWolrd()->DestroyBody(body);
         unit->InitBody();
     }
-    auto player = GGameManager->SearchPlayer(unit->GetPlayerID());
+    auto player = unit->GetOwner();
     if (player != nullptr)
     {
         player->UnitListPop(unit->GetUnitID());

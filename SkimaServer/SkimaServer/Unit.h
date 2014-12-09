@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "..\..\PacketType.h"
 #include "FSM.h"
+class Player;
 
 #define DAMPING 5.0f
 #define DEF_SCALE 15.0f
@@ -19,7 +20,7 @@ public:
     void            SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
     void            SetContectState(bool state){ m_Contacting = state; }
 
-    int             GetPlayerID(){ return m_PlayerID; }
+    Player*         GetOwner(){ return m_Owner; }
     int             GetUnitID(){ return m_UnitID; }
     int             GetMaxHp(){ return m_MaxHp; }
     int             GetUnitHp(){ return m_Hp; }
@@ -48,7 +49,7 @@ public:
     MoveState*      GetCrashedState(){ return (MoveState*)m_CrashedState; }
 
 protected:
-    int         m_PlayerID;
+    Player*     m_Owner;
     int         m_UnitID;
     int         m_MaxHp;
     int         m_Hp;
@@ -57,7 +58,7 @@ protected:
     bool        m_InUse;
     bool        m_Contacting;
     b2Vec2      m_TargetPos; 
-    b2Body*     m_Body; 
+    b2Body*     m_Body;
     
     MoveState*  m_State;
     MoveState*  m_StandbyState;
