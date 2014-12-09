@@ -188,6 +188,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProducerConsumerQueue.h" />
     <ClInclude Include="RefCountable.h" />
+    <ClInclude Include="Rock.h" />
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="ShootingSkill.h" />
     <ClInclude Include="Skill.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="PacketHandling.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="ShootingSkill.cpp" />
     <ClCompile Include="Skill.cpp" />
