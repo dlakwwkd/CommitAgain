@@ -2,17 +2,15 @@
 #include "GameManager.h"
 #include "GameRoom.h"
 #include "Game.h"
-#include "Player.h"
-#include "Unit.h"
+#include "ContactListener.h"
 #include "ClientManager.h"
 #include "ClientSession.h"
-#include "ContactListener.h"
 #include "Scheduler.h"
 #include "Config.h"
-
+#include "Player.h"
+#include "Unit.h"
 
 GameManager* GGameManager = nullptr;
-
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -108,8 +106,7 @@ void GameManager::OutPlayer(Player* player)
         if (game->second->GetPlayerListSize() < 2)
         {
             game->second->EndGame();
-            auto client = GClientManager->GetClient(playerId);
-            client->GameOverCast(client->GetPlayer()->GetPlayerID());
+            player->GetClient()->GameOverCast(playerId);
             DeleteGame(roomId);
         }
     }
@@ -190,11 +187,19 @@ void GameManager::DeleteGame(int gameId)
 
 void GameManager::GameOver(Player* player)
 {
-    auto game = SearchGame(player->GetRoomID());
-    auto client = GClientManager->GetClient(player->GetPlayerID());
-    game->EndGame();
-    client->GameOverCast(player->GetPlayerID());
-    DeleteGame(game->GetGameID());
+    if (player == nullptr)
+    {
+        return;
+    }
+    auto game = m_GameList.find(player->GetRoomID());
+    if (game == m_GameList.end())
+    {
+        printf(" - GameOver Failed ! : relevant game isn't \n");
+        return;
+    }
+    game->second->EndGame();
+    player->GetClient()->GameOverCast(player->GetPlayerID());
+    DeleteGame(game->second->GetGameID());
 }
 
 
@@ -203,27 +208,6 @@ void GameManager::GameOver(Player* player)
     Player 관련
 */
 ///////////////////////////////////////////////////////////////////////////
-Player* GameManager::SearchPlayer(int playerId)
-{
-    if (playerId < 0)
-    {
-        printf(" - SearchPlayer Failed ! : playerId is invalid \n");
-        return nullptr;
-    }
-    for (auto& room : m_RoomList)
-    {
-        for (auto& player : room.second->GetPlayerList())
-        {
-            if (player.first == playerId)
-            {
-                return player.second;
-            }
-        }
-    }
-    printf(" - SearchPlayer Failed ! : relevant player isn't \n");
-    return nullptr;
-}
-
 void GameManager::PlayerOut(Player* player)
 {
     if (player == nullptr)
@@ -264,7 +248,7 @@ void GameManager::Tick(float dt)
         }
         for (auto& player : game.second->GetPlayerList())
         {
-            auto client = GClientManager->GetClient(player.first);
+            auto client = player.second->GetClient();
             if (client == nullptr)
             {
                 PlayerOut(player.second);

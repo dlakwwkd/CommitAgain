@@ -28,7 +28,7 @@ public:
     void                CreateGame(int gameId);
     void                DeleteGame(int gameId);
 
-    Player*             SearchPlayer(int playerId);
+    void                GameOver(Player* player);
     void                PlayerOut(Player* player);
 
     void                Tick(float dt);
@@ -37,7 +37,6 @@ public:
     bool                ApplyDamage(Unit* unitA, Unit* unitB);
     void                ExchangeDamage(Unit* unitA, Unit* unitB);
 
-    void                GameOver(Player* player);
 
 public:
     b2World*            GetWolrd(){ return m_World; }

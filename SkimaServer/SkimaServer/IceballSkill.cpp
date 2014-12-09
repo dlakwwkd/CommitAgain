@@ -1,10 +1,8 @@
 #include "stdafx.h"
 #include "IceballSkill.h"
 #include "ObjectManager.h"
-#include "GameManager.h"
-#include "Missile.h"
 #include "Player.h"
-#include "Hero.h"
+#include "Missile.h"
 
 IceballSkill::IceballSkill(Player* owner, float heroBodySize)
 {

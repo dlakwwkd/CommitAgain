@@ -12,15 +12,13 @@ public:
     ClientManager() : mLastGCTick(0)
     {}
 
-    ClientSession* CreateClient(SOCKET sock);
-    ClientSession* GetClient(int playerId);
+    ClientSession*  CreateClient(SOCKET sock);
+    void            BroadcastPacket(ClientSession* from, PacketHeader* pkt);
 
-    void BroadcastPacket(ClientSession* from, PacketHeader* pkt);
+    void            OnPeriodWork();
+    void            FlushClientSend();
 
-    void OnPeriodWork();
-    void FlushClientSend();
-
-    bool IsValidPlayerId(int playerId);
+    bool            IsValidPlayerId(int playerId);
 
     /// DB에 플레이어 정보를 생성하거나 삭제하는 함수
     // 	void CreatePlayer(int pid, const char* name, const char* comment) ;
@@ -30,13 +28,13 @@ private:
     // 	void DeletePlayerDone(DatabaseJobContext* dbJob) ;
 
 private:
-    void CollectGarbageSessions();
+    void            CollectGarbageSessions();
     //void DispatchDatabaseJobResults() ;
 
 
 private:
-    ClientList  mClientList;
-    DWORD       mLastGCTick;
+    ClientList      mClientList;
+    DWORD           mLastGCTick;
 };
 
 extern ClientManager* GClientManager;

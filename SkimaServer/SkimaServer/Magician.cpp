@@ -1,9 +1,9 @@
 ﻿#include "stdafx.h"
 #include "Magician.h"
+#include "GameManager.h"
 #include "FireballSkill.h"
 #include "IceballSkill.h"
 #include "TeleportSkill.h"
-#include "GameManager.h"
 
 
 Magician::Magician(Player* owner, b2Vec2 pos, float scale)

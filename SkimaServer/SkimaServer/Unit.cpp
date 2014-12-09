@@ -1,11 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Unit.h"
-#include "ClientSession.h"
-#include "ClientManager.h"
-#include "GameManager.h"
 #include "Player.h"
-#include "Scheduler.h"
-#include "ObjectManager.h"
+#include "ClientSession.h"
 
 Unit::Unit()
 {
@@ -58,11 +54,11 @@ void Unit::Crashing(bool isCrashing)
         break;
     };
 
-    auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
+    auto client = m_Owner->GetClient();
     if (client == nullptr)
     {
         EndCrash();
-        printf(" - Crashing Failed ! : playerId is invalid \n");
+        printf(" - Crashing Failed ! : client is invalid \n");
         return;
     }
 
@@ -80,8 +76,6 @@ void Unit::Crashing(bool isCrashing)
     else
     {
         EndCrash();
-// 		printf(" - CrashEnd: UnitID:  %d, \t\t\t reachPos:  X : %.f\tY : %.f\n", m_UnitID,
-//             EXTEND(curPos.x), EXTEND(curPos.y));
     }
 
     client->CrashedBroadCast(m_UnitID, curPos, expectPos, isCrashing);
@@ -90,10 +84,10 @@ void Unit::Crashing(bool isCrashing)
 
 void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
 {
-    auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
+    auto client = m_Owner->GetClient();
     if (client == nullptr)
     {
-        printf(" - TryMove Failed ! : playerId is invalid \n");
+        printf(" - TryMove Failed ! : client is invalid \n");
         return;
     }
 

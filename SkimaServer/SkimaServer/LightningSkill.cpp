@@ -1,9 +1,7 @@
 #include "stdafx.h"
 #include "LightningSkill.h"
-#include "Player.h"
-#include "GameManager.h"
-#include "ClientManager.h"
 #include "ClientSession.h"
+#include "Player.h"
 
 
 LightningSkill::LightningSkill(Player* owner)
@@ -21,6 +19,6 @@ void LightningSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targe
     auto hero = m_Owner->GetMyHero();
     hero->SetState(hero->GetStandbyState());
 
-    auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
+    auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_W, heroPos, targetPos);
 }

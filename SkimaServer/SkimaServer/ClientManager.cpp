@@ -32,28 +32,6 @@ ClientSession* ClientManager::CreateClient(SOCKET sock)
     return client;
 }
 
-ClientSession* ClientManager::GetClient(int playerId)
-{
-    if (playerId < 0)
-    {
-        printf(" - GetClient Failed ! : playerId is invalid \n");
-        return nullptr;
-    }
-    for (auto& client : mClientList)
-    {
-        auto player = client.second->GetPlayer();
-        if (player == nullptr)
-        {
-            continue;
-        }
-        if (player->GetPlayerID() == playerId)
-        {
-            return client.second;
-        }
-    }
-    return nullptr;
-}
-
 bool ClientManager::IsValidPlayerId(int playerId)
 {
     if (playerId < 0)

@@ -1,9 +1,7 @@
 ﻿#include "stdafx.h"
 #include "ContactListener.h"
-#include "Unit.h"
-#include "Hero.h"
-#include "Missile.h"
 #include "GameManager.h"
+#include "Unit.h"
 
 void ContactListener::BeginContact(b2Contact *contact)
 {
@@ -14,7 +12,6 @@ void ContactListener::BeginContact(b2Contact *contact)
         printf(" - BeginContact Failed ! : unit is invalid \n");
         return;
     }
-
     unitA->SetContectState(true);
     unitB->SetContectState(true);
     unitA->Crashed();
@@ -31,7 +28,6 @@ void ContactListener::EndContact(b2Contact* contact)
         printf(" - EndContact Failed ! : unit is invalid \n");
         return;
     }
-
     unitA->Crashing(true);
     unitB->Crashing(true);
 
@@ -40,7 +36,6 @@ void ContactListener::EndContact(b2Contact* contact)
         GGameManager->ExchangeDamage(unitA, unitB);
     }
     //todo 나중에 미사일끼리 데미지 교환하여 미사일 없어지는것 구현해야함. 지금은 부딫히면 걍 없어짐
-    
 
     unitA->SetContectState(false);
     unitB->SetContectState(false);

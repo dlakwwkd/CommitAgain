@@ -1,7 +1,5 @@
 ﻿#include "stdafx.h"
 #include "Player.h"
-#include "GameManager.h"
-#include "ClientManager.h"
 #include "ClientSession.h"
 #include "Magician.h"
 #include "Jupiter.h"
@@ -27,8 +25,7 @@ void Player::CreateHero(b2Vec2 pos)
     };
     m_UnitList[m_Hero->GetUnitID()] = m_Hero;
 
-    auto client = GClientManager->GetClient(m_PlayerID);
-    client->SendCreateHeroResult(m_Hero->GetUnitID(), pos);
+    m_Client->SendCreateHeroResult(m_Hero->GetUnitID(), pos);
 }
 
 void Player::UnitListPop(int unitID)

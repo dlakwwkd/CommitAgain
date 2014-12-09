@@ -1,9 +1,7 @@
 #include "stdafx.h"
 #include "TeleportSkill.h"
-#include "Player.h"
-#include "GameManager.h"
-#include "ClientManager.h"
 #include "ClientSession.h"
+#include "Player.h"
 
 TeleportSkill::TeleportSkill()
 {
@@ -32,10 +30,9 @@ void TeleportSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 target
         hero->GetBody()->SetLinearVelocity(b2Vec2{ 0, 0 });
         hero->GetBody()->SetTransform(targetPos, 0);
         hero->SetState(hero->GetStandbyState());
-        auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
+        auto client = m_Owner->GetClient();
         client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_E, heroPos, targetPos);
     }
-
     else //사거리보다 클때
     {
         direction.x = direction.x / distance;
@@ -49,7 +46,7 @@ void TeleportSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 target
         hero->GetBody()->SetLinearVelocity(b2Vec2{ 0, 0 });
         hero->GetBody()->SetTransform(rangePos, 0);
         hero->SetState(hero->GetStandbyState());
-        auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
+        auto client = m_Owner->GetClient();
         client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_E, heroPos, rangePos);
     }
 }

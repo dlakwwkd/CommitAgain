@@ -1,12 +1,10 @@
 #include "stdafx.h"
 #include "SparkSkill.h"
 #include "ObjectManager.h"
-#include "GameManager.h"
-#include "ClientManager.h"
 #include "ClientSession.h"
-#include "Missile.h"
 #include "Player.h"
 #include "Hero.h"
+#include "Missile.h"
 
 
 SparkSkill::SparkSkill(Player* owner, float heroBodySize)
@@ -33,7 +31,7 @@ void SparkSkill::SkillCast(SkillType skillType, b2Vec2 heroPos, b2Vec2 targetPos
     auto hero = m_Owner->GetMyHero();
     hero->SetState(hero->GetStandbyState());
 
-    auto client = GClientManager->GetClient(m_Owner->GetPlayerID());
+    auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), skillType, SKILL_Q, heroPos, targetPos);
 
 	auto missile = static_cast<Missile*>(GObjectManager->Assign(UNIT_MISSILE));

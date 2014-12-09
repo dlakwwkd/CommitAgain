@@ -1,6 +1,5 @@
 ﻿#include "stdafx.h"
 #include "ShootingSkill.h"
-#include "GameManager.h"
 
 ShootingSkill::ShootingSkill()
 {

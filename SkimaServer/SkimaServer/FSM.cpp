@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "FSM.h"
-#include "Hero.h"
-#include "GameManager.h"
-#include "ObjectManager.h"
-#include "Player.h"
-#include "Missile.h"
+#include "Unit.h"
 
 //////////////////////////////////////////////////////////////////////////
 

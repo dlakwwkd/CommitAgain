@@ -1,8 +1,5 @@
 ﻿#include "stdafx.h"
 #include "Hero.h"
-#include "ClientSession.h"
-#include "ClientManager.h"
-#include "GameManager.h"
 
 Hero::Hero()
 {

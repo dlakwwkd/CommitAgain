@@ -1,10 +1,9 @@
 ﻿#include "stdafx.h"
 #include "Missile.h"
 #include "Scheduler.h"
-#include "ClientManager.h"
-#include "ClientSession.h"
 #include "GameManager.h"
 #include "ObjectManager.h"
+#include "ClientSession.h"
 #include "Player.h"
 
 
@@ -53,7 +52,7 @@ void Missile::MissileShoot()
     displacement *= m_Range / m_Speed;
     m_TargetPos = currentPos + displacement;
 
-    GClientManager->GetClient(m_Owner->GetPlayerID())->MissileBroadCast(m_Owner->GetPlayerID(), m_UnitID, currentPos, m_TargetPos);
+    m_Owner->GetClient()->MissileBroadCast(m_Owner->GetPlayerID(), m_UnitID, currentPos, m_TargetPos);
     m_State->TryMove(this);
 }
 
