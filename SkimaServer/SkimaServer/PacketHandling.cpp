@@ -440,6 +440,11 @@ void ClientSession::SendCreateHeroResult(int unitId, b2Vec2 pos)
     printf(" Send: CreateHeroResult Player ID: %d \n", mPlayer->GetPlayerID());
 }
 
+void ClientSession::SendMapInfo(int unitId, b2Vec2 pos)
+{
+   
+}
+
 void ClientSession::StartGame()
 {
     StartGameNotify outPacket;

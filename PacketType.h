@@ -248,6 +248,21 @@ struct CreateHeroResult : public PacketHeader
     int         mUnitId;
     Coord       mPos;
 };
+
+struct CreateMapResult : public PacketHeader
+{
+    CreateMapResult()
+    {
+        mSize = sizeof(CreateMapResult);
+        mType = PKT_SC_CREATE_MAP;
+        mPlayerId = -1;
+        mUnitId = -1;
+        mPos = { 0, };
+    }
+    int         mPlayerId;
+    int         mUnitId;
+    Coord       mPos;
+};
 //////////////////////////////////////////////////////////////////////////
 
 
