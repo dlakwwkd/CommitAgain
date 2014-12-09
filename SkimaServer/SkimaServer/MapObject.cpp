@@ -5,7 +5,7 @@
 
 MapObject::MapObject()
 {
-    m_PlayerID = 0;
+    m_Owner = nullptr;
     m_Hp = 10000;
     m_Damage = 100;
     m_Pos.x = 100;
