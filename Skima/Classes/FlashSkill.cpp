@@ -32,7 +32,7 @@ void FlashSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 
     m_Hero->EndMove();
     auto distance = heroPos.distance(targetPos);
-    auto time = distance / 1200.0f;
+    auto time = distance / 1500.0f;
     auto action = MoveTo::create(time, targetPos);
     m_Hero->GetSprite()->runAction(action);
 }

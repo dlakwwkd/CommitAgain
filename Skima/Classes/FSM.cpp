@@ -18,6 +18,8 @@ void StandbyState::Crashed(Unit* unit)
 {
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetCrashedState());
+    unit->GetSprite()->stopAllActions();
+    unit->GetRealSprite()->stopAllActions();
     unit->Crash();
 }
 

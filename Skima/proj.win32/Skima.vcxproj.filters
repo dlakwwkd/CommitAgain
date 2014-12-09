@@ -61,9 +61,6 @@
     <Filter Include="Game\Component\Player">
       <UniqueIdentifier>{658a76a3-8cc3-40a2-80dc-2c3f46f9821b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Mouse">
-      <UniqueIdentifier>{acf579fa-1a71-452d-83f6-cc067a3af5ac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Component\Skill\Jupiter">
       <UniqueIdentifier>{c224a1a6-9f0e-497d-9188-a03ef491a404}</UniqueIdentifier>
     </Filter>
@@ -106,12 +103,6 @@
       <Filter>Game\SinglePlay</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MainScene.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\NetworkScene.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\RoomScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LoadingBGLayer.cpp">
@@ -165,9 +156,6 @@
     <ClCompile Include="..\Classes\LightningEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameOverScene.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\EscLayer.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
@@ -180,7 +168,6 @@
     <ClCompile Include="..\Classes\LightningSkill.cpp">
       <Filter>Game\Component\Skill\Jupiter</Filter>
     </ClCompile>
-    <ClCompile Include="LightningPumpkinSkill.cpp" />
     <ClCompile Include="..\Classes\FlashSkill.cpp">
       <Filter>Game\Component\Skill\Jupiter</Filter>
     </ClCompile>
@@ -199,6 +186,18 @@
     <ClCompile Include="..\Classes\ShootType.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="LightningPumpkinSkill.cpp">
+      <Filter>Game\Component\Skill\Jupiter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameOverScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NetworkScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RoomScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -206,9 +205,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Enums.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameManager.h">
       <Filter>Game\Manager</Filter>
@@ -241,12 +237,6 @@
       <Filter>Game\SinglePlay</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MainScene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\NetworkScene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\RoomScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LoadingBGLayer.h">
@@ -303,9 +293,6 @@
     <ClInclude Include="..\Classes\LightningEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameOverScene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\EscLayer.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
@@ -318,7 +305,6 @@
     <ClInclude Include="..\Classes\LightningSkill.h">
       <Filter>Game\Component\Skill\Jupiter</Filter>
     </ClInclude>
-    <ClInclude Include="LightningPumpkinSkill.h" />
     <ClInclude Include="..\Classes\FlashSkill.h">
       <Filter>Game\Component\Skill\Jupiter</Filter>
     </ClInclude>
@@ -336,6 +322,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ShootType.h">
       <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="LightningPumpkinSkill.h">
+      <Filter>Game\Component\Skill\Jupiter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Enums.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameOverScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NetworkScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RoomScene.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
