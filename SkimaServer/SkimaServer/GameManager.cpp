@@ -331,7 +331,7 @@ void GameManager::ExchangeDamage(Unit* unitA, Unit* unitB)
     auto playerB = unitB->GetOwner();
 
     playerA->GetClient()->HpBroadCast(playerA->GetPlayerID(), unitA->GetUnitID(), unitAHp);
-    playerB->GetClient()->HpBroadCast(playerA->GetPlayerID(), unitB->GetUnitID(), unitBHp);
+    playerB->GetClient()->HpBroadCast(playerB->GetPlayerID(), unitB->GetUnitID(), unitBHp);
 
     auto typeA = GET_MAIN_TYPE(unitA->GetUnitID());
     auto typeB = GET_MAIN_TYPE(unitB->GetUnitID());

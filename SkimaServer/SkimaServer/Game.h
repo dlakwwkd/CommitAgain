@@ -10,7 +10,7 @@ class Game
 {
 public:
     Game(GameRoom* room);
-    ~Game(){}
+    ~Game();
 
     int                 GetGameID(){ return m_GameID; }
     const PlayerList&   GetPlayerList(){ return m_PlayerList; }
@@ -33,6 +33,7 @@ public:
     void                OutPlayer(int playerId);
 
 private:
+    Player*             m_Computer;
     PlayerList          m_PlayerList;
     MapObjectList       m_MapObjectList;
     int                 m_GameID;

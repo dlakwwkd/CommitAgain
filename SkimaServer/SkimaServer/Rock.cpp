@@ -3,14 +3,11 @@
 #include "GameManager.h"
 
 
-Rock::Rock(b2Vec2 pos)
+Rock::Rock(Player* owner, b2Vec2 pos)
 {
-    m_Owner = nullptr;
-    m_UnitID; // 이거 처리 해야 됨...
-
-    m_Hp = 10000;
-    m_Pos.x = pos.x;
-    m_Pos.y = pos.y;
+    m_Owner = owner;
+    m_Hp = 1000;
+    m_Pos = pos;
 
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
@@ -18,13 +15,13 @@ Rock::Rock(b2Vec2 pos)
     m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
     b2PolygonShape square;
-    square.SetAsBox(10, 5);
+    square.SetAsBox(REDUCE(30), REDUCE(60));
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &square;
-    fixtureDef.density = 1.0f;
+    fixtureDef.density = 2.0f;
     fixtureDef.friction = 0.3f;
-    fixtureDef.restitution = 0.7f;
+    fixtureDef.restitution = 3.0f;
 
     m_Body->CreateFixture(&fixtureDef);
     m_Body->SetUserData(this);

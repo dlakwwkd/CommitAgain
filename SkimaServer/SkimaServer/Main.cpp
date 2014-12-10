@@ -4,6 +4,7 @@
 #include "Config.h"
 #include "..\..\PacketType.h"
 
+#include "time.h"
 #include "ThreadLocal.h"
 #include "Exception.h"
 #include "Scheduler.h"
@@ -24,6 +25,7 @@ int _tmain(int argc, _TCHAR* argv[])
     SetUnhandledExceptionFilter(ExceptionFilter);
 
     LThreadType = THREAD_MAIN;
+    srand((unsigned int)time(NULL));
 
     /// Manager Init
     GClientManager = new ClientManager;

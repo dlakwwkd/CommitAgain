@@ -4,10 +4,23 @@ class ClientSession;
 
 typedef std::map<int, Unit*> UnitList;
 
+enum PlayerType
+{
+    COMPUTER,
+    HUMAN,
+};
+enum Team
+{
+    NEUTRALITY,
+    TEAM_A,
+    TEAM_B,
+};
+
 class Player
 {
 public:
-    Player(ClientSession* client, int playerId) : m_Client(client), m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_Hero(nullptr)
+    Player(ClientSession* client, int playerId, PlayerType type) : m_Client(client), m_PlayerType(type), m_Team(NEUTRALITY),
+        m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_Hero(nullptr)
     {
         ZeroMemory(m_PlayerName, sizeof(m_PlayerName));
         itoa(playerId, m_PlayerName, 10);	// 임시로..
@@ -19,7 +32,7 @@ public:
     int             GetPlayerID() const { return m_PlayerID; }
     int             GetRoomID() const { return m_RoomID; }
     Hero*           GetMyHero(){ return m_Hero; }
-    UnitList&       GetUnitList(){ return m_UnitList; }	//
+    UnitList&       GetUnitList(){ return m_UnitList; }
 
     void            SetReady(bool ready) { m_IsReady = ready; }
     bool            IsReady() { return m_IsReady; }
@@ -27,6 +40,7 @@ public:
     void            CreateHero(b2Vec2 pos);
     void            SetRoomID(int roomId){ m_RoomID = roomId; }
     void            SetHeroType(HeroType heroType){ m_HeroType = heroType; }
+    void            SetTeam(Team team){ m_Team = team; }
 
     void            UnitListPush(int unitID, Unit* unit) { m_UnitList[unitID] = unit; }
     void            UnitListPop(int unitID);
@@ -34,6 +48,8 @@ public:
 
 private:
     ClientSession*  m_Client;
+    PlayerType      m_PlayerType;
+    Team            m_Team;
     char            m_PlayerName[MAX_NAME_LEN];
     int             m_PlayerID;
     int             m_RoomID;

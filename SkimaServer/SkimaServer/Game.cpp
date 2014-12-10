@@ -23,12 +23,17 @@ Game::Game(GameRoom* room)
     m_MapObjectList.clear();
 }
 
+Game::~Game()
+{
+    delete m_Computer;
+}
+
 void Game::InitGame()
 {
 	m_IsEnd = false; 
 
-    InitMap();
-
+    // 주의: 여기서부턴 하드코딩의 구간입니다.^^
+    ClientSession* temp;
     int i = 0;
     for (auto& it : m_PlayerList)
     {
@@ -37,9 +42,13 @@ void Game::InitGame()
         if (++i == 2)
         {
             createPos.x += MAX_MAP_SIZE_X / 2;
+            temp = it.second->GetClient();
         }
         it.second->CreateHero(CONVERT_IN(createPos, roomId));
     }
+
+    m_Computer = new Player(temp, COMPUTER, COMPUTER);  // 100번 보면 이해됨.
+    InitMap();
 }
 
 void Game::InitMap()
@@ -47,10 +56,11 @@ void Game::InitMap()
     auto player = m_PlayerList.begin()->second;
     
     //나중에 "for문"화 할 거임
+    for (int i = 0; i < 5; ++i)
     {
-        b2Vec2 pos = {400, 400 };
+        auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
         auto roomId = player->GetRoomID();
-        Rock* rock = new Rock(b2Vec2(CONVERT_IN(pos, roomId)));
+        Rock* rock = new Rock(m_Computer, b2Vec2(CONVERT_IN(pos, roomId)));
 
         m_MapObjectList.push_back(rock);
         player->GetClient()->SendMapInfo(rock->GetUnitID(), rock->GetBody()->GetPosition());
@@ -61,6 +71,11 @@ void Game::EndGame()
 {
 	m_IsEnd = true;
 
+    for (auto& mapObject : m_MapObjectList)
+    {
+        delete mapObject;
+        mapObject = nullptr;
+    }
     m_MapObjectList.clear();
 
 	for (auto& player : m_PlayerList)
