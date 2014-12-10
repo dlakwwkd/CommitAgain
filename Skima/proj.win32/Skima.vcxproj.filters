@@ -201,6 +201,9 @@
     <ClCompile Include="..\Classes\Laphinx.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>Game\Component\Object\Obstruction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -343,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Laphinx.h">
       <Filter>Game\Component\Object\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>Game\Component\Object\Obstruction</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

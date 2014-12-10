@@ -21,6 +21,7 @@ public:
     std::shared_ptr<Hero> GetMyHero(){ return m_Hero; }
 
     void CreateHero(int playerID, int unitID, Vec2 location);
+    void CreateMapObject(int unitID, Vec2 pos);
     void UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos);
     void UnitCrash(int unitID, Vec2 exPos);
     void UnitCrashEnd(int unitID, Vec2 revisePos);

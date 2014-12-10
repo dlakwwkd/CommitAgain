@@ -92,6 +92,11 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
      layer->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
 }
 
+void ObjectLayer::CreateMapObject(int unitID, Vec2 pos)
+{
+    
+}
+
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)
 {
     switch (GET_GM.GetGameMode())
