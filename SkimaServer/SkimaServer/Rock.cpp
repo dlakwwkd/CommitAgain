@@ -12,17 +12,18 @@ Rock::Rock(Player* owner, b2Vec2 pos)
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(m_Pos.x, m_Pos.y);
+    
     m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
     b2PolygonShape square;
-    square.SetAsBox(REDUCE(30), REDUCE(60));
+    square.SetAsBox(REDUCE(30.0f), REDUCE(60.0f));
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &square;
     fixtureDef.density = 2.0f;
     fixtureDef.friction = 0.3f;
     fixtureDef.restitution = 3.0f;
-
+    
     m_Body->CreateFixture(&fixtureDef);
     m_Body->SetUserData(this);
 }
