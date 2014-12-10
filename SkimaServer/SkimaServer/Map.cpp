@@ -28,6 +28,8 @@ Map::Map(int roomId)
     createLine(startPos, b2Vec2(edgePos.x, startPos.y));//하
     createLine(startPos, b2Vec2(startPos.x, edgePos.y));//좌
     createLine(b2Vec2(edgePos.x, startPos.y), edgePos); //우
+
+    m_Body->SetUserData(nullptr);
 }
 
 
