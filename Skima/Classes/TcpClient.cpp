@@ -268,8 +268,8 @@ void TcpClient::processPacket()
 
                 Vec2 pos = CONVERT(recvData.mPos);
 
-                auto layer = GET_MAP_LAYER; assert(layer != nullptr);
-                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MapLayer::MakeObject, layer,
+                auto layer = GET_OBJECT_LAYER; assert(layer != nullptr);
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateMapObject, layer,
                     recvData.mUnitId, pos));
             }
             break;

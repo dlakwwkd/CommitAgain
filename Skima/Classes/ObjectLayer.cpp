@@ -14,6 +14,7 @@
 #include "Unit.h"
 #include "Skill.h"
 #include "Laphinx.h"
+#include "MoveRock.h"
 
 bool ObjectLayer::init()
 {
@@ -101,7 +102,10 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
 
 void ObjectLayer::CreateMapObject(int unitID, Vec2 pos)
 {
-    
+    //id로 타입 구별 먼저 해줘야 함
+
+    std::shared_ptr<MapObject> moveRock(new MoveRock(unitID, pos));
+    m_UnitList[unitID] = moveRock;
 }
 
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)
@@ -364,6 +368,11 @@ void ObjectLayer::UnitHpUpdateM(int playerID, int unitID, float curHP)
     {
         return;
     }
+    if (GET_MAIN_TYPE(unitID) == UNIT_OBSTRUCT)
+    {
+        return;
+    }
+
     unit->second->SetHp(curHP);
     if (unit->second->GetUnitPlayerID() == TcpClient::getInstance()->getLoginId())
     {
