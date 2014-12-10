@@ -13,6 +13,7 @@
 #include "LightningEffect.h"
 #include "Unit.h"
 #include "Skill.h"
+#include "Laphinx.h"
 
 bool ObjectLayer::init()
 {
@@ -64,6 +65,12 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
     case HERO_JUPITER:
     {
         std::shared_ptr<Hero> temp2(new Jupiter(location, 1.0f));
+        unit = temp2;
+        break;
+    }
+    case HERO_LAPHINX:
+    {
+        std::shared_ptr<Hero> temp2(new Laphinx(location, 1.0f));
         unit = temp2;
         break;
     }

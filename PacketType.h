@@ -17,6 +17,7 @@ enum HeroType
     HERO_NONE,
     HERO_MAGICIAN,
     HERO_JUPITER,
+    HERO_LAPHINX,
 };
 enum MissileType
 {

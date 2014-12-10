@@ -9,7 +9,7 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
 {
     SetMoveMotionToCache();
     SetSkillMotionToCache();
-    m_RealSprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");
+    m_RealSprite = Sprite::createWithSpriteFrameName("Laphinx_S3.png");
     m_Sprite->setScale(scale);
     m_Sprite->setPosition(createPos);
     m_RealSprite->setScale(scale);
@@ -57,28 +57,28 @@ Laphinx::~Laphinx()
 
 void Laphinx::SetMoveMotionToCache()
 {
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_E.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_W.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_S.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_N.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_SE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_SW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_NE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_E.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_N.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_S.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_W.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_SW.plist");
 }
 
 void Laphinx::SetMoveMotionByDir()
 {
     switch (CalcMoveDirection(m_TargetPos - m_Sprite->getPosition()))
     {
-    case E:  m_RealSprite->runAction(MakeAnimation("MoveMotion_E_%02d.PNG", 7));   	break;
-    case W:  m_RealSprite->runAction(MakeAnimation("MoveMotion_W_%02d.PNG", 7));   	break;
-    case S:  m_RealSprite->runAction(MakeAnimation("MoveMotion_S_%02d.PNG", 7));   	break;
-    case N:  m_RealSprite->runAction(MakeAnimation("MoveMotion_N_%02d.PNG", 7));   	break;
-    case SE: m_RealSprite->runAction(MakeAnimation("MoveMotion_SE_%02d.PNG", 7));  	break;
-    case SW: m_RealSprite->runAction(MakeAnimation("MoveMotion_SW_%02d.PNG", 7));  	break;
-    case NE: m_RealSprite->runAction(MakeAnimation("MoveMotion_NE_%02d.PNG", 7));  	break;
-    case NW: m_RealSprite->runAction(MakeAnimation("MoveMotion_NW_%02d.PNG", 7));  	break;
+    case E:  m_RealSprite->runAction(MakeAnimation("Laphinx_E%d.png", 8));   	break;
+    case W:  m_RealSprite->runAction(MakeAnimation("Laphinx_W%d.png", 8));   	break;
+    case S:  m_RealSprite->runAction(MakeAnimation("Laphinx_S%d.png", 8));   	break;
+    case N:  m_RealSprite->runAction(MakeAnimation("Laphinx_N%d.png", 8));   	break;
+    case SE: m_RealSprite->runAction(MakeAnimation("Laphinx_SE%d.png", 8));  	break;
+    case SW: m_RealSprite->runAction(MakeAnimation("Laphinx_SW%d.png", 8));  	break;
+    case NE: m_RealSprite->runAction(MakeAnimation("Laphinx_NE%d.png", 8));  	break;
+    case NW: m_RealSprite->runAction(MakeAnimation("Laphinx_NW%d.png", 8));  	break;
     }
 }
 
