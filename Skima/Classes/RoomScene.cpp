@@ -30,14 +30,17 @@ bool RoomScene::init()
     /* Ready 캐릭터 띄울 얼굴추가 */
     MakeFaceSprite("Images/SelectFace/[Select]Magician.png", Vec2(winSize.width * 1 / 8, winSize.height * 3 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_MAGICIAN);
     MakeFaceSprite("Images/SelectFace/[Select]Jupiter.png", Vec2(winSize.width * 1 / 8, winSize.height * 3 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_JUPITER);
+    MakeFaceSprite("Images/SelectFace/[Select]Laphinx.png", Vec2(winSize.width * 1 / 8, winSize.height * 3 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_LAPHINX);
 
     /* 캐릭터 선택창버튼 초상화 추가 (width 1/8씩 ++) */
     auto magicanFace = MenuItemImage::create("Images/SelectFace/[Select]Magician.png", "Images/SelectFace/[Select]Magician_selected.png", CC_CALLBACK_0(RoomScene::ClickMagician, this));
     SetFaceProperty(magicanFace, Vec2(winSize.width * 1 / 8, winSize.height * 1 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1));
     auto jupiterFace = MenuItemImage::create("Images/SelectFace/[Select]Jupiter.png", "Images/SelectFace/[Select]Jupiter_selected.png", CC_CALLBACK_0(RoomScene::ClickJupiter, this));
     SetFaceProperty(jupiterFace, Vec2(winSize.width * 2 / 8, winSize.height * 1 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1));
-    
-    auto faceTable = Menu::create(magicanFace, jupiterFace, NULL);
+    auto laphinxFace = MenuItemImage::create("Images/SelectFace/[Select]Laphinx.png", "Images/SelectFace/[Select]Laphinx_selected.png", CC_CALLBACK_0(RoomScene::ClickLaphinx, this));
+    SetFaceProperty(laphinxFace, Vec2(winSize.width * 3 / 8, winSize.height * 1 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1));
+
+    auto faceTable = Menu::create(magicanFace, jupiterFace,laphinxFace, NULL);
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     faceTable->setPosition(winSize.width * 1 / 8, winSize.height * 2 / 8);
     this->addChild(faceTable);
@@ -176,6 +179,15 @@ void RoomScene::ChangeSelectedHero()
                 select.second->setVisible(true);
             }
         }
+    case HERO_LAPHINX:
+        for (auto& select : m_Facelist)
+        {
+            select.second->setVisible(false);
+            if (select.first == HERO_LAPHINX)
+            {
+                select.second->setVisible(true);
+            }
+        }
         break;
     case HERO_NONE:
         break;
@@ -190,6 +202,12 @@ void RoomScene::ClickMagician()
 void RoomScene::ClickJupiter()
 {
     m_CurHero = HERO_JUPITER;
+    ChangeSelectedHero();
+}
+
+void RoomScene::ClickLaphinx()
+{
+    m_CurHero = HERO_LAPHINX;
     ChangeSelectedHero();
 }
 

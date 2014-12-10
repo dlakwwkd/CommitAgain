@@ -3,7 +3,7 @@
 #include "ClientSession.h"
 #include "Magician.h"
 #include "Jupiter.h"
-
+#include "Laphinx.h"
 
 Player::~Player()
 {
@@ -19,6 +19,9 @@ void Player::CreateHero(b2Vec2 pos)
         break;
     case HERO_JUPITER:
         m_Hero = new Jupiter(this, pos, DEF_SCALE);
+        break;
+    case HERO_LAPHINX:
+        m_Hero = new Laphinx(this, pos, DEF_SCALE);
         break;
     default:
         return;

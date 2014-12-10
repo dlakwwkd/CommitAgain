@@ -25,6 +25,7 @@ public:
     void Tick(float dt);
     void ClickMagician();
     void ClickJupiter();
+    void ClickLaphinx();
 
     void GameStartComplete();
 

@@ -70,8 +70,8 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
     }
     case HERO_LAPHINX:
     {
-        std::shared_ptr<Hero> temp2(new Laphinx(location, 1.0f));
-        unit = temp2;
+        std::shared_ptr<Hero> temp3(new Laphinx(location, 1.0f));
+        unit = temp3;
         break;
     }
     }
