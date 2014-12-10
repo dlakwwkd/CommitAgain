@@ -9,6 +9,7 @@
 #define GET_M_GAME_SCENE    dynamic_cast<MultiGameScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene"))
 #define GET_LOADING_LAYER   dynamic_cast<LoadingBGLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("LoadingBGLayer"))
 #define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer"))
+#define GET_MAP_LAYER       dynamic_cast<MapLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("MapLayer"))
 
 ///////////////////////////////////////////////////////////////////////////
 /*

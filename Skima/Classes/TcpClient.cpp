@@ -14,6 +14,7 @@
 #include "LoadingBGLayer.h"
 #include "Enums.h"
 #include "Macros.h"
+#include "MapLayer.h"
 
 #ifdef _WIN32
 #pragma comment(lib,"ws2_32.lib")
@@ -256,6 +257,20 @@ void TcpClient::processPacket()
                 auto layer = GET_OBJECT_LAYER;      assert(layer != nullptr);
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateHero, layer,
                     recvData.mPlayerId, recvData.mUnitId, pos));
+            }
+            break;
+
+        case PKT_SC_CREATE_MAP:
+            {
+                CreateMapResult recvData;
+                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+                assert(ret && recvData.mPlayerId != -1);
+
+                Vec2 pos = CONVERT(recvData.mPos);
+
+                auto layer = GET_MAP_LAYER; assert(layer != nullptr);
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MapLayer::MakeObject, layer,
+                    recvData.mUnitId, pos));
             }
             break;
 

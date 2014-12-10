@@ -9,7 +9,6 @@ Rock::Rock(b2Vec2 pos)
     m_UnitID; // 이거 처리 해야 됨...
 
     m_Hp = 10000;
-    m_Damage = 100;
     m_Pos.x = pos.x;
     m_Pos.y = pos.y;
 

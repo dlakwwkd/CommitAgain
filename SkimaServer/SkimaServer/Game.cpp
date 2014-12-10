@@ -27,6 +27,8 @@ void Game::InitGame()
 {
 	m_IsEnd = false; 
 
+    InitMap();
+
     int i = 0;
     for (auto& it : m_PlayerList)
     {
@@ -46,9 +48,9 @@ void Game::InitMap()
     
     //나중에 "for문"화 할 거임
     {
-        b2Vec2 pos = {100, 100 };
+        b2Vec2 pos = {400, 400 };
         auto roomId = player->GetRoomID();
-        auto rock = new Rock(CONVERT_IN(pos, roomId));
+        Rock* rock = new Rock(b2Vec2(CONVERT_IN(pos, roomId)));
 
         m_MapObjectList.push_back(rock);
         player->GetClient()->SendMapInfo(rock->GetUnitID(), rock->GetBody()->GetPosition());
@@ -58,6 +60,8 @@ void Game::InitMap()
 void Game::EndGame()
 {
 	m_IsEnd = true;
+
+    m_MapObjectList.clear();
 
 	for (auto& player : m_PlayerList)
 	{

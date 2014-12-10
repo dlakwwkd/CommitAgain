@@ -8,5 +8,6 @@ public:
     virtual bool init();
     CREATE_FUNC(MapLayer);
 
+    void MakeObject(int id, Vec2 pos);
 };
 
