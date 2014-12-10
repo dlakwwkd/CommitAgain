@@ -110,6 +110,9 @@
     <ClCompile Include="Laphinx.cpp">
       <Filter>Game\Component\Object\Unit\Hero</Filter>
     </ClCompile>
+    <ClCompile Include="MoveRock.cpp">
+      <Filter>Game\Component\Object\Unit\MapObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -242,6 +245,9 @@
     </ClInclude>
     <ClInclude Include="Laphinx.h">
       <Filter>Game\Component\Object\Unit\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveRock.h">
+      <Filter>Game\Component\Object\Unit\MapObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
