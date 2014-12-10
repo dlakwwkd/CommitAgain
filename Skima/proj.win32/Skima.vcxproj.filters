@@ -186,9 +186,6 @@
     <ClCompile Include="..\Classes\ShootType.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="LightningPumpkinSkill.cpp">
-      <Filter>Game\Component\Skill\Jupiter</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameOverScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
@@ -201,13 +198,16 @@
     <ClCompile Include="..\Classes\Laphinx.cpp">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClCompile>
-    <ClCompile Include="MapObject.cpp">
+    <ClCompile Include="..\Classes\LightningPumpkinSkill.cpp">
+      <Filter>Game\Component\Skill\Jupiter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MapObject.cpp">
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClCompile>
-    <ClCompile Include="MoveRock.cpp">
+    <ClCompile Include="..\Classes\MoveRock.cpp">
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClCompile>
-    <ClCompile Include="Rock.cpp">
+    <ClCompile Include="..\Classes\Rock.cpp">
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClCompile>
   </ItemGroup>
@@ -335,9 +335,6 @@
     <ClInclude Include="..\Classes\ShootType.h">
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="LightningPumpkinSkill.h">
-      <Filter>Game\Component\Skill\Jupiter</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Enums.h">
       <Filter>Base</Filter>
     </ClInclude>
@@ -353,13 +350,16 @@
     <ClInclude Include="..\Classes\Laphinx.h">
       <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
-    <ClInclude Include="MapObject.h">
+    <ClInclude Include="..\Classes\LightningPumpkinSkill.h">
+      <Filter>Game\Component\Skill\Jupiter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MapObject.h">
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClInclude>
-    <ClInclude Include="MoveRock.h">
+    <ClInclude Include="..\Classes\MoveRock.h">
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClInclude>
-    <ClInclude Include="Rock.h">
+    <ClInclude Include="..\Classes\Rock.h">
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClInclude>
   </ItemGroup>

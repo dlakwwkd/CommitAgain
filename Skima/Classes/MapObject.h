@@ -1,5 +1,5 @@
 #pragma once
-#include "C:\cocos2d-x\projects\CommitAgain\Skima\Classes\Unit.h"
+#include "Unit.h"
 class MapObject :
     public Unit
 {

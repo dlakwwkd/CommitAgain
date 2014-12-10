@@ -152,11 +152,15 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\IceEffect.cpp" />
     <ClCompile Include="..\Classes\Jupiter.cpp" />
     <ClCompile Include="..\Classes\Laphinx.cpp" />
+    <ClCompile Include="..\Classes\LightningPumpkinSkill.cpp" />
     <ClCompile Include="..\Classes\LightningSkill.cpp" />
     <ClCompile Include="..\Classes\LightningEffect.cpp" />
     <ClCompile Include="..\Classes\Magician.cpp" />
+    <ClCompile Include="..\Classes\MapObject.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
+    <ClCompile Include="..\Classes\MoveRock.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
+    <ClCompile Include="..\Classes\Rock.cpp" />
     <ClCompile Include="..\Classes\ShootType.cpp" />
     <ClCompile Include="..\Classes\SingleGameScene.cpp" />
     <ClCompile Include="..\Classes\InputManager.cpp" />
@@ -179,14 +183,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\Unit.cpp" />
     <ClCompile Include="..\Classes\WaitingLayer.cpp" />
-    <ClCompile Include="LightningPumpkinSkill.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MapObject.cpp" />
-    <ClCompile Include="MoveRock.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Rock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\PacketType.h" />
@@ -206,12 +206,16 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\IceEffect.h" />
     <ClInclude Include="..\Classes\Jupiter.h" />
     <ClInclude Include="..\Classes\Laphinx.h" />
+    <ClInclude Include="..\Classes\LightningPumpkinSkill.h" />
     <ClInclude Include="..\Classes\LightningSkill.h" />
     <ClInclude Include="..\Classes\LightningEffect.h" />
     <ClInclude Include="..\Classes\Macros.h" />
     <ClInclude Include="..\Classes\Magician.h" />
+    <ClInclude Include="..\Classes\MapObject.h" />
     <ClInclude Include="..\Classes\Missile.h" />
+    <ClInclude Include="..\Classes\MoveRock.h" />
     <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\Rock.h" />
     <ClInclude Include="..\Classes\ShootType.h" />
     <ClInclude Include="..\Classes\SingleGameScene.h" />
     <ClInclude Include="..\Classes\InputManager.h" />
@@ -233,12 +237,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\Unit.h" />
     <ClInclude Include="..\Classes\WaitingLayer.h" />
-    <ClInclude Include="LightningPumpkinSkill.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="MapObject.h" />
-    <ClInclude Include="MoveRock.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Rock.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">

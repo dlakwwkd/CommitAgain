@@ -1,10 +1,10 @@
 #pragma once
 #include "MapObject.h"
-class Rock :
+class MoveRock :
     public MapObject
 {
 public:
-    Rock();
-    ~Rock();
+    MoveRock(int id, Vec2 pos);
+    ~MoveRock();
 };
 

@@ -2,7 +2,7 @@
 #include "MoveRock.h"
 
 
-MoveRock::MoveRock()
+MoveRock::MoveRock(int id, Vec2 pos)
 {
 }
 
