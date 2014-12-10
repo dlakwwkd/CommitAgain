@@ -79,8 +79,15 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
         m_Hero = unit;
     }
      this->addChild(unit->GetSprite(),16);
-     unit->GetSprite()->addChild(unit->GetHpBar(),16);
+     if (unit->GetUnitPlayerID() == TcpClient::getInstance()->getLoginId())
+     {
+         unit->GetSprite()->addChild(unit->GetMyHpBar(), 16);
+     }
+     else
+     {
+         unit->GetSprite()->addChild(unit->GetOtherHpBar(), 16);
 
+     }
      auto layer = dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"));
      layer->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
 }
@@ -346,8 +353,15 @@ void ObjectLayer::UnitHpUpdateM(int playerID, int unitID, float curHP)
         return;
     }
     unit->second->SetHp(curHP);
-    unit->second->UpdateHpBar();
+    if (playerID == TcpClient::getInstance()->getLoginId())
+    {
+        unit->second->UpdateMyHpBar();
+    }
+    else
+    {
+        unit->second->UpdateOtherHpBar();
 
+    }
     if (m_Hero->GetUnitPlayerID() == playerID)
     {
         auto layer = dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"));

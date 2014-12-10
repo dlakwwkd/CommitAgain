@@ -12,7 +12,7 @@ Unit::Unit()
     m_CurHp = m_MaxHp = 0;
     m_Speed = 0;
     m_TargetPos = { 0, 0 };
-    m_HpBar = nullptr;
+    m_MyHpBar = nullptr;
     m_Body = nullptr;
     m_InUse = false;
     m_MoveState = m_StandbyState = new StandbyState();
@@ -29,20 +29,26 @@ Unit::~Unit()
     delete m_CrashedState;
 }
 
-void Unit::UpdateHpBar()
+void Unit::UpdateMyHpBar()
 {
-    m_HpBar->setScaleX(m_CurHp / m_MaxHp);
+    m_MyHpBar->setScaleX(m_CurHp / m_MaxHp);
 }
-
+void Unit::UpdateOtherHpBar()
+{
+    m_OtherHpBar->setScaleX(m_CurHp / m_MaxHp);
+}
 void Unit::SetHpBar()
 {
     auto hpBarOut = Sprite::create("Images/hp_bar_out.png");
     hpBarOut->setPosition(Vec2(-25, 80));
     hpBarOut->setAnchorPoint(Vec2(0, 0));
     m_Sprite->addChild(hpBarOut);
-    m_HpBar = Sprite::create("Images/hp_bar_in.png");
-    m_HpBar->setPosition(Vec2(-20, 85));
-    m_HpBar->setAnchorPoint(Vec2(0,0));
+    m_MyHpBar = Sprite::create("Images/hp_bar_in.png");
+    m_MyHpBar->setPosition(Vec2(-20, 85));
+    m_MyHpBar->setAnchorPoint(Vec2(0,0));
+    m_OtherHpBar = Sprite::create("Images/hp_bar_in_enemy.png");
+    m_OtherHpBar->setPosition(Vec2(-20, 85));
+    m_OtherHpBar->setAnchorPoint(Vec2(0, 0));
 }
 
 void Unit::Move()

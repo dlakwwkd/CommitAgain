@@ -56,7 +56,6 @@ protected:
     //std::map<int, std::shared_ptr<Missile>>	m_MissileList;
     std::map<int, Missile*>	m_MissileList;
 
-
     std::vector<std::shared_ptr<Unit>>		m_MobList;
 };
 

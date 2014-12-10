@@ -23,7 +23,8 @@ public:
     int             GetUnitID(){ return m_UnitID; }
     Sprite*         GetRealSprite(){ return m_RealSprite; }
     Sprite*         GetSprite(){ return m_Sprite; }
-    Sprite*         GetHpBar(){ return m_HpBar; }
+    Sprite*         GetMyHpBar(){ return m_MyHpBar; }
+    Sprite*         GetOtherHpBar(){ return m_OtherHpBar; }
     float           GetMaxHp(){ return m_MaxHp; }
     float           GetCurHp(){ return m_CurHp; }
     Vec2            GetMoveTargetPos(){ return m_TargetPos; }
@@ -40,8 +41,8 @@ public:
 
     void            SetHp(int curHp);
     void            SetHpBar();
-    void            UpdateHpBar();
-
+    void            UpdateMyHpBar();
+    void            UpdateOtherHpBar();
     void            Move();
     void            Crash();
 
@@ -76,7 +77,8 @@ protected:
 protected:
     Sprite*         m_RealSprite;
     Sprite*         m_Sprite; // 투명 스프라이트
-    Sprite*         m_HpBar;
+    Sprite*         m_MyHpBar;
+    Sprite*         m_OtherHpBar;
     PhysicsBody*    m_Body;
 
 
