@@ -353,7 +353,7 @@ void ObjectLayer::UnitHpUpdateM(int playerID, int unitID, float curHP)
         return;
     }
     unit->second->SetHp(curHP);
-    if (playerID == TcpClient::getInstance()->getLoginId())
+    if (unit->second->GetUnitPlayerID() == TcpClient::getInstance()->getLoginId())
     {
         unit->second->UpdateMyHpBar();
     }
