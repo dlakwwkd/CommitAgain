@@ -110,14 +110,6 @@ struct Coord
     float y;
 };
 
-struct MapObt
-{
-    MapObt() : mUnitID(-1), mPos({-1,-1}){}
-    MapObt(int unitId, Coord pos) : mUnitID(unitId), mPos(pos){}
-    int     mUnitID;
-    Coord   mPos;
-};
-
 ///////////////////////////////////////////////////////////////////////////
 /*
     로그인 관련
@@ -263,10 +255,12 @@ struct CreateMapResult : public PacketHeader
         mSize = sizeof(CreateMapResult);
         mType = PKT_SC_CREATE_MAP;
         mPlayerId = -1;
-        ZeroMemory(mMapObtList, MAX_OBSTRUCT_SIZE);
+        mUnitId = -1;
+        mPos = { 0, };
     }
     int         mPlayerId;
-    MapObt      mMapObtList[MAX_OBSTRUCT_SIZE];
+    int         mUnitId;
+    Coord       mPos;
 };
 //////////////////////////////////////////////////////////////////////////
 

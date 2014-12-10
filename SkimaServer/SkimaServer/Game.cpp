@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "Rock.h"
+#include "ClientSession.h"
 
 
 Game::Game(GameRoom* room)
@@ -41,18 +42,17 @@ void Game::InitGame()
 
 void Game::InitMap()
 {
+    auto player = m_PlayerList.begin()->second;
+    
     //나중에 "for문"화 할 거임
+    {
+        b2Vec2 pos = {100, 100 };
+        auto roomId = player->GetRoomID();
+        auto rock = new Rock(CONVERT_IN(pos, roomId));
 
-    b2Vec2 pos = { 100, 100 };
-    auto rock = new Rock(pos);
-
-    m_MapObjectList.push_back(rock);
-
-    MapObt mapObtList[1];
-    mapObtList[0].unitId = rock->GetUnitID();
-    mapObtList[0].pos.x = EXTEND(pos.x);
-    mapObtList[0].pos.x = EXTEND(pos.y);
-
+        m_MapObjectList.push_back(rock);
+        player->GetClient()->SendMapInfo(rock->GetUnitID(), rock->GetBody()->GetPosition());
+    }
 }
 
 void Game::EndGame()

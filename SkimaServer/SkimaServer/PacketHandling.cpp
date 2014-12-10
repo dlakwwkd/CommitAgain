@@ -434,9 +434,18 @@ void ClientSession::SendCreateHeroResult(int unitId, b2Vec2 pos)
     printf(" Send: CreateHeroResult Player ID: %d \n", mPlayer->GetPlayerID());
 }
 
-void ClientSession::SendMapInfo(int& mapObtList)
+void ClientSession::SendMapInfo(int unitId, b2Vec2 pos)
 {
+    CreateMapResult outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mUnitId = unitId;
+    outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
 
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+    printf(" Send: MapInfo Player ID: %d \n", mPlayer->GetPlayerID());
 }
 
 void ClientSession::StartGame()
