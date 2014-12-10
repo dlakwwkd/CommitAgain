@@ -175,6 +175,7 @@
     <ClInclude Include="Hero.h" />
     <ClInclude Include="IceballSkill.h" />
     <ClInclude Include="Jupiter.h" />
+    <ClInclude Include="Laphinx.h" />
     <ClInclude Include="LightningSkill.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Magician.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="IceballSkill.cpp" />
     <ClCompile Include="Jupiter.cpp" />
+    <ClCompile Include="Laphinx.cpp" />
     <ClCompile Include="LightningSkill.cpp" />
     <ClCompile Include="Magician.cpp" />
     <ClCompile Include="Main.cpp" />

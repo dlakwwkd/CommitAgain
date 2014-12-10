@@ -107,6 +107,9 @@
     <ClCompile Include="Rock.cpp">
       <Filter>Game\Component\Object\Unit\MapObject</Filter>
     </ClCompile>
+    <ClCompile Include="Laphinx.cpp">
+      <Filter>Game\Component\Object\Unit\Hero</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -237,6 +240,9 @@
     <ClInclude Include="Rock.h">
       <Filter>Game\Component\Object\Unit\MapObject</Filter>
     </ClInclude>
+    <ClInclude Include="Laphinx.h">
+      <Filter>Game\Component\Object\Unit\Hero</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -292,6 +298,9 @@
     </Filter>
     <Filter Include="Game\Component\Object\Unit\MapObject">
       <UniqueIdentifier>{62122c1a-450e-4572-8e87-7351e50881eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\Laphinx Skill">
+      <UniqueIdentifier>{2f071bf6-50a6-4cdc-ad79-76bc56f35ca5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

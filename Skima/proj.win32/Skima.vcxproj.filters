@@ -198,6 +198,9 @@
     <ClCompile Include="..\Classes\RoomScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Laphinx.cpp">
+      <Filter>Game\Component\Object\Hero</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -337,6 +340,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\RoomScene.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Laphinx.h">
+      <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

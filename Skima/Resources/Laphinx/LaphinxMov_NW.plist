@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>Laphinx_NW1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{325,0},{139,138}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{10,12},{139,138}}</string>
+				<key>sourceSize</key>
+				<string>{156,157}</string>
+			</dict>
+
+			<key>Laphinx_NW2.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{177,147},{149,125}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{4,12},{149,125}}</string>
+				<key>sourceSize</key>
+				<string>{160,157}</string>
+			</dict>
+
+			<key>Laphinx_NW3.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{161,292},{160,126}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{5,12},{160,126}}</string>
+				<key>sourceSize</key>
+				<string>{174,157}</string>
+			</dict>
+
+			<key>Laphinx_NW4.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,147},{176,144}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{3,12},{176,144}}</string>
+				<key>sourceSize</key>
+				<string>{186,157}</string>
+			</dict>
+
+			<key>Laphinx_NW5.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{181,146}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{4,12},{181,146}}</string>
+				<key>sourceSize</key>
+				<string>{185,164}</string>
+			</dict>
+
+			<key>Laphinx_NW6.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,292},{160,147}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,12},{160,147}}</string>
+				<key>sourceSize</key>
+				<string>{166,164}</string>
+			</dict>
+
+			<key>Laphinx_NW7.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{182,0},{142,146}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{5,12},{142,146}}</string>
+				<key>sourceSize</key>
+				<string>{149,164}</string>
+			</dict>
+
+			<key>Laphinx_NW8.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{322,273},{148,150}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{5,11},{148,150}}</string>
+				<key>sourceSize</key>
+				<string>{160,163}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{512,512}</string>
+			<key>textureFileName</key>
+			<string>LaphinxMov_NW.png</string>
+			</dict>
+		</dict>
+</plist>
