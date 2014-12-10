@@ -204,6 +204,12 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClCompile>
+    <ClCompile Include="MoveRock.cpp">
+      <Filter>Game\Component\Object\Obstruction</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>Game\Component\Object\Obstruction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -348,6 +354,12 @@
       <Filter>Game\Component\Object\Hero</Filter>
     </ClInclude>
     <ClInclude Include="MapObject.h">
+      <Filter>Game\Component\Object\Obstruction</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveRock.h">
+      <Filter>Game\Component\Object\Obstruction</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClInclude>
   </ItemGroup>
