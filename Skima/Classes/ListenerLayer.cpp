@@ -56,38 +56,21 @@ void ListenerLayer::Tick(float dt)
 
 void ListenerLayer::ScreenMove()
 {
-    auto mouseLocation = GET_IM->GetMouseLocation();
-    auto winSize = Director::getInstance()->getWinSize();
-
-    if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && GET_IM->GetMouseScrollStatus(SCROLL_UP))
+    if (GET_IM->GetMouseScrollStatus(SCROLL_UP) && this->getPositionY() < MAX_MAP_SIZE_Y / 8)
     {
-        Vec2 creteria = { 50, 50 };
-        Vec2 gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
-        gap *= 7;
-        this->setPosition(this->getPosition() + gap);
+        this->setPositionY(this->getPositionY() + 20);
     }
-    if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && GET_IM->GetMouseScrollStatus(SCROLL_UP))
+    if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN) && this->getPositionY() > -MAX_MAP_SIZE_Y / 8)
     {
-        Vec2 creteria = { winSize.width-50, 50 };
-        Vec2 gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
-        gap *= 7;
-        this->setPositionX(this->getPositionX() - gap.x);
-        this->setPositionY(this->getPositionY() + gap.y);
+        this->setPositionY(this->getPositionY() - 20);
     }
-    if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && GET_IM->GetMouseScrollStatus(SCROLL_DOWN))
+    if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && this->getPositionX() < MAX_MAP_SIZE_X / 8)
     {
-        Vec2 creteria = { winSize.width - 50, winSize.height - 50 };
-        Vec2 gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
-        gap *= 7;
-        this->setPosition(this->getPosition() - gap);
+        this->setPositionX(this->getPositionX() + 20);
     }
-    if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && GET_IM->GetMouseScrollStatus(SCROLL_DOWN))
+    if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && this->getPositionX() > -MAX_MAP_SIZE_X / 8)
     {
-        Vec2 creteria = { 50, winSize.height-50 };
-        Vec2 gap = { abs(creteria.x - mouseLocation.x), abs(creteria.y - mouseLocation.y) };
-        gap *= 7;
-        this->setPositionX(this->getPositionX() + gap.x);
-        this->setPositionY(this->getPositionY() - gap.y);
+        this->setPositionX(this->getPositionX() - 20);
     }
 }
 
@@ -107,7 +90,7 @@ void ListenerLayer::OnMouseDown(Event *event)
     auto hero = GET_OBJECT_LAYER->GetMyHero();	_ASSERT(hero != nullptr);
     auto sprite = hero->GetSprite();				_ASSERT(sprite != nullptr);
     auto heroPos = sprite->getPosition();
-    auto mousePos = GET_IM->GetMouseLocation();
+    auto mousePos = GET_IM->GetMouseLocation() - this->getPosition();
     auto key = KeyboardToSkillKey(GET_IM->SearchTargetingKey());
     auto button = static_cast<EventMouse*>(event)->getMouseButton();
     GET_IM->SetMouseStatus(button, true);

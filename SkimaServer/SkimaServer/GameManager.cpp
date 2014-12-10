@@ -307,7 +307,7 @@ void GameManager::LowTick()
 ///////////////////////////////////////////////////////////////////////////
 bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
 {
-    if (unitA->GetOwner() == unitB->GetOwner())
+    if (!unitA || !unitB || (unitA->GetOwner() == unitB->GetOwner()))
     {
         return false;
     }
@@ -319,39 +319,25 @@ bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
 
 void GameManager::ExchangeDamage(Unit* unitA, Unit* unitB)
 {
-    int damageA = unitA->GetUnitDamage();
-    int damageB = unitB->GetUnitDamage();
-    int unitAHp = unitA->GetUnitHp() - damageB;
-    int unitBHp = unitB->GetUnitHp() - damageA;
+    int unitAHp = unitA->GetUnitHp() - unitB->GetUnitDamage();
+    int unitBHp = unitB->GetUnitHp() - unitA->GetUnitDamage();
 
-    unitA->SetUnitHp(unitAHp);
-    unitB->SetUnitHp(unitBHp);
-
-    auto playerA = unitA->GetOwner();
-    auto playerB = unitB->GetOwner();
-
-    playerA->GetClient()->HpBroadCast(playerA->GetPlayerID(), unitA->GetUnitID(), unitAHp);
-    playerB->GetClient()->HpBroadCast(playerB->GetPlayerID(), unitB->GetUnitID(), unitBHp);
-
-    auto typeA = GET_MAIN_TYPE(unitA->GetUnitID());
-    auto typeB = GET_MAIN_TYPE(unitB->GetUnitID());
-
-    if (typeA == UNIT_HERO)
+    auto lambda = [&](Unit* unit, int hp)
     {
-        if (unitAHp <= 0)
+        auto player = unit->GetOwner();
+        player->GetClient()->HpBroadCast(player->GetPlayerID(), unit->GetUnitID(), hp);
+        unit->SetUnitHp(hp);
+
+        if (GET_MAIN_TYPE(unitA->GetUnitID()) == UNIT_HERO)
         {
-            CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::GameOver, playerA);
-            return;
+            if (hp <= 0)
+            {
+                CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::GameOver, player);
+            }
         }
-    }
-    if (typeB == UNIT_HERO)
-    {
-        if (unitBHp <= 0)
-        {
-            CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::GameOver, playerB);
-            return;
-        }
-    }
+    };
+    lambda(unitA, unitAHp);
+    lambda(unitB, unitBHp);
 }
 
 

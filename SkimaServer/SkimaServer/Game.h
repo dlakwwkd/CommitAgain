@@ -2,6 +2,7 @@
 class Player;
 class MapObject;
 class GameRoom;
+class Map;
 
 typedef std::map<int, Player*> PlayerList;
 typedef std::vector<MapObject*> MapObjectList;
@@ -36,6 +37,7 @@ private:
     Player*             m_Computer;
     PlayerList          m_PlayerList;
     MapObjectList       m_MapObjectList;
+    Map*                m_Map;
     int                 m_GameID;
     bool                m_IsReady;
     bool                m_IsStart;

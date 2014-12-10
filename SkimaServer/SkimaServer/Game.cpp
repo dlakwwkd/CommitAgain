@@ -9,6 +9,8 @@
 
 Game::Game(GameRoom* room)
 {
+    m_Computer = nullptr;
+    m_Map = nullptr;
     m_GameID = room->m_RoomID;
     m_IsReady = true;
     m_IsStart = false;
@@ -19,13 +21,13 @@ Game::Game(GameRoom* room)
     {
         m_PlayerList[player.first] = player.second;
     }
-
-    m_MapObjectList.clear();
+    m_MapObjectList.reserve(MAX_OBSTRUCT_SIZE);
 }
 
 Game::~Game()
 {
     delete m_Computer;
+    delete m_Map;
 }
 
 void Game::InitGame()
@@ -54,12 +56,12 @@ void Game::InitGame()
 void Game::InitMap()
 {
     auto player = m_PlayerList.begin()->second;
+    auto roomId = player->GetRoomID();
+    m_Map = new Map(roomId);
     
-    //나중에 "for문"화 할 거임
     for (int i = 0; i < 5; ++i)
     {
         auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
-        auto roomId = player->GetRoomID();
         Rock* rock = new Rock(m_Computer, b2Vec2(CONVERT_IN(pos, roomId)));
 
         m_MapObjectList.push_back(rock);

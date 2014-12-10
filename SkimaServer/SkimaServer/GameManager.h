@@ -41,7 +41,7 @@ public:
 public:
     b2World*            GetWolrd(){ return m_World; }
     ContactListener*    GetContact(){ return m_Contact; }
-
+    void                DeleteBody(b2Body* body){ m_World->DestroyBody(body); }
 private:
     void                InitPhyWorld();
     void                DeletePhyWorld();
