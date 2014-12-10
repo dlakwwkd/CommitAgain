@@ -1,14 +1,16 @@
 ﻿#pragma once
 
-#define MAX_CHAT_LEN    256
-#define MAX_NAME_LEN    30
-#define MAX_COMMENT_LEN	40
+#define MAX_CHAT_LEN        256
+#define MAX_NAME_LEN        30
+#define MAX_COMMENT_LEN	    40
+#define MAX_OBSTRUCT_SIZE   100
 
 enum UnitType
 {
     UNIT_NONE,
     UNIT_HERO,
     UNIT_MISSILE,
+    UNIT_OBSTRUCT,
 };
 enum HeroType
 {
@@ -22,6 +24,11 @@ enum MissileType
     MS_FIRE_BALL,
     MS_ICE_BALL,
     MS_SPARK
+};
+enum ObstructType
+{
+    OS_NONE,
+    OS_FIRE_BALL,
 };
 
 enum SkillKey
@@ -105,8 +112,10 @@ struct Coord
 
 struct MapObt
 {
-    int unitId;
-    Coord pos;
+    MapObt() : mUnitID(-1), mPos({-1,-1}){}
+    MapObt(int unitId, Coord pos) : mUnitID(unitId), mPos(pos){}
+    int     mUnitID;
+    Coord   mPos;
 };
 
 ///////////////////////////////////////////////////////////////////////////
@@ -254,10 +263,10 @@ struct CreateMapResult : public PacketHeader
         mSize = sizeof(CreateMapResult);
         mType = PKT_SC_CREATE_MAP;
         mPlayerId = -1;
-        //mapobt 초기화???
+        ZeroMemory(mMapObtList, MAX_OBSTRUCT_SIZE);
     }
     int         mPlayerId;
-    MapObt      mMapObtList[1];
+    MapObt      mMapObtList[MAX_OBSTRUCT_SIZE];
 };
 //////////////////////////////////////////////////////////////////////////
 
