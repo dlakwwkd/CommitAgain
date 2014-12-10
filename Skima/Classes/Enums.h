@@ -16,6 +16,7 @@ enum CursorMode
     CURSOR_DEFAULT,
     CURSOR_ATTACK,
     CURSOR_TELEPORT,
+    CURSOR_SPLASH,
 };
 
 enum Direction

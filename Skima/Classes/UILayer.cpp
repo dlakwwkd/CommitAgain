@@ -51,15 +51,16 @@ bool UILayer::init()
     
     auto cursor = [&](CursorMode mode, const char* image, Vec2 scale)
     {
-        m_CursorShape[mode] = sprite(image, Vec2::ZERO, scale, Vec2(0, 1));
+        m_CursorShape[mode] = sprite(image, Vec2::ZERO, scale, Vec2(0.5f, 0.8f));
         m_CursorShape[mode]->setVisible(false);
         return m_CursorShape[mode];
     };
-    m_Cursor = cursor(CURSOR_DEFAULT, "Images/cursor_defualt.png", Vec2(1, 1));
+    m_Cursor = cursor(CURSOR_DEFAULT, "Images/cursor_default.png", Vec2(1, 1));
     m_Cursor->setVisible(true);
     this->addChild(m_Cursor, 10);
     this->addChild(cursor(CURSOR_ATTACK,	    "Images/cursor_attack.png",     Vec2(1, 1)),        10);
     this->addChild(cursor(CURSOR_TELEPORT,  "Images/cursor_teleport.png",   Vec2(0.2f, 0.08f)), 10);
+    this->addChild(cursor(CURSOR_SPLASH,    "Images/cursor_splash.png",     Vec2(1.5f, 1.5f)),        10);
 
     return true;
 }

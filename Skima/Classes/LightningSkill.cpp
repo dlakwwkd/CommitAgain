@@ -1,8 +1,17 @@
 #include "pch.h"
 #include "LightningSkill.h"
 #include "LightningEffect.h"
+#include "MapLayer.h"
+#include "ObjectLayer.h"
 #include "GameManager.h"
+#include "InputManager.h"
+#include "MultiGameScene.h"
+#include "Skill.h"
+#include "PacketType.h"
 #include "Hero.h"
+#include "UILayer.h"
+#include "EscLayer.h"
+#include "math.h"
 
 
 LightningSkill::LightningSkill()
@@ -32,6 +41,11 @@ void LightningSkill::SkillReady()
 {
     auto rangeCircle = m_Hero->GetSkillRange();
     rangeCircle->setVisible(true);
+
+    auto uiLayer = GET_UI_LAYER;
+    uiLayer->CursorChange(CURSOR_SPLASH);
+    uiLayer->GetCurrentCursor()->setPosition(GET_IM->GetMouseLocation());
+
 }
 
 void LightningSkill::SkillEnd()

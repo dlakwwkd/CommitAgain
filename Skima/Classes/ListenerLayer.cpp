@@ -180,10 +180,10 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 
     if (!m_Targeting && hero->GetSkillCanUse(key))
     {
-        hero->SkillReady(key);
         GET_UI_LAYER->CursorChange(CURSOR_ATTACK);
         GET_UI_LAYER->GetCurrentCursor()->setPosition(GET_IM->GetMouseLocation());
         GET_IM->SetTargeting(keyCode, true);
+        hero->SkillReady(key);
         m_Targeting = true;
     }
 }
