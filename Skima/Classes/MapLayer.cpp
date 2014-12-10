@@ -8,11 +8,8 @@ bool MapLayer::init()
     {
         return false;
     }
-    auto layerCenter = this->getAnchorPointInPoints();
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-
     auto sprite = Sprite::create("Images/bg2.png");
-    sprite->setPosition(layerCenter);
+    sprite->setPosition(this->getAnchorPointInPoints() + Vec2((MAX_MAP_SIZE_X - DISPLAY_X) / 2, (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2));
     this->addChild(sprite);
     return true;
 }

@@ -2,7 +2,7 @@
 #include "AppDelegate.h"
 #include "MainScene.h"
 #include "TcpClient.h"
-#include "GameOverScene.h"
+#include "Macros.h"
 
 USING_NS_CC;
 

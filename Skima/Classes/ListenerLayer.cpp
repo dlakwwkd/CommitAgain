@@ -11,6 +11,7 @@
 #include "UILayer.h"
 #include "EscLayer.h"
 #include "math.h"
+#include "Macros.h"
 
 #define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
 #define GET_UI_LAYER        dynamic_cast<UILayer*>(this->getParent()->getChildByName("UILayer"))
@@ -23,6 +24,8 @@ bool ListenerLayer::init()
     {
         return false;
     }
+    this->setPosition(-(MAX_MAP_SIZE_X - DISPLAY_X)/2, -(MAX_MAP_SIZE_Y - DISPLAY_Y)/2);
+
     auto layer1 = MapLayer::create();
     auto layer2 = ObjectLayer::create();
     this->addChild(layer1, 0, "MapLayer");
@@ -56,19 +59,19 @@ void ListenerLayer::Tick(float dt)
 
 void ListenerLayer::ScreenMove()
 {
-    if (GET_IM->GetMouseScrollStatus(SCROLL_UP) && this->getPositionY() < MAX_MAP_SIZE_Y / 8)
+    if (GET_IM->GetMouseScrollStatus(SCROLL_UP) && this->getPositionY() < MAX_MAP_SIZE_Y / 8 - (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2)
     {
         this->setPositionY(this->getPositionY() + 20);
     }
-    if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN) && this->getPositionY() > -MAX_MAP_SIZE_Y / 8)
+    if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN) && this->getPositionY() > -MAX_MAP_SIZE_Y / 8 - (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2)
     {
         this->setPositionY(this->getPositionY() - 20);
     }
-    if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && this->getPositionX() < MAX_MAP_SIZE_X / 8)
+    if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && this->getPositionX() < MAX_MAP_SIZE_X / 8 - (MAX_MAP_SIZE_X - DISPLAY_X) / 2)
     {
         this->setPositionX(this->getPositionX() + 20);
     }
-    if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && this->getPositionX() > -MAX_MAP_SIZE_X / 8)
+    if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && this->getPositionX() > -MAX_MAP_SIZE_X / 8 - (MAX_MAP_SIZE_X - DISPLAY_X) / 2)
     {
         this->setPositionX(this->getPositionX() - 20);
     }
