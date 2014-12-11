@@ -167,6 +167,7 @@
     <ClInclude Include="DatabaseJobContext.h" />
     <ClInclude Include="DatabaseJobManager.h" />
     <ClInclude Include="DbHelper.h" />
+    <ClInclude Include="FieldType.h" />
     <ClInclude Include="FireballSkill.h" />
     <ClInclude Include="FlashSkill.h" />
     <ClInclude Include="Game.h" />
@@ -192,7 +193,7 @@
     <ClInclude Include="RefCountable.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="Scheduler.h" />
-    <ClInclude Include="ShootingSkill.h" />
+    <ClInclude Include="ShootType.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SparkSkill.h" />
     <ClInclude Include="sqlite3.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="DatabaseJobContext.cpp" />
     <ClCompile Include="DatabaseJobManager.cpp" />
     <ClCompile Include="DbHelper.cpp" />
+    <ClCompile Include="FieldType.cpp" />
     <ClCompile Include="FireballSkill.cpp" />
     <ClCompile Include="FlashSkill.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -234,7 +236,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Scheduler.cpp" />
-    <ClCompile Include="ShootingSkill.cpp" />
+    <ClCompile Include="ShootType.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SparkSkill.cpp" />
     <ClCompile Include="sqlite3.c">

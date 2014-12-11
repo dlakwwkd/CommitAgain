@@ -1,6 +1,6 @@
 #pragma once
-#include "ShootingSkill.h"
-class IceballSkill : public ShootingSkill
+#include "ShootType.h"
+class IceballSkill : public ShootType
 {
 public:
     IceballSkill(Player* owner, float heroBodySize);

@@ -1,6 +1,6 @@
 #pragma once
-#include "ShootingSkill.h"
-class SparkSkill : public ShootingSkill
+#include "ShootType.h"
+class SparkSkill : public ShootType
 {
 public:
     SparkSkill(Player* owner, float heroBodySize);

@@ -50,9 +50,6 @@
     <ClCompile Include="Skill.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="ShootingSkill.cpp">
-      <Filter>Game\Component\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Game\Component\Map</Filter>
     </ClCompile>
@@ -112,6 +109,12 @@
     </ClCompile>
     <ClCompile Include="MoveRock.cpp">
       <Filter>Game\Component\Object\Unit\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootType.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldType.cpp">
+      <Filter>Game\Component\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,9 +186,6 @@
     <ClInclude Include="Skill.h">
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="ShootingSkill.h">
-      <Filter>Game\Component\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Game\Component\Map</Filter>
     </ClInclude>
@@ -248,6 +248,12 @@
     </ClInclude>
     <ClInclude Include="MoveRock.h">
       <Filter>Game\Component\Object\Unit\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootType.h">
+      <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldType.h">
+      <Filter>Game\Component\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

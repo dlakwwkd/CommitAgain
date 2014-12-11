@@ -2,11 +2,11 @@
 #include "Skill.h"
 class Missile;
 
-class ShootingSkill : public Skill
+class ShootType : public Skill
 {
 public:
-    ShootingSkill();
-    virtual ~ShootingSkill();
+    ShootType();
+    virtual ~ShootType();
     
     virtual void    SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos){}
 

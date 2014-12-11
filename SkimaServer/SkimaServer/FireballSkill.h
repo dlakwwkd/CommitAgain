@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "ShootingSkill.h"
+#include "ShootType.h"
 
-class FireballSkill : public ShootingSkill
+class FireballSkill : public ShootType
 {
 public:
     FireballSkill(Player* owner, float heroBodySize);

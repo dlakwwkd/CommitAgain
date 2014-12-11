@@ -1,6 +1,6 @@
 #pragma once
-#include "Skill.h"
-class LightningSkill : public Skill
+#include "FieldType.h"
+class LightningSkill : public FieldType
 {
 public:
     LightningSkill(Player* owner);
