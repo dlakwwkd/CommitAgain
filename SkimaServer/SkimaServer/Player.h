@@ -19,8 +19,9 @@ enum Team
 class Player
 {
 public:
-    Player(ClientSession* client, int playerId, PlayerType type) : m_Client(client), m_PlayerType(type), m_Team(NEUTRALITY),
-        m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_Hero(nullptr)
+    Player(ClientSession* client, int playerId, PlayerType type) : 
+        m_Client(client), m_PlayerType(type), m_Team(NEUTRALITY),
+        m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_Hero(nullptr), m_HeroType(HERO_NONE)
     {
         ZeroMemory(m_PlayerName, sizeof(m_PlayerName));
         itoa(playerId, m_PlayerName, 10);	// 임시로..

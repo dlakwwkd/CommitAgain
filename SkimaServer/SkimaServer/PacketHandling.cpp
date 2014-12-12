@@ -220,7 +220,6 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto room = GGameManager->SearchRoom(player->GetRoomID());		if (!room)      return;
-    auto game = GGameManager->SearchGame(inPacket.mRoomId);
     room->ReadySign();
     player->SetReady(true);
     player->SetHeroType(inPacket.mHeroType);
@@ -270,7 +269,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
         printf("[DEBUG] Player Info error! \n");
         return;
     }
-    printf(" Receive: LoginID: %d\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
+    printf(" Receive: LoginID: %d \t\t\t x : %.f \t y : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto hero = player->GetMyHero();									if (!hero)      return;
@@ -297,7 +296,7 @@ REGISTER_HANDLER(PKT_CS_SKILL)
         printf("[DEBUG] Player Info error! \n");
         return;
     }
-    printf(" SkillReceive: ID: %d\t\t X : %.f\tY : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
+    printf(" SkillReceive: LoginID: %d \t\t\t x : %.f \t y : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto hero = player->GetMyHero();									if (!hero)      return;

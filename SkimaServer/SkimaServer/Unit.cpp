@@ -36,7 +36,7 @@ void Unit::Moving()
     if (distance.Length() < 0.5f)
     {
         EndMove();
-        printf(" - Reach: UnitID:  %d, \t\t\t\t X : %.f\tY : %.f\n", m_UnitID,
+        printf(" - Reach: UnitID:  %d, \t\t\t x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
             EXTEND(curPos.x), EXTEND(curPos.y));
     }
 }
@@ -70,7 +70,7 @@ void Unit::Crashing(bool isCrashing)
         auto velocity = m_Body->GetLinearVelocity();
         velocity *= 1.0f / DAMPING;
         expectPos += velocity;
-        printf(" - Crashing: UnitID:  %d, \t\t\t expectPos: X : %.f\tY : %.f\n", m_UnitID,
+        printf(" - Crashing:    UnitID: %d,  \t   expectPos:   x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
             EXTEND(expectPos.x), EXTEND(expectPos.y));
     } 
     else

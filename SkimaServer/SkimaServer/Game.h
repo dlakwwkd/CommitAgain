@@ -16,9 +16,7 @@ public:
     int                 GetGameID(){ return m_GameID; }
     int                 GetPlayerListSize(){ return m_PlayerList.size(); }
     void                SetIsStart(bool isStart){ m_IsStart = isStart; }
-    void                SetIsReady(bool isReady){ m_IsReady = isReady; }
     bool                IsStart(){ return m_IsStart; }
-    bool                IsReady(){ return m_IsReady; }
     void                SetLoadedPlayerNum(){ ++m_LoadedPlayerNum; }
     int                 GetLoadedPlayerNum(){ return m_LoadedPlayerNum; }
 
@@ -35,7 +33,6 @@ private:
     MapObjectList       m_MapObjectList;
     Map*                m_Map;
     int                 m_GameID;
-    bool                m_IsReady;
     bool                m_IsStart;
     int                 m_LoadedPlayerNum;
 

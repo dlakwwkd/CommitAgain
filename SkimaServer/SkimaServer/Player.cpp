@@ -37,7 +37,7 @@ void Player::UnitListPop(int unitID)
     if (unit != m_UnitList.end())
     {
         m_UnitList.erase(unit);
-        printf(" - UnitListPop() : player %d : unitList.size : %d \n", m_PlayerID, m_UnitList.size());
+        printf(" - UnitListPop : player %d, size : %d \n", m_PlayerID, m_UnitList.size());
     }
 }
 
@@ -54,6 +54,6 @@ void Player::UnitListClear()
         unit.second->Extinction();
     }
     m_UnitList.clear();
-    printf(" - UnitListClear() : player %d \n", m_PlayerID);
+    printf(" - UnitListClear : player %d \n", m_PlayerID);
 }
 

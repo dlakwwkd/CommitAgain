@@ -29,5 +29,6 @@
 #define SET_SIDE_TYPE(unitID, type) (((unitID) & SIDE_TYPE_BIT_T) + (((type) << 24) & MAIN_TYPE_BIT_T))
 #define INIT_MAIN_TYPE(unitID)      ((unitID) & MAIN_TYPE_BIT_T)
 #define INIT_SIDE_TYPE(unitID)      ((unitID) & SIDE_TYPE_BIT_T)
+#define INIT_TYPE(unitID)           (((unitID) & MAIN_TYPE_BIT_T) & SIDE_TYPE_BIT_T)
 #define GET_MAIN_TYPE(unitID)       (((unitID) & MAIN_TYPE_BIT) >> 28)
 #define GET_SIDE_TYPE(unitID)       (((unitID) & SIDE_TYPE_BIT) >> 24)
