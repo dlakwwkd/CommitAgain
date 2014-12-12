@@ -8,7 +8,7 @@
 IceballSkill::IceballSkill(Player* owner, float heroBodySize)
 {
     m_Owner = owner;
-    m_Damage = 400;
+    m_Damage = 300;
     m_MissileType = MS_ICE_BALL;
     m_MissileSpeed = REDUCE(800);
     m_MissileScale = DEF_SCALE;

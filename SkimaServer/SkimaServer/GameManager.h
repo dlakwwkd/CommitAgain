@@ -10,6 +10,14 @@ class Unit;
 typedef std::map<int, Game*> GameList;
 typedef std::map<int, GameRoom*> RoomList;
 
+struct Rect
+{
+    float top;
+    float bottom;
+    float left;
+    float right;
+};
+
 #define MAX_PLAYER_NUM 2
 
 class GameManager : public RefCountable
@@ -35,7 +43,8 @@ public:
     void                PlayerOut(Player* player);
 
     bool                ApplyDamage(Unit* unitA, Unit* unitB);
-    void                ExchangeDamage(Unit* unitA, Unit* unitB);
+    void                CrashDamage(Unit* unitA, Unit* unitB);
+    void                FieldDamage(Player* caster, Rect* range, int damage);
 
 public:
     b2World*            GetWolrd(){ return m_World; }

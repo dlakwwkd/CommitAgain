@@ -257,7 +257,7 @@ void GameManager::PlayerOut(Player* player)
 ///////////////////////////////////////////////////////////////////////////
 bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
 {
-    if (!unitA || !unitB || (unitA->GetOwner() == unitB->GetOwner()))
+    if (!unitA || !unitB || (unitA->GetOwner()->GetTeam() == unitB->GetOwner()->GetTeam()))
     {
         return false;
     }
@@ -267,27 +267,42 @@ bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
     }
 }
 
-void GameManager::ExchangeDamage(Unit* unitA, Unit* unitB)
+void GameManager::CrashDamage(Unit* unitA, Unit* unitB)
 {
-    int unitAHp = unitA->GetUnitHp() - unitB->GetUnitDamage();
-    int unitBHp = unitB->GetUnitHp() - unitA->GetUnitDamage();
+    unitA->Damaged(unitB->GetUnitDamage());
+    unitB->Damaged(unitA->GetUnitDamage());
+}
 
-    auto lambda = [&](Unit* unit, int hp)
+void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
+{
+    if (!caster || !range)
     {
-        auto player = unit->GetOwner();
-        player->GetClient()->HpBroadCast(player->GetPlayerID(), unit->GetUnitID(), hp);
-        unit->SetUnitHp(hp);
-
-        if (GET_MAIN_TYPE(unitA->GetUnitID()) == UNIT_HERO)
+        printf(" - FieldDamage() Faild ! : invalid player or range \n");
+        return;
+    }
+    auto game = m_GameList.find(caster->GetRoomID());
+    if (game == m_GameList.end())
+    {
+        printf(" - FieldDamage() Faild ! : invalid gameID \n");
+        return;
+    }
+    for (auto& player : game->second->m_PlayerList)
+    {
+        if (player.second->GetTeam() == caster->GetTeam())
         {
-            if (hp <= 0)
+            continue;
+        }
+        for (auto& unit : player.second->GetUnitList())
+        {
+            auto pos = unit.second->GetBody()->GetPosition();
+
+            if (pos.x > range->left && pos.x < range->right &&
+                pos.y > range->bottom && pos.y < range->top)
             {
-                CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::GameOver, player);
+                unit.second->Damaged(damage);
             }
         }
-    };
-    lambda(unitA, unitAHp);
-    lambda(unitB, unitBHp);
+    }
 }
 
 

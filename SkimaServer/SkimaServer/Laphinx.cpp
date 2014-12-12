@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Laphinx.h"
 #include "GameManager.h"
-
+#include "Skill.h"
 
 
 Laphinx::Laphinx(Player* owner, b2Vec2 pos, float scale)

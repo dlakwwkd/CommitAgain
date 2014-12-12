@@ -36,5 +36,6 @@ private:
     bool                m_IsStart;
     int                 m_LoadedPlayerNum;
 
+    friend class GameManager;
 };
 

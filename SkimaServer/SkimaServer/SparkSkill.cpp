@@ -10,7 +10,7 @@
 SparkSkill::SparkSkill(Player* owner, float heroBodySize)
 {
 	m_Owner = owner;
-	m_Damage = 500;
+	m_Damage = 350;
     m_MissileType = MS_SPARK;
 	m_MissileSpeed = REDUCE(1200);
     m_MissileScale = DEF_SCALE;

@@ -33,6 +33,7 @@ public:
 
     void            Moving();
     void            Crashing(bool isCrashing);
+    void            Damaged(int damage);
     void            IamDead();
     virtual void    Extinction(){}
 

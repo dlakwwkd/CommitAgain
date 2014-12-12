@@ -11,7 +11,6 @@ ShootType::ShootType()
     m_MissileSpeed = 0.0f;
     m_MissileScale = 0.0f;
     m_MissileHp = 0;
-    m_Range = 0.0f;
 }
 
 

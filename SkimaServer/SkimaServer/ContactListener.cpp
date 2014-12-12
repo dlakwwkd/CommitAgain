@@ -42,6 +42,6 @@ void ContactListener::EndContact(b2Contact* contact)
 
     if (GGameManager->ApplyDamage(unitA, unitB))
     {
-        GGameManager->ExchangeDamage(unitA, unitB);
+        GGameManager->CrashDamage(unitA, unitB);
     }
 }

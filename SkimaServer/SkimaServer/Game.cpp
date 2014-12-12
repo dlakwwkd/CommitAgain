@@ -46,16 +46,18 @@ void Game::InitGame()
     // 주의: 여기서부턴 하드코딩의 구간입니다.^^
     ClientSession* temp;
     int i = 0;
-    for (auto& it : m_PlayerList)
+    for (auto& player : m_PlayerList)
     {
+        player.second->SetTeam(TEAM_A);
         b2Vec2 createPos = { MAX_MAP_SIZE_X / 4, MAX_MAP_SIZE_Y / 2 };
-        auto roomId = it.second->GetRoomID();
+        auto roomId = player.second->GetRoomID();
         if (++i == 2)
         {
+            player.second->SetTeam(TEAM_B);
             createPos.x += MAX_MAP_SIZE_X / 2;
-            temp = it.second->GetClient();
+            temp = player.second->GetClient();
         }
-        it.second->CreateHero(CONVERT_IN(createPos, roomId));
+        player.second->CreateHero(CONVERT_IN(createPos, roomId));
     }
     m_Computer = new Player(temp, COMPUTER, COMPUTER);  // 100번 보면 이해됨.
     InitMap();
@@ -91,7 +93,8 @@ void Game::EndGame()
 
 	for (auto& player : m_PlayerList)
 	{
-		player.second->UnitListClear();
+        player.second->SetTeam(NEUTRALITY);
+        player.second->UnitListClear();
 	}
 }
 
@@ -125,6 +128,7 @@ void Game::OutPlayer(int playerId)
         return;
     }
 
+    player->second->SetTeam(NEUTRALITY);
     player->second->UnitListClear();
     m_PlayerList.erase(player);
 
