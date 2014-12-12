@@ -10,18 +10,14 @@ public:
     ~GameRoom(){}
 
     int                 GetRoomID(){ return m_RoomID; }
-    const PlayerList&   GetPlayerList(){ return m_PlayerList; }
     int                 GetPlayerListSize(){ return m_PlayerList.size(); }
-    int                 GetReadyPlayerNum(){ return m_ReadyNum; }
-
     void                SetIsGameExist(bool isGameExist){ m_IsGameExist = isGameExist; }
-
-    bool                IsJoinAble(){ return m_JoinAble; }
-    bool                IsAllReady(){ return m_IsAllReady; }
     bool                IsGameExist(){ return m_IsGameExist; }
-    void                InitReady();
+    bool                IsAllReady(){ return m_IsAllReady; }
+    bool                IsJoinAble(){ return m_JoinAble; }
 
     void                ReadySign();
+    void                InitReady();
     void                JoinPlayer(Player* player);
     void                OutPlayer(int playerId);
 

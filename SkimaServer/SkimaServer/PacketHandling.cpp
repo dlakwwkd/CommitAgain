@@ -249,6 +249,12 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
     auto player = session->GetPlayer();								if (!player)    return;
     auto game = GGameManager->SearchGame(player->GetRoomID());		if (!game)      return;
     game->SetLoadedPlayerNum();
+
+    if (game->GetLoadedPlayerNum() >= MAX_PLAYER_NUM)
+    {
+        session->StartGame();
+        game->SetIsStart(true);
+    }
 }
 
 REGISTER_HANDLER(PKT_CS_MOVE)
@@ -393,7 +399,7 @@ void ClientSession::OutGameRoom()
     {
         return;
     }
-    GGameManager->OutPlayer(mPlayer);
+    GGameManager->PlayerOut(mPlayer);
 }
 
 void ClientSession::ServerRunComplete()

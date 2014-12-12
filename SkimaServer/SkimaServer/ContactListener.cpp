@@ -10,7 +10,7 @@ void ContactListener::BeginContact(b2Contact *contact)
 
     auto lambda = [&](Unit* unit)
     {
-        if (!unit || !(unit->GetOwner()))
+        if (!unit || unit->GetUnitID() < 0)
         {
             printf(" - BeginContact Failed ! : unit is invalid \n");
             return;
@@ -29,7 +29,7 @@ void ContactListener::EndContact(b2Contact* contact)
 
     auto lambda = [&](Unit* unit)
     {
-        if (!unit || !(unit->GetOwner()))
+        if (!unit || unit->GetUnitID() < 0)
         {
             printf(" - EndContact Failed ! : unit is invalid \n");
             return;

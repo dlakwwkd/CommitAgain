@@ -10,33 +10,32 @@ class Unit;
 typedef std::map<int, Game*> GameList;
 typedef std::map<int, GameRoom*> RoomList;
 
+#define MAX_PLAYER_NUM 2
+
 class GameManager : public RefCountable
 {
 public:
     GameManager() : m_MakeRoomNum(0){ InitPhyWorld(); }
     virtual ~GameManager(){ DeletePhyWorld(); }
-    
-    GameRoom*           CreateRoom();
-    void                DeleteRoom(int roomId);
-
-    GameRoom*           SearchRoom(int roomId);
-    int                 SearchEmptyRoom();
-    void                JoinRoom(int roomId, Player* player);
-    void                OutPlayer(Player* player);
-
-    Game*               SearchGame(int gameId);
-    void                CreateGame(int gameId);
-    void                DeleteGame(int gameId);
-
-    void                GameOver(Player* player);
-    void                PlayerOut(Player* player);
 
     void                Tick(float dt);
     void                LowTick();
 
+    GameRoom*           CreateRoom();
+    void                DeleteRoom(int roomId);
+    GameRoom*           SearchRoom(int roomId);
+    int                 SearchEmptyRoom();
+    void                JoinRoom(int roomId, Player* player);
+
+    Game*               SearchGame(int gameId);
+    void                CreateGame(int gameId);
+    void                DeleteGame(int gameId);
+    void                GameOver(Player* player);
+
+    void                PlayerOut(Player* player);
+
     bool                ApplyDamage(Unit* unitA, Unit* unitB);
     void                ExchangeDamage(Unit* unitA, Unit* unitB);
-
 
 public:
     b2World*            GetWolrd(){ return m_World; }

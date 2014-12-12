@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Game.h"
 #include "GameRoom.h"
+#include "GameManager.h"
 #include "Player.h"
 #include "Map.h"
 #include "Rock.h"
@@ -13,9 +14,7 @@ Game::Game(GameRoom* room)
     m_Computer = nullptr;
     m_Map = nullptr;
     m_GameID = room->m_RoomID;
-    m_IsReady = true;
-    m_IsStart = false;
-	m_IsEnd = false;
+	m_IsStart = false;
     m_LoadedPlayerNum = 0;
 
     for (auto& player : room->m_PlayerList)
@@ -31,10 +30,19 @@ Game::~Game()
     delete m_Map;
 }
 
+void Game::Tick(float dt)
+{
+    for (auto& player : m_PlayerList)
+    {
+        for (auto& unit : player.second->GetUnitList())
+        {
+            unit.second->Movement();
+        }
+    }
+}
+
 void Game::InitGame()
 {
-	m_IsEnd = false; 
-
     // 주의: 여기서부턴 하드코딩의 구간입니다.^^
     ClientSession* temp;
     int i = 0;
@@ -49,9 +57,9 @@ void Game::InitGame()
         }
         it.second->CreateHero(CONVERT_IN(createPos, roomId));
     }
-
     m_Computer = new Player(temp, COMPUTER, COMPUTER);  // 100번 보면 이해됨.
     InitMap();
+    temp->ServerRunComplete();
 }
 
 void Game::InitMap()
@@ -72,7 +80,7 @@ void Game::InitMap()
 
 void Game::EndGame()
 {
-	m_IsEnd = true;
+	m_IsStart = false;
 
     for (auto& mapObject : m_MapObjectList)
     {

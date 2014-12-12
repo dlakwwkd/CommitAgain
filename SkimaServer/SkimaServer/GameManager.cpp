@@ -14,6 +14,47 @@ GameManager* GGameManager = nullptr;
 
 ///////////////////////////////////////////////////////////////////////////
 /*
+    메인 틱
+*/
+///////////////////////////////////////////////////////////////////////////
+void GameManager::Tick(float dt)
+{
+    m_World->Step(dt, 8, 3);
+
+    for (auto& game : m_GameList)
+    {
+        if (game.second->IsStart())
+        {
+            game.second->Tick(dt);
+        }
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////
+/*
+    낮은 주기의 틱
+*/
+///////////////////////////////////////////////////////////////////////////
+void GameManager::LowTick()
+{
+    int i = 0, j = 0;
+    for (b2Body* b = m_World->GetBodyList(); b; b = b->GetNext())
+    {
+        if (!b->IsAwake())
+        {
+            auto unit = static_cast<Unit*>(b->GetUserData());
+            unit->Crashing(false);
+            ++j;
+        }
+        ++i;
+    }
+    //printf(" - Total Sleeping Body Num [%2d/%2d] \n", j, i);
+    CallFuncAfter(MANAGER_UPDATE_INTERVAL * 3, this, &GameManager::LowTick);
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
     GameRoom 관련
 */
 ///////////////////////////////////////////////////////////////////////////
@@ -89,39 +130,6 @@ void GameManager::JoinRoom(int roomId, Player* player)
     m_RoomList[roomId]->JoinPlayer(player);
 }
 
-void GameManager::OutPlayer(Player* player)
-{
-    if (player == nullptr)
-    {
-        printf(" - OutPlayer Failed ! : invalid player \n");
-        return;
-    }
-    auto playerId = player->GetPlayerID();
-    auto roomId = player->GetRoomID();
-
-    auto game = m_GameList.find(roomId);
-    if (game != m_GameList.end())
-    {
-        game->second->OutPlayer(playerId);
-        if (game->second->GetPlayerListSize() < 2)
-        {
-            game->second->EndGame();
-            player->GetClient()->GameOverCast(playerId);
-            DeleteGame(roomId);
-        }
-    }
-    auto room = m_RoomList.find(roomId);
-    if (room != m_RoomList.end())
-    {
-        room->second->OutPlayer(playerId);
-        if (room->second->GetPlayerListSize() == 0)
-        {
-            DeleteRoom(roomId);
-        }
-    }
-}
-
-
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -164,6 +172,7 @@ void GameManager::CreateGame(int gameId)
     Game* game = new Game(room->second);
     m_GameList[gameId] = game;
     game->InitGame();
+    room->second->InitReady();
 }
 
 void GameManager::DeleteGame(int gameId)
@@ -215,89 +224,30 @@ void GameManager::PlayerOut(Player* player)
         printf(" - PlayerOut Failed ! : relevant player isn't \n");
         return;
     }
-    OutPlayer(player);
-}
+    auto playerId = player->GetPlayerID();
+    auto roomId = player->GetRoomID();
 
-
-
-
-///////////////////////////////////////////////////////////////////////////
-/*
-    매 프레임마다 실행	
-*/
-///////////////////////////////////////////////////////////////////////////
-void GameManager::Tick(float dt)
-{
-    m_World->Step(dt, 8, 3);
-
-    for (auto& room : m_RoomList)
+    auto game = m_GameList.find(roomId);
+    if (game != m_GameList.end())
     {
-        if (room.second->IsAllReady())
+        game->second->OutPlayer(playerId);
+        if (game->second->GetPlayerListSize() < 2)
         {
-            // 게임 구동 시작!
-            printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", room.first);
-            CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::CreateGame, room.first);
-            room.second->InitReady();
+            game->second->EndGame();
+            player->GetClient()->GameOverCast(playerId);
+            DeleteGame(roomId);
         }
     }
-    for (auto& game : m_GameList)
+    auto room = m_RoomList.find(roomId);
+    if (room != m_RoomList.end())
     {
-        if (game.second->IsEnd())
+        room->second->OutPlayer(playerId);
+        if (room->second->GetPlayerListSize() == 0)
         {
-            continue;
-        }
-        for (auto& player : game.second->GetPlayerList())
-        {
-            auto client = player.second->GetClient();
-            if (client == nullptr)
-            {
-                PlayerOut(player.second);
-                continue;
-            }
-            if (game.second->IsReady())
-            {
-                CallFuncAfter(MANAGER_UPDATE_INTERVAL, client, &ClientSession::ServerRunComplete);
-                game.second->SetIsReady(false);
-            }
-            if (!game.second->IsStart() && game.second->GetLoadedPlayerNum() >= 2)
-            {
-                client->StartGame();
-                game.second->SetIsStart(true);
-            }
-            if (!game.second->IsStart())
-            {
-                continue;
-            }
-            for (auto& unit : player.second->GetUnitList())
-            {
-                unit.second->Movement();
-            }
+            DeleteRoom(roomId);
         }
     }
 }
-
-///////////////////////////////////////////////////////////////////////////
-/*
-    낮은 주기로 반복 실행
-*/
-///////////////////////////////////////////////////////////////////////////
-void GameManager::LowTick()
-{
-    int i = 0, j = 0;
-    for (b2Body* b = m_World->GetBodyList(); b; b = b->GetNext())
-    {
-        if (!b->IsAwake())
-        {
-            auto unit = static_cast<Unit*>(b->GetUserData());
-            unit->Crashing(false);
-            ++j;
-        }
-        ++i;
-    }
-    //printf(" - Total Sleeping Body Num [%2d/%2d] \n", j, i);
-    CallFuncAfter(MANAGER_UPDATE_INTERVAL*3, this, &GameManager::LowTick);
-}
-
 
 
 ///////////////////////////////////////////////////////////////////////////
