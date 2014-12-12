@@ -16,7 +16,7 @@ MoveRock::MoveRock(Player* owner, b2Vec2 pos)
     m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
     b2PolygonShape square;
-    square.SetAsBox(REDUCE(20.0f), REDUCE(20.0f));
+    square.SetAsBox(REDUCE(3.0f), REDUCE(10.0f));
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &square;

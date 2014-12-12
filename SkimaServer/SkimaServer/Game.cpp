@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "Rock.h"
+#include "MoveRock.h"
 #include "ClientSession.h"
 
 
@@ -62,7 +63,7 @@ void Game::InitMap()
     for (int i = 0; i < 5; ++i)
     {
         auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
-        Rock* rock = new Rock(m_Computer, b2Vec2(CONVERT_IN(pos, roomId)));
+        MoveRock* rock = new MoveRock(m_Computer, b2Vec2(CONVERT_IN(pos, roomId)));
 
         m_MapObjectList.push_back(rock);
         player->GetClient()->SendMapInfo(rock->GetUnitID(), rock->GetBody()->GetPosition());
