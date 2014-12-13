@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "FieldType.h"
+#include "Scheduler.h"
 #include "GameManager.h"
+
 
 
 FieldType::FieldType()
@@ -22,4 +24,14 @@ void FieldType::FieldDamage(b2Vec2 targetPos, float scale, int damage)
     range.right = targetPos.x + scale;
 
     GGameManager->FieldDamage(m_Owner, &range, damage);
+}
+
+void FieldType::FieldDamageRepeat(b2Vec2 targetPos, float scale, int damage, int repeatNum, int repeatDelay)
+{
+    FieldDamage(targetPos, scale, damage);
+
+    if (--repeatNum > 0)
+    {
+        CallFuncAfter(repeatDelay, this, &FieldType::FieldDamageRepeat, targetPos, scale, damage, repeatNum, repeatDelay);
+    }
 }

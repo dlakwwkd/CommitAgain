@@ -7,7 +7,7 @@
 LightningSkill::LightningSkill(Player* owner)
 {
     m_Owner = owner;
-    m_Damage = 450;
+    m_Damage = 75;
     m_Scale = REDUCE(100);
 }
 
@@ -21,8 +21,8 @@ void LightningSkill::SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos)
     auto hero = m_Owner->GetMyHero();
     hero->EndMove();
 
-    FieldDamage(targetPos, m_Scale, m_Damage);
-
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), key, heroPos, targetPos);
+
+    FieldDamageRepeat(targetPos, m_Scale, m_Damage, 5, 200);
 }

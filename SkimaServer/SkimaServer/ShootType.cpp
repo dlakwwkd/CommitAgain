@@ -41,12 +41,12 @@ void ShootType::ShootMissile(b2Vec2 initPos)
     missile->MissileShoot();
 }
 
-void ShootType::ShootMissileRepet(b2Vec2 initPos, int repetNum, int repetCycle)
+void ShootType::ShootMissileRepet(b2Vec2 initPos, int repeatNum, int repeatCycle)
 {
     ShootMissile(initPos);
 
-    if (--repetNum > 0)
+    if (--repeatNum > 0)
     {
-        CallFuncAfter(repetCycle, this, &ShootType::ShootMissileRepet, initPos, repetNum, repetCycle);
+        CallFuncAfter(repeatCycle, this, &ShootType::ShootMissileRepet, initPos, repeatNum, repeatCycle);
     }
 }
