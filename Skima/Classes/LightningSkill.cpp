@@ -1,17 +1,10 @@
 #include "pch.h"
 #include "LightningSkill.h"
 #include "LightningEffect.h"
-#include "MapLayer.h"
-#include "ObjectLayer.h"
 #include "GameManager.h"
-#include "InputManager.h"
-#include "MultiGameScene.h"
-#include "Skill.h"
-#include "PacketType.h"
-#include "Hero.h"
 #include "UILayer.h"
-#include "EscLayer.h"
-#include "math.h"
+#include "Hero.h"
+#include "Macros.h"
 
 
 LightningSkill::LightningSkill()
