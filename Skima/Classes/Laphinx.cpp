@@ -8,6 +8,7 @@
 
 Laphinx::Laphinx(Vec2 createPos, float scale)
 {
+    m_HeroType = HERO_LAPHINX;
     SetMoveMotionToCache();
     SetSkillMotionToCache();
     m_RealSprite = Sprite::createWithSpriteFrameName("Laphinx_S3.png");
@@ -112,10 +113,10 @@ void Laphinx::SetSkillMotionByDir(SkillKey key)
     case SKILL_E:
         switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
         {
-        case SE: m_RealSprite->runAction(MakeAnimation("Laphinx_SE_%d.png", 10)); break;
-        case SW: m_RealSprite->runAction(MakeAnimation("Laphinx_SW_%d.png", 10)); break;
-        case NE: m_RealSprite->runAction(MakeAnimation("Laphinx_NE_%d.png", 10)); break;
-        case NW: m_RealSprite->runAction(MakeAnimation("Laphinx_NW_%d.png", 10)); break;
+        case SE: m_RealSprite->runAction(MakeAnimation("Laphinx_SE%02d.png", 10)); break;
+        case SW: m_RealSprite->runAction(MakeAnimation("Laphinx_SW%02d.png", 10)); break;
+        case NE: m_RealSprite->runAction(MakeAnimation("Laphinx_NE%02d.png", 10)); break;
+        case NW: m_RealSprite->runAction(MakeAnimation("Laphinx_NW%02d.png", 10)); break;
         }
         break;
     }

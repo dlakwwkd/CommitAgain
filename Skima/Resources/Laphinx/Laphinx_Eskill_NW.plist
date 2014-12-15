@@ -4,7 +4,7 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>Laphinx_NW1.png</key>
+			<key>Laphinx_NW01.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,364},{158,138}}</string>
@@ -16,6 +16,118 @@
 				<string>{{4,7},{158,138}}</string>
 				<key>sourceSize</key>
 				<string>{168,163}</string>
+			</dict>
+
+			<key>Laphinx_NW02.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,804},{154,148}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{2,10},{154,148}}</string>
+				<key>sourceSize</key>
+				<string>{160,176}</string>
+			</dict>
+
+			<key>Laphinx_NW03.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{159,529},{140,164}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{4,5},{140,164}}</string>
+				<key>sourceSize</key>
+				<string>{149,187}</string>
+			</dict>
+
+			<key>Laphinx_NW04.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{159,364},{140,164}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{4,5},{140,164}}</string>
+				<key>sourceSize</key>
+				<string>{151,187}</string>
+			</dict>
+
+			<key>Laphinx_NW05.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{155,804},{146,151}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{1,18},{146,151}}</string>
+				<key>sourceSize</key>
+				<string>{153,187}</string>
+			</dict>
+
+			<key>Laphinx_NW06.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,652},{156,151}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{3,18},{156,151}}</string>
+				<key>sourceSize</key>
+				<string>{164,187}</string>
+			</dict>
+
+			<key>Laphinx_NW07.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,503},{158,148}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{3,21},{158,148}}</string>
+				<key>sourceSize</key>
+				<string>{165,187}</string>
+			</dict>
+
+			<key>Laphinx_NW08.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,121},{172,130}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{4,39},{172,130}}</string>
+				<key>sourceSize</key>
+				<string>{181,187}</string>
+			</dict>
+
+			<key>Laphinx_NW09.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,252},{166,111}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{3,58},{166,111}}</string>
+				<key>sourceSize</key>
+				<string>{175,187}</string>
 			</dict>
 
 			<key>Laphinx_NW10.png</key>
@@ -30,118 +142,6 @@
 				<string>{{1,49},{173,120}}</string>
 				<key>sourceSize</key>
 				<string>{179,187}</string>
-			</dict>
-
-			<key>Laphinx_NW2.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,804},{154,148}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{2,10},{154,148}}</string>
-				<key>sourceSize</key>
-				<string>{160,176}</string>
-			</dict>
-
-			<key>Laphinx_NW3.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{159,529},{140,164}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{4,5},{140,164}}</string>
-				<key>sourceSize</key>
-				<string>{149,187}</string>
-			</dict>
-
-			<key>Laphinx_NW4.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{159,364},{140,164}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{4,5},{140,164}}</string>
-				<key>sourceSize</key>
-				<string>{151,187}</string>
-			</dict>
-
-			<key>Laphinx_NW5.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{155,804},{146,151}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{1,18},{146,151}}</string>
-				<key>sourceSize</key>
-				<string>{153,187}</string>
-			</dict>
-
-			<key>Laphinx_NW6.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,652},{156,151}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{3,18},{156,151}}</string>
-				<key>sourceSize</key>
-				<string>{164,187}</string>
-			</dict>
-
-			<key>Laphinx_NW7.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,503},{158,148}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{3,21},{158,148}}</string>
-				<key>sourceSize</key>
-				<string>{165,187}</string>
-			</dict>
-
-			<key>Laphinx_NW8.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,121},{172,130}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{4,39},{172,130}}</string>
-				<key>sourceSize</key>
-				<string>{181,187}</string>
-			</dict>
-
-			<key>Laphinx_NW9.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,252},{166,111}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{3,58},{166,111}}</string>
-				<key>sourceSize</key>
-				<string>{175,187}</string>
 			</dict>
 
 		</dict>

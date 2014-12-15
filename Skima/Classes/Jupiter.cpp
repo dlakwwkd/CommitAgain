@@ -9,6 +9,7 @@
 
 Jupiter::Jupiter(Vec2 createPos, float scale)
 {
+    m_HeroType = HERO_JUPITER;
     SetMoveMotionToCache();
     SetSkillMotionToCache();
     m_RealSprite = Sprite::createWithSpriteFrameName("JupiterMove_S_01.png");

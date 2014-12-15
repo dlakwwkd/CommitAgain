@@ -35,5 +35,6 @@ protected:
     std::map<SkillKey, Skill*>  m_SkillList;
     Sprite*                     m_Arrow;
     Sprite*                     m_SkillRange;
+    HeroType                    m_HeroType;
 };
 

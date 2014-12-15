@@ -9,6 +9,7 @@
 
 Magician::Magician(Vec2 createPos, float scale)
 {
+    m_HeroType = HERO_MAGICIAN;
     SetMoveMotionToCache();
     SetSkillMotionToCache();
     m_RealSprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");

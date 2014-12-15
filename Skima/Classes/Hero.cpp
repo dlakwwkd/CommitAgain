@@ -85,8 +85,18 @@ void Hero::SkillEnd(SkillKey key)
 RepeatForever* Hero::MakeAnimation(const char* format, int size)
 {
     auto animation = Animation::create();
-    if (size < 5)       animation->setDelayPerUnit(0.2f);
-    else if (size >= 5) animation->setDelayPerUnit(0.1f);
+
+    if (m_HeroType == HERO_LAPHINX)
+    {
+        if (size < 5)       animation->setDelayPerUnit(0.2f);
+        else if (size >= 5) animation->setDelayPerUnit(0.05f);
+    }
+
+    else
+    {
+        if (size < 5)       animation->setDelayPerUnit(0.2f);
+        else if (size >= 5) animation->setDelayPerUnit(0.1f);
+    }
 
     for (int i = 1; i < size + 1; ++i)
     {

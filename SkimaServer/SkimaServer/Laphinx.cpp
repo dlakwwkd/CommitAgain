@@ -2,6 +2,7 @@
 #include "Laphinx.h"
 #include "GameManager.h"
 #include "Skill.h"
+#include "SwipeSKill.h"
 
 
 Laphinx::Laphinx(Player* owner, b2Vec2 pos, float scale)
@@ -30,7 +31,7 @@ Laphinx::Laphinx(Player* owner, b2Vec2 pos, float scale)
     
 //     m_SkillList[SKILL_Q] = new FireballSkill(m_Owner, circle.m_radius);
 //     m_SkillList[SKILL_W] = new IceballSkill(m_Owner, circle.m_radius);
-//     m_SkillList[SKILL_E] = new TeleportSkill(m_Owner);
+     m_SkillList[SKILL_E] = new SwipeSkill(m_Owner);
 }
 
 
