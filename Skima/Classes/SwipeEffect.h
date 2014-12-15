@@ -8,7 +8,7 @@ public:
     SwipeEffect();
     ~SwipeEffect();
 
-    RepeatForever*  MakeAnimation(const char* format, int size);
+    Animate*        MakeAnimationOnce(const char* format, int size);
     virtual void    CreateEffect(Vec2 createPos);
     virtual void    ExtinctEffect();
     void            SetSwipeMotionCache();
