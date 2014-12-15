@@ -222,6 +222,7 @@
     <ClCompile Include="..\Classes\SwipeEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -383,6 +384,7 @@
     <ClInclude Include="..\Classes\SwipeEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\LightningPumpkinEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

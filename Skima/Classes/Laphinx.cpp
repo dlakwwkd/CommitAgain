@@ -2,6 +2,7 @@
 #include "Laphinx.h"
 #include "GameManager.h"
 #include "PacketType.h"
+#include "SwipeSkill.h"
 
 
 
@@ -23,12 +24,18 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
 //     shadow->setOpacity(150);
 //    m_RealSprite->addChild(shadow, -2);
 
+    m_Qparticle = ParticleSystemQuad::create("Laphinx/LaphinxSpeedParticle.plist");
+    m_Qparticle->setScale(0.7f);
+    m_Qparticle->setPosition(Vec2(30.0f, 25.0f));
+    m_Qparticle->setVisible(false);
+    m_RealSprite->addChild(m_Qparticle, -1);
+
     m_MaxHp = 1000.0f;
     m_CurHp = m_MaxHp;
     SetHpBar();
 //     m_SkillList[SKILL_Q] = new FireballSkill(this);
 //     m_SkillList[SKILL_W] = new IceballSkill(this);
-//     m_SkillList[SKILL_E] = new TeleportSkill(this);
+     m_SkillList[SKILL_E] = new SwipeSkill(this);
 
     switch (GET_GM.GetGameMode())
     {
@@ -95,7 +102,8 @@ void Laphinx::SetSkillMotionByDir(SkillKey key)
     switch (key)
     {
     case SKILL_Q:
-        //particle visible
+        m_Qparticle->setVisible(true);
+        //to do : 파티클 visible false로 바꾸는것
         break;
 
     case SKILL_W:
