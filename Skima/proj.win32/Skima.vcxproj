@@ -177,6 +177,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Skill.cpp" />
     <ClCompile Include="..\Classes\SparkEffect.cpp" />
     <ClCompile Include="..\Classes\SparkSkill.cpp" />
+    <ClCompile Include="..\Classes\SwipeEffect.cpp" />
+    <ClCompile Include="..\Classes\SwipeSkill.cpp" />
     <ClCompile Include="..\Classes\TcpClient.cpp" />
     <ClCompile Include="..\Classes\TeleportEffect.cpp" />
     <ClCompile Include="..\Classes\TeleportSkill.cpp" />
@@ -232,6 +234,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Skill.h" />
     <ClInclude Include="..\Classes\SparkEffect.h" />
     <ClInclude Include="..\Classes\SparkSkill.h" />
+    <ClInclude Include="..\Classes\SwipeEffect.h" />
+    <ClInclude Include="..\Classes\SwipeSkill.h" />
     <ClInclude Include="..\Classes\TcpClient.h" />
     <ClInclude Include="..\Classes\TeleportEffect.h" />
     <ClInclude Include="..\Classes\TeleportSkill.h" />

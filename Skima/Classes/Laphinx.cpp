@@ -84,10 +84,31 @@ void Laphinx::SetMoveMotionByDir()
 
 void Laphinx::SetSkillMotionToCache()
 {
-
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_SW.plist");
 }
 
 void Laphinx::SetSkillMotionByDir(SkillKey key)
 {
+    switch (key)
+    {
+    case SKILL_Q:
+        //particle visible
+        break;
 
+    case SKILL_W:
+        break;
+
+    case SKILL_E:
+        switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
+        {
+        case SE: m_RealSprite->runAction(MakeAnimation("Laphinx_SE_%d.png", 10)); break;
+        case SW: m_RealSprite->runAction(MakeAnimation("Laphinx_SW_%d.png", 10)); break;
+        case NE: m_RealSprite->runAction(MakeAnimation("Laphinx_NE_%d.png", 10)); break;
+        case NW: m_RealSprite->runAction(MakeAnimation("Laphinx_NW_%d.png", 10)); break;
+        }
+        break;
+    }
 }
