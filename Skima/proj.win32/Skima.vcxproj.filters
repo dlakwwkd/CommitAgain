@@ -210,6 +210,9 @@
     <ClCompile Include="..\Classes\Rock.cpp">
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClCompile>
+    <ClCompile Include="RockEffect.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -361,6 +364,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Rock.h">
       <Filter>Game\Component\Object\Obstruction</Filter>
+    </ClInclude>
+    <ClInclude Include="RockEffect.h">
+      <Filter>Game\Component\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
