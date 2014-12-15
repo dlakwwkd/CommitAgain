@@ -179,6 +179,7 @@ void RoomScene::ChangeSelectedHero()
                 select.second->setVisible(true);
             }
         }
+        break;
     case HERO_LAPHINX:
         for (auto& select : m_Facelist)
         {
