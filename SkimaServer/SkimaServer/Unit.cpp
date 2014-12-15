@@ -62,8 +62,8 @@ void Unit::Crashing(bool isCrashing)
     auto client = m_Owner->GetClient();
     if (client == nullptr)
     {
-        EndCrash();
-        printf(" - Crashing Failed ! : client is invalid \n");
+		EndCrash();
+		printf(" - Crashing Failed ! : client is invalid \n");
         return;
     }
 
