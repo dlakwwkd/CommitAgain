@@ -213,6 +213,9 @@
     <ClCompile Include="RockEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -366,6 +369,9 @@
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClInclude>
     <ClInclude Include="RockEffect.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LightningPumpkinEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
   </ItemGroup>
