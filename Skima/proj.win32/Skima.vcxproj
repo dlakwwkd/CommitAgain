@@ -152,6 +152,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\IceEffect.cpp" />
     <ClCompile Include="..\Classes\Jupiter.cpp" />
     <ClCompile Include="..\Classes\Laphinx.cpp" />
+    <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp" />
     <ClCompile Include="..\Classes\LightningPumpkinSkill.cpp" />
     <ClCompile Include="..\Classes\LightningSkill.cpp" />
     <ClCompile Include="..\Classes\LightningEffect.cpp" />
@@ -209,6 +210,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\IceEffect.h" />
     <ClInclude Include="..\Classes\Jupiter.h" />
     <ClInclude Include="..\Classes\Laphinx.h" />
+    <ClInclude Include="..\Classes\LightningPumpkinEffect.h" />
     <ClInclude Include="..\Classes\LightningPumpkinSkill.h" />
     <ClInclude Include="..\Classes\LightningSkill.h" />
     <ClInclude Include="..\Classes\LightningEffect.h" />
