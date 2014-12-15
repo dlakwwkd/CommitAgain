@@ -50,7 +50,6 @@ Unit* ObjectManager::Assign(UnitType type)
 void ObjectManager::Release(Unit* unit)
 {
     unit->m_InUse = false;
-	unit->m_Owner = nullptr;
     unit->m_UnitID = INIT_SIDE_TYPE(unit->m_UnitID);
 
     auto body = unit->GetBody();
@@ -63,6 +62,7 @@ void ObjectManager::Release(Unit* unit)
     if (player != nullptr)
     {
         player->UnitListPop(unit->GetUnitID());
+		unit->m_Owner = nullptr;
     }
 }
 

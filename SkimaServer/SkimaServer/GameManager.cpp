@@ -298,6 +298,10 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
         for (auto& unit : player.second->GetUnitList())
         {
 			auto body = unit.second->GetBody();
+			if (body == nullptr)
+			{
+				continue;
+			}
             auto pos = body->GetPosition();
 
             if (pos.x > range->left && pos.x < range->right &&
