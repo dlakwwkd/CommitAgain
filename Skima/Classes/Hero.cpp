@@ -107,6 +107,30 @@ RepeatForever* Hero::MakeAnimation(const char* format, int size)
     return RepeatForever::create(Animate::create(animation));
 }
 
+Animate* Hero::MakeAnimationOnce(const char* format, int size)
+{
+    auto animation = Animation::create();
+
+    if (m_HeroType == HERO_LAPHINX)
+    {
+        if (size < 5)       animation->setDelayPerUnit(0.2f);
+        else if (size >= 5) animation->setDelayPerUnit(0.05f);
+    }
+
+    else
+    {
+        if (size < 5)       animation->setDelayPerUnit(0.2f);
+        else if (size >= 5) animation->setDelayPerUnit(0.1f);
+    }
+
+    for (int i = 1; i < size + 1; ++i)
+    {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+        animation->addSpriteFrame(frame);
+    }
+
+    return Animate::create(animation);
+}
 Direction Hero::CalcMoveDirection(Vec2 displacement)
 {
     float slope = displacement.y / displacement.x;
@@ -151,3 +175,4 @@ Direction Hero::CalcSkillDirection(Vec2 displacement)
     }
     return Direction::SE;
 }
+

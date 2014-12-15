@@ -113,10 +113,10 @@ void Laphinx::SetSkillMotionByDir(SkillKey key)
     case SKILL_E:
         switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
         {
-        case SE: m_RealSprite->runAction(MakeAnimation("Laphinx_SE%02d.png", 10)); break;
-        case SW: m_RealSprite->runAction(MakeAnimation("Laphinx_SW%02d.png", 10)); break;
-        case NE: m_RealSprite->runAction(MakeAnimation("Laphinx_NE%02d.png", 10)); break;
-        case NW: m_RealSprite->runAction(MakeAnimation("Laphinx_NW%02d.png", 10)); break;
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_SE%02d.png", 10)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_SW%02d.png", 10)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_NE%02d.png", 10)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_NW%02d.png", 10)); break;
         }
         break;
     }

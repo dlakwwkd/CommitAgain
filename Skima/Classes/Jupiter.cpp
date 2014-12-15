@@ -110,30 +110,30 @@ void Jupiter::SetSkillMotionByDir(SkillKey key)
     case SKILL_Q:
         switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
         {
-        case SE: m_RealSprite->runAction(MakeAnimation("JupiterQSkill_SE_%02d.png", 7)); break;
-        case SW: m_RealSprite->runAction(MakeAnimation("JupiterQSkill_SW_%02d.png", 7)); break;
-        case NE: m_RealSprite->runAction(MakeAnimation("JupiterQSkill_NE_%02d.png", 7)); break;
-        case NW: m_RealSprite->runAction(MakeAnimation("JupiterQSkill_NW_%02d.png", 7)); break;
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_SE_%02d.png", 7)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_SW_%02d.png", 7)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_NE_%02d.png", 7)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_NW_%02d.png", 7)); break;
         }
         break;
 
     case SKILL_W:
         switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
         {
-        case SE: m_RealSprite->runAction(MakeAnimation("JupiterWSkill_SE_%02d.png", 3)); break;
-        case SW: m_RealSprite->runAction(MakeAnimation("JupiterWSkill_SW_%02d.png", 3)); break;
-        case NE: m_RealSprite->runAction(MakeAnimation("JupiterWSkill_NE_%02d.png", 3)); break;
-        case NW: m_RealSprite->runAction(MakeAnimation("JupiterWSkill_NW_%02d.png", 3)); break;
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SE_%02d.png", 3)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SW_%02d.png", 3)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NE_%02d.png", 3)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NW_%02d.png", 3)); break;
         }
         break;
 
     case SKILL_E:
         switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
         {
-        case SE: m_RealSprite->runAction(MakeAnimation("JupiterESkill_SE_%02d.png", 2)); break;
-        case SW: m_RealSprite->runAction(MakeAnimation("JupiterESkill_SW_%02d.png", 2)); break;
-        case NE: m_RealSprite->runAction(MakeAnimation("JupiterESkill_NE_%02d.png", 2)); break;
-        case NW: m_RealSprite->runAction(MakeAnimation("JupiterESkill_NW_%02d.png", 2)); break;
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_SE_%02d.png", 2)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_SW_%02d.png", 2)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_NE_%02d.png", 2)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_NW_%02d.png", 2)); break;
         }
         break;
     }
