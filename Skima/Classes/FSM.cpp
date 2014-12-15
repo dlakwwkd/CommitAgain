@@ -19,7 +19,14 @@ void StandbyState::Crashed(Unit* unit)
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetCrashedState());
     unit->GetSprite()->stopAllActions();
-    unit->GetRealSprite()->stopAllActions();
+    if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
+    {
+        unit->GetRealSprite()->stopAllActions();
+    }
+    if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_OBSTRUCT)
+    {
+        CCLOG("OBSTRUCT CRASH");
+    }
     unit->Crash();
 }
 
@@ -43,7 +50,10 @@ void MovingState::TryMove(Unit* unit)
 {
     if (unit == nullptr) return;
     unit->GetSprite()->stopAllActions();
-    unit->GetRealSprite()->stopAllActions();
+    if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
+    {
+        unit->GetRealSprite()->stopAllActions();
+    }
     unit->Move();
 }
 
@@ -52,7 +62,10 @@ void MovingState::Crashed(Unit* unit)
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetCrashedState());
     unit->GetSprite()->stopAllActions();
-    unit->GetRealSprite()->stopAllActions();
+    if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
+    {
+        unit->GetRealSprite()->stopAllActions();
+    }
     unit->Crash();
 }
 
@@ -61,7 +74,10 @@ void MovingState::EndMove(Unit* unit)
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
     unit->GetSprite()->stopAllActions();
-    unit->GetRealSprite()->stopAllActions();
+    if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
+    {
+        unit->GetRealSprite()->stopAllActions();
+    }
 }
 
 void MovingState::EndCrash(Unit* unit){}
@@ -80,7 +96,10 @@ void CrashedState::Crashed(Unit* unit)
 {
     if (unit == nullptr) return;
     unit->GetSprite()->stopAllActions();
-    unit->GetRealSprite()->stopAllActions();
+    if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
+    {
+        unit->GetRealSprite()->stopAllActions();
+    }
     unit->Crash();
 }
 void CrashedState::EndMove(Unit* unit){}
@@ -89,7 +108,10 @@ void CrashedState::EndCrash(Unit* unit)
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
     unit->GetSprite()->stopAllActions();
-    unit->GetRealSprite()->stopAllActions();
+    if(GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
+    {
+        unit->GetRealSprite()->stopAllActions();
+    }
 
     auto action1 = MoveTo::create(0.1f, unit->GetMoveTargetPos());
     auto action2 = EaseSineIn::create(action1);

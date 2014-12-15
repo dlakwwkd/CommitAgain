@@ -43,12 +43,13 @@ void GameManager::LowTick()
         if (!b->IsAwake())
         {
             auto unit = static_cast<Unit*>(b->GetUserData());
-            unit->Crashing(false);
-            ++j;
+            if (unit)
+            {
+                //현재 위치 동기화 (패킷을 날려주기 위해)
+                unit->Crashing(false);
+            }
         }
-        ++i;
     }
-    //printf(" - Total Sleeping Body Num [%2d/%2d] \n", j, i);
     CallFuncAfter(MANAGER_UPDATE_INTERVAL * 3, this, &GameManager::LowTick);
 }
 

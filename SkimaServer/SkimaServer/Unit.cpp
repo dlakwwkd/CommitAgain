@@ -54,6 +54,9 @@ void Unit::Crashing(bool isCrashing)
         isCrashing = false;
         Extinction();
         break;
+    case UNIT_OBSTRUCT:
+        break;
+
     };
 
     auto client = m_Owner->GetClient();

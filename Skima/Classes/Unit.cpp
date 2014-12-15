@@ -95,8 +95,12 @@ void Unit::MoveS()
 
 void Unit::MoveM()
 {
-    auto hero = dynamic_cast<Hero*>(this);
-    hero->SetMoveMotionByDir();
+    if (GET_MAIN_TYPE(m_UnitID) == UNIT_HERO)
+    {
+        auto hero = dynamic_cast<Hero*>(this);
+        hero->SetMoveMotionByDir();
+    }
+    
     auto gap = m_TargetPos - m_Sprite->getPosition();
     gap.normalize();
     m_TargetPos -= gap * 15;

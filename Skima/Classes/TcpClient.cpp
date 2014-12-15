@@ -324,6 +324,7 @@ void TcpClient::processPacket()
                 switch (GET_MAIN_TYPE(recvData.mUnitId))
                 {
                 case UNIT_HERO:
+                case UNIT_OBSTRUCT:
                     if (recvData.mIsCrashed)
                     {
                         scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
@@ -339,6 +340,7 @@ void TcpClient::processPacket()
                     scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MissileCrash, layer,
                         recvData.mUnitId));
                     break;
+
                 }
             }
             break;
