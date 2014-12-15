@@ -391,8 +391,6 @@ void TcpClient::processPacket()
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
-            GameResult result;
-
             auto scene = GET_M_GAME_SCENE;          assert(scene != nullptr);
             scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MultiGameScene::GameOver, scene, mLoginId, recvData.mLoseId));
         }
