@@ -1,20 +1,16 @@
 #pragma once
-#include "Effect.h"
+#include "EffectSpriteType.h"
 #include "Enums.h"
-
-class SwipeEffect : public Effect
+class SwipeEffect : public EffectSpriteType
 {
 public:
     SwipeEffect();
-    ~SwipeEffect();
+    virtual ~SwipeEffect();
 
-    Animate*        MakeAnimationOnce(const char* format, int size);
-    virtual void    CreateEffect(Vec2 createPos);
-    virtual void    ExtinctEffect();
+	virtual void	CreateEffect(const Vec2& createPos);
+	virtual void    ExtinctEffect();
+
     void            SetSwipeMotionCache();
     void            ShowSwipeMotionByDir(Direction dir);
-
-private:
-    Sprite*         m_RealSprite;
 };
 

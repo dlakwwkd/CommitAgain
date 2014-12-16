@@ -1,12 +1,12 @@
 #pragma once
-#include "Effect.h"
-class LightningPumpkinEffect : public Effect
+#include "EffectParticleType.h"
+class LightningPumpkinEffect : public EffectParticleType
 {
 public:
     LightningPumpkinEffect();
     virtual ~LightningPumpkinEffect();
 
-    virtual void CreateEffect(Vec2 createPos);
+    virtual void CreateEffect(const Vec2& createPos);
     virtual void ExtinctEffect();
 };
 

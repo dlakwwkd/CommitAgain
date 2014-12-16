@@ -4,7 +4,6 @@
 
 Effect::Effect()
 {
-    m_Particle = nullptr;
 }
 
 

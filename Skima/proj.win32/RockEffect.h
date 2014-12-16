@@ -1,9 +1,9 @@
 #pragma once
 #include "Effect.h"
-class RockEffect :   public Effect
+class RockEffect : public Effect
 {
 public:
     RockEffect();
-    ~RockEffect();
+    virtual ~RockEffect();
 };
 

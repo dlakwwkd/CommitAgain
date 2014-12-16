@@ -29,7 +29,7 @@ void SwipeSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
      auto effect = new SwipeEffect();
      effect->CreateEffect(targetPos);
      
-     auto direction =GenerateSkillDirection(targetPos, heroPos);
+     auto direction = GenerateSkillDirection(targetPos, heroPos);
      effect->ShowSwipeMotionByDir(direction);
 }
 

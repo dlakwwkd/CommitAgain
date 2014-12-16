@@ -1,12 +1,12 @@
 #pragma once
-#include "Effect.h"
-class TeleportEffect : public Effect
+#include "EffectParticleType.h"
+class TeleportEffect : public EffectParticleType
 {
 public:
     TeleportEffect();
-    ~TeleportEffect();
+    virtual ~TeleportEffect();
 
-    virtual void CreateEffect(Vec2 createPos);
-    virtual void ExtinctEffect();
+    virtual void	CreateEffect(const Vec2& createPos);
+    virtual void	ExtinctEffect();
 
 };

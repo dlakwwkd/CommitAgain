@@ -222,9 +222,17 @@
     <ClCompile Include="..\Classes\SwipeEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp" />
     <ClCompile Include="..\Classes\AdrenalineSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EffectParticleType.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EffectSpriteType.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp">
+      <Filter>Game\Component\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -387,9 +395,17 @@
     <ClInclude Include="..\Classes\SwipeEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\LightningPumpkinEffect.h" />
     <ClInclude Include="..\Classes\AdrenalineSkill.h">
       <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EffectParticleType.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EffectSpriteType.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LightningPumpkinEffect.h">
+      <Filter>Game\Component\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

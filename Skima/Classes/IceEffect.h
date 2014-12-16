@@ -1,13 +1,13 @@
 ﻿#pragma once
-#include "Effect.h"
-class IceEffect : public Effect
+#include "EffectParticleType.h"
+class IceEffect : public EffectParticleType
 {
 public:
     IceEffect();
     virtual ~IceEffect();
 
-    virtual void CreateEffect(Vec2 createPos);
-    virtual void ExtinctEffect();
+    virtual void	CreateEffect(const Vec2& createPos);
+    virtual void	ExtinctEffect();
 
 };
 
