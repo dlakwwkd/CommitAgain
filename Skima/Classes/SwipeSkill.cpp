@@ -4,6 +4,7 @@
 #include "UILayer.h"
 #include "Hero.h"
 #include "Macros.h"
+#include "SwipeEffect.h"
 
 
 SwipeSkill::SwipeSkill()
@@ -25,8 +26,11 @@ SwipeSkill::~SwipeSkill()
 
 void SwipeSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
-//     auto effect = new LightningEffect();
-//     effect->CreateEffect(targetPos);
+     auto effect = new SwipeEffect();
+     effect->CreateEffect(targetPos);
+     
+     auto direction =GenerateSkillDirection(targetPos, heroPos);
+     effect->ShowSwipeMotionByDir(direction);
 }
 
 void SwipeSkill::SkillReady()

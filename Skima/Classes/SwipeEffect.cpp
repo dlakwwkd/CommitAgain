@@ -5,10 +5,11 @@
 
 SwipeEffect::SwipeEffect()
 {
-    m_RealSprite = nullptr;
-    SetSwipeMotionCache();
+    m_RealSprite = Sprite::create("Images/CloackingUnit.png");
+    m_RealSprite->setScale(0.3f);
+    m_RealSprite->setVisible(true);
+    GET_OBJECT_LAYER->addChild(m_RealSprite, 20);
 }
-
 
 SwipeEffect::~SwipeEffect()
 {
@@ -16,13 +17,17 @@ SwipeEffect::~SwipeEffect()
 
 void SwipeEffect::CreateEffect(Vec2 createPos)
 {
-//    SetSwipeMotionCache();
-    GET_OBJECT_LAYER->addChild(m_RealSprite, 20);
+    m_RealSprite->setPosition(createPos);
+    SetSwipeMotionCache();
+    auto action1 = DelayTime::create(1.0f);
+    auto action2 = CallFunc::create(CC_CALLBACK_0(SwipeEffect::ExtinctEffect, this));
+    auto action3 = Sequence::create(action1, action2, NULL);
+    m_RealSprite->runAction(action3);
 }
 
 void SwipeEffect::ExtinctEffect()
 {
-     GET_OBJECT_LAYER->removeChild(m_Particle);
+     GET_OBJECT_LAYER->removeChild(m_RealSprite);
      delete this;
 }
 
@@ -59,3 +64,4 @@ Animate* SwipeEffect::MakeAnimationOnce(const char* format, int size)
 
     return Animate::create(animation);
 }
+
