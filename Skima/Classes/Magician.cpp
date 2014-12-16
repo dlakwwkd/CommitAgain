@@ -38,7 +38,7 @@ Magician::Magician(Vec2 createPos, float scale)
     {
     case SINGLE:
     {
-        auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // 밀도, 탄성력, 마찰력
+        auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // 밀도, 탄성력, 마찰력 ///< 이런 밸런스 상수들은 따로 빼서 모으도록.
 
         m_Body = PhysicsBody::createCircle(m_Sprite->getContentSize().width*(scale / 2), material);
         m_Body->setMass(1.0f);

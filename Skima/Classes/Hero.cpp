@@ -5,7 +5,7 @@
 
 Hero::Hero()
 {
-    m_Arrow = Sprite::create("Images/arrow.png");
+    m_Arrow = Sprite::create("Images/arrow.png"); ///< 이런 문자리터럴은 따로 다 빼서 모아놓도록 한다. 
     m_Arrow->setScale(0.1f, 0.1f);
     m_Arrow->setVisible(false);
 	m_Sprite->addChild(m_Arrow);
@@ -54,6 +54,7 @@ bool Hero::GetSkillCanUse(SkillKey key)
 void Hero::SetSkillCanUse(SkillKey key, bool isUse)
 {
     auto skill = GetSkill(key);
+	/// 사실 이런 경우는 에러를 씹는(?) 경우다.. 로그로 남기든 assert를 쓰든 정보를 꼭 남기도록 한다. (아래쪽의 비슷한 패턴의 코드들도 마찬가지...)
     if (!skill) return;
     skill->SetCanUse(isUse);
 }
@@ -89,7 +90,7 @@ RepeatForever* Hero::MakeAnimation(const char* format, int size)
     if (m_HeroType == HERO_LAPHINX)
     {
         if (size < 5)       animation->setDelayPerUnit(0.2f);
-        else if (size >= 5) animation->setDelayPerUnit(0.05f);
+        else if (size >= 5) animation->setDelayPerUnit(0.05f); ///< 그냥 else
     }
 
     else

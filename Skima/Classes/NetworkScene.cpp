@@ -122,6 +122,8 @@ void NetworkScene::ConnectLabelChange(const char* str)
     }
 }
 
+///# 엉??? 아래 두 멤버함수 완전히 똑같은거 아닌가??
+
 void NetworkScene::MakeRoomComplete(int roomId)
 {
     ConnectLabelChange("서버 연결 양호.");

@@ -12,6 +12,6 @@ public:
     void MissileDelete();
 
 protected:
-    ParticleSystemQuad* m_Particle;
+    ParticleSystemQuad* m_Particle; ///< 포인터는 특별히 디폴트 초기화 할 것
 };
 

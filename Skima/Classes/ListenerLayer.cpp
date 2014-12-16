@@ -59,6 +59,7 @@ void ListenerLayer::Tick(float dt)
 
 void ListenerLayer::ScreenMove()
 {
+	///# 아래 부분에서도 float <-> int 암묵적인 형변환이 일어나고 있다. 이런 것들이 버그의 온상이 되니 확실하게 static_cast 쓰던가.. 형변환을 안하던가..
     if (GET_IM->GetMouseScrollStatus(SCROLL_UP) && this->getPositionY() < MAX_MAP_SIZE_Y / 8 - (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2)
     {
         this->setPositionY(this->getPositionY() + 20);
