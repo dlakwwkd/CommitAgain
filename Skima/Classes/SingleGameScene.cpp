@@ -20,9 +20,6 @@ Scene* SingleGameScene::createScene()
 
 	scene->addChild(layer1, 0, "SingleGameScene");
 	layer1->addChild(layer2, 0, "PhysicsLayer");
-
-	ShowCursor(false);
-
 	return scene;
 }
 

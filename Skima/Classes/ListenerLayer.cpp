@@ -93,7 +93,7 @@ void ListenerLayer::OnMouseDown(Event *event)
     auto hero = GET_OBJECT_LAYER->GetMyHero();	_ASSERT(hero != nullptr);
     auto sprite = hero->GetSprite();				_ASSERT(sprite != nullptr);
     auto heroPos = sprite->getPosition();
-    auto mousePos = GET_IM->GetMouseLocation() - this->getPosition();
+    auto mousePos = GET_IM->GetMouseLocation();
     auto key = KeyboardToSkillKey(GET_IM->SearchTargetingKey());
     auto button = static_cast<EventMouse*>(event)->getMouseButton();
     GET_IM->SetMouseStatus(button, true);
@@ -106,7 +106,7 @@ void ListenerLayer::OnMouseDown(Event *event)
             {
                 break;
             }
-            TcpClient::getInstance()->skillRequest(heroPos, mousePos, key);
+			TcpClient::getInstance()->skillRequest(heroPos, mousePos - this->getPosition(), key);
             CoolTimeStart(key);
 
             hero->SkillEnd(key);
@@ -121,7 +121,7 @@ void ListenerLayer::OnMouseDown(Event *event)
         {
             if (hero->GetMoveState() != hero->GetCrashedState())
             {
-                TcpClient::getInstance()->moveRequest(heroPos, mousePos);
+				TcpClient::getInstance()->moveRequest(heroPos, mousePos - this->getPosition());
             }
             if (key != SKILL_NONE)
             {
@@ -236,10 +236,10 @@ void ListenerLayer::SetArrowPos()
     {
         return;
     }
-    auto displacement = GET_IM->GetMouseLocation() - GET_OBJECT_LAYER->GetMyHero()->GetHeroPos();
+    auto displacement = GET_IM->GetMouseLocation() - this->getPosition() - GET_OBJECT_LAYER->GetMyHero()->GetHeroPos();
     auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2));
     auto arrow = GET_OBJECT_LAYER->GetMyHero()->GetArrow();
-    arrow->setPosition(Vec2(30, 50) + displacement / distance * 100);
+    arrow->setPosition(Vec2(30, 30) + displacement / distance * 100);
     int degree = acos(displacement.y / distance) / M_PI * 180; //내적
     if (displacement.x < 0)
     {

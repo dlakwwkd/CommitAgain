@@ -6,14 +6,14 @@
 Hero::Hero()
 {
     m_Arrow = Sprite::create("Images/arrow.png");
-    m_Arrow->setScale(0.09f, 0.09f);
-    m_Arrow->setPosition(Vec2(50, 50));
+    m_Arrow->setScale(0.1f, 0.1f);
     m_Arrow->setVisible(false);
+	m_Sprite->addChild(m_Arrow);
 
     m_SkillRange = Sprite::create("Images/SkillRange.png");
     m_SkillRange->setScale(1.2f, 1.2f);
-    m_SkillRange->setPosition(Vec2(0, 0));
-    m_SkillRange->setVisible(false);
+	m_SkillRange->setVisible(false);
+	m_Sprite->addChild(m_SkillRange);
 }
 
 

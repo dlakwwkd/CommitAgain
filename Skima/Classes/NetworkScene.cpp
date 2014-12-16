@@ -96,7 +96,6 @@ void NetworkScene::Tick(float dt)
     {
         ConnectLabelChange("서버 연결 양호.");
     }
-    ShowCursor(true);
 }
 //////////////////////////////////////////////////////////////////////////
 

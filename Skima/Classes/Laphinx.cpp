@@ -8,32 +8,34 @@
 
 Laphinx::Laphinx(Vec2 createPos, float scale)
 {
-    m_HeroType = HERO_LAPHINX;
+	m_HeroType = HERO_LAPHINX;
+	m_MaxHp = 1000.0f;
+	m_CurHp = m_MaxHp;
+	m_Sprite->setPosition(createPos);
+	m_Sprite->setScale(scale);
+
     SetMoveMotionToCache();
     SetSkillMotionToCache();
-    m_RealSprite = Sprite::createWithSpriteFrameName("Laphinx_S3.png");
-    m_Sprite->setScale(scale);
-    m_Sprite->setPosition(createPos);
+	SetHpBar();
+    
+	m_RealSprite = Sprite::createWithSpriteFrameName("Laphinx_S3.png");
     m_RealSprite->setScale(scale);
-    m_RealSprite->setPosition(scale*35,scale*35);
-    m_Sprite->addChild(m_RealSprite);
-    m_Sprite->addChild(m_Arrow);
-    m_Sprite->addChild(m_SkillRange);
+	m_RealSprite->setAnchorPoint(Vec2(0, 0));
+	m_RealSprite->setPosition(-50, -50);
+	m_Sprite->addChild(m_RealSprite);
+
 //     auto shadow = Sprite::create("Jupiter/Jupiter_shadow.png");
-//     shadow->setScale(0.75f);
 //     shadow->setPosition(Vec2(27.5f, 2.5f));
+//     shadow->setScale(0.75f);
 //     shadow->setOpacity(150);
 //    m_RealSprite->addChild(shadow, -2);
 
     m_Qparticle = ParticleSystemQuad::create("Laphinx/LaphinxSpeedParticle.plist");
-    m_Qparticle->setScale(0.7f);
     m_Qparticle->setPosition(Vec2(30.0f, 25.0f));
+    m_Qparticle->setScale(0.7f);
     m_Qparticle->setVisible(false);
     m_RealSprite->addChild(m_Qparticle, -1);
 
-    m_MaxHp = 1000.0f;
-    m_CurHp = m_MaxHp;
-    SetHpBar();
 //     m_SkillList[SKILL_Q] = new FireballSkill(this);
 //     m_SkillList[SKILL_W] = new IceballSkill(this);
      m_SkillList[SKILL_E] = new SwipeSkill(this);

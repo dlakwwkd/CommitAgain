@@ -31,12 +31,11 @@ Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 
 bool GameOverScene::init()
 {
-	ShowCursor(true);
-
 	if (!LayerColor::initWithColor(Color4B(100, 100, 200, 255)))
 	{
 		return false;
 	}
+	ShowCursor(true);
 	auto label1 = Label::createWithSystemFont("Play Again", "Thonburi", 50);
 	auto label2 = Label::createWithSystemFont("Exit", "Thonburi", 50);
 

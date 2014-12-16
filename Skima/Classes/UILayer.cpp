@@ -37,8 +37,6 @@ bool UILayer::init()
     this->addChild(sprite("Images/iceball.jpg",         Vec2(518, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
     this->addChild(sprite("Images/teleport_icon.png",   Vec2(593, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
 
-    
-
     auto cooltimeBox = [&](SkillKey key, Vec2 pos)
     {
         m_CooltimeBox[key] = sprite("Images/black.jpg", pos, Vec2(COOLTIME_BOX_X, COOLTIME_BOX_Y), Vec2(0.0, 0.0));
@@ -49,18 +47,18 @@ bool UILayer::init()
     this->addChild(cooltimeBox(SKILL_W, Vec2(490, 8)));
     this->addChild(cooltimeBox(SKILL_E, Vec2(567, 8)));
     
-    auto cursor = [&](CursorMode mode, const char* image, Vec2 scale)
+	auto cursor = [&](CursorMode mode, const char* image, Vec2 scale, Vec2 anchor)
     {
-        m_CursorShape[mode] = sprite(image, Vec2::ZERO, scale, Vec2(0.5f, 0.8f));
+		m_CursorShape[mode] = sprite(image, Vec2::ZERO, scale, anchor);
         m_CursorShape[mode]->setVisible(false);
         return m_CursorShape[mode];
     };
-    m_Cursor = cursor(CURSOR_DEFAULT, "Images/cursor_default.png", Vec2(1, 1));
+	m_Cursor = cursor(CURSOR_DEFAULT, "Images/cursor_default.png", Vec2(1, 1), Vec2(0, 1));
     m_Cursor->setVisible(true);
     this->addChild(m_Cursor, 10);
-    this->addChild(cursor(CURSOR_ATTACK,	    "Images/cursor_attack.png",     Vec2(1, 1)),        10);
-    this->addChild(cursor(CURSOR_TELEPORT,  "Images/cursor_teleport.png",   Vec2(0.2f, 0.08f)), 10);
-    this->addChild(cursor(CURSOR_SPLASH,    "Images/cursor_splash.png",     Vec2(1.5f, 1.5f)),        10);
+	this->addChild(cursor(CURSOR_ATTACK, "Images/cursor_attack.png",			Vec2(1, 1),			Vec2(0, 1)),		10);
+	this->addChild(cursor(CURSOR_TELEPORT, "Images/cursor_teleport.png",		Vec2(0.2f, 0.08f),	Vec2(0.5f, 0.5f)),	10);
+	this->addChild(cursor(CURSOR_SPLASH, "Images/cursor_splash.png",			Vec2(1.5f, 1.5f),	Vec2(0.5f, 0.5f)),	10);
 
     return true;
 }
@@ -93,9 +91,9 @@ void UILayer::HideCooltimeBox(SkillKey key)
 
 void UILayer::ClickExit(Ref* sender)
 {
-    TcpClient::getInstance()->disconnect();
+	ShowCursor(true);
+	TcpClient::getInstance()->disconnect();
     Director::getInstance()->popScene();
-    ShowCursor(true);
 }
 
 void UILayer::UpdateHpBar(float curHp, float maxHp)
