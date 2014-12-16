@@ -11,6 +11,7 @@ Laphinx::Laphinx(Player* owner, b2Vec2 pos, float scale)
     m_UnitID = SET_SIDE_TYPE(m_UnitID, HERO_LAPHINX);
     m_Hp = m_MaxHp = 1000;
     m_Speed = REDUCE(360);
+    m_Damage = 150;
 
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
