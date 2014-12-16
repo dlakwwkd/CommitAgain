@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>JupiterMove_W_01.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{62,84},{61,85}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{4,14},{61,85}}</string>
+				<key>sourceSize</key>
+				<string>{70,110}</string>
+			</dict>
+
+			<key>JupiterMove_W_02.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{124,0},{61,85}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{6,8},{61,85}}</string>
+				<key>sourceSize</key>
+				<string>{78,99}</string>
+			</dict>
+
+			<key>JupiterMove_W_03.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{124,86},{60,84}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,9},{60,84}}</string>
+				<key>sourceSize</key>
+				<string>{66,99}</string>
+			</dict>
+
+			<key>JupiterMove_W_04.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{62,170},{61,82}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{4,11},{61,82}}</string>
+				<key>sourceSize</key>
+				<string>{73,99}</string>
+			</dict>
+
+			<key>JupiterMove_W_05.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{62,83}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{2,10},{62,83}}</string>
+				<key>sourceSize</key>
+				<string>{68,99}</string>
+			</dict>
+
+			<key>JupiterMove_W_06.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,171},{61,84}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{6,9},{61,84}}</string>
+				<key>sourceSize</key>
+				<string>{69,99}</string>
+			</dict>
+
+			<key>JupiterMove_W_07.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,84},{61,86}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{8,7},{61,86}}</string>
+				<key>sourceSize</key>
+				<string>{78,99}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{256,256}</string>
+			<key>textureFileName</key>
+			<string>JupiterMove_W.png</string>
+			</dict>
+		</dict>
+</plist>
