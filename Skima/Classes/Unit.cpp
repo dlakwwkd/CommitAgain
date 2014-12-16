@@ -13,10 +13,7 @@ Unit::Unit()
     m_Speed = 0;
     m_TargetPos = { 0, 0 };
 	m_InUse = false;
-    m_MyHpBar = nullptr;
-    m_Body = nullptr;
 	m_Sprite = Sprite::create("Images/CloackingUnit.png");
-	m_RealSprite = nullptr;
     m_MoveState = m_StandbyState = new StandbyState();
     m_MovingState = new MovingState();
     m_CrashedState = new CrashedState();

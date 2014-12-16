@@ -8,11 +8,11 @@ class MoveState : public State
 {
 public:
     virtual ~MoveState(){}
-    virtual void TryMove(Unit* unit) = 0;
-    virtual void Crashed(Unit* unit) = 0;
-    virtual void EndMove(Unit* unit) = 0;
-    virtual void EndCrash(Unit* unit) = 0;
-    virtual void Movement(Unit* unit) = 0;
+    virtual void TryMove(Unit* unit)	= 0;
+    virtual void Crashed(Unit* unit)	= 0;
+    virtual void EndMove(Unit* unit)	= 0;
+    virtual void EndCrash(Unit* unit)	= 0;
+    virtual void Movement(Unit* unit)	= 0;
 };
 class StandbyState : public MoveState
 {

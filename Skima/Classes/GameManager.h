@@ -15,14 +15,12 @@ public:
         static GameManager instance;
         return instance;
     }
-    std::shared_ptr<InputManager>   getInputManager(){ return m_IM; }
-
+	std::shared_ptr<InputManager>	getInputManager(){ return m_IM; }
     void                            SetGameMode(GameMode mode){ m_Mode = mode; }
     GameMode                        GetGameMode(){ return m_Mode; }
 
 private:
     GameManager();
-    std::shared_ptr<InputManager>   m_IM;
-
+	std::shared_ptr<InputManager>   m_IM = nullptr;
     GameMode                        m_Mode;
 };

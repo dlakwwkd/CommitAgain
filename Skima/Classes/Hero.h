@@ -21,10 +21,10 @@ public:
     void			SkillReady(SkillKey key);
     void			SkillEnd(SkillKey key);
 
-    virtual void    SetMoveMotionToCache() = 0;
-    virtual void    SetSkillMotionToCache() = 0;
-    virtual void    SetMoveMotionByDir() = 0;
-    virtual void    SetSkillMotionByDir(SkillKey key) = 0;
+    virtual void    SetMoveMotionToCache()				= 0;
+    virtual void    SetSkillMotionToCache()				= 0;
+    virtual void    SetMoveMotionByDir()				= 0;
+    virtual void    SetSkillMotionByDir(SkillKey key)	= 0;
 
 protected:
     RepeatForever*  MakeAnimation(const char* format, int size);
@@ -34,8 +34,8 @@ protected:
 
 protected:
     std::map<SkillKey, Skill*>  m_SkillList;
-    Sprite*                     m_Arrow;
-    Sprite*                     m_SkillRange;
     HeroType                    m_HeroType;
+    Sprite*                     m_Arrow	= nullptr;
+    Sprite*                     m_SkillRange = nullptr;
 };
 

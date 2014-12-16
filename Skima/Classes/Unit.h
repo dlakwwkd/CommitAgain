@@ -57,10 +57,10 @@ protected:
 
 
 protected:
-    MoveState*      m_MoveState;
-    MoveState*      m_StandbyState;
-    MoveState*      m_MovingState;
-    MoveState*      m_CrashedState;
+    MoveState*      m_MoveState	= nullptr;
+	MoveState*      m_StandbyState = nullptr;
+	MoveState*      m_MovingState = nullptr;
+	MoveState*      m_CrashedState = nullptr;
 
 protected:
     MoveMotion      m_MoveMotionByDir;
@@ -75,11 +75,11 @@ protected:
     Vec2            m_TargetPos;
 
 protected:
-    Sprite*         m_RealSprite;
-    Sprite*         m_Sprite; // 투명 스프라이트
-    Sprite*         m_MyHpBar;
-    Sprite*         m_OtherHpBar;
-    PhysicsBody*    m_Body;
+	Sprite*         m_RealSprite = nullptr;
+	Sprite*         m_Sprite = nullptr; // 투명 스프라이트
+	Sprite*         m_MyHpBar = nullptr;
+	Sprite*         m_OtherHpBar = nullptr;
+	PhysicsBody*    m_Body = nullptr;
 
 
     friend class ObjectManager;

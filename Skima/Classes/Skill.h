@@ -15,14 +15,15 @@ public:
     bool            GetCanUse() { return m_CanUse; }
     void            SetCanUse(bool isUse) { m_CanUse = isUse; }
 
-    Direction       GenerateSkillDirection(Vec2 targetPos, Vec2 curPos);
     virtual void	SkillCast(Vec2 heroPos, Vec2 targetPos) = 0;
-    virtual void    SkillReady() = 0;
-    virtual void    SkillEnd() = 0;
+    virtual void    SkillReady()							= 0;
+    virtual void    SkillEnd()								= 0;
+
+    Direction       GenerateSkillDirection(Vec2 targetPos, Vec2 curPos);
 
 protected:
-    Hero*       m_Hero;
-    int         m_CoolTime;
-    bool        m_CanUse;
+    Hero*			m_Hero = nullptr;
+    int				m_CoolTime;
+    bool			m_CanUse;
 };
 
