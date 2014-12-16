@@ -1,18 +1,17 @@
 #include "pch.h"
-#include "FlashSkill.h"
-#include "TeleportEffect.h"
+#include "AdrenalineSkill.h"
 #include "GameManager.h"
 #include "Hero.h"
 #include "Unit.h"
 
 
-FlashSkill::FlashSkill()
+AdrenalineSkill::AdrenalineSkill()
 {
     m_CoolTime = 3;
     m_CanUse = true;
 }
 
-FlashSkill::FlashSkill(Hero* hero)
+AdrenalineSkill::AdrenalineSkill(Hero* hero)
 {
     m_Hero = hero;
     m_CoolTime = 3;
@@ -20,31 +19,31 @@ FlashSkill::FlashSkill(Hero* hero)
 }
 
 
-FlashSkill::~FlashSkill()
+AdrenalineSkill::~AdrenalineSkill()
 {
 }
 
 
-void FlashSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
+void AdrenalineSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
-    auto effect = new TeleportEffect();
-    effect->CreateEffect(heroPos);
-
-    m_Hero->EndMove();
-    auto distance = heroPos.distance(targetPos);
-    auto time = distance / 1500.0f;
-    auto action = MoveTo::create(time, targetPos);
-    m_Hero->GetSprite()->runAction(action);
+//     auto effect = new TeleportEffect();
+//     effect->CreateEffect(heroPos);
+// 
+//     m_Hero->EndMove();
+//     auto distance = heroPos.distance(targetPos);
+//     auto time = distance / 1500.0f;
+//     auto action = MoveTo::create(time, targetPos);
+//     m_Hero->GetSprite()->runAction(action);
 }
 
-void FlashSkill::SkillReady()
+void AdrenalineSkill::SkillReady()
 {
-    auto moveDir = m_Hero->GetArrow();
-    moveDir->setVisible(true);
+//     auto moveDir = m_Hero->GetArrow();
+//     moveDir->setVisible(true);
 }
 
-void FlashSkill::SkillEnd()
+void AdrenalineSkill::SkillEnd()
 {
-    auto moveDir = m_Hero->GetArrow();
-    moveDir->setVisible(false);
+//     auto moveDir = m_Hero->GetArrow();
+//     moveDir->setVisible(false);
 }

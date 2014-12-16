@@ -223,6 +223,9 @@
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp" />
+    <ClCompile Include="..\Classes\AdrenalineSkill.cpp">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -385,6 +388,9 @@
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LightningPumpkinEffect.h" />
+    <ClInclude Include="..\Classes\AdrenalineSkill.h">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

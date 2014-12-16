@@ -138,6 +138,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Classes\AdrenalineSkill.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\CircularBuffer.cpp" />
     <ClCompile Include="..\Classes\Effect.cpp" />
@@ -195,6 +196,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClInclude Include="..\..\PacketType.h" />
     <ClInclude Include="..\..\Shared\FSM.h" />
+    <ClInclude Include="..\Classes\AdrenalineSkill.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\CircularBuffer.h" />
     <ClInclude Include="..\Classes\Effect.h" />
