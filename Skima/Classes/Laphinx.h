@@ -7,11 +7,13 @@ public:
     virtual ~Laphinx();
 
 public:
-    virtual void    SetMoveMotionByDir();
-    virtual void    SetSkillMotionByDir(SkillKey key);
+    virtual void            SetMoveMotionByDir();
+    virtual void            SetSkillMotionByDir(SkillKey key);
+    ParticleSystemQuad*     GetQ_particle(){ return m_Qparticle; }
+
 private:
-    virtual void    SetMoveMotionToCache();
-    virtual void    SetSkillMotionToCache();
+    virtual void            SetMoveMotionToCache();
+    virtual void            SetSkillMotionToCache();
 
 private:
     ParticleSystemQuad* m_Qparticle;

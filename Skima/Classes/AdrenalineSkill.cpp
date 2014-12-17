@@ -26,6 +26,9 @@ AdrenalineSkill::~AdrenalineSkill()
 
 void AdrenalineSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
+    // m_hero의 Qparticle을 setvisible해준다
+
+
 //     auto effect = new TeleportEffect();
 //     effect->CreateEffect(heroPos);
 // 
