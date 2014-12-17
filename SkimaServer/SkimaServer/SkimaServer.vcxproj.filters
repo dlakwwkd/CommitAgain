@@ -119,6 +119,9 @@
     <ClCompile Include="SwipeSKill.cpp">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClCompile>
+    <ClCompile Include="AdrenalineSkill.cpp">
+      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -259,6 +262,9 @@
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
     <ClInclude Include="SwipeSKill.h">
+      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="AdrenalineSkill.h">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClInclude>
   </ItemGroup>
