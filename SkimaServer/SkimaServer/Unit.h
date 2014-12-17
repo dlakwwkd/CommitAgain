@@ -31,10 +31,12 @@ public:
     b2Body*         GetBody(){ return m_Body; }
     void            InitBody(){ m_Body = nullptr; }
 
+	void			SetDynamicBody(Player* owner, int type, b2Vec2 initPos, float scale);
+	void			SetStaticBody(Player* owner, int type, b2Vec2 initPos, b2Vec2 scale);
+
     void            Moving();
     void            Crashing(bool isCrashing);
     void            Damaged(int damage);
-    void            IamDead();
     virtual void    Extinction(){}
 
     void            TryMove(b2Vec2 currentPos, b2Vec2 targetPos);

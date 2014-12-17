@@ -12,7 +12,7 @@ IceballSkill::IceballSkill(Player* owner, float heroBodySize)
     m_MissileType = MS_ICE_BALL;
     m_MissileSpeed = REDUCE(800);
     m_MissileScale = DEF_SCALE;
-    m_HeroBodySize = heroBodySize;
+	m_HeroBodySize = REDUCE(heroBodySize);
     m_Range = REDUCE(800);
     m_MissileHp = 100;
 }

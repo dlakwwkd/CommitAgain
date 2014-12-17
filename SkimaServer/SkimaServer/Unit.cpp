@@ -30,6 +30,50 @@ Unit::~Unit()
     delete m_CrashedState;
 }
 
+void Unit::SetDynamicBody(Player* owner, int type, b2Vec2 initPos, float scale)
+{
+	m_Owner = owner;
+	m_UnitID = SET_SIDE_TYPE(m_UnitID, type);
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(initPos.x, initPos.y);
+	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
+
+	b2CircleShape circle;
+	circle.m_radius = REDUCE(scale);
+
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &circle;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.3f;
+	fixtureDef.restitution = 0.7f;
+
+	m_Body->CreateFixture(&fixtureDef);
+	m_Body->SetUserData(this);
+}
+
+void Unit::SetStaticBody(Player* owner, int type, b2Vec2 initPos, b2Vec2 scale)
+{
+	m_Owner = owner;
+	m_UnitID = SET_SIDE_TYPE(m_UnitID, type);
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_staticBody;
+	bodyDef.position.Set(initPos.x, initPos.y);
+	m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
+
+	b2PolygonShape square;
+	square.SetAsBox(REDUCE(scale.x), REDUCE(scale.y));
+
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &square;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.3f;
+	fixtureDef.restitution = 0.7f;
+
+	m_Body->CreateFixture(&fixtureDef);
+	m_Body->SetUserData(this);
+}
+
 
 void Unit::Moving()
 {
@@ -47,16 +91,12 @@ void Unit::Crashing(bool isCrashing)
 {
     switch (GET_MAIN_TYPE(m_UnitID))
     {
-    case UNIT_HERO:
-        if (m_Hp <= 0) IamDead();
-        break;
     case UNIT_MISSILE:
         isCrashing = false;
         Extinction();
         break;
     case UNIT_OBSTRUCT:
         break;
-
     };
 
     auto client = m_Owner->GetClient();
@@ -86,31 +126,6 @@ void Unit::Crashing(bool isCrashing)
     client->CrashedBroadCast(m_UnitID, curPos, expectPos, isCrashing);
 }
 
-
-void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
-{
-    auto client = m_Owner->GetClient();
-    if (client == nullptr)
-    {
-        printf(" - TryMove Failed ! : client is invalid \n");
-        return;
-    }
-
-    auto displacement = targetPos - m_Body->GetPosition();
-    if (displacement.Normalize() < 0.5f)
-    {
-        m_Body->SetLinearVelocity(b2Vec2(0, 0));
-        return;
-    }
-    displacement *= m_Speed;
-    m_Body->SetLinearVelocity(displacement);
-
-    m_TargetPos = targetPos;
-    m_State->TryMove(this);
-
-    client->SendHeroInfo(m_UnitID, currentPos, m_TargetPos);
-}
-
 void Unit::Damaged(int damage)
 {
     m_Hp -= damage;
@@ -127,7 +142,6 @@ void Unit::Damaged(int damage)
     case UNIT_OBSTRUCT:
         if (m_Hp <= 0)
         {
-
             
         }
         break;
@@ -136,7 +150,27 @@ void Unit::Damaged(int damage)
     }
 }
 
-void Unit::IamDead()
-{
 
+void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
+{
+	auto client = m_Owner->GetClient();
+	if (client == nullptr)
+	{
+		printf(" - TryMove Failed ! : client is invalid \n");
+		return;
+	}
+
+	auto displacement = targetPos - m_Body->GetPosition();
+	if (displacement.Normalize() < 0.5f)
+	{
+		m_Body->SetLinearVelocity(b2Vec2(0, 0));
+		return;
+	}
+	displacement *= m_Speed;
+	m_Body->SetLinearVelocity(displacement);
+
+	m_TargetPos = targetPos;
+	m_State->TryMove(this);
+
+	client->SendHeroInfo(m_UnitID, currentPos, m_TargetPos);
 }

@@ -32,7 +32,7 @@ void ShootType::ShootMissile(b2Vec2 initPos)
     auto missile = static_cast<Missile*>(GObjectManager->Assign(UNIT_MISSILE));
     m_Owner->UnitListPush(missile->GetUnitID(), missile);
 
-    missile->SetMissileInit(m_Owner, m_MissileType, initPos, m_MissileScale);
+    missile->SetDynamicBody(m_Owner, m_MissileType, initPos, m_MissileScale);
     missile->SetMissileTargetPos(m_TargetPos);
     missile->SetMissileSpeed(m_MissileSpeed);
     missile->SetMissileDamage(m_Damage);
