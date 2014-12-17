@@ -5,7 +5,6 @@ class GameRoom;
 class Map;
 
 typedef std::map<int, Player*> PlayerList;
-typedef std::vector<MapObject*> MapObjectList;
 
 class Game
 {
@@ -25,6 +24,7 @@ public:
 	void				EndGame();
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int playerId);
+    Map*                GetMap(){ return m_Map; }
 
 private:
     Player*             m_Computer;
