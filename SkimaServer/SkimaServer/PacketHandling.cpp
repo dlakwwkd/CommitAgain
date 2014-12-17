@@ -251,8 +251,8 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
 
     if (game->GetLoadedPlayerNum() >= MAX_PLAYER_NUM)
     {
-        session->StartGame();
         game->SetIsStart(true);
+        session->StartGame();
     }
 }
 
@@ -279,8 +279,6 @@ REGISTER_HANDLER(PKT_CS_MOVE)
     b2Vec2 currentPos = CONVERT_IN(inPacket.mCurrentPos, roomId);
 
     hero->TryMove(currentPos, targetPos);
-
-    //session->SendUnitInfo(unit->GetUnitID(), unit->GetUnitType(), currentPos, targetPos);
 }
 
 REGISTER_HANDLER(PKT_CS_SKILL)
@@ -401,28 +399,34 @@ void ClientSession::OutGameRoom()
     GGameManager->PlayerOut(mPlayer);
 }
 
-void ClientSession::ServerRunComplete()
-{
-    ServerRunCompleteNotify outPacket;
-    outPacket.mPlayerId = mPlayer->GetPlayerID();
 
-    if (!Broadcast(&outPacket))
-    {
-        Disconnect();
-    }
-    printf(" Send: ServerRunCompleteNotify Room ID: %d \n", mPlayer->GetRoomID());
-}
-
+///////////////////////////////////////////////////////////////////////////
+/*
+	로딩 처리 관련
+*/
+///////////////////////////////////////////////////////////////////////////
 void ClientSession::AllReadyNotify()
 {
-    GameRunNotify outPacket;
-    outPacket.mPlayerId = mPlayer->GetPlayerID();
+	GameRunNotify outPacket;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
 
-    if (!Broadcast(&outPacket))
-    {
-        Disconnect();
-    }
-    printf(" Send: GameRunNotify Room ID: %d \n", mPlayer->GetRoomID());
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+	printf(" Send: GameRunNotify Room ID: %d \n", mPlayer->GetRoomID());
+}
+
+void ClientSession::ServerRunComplete()
+{
+	ServerRunCompleteNotify outPacket;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+	printf(" Send: ServerRunCompleteNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
 void ClientSession::SendCreateHeroResult(int unitId, const b2Vec2& pos)
@@ -455,28 +459,34 @@ void ClientSession::SendMapInfo(int unitId, const b2Vec2& pos)
 
 void ClientSession::StartGame()
 {
-    StartGameNotify outPacket;
-    outPacket.mPlayerId = mPlayer->GetPlayerID();
+	StartGameNotify outPacket;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
 
-    if (!Broadcast(&outPacket))
-    {
-        Disconnect();
-    }
-    printf(" Send: StartGameNotify Room ID: %d \n", mPlayer->GetRoomID());
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
+	printf(" Send: StartGameNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
-void ClientSession::SendHeroInfo(int unitId, const b2Vec2& curPos, const b2Vec2& targetPos)
-{
-    MoveBroadcastResult outPacket;
-    outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mUnitId = unitId;
-    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
-    outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
-    if (!Broadcast(&outPacket))
-    {
-        Disconnect();
-    }
+///////////////////////////////////////////////////////////////////////////
+/*
+	게임 플레이 관련
+*/
+///////////////////////////////////////////////////////////////////////////
+void ClientSession::TryMoveBroadCast(int unitId, const b2Vec2& curPos, const b2Vec2& targetPos)
+{
+	MoveBroadcastResult outPacket;
+	outPacket.mPlayerId = mPlayer->GetPlayerID();
+	outPacket.mUnitId = unitId;
+	outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
+	outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
+
+	if (!Broadcast(&outPacket))
+	{
+		Disconnect();
+	}
 }
 
 void ClientSession::CrashedBroadCast(int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed)
@@ -492,7 +502,6 @@ void ClientSession::CrashedBroadCast(int unitId, const b2Vec2& curPos, const b2V
     {
         Disconnect();
     }
-    //printf(" Send: Crashed!  UnitID: %d, \t\t X : %.f\tY : %.f\n", unitId, outPacket.mExpectPosX, outPacket.mExpectPosY);
 }
 
 void ClientSession::SkillBroadCast(int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key)

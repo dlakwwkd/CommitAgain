@@ -35,12 +35,14 @@ public:
     void    MakeGameRoom();
     void    JoinGameRoom();
     void    OutGameRoom();
+
 	void    AllReadyNotify();
 	void    ServerRunComplete();
-	void    StartGame();
 	void	SendCreateHeroResult(			int unitId, const b2Vec2& pos);
 	void	SendMapInfo(					int unitId, const b2Vec2& pos);
-	void	SendHeroInfo(					int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
+	void    StartGame();
+
+	void	TryMoveBroadCast(				int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
 	void	CrashedBroadCast(				int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed);
 	void	SkillBroadCast(					int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key);
 	void	SplashSkillBroadCast(			int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key);

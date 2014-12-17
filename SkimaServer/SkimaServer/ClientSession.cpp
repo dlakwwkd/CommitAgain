@@ -26,7 +26,9 @@ bool ClientSession::OnConnect(SOCKADDR_IN* addr)
     int opt = 1;
     setsockopt(mSocket, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int));
 
-    printf("[DEBUG] Client Connected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port));
+	puts("===============================================================================");
+	printf("  [ Client Connected ] \t\t IP = %s, \t PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port));
+	puts("===============================================================================");
     
     mConnected = true;
     OnTick();
@@ -80,7 +82,9 @@ void ClientSession::Disconnect()
         delete mPlayer;
         mPlayer = nullptr;
     }
-    printf("[DEBUG] Client Disconnected: IP = %s, PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port));
+	puts("===============================================================================");
+    printf("  [ Client Disconnected ] \t IP = %s, \t PORT = %d\n", inet_ntoa(mClientAddr.sin_addr), ntohs(mClientAddr.sin_port));
+	puts("===============================================================================");
 
     CloseSocketNoWait();
     mConnected = false;

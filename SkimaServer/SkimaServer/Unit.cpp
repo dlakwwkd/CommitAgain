@@ -172,5 +172,5 @@ void Unit::TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos)
 	m_TargetPos = targetPos;
 	m_State->TryMove(this);
 
-	client->SendHeroInfo(m_UnitID, currentPos, m_TargetPos);
+	client->TryMoveBroadCast(m_UnitID, currentPos, m_TargetPos);
 }
