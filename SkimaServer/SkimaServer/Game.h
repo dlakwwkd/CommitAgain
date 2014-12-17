@@ -22,7 +22,6 @@ public:
 
     void                Tick(float dt);
     void                InitGame();
-    void                InitMap();
 	void				EndGame();
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int playerId);
@@ -30,7 +29,6 @@ public:
 private:
     Player*             m_Computer;
     PlayerList          m_PlayerList;
-    MapObjectList       m_MapObjectList;
     Map*                m_Map;
     int                 m_GameID;
     bool                m_IsStart;

@@ -116,12 +116,22 @@ void Unit::Damaged(int damage)
     m_Hp -= damage;
     m_Owner->GetClient()->HpBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Hp);
 
-    if (GET_MAIN_TYPE(m_UnitID) == UNIT_HERO)
+    switch (GET_MAIN_TYPE(m_UnitID))
     {
+    case UNIT_HERO:
         if (m_Hp <= 0)
         {
             CallFuncAfter(MANAGER_UPDATE_INTERVAL, GGameManager, &GameManager::GameOver, m_Owner);
         }
+        break;
+    case UNIT_OBSTRUCT:
+        if (m_Hp <= 0)
+        {
+
+        }
+        break;
+    default:
+        break;
     }
 }
 

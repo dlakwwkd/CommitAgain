@@ -2,6 +2,9 @@
 #include "Map.h"
 #include "Scheduler.h"
 #include "GameManager.h"
+#include "ClientSession.h"
+#include "MoveRock.h"
+#include "Player.h"
 
 
 Map::Map(int roomId)
@@ -30,10 +33,34 @@ Map::Map(int roomId)
     createLine(b2Vec2(edgePos.x, startPos.y), edgePos); //우
 
     m_Body->SetUserData(nullptr);
+
+    m_MapObjectList.reserve(MAX_OBSTRUCT_SIZE);
 }
 
 
 Map::~Map()
 {
     CallFuncAfter(1, GGameManager, &GameManager::DeleteBody, m_Body);
+}
+
+void Map::InitMap(int roomId, Player* player)
+{
+    for (int i = 0; i < 5; ++i)
+    {
+        auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
+        MoveRock* rock = new MoveRock(player, b2Vec2(CONVERT_IN(pos, roomId)));
+
+        m_MapObjectList.push_back(rock);
+        player->GetClient()->SendMapInfo(rock->GetUnitID(), rock->GetBody()->GetPosition());
+    }
+}
+
+void Map::ObjectListClear()
+{
+    for (auto& mapObject : m_MapObjectList)
+    {
+        delete mapObject;
+        mapObject = nullptr;
+    }
+    m_MapObjectList.clear();
 }

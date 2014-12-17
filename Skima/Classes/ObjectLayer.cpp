@@ -11,6 +11,7 @@
 #include "Enums.h"
 #include "TeleportEffect.h"
 #include "LightningEffect.h"
+#include "RockEffect.h"
 #include "Unit.h"
 #include "Skill.h"
 #include "Laphinx.h"
@@ -123,6 +124,12 @@ void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
 	}
 	if (GET_MAIN_TYPE(unitID) == UNIT_OBSTRUCT)
 	{
+        if (curHp <= 0)
+        {
+            auto mapObject = std::dynamic_pointer_cast<MapObject>(unit->second);
+            mapObject->MapObjectBreak();
+            m_UnitList.erase(unit);
+        }
 		return;
 	}
 	unit->second->SetHp(curHp);

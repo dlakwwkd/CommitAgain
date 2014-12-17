@@ -6,5 +6,7 @@ class MapObject :
 public:
     MapObject();
     ~MapObject();
+
+    void MapObjectBreak();
 };
 

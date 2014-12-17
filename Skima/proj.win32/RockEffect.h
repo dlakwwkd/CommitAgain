@@ -1,11 +1,10 @@
 #pragma once
-#include "C:\cocos2d-x\projects\CommitAgain\Skima\Classes\Effect.h"
-class RockEffect :
-    public Effect
+#include "EffectParticleType.h"
+class RockEffect : public EffectParticleType
 {
 public:
     RockEffect();
-    ~RockEffect();
+    virtual ~RockEffect();
 
     void CreateEffect(Vec2 createPos);
     void ExtinctEffect();
