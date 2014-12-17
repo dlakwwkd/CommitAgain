@@ -1,8 +1,10 @@
 #pragma once
 #include "..\..\PacketType.h"
 #include "RefCountable.h"
+#include <unordered_map>
 class Unit;
-class Missile;
+
+typedef std::unordered_multimap<UnitType, Unit*> UnitPoolList;
 
 #define INIT_POOL_SIZE 1000
 
@@ -19,8 +21,9 @@ private:
     Unit*   Expand(UnitType type);
 
 private:
-	std::vector<Missile*>   m_MissileList;
-    int                     m_LastID_Missile;
+	UnitPoolList	m_UnitPoolList;
+	int				m_LastID_Missile;
+	int				m_LastID_Mob;
 };
 
 extern UnitPoolManager* GUnitPoolManager;

@@ -24,7 +24,7 @@ void Missile::Extinction()
 	{
 		//CallFuncAfter(1, GObjectManager, &ObjectManager::Except, this);
 		CallFuncAfter(1, GUnitPoolManager, &UnitPoolManager::Release, this);
-		printf("Extinction()!! : UnitID : %d \n", INIT_TYPE(m_UnitID));
+		printf(" Missile::Extinction()!! : UnitID : %d \n", INIT_TYPE(m_UnitID));
 	}
 }
 
