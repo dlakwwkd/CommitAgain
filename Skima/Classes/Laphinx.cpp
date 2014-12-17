@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "PacketType.h"
 #include "SwipeSkill.h"
+#include "AdrenalineSkill.h"
 
 
 
@@ -37,7 +38,7 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
     m_Qparticle->setVisible(false);
     m_RealSprite->addChild(m_Qparticle, -1);
 
-//     m_SkillList[SKILL_Q] = new FireballSkill(this);
+    m_SkillList[SKILL_Q] = new AdrenalineSkill(this);
 //     m_SkillList[SKILL_W] = new IceballSkill(this);
     m_SkillList[SKILL_E] = new SwipeSkill(this);
 }
