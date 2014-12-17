@@ -60,7 +60,8 @@ void Game::InitGame()
         }
         player.second->CreateHero(CONVERT_IN(createPos, roomId));
     }
-    m_Computer = new Player(temp, COMPUTER, COMPUTER);  // 100번 보면 이해됨.
+    m_Computer = new Player(temp, COMPUTER, COMPUTER);// 100번 보면 이해됨.
+    m_Computer->SetRoomID(roomId);
 
     m_Map = new Map(roomId);
     m_Map->InitMap(roomId, m_Computer);

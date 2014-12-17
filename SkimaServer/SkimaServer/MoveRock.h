@@ -5,6 +5,6 @@ class MoveRock :
 {
 public:
     MoveRock(Player* owner, const b2Vec2& pos);
-    ~MoveRock();
+    virtual ~MoveRock();
 };
 

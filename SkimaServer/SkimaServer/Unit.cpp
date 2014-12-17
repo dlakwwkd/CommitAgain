@@ -4,6 +4,8 @@
 #include "GameManager.h"
 #include "Player.h"
 #include "ClientSession.h"
+#include "Game.h"
+#include "Map.h"
 
 Unit::Unit()
 {
@@ -142,7 +144,15 @@ void Unit::Damaged(int damage)
     case UNIT_OBSTRUCT:
         if (m_Hp <= 0)
         {
-            
+            auto gameId = m_Owner->GetRoomID();
+
+            auto game = GGameManager->SearchGame(gameId);
+            if (game == nullptr)
+            {
+                printf("Object Game Can't Find");
+            }
+            auto map = game->GetMap();
+            CallFuncAfter(MANAGER_UPDATE_INTERVAL, map, &Map::ObjectBreak, m_UnitID);
         }
         break;
     default:
