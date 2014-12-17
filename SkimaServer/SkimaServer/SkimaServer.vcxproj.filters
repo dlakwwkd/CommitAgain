@@ -124,6 +124,7 @@
     </ClCompile>
     <ClCompile Include="UnitPool.cpp">
       <Filter>Game\Component\Unit\UnitPool</Filter>
+    </ClCompile>
     <ClCompile Include="AdrenalineSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClCompile>
@@ -274,6 +275,7 @@
     </ClInclude>
     <ClInclude Include="UnitPool.h">
       <Filter>Game\Component\Unit\UnitPool</Filter>
+    </ClInclude>
     <ClInclude Include="AdrenalineSkill.h">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClInclude>
