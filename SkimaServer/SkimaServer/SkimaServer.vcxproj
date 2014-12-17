@@ -178,6 +178,7 @@
     <ClInclude Include="IceballSkill.h" />
     <ClInclude Include="Jupiter.h" />
     <ClInclude Include="Laphinx.h" />
+    <ClInclude Include="Lava.h" />
     <ClInclude Include="LightningSkill.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Magician.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="MoveRock.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="UnitPool.h" />
     <ClInclude Include="UnitPoolManager.h" />
     <ClInclude Include="ObjectPool.h" />
@@ -228,6 +230,7 @@
     <ClCompile Include="IceballSkill.cpp" />
     <ClCompile Include="Jupiter.cpp" />
     <ClCompile Include="Laphinx.cpp" />
+    <ClCompile Include="Lava.cpp" />
     <ClCompile Include="LightningSkill.cpp" />
     <ClCompile Include="Magician.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -237,6 +240,7 @@
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="MoveRock.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="UnitPool.cpp" />
     <ClCompile Include="UnitPoolManager.cpp" />
     <ClCompile Include="PacketHandling.cpp" />

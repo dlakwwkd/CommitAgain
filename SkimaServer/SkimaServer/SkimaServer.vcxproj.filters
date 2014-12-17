@@ -128,6 +128,12 @@
     <ClCompile Include="AdrenalineSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Game\Component\Map\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Lava.cpp">
+      <Filter>Game\Component\Map\Terrain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -279,6 +285,12 @@
     <ClInclude Include="AdrenalineSkill.h">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Game\Component\Map\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Lava.h">
+      <Filter>Game\Component\Map\Terrain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -340,6 +352,9 @@
     </Filter>
     <Filter Include="Game\Component\Unit\UnitPool\Mob">
       <UniqueIdentifier>{4948f4fb-cbed-4d7e-a5e0-1b1d33adf779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Map\Terrain">
+      <UniqueIdentifier>{b54e57c7-5e36-4240-8342-91c075817a26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
