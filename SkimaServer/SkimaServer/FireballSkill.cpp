@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "FireballSkill.h"
-#include "ObjectManager.h"
+#include "UnitPoolManager.h"
 #include "ClientSession.h"
 #include "Player.h"
 #include "Missile.h"

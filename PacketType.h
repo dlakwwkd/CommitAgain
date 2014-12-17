@@ -11,6 +11,7 @@ enum UnitType
     UNIT_HERO,
     UNIT_MISSILE,
     UNIT_OBSTRUCT,
+	UNIT_MOB,
 };
 enum HeroType
 {

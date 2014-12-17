@@ -68,7 +68,7 @@ protected:
     MoveState*  m_MovingState;
     MoveState*  m_CrashedState;
 
-    friend class ObjectManager;
+    friend class UnitPoolManager;
 };
 
 

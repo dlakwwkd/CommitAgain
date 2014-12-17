@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "ObjectManager.h"
+#include "UnitPoolManager.h"
 #include "GameManager.h"
 #include "Missile.h"
 #include "Player.h"
 
-ObjectManager* GObjectManager = nullptr;
+UnitPoolManager* GUnitPoolManager = nullptr;
 
-ObjectManager::ObjectManager()
+UnitPoolManager::UnitPoolManager()
 {
     m_MissileList.reserve(INIT_POOL_SIZE);
 
@@ -19,7 +19,7 @@ ObjectManager::ObjectManager()
 }
 
 
-ObjectManager::~ObjectManager()
+UnitPoolManager::~UnitPoolManager()
 {
     for (auto& missile : m_MissileList)
     {
@@ -27,7 +27,7 @@ ObjectManager::~ObjectManager()
     }
 }
 
-Unit* ObjectManager::Assign(UnitType type)
+Unit* UnitPoolManager::Assign(UnitType type)
 {
     switch (type)
     {
@@ -47,7 +47,7 @@ Unit* ObjectManager::Assign(UnitType type)
     return Expand(type);
 }
 
-void ObjectManager::Release(Unit* unit)
+void UnitPoolManager::Release(Unit* unit)
 {
     unit->m_InUse = false;
     unit->m_UnitID = INIT_SIDE_TYPE(unit->m_UnitID);
@@ -66,7 +66,7 @@ void ObjectManager::Release(Unit* unit)
     }
 }
 
-void ObjectManager::Except(Unit* unit)
+void UnitPoolManager::Except(Unit* unit)
 {
     auto body = unit->GetBody();
     if (body != nullptr)
@@ -75,7 +75,7 @@ void ObjectManager::Except(Unit* unit)
     }
 }
 
-Unit* ObjectManager::Expand(UnitType type)
+Unit* UnitPoolManager::Expand(UnitType type)
 {
     switch (type)
     {

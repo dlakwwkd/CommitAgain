@@ -185,8 +185,10 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Missile.h" />
+    <ClInclude Include="Mob.h" />
     <ClInclude Include="MoveRock.h" />
-    <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="UnitPool.h" />
+    <ClInclude Include="UnitPoolManager.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProducerConsumerQueue.h" />
@@ -231,8 +233,10 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="Mob.cpp" />
     <ClCompile Include="MoveRock.cpp" />
-    <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="UnitPool.cpp" />
+    <ClCompile Include="UnitPoolManager.cpp" />
     <ClCompile Include="PacketHandling.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rock.cpp" />
