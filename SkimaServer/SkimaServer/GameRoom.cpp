@@ -35,7 +35,8 @@ void GameRoom::JoinPlayer(Player* player)
         printf(" - JoinPlayer Failed ! : player is invalid \n");
         return;
     }
-    m_PlayerList[player->GetPlayerID()] = player;
+    m_PlayerList[player->GetPlayerID()] = player; ///< 기존에 같의 아이디의 플레이어가 있는지 검사할 것. 그런 경우가 있어서 안되면 assert걸던가 ㅋ
+
     player->SetRoomID(m_RoomID);
     printf("\n [Join Room] Room ID %d, Player ID: %d \n", m_RoomID, player->GetPlayerID());
 
@@ -56,7 +57,10 @@ void GameRoom::OutPlayer(int playerId)
     auto player = m_PlayerList.find(playerId);
     if (player == m_PlayerList.end())
     {
-        printf(" - OutPlayer Failed ! : relevant player isn't \n");
+		/// 무조건 찾아보고 없다고 리턴하게 되면 에러를 씹는게 되어 버림
+		/// 그래서 잘못된 playerId가 들어 올 수 있는지부터 확인을 해야 함. 논리적으로 이런 경우가 생길 수 없는 경우라면, assert가 되어야 함
+        printf(" - OutPlayer Failed ! : relevant player isn't \n"); 
+		
         return;
     }
     if (player->second->IsReady())

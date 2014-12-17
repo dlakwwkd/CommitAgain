@@ -66,6 +66,8 @@ GameRoom* GameManager::CreateRoom()
     {
         LowTick();
     }
+
+	///# 있으면 지우고 새로 만드는건가? 보통 이런 류의 로직은 나중에 버그 유발 가능성이 높음... ///# 다 쓰는 순간 지우는게 원칙...
     if (m_RoomList.find(m_MakeRoomNum) != m_RoomList.end())
     {
         DeleteRoom(m_MakeRoomNum);
@@ -83,7 +85,7 @@ void GameManager::DeleteRoom(int roomId)
         return;
     }
     auto room = m_RoomList.find(roomId);
-    if (room == m_RoomList.end())
+    if (room == m_RoomList.end()) ///< 지우고자 하는 룸이 없을 수 있는 경우는? 이런거 정확하게 해야 함.. 로직적으로 있을수 있는 경우인지...
     {
         printf(" - DeleteRoom Failed ! : relevant room isn't \n");
         return;
@@ -221,7 +223,7 @@ void GameManager::GameOver(Player* player)
 ///////////////////////////////////////////////////////////////////////////
 void GameManager::PlayerOut(Player* player)
 {
-    if (player == nullptr)
+    if (player == nullptr) ///< 논리적으로 null일 수 있나? 정확하게 해야 함.
     {
         printf(" - PlayerOut Failed ! : relevant player isn't \n");
         return;
@@ -260,7 +262,7 @@ void GameManager::PlayerOut(Player* player)
 bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
 {
 	if (!unitA || !unitB || unitA->GetUnitID() < 0 || unitB->GetUnitID() < 0 ||
-		(unitA->GetOwner()->GetTeam() == unitB->GetOwner()->GetTeam()))
+		(unitA->GetOwner()->GetTeam() == unitB->GetOwner()->GetTeam())) ///< 조건 복잡하다. 따로 분리하던가.. 체크할 필요 없는 조건이 있다. 애시당초에 unit이 null인 경우로 진입되는 있나?
 	{
 		return false;
 	}
@@ -298,7 +300,7 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
         for (auto& unit : player.second->GetUnitList())
         {
 			auto body = unit.second->GetBody();
-			if (body == nullptr)
+			if (body == nullptr) ///< 이게 가능한 경우인가? 어떤 경우지?
 			{
 				continue;
 			}

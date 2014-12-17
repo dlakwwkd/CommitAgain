@@ -6,12 +6,12 @@ typedef std::map<int, Unit*> UnitList;
 
 enum PlayerType
 {
-    COMPUTER,
+    COMPUTER, ///< 보통 enum은.. 어느 타입의 열거형인지 약어를 붙이는게 좋다.. 예를 들어  PT_COMPUTER, PT_HUMAN
     HUMAN,
 };
 enum Team
 {
-    NEUTRALITY,
+    NEUTRALITY, ///< TEAM_N
     TEAM_A,
     TEAM_B,
 };
@@ -24,7 +24,7 @@ public:
         m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_Hero(nullptr), m_HeroType(HERO_NONE)
     {
         ZeroMemory(m_PlayerName, sizeof(m_PlayerName));
-        itoa(playerId, m_PlayerName, 10);	// 임시로..
+        itoa(playerId, m_PlayerName, 10);	// 임시로.. ///< 제대로 ㄱㄱ
     }
     ~Player();
 

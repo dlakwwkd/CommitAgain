@@ -17,7 +17,7 @@ Game::Game(GameRoom* room)
 	m_IsStart = false;
     m_LoadedPlayerNum = 0;
 
-    for (auto& player : room->m_PlayerList)
+    for (auto& player : room->m_PlayerList)  ///< 지난번에도 코멘트한 것 같은데.. m_PlayerList를 통째로 ROOM에서 GAME으로 복사하는 것은 나빠요... 그럴거면 플레이어 리스트만 담는 객체를 따로 만들고 그거의 포인터만 넘겨줘도 됨.
     {
         m_PlayerList[player.first] = player.second;
     }

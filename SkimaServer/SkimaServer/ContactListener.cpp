@@ -8,7 +8,7 @@ void ContactListener::BeginContact(b2Contact *contact)
     auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
     auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
-    auto lambda = [&](Unit* unit)
+    auto lambda = [&](Unit* unit) ///< 굳이 람다를 써야 하는 이유는? over-engineering같은데?
     {
         if (!unit || unit->GetUnitID() < 0)
         {
