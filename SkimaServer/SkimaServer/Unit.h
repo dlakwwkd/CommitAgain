@@ -52,7 +52,7 @@ public:
     MoveState*      GetCrashedState(){ return (MoveState*)m_CrashedState; }
 
 protected:
-    Player*     m_Owner;
+	Player*     m_Owner = nullptr;
     int         m_UnitID;
     int         m_MaxHp;
     int         m_Hp;
@@ -61,12 +61,12 @@ protected:
     bool        m_InUse;
     bool        m_Contacting;
     b2Vec2      m_TargetPos; 
-    b2Body*     m_Body;
+	b2Body*     m_Body = nullptr;
     
-    MoveState*  m_State;
-    MoveState*  m_StandbyState;
-    MoveState*  m_MovingState;
-    MoveState*  m_CrashedState;
+    MoveState*  m_State = nullptr;
+	MoveState*  m_StandbyState = nullptr;
+	MoveState*  m_MovingState = nullptr;
+	MoveState*  m_CrashedState = nullptr;
 
     friend class UnitPoolManager;
 };

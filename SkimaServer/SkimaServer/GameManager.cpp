@@ -129,7 +129,13 @@ void GameManager::JoinRoom(int roomId, Player* player)
         printf(" - JoinRoom Failed ! : invalid info \n");
         return;
     }
-    m_RoomList[roomId]->JoinPlayer(player);
+	auto room = m_RoomList.find(roomId);
+	if (room == m_RoomList.end())
+	{
+		printf(" - JoinRoom Failed ! : relevant room isn't \n");
+		return;
+	}
+	room->second->JoinPlayer(player);
 }
 
 
@@ -297,15 +303,10 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
         }
         for (auto& unit : player.second->GetUnitList())
         {
-			auto body = unit.second->GetBody();
-			if (body == nullptr)
-			{
-				continue;
-			}
-            auto pos = body->GetPosition();
+			auto pos = unit.second->GetBody()->GetPosition();
 
-            if (pos.x > range->left && pos.x < range->right &&
-                pos.y > range->bottom && pos.y < range->top)
+            if (pos.x > range->m_Left && pos.x < range->m_Right &&
+                pos.y > range->m_Bottom && pos.y < range->m_Top)
             {
                 unit.second->Damaged(damage);
             }

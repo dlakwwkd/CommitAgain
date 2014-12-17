@@ -27,11 +27,11 @@ public:
     Map*                GetMap(){ return m_Map; }
 
 private:
-    Player*             m_Computer;
     PlayerList          m_PlayerList;
-    Map*                m_Map;
-    int                 m_GameID;
+    Player*             m_Computer = nullptr;
+    Map*                m_Map = nullptr;
     bool                m_IsStart;
+    int                 m_GameID;
     int                 m_LoadedPlayerNum;
 
     friend class GameManager;

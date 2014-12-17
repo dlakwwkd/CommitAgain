@@ -14,17 +14,11 @@ void Player::CreateHero(const b2Vec2& pos)
 {
     switch (m_HeroType)
     {
-    case HERO_MAGICIAN:
-        m_Hero = new Magician(this, pos, DEF_SCALE);
-        break;
-    case HERO_JUPITER:
-        m_Hero = new Jupiter(this, pos, DEF_SCALE);
-        break;
-    case HERO_LAPHINX:
-        m_Hero = new Laphinx(this, pos, DEF_SCALE);
-        break;
+    case HERO_MAGICIAN: m_Hero = new Magician(this, pos, DEF_SCALE);break;
+    case HERO_JUPITER:  m_Hero = new Jupiter(this, pos, DEF_SCALE);	break;
+    case HERO_LAPHINX:  m_Hero = new Laphinx(this, pos, DEF_SCALE);	break;
     default:
-        return;
+		return;
     };
     m_UnitList[m_Hero->GetUnitID()] = m_Hero;
 

@@ -13,14 +13,14 @@ class Map : public RefCountable
 {
 public:
     Map(int roomId);
-    ~Map();
+    virtual ~Map();
 
     void InitMap(int roomId, Player* player);
     void ObjectBreak(int unitId);
     void ObjectListClear();
 
 private:
-    b2Body*         m_Body;
+    b2Body*         m_Body = nullptr;
     MapObjectList   m_MapObjectList;
 };
 

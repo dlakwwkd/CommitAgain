@@ -4,7 +4,8 @@
 
 Hero::Hero()
 {
-    m_UnitID = SET_MAIN_TYPE(m_UnitID, UNIT_HERO);
+	static int makeId = 0;
+	m_UnitID = SET_MAIN_TYPE(++makeId, UNIT_HERO);
 }
 
 Hero::~Hero()

@@ -349,7 +349,7 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::LoginProcess(int playerId)
 {
-    mPlayer = new Player(this, playerId, HUMAN);
+    mPlayer = new Player(this, playerId, PT_HUMAN);
     mLogon = true;
 
     LoginResult outPacket;

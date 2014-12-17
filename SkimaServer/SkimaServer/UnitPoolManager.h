@@ -22,8 +22,6 @@ private:
 
 private:
 	UnitPoolList	m_UnitPoolList;
-	int				m_LastID_Missile;
-	int				m_LastID_Mob;
 };
 
 extern UnitPoolManager* GUnitPoolManager;

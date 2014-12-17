@@ -3,7 +3,6 @@
 class TeleportSkill : public Skill
 {
 public:
-    TeleportSkill();
     TeleportSkill(Player* owner);
     virtual~TeleportSkill();
 

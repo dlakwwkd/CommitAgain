@@ -21,7 +21,7 @@ class ClientSession : public RefCountable, public ObjectPool<ClientSession>
 {
 public:
     ClientSession(SOCKET sock)
-        : mConnected(false), mLogon(false), mSocket(sock), mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE), mPlayer(nullptr)
+        : mConnected(false), mLogon(false), mSocket(sock), mSendBuffer(BUFSIZE), mRecvBuffer(BUFSIZE)
     {
         ZeroMemory(&mClientAddr, sizeof(SOCKADDR_IN));
     }
@@ -77,7 +77,7 @@ public:
     void OnRead(size_t len);
 
 private:
-    Player*			mPlayer;
+    Player*			mPlayer = nullptr;
 
 private:
     bool            mConnected;

@@ -15,7 +15,7 @@ public:
 	void	        SetLivetime(float livetime) { m_Livetime = livetime; }
 
 protected:
-	float			m_Range = 0.0f;
-	float			m_Livetime = 0.0f;
+	float			m_Range;
+	float			m_Livetime;
 };
 

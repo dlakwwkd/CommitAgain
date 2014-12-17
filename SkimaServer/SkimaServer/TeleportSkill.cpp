@@ -3,10 +3,6 @@
 #include "ClientSession.h"
 #include "Player.h"
 
-TeleportSkill::TeleportSkill()
-{
-    m_Range = REDUCE(224);
-}
 
 TeleportSkill::TeleportSkill(Player* owner)
 {

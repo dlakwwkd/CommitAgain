@@ -5,7 +5,8 @@
 
 MapObject::MapObject()
 {
-    m_UnitID = SET_MAIN_TYPE(m_UnitID, UNIT_OBSTRUCT);
+	static int makeId = 0;
+	m_UnitID = SET_MAIN_TYPE(++makeId, UNIT_OBSTRUCT);
 }
 
 

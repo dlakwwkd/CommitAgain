@@ -11,10 +11,8 @@
 
 Game::Game(GameRoom* room)
 {
-    m_Computer = nullptr;
-    m_Map = nullptr;
-    m_GameID = room->m_RoomID;
 	m_IsStart = false;
+    m_GameID = room->m_RoomID;
     m_LoadedPlayerNum = 0;
 
     for (auto& player : room->m_PlayerList)
@@ -60,7 +58,7 @@ void Game::InitGame()
         }
         player.second->CreateHero(CONVERT_IN(createPos, roomId));
     }
-    m_Computer = new Player(temp, COMPUTER, COMPUTER);// 100번 보면 이해됨.
+    m_Computer = new Player(temp, PT_COMPUTER, PT_COMPUTER);// 100번 보면 이해됨.
     m_Computer->SetRoomID(roomId);
 
     m_Map = new Map(roomId);
@@ -77,7 +75,7 @@ void Game::EndGame()
 
 	for (auto& player : m_PlayerList)
 	{
-        player.second->SetTeam(NEUTRALITY);
+        player.second->SetTeam(TEAM_N);
         player.second->UnitListClear();
 	}
 }
@@ -112,7 +110,7 @@ void Game::OutPlayer(int playerId)
         return;
     }
 
-    player->second->SetTeam(NEUTRALITY);
+    player->second->SetTeam(TEAM_N);
     player->second->UnitListClear();
     m_PlayerList.erase(player);
 

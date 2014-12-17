@@ -4,10 +4,6 @@
 #include "Player.h"
 
 
-FlashSkill::FlashSkill()
-{
-}
-
 FlashSkill::FlashSkill(Player* owner)
 {
     m_Owner = owner;

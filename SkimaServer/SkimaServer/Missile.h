@@ -3,7 +3,7 @@
 class Missile : public UnitPool
 {
 public:
-    Missile(int unitId);
+    Missile();
     virtual ~Missile();
     virtual void	Extinction();
     void	        MissileShoot();

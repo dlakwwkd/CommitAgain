@@ -12,13 +12,11 @@ Unit::Unit()
     static int makeId = 0;
     m_UnitID = ++makeId;
 
-    m_Owner = nullptr;
     m_Hp = m_MaxHp = -1;
     m_Damage = 0;
     m_Speed = -1;
     m_Contacting = false;
     m_TargetPos = { -1, -1 };
-    m_Body = nullptr;
 
     m_State = m_StandbyState = new StandbyState;
     m_MovingState = new MovingState;

@@ -3,7 +3,7 @@
 class Mob : public UnitPool
 {
 public:
-	Mob(int unitId);
+	Mob();
 	virtual ~Mob();
 	virtual void	Extinction();
 };

@@ -12,10 +12,10 @@ typedef std::map<int, GameRoom*> RoomList;
 
 struct Rect
 {
-    float top;
-    float bottom;
-    float left;
-    float right;
+    float m_Top		= 0;
+    float m_Bottom	= 0;
+    float m_Left	= 0;
+    float m_Right	= 0;
 };
 
 #define MAX_PLAYER_NUM 2
@@ -60,8 +60,8 @@ private:
     int                 m_MakeRoomNum;
 
 private:
-    b2World*            m_World;
-    ContactListener*    m_Contact;
+    b2World*            m_World = nullptr;
+    ContactListener*    m_Contact = nullptr;
 };
 
 extern GameManager* GGameManager;

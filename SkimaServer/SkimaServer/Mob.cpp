@@ -7,9 +7,10 @@
 #include "Player.h"
 
 
-Mob::Mob(int unitId)
+Mob::Mob()
 {
-	m_UnitID = SET_MAIN_TYPE(unitId, UNIT_MOB);
+	static int makeId = 0;
+	m_UnitID = SET_MAIN_TYPE(++makeId, UNIT_MOB);
 }
 
 

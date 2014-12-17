@@ -6,12 +6,12 @@ typedef std::map<int, Unit*> UnitList;
 
 enum PlayerType
 {
-    COMPUTER,
-    HUMAN,
+    PT_COMPUTER,
+    PT_HUMAN,
 };
 enum Team
 {
-    NEUTRALITY,
+    TEAM_N,
     TEAM_A,
     TEAM_B,
 };
@@ -20,8 +20,8 @@ class Player
 {
 public:
     Player(ClientSession* client, int playerId, PlayerType type) : 
-        m_Client(client), m_PlayerType(type), m_Team(NEUTRALITY),
-        m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_Hero(nullptr), m_HeroType(HERO_NONE)
+        m_Client(client), m_PlayerType(type), m_Team(TEAM_N),
+        m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_HeroType(HERO_NONE)
     {
         ZeroMemory(m_PlayerName, sizeof(m_PlayerName));
         itoa(playerId, m_PlayerName, 10);	// 임시로..
@@ -49,7 +49,7 @@ public:
     void            UnitListClear();
 
 private:
-    ClientSession*  m_Client;
+    ClientSession*  m_Client = nullptr;
     PlayerType      m_PlayerType;
     Team            m_Team;
     char            m_PlayerName[MAX_NAME_LEN];
@@ -57,7 +57,7 @@ private:
     int             m_RoomID;
     bool            m_IsReady;
 
-    Hero*           m_Hero;
+    Hero*           m_Hero = nullptr;
     HeroType        m_HeroType;
     UnitList        m_UnitList;
 };

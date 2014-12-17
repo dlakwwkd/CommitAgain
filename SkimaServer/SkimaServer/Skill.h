@@ -14,7 +14,7 @@ public:
     virtual void SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos) = 0;
 
 protected:
-    Player* m_Owner;
+    Player* m_Owner = nullptr;
     b2Vec2  m_TargetPos;
     int     m_Damage;
     float   m_Range;

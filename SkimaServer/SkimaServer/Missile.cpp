@@ -7,9 +7,10 @@
 #include "Player.h"
 
 
-Missile::Missile(int unitId)
+Missile::Missile()
 {
-    m_UnitID = SET_MAIN_TYPE(unitId, UNIT_MISSILE);
+	static int makeId = 0;
+	m_UnitID = SET_MAIN_TYPE(++makeId, UNIT_MISSILE);
 }
 
 

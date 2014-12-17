@@ -30,7 +30,8 @@ enum MissileType
 enum ObstructType
 {
     OS_NONE,
-    OS_ROCK,
+	OS_ROCK,
+	OS_MOVE_ROCK,
 };
 
 enum SkillKey

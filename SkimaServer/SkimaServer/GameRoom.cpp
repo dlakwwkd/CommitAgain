@@ -35,6 +35,12 @@ void GameRoom::JoinPlayer(Player* player)
         printf(" - JoinPlayer Failed ! : player is invalid \n");
         return;
     }
+	auto iter = m_PlayerList.find(player->GetPlayerID());
+	if (iter != m_PlayerList.end())
+	{
+		printf(" - JoinPlayer Failed ! : player is duplicated \n");
+		return;
+	}
     m_PlayerList[player->GetPlayerID()] = player;
     player->SetRoomID(m_RoomID);
     printf("\n [Join Room] Room ID %d, Player ID: %d \n", m_RoomID, player->GetPlayerID());

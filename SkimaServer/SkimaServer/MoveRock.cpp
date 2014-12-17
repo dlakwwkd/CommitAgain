@@ -5,7 +5,7 @@
 
 MoveRock::MoveRock(Player* owner, const b2Vec2& pos)
 {
-	SetDynamicBody(owner, OS_ROCK, pos, 30.0f);
+	SetDynamicBody(owner, OS_MOVE_ROCK, pos, 30.0f);
     m_Hp = 1000;
 }
 

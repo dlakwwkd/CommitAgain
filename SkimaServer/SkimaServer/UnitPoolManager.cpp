@@ -11,13 +11,11 @@ UnitPoolManager::UnitPoolManager()
 {
 	m_UnitPoolList.reserve(INIT_POOL_SIZE*10);
 
-    int i;
-    for (i = 0; i < INIT_POOL_SIZE; ++i)
+    for (int i = 0; i < INIT_POOL_SIZE; ++i)
     {
-		m_UnitPoolList.insert(UnitPoolList::value_type(UNIT_MISSILE, new Missile(i)));
-		m_UnitPoolList.insert(UnitPoolList::value_type(UNIT_MOB, new Mob(i)));
+		m_UnitPoolList.insert(UnitPoolList::value_type(UNIT_MISSILE, new Missile()));
+		m_UnitPoolList.insert(UnitPoolList::value_type(UNIT_MOB, new Mob()));
     }
-	m_LastID_Missile = m_LastID_Mob = i;
 }
 
 
@@ -71,22 +69,19 @@ void UnitPoolManager::Except(Unit* unit)
 
 Unit* UnitPoolManager::Expand(UnitType type)
 {
-	int i;
 	switch (type)
     {
     case UNIT_MISSILE:
-        for (i = 1 + m_LastID_Missile; i < 1 + m_LastID_Missile + INIT_POOL_SIZE; ++i)
-        {
-			m_UnitPoolList.insert(UnitPoolList::value_type(UNIT_MISSILE, new Missile(i)));
-        }
-		m_LastID_Missile = i;
+		for (int i = 0; i < INIT_POOL_SIZE; ++i)
+		{
+			m_UnitPoolList.insert(UnitPoolList::value_type(UNIT_MISSILE, new Missile()));
+		}
 		break;
 	case UNIT_MOB:
-		for (i = 1 + m_LastID_Mob; i < 1 + m_LastID_Mob + INIT_POOL_SIZE; ++i)
+		for (int i = 0; i < INIT_POOL_SIZE; ++i)
 		{
-			m_UnitPoolList.insert(UnitPoolList::value_type(UNIT_MOB, new Mob(i)));
+			m_UnitPoolList.insert(UnitPoolList::value_type(UNIT_MOB, new Mob()));
 		}
-		m_LastID_Mob = i;
 		break;
 	default:
         return nullptr;

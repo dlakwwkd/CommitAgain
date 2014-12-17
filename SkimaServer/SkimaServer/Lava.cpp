@@ -8,10 +8,10 @@ Lava::Lava(b2Vec2 createPos)
     m_Pos = createPos;
 
     Rect range;
-    range.top = m_Pos.y;
-    range.bottom = m_Pos.y + 210.0f;
-    range.left = m_Pos.x;
-    range.right = m_Pos.x + 240.0f;
+    range.m_Top = m_Pos.y;
+    range.m_Bottom = m_Pos.y + 210.0f;
+    range.m_Left = m_Pos.x;
+    range.m_Right = m_Pos.x + 240.0f;
 
 //     가로 240
 //         세로 210
