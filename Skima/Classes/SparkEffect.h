@@ -1,13 +1,13 @@
 #pragma once
-#include "Effect.h"
-class SparkEffect : public Effect
+#include "EffectParticleType.h"
+class SparkEffect : public EffectParticleType
 {
 public:
     SparkEffect();
     virtual ~SparkEffect();
 
-    virtual void CreateEffect(Vec2 createPos);
-    virtual void ExtinctEffect();
+    virtual void	CreateEffect(const Vec2& createPos);
+    virtual void	ExtinctEffect();
 
 };
 

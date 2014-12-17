@@ -13,5 +13,7 @@ private:
     virtual void    SetMoveMotionToCache();
     virtual void    SetSkillMotionToCache();
 
+private:
+    ParticleSystemQuad* m_Qparticle;
 };
 

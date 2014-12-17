@@ -43,11 +43,12 @@ void GameManager::LowTick()
         if (!b->IsAwake())
         {
             auto unit = static_cast<Unit*>(b->GetUserData());
-            if (unit)
+            if (!unit || unit->GetUnitID() < 0)
             {
-                //현재 위치 동기화 (패킷을 날려주기 위해)
-                unit->Crashing(false);
+				continue;
             }
+            //현재 위치 동기화 (패킷을 날려주기 위해)
+            unit->Crashing(false);
         }
     }
     CallFuncAfter(MANAGER_UPDATE_INTERVAL * 3, this, &GameManager::LowTick);
@@ -189,8 +190,9 @@ void GameManager::DeleteGame(int gameId)
         printf(" - DeleteGame Failed ! : relevant game isn't \n");
         return;
     }
+	game->second->EndGame();
 
-    delete game->second;
+	delete game->second;
     m_GameList.erase(game);
     printf(" - Destroy %d Game ! \n", gameId);
 }
@@ -207,7 +209,6 @@ void GameManager::GameOver(Player* player)
         printf(" - GameOver Failed ! : relevant game isn't \n");
         return;
     }
-    game->second->EndGame();
     player->GetClient()->GameOverCast(player->GetPlayerID());
     DeleteGame(game->second->GetGameID());
 }
@@ -258,10 +259,11 @@ void GameManager::PlayerOut(Player* player)
 ///////////////////////////////////////////////////////////////////////////
 bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
 {
-    if (!unitA || !unitB || (unitA->GetOwner()->GetTeam() == unitB->GetOwner()->GetTeam()))
-    {
-        return false;
-    }
+	if (!unitA || !unitB || unitA->GetUnitID() < 0 || unitB->GetUnitID() < 0 ||
+		(unitA->GetOwner()->GetTeam() == unitB->GetOwner()->GetTeam()))
+	{
+		return false;
+	}
     else
     {
         return true;
@@ -295,7 +297,12 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
         }
         for (auto& unit : player.second->GetUnitList())
         {
-            auto pos = unit.second->GetBody()->GetPosition();
+			auto body = unit.second->GetBody();
+			if (body == nullptr)
+			{
+				continue;
+			}
+            auto pos = body->GetPosition();
 
             if (pos.x > range->left && pos.x < range->right &&
                 pos.y > range->bottom && pos.y < range->top)

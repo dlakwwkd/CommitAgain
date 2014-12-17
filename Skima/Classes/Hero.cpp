@@ -6,14 +6,14 @@
 Hero::Hero()
 {
     m_Arrow = Sprite::create("Images/arrow.png");
-    m_Arrow->setScale(0.09f, 0.09f);
-    m_Arrow->setPosition(Vec2(50, 50));
+    m_Arrow->setScale(0.1f, 0.1f);
     m_Arrow->setVisible(false);
+	m_Sprite->addChild(m_Arrow);
 
     m_SkillRange = Sprite::create("Images/SkillRange.png");
     m_SkillRange->setScale(1.2f, 1.2f);
-    m_SkillRange->setPosition(Vec2(0, 0));
-    m_SkillRange->setVisible(false);
+	m_SkillRange->setVisible(false);
+	m_Sprite->addChild(m_SkillRange);
 }
 
 
@@ -85,8 +85,18 @@ void Hero::SkillEnd(SkillKey key)
 RepeatForever* Hero::MakeAnimation(const char* format, int size)
 {
     auto animation = Animation::create();
-    if (size < 5)       animation->setDelayPerUnit(0.2f);
-    else if (size >= 5) animation->setDelayPerUnit(0.1f);
+
+    if (m_HeroType == HERO_LAPHINX)
+    {
+        if (size < 5)       animation->setDelayPerUnit(0.2f);
+        else if (size >= 5) animation->setDelayPerUnit(0.05f);
+    }
+
+    else
+    {
+        if (size < 5)       animation->setDelayPerUnit(0.2f);
+        else if (size >= 5) animation->setDelayPerUnit(0.1f);
+    }
 
     for (int i = 1; i < size + 1; ++i)
     {
@@ -97,6 +107,30 @@ RepeatForever* Hero::MakeAnimation(const char* format, int size)
     return RepeatForever::create(Animate::create(animation));
 }
 
+Animate* Hero::MakeAnimationOnce(const char* format, int size)
+{
+    auto animation = Animation::create();
+
+    if (m_HeroType == HERO_LAPHINX)
+    {
+        if (size < 5)       animation->setDelayPerUnit(0.2f);
+        else if (size >= 5) animation->setDelayPerUnit(0.05f);
+    }
+
+    else
+    {
+        if (size < 5)       animation->setDelayPerUnit(0.2f);
+        else if (size >= 5) animation->setDelayPerUnit(0.1f);
+    }
+
+    for (int i = 1; i < size + 1; ++i)
+    {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+        animation->addSpriteFrame(frame);
+    }
+
+    return Animate::create(animation);
+}
 Direction Hero::CalcMoveDirection(Vec2 displacement)
 {
     float slope = displacement.y / displacement.x;
@@ -141,3 +175,4 @@ Direction Hero::CalcSkillDirection(Vec2 displacement)
     }
     return Direction::SE;
 }
+

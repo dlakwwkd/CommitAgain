@@ -17,7 +17,7 @@ Scene* RoomScene::createScene()
 
 bool RoomScene::init()
 {
-    if (!LayerColor::initWithColor(Color4B(0, 0, 128, 128)))
+    if (!Layer::init())
     {
         return false;
     }
@@ -25,36 +25,52 @@ bool RoomScene::init()
     m_RoomID = -1;
     m_IsReady = false;
     auto winSize = Director::getInstance()->getWinSize();
+
+    auto roomBackground = Sprite::create("Images/RoomBackground.png");
+    roomBackground->setPosition(winSize.width / 2, winSize.height / 2);
+    this->addChild(roomBackground, -1);
+    auto selectZone = Sprite::create("Images/SelectZone.png");
+    selectZone->setPosition(Vec2(winSize.width * 1 / 8, winSize.height * 3 / 8 - 30));
+    selectZone->setOpacity(150);
+    this->addChild(selectZone, 1);
         
     /////////////////////////////////////////////////캐릭터 초상화 추가할 부분/////////////////////////////////////////////
-    /* Ready 캐릭터 띄울 얼굴추가 */
-    MakeFaceSprite("Images/SelectFace/[Select]Magician.png", Vec2(winSize.width * 1 / 8, winSize.height * 3 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_MAGICIAN);
-    MakeFaceSprite("Images/SelectFace/[Select]Jupiter.png", Vec2(winSize.width * 1 / 8, winSize.height * 3 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_JUPITER);
-    MakeFaceSprite("Images/SelectFace/[Select]Laphinx.png", Vec2(winSize.width * 1 / 8, winSize.height * 3 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_LAPHINX);
+    /* Ready 캐릭터 전체모습 띄우는 부분 */
+    MakeHeroSprite("Images/SelectFace/[Select]Magician.png", Vec2(winSize.width * 1 / 8 - 70, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_MAGICIAN);
+    MakeHeroSprite("Jupiter/JupiterImage.png", Vec2(winSize.width * 1 / 8 - 50, winSize.height * 4 / 8), Vec2(1.5f, 1.5f), Vec2(0, 1), HERO_JUPITER);
+    MakeHeroSprite("Laphinx/LaphinxImage.png", Vec2(winSize.width * 1 / 8 - 80, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_LAPHINX);
 
     /* 캐릭터 선택창버튼 초상화 추가 (width 1/8씩 ++) */
-    auto magicanFace = MenuItemImage::create("Images/SelectFace/[Select]Magician.png", "Images/SelectFace/[Select]Magician_selected.png", CC_CALLBACK_0(RoomScene::ClickMagician, this));
-    SetFaceProperty(magicanFace, Vec2(winSize.width * 1 / 8, winSize.height * 1 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1));
-    auto jupiterFace = MenuItemImage::create("Images/SelectFace/[Select]Jupiter.png", "Images/SelectFace/[Select]Jupiter_selected.png", CC_CALLBACK_0(RoomScene::ClickJupiter, this));
-    SetFaceProperty(jupiterFace, Vec2(winSize.width * 2 / 8, winSize.height * 1 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1));
-    auto laphinxFace = MenuItemImage::create("Images/SelectFace/[Select]Laphinx.png", "Images/SelectFace/[Select]Laphinx_selected.png", CC_CALLBACK_0(RoomScene::ClickLaphinx, this));
-    SetFaceProperty(laphinxFace, Vec2(winSize.width * 3 / 8, winSize.height * 1 / 4), Vec2(1.0f, 1.0f), Vec2(0, 1));
+    auto magicanFace = MenuItemImage::create(
+        "Images/SelectFace/[Select]Magician.png",
+        "Images/SelectFace/[Select]Magician_selected.png",
+        CC_CALLBACK_0(RoomScene::ClickHero, this, HERO_MAGICIAN));
+    SetFaceProperty(magicanFace, Vec2(winSize.width * 1 / 8, winSize.height * 5 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1));
+    auto jupiterFace = MenuItemImage::create(
+        "Images/SelectFace/[Select]Jupiter.png",
+        "Images/SelectFace/[Select]Jupiter_selected.png",
+        CC_CALLBACK_0(RoomScene::ClickHero, this, HERO_JUPITER));
+    SetFaceProperty(jupiterFace, Vec2(winSize.width * 2 / 8, winSize.height * 5 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1));
+    auto laphinxFace = MenuItemImage::create(
+        "Images/SelectFace/[Select]Laphinx.png", 
+        "Images/SelectFace/[Select]Laphinx_selected.png",
+        CC_CALLBACK_0(RoomScene::ClickHero, this, HERO_LAPHINX));
+    SetFaceProperty(laphinxFace, Vec2(winSize.width * 3 / 8, winSize.height * 5 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1));
 
     auto faceTable = Menu::create(magicanFace, jupiterFace,laphinxFace, NULL);
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    faceTable->setPosition(winSize.width * 1 / 8, winSize.height * 2 / 8);
+    faceTable->setPosition(winSize.width * 3 / 8, winSize.height * 2 / 8);
     this->addChild(faceTable);
 
     m_CurHero = HERO_MAGICIAN;
-    m_Facelist[HERO_MAGICIAN]->setVisible(true);
+    m_HeroImageList[HERO_MAGICIAN]->setVisible(true);
 
-    auto readyButton = MenuItemImage::create("Images/GameReady.png", "Images/GameReady_selected.png", CC_CALLBACK_1(RoomScene::GameStartCallback, this));
-    auto exitButton = MenuItemImage::create("Images/Gameout.png", "Images/Gameout_selected.png", CC_CALLBACK_1(RoomScene::GameExitCallback, this));
-    exitButton->setPosition(winSize.width*1/8,winSize.height*-4/8);
-    readyButton->setScale(0.8f, 0.8f);
-    exitButton->setScale(0.7f, 0.7f);
+    auto readyButton = MenuItemImage::create("Images/GameReady.png", "Images/GameReady_Selected.png", CC_CALLBACK_1(RoomScene::GameStartCallback, this));
+    auto exitButton = MenuItemImage::create("Images/ExitGame.png", "Images/ExitGame_Selected.png", CC_CALLBACK_1(RoomScene::GameExitCallback, this));
+    exitButton->setPosition(Vec2(0, -80));
+    exitButton->setScale(1.3f);
     auto buttonMenu = Menu::create(readyButton, exitButton, NULL); 
-    buttonMenu->setPosition(winSize.width * 3 / 8, winSize.height * 11 / 16);
+    buttonMenu->setPosition(winSize.width * 7 / 8 , winSize.height * 3 / 8);
     this->addChild(buttonMenu);
 
     m_WaitingLayer = WaitingLayer::create();
@@ -138,14 +154,14 @@ void RoomScene::WaitingCheck()
     }
 }
 
-void RoomScene::MakeFaceSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor, HeroType hero)
+void RoomScene::MakeHeroSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor, HeroType hero)
 {
     Sprite* sprite = Sprite::create(image);
     sprite->setPosition(pos);
     sprite->setScale(scale.x, scale.y);
     sprite->setAnchorPoint(anchor);
     sprite->setVisible(false);
-    m_Facelist[hero] = sprite;
+    m_HeroImageList[hero] = sprite;
     this->addChild(sprite);
 }
 
@@ -156,58 +172,29 @@ void RoomScene::SetFaceProperty(MenuItemImage* img, Vec2 pos, Vec2 scale, Vec2 a
     img->setAnchorPoint(anchor);
 }
 
-void RoomScene::ChangeSelectedHero()
+void RoomScene::ChangeSelectedHero(HeroType heroType)
 {
-    switch (m_CurHero)
+    for (auto& hero : m_HeroImageList)
     {
-    case HERO_MAGICIAN:
-        for (auto& select : m_Facelist)
-        {
-            select.second->setVisible(false);
-            if (select.first == HERO_MAGICIAN)
-            {
-                select.second->setVisible(true);
-            }
-        }
-        break;
-    case HERO_JUPITER:
-        for (auto& select : m_Facelist)
-        {
-            select.second->setVisible(false);
-            if (select.first == HERO_JUPITER)
-            {
-                select.second->setVisible(true);
-            }
-        }
-    case HERO_LAPHINX:
-        for (auto& select : m_Facelist)
-        {
-            select.second->setVisible(false);
-            if (select.first == HERO_LAPHINX)
-            {
-                select.second->setVisible(true);
-            }
-        }
-        break;
-    case HERO_NONE:
-        break;
+        hero.second->setVisible(false);
     }
+    m_HeroImageList[heroType]->setVisible(true);
+
+    auto winSize = Director::getInstance()->getWinSize();
+    auto zoneEffect = Sprite::create("Images/ZoneEffect.png");
+    zoneEffect->setPosition(Vec2(winSize.width * 1 / 8, winSize.height / 4));
+    zoneEffect->setOpacity(100);
+    this->addChild(zoneEffect, 2);
+
+    auto zoneAction_0 = MoveTo::create(1.0f, Vec2(winSize.width * 1 / 8, winSize.height / 2));
+    auto zoneAction_1 = FadeTo::create(1.5f, 0);
+    zoneEffect->runAction(zoneAction_0);
+    zoneEffect->runAction(zoneAction_1);
 }
 
-void RoomScene::ClickMagician()
+void RoomScene::ClickHero(HeroType heroType)
 {
-    m_CurHero = HERO_MAGICIAN;
-    ChangeSelectedHero();
-}
-void RoomScene::ClickJupiter()
-{
-    m_CurHero = HERO_JUPITER;
-    ChangeSelectedHero();
-}
-
-void RoomScene::ClickLaphinx()
-{
-    m_CurHero = HERO_LAPHINX;
-    ChangeSelectedHero();
+    m_CurHero = heroType;
+    ChangeSelectedHero(heroType);
 }
 

@@ -32,9 +32,6 @@ public:
     void MissileCrash(int missileID);
     void DeleteMissile(int missileID);
 
-// 	void AddNewSpriteAtPosition(Point pos);
-// 	void MobAi();
-
 protected:
     void UnitMoveS(Vec2 pos);
     void UnitMoveM(int unitID, Vec2 recvCurPos, Vec2 targetPos);
@@ -51,11 +48,10 @@ protected:
 
 
 protected:
-    std::shared_ptr<Hero>					m_Hero;
+    std::shared_ptr<Hero>					m_Hero = nullptr;
     std::map<int, std::shared_ptr<Unit>>	m_UnitList;
     std::map<int, std::shared_ptr<Hero>>    m_HeroList;
-    //std::map<int, std::shared_ptr<Missile>>	m_MissileList;
-    std::map<int, Missile*>	m_MissileList;
+    std::map<int, Missile*>					m_MissileList;
 
     std::vector<std::shared_ptr<Unit>>		m_MobList;
 };

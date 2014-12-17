@@ -138,9 +138,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Classes\AdrenalineSkill.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\CircularBuffer.cpp" />
     <ClCompile Include="..\Classes\Effect.cpp" />
+    <ClCompile Include="..\Classes\EffectParticleType.cpp" />
+    <ClCompile Include="..\Classes\EffectSpriteType.cpp" />
     <ClCompile Include="..\Classes\EscLayer.cpp" />
     <ClCompile Include="..\Classes\FireballSkill.cpp" />
     <ClCompile Include="..\Classes\FireEffect.cpp" />
@@ -152,6 +155,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\IceEffect.cpp" />
     <ClCompile Include="..\Classes\Jupiter.cpp" />
     <ClCompile Include="..\Classes\Laphinx.cpp" />
+    <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp" />
     <ClCompile Include="..\Classes\LightningPumpkinSkill.cpp" />
     <ClCompile Include="..\Classes\LightningSkill.cpp" />
     <ClCompile Include="..\Classes\LightningEffect.cpp" />
@@ -177,6 +181,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Skill.cpp" />
     <ClCompile Include="..\Classes\SparkEffect.cpp" />
     <ClCompile Include="..\Classes\SparkSkill.cpp" />
+    <ClCompile Include="..\Classes\SwipeEffect.cpp" />
+    <ClCompile Include="..\Classes\SwipeSkill.cpp" />
     <ClCompile Include="..\Classes\TcpClient.cpp" />
     <ClCompile Include="..\Classes\TeleportEffect.cpp" />
     <ClCompile Include="..\Classes\TeleportSkill.cpp" />
@@ -192,9 +198,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClInclude Include="..\..\PacketType.h" />
     <ClInclude Include="..\..\Shared\FSM.h" />
+    <ClInclude Include="..\Classes\AdrenalineSkill.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\CircularBuffer.h" />
     <ClInclude Include="..\Classes\Effect.h" />
+    <ClInclude Include="..\Classes\EffectParticleType.h" />
+    <ClInclude Include="..\Classes\EffectSpriteType.h" />
     <ClInclude Include="..\Classes\Enums.h" />
     <ClInclude Include="..\Classes\EscLayer.h" />
     <ClInclude Include="..\Classes\FireballSkill.h" />
@@ -207,6 +216,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\IceEffect.h" />
     <ClInclude Include="..\Classes\Jupiter.h" />
     <ClInclude Include="..\Classes\Laphinx.h" />
+    <ClInclude Include="..\Classes\LightningPumpkinEffect.h" />
     <ClInclude Include="..\Classes\LightningPumpkinSkill.h" />
     <ClInclude Include="..\Classes\LightningSkill.h" />
     <ClInclude Include="..\Classes\LightningEffect.h" />
@@ -232,6 +242,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Skill.h" />
     <ClInclude Include="..\Classes\SparkEffect.h" />
     <ClInclude Include="..\Classes\SparkSkill.h" />
+    <ClInclude Include="..\Classes\SwipeEffect.h" />
+    <ClInclude Include="..\Classes\SwipeSkill.h" />
     <ClInclude Include="..\Classes\TcpClient.h" />
     <ClInclude Include="..\Classes\TeleportEffect.h" />
     <ClInclude Include="..\Classes\TeleportSkill.h" />

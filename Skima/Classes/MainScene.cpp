@@ -13,8 +13,6 @@ Scene* MainScene::createScene()
 
 bool MainScene::init()
 {
-    ShowCursor(true);
-
     if (!LayerColor::initWithColor(Color4B(100, 100, 200, 255)))
     {
         return false;
@@ -37,7 +35,6 @@ bool MainScene::init()
 void MainScene::menuCallback1(Ref* sender)
 {
     auto scene = SingleGameScene::createScene();
-    ShowCursor(false);
     Director::getInstance()->pushScene(scene);
 }
 void MainScene::menuCallback2(Ref* sender)

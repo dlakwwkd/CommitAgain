@@ -116,6 +116,9 @@
     <ClCompile Include="FieldType.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="SwipeSKill.cpp">
+      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -254,6 +257,9 @@
     </ClInclude>
     <ClInclude Include="FieldType.h">
       <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SwipeSKill.h">
+      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

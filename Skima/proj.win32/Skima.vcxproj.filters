@@ -67,6 +67,9 @@
     <Filter Include="Game\Component\Skill\Magician">
       <UniqueIdentifier>{5ff0a045-0312-45d8-b644-597416699331}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Skill\Laphinx">
+      <UniqueIdentifier>{7bb6a68c-6d7d-48b2-8bc7-3d96d29082e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -211,6 +214,24 @@
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClCompile>
     <ClCompile Include="RockEffect.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SwipeSkill.cpp">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SwipeEffect.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AdrenalineSkill.cpp">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EffectParticleType.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EffectSpriteType.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
   </ItemGroup>
@@ -366,6 +387,24 @@
       <Filter>Game\Component\Object\Obstruction</Filter>
     </ClInclude>
     <ClInclude Include="RockEffect.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SwipeSkill.h">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SwipeEffect.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AdrenalineSkill.h">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EffectParticleType.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EffectSpriteType.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LightningPumpkinEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
   </ItemGroup>

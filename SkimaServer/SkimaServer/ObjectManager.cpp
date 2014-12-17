@@ -62,6 +62,7 @@ void ObjectManager::Release(Unit* unit)
     if (player != nullptr)
     {
         player->UnitListPop(unit->GetUnitID());
+		unit->m_Owner = nullptr;
     }
 }
 

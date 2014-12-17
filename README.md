@@ -6,7 +6,7 @@ NHN NEXT 게임 프로젝트 CommitAgain팀입니다!
 
  * [**팀원 및 출사표**](https://github.com/dlakwwkd/CommitAgain/wiki/%ED%8C%80%EB%AA%85-&-%EC%B6%9C%EC%82%AC%ED%91%9C)
  * [**게임 컨셉 기획**](https://github.com/dlakwwkd/CommitAgain/wiki/%EC%BB%A8%EC%85%89-%EA%B8%B0%ED%9A%8D%EC%84%9C)
- * [**최신 배포 버전**](https://github.com/dlakwwkd/CommitAgain/tree/Release_v0.6)
+ * [**최신 배포 버전**](https://github.com/dlakwwkd/CommitAgain/tree/Release_v0.7)
 
 
 Clone 할 때 주의사항

@@ -54,6 +54,6 @@ void Player::UnitListClear()
         unit.second->Extinction();
     }
     m_UnitList.clear();
-    printf(" - UnitListClear : player %d \n", m_PlayerID);
+	printf(" - UnitListClear : player %d, size : %d \n", m_PlayerID, m_UnitList.size());
 }
 

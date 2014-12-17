@@ -6,7 +6,7 @@ USING_NS_CC;
 typedef std::map<HeroType, Sprite*> FaceList;
 
 
-class RoomScene : public LayerColor
+class RoomScene : public Layer
 {
 public:
     static Scene* createScene();
@@ -18,14 +18,12 @@ public:
     void GameExitCallback(Ref* sender);
     void WaitingCheck();
 
-    void MakeFaceSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor, HeroType hero);
+    void MakeHeroSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor, HeroType hero);
     void SetFaceProperty(MenuItemImage* img, Vec2 pos, Vec2 scale, Vec2 anchor);
-    void ChangeSelectedHero();
+    void ChangeSelectedHero(HeroType heroType);
 
     void Tick(float dt);
-    void ClickMagician();
-    void ClickJupiter();
-    void ClickLaphinx();
+    void ClickHero(HeroType heroType);
 
     void GameStartComplete();
 
@@ -33,7 +31,7 @@ private:
     int         m_RoomID;
     bool        m_IsReady;
     HeroType    m_CurHero;
-    FaceList    m_Facelist;
+    FaceList    m_HeroImageList;
     LayerColor* m_WaitingLayer;
 
 };

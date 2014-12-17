@@ -12,6 +12,6 @@ public:
     void MissileDelete();
 
 protected:
-    ParticleSystemQuad* m_Particle;
+    ParticleSystemQuad* m_Particle = nullptr;
 };
 

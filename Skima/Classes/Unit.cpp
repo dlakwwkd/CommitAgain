@@ -12,14 +12,11 @@ Unit::Unit()
     m_CurHp = m_MaxHp = 0;
     m_Speed = 0;
     m_TargetPos = { 0, 0 };
-    m_MyHpBar = nullptr;
-    m_Body = nullptr;
-    m_InUse = false;
+	m_InUse = false;
+	m_Sprite = Sprite::create("Images/CloackingUnit.png");
     m_MoveState = m_StandbyState = new StandbyState();
     m_MovingState = new MovingState();
     m_CrashedState = new CrashedState();
-    m_Sprite = Sprite::create("Images/CloackingUnit.png");
-    m_RealSprite = nullptr;
 }
 
 Unit::~Unit()
@@ -40,14 +37,14 @@ void Unit::UpdateOtherHpBar()
 void Unit::SetHpBar()
 {
     auto hpBarOut = Sprite::create("Images/hp_bar_out.png");
-    hpBarOut->setPosition(Vec2(-25, 80));
+    hpBarOut->setPosition(Vec2(-30, 80));
     hpBarOut->setAnchorPoint(Vec2(0, 0));
-    m_Sprite->addChild(hpBarOut);
+    m_Sprite->addChild(hpBarOut, 10);
     m_MyHpBar = Sprite::create("Images/hp_bar_in.png");
-    m_MyHpBar->setPosition(Vec2(-20, 85));
-    m_MyHpBar->setAnchorPoint(Vec2(0,0));
+    m_MyHpBar->setPosition(Vec2(-25, 85));
+	m_MyHpBar->setAnchorPoint(Vec2(0, 0));
     m_OtherHpBar = Sprite::create("Images/hp_bar_in_enemy.png");
-    m_OtherHpBar->setPosition(Vec2(-20, 85));
+    m_OtherHpBar->setPosition(Vec2(-25, 85));
     m_OtherHpBar->setAnchorPoint(Vec2(0, 0));
 }
 
