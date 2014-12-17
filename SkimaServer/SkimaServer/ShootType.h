@@ -8,11 +8,11 @@ public:
     ShootType();
     virtual ~ShootType();
     
-    virtual void    SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos) = 0;
+    virtual void	SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos) = 0;
 protected:
-    b2Vec2          GenerateInitPos(b2Vec2 heroPos, b2Vec2 targetPos);
-    void            ShootMissile(b2Vec2 initPos);
-    void            ShootMissile(b2Vec2 initPos, b2Vec2 targetPos, MissileType type, float speed, float range, int damage){}
+    b2Vec2			GenerateInitPos(const b2Vec2& heroPos, const b2Vec2& targetPos);
+	void            ShootMissile(const b2Vec2& initPos);
+	void            ShootMissile(const b2Vec2& initPos, const b2Vec2& targetPos, MissileType type, float speed, float range, int damage){}
     void            ShootMissileRepet(b2Vec2 initPos, int repeatNum, int repeatDelay);
     
 protected:

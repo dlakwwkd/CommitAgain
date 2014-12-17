@@ -30,7 +30,7 @@ Unit::~Unit()
     delete m_CrashedState;
 }
 
-void Unit::SetDynamicBody(Player* owner, int type, b2Vec2 initPos, float scale)
+void Unit::SetDynamicBody(Player* owner, int type, const b2Vec2& initPos, float scale)
 {
 	m_Owner = owner;
 	m_UnitID = SET_SIDE_TYPE(m_UnitID, type);
@@ -52,7 +52,7 @@ void Unit::SetDynamicBody(Player* owner, int type, b2Vec2 initPos, float scale)
 	m_Body->SetUserData(this);
 }
 
-void Unit::SetStaticBody(Player* owner, int type, b2Vec2 initPos, b2Vec2 scale)
+void Unit::SetStaticBody(Player* owner, int type, const b2Vec2& initPos, const b2Vec2& scale)
 {
 	m_Owner = owner;
 	m_UnitID = SET_SIDE_TYPE(m_UnitID, type);
@@ -151,7 +151,7 @@ void Unit::Damaged(int damage)
 }
 
 
-void Unit::TryMove(b2Vec2 currentPos, b2Vec2 targetPos)
+void Unit::TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos)
 {
 	auto client = m_Owner->GetClient();
 	if (client == nullptr)

@@ -4,7 +4,7 @@ class Rock :
     public MapObject
 {
 public:
-    Rock(Player* owner, b2Vec2 pos);
+    Rock(Player* owner, const b2Vec2& pos);
     ~Rock();
 };
 

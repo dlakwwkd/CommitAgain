@@ -19,21 +19,22 @@ TeleportSkill::~TeleportSkill()
 {
 }
 
-void TeleportSkill::SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos)
+void TeleportSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos)
 {
     auto hero = m_Owner->GetMyHero();
     hero->EndMove();
 
     auto direction = targetPos - heroPos;
     auto distance = direction.Normalize();
+	auto movePos = targetPos;
 
     if (distance > m_Range)
     {
         direction *= m_Range;
-        targetPos = heroPos + direction;
+		movePos = heroPos + direction;
     }
-    hero->GetBody()->SetTransform(targetPos, 0);
+	hero->GetBody()->SetTransform(movePos, 0);
 
     auto client = m_Owner->GetClient();
-    client->SkillBroadCast(hero->GetUnitID(), key, heroPos, targetPos);
+	client->SkillBroadCast(hero->GetUnitID(), heroPos, movePos, key);
 }

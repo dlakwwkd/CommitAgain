@@ -30,7 +30,7 @@ void Missile::MissileShoot()
     displacement *= m_Range / m_Speed;
     m_TargetPos = currentPos + displacement;
 
-    m_Owner->GetClient()->MissileBroadCast(m_Owner->GetPlayerID(), m_UnitID, currentPos, m_TargetPos);
+    m_Owner->GetClient()->ShootBroadCast(m_Owner->GetPlayerID(), m_UnitID, currentPos, m_TargetPos);
     m_State->TryMove(this);
 }
 

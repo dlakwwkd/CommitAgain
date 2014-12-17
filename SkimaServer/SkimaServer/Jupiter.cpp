@@ -5,7 +5,7 @@
 #include "LightningSkill.h"
 #include "FlashSkill.h"
 
-Jupiter::Jupiter(Player* owner, b2Vec2 pos, float scale)
+Jupiter::Jupiter(Player* owner, const b2Vec2& pos, float scale)
 {
 	SetDynamicBody(owner, HERO_JUPITER, pos, scale);
 	m_Hp = m_MaxHp = 1000;

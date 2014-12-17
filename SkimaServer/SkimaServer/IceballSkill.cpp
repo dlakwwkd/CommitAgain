@@ -22,7 +22,7 @@ IceballSkill::~IceballSkill()
 {
 }
 
-void IceballSkill::SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos)
+void IceballSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos)
 {
     auto hero = m_Owner->GetMyHero();
     hero->EndMove();
@@ -31,5 +31,5 @@ void IceballSkill::SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos)
     ShootMissile(GenerateInitPos(heroPos, targetPos));
 
     auto client = m_Owner->GetClient();
-    client->SkillBroadCast(hero->GetUnitID(), key, heroPos, targetPos);
+    client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 }

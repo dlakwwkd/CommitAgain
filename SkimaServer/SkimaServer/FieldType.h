@@ -6,9 +6,9 @@ public:
     FieldType();
     virtual ~FieldType();
 
-    virtual void    SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos) = 0;
+    virtual void	SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos) = 0;
 protected:
-    void            FieldDamage(b2Vec2 targetPos, float scale, int damage);
+    void			FieldDamage(const b2Vec2& targetPos, float scale, int damage);
     void            FieldDamageRepeat(b2Vec2 targetPos, float scale, int damage, int repeatNum, int repeatDelay);
 
 protected:

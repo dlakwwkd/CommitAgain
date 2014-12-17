@@ -6,7 +6,7 @@ public:
     Missile(int unitId);
     virtual ~Missile();
 
-    void	        SetMissileTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
+    void			SetMissileTargetPos(const b2Vec2& targetPos){ m_TargetPos = targetPos; }
     void	        SetMissileDamage(int missileDamage) { m_Damage = missileDamage; }
     void	        SetMissileSpeed(float missileSpeed) { m_Speed = missileSpeed; }
     void	        SetMissileLivetime(float missileLivetime) { m_Livetime = missileLivetime; }

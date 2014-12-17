@@ -11,7 +11,7 @@ Hero::~Hero()
 {
 }
 
-void Hero::UseSkill(SkillKey skillKey, b2Vec2 heroPos, b2Vec2 targetPos)
+void Hero::UseSkill(SkillKey skillKey, const b2Vec2& heroPos, const b2Vec2& targetPos)
 {
     auto skill = m_SkillList.find(skillKey);
     if (skill == m_SkillList.end())

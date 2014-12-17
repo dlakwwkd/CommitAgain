@@ -6,6 +6,6 @@ public:
     SwipeSkill(Player* owner);
     virtual ~SwipeSkill();
 
-    virtual void SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos);
+    virtual void SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos);
 };
 

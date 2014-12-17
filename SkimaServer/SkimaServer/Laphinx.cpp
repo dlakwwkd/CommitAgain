@@ -5,7 +5,7 @@
 #include "SwipeSKill.h"
 
 
-Laphinx::Laphinx(Player* owner, b2Vec2 pos, float scale)
+Laphinx::Laphinx(Player* owner, const b2Vec2& pos, float scale)
 {
 	SetDynamicBody(owner, HERO_LAPHINX, pos, scale);
     m_Hp = m_MaxHp = 1000;

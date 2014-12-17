@@ -425,7 +425,7 @@ void ClientSession::AllReadyNotify()
     printf(" Send: GameRunNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
-void ClientSession::SendCreateHeroResult(int unitId, b2Vec2 pos)
+void ClientSession::SendCreateHeroResult(int unitId, const b2Vec2& pos)
 {
     CreateHeroResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
@@ -439,7 +439,7 @@ void ClientSession::SendCreateHeroResult(int unitId, b2Vec2 pos)
     printf(" Send: CreateHeroResult Player ID: %d \n", mPlayer->GetPlayerID());
 }
 
-void ClientSession::SendMapInfo(int unitId, b2Vec2 pos)
+void ClientSession::SendMapInfo(int unitId, const b2Vec2& pos)
 {
     CreateMapResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
@@ -465,12 +465,12 @@ void ClientSession::StartGame()
     printf(" Send: StartGameNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
-void ClientSession::SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::SendHeroInfo(int unitId, const b2Vec2& curPos, const b2Vec2& targetPos)
 {
     MoveBroadcastResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
     outPacket.mUnitId = unitId;
-    outPacket.mCurrentPos = CONVERT_OUT(currentPos, mPlayer->GetRoomID());
+    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
@@ -479,7 +479,7 @@ void ClientSession::SendHeroInfo(int unitId, b2Vec2 currentPos, b2Vec2 targetPos
     }
 }
 
-void ClientSession::CrashedBroadCast(int unitId, b2Vec2 curPos, b2Vec2 expectPos, bool isCrashed)
+void ClientSession::CrashedBroadCast(int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed)
 {
     CrashedBroadcastResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
@@ -495,13 +495,13 @@ void ClientSession::CrashedBroadCast(int unitId, b2Vec2 curPos, b2Vec2 expectPos
     //printf(" Send: Crashed!  UnitID: %d, \t\t X : %.f\tY : %.f\n", unitId, outPacket.mExpectPosX, outPacket.mExpectPosY);
 }
 
-void ClientSession::SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::SkillBroadCast(int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key)
 {
     SkillBroadcastResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mUnitId = heroId;
+    outPacket.mUnitId = unitId;
     outPacket.mKey = key;
-    outPacket.mCurrentPos = CONVERT_OUT(currentPos, mPlayer->GetRoomID());
+    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
@@ -510,12 +510,12 @@ void ClientSession::SkillBroadCast(int heroId, SkillKey key, b2Vec2 currentPos, 
     }
 }
 
-void ClientSession::MissileBroadCast(int playerId,int unitId, b2Vec2 currentPos, b2Vec2 targetPos)
+void ClientSession::ShootBroadCast(int playerId,int unitId, const b2Vec2& curPos, const b2Vec2& targetPos)
 {
     MissileBroadcastResult outPacket;
     outPacket.mPlayerId = playerId;
     outPacket.mUnitId = unitId;
-    outPacket.mCurrentPos = CONVERT_OUT(currentPos, mPlayer->GetRoomID());
+    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))

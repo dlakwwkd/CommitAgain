@@ -18,7 +18,7 @@ ShootType::~ShootType()
 {
 }
 
-b2Vec2 ShootType::GenerateInitPos(b2Vec2 heroPos, b2Vec2 targetPos)
+b2Vec2 ShootType::GenerateInitPos(const b2Vec2& heroPos, const b2Vec2& targetPos)
 {
     auto displacement = targetPos - heroPos;
     displacement.Normalize();
@@ -27,7 +27,7 @@ b2Vec2 ShootType::GenerateInitPos(b2Vec2 heroPos, b2Vec2 targetPos)
     return displacement;
 }
 
-void ShootType::ShootMissile(b2Vec2 initPos)
+void ShootType::ShootMissile(const b2Vec2& initPos)
 {
     auto missile = static_cast<Missile*>(GObjectManager->Assign(UNIT_MISSILE));
     m_Owner->UnitListPush(missile->GetUnitID(), missile);

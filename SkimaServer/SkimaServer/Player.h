@@ -34,12 +34,12 @@ public:
     int             GetRoomID() const { return m_RoomID; }
     Hero*           GetMyHero(){ return m_Hero; }
     Team            GetTeam(){ return m_Team; }
-    UnitList&       GetUnitList(){ return m_UnitList; }
+    const UnitList& GetUnitList(){ return m_UnitList; }
 
     void            SetReady(bool ready) { m_IsReady = ready; }
     bool            IsReady() { return m_IsReady; }
 
-    void            CreateHero(b2Vec2 pos);
+    void			CreateHero(const b2Vec2& pos);
     void            SetRoomID(int roomId){ m_RoomID = roomId; }
     void            SetHeroType(HeroType heroType){ m_HeroType = heroType; }
     void            SetTeam(Team team){ m_Team = team; }

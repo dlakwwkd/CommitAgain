@@ -17,7 +17,7 @@ public:
     void            SetMaxHp(int MaxHp){ m_MaxHp = MaxHp; }
     void            SetUnitHp(int Hp){ m_Hp = Hp; }
     void            SetSpeed(float speed){ m_Speed = speed; }
-    void            SetTargetPos(b2Vec2 targetPos){ m_TargetPos = targetPos; }
+    void			SetTargetPos(const b2Vec2& targetPos){ m_TargetPos = targetPos; }
     void            SetContectState(bool state){ m_Contacting = state; }
 
     Player*         GetOwner(){ return m_Owner; }
@@ -27,19 +27,19 @@ public:
     int             GetUnitDamage(){ return m_Damage; }
     float           GetSpeed(){ return m_Speed; }
     bool            GetContectState(){ return m_Contacting; }
-    b2Vec2          GetTargetPos(){ return m_TargetPos; }
+	const b2Vec2&	GetTargetPos(){ return m_TargetPos; }
     b2Body*         GetBody(){ return m_Body; }
     void            InitBody(){ m_Body = nullptr; }
 
-	void			SetDynamicBody(Player* owner, int type, b2Vec2 initPos, float scale);
-	void			SetStaticBody(Player* owner, int type, b2Vec2 initPos, b2Vec2 scale);
+	void			SetDynamicBody(Player* owner, int type, const b2Vec2& initPos, float scale);
+	void			SetStaticBody(Player* owner, int type, const b2Vec2& initPos, const b2Vec2& scale);
 
     void            Moving();
     void            Crashing(bool isCrashing);
     void            Damaged(int damage);
     virtual void    Extinction(){}
 
-    void            TryMove(b2Vec2 currentPos, b2Vec2 targetPos);
+    void			TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos);
     void            Crashed(){ m_State->Crashed(this); }
     void            EndMove(){ m_State->EndMove(this); }
     void            EndCrash(){ m_State->EndCrash(this); }

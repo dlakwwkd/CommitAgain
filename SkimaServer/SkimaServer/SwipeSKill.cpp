@@ -16,13 +16,13 @@ SwipeSkill::~SwipeSkill()
 {
 }
 
-void SwipeSkill::SkillCast(SkillKey key, b2Vec2 heroPos, b2Vec2 targetPos)
+void SwipeSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos)
 {
     auto hero = m_Owner->GetMyHero();
     hero->EndMove();
 
     auto client = m_Owner->GetClient();
-    client->SkillBroadCast(hero->GetUnitID(), key, heroPos, targetPos);
+    client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 
     FieldDamageRepeat(targetPos, m_Scale, m_Damage, 5, 200);
 }

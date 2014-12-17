@@ -10,7 +10,7 @@ Player::~Player()
     UnitListClear();
 }
 
-void Player::CreateHero(b2Vec2 pos)
+void Player::CreateHero(const b2Vec2& pos)
 {
     switch (m_HeroType)
     {

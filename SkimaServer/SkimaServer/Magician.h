@@ -3,7 +3,7 @@
 class Magician : public Hero
 {
 public:
-    Magician(Player* owner, b2Vec2 pos, float scale);
+    Magician(Player* owner, const b2Vec2& pos, float scale);
     virtual ~Magician();
     
     virtual void Extinction(){}

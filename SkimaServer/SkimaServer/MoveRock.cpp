@@ -3,7 +3,7 @@
 #include "GameManager.h"
 
 
-MoveRock::MoveRock(Player* owner, b2Vec2 pos)
+MoveRock::MoveRock(Player* owner, const b2Vec2& pos)
 {
 	SetDynamicBody(owner, OS_ROCK, pos, 30.0f);
     m_Hp = 1000;

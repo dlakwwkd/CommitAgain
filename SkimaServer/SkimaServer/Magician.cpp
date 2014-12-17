@@ -6,7 +6,7 @@
 #include "TeleportSkill.h"
 
 
-Magician::Magician(Player* owner, b2Vec2 pos, float scale)
+Magician::Magician(Player* owner, const b2Vec2& pos, float scale)
 {
 	SetDynamicBody(owner, HERO_MAGICIAN, pos, scale);
     m_Hp = m_MaxHp = 1000;

@@ -15,7 +15,7 @@ FieldType::~FieldType()
 {
 }
 
-void FieldType::FieldDamage(b2Vec2 targetPos, float scale, int damage)
+void FieldType::FieldDamage(const b2Vec2& targetPos, float scale, int damage)
 {
     Rect range;
     range.top = targetPos.y + scale;
