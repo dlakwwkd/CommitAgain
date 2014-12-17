@@ -6,7 +6,7 @@ public:
     RockEffect();
     virtual ~RockEffect();
 
-    void CreateEffect(Vec2 createPos);
+    void CreateEffect(const Vec2& createPos);
     void ExtinctEffect();
 };
 

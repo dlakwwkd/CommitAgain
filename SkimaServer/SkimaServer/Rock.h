@@ -5,6 +5,6 @@ class Rock :
 {
 public:
     Rock(Player* owner, const b2Vec2& pos);
-    ~Rock();
+    virtual ~Rock();
 };
 
