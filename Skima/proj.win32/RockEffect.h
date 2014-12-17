@@ -6,5 +6,8 @@ class RockEffect :
 public:
     RockEffect();
     ~RockEffect();
+
+    void CreateEffect(Vec2 createPos);
+    void ExtinctEffect();
 };
 
