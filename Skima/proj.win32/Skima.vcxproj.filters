@@ -31,9 +31,6 @@
     <Filter Include="Game\Scene">
       <UniqueIdentifier>{1cebd8d3-b880-4e75-9c7d-2a507d8dd843}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\SinglePlay">
-      <UniqueIdentifier>{9d218532-7dd7-4cd4-b43c-ff2a615421e6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Component">
       <UniqueIdentifier>{9e639b63-e4d1-4a14-a9ba-fb422d9ef94a}</UniqueIdentifier>
     </Filter>
@@ -102,17 +99,11 @@
     <ClCompile Include="..\Classes\ListenerLayer.cpp">
       <Filter>Game\MultiPlay</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PhysicsLayer.cpp">
-      <Filter>Game\SinglePlay</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\MainScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LoadingBGLayer.cpp">
       <Filter>Game\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SingleGameScene.cpp">
-      <Filter>Game\SinglePlay</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MultiGameScene.cpp">
       <Filter>Game\MultiPlay</Filter>
@@ -269,17 +260,11 @@
     <ClInclude Include="..\Classes\ListenerLayer.h">
       <Filter>Game\MultiPlay</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\PhysicsLayer.h">
-      <Filter>Game\SinglePlay</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\MainScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LoadingBGLayer.h">
       <Filter>Game\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SingleGameScene.h">
-      <Filter>Game\SinglePlay</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MultiGameScene.h">
       <Filter>Game\MultiPlay</Filter>

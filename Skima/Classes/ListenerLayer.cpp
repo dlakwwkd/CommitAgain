@@ -30,7 +30,6 @@ bool ListenerLayer::init()
     auto layer2 = ObjectLayer::create();
     this->addChild(layer1, 0, "MapLayer");
     this->addChild(layer2, 1, "ObjectLayer");
-    layer2->schedule(schedule_selector(ObjectLayer::TickM));
 
     m_Targeting = false;
 
@@ -45,7 +44,8 @@ bool ListenerLayer::init()
     K_listener->onKeyReleased = CC_CALLBACK_2(ListenerLayer::OnKeyReleased, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(K_listener, this);
 
-    this->schedule(schedule_selector(ListenerLayer::Tick));
+	this->schedule(schedule_selector(ListenerLayer::Tick));
+	layer2->schedule(schedule_selector(ObjectLayer::Tick));
     return true;
 }
 

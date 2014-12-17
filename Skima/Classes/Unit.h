@@ -46,16 +46,6 @@ public:
     void            Move();
     void            Crash();
 
-public:
-    PhysicsBody*    GetBody(){ return m_Body; }
-
-protected:
-    void            MoveS();
-    void            MoveM();
-    void            CrashS();
-    void            CrashM();
-
-
 protected:
     MoveState*      m_MoveState	= nullptr;
 	MoveState*      m_StandbyState = nullptr;
@@ -71,7 +61,6 @@ protected:
     float           m_CurHp;
     float           m_Speed;
     bool            m_InUse;
-
     Vec2            m_TargetPos;
 
 protected:
@@ -79,8 +68,6 @@ protected:
 	Sprite*         m_Sprite = nullptr; // 투명 스프라이트
 	Sprite*         m_MyHpBar = nullptr;
 	Sprite*         m_OtherHpBar = nullptr;
-	PhysicsBody*    m_Body = nullptr;
-
 
     friend class ObjectManager;
 };

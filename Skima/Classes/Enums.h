@@ -5,12 +5,6 @@ enum BodyShape
     BOX,
 };
 
-enum GameMode
-{
-    SINGLE,
-    MULTI,
-};
-
 enum CursorMode
 {
     CURSOR_DEFAULT,

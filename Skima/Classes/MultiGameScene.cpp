@@ -28,8 +28,6 @@ bool MultiGameScene::init()
     {
         return false;
     }
-
-    GET_GM.SetGameMode(MULTI);
     m_IsStartGame = false;
 
     auto layer1 = LoadingBGLayer::create();

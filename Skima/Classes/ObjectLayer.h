@@ -15,10 +15,9 @@ public:
     virtual bool init();
     CREATE_FUNC(ObjectLayer);
 
-    void TickS(float dt);
-    void TickM(float dt);
-
     std::shared_ptr<Hero> GetMyHero(){ return m_Hero; }
+
+    void Tick(float dt);
 
     void CreateHero(int playerID, int unitID, Vec2 location);
     void CreateMapObject(int unitID, Vec2 pos);
@@ -31,21 +30,6 @@ public:
     void ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos);
     void MissileCrash(int missileID);
     void DeleteMissile(int missileID);
-
-protected:
-    void UnitMoveS(Vec2 pos);
-    void UnitMoveM(int unitID, Vec2 recvCurPos, Vec2 targetPos);
-    void UnitCrashS(Vec2 pos);
-    void UnitCrashM(int unitID, Vec2 exPos);
-    void UnitSkillUseS(SkillKey key, Vec2 pos);
-    void UnitSkillUseM(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);
-    void ShootMissileS(Vec2 createPos, Vec2 targetPos);
-    void ShootMissileM(int missileID, Vec2 createPos, Vec2 targetPos);
-    void MissileCrashS();
-    void MissileCrashM(int missileID);
-    void UnitHpUpdateS(int curHp);
-    void UnitHpUpdateM(int playerID, int unitID, float curHP);
-
 
 protected:
     std::shared_ptr<Hero>					m_Hero = nullptr;

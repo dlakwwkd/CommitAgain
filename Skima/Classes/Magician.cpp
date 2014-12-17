@@ -12,6 +12,7 @@ Magician::Magician(Vec2 createPos, float scale)
 	m_HeroType = HERO_MAGICIAN;
 	m_MaxHp = 1000.0f;
 	m_CurHp = m_MaxHp;
+	m_Speed = 360.0f;
 	m_Sprite->setPosition(createPos);
 	m_Sprite->setScale(scale);
 
@@ -33,25 +34,6 @@ Magician::Magician(Vec2 createPos, float scale)
     m_SkillList[SKILL_Q] = new FireballSkill(this);
     m_SkillList[SKILL_W] = new IceballSkill(this);
     m_SkillList[SKILL_E] = new TeleportSkill(this);
-
-    switch (GET_GM.GetGameMode())
-    {
-    case SINGLE:
-    {
-        auto material = PhysicsMaterial(1.0f, 0.6f, 0.8f); // 밀도, 탄성력, 마찰력
-
-        m_Body = PhysicsBody::createCircle(m_Sprite->getContentSize().width*(scale / 2), material);
-        m_Body->setMass(1.0f);
-        m_Body->setLinearDamping(3);
-        m_Body->setRotationEnable(false);
-
-        m_Sprite->setPhysicsBody(m_Body);
-        break;
-    }
-    case MULTI:
-        break;
-    }
-    m_Speed = 360.0f;
 }
 
 

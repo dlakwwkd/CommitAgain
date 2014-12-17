@@ -166,7 +166,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\Rock.cpp" />
     <ClCompile Include="..\Classes\ShootType.cpp" />
-    <ClCompile Include="..\Classes\SingleGameScene.cpp" />
     <ClCompile Include="..\Classes\InputManager.cpp" />
     <ClCompile Include="..\Classes\ListenerLayer.cpp" />
     <ClCompile Include="..\Classes\LoadingBGLayer.cpp" />
@@ -176,7 +175,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MultiGameScene.cpp" />
     <ClCompile Include="..\Classes\NetworkScene.cpp" />
     <ClCompile Include="..\Classes\ObjectLayer.cpp" />
-    <ClCompile Include="..\Classes\PhysicsLayer.cpp" />
     <ClCompile Include="..\Classes\RoomScene.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp" />
     <ClCompile Include="..\Classes\SparkEffect.cpp" />
@@ -228,7 +226,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\Rock.h" />
     <ClInclude Include="..\Classes\ShootType.h" />
-    <ClInclude Include="..\Classes\SingleGameScene.h" />
     <ClInclude Include="..\Classes\InputManager.h" />
     <ClInclude Include="..\Classes\ListenerLayer.h" />
     <ClInclude Include="..\Classes\LoadingBGLayer.h" />
@@ -237,7 +234,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MultiGameScene.h" />
     <ClInclude Include="..\Classes\NetworkScene.h" />
     <ClInclude Include="..\Classes\ObjectLayer.h" />
-    <ClInclude Include="..\Classes\PhysicsLayer.h" />
     <ClInclude Include="..\Classes\RoomScene.h" />
     <ClInclude Include="..\Classes\Skill.h" />
     <ClInclude Include="..\Classes\SparkEffect.h" />

@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 #include "MainScene.h"
-#include "SingleGameScene.h"
 #include "NetworkScene.h"
 
 Scene* MainScene::createScene()
@@ -34,8 +33,6 @@ bool MainScene::init()
 
 void MainScene::menuCallback1(Ref* sender)
 {
-    auto scene = SingleGameScene::createScene();
-    Director::getInstance()->pushScene(scene);
 }
 void MainScene::menuCallback2(Ref* sender)
 {
