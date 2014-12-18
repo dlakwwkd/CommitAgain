@@ -11,7 +11,6 @@
 #include "ClientSession.h"
 #include "ClientManager.h"
 #include "GameManager.h"
-#include "UnitPoolManager.h"
 #include "DatabaseJobManager.h"
 //#include "DbHelper.h"
 
@@ -30,7 +29,6 @@ int _tmain(int argc, _TCHAR* argv[])
     /// Manager Init
     GClientManager = new ClientManager;
     GGameManager = new GameManager;
-    GUnitPoolManager = new UnitPoolManager;
     //GDatabaseJobManager = new DatabaseJobManager ;
 
     /// DB Helper 초기화
@@ -103,7 +101,6 @@ int _tmain(int argc, _TCHAR* argv[])
 
     delete GClientManager;
     delete GGameManager;
-    delete GUnitPoolManager;
     //delete GDatabaseJobManager ;
     return 0;
 }
