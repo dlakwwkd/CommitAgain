@@ -355,7 +355,7 @@ void TcpClient::processPacket()
 
                 auto layer = GET_OBJECT_LAYER;      assert(layer != nullptr);
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSkillUse, layer,
-                    recvData.mUnitId, recvData.mKey, curPos, targetPos));
+                    recvData.mPlayerId, recvData.mUnitId, recvData.mKey, curPos, targetPos));
             }
             break;
         case PKT_SC_MISSILE:

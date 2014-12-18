@@ -11,12 +11,14 @@ public:
     Vec2            GetHeroPos() { return m_Sprite->getPosition(); }
     Sprite*         GetArrow() { return m_Arrow; }
     Sprite*         GetSkillRange(){ return m_SkillRange; }
+    HeroType        GetHeroType(){ return m_HeroType; }
 
     Skill*          GetSkill(SkillKey key);
     int             GetSkillCoolTime(SkillKey key);
     bool            GetSkillCanUse(SkillKey key);
     void			SetSkillCanUse(SkillKey key, bool isUse);
 
+    void            SkillCastForEnemy(SkillKey key, Vec2 recvPos, Vec2 targetPos);
     void			SkillCast(SkillKey key, Vec2 recvPos, Vec2 targetPos);
     void			SkillReady(SkillKey key);
     void			SkillEnd(SkillKey key);

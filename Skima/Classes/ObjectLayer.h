@@ -24,7 +24,7 @@ public:
     void UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos);
     void UnitCrash(int unitID, Vec2 exPos);
     void UnitCrashEnd(int unitID, Vec2 revisePos);
-    void UnitSkillUse(int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);
+    void UnitSkillUse(int playerID, int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);
     void UnitHpUpdate(int playerID, int unitID, int curHp);
 
     void ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos);

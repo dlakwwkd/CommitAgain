@@ -25,6 +25,7 @@ public:
     Sprite*         GetSprite(){ return m_Sprite; }
     Sprite*         GetMyHpBar(){ return m_MyHpBar; }
     Sprite*         GetOtherHpBar(){ return m_OtherHpBar; }
+    Sprite*         GetHpBarOut(){ return m_HpbarOut; }
     float           GetMaxHp(){ return m_MaxHp; }
     float           GetCurHp(){ return m_CurHp; }
     Vec2            GetMoveTargetPos(){ return m_TargetPos; }
@@ -68,6 +69,7 @@ protected:
 	Sprite*         m_Sprite = nullptr; // 투명 스프라이트
 	Sprite*         m_MyHpBar = nullptr;
 	Sprite*         m_OtherHpBar = nullptr;
+    Sprite*         m_HpbarOut = nullptr;
 
     friend class ObjectManager;
 };

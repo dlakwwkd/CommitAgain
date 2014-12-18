@@ -3,7 +3,7 @@
 #include "GameManager.h"
 #include "Skill.h"
 #include "SwipeSKill.h"
-
+#include "HideSkill.h"
 
 Laphinx::Laphinx(Player* owner, const b2Vec2& pos, float scale)
 {
@@ -11,7 +11,7 @@ Laphinx::Laphinx(Player* owner, const b2Vec2& pos, float scale)
     m_Hp = m_MaxHp = 1000;
     m_Speed = REDUCE(360);
     m_Damage = 80;
-//     m_SkillList[SKILL_Q] = new FireballSkill(m_Owner, circle.m_radius);
+     m_SkillList[SKILL_Q] = new HideSkill(m_Owner);
 //     m_SkillList[SKILL_W] = new IceballSkill(m_Owner, circle.m_radius);
      m_SkillList[SKILL_E] = new SwipeSkill(m_Owner);
 }

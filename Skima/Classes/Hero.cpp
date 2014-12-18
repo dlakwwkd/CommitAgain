@@ -58,12 +58,18 @@ void Hero::SetSkillCanUse(SkillKey key, bool isUse)
     skill->SetCanUse(isUse);
 }
 
-
 void Hero::SkillCast(SkillKey key, Vec2 recvPos, Vec2 targetPos)
 {
     auto skill = GetSkill(key);
     if (!skill) return;
     skill->SkillCast(recvPos, targetPos);
+}
+
+void Hero::SkillCastForEnemy(SkillKey key, Vec2 recvPos, Vec2 targetPos)
+{
+    auto skill = GetSkill(key);
+    if (!skill) return;
+    skill->SkillCastForEnemy(recvPos, targetPos);
 }
 
 void Hero::SkillReady(SkillKey key)
@@ -175,4 +181,5 @@ Direction Hero::CalcSkillDirection(Vec2 displacement)
     }
     return Direction::SE;
 }
+
 
