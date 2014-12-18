@@ -2,7 +2,6 @@
 #include "Missile.h"
 #include "Scheduler.h"
 #include "GameManager.h"
-#include "UnitPoolManager.h"
 #include "ClientSession.h"
 #include "Player.h"
 
@@ -16,17 +15,6 @@ Missile::Missile()
 
 Missile::~Missile()
 {
-    GUnitPoolManager->Release(this);
-}
-
-void Missile::Extinction()
-{
-	if (m_InUse)
-	{
-		//CallFuncAfter(1, GObjectManager, &ObjectManager::Except, this);
-		CallFuncAfter(1, GUnitPoolManager, &UnitPoolManager::Release, this);
-		printf(" Missile::Extinction()!! : UnitID : %d \n", INIT_TYPE(m_UnitID));
-	}
 }
 
 void Missile::MissileShoot()

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Hero.h"
+#include "ObjectPool.h"
 class ClientSession;
 
 typedef std::map<int, Unit*> UnitList;
@@ -16,7 +17,7 @@ enum Team
     TEAM_B,
 };
 
-class Player
+class Player : public ObjectPool<Player>
 {
 public:
     Player(ClientSession* client, int playerId, PlayerType type) : 

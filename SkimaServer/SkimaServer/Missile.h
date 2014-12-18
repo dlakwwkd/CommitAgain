@@ -1,11 +1,20 @@
 ﻿#pragma once
-#include "UnitPool.h"
-class Missile : public UnitPool
+#include "Unit.h"
+#include "ObjectPool.h"
+class Missile : public Unit, public ObjectPool<Missile>
 {
 public:
     Missile();
     virtual ~Missile();
-    virtual void	Extinction();
-    void	        MissileShoot();
+
+	void SetRange(float range) { m_Range = range; }
+	void SetLivetime(float livetime) { m_Livetime = livetime; }
+
+	void MissileShoot();
+
+private:
+	float m_Range;
+	float m_Livetime;
+
 };
 

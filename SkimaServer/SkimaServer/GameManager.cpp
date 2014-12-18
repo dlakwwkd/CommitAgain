@@ -278,8 +278,8 @@ bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
 
 void GameManager::CrashDamage(Unit* unitA, Unit* unitB)
 {
-    unitA->Damaged(unitB->GetUnitDamage());
-    unitB->Damaged(unitA->GetUnitDamage());
+    unitA->Damaged(unitB->GetDamage());
+    unitB->Damaged(unitA->GetDamage());
 }
 
 void GameManager::FieldDamage(Player* caster, Rect* range, int damage)

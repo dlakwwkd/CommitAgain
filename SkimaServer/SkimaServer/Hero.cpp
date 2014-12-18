@@ -10,6 +10,10 @@ Hero::Hero()
 
 Hero::~Hero()
 {
+	for (auto& skill : m_SkillList)
+	{
+		delete skill.second;
+	}
 }
 
 void Hero::UseSkill(SkillKey skillKey, const b2Vec2& heroPos, const b2Vec2& targetPos)

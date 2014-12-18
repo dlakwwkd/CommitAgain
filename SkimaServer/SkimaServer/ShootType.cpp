@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "ShootType.h"
 #include "Scheduler.h"
-#include "UnitPoolManager.h"
 #include "Player.h"
 #include "Missile.h"
 
@@ -29,8 +28,7 @@ b2Vec2 ShootType::GenerateInitPos(const b2Vec2& heroPos, const b2Vec2& targetPos
 
 void ShootType::ShootMissile(const b2Vec2& initPos)
 {
-    auto missile = static_cast<Missile*>(GUnitPoolManager->Assign(UNIT_MISSILE));
-    m_Owner->UnitListPush(missile->GetUnitID(), missile);
+    auto missile = new Missile();
 
     missile->SetDynamicBody(m_Owner, m_MissileType, initPos, m_MissileScale);
     missile->SetTargetPos(m_TargetPos);

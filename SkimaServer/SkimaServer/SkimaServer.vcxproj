@@ -191,8 +191,6 @@
     <ClInclude Include="Mob.h" />
     <ClInclude Include="MoveRock.h" />
     <ClInclude Include="Terrain.h" />
-    <ClInclude Include="UnitPool.h" />
-    <ClInclude Include="UnitPoolManager.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProducerConsumerQueue.h" />
@@ -243,8 +241,6 @@
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="MoveRock.cpp" />
     <ClCompile Include="Terrain.cpp" />
-    <ClCompile Include="UnitPool.cpp" />
-    <ClCompile Include="UnitPoolManager.cpp" />
     <ClCompile Include="PacketHandling.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rock.cpp" />

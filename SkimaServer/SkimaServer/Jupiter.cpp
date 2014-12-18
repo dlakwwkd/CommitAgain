@@ -19,9 +19,4 @@ Jupiter::Jupiter(Player* owner, const b2Vec2& pos, float scale)
 
 Jupiter::~Jupiter()
 {
-	GGameManager->GetWolrd()->DestroyBody(m_Body);
-	for (auto& skill : m_SkillList)
-	{
-		delete skill.second;
-	}
 }

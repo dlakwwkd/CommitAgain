@@ -14,20 +14,21 @@ public:
 
 public:
     void            SetType(int type){ m_UnitID += type; }
+	void	        SetDamage(int damage) { m_Damage = damage; }
     void            SetMaxHp(int MaxHp){ m_MaxHp = MaxHp; }
-    void            SetUnitHp(int Hp){ m_Hp = Hp; }
+    void            SetHp(int Hp){ m_Hp = Hp; }
     void            SetSpeed(float speed){ m_Speed = speed; }
-    void			SetTargetPos(const b2Vec2& targetPos){ m_TargetPos = targetPos; }
+	void			SetTargetPos(const b2Vec2& targetPos){ m_TargetPos = targetPos; }
     void            SetContectState(bool state){ m_Contacting = state; }
 
     Player*         GetOwner(){ return m_Owner; }
     int             GetUnitID(){ return m_UnitID; }
+    int             GetDamage(){ return m_Damage; }
     int             GetMaxHp(){ return m_MaxHp; }
-    int             GetUnitHp(){ return m_Hp; }
-    int             GetUnitDamage(){ return m_Damage; }
+    int             GetHp(){ return m_Hp; }
     float           GetSpeed(){ return m_Speed; }
-    bool            GetContectState(){ return m_Contacting; }
 	const b2Vec2&	GetTargetPos(){ return m_TargetPos; }
+    bool            GetContectState(){ return m_Contacting; }
     b2Body*         GetBody(){ return m_Body; }
     void            InitBody(){ m_Body = nullptr; }
 

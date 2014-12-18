@@ -12,5 +12,4 @@ Rock::Rock(Player* owner, const b2Vec2& pos)
 
 Rock::~Rock()
 {
-	GGameManager->GetWolrd()->DestroyBody(m_Body);
 }

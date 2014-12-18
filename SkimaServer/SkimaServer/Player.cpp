@@ -30,22 +30,17 @@ void Player::UnitListPop(int unitID)
     auto unit = m_UnitList.find(unitID);
     if (unit != m_UnitList.end())
     {
-        m_UnitList.erase(unit);
+		delete unit->second;
+		m_UnitList.erase(unit);
         printf(" - UnitListPop : player %d, size : %d \n", m_PlayerID, m_UnitList.size());
     }
 }
 
 void Player::UnitListClear()
 {
-    if (m_Hero != nullptr)
-    {
-        m_UnitList.erase(m_Hero->GetUnitID());
-        delete m_Hero;
-        m_Hero = nullptr;
-    }
     for (auto& unit : m_UnitList)
     {
-        unit.second->Extinction();
+        delete unit.second;
     }
     m_UnitList.clear();
 	printf(" - UnitListClear : player %d, size : %d \n", m_PlayerID, m_UnitList.size());

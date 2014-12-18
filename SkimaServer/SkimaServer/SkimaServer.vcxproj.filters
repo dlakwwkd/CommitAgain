@@ -63,7 +63,7 @@
       <Filter>Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="Missile.cpp">
-      <Filter>Game\Component\Unit\UnitPool\Missile</Filter>
+      <Filter>Game\Component\Unit\Missile</Filter>
     </ClCompile>
     <ClCompile Include="Hero.cpp">
       <Filter>Game\Component\Unit\Hero</Filter>
@@ -117,13 +117,7 @@
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClCompile>
     <ClCompile Include="Mob.cpp">
-      <Filter>Game\Component\Unit\UnitPool\Mob</Filter>
-    </ClCompile>
-    <ClCompile Include="UnitPoolManager.cpp">
-      <Filter>Game\Component\Unit\UnitPool</Filter>
-    </ClCompile>
-    <ClCompile Include="UnitPool.cpp">
-      <Filter>Game\Component\Unit\UnitPool</Filter>
+      <Filter>Game\Component\Unit\Mob</Filter>
     </ClCompile>
     <ClCompile Include="AdrenalineSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
@@ -217,7 +211,7 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Missile.h">
-      <Filter>Game\Component\Unit\UnitPool\Missile</Filter>
+      <Filter>Game\Component\Unit\Missile</Filter>
     </ClInclude>
     <ClInclude Include="Hero.h">
       <Filter>Game\Component\Unit\Hero</Filter>
@@ -277,13 +271,7 @@
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClInclude>
     <ClInclude Include="Mob.h">
-      <Filter>Game\Component\Unit\UnitPool\Mob</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitPoolManager.h">
-      <Filter>Game\Component\Unit\UnitPool</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitPool.h">
-      <Filter>Game\Component\Unit\UnitPool</Filter>
+      <Filter>Game\Component\Unit\Mob</Filter>
     </ClInclude>
     <ClInclude Include="AdrenalineSkill.h">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
@@ -350,17 +338,14 @@
     <Filter Include="Game\Component\Unit\Obstruct">
       <UniqueIdentifier>{62122c1a-450e-4572-8e87-7351e50881eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Unit\UnitPool">
-      <UniqueIdentifier>{e30175aa-886b-4dea-a476-3cf603bec8da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Unit\UnitPool\Missile">
-      <UniqueIdentifier>{acd95774-9987-485c-a89c-b2810c0d478d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Unit\UnitPool\Mob">
-      <UniqueIdentifier>{4948f4fb-cbed-4d7e-a5e0-1b1d33adf779}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Component\Map\Terrain">
       <UniqueIdentifier>{b54e57c7-5e36-4240-8342-91c075817a26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Unit\Missile">
+      <UniqueIdentifier>{acd95774-9987-485c-a89c-b2810c0d478d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Unit\Mob">
+      <UniqueIdentifier>{4948f4fb-cbed-4d7e-a5e0-1b1d33adf779}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

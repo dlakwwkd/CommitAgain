@@ -9,10 +9,8 @@
 
 Unit::Unit()
 {
-    static int makeId = 0;
-    m_UnitID = ++makeId;
-
-    m_Hp = m_MaxHp = -1;
+	m_UnitID = -1;
+	m_Hp = m_MaxHp = -1;
     m_Damage = 0;
     m_Speed = -1;
     m_Contacting = false;
@@ -25,15 +23,18 @@ Unit::Unit()
 
 Unit::~Unit()
 {
-    delete m_StandbyState;
+	delete m_StandbyState;
     delete m_MovingState;
     delete m_CrashedState;
+	CallFuncAfter(1, GGameManager, &GameManager::DeleteBody, m_Body);
 }
 
 void Unit::SetDynamicBody(Player* owner, int type, const b2Vec2& initPos, float scale)
 {
-	m_Owner = owner;
 	m_UnitID = SET_SIDE_TYPE(m_UnitID, type);
+	m_Owner = owner;
+	m_Owner->UnitListPush(m_UnitID, this);
+
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(initPos.x, initPos.y);
@@ -54,8 +55,10 @@ void Unit::SetDynamicBody(Player* owner, int type, const b2Vec2& initPos, float 
 
 void Unit::SetStaticBody(Player* owner, int type, const b2Vec2& initPos, const b2Vec2& scale)
 {
-	m_Owner = owner;
 	m_UnitID = SET_SIDE_TYPE(m_UnitID, type);
+	m_Owner = owner;
+	m_Owner->UnitListPush(m_UnitID, this);
+
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_staticBody;
 	bodyDef.position.Set(initPos.x, initPos.y);
@@ -89,16 +92,6 @@ void Unit::Moving()
 
 void Unit::Crashing(bool isCrashing)
 {
-    switch (GET_MAIN_TYPE(m_UnitID))
-    {
-    case UNIT_MISSILE:
-        isCrashing = false;
-        Extinction();
-        break;
-    case UNIT_OBSTRUCT:
-        break;
-    };
-
     auto client = m_Owner->GetClient();
     if (client == nullptr)
     {
@@ -106,6 +99,12 @@ void Unit::Crashing(bool isCrashing)
 		printf(" - Crashing Failed ! : client is invalid \n");
         return;
     }
+	switch (GET_MAIN_TYPE(m_UnitID))
+	{
+	case UNIT_MISSILE:
+		isCrashing = false;
+		break;
+	};
 
     auto curPos = m_Body->GetPosition();
     auto expectPos = curPos;

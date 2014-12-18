@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "SparkSkill.h"
-#include "UnitPoolManager.h"
 #include "ClientSession.h"
 #include "Player.h"
 #include "Hero.h"
