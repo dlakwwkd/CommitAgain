@@ -20,6 +20,7 @@ public:
     virtual void    SkillReady()							        = 0;
     virtual void    SkillEnd()								        = 0;
 
+    void            SetHeroPerforming(bool isPerforming);
     Direction       GenerateSkillDirection(Vec2 targetPos, Vec2 curPos);
 
 protected:

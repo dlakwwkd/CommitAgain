@@ -23,6 +23,9 @@ public:
     void			SkillReady(SkillKey key);
     void			SkillEnd(SkillKey key);
 
+    bool            GetHeroPerforming(){ return m_IsPerforming; }
+    void            SetHeroPerforming(bool performing){ m_IsPerforming = performing; }
+
     virtual void    SetMoveMotionToCache()				= 0;
     virtual void    SetSkillMotionToCache()				= 0;
     virtual void    SetMoveMotionByDir()				= 0;
@@ -39,5 +42,6 @@ protected:
     HeroType                    m_HeroType;
     Sprite*                     m_Arrow	= nullptr;
     Sprite*                     m_SkillRange = nullptr;
+    bool                        m_IsPerforming;
 };
 

@@ -5,6 +5,8 @@
 
 Hero::Hero()
 {
+    m_IsPerforming = false;
+
     m_Arrow = Sprite::create("Images/arrow.png");
     m_Arrow->setScale(0.1f, 0.1f);
     m_Arrow->setVisible(false);

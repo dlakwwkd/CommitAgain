@@ -121,7 +121,17 @@ void ListenerLayer::OnMouseDown(Event *event)
         {
             if (hero->GetMoveState() != hero->GetCrashedState())
             {
-				TcpClient::getInstance()->moveRequest(heroPos, mousePos - this->getPosition());
+                if (hero->GetHeroType()==HERO_LAPHINX)
+                {
+                    if (hero->GetHeroPerforming() == false)
+                    {
+                        TcpClient::getInstance()->moveRequest(heroPos, mousePos - this->getPosition());
+                    }
+                }
+                else
+                {
+    				TcpClient::getInstance()->moveRequest(heroPos, mousePos - this->getPosition());
+                }
             }
             if (key != SKILL_NONE)
             {

@@ -29,6 +29,7 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
     auto effect = new HideEffect();
     effect->CreateEffect(heroPos);
+    m_Hero->SetHeroPerforming(true);
 
     float lastTime = 0.8f;
     auto myLaphinxSprite = m_Hero->GetRealSprite();
@@ -43,11 +44,11 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     auto action2 = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this,myLaphinxSprite,102));
     auto action2sub = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myHpbar, 102));
     auto action2subS = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, HpFrame, 102));
-    auto action3 = Sequence::create(action1, action2, NULL);
+    auto action3 = CallFunc::create(CC_CALLBACK_0(Skill::SetHeroPerforming, this, false));
     auto action3sub = Sequence::create(action1sub, action2sub, NULL);
     auto action3subS = Sequence::create(action1subS, action2subS, NULL);
-
-    myLaphinxSprite->runAction(action3);
+    auto action4 = Sequence::create(action1, action2, action3,NULL);
+    myLaphinxSprite->runAction(action4);
     myHpbar->runAction(action3sub);
     HpFrame->runAction(action3subS);
 }
@@ -96,4 +97,3 @@ void HideSkill::SetSpriteOpacity(Sprite* sprite, float opacity)
 {
     sprite->setOpacity(opacity);
 }
-
