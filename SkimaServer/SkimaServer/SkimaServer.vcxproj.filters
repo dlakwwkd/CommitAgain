@@ -134,6 +134,9 @@
     <ClCompile Include="Lava.cpp">
       <Filter>Game\Component\Map\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="HideSkill.cpp">
+      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -290,6 +293,9 @@
     </ClInclude>
     <ClInclude Include="Lava.h">
       <Filter>Game\Component\Map\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="HideSkill.h">
+      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

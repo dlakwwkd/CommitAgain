@@ -225,6 +225,12 @@
     <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp">
       <Filter>Game\Component\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\HideSkill.cpp">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HideEffect.cpp">
+      <Filter>Game\Component\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -390,6 +396,12 @@
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LightningPumpkinEffect.h">
+      <Filter>Game\Component\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HideSkill.h">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HideEffect.h">
       <Filter>Game\Component\Effect</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,17 +1,17 @@
 #include "pch.h"
-#include "AdrenalineSkill.h"
+#include "HideSkill.h"
 #include "GameManager.h"
 #include "Hero.h"
 #include "Unit.h"
 
 
-AdrenalineSkill::AdrenalineSkill()
+HideSkill::HideSkill()
 {
     m_CoolTime = 3;
     m_CanUse = true;
 }
 
-AdrenalineSkill::AdrenalineSkill(Hero* hero)
+HideSkill::HideSkill(Hero* hero)
 {
     m_Hero = hero;
     m_CoolTime = 3;
@@ -19,15 +19,16 @@ AdrenalineSkill::AdrenalineSkill(Hero* hero)
 }
 
 
-AdrenalineSkill::~AdrenalineSkill()
+HideSkill::~HideSkill()
 {
 }
 
 
-void AdrenalineSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
+void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
     // m_hero의 Qparticle을 setvisible해준다
-
+    // m_hero 가 내꺼면 setopacity 2단계
+    // 내꺼가 아니면 setopacity 2~3단계 + getrealsprite -> setvisible(f)
 
 //     auto effect = new TeleportEffect();
 //     effect->CreateEffect(heroPos);
@@ -38,20 +39,20 @@ void AdrenalineSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 //     auto action = MoveTo::create(time, targetPos);
 //     m_Hero->GetSprite()->runAction(action);
 }
+void HideSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
+{
+    //공통적으로 그 포지션에 파티클 띄워주기
+}
 
-void AdrenalineSkill::SkillReady()
+void HideSkill::SkillReady()
 {
 //     auto moveDir = m_Hero->GetArrow();
 //     moveDir->setVisible(true);
 }
 
-void AdrenalineSkill::SkillEnd()
+void HideSkill::SkillEnd()
 {
 //     auto moveDir = m_Hero->GetArrow();
 //     moveDir->setVisible(false);
 }
 
-void AdrenalineSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
-{
-
-}

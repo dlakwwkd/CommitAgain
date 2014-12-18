@@ -151,6 +151,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\GameOverScene.cpp" />
     <ClCompile Include="..\Classes\Hero.cpp" />
+    <ClCompile Include="..\Classes\HideEffect.cpp" />
+    <ClCompile Include="..\Classes\HideSkill.cpp" />
     <ClCompile Include="..\Classes\IceballSkill.cpp" />
     <ClCompile Include="..\Classes\IceEffect.cpp" />
     <ClCompile Include="..\Classes\Jupiter.cpp" />
@@ -210,6 +212,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GameManager.h" />
     <ClInclude Include="..\Classes\GameOverScene.h" />
     <ClInclude Include="..\Classes\Hero.h" />
+    <ClInclude Include="..\Classes\HideEffect.h" />
+    <ClInclude Include="..\Classes\HideSkill.h" />
     <ClInclude Include="..\Classes\IceballSkill.h" />
     <ClInclude Include="..\Classes\IceEffect.h" />
     <ClInclude Include="..\Classes\Jupiter.h" />

@@ -49,3 +49,8 @@ void SwipeSkill::SkillEnd()
     auto rangeCircle = m_Hero->GetSkillRange();
     rangeCircle->setVisible(false);
 }
+
+void SwipeSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
+{
+
+}

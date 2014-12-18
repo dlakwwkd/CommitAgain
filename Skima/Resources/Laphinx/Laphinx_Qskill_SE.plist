@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>Laphinx_SE01.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{133,0},{126,155}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{2,15},{126,155}}</string>
+				<key>sourceSize</key>
+				<string>{147,183}</string>
+			</dict>
+
+			<key>Laphinx_SE02.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{132,162}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{11,8},{132,162}}</string>
+				<key>sourceSize</key>
+				<string>{151,183}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{512,256}</string>
+			<key>textureFileName</key>
+			<string>Laphinx_Qskill_SE.png</string>
+			</dict>
+		</dict>
+</plist>

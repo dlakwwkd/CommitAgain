@@ -175,6 +175,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameRoom.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="HideSkill.h" />
     <ClInclude Include="IceballSkill.h" />
     <ClInclude Include="Jupiter.h" />
     <ClInclude Include="Laphinx.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameRoom.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="HideSkill.cpp" />
     <ClCompile Include="IceballSkill.cpp" />
     <ClCompile Include="Jupiter.cpp" />
     <ClCompile Include="Laphinx.cpp" />

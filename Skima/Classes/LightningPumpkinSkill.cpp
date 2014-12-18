@@ -47,3 +47,8 @@ void LightningPumpkinSkill::SkillEnd()
     auto rangeCircle = m_Hero->GetSkillRange();
     rangeCircle->setVisible(false);
 }
+
+void LightningPumpkinSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
+{
+
+}

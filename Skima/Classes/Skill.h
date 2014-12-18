@@ -15,9 +15,10 @@ public:
     bool            GetCanUse() { return m_CanUse; }
     void            SetCanUse(bool isUse) { m_CanUse = isUse; }
 
-    virtual void	SkillCast(Vec2 heroPos, Vec2 targetPos) = 0;
-    virtual void    SkillReady()							= 0;
-    virtual void    SkillEnd()								= 0;
+    virtual void	SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos) = 0;
+    virtual void	SkillCast(Vec2 heroPos, Vec2 targetPos)         = 0;
+    virtual void    SkillReady()							        = 0;
+    virtual void    SkillEnd()								        = 0;
 
     Direction       GenerateSkillDirection(Vec2 targetPos, Vec2 curPos);
 
