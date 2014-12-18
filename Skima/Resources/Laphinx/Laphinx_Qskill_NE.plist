@@ -4,7 +4,7 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>Laphinx_NE01.png</key>
+			<key>Laphinx_Qskill_NE01.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,0},{155,137}}</string>
@@ -18,7 +18,7 @@
 				<string>{163,183}</string>
 			</dict>
 
-			<key>Laphinx_NE02.png</key>
+			<key>Laphinx_Qskill_NE02.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{156,0},{143,147}}</string>

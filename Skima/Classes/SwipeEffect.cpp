@@ -11,13 +11,13 @@ SwipeEffect::~SwipeEffect()
 
 void SwipeEffect::CreateEffect(const Vec2& createPos)
 {
-	CreateSprite("Images/CloackingUnit.png", createPos, 0.3f, 1.0f);
+    CreateSprite("Images/CloackingUnit.png", createPos, 0.3f, 1.0f);
     SetSwipeMotionCache();
 }
 
 void SwipeEffect::ExtinctEffect()
 {
-	ExtinctSprite();
+    ExtinctSprite();
 }
 
 void SwipeEffect::SetSwipeMotionCache()

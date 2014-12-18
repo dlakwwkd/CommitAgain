@@ -4,7 +4,7 @@
 #include "PacketType.h"
 #include "SwipeSkill.h"
 #include "AdrenalineSkill.h"
-
+#include "HideSkill.h"
 
 
 Laphinx::Laphinx(Vec2 createPos, float scale)
@@ -38,7 +38,7 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
     m_Qparticle->setVisible(false);
     m_RealSprite->addChild(m_Qparticle, -1);
 
-    m_SkillList[SKILL_Q] = new AdrenalineSkill(this);
+    m_SkillList[SKILL_Q] = new HideSkill(this);
 //     m_SkillList[SKILL_W] = new IceballSkill(this);
     m_SkillList[SKILL_E] = new SwipeSkill(this);
 }
@@ -77,6 +77,10 @@ void Laphinx::SetMoveMotionByDir()
 
 void Laphinx::SetSkillMotionToCache()
 {
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_QSkill_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_QSkill_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_QSkill_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_QSkill_SW.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_NE.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_NW.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_SE.plist");
@@ -88,8 +92,13 @@ void Laphinx::SetSkillMotionByDir(SkillKey key)
     switch (key)
     {
     case SKILL_Q:
-        m_Qparticle->setVisible(true);
-        //to do : 파티클 visible false로 바꾸는것
+        switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
+        {
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_Qskill_SE%02d.png", 2)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_Qskill_SW%02d.png", 2)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_Qskill_NE%02d.png", 2)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_Qskill_NW%02d.png", 2)); break;
+        }
         break;
 
     case SKILL_W:

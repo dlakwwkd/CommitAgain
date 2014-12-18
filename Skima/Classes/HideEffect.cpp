@@ -13,7 +13,7 @@ HideEffect::~HideEffect()
 
 void HideEffect::CreateEffect(const Vec2& createPos)
 {
-	CreateParticle("Images/teleport.plist", createPos, 0.4f, 2.0f);
+	CreateParticle("Laphinx/HideEffect.plist", createPos, 0.4f, 1.0f);
 }
 
 void HideEffect::ExtinctEffect()
