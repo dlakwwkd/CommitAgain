@@ -12,10 +12,37 @@ Scene* MainScene::createScene()
 
 bool MainScene::init()
 {
-    if (!LayerColor::initWithColor(Color4B(100, 100, 200, 255)))
+    if (!Layer::init())
     {
         return false;
     }
+
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_01.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_02.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_03.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_04.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_05.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_06.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_07.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_08.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_09.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_10.plist");
+
+    auto background = Sprite::createWithSpriteFrameName("MainBackground_001.png");
+    auto animation = Animation::create();
+    animation->setDelayPerUnit(0.2f);
+
+    for (int i = 1; i <= 196; ++i)
+    {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format("MainBackground_%003d.png", i));
+        animation->addSpriteFrame(frame);
+    }
+    background->runAction(RepeatForever::create(Animate::create(animation)));
+    background->setScaleX(2.70f);
+    background->setScaleY(2.30f);
+    background->setAnchorPoint(Vec2::ZERO);
+
+    this->addChild(background);
 
     auto label1 = Label::createWithSystemFont("싱글 플레이", "Thonburi", 50);
     auto label2 = Label::createWithSystemFont("멀티 플레이", "Thonburi", 50);

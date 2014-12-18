@@ -2,7 +2,7 @@
 
 USING_NS_CC;
 
-class MainScene : public LayerColor
+class MainScene : public Layer
 {
 public:
     static Scene* createScene();
