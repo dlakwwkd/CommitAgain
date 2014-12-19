@@ -14,7 +14,9 @@
 #include "Unit.h"
 #include "Skill.h"
 #include "Laphinx.h"
+#include "Rock.h"
 #include "MoveRock.h"
+#include "Lava.h"
 
 #define GET_UI_LAYER	dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"))
 
@@ -63,8 +65,21 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
 
 void ObjectLayer::CreateMapObject(int unitID, Vec2 pos)
 {
-    //id로 타입 구별 먼저 해줘야 함
-    m_UnitList[unitID] = std::make_shared<MoveRock>(unitID, pos);
+    switch (GET_SIDE_TYPE(unitID))
+    {
+    case OS_ROCK:
+        m_UnitList[unitID] = std::make_shared<Rock>(unitID, pos);
+        break;
+    case OS_MOVE_ROCK:
+        m_UnitList[unitID] = std::make_shared<MoveRock>(unitID, pos);
+        break;
+    case OS_LAVA:
+        Lava lava = new Lava(unitID, pos);
+        break;
+
+    default:
+        break;
+    }
 }
 
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)
