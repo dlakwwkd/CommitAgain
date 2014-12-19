@@ -1,10 +1,15 @@
 #pragma once
-#include "Terrain.h"
+#include "MapObject.h"
+#include "GameManager.h"
+
 class Lava :
-    public Terrain
+    public MapObject
 {
 public:
-    Lava(b2Vec2 createPos);
+    Lava(Player* owner, b2Vec2 createPos);
     virtual ~Lava();
+
+private:
+    Rect range;
 };
 

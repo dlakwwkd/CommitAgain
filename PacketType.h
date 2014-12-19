@@ -32,6 +32,7 @@ enum ObstructType
     OS_NONE,
 	OS_ROCK,
 	OS_MOVE_ROCK,
+    OS_LAVA
 };
 
 enum SkillKey

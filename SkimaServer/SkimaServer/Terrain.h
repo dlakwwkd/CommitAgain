@@ -1,4 +1,7 @@
 #pragma once
+
+class Player;
+
 class Terrain
 {
 public:
@@ -6,6 +9,8 @@ public:
     ~Terrain();
 
 protected:
+    Player* m_Owner;
     b2Vec2 m_Pos;
+    int m_Damage;
 };
 

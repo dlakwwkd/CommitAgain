@@ -5,7 +5,7 @@
 #include "ClientSession.h"
 #include "MoveRock.h"
 #include "Player.h"
-
+#include "Lava.h"
 
 Map::Map(int roomId)
 {
@@ -49,5 +49,13 @@ void Map::InitMap(int roomId, Player* player)
         MoveRock* rock = new MoveRock(player, b2Vec2(CONVERT_IN(pos, roomId)));
 
         player->GetClient()->SendMapInfo(rock->GetUnitID(), rock->GetBody()->GetPosition());
+    }
+
+    for (int i = 0; i < 1; ++i)
+    {
+        auto pos = b2Vec2(rand() % 7, rand() % 5);
+        Lava* lava = new Lava(player, b2Vec2(CONVERT_IN(pos, roomId)));
+        
+        player->GetClient()->SendMapInfo(lava->GetUnitID(), lava->GetBody()->GetPosition());
     }
 }

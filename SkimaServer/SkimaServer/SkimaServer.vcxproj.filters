@@ -122,14 +122,14 @@
     <ClCompile Include="Terrain.cpp">
       <Filter>Game\Component\Map\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="Lava.cpp">
-      <Filter>Game\Component\Map\Terrain</Filter>
-    </ClCompile>
     <ClCompile Include="HideSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClCompile>
     <ClCompile Include="FSM.cpp">
       <Filter>Game\Component\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Lava.cpp">
+      <Filter>Game\Component\Unit\Obstruct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -276,14 +276,14 @@
     <ClInclude Include="Terrain.h">
       <Filter>Game\Component\Map\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="Lava.h">
-      <Filter>Game\Component\Map\Terrain</Filter>
-    </ClInclude>
     <ClInclude Include="HideSkill.h">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Shared\FSM.h">
       <Filter>Game\Component\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Lava.h">
+      <Filter>Game\Component\Unit\Obstruct</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
