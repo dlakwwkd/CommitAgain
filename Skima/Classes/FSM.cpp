@@ -20,6 +20,7 @@ void StandbyState::Crashed(Unit* unit)
     if (unit->GetUnitType() == UNIT_HERO)
     {
         unit->SetAllSpriteVisible();
+        unit->SetUnitHiddenState(false);
     }
     unit->SetMoveState(unit->GetCrashedState());
     unit->GetSprite()->stopAllActions();
@@ -67,6 +68,7 @@ void MovingState::Crashed(Unit* unit)
     if (unit->GetUnitType() == UNIT_HERO)
     {
         unit->SetAllSpriteVisible();
+        unit->SetUnitHiddenState(false);
     }
     unit->SetMoveState(unit->GetCrashedState());
     unit->GetSprite()->stopAllActions();
@@ -106,6 +108,7 @@ void CrashedState::Crashed(Unit* unit)
     if (unit->GetUnitType() == UNIT_HERO)
     {
         unit->SetAllSpriteVisible();
+        unit->SetUnitHiddenState(false);
     }
     unit->GetSprite()->stopAllActions();
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)

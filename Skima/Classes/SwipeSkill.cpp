@@ -33,6 +33,7 @@ void SwipeSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
      effect->ShowSwipeMotionByDir(direction);
 
      m_Hero->SetAllSpriteVisible();
+     m_Hero->SetUnitHiddenState(false);
 }
 
 void SwipeSkill::SkillReady()

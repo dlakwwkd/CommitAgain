@@ -49,6 +49,9 @@ public:
     void            Move();
     void            Crash();
 
+    bool            GetHeroHiddenState(){ return m_IsHidden; }
+    void            SetUnitHiddenState(bool isHidden) { m_IsHidden = isHidden; }
+
     UnitType        GetUnitType(){ return m_UnitType; }
 
 protected:
@@ -75,6 +78,8 @@ protected:
     Sprite*         m_EnemyHpBar = nullptr;
     Sprite*         m_HpbarOut = nullptr;
     UnitType        m_UnitType;
+    bool            m_IsHidden;
+
 
     friend class ObjectManager;
 };

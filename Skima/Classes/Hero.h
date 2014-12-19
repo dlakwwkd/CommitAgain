@@ -24,7 +24,8 @@ public:
     void			SkillEnd(SkillKey key);
 
     bool            GetHeroPerforming(){ return m_IsPerforming; }
-    void            SetHeroPerforming(bool performing){ m_IsPerforming = performing; }
+    void            SetHeroPerforming(bool performing) { m_IsPerforming = performing; }
+
 
     virtual void    SetMoveMotionToCache()				= 0;
     virtual void    SetSkillMotionToCache()				= 0;

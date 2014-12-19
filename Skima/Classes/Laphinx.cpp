@@ -9,21 +9,21 @@
 
 Laphinx::Laphinx(Vec2 createPos, float scale)
 {
-	m_HeroType = HERO_LAPHINX;
-	m_MaxHp = 1000.0f;
-	m_CurHp = m_MaxHp;
-	m_Speed = 360.0f;
-	m_Sprite->setPosition(createPos);
-	m_Sprite->setScale(scale);
+    m_HeroType = HERO_LAPHINX;
+    m_MaxHp = 1000.0f;
+    m_CurHp = m_MaxHp;
+    m_Speed = 360.0f;
+    m_Sprite->setPosition(createPos);
+    m_Sprite->setScale(scale);
 
     SetMoveMotionToCache();
     SetSkillMotionToCache();
     
-	m_RealSprite = Sprite::createWithSpriteFrameName("Laphinx_S3.png");
+    m_RealSprite = Sprite::createWithSpriteFrameName("Laphinx_S3.png");
     m_RealSprite->setScale(scale);
-	m_RealSprite->setAnchorPoint(Vec2(0, 0));
-	m_RealSprite->setPosition(-50, -50);
-	m_Sprite->addChild(m_RealSprite);
+    m_RealSprite->setAnchorPoint(Vec2(0, 0));
+    m_RealSprite->setPosition(-50, -50);
+    m_Sprite->addChild(m_RealSprite);
 
 //     auto shadow = Sprite::create("Jupiter/Jupiter_shadow.png");
 //     shadow->setPosition(Vec2(27.5f, 2.5f));

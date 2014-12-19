@@ -18,6 +18,7 @@ Unit::Unit()
     m_MovingState = new MovingState();
     m_CrashedState = new CrashedState();
     m_UnitType = UNIT_NONE;
+    m_IsHidden = false;
 }
 
 Unit::~Unit()
