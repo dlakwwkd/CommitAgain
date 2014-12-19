@@ -189,6 +189,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\UILayer.cpp" />
     <ClCompile Include="..\Classes\Unit.cpp" />
     <ClCompile Include="..\Classes\WaitingLayer.cpp" />
+    <ClCompile Include="Lava.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -250,6 +251,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\UILayer.h" />
     <ClInclude Include="..\Classes\Unit.h" />
     <ClInclude Include="..\Classes\WaitingLayer.h" />
+    <ClInclude Include="Lava.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RockEffect.h" />

@@ -237,6 +237,7 @@
     <ClCompile Include="..\Classes\ObjectLayer.cpp">
       <Filter>Game\Layer</Filter>
     </ClCompile>
+    <ClCompile Include="Lava.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -410,6 +411,7 @@
     <ClInclude Include="..\Classes\ObjectLayer.h">
       <Filter>Game\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="Lava.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
