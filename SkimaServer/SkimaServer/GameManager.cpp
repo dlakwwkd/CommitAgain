@@ -51,6 +51,15 @@ void GameManager::LowTick()
             unit->Crashing(false);
         }
     }
+
+    for (auto& game : m_GameList)
+    {
+        if (game.second->IsStart())
+        {
+            game.second->LowTick();
+        }
+    }
+
     CallFuncAfter(MANAGER_UPDATE_INTERVAL * 3, this, &GameManager::LowTick);
 }
 
@@ -309,6 +318,7 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
                 pos.y > range->m_Bottom && pos.y < range->m_Top)
             {
                 unit.second->Damaged(damage);
+                printf("range left: %f, bottom: %f, range: %f, top: %f\n", range->m_Left, range->m_Bottom, range->m_Right, range->m_Top);
             }
         }
     }

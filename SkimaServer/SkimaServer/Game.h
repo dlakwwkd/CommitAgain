@@ -20,6 +20,7 @@ public:
     int                 GetLoadedPlayerNum(){ return m_LoadedPlayerNum; }
 
     void                Tick(float dt);
+    void                LowTick();
     void                InitGame();
 	void				EndGame();
     Player*             GetPlayer(int playerId);

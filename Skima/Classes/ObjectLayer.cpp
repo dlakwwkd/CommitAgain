@@ -74,7 +74,7 @@ void ObjectLayer::CreateMapObject(int unitID, Vec2 pos)
         m_UnitList[unitID] = std::make_shared<MoveRock>(unitID, pos);
         break;
     case OS_LAVA:
-        //Lava* lava = new Lava(unitID, pos);
+        m_UnitList[unitID] = std::make_shared<Lava>(unitID, pos);
         break;
 
     default:

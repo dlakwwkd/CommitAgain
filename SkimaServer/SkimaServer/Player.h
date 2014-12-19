@@ -15,6 +15,7 @@ enum Team
     TEAM_N,
     TEAM_A,
     TEAM_B,
+    TEAM_C
 };
 
 class Player : public ObjectPool<Player>

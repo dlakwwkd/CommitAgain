@@ -36,6 +36,11 @@ void Game::Tick(float dt)
     }
 }
 
+void Game::LowTick()
+{
+    m_Map->LavaDamage();
+}
+
 void Game::InitGame()
 {
     // 주의: 여기서부턴 하드코딩의 구간입니다.^^
@@ -59,6 +64,7 @@ void Game::InitGame()
     m_Computer = new Player(temp, PT_COMPUTER, PT_COMPUTER);// 100번 보면 이해됨.
     m_Computer->SetRoomID(roomId);
 	m_PlayerList[PT_COMPUTER] = m_Computer;
+    m_Computer->SetTeam(TEAM_C);
 
     m_Map = new Map(roomId);
     m_Map->InitMap(roomId, m_Computer);

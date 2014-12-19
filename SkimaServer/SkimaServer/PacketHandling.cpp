@@ -450,6 +450,8 @@ void ClientSession::SendMapInfo(int unitId, const b2Vec2& pos)
     outPacket.mUnitId = unitId;
     outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
 
+    printf("createPos x: %f y: %f\n", outPacket.mPos.x, outPacket.mPos.y);
+
     if (!Broadcast(&outPacket))
     {
         Disconnect();
