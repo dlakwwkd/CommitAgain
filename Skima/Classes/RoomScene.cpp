@@ -2,7 +2,7 @@
 #include "RoomScene.h"
 #include "NetworkScene.h"
 #include "TcpClient.h"
-#include "MultiGameScene.h"
+#include "GameScene.h"
 #include "WaitingLayer.h"
 
 #define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
@@ -132,9 +132,9 @@ void RoomScene::Tick(float dt)
 
 void RoomScene::GameStartComplete()
 {
-    auto scene = MultiGameScene::createScene();
+    auto scene = GameScene::createScene();
 
-    auto layer = dynamic_cast<MultiGameScene*>(scene->getChildByName("MultiGameScene"));
+    auto layer = dynamic_cast<GameScene*>(scene->getChildByName("GameScene"));
     layer->SetRoomID(m_RoomID);
 
     m_IsReady = false;

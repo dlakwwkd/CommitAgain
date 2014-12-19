@@ -6,11 +6,12 @@
 ///////////////////////////////////////////////////////////////////////////
 #define GET_NETWORK_SCENE   dynamic_cast<NetworkScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene"))
 #define GET_ROOM_SCENE      dynamic_cast<RoomScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene"))
-#define GET_M_GAME_SCENE    dynamic_cast<MultiGameScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene"))
-#define GET_LOADING_LAYER   dynamic_cast<LoadingBGLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("LoadingBGLayer"))
-#define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer"))
-#define GET_MAP_LAYER       dynamic_cast<MapLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("ListenerLayer")->getChildByName("MapLayer"))
-#define GET_UI_LAYER        dynamic_cast<UILayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("MultiGameScene")->getChildByName("UILayer"));
+#define GET_GAME_SCENE		dynamic_cast<GameScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene"))
+#define GET_LOADING_LAYER   dynamic_cast<LoadingBGLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("LoadingBGLayer"))
+#define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer"))
+#define GET_MAP_LAYER       dynamic_cast<MapLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("ListenerLayer")->getChildByName("MapLayer"))
+#define GET_UI_LAYER        dynamic_cast<UILayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("UILayer"))
+
 
 ///////////////////////////////////////////////////////////////////////////
 /*

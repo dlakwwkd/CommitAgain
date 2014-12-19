@@ -3,13 +3,13 @@
 
 USING_NS_CC;
 
-class MultiGameScene : public Layer
+class GameScene : public Layer
 {
 public:
 
     static Scene* createScene();
     virtual bool init();
-    CREATE_FUNC(MultiGameScene);
+    CREATE_FUNC(GameScene);
 
 	void SetRoomID(int id) { m_RoomId = id; }
     int  GetRoomID(){ return m_RoomId; }

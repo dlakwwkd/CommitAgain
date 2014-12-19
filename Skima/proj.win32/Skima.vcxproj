@@ -174,7 +174,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MainScene.cpp" />
     <ClCompile Include="..\Classes\MapLayer.cpp" />
     <ClCompile Include="..\Classes\FSM.cpp" />
-    <ClCompile Include="..\Classes\MultiGameScene.cpp" />
+    <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\NetworkScene.cpp" />
     <ClCompile Include="..\Classes\ObjectLayer.cpp" />
     <ClCompile Include="..\Classes\RoomScene.cpp" />
@@ -235,7 +235,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\LoadingBGLayer.h" />
     <ClInclude Include="..\Classes\MainScene.h" />
     <ClInclude Include="..\Classes\MapLayer.h" />
-    <ClInclude Include="..\Classes\MultiGameScene.h" />
+    <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\NetworkScene.h" />
     <ClInclude Include="..\Classes\ObjectLayer.h" />
     <ClInclude Include="..\Classes\RoomScene.h" />

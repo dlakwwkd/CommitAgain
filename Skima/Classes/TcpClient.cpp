@@ -6,7 +6,7 @@
 #include "base/CCScheduler.h"
 #include "2d/CCLabel.h"
 #include "PacketType.h"
-#include "MultiGameScene.h"
+#include "GameScene.h"
 #include "NetworkScene.h"
 #include "RoomScene.h"
 #include "ObjectLayer.h"
@@ -190,229 +190,263 @@ void TcpClient::processPacket()
         switch (header.mType)
         {
         case PKT_SC_LOGIN:
-            {
-                LoginResult recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
-    
-                mLoginId = recvData.mPlayerId;
-
-				auto scene = GET_NETWORK_SCENE;
-				if (scene)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ConnectLabelChange, scene,
-						"서버 접속 성공!!"));
-				}
-            }
-            break;
-
-        case PKT_SC_MAKE_ROOM:
-            {
-                MakeRoomResult recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId == mLoginId);
-
-				auto scene = GET_NETWORK_SCENE;
-				if (scene)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, scene,
-						recvData.mRoomId));
-				}
-            }
-            break;
-
-        case PKT_SC_INOUT_ROOM:
-            {
-                InOutRoomResult recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId == mLoginId);
-
-                if (recvData.mIsIn)
-                {
-					auto scene = GET_NETWORK_SCENE;
-					if (scene)
-					{
-						scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, scene,
-							recvData.mRoomId));
-					}
-                }
-                else
-                {
-                    //나간 플레이어 처리 필요
-                }
-            }
-            break;
-
-        case PKT_SC_ALL_READY:
-            {
-                GameRunNotify recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
-
-				auto scene = GET_ROOM_SCENE;
-				if (scene)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::GameStartComplete, scene));
-				}
-            }
-            return; // 이 다음 패킷 수신 전에 콜백함수 호출이 필요하므로 리턴
-
-        case PKT_SC_CREATE_HERO:
-            {
-                CreateHeroResult recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
-
-                Vec2 pos = CONVERT(recvData.mPos);
-
-				auto layer = GET_OBJECT_LAYER;
-				if (layer)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateHero, layer,
-						recvData.mPlayerId, recvData.mUnitId, pos));
-				}
-            }
-            break;
-
-        case PKT_SC_CREATE_MAP:
-            {
-                CreateMapResult recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
-
-                Vec2 pos = CONVERT(recvData.mPos);
-
-				auto layer = GET_OBJECT_LAYER;
-				if (layer)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateMapObject, layer,
-						recvData.mUnitId, pos));
-				}
-            }
-            break;
-
-        case PKT_SC_RUN_COMPLETE:
-            {
-                ServerRunCompleteNotify recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
-
-				auto layer = GET_LOADING_LAYER;
-				if (layer)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(LoadingBGLayer::SetLoadingFin, layer));
-				}
-            }
-            return; // 이 다음 패킷 수신 전에 콜백함수 호출이 필요하므로 리턴
-
-        case PKT_SC_START_GAME:
-            {	
-                StartGameNotify recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
-
-				auto scene = GET_M_GAME_SCENE;
-				if (scene)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MultiGameScene::StartGame, scene));
-				}
-            }
-            break;
-
-        case PKT_SC_MOVE:
-            {
-                MoveBroadcastResult recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
-                
-                Vec2 curPos = CONVERT(recvData.mCurrentPos);
-                Vec2 targetPos = CONVERT(recvData.mTargetPos);
-
-				auto layer = GET_OBJECT_LAYER;
-				if (layer)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitMove, layer,
-						recvData.mUnitId, curPos, targetPos));
-				}
-            }
-            break;
-
-        case PKT_SC_CRASH:
-            {
-                CrashedBroadcastResult recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
-
-                Vec2 expectPos = CONVERT(recvData.mExpectPos);
-                Vec2 revisionPos = CONVERT(recvData.mCurrentPos);
-
-				auto layer = GET_OBJECT_LAYER;
-				if (layer)
-				{
-					switch (GET_MAIN_TYPE(recvData.mUnitId))
-					{
-					case UNIT_HERO:
-					case UNIT_OBSTRUCT:
-						if (recvData.mIsCrashed)
-						{
-							scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
-								recvData.mUnitId, expectPos));
-						}
-						else
-						{
-							scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
-								recvData.mUnitId, revisionPos));
-						}
-						break;
-					case UNIT_MISSILE:
-						scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MissileCrash, layer,
-							recvData.mUnitId));
-						break;
-					}
-                }
-            }
-            break;
-
-        case PKT_SC_SKILL:
-            {
-                SkillBroadcastResult recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
-
-                Vec2 curPos = CONVERT(recvData.mCurrentPos);
-                Vec2 targetPos = CONVERT(recvData.mTargetPos);
-
-				auto layer = GET_OBJECT_LAYER;
-				if (layer)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSkillUse, layer,
-						recvData.mPlayerId, recvData.mUnitId, recvData.mKey, curPos, targetPos));
-				}
-            }
-            break;
-        case PKT_SC_MISSILE:
-            {
-                MissileBroadcastResult recvData;
-                bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-                assert(ret && recvData.mPlayerId != -1);
-
-                Vec2 curPos = CONVERT(recvData.mCurrentPos);
-                Vec2 targetPos = CONVERT(recvData.mTargetPos);
-
-				auto layer = GET_OBJECT_LAYER;
-				if (layer)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::ShootMissile, layer,
-						recvData.mUnitId, curPos, targetPos));
-				}
-            }
-            break;
-        case PKT_SC_HP:
         {
-            HpBroadcastResult recvData;
+            LoginResult recvData;
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
+            mLoginId = recvData.mPlayerId;
+
+			auto scene = GET_NETWORK_SCENE;
+			if (scene)
+			{
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ConnectLabelChange, scene,
+					"서버 접속 성공!!"));
+			}
+        }
+        break;
+
+        case PKT_SC_MAKE_ROOM:
+        {
+            MakeRoomResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId == mLoginId);
+
+			auto scene = GET_NETWORK_SCENE;
+			if (scene)
+			{
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, scene,
+					recvData.mRoomId));
+			}
+        }
+        break;
+
+        case PKT_SC_INOUT_ROOM:
+        {
+            InOutRoomResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId == mLoginId);
+
+            if (recvData.mIsIn)
+            {
+				auto scene = GET_NETWORK_SCENE;
+				if (scene)
+				{
+					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, scene,
+						recvData.mRoomId));
+				}
+            }
+            else
+            {
+                //나간 플레이어 처리 필요
+            }
+        }
+        break;
+
+        case PKT_SC_ALL_READY:
+        {
+            GameRunNotify recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+			auto scene = GET_ROOM_SCENE;
+			if (scene)
+			{
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::GameStartComplete, scene));
+			}
+        }
+        return; // 이 다음 패킷 수신 전에 콜백함수 호출이 필요하므로 리턴
+
+        case PKT_SC_CREATE_HERO:
+        {
+            CreateHeroResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            Vec2 pos = CONVERT(recvData.mPos);
+
+			if (GET_GAME_SCENE == nullptr)
+			{
+				break;
+			}
+			auto layer = GET_OBJECT_LAYER;
+			if (layer)
+			{
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateHero, layer,
+					recvData.mPlayerId, recvData.mUnitId, pos));
+			}
+        }
+        break;
+
+        case PKT_SC_CREATE_MAP:
+        {
+            CreateMapResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            Vec2 pos = CONVERT(recvData.mPos);
+
+			if (GET_GAME_SCENE == nullptr)
+			{
+				break;
+			}
+			auto layer = GET_OBJECT_LAYER;
+			if (layer)
+			{
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateMapObject, layer,
+					recvData.mUnitId, pos));
+			}
+        }
+        break;
+
+        case PKT_SC_RUN_COMPLETE:
+        {
+            ServerRunCompleteNotify recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+			if (GET_GAME_SCENE == nullptr)
+			{
+				break;
+			}
+			auto layer = GET_LOADING_LAYER;
+			if (layer)
+			{
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(LoadingBGLayer::SetLoadingFin, layer));
+			}
+        }
+        return; // 이 다음 패킷 수신 전에 콜백함수 호출이 필요하므로 리턴
+
+        case PKT_SC_START_GAME:
+        {	
+            StartGameNotify recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+			auto scene = GET_GAME_SCENE;
+			if (scene)
+			{
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::StartGame, scene));
+			}
+        }
+        break;
+
+        case PKT_SC_MOVE:
+        {
+            MoveBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+            
+            Vec2 curPos = CONVERT(recvData.mCurrentPos);
+            Vec2 targetPos = CONVERT(recvData.mTargetPos);
+
+			if (GET_GAME_SCENE == nullptr)
+			{
+				break;
+			}
+			auto layer = GET_OBJECT_LAYER;
+			if (layer)
+			{
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitMove, layer,
+					recvData.mUnitId, curPos, targetPos));
+			}
+        }
+        break;
+
+        case PKT_SC_CRASH:
+        {
+            CrashedBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            Vec2 expectPos = CONVERT(recvData.mExpectPos);
+            Vec2 revisionPos = CONVERT(recvData.mCurrentPos);
+
+			if (GET_GAME_SCENE == nullptr)
+			{
+				break;
+			}
+			auto layer = GET_OBJECT_LAYER;
+			if (layer)
+			{
+				switch (GET_MAIN_TYPE(recvData.mUnitId))
+				{
+				case UNIT_HERO:
+				case UNIT_OBSTRUCT:
+					if (recvData.mIsCrashed)
+					{
+						scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
+							recvData.mUnitId, expectPos));
+					}
+					else
+					{
+						scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
+							recvData.mUnitId, revisionPos));
+					}
+					break;
+				case UNIT_MISSILE:
+					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MissileCrash, layer,
+						recvData.mUnitId));
+					break;
+				}
+            }
+        }
+        break;
+
+        case PKT_SC_SKILL:
+        {
+            SkillBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            Vec2 curPos = CONVERT(recvData.mCurrentPos);
+            Vec2 targetPos = CONVERT(recvData.mTargetPos);
+
+			if (GET_GAME_SCENE == nullptr)
+			{
+				break;
+			}
+			auto layer = GET_OBJECT_LAYER;
+			if (layer)
+			{
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSkillUse, layer,
+					recvData.mPlayerId, recvData.mUnitId, recvData.mKey, curPos, targetPos));
+			}
+        }
+        break;
+
+        case PKT_SC_MISSILE:
+        {
+            MissileBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            Vec2 curPos = CONVERT(recvData.mCurrentPos);
+            Vec2 targetPos = CONVERT(recvData.mTargetPos);
+
+			if (GET_GAME_SCENE == nullptr)
+			{
+				break;
+			}
+			auto layer = GET_OBJECT_LAYER;
+			if (layer)
+			{
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::ShootMissile, layer,
+					recvData.mUnitId, curPos, targetPos));
+			}
+        }
+        break;
+
+        case PKT_SC_HP:
+		{
+			HpBroadcastResult recvData;
+			bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+			assert(ret && recvData.mPlayerId != -1);
+
+			if (GET_GAME_SCENE == nullptr)
+			{
+				break;
+			}
 			auto layer = GET_OBJECT_LAYER;
 			if (layer)
 			{
@@ -420,22 +454,22 @@ void TcpClient::processPacket()
 					recvData.mPlayerId, recvData.mUnitId, recvData.mHp));
 			}
 		}
-        break;
+		break;
 
-        case  PKT_SC_GAMEOVER:
+        case PKT_SC_GAMEOVER:
         {
             GameOverNotify recvData;
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
-			auto scene = GET_M_GAME_SCENE;
+			auto scene = GET_GAME_SCENE;
 			if (scene)
 			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MultiGameScene::GameOver, scene,
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::GameOver, scene,
 					mLoginId, recvData.mLoseId));
 			}
         }
-            break;
+        return;
 
         default:
             assert(false);

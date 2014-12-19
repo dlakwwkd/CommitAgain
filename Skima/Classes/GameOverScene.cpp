@@ -2,7 +2,7 @@
 #include "GameOverScene.h"
 #include "NetworkScene.h"
 #include "TcpClient.h"
-#include "MultiGameScene.h"
+#include "GameScene.h"
 
 Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 {
@@ -46,6 +46,8 @@ bool GameOverScene::init()
 	menu->alignItemsVertically();
 	menu->setPositionY(200);
 	this->addChild(menu, 2, "GameOverMenu");
+
+	return true;
 }
 
 void GameOverScene::menuCallback1(Ref* sender)	// 게임 시작

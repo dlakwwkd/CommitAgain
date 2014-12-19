@@ -1,5 +1,5 @@
 ﻿#include "pch.h"
-#include "MultiGameScene.h"
+#include "GameScene.h"
 #include "LoadingBGLayer.h"
 #include "MapLayer.h"
 #include "ObjectLayer.h"
@@ -10,19 +10,19 @@
 #include "GameOverScene.h"
 #include "EscLayer.h"
 
-Scene* MultiGameScene::createScene()
+Scene* GameScene::createScene()
 {
     auto scene = Scene::create();
-    auto layer1 = MultiGameScene::create();
+    auto layer1 = GameScene::create();
     auto layer2 = ListenerLayer::create();
-    scene->addChild(layer1, 3, "MultiGameScene");
+    scene->addChild(layer1, 3, "GameScene");
     layer1->addChild(layer2, 0, "ListenerLayer");
 
     return scene;
 }
 
 
-bool MultiGameScene::init()
+bool GameScene::init()
 {
     if ( !Layer::init() )
     {
@@ -41,19 +41,19 @@ bool MultiGameScene::init()
     return true;
 }
 
-void MultiGameScene::StartGame()
+void GameScene::StartGame()
 {
     RemoveLoadingLayer();
     ShowCursor(false);
     m_IsStartGame = true;
 }
 
-void MultiGameScene::RemoveLoadingLayer()
+void GameScene::RemoveLoadingLayer()
 {
     this->removeChildByName("LoadingBGLayer");
 }
 
-void MultiGameScene::GameOver(int playerId, int loseId)
+void GameScene::GameOver(int playerId, int loseId)
 {
 	auto scene = GameOverScene::createScene(m_RoomId, playerId, loseId);
 	Director::getInstance()->popScene();

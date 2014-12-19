@@ -25,9 +25,6 @@
     <Filter Include="Network">
       <UniqueIdentifier>{58a76034-fe09-41c3-87ea-39ab529a0925}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\MultiPlay">
-      <UniqueIdentifier>{9d1731da-4ee8-4ed4-8cc9-fecd64bc2db8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Scene">
       <UniqueIdentifier>{1cebd8d3-b880-4e75-9c7d-2a507d8dd843}</UniqueIdentifier>
     </Filter>
@@ -42,18 +39,6 @@
     </Filter>
     <Filter Include="Game\Component\Effect">
       <UniqueIdentifier>{f0a0d55d-44b7-415e-babe-ec72683434c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Object">
-      <UniqueIdentifier>{945b4f14-0b3b-446f-b8d9-21ae9199c969}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Object\Obstruction">
-      <UniqueIdentifier>{dc02d778-62f7-4365-b0fb-82ca3366056f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Object\Missile">
-      <UniqueIdentifier>{da7bc9c2-03c2-4252-8851-02ab3e1f4a19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component\Object\Hero">
-      <UniqueIdentifier>{be9803bf-c0cc-4e34-a7d6-6fda2ac24ca9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Component\Player">
       <UniqueIdentifier>{658a76a3-8cc3-40a2-80dc-2c3f46f9821b}</UniqueIdentifier>
@@ -72,6 +57,21 @@
     </Filter>
     <Filter Include="Game\Component\Effect\EffectSpriteType">
       <UniqueIdentifier>{3f635817-c425-4d03-9b3a-27674dfad050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Unit">
+      <UniqueIdentifier>{945b4f14-0b3b-446f-b8d9-21ae9199c969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Unit\Obstruction">
+      <UniqueIdentifier>{dc02d778-62f7-4365-b0fb-82ca3366056f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Unit\Missile">
+      <UniqueIdentifier>{da7bc9c2-03c2-4252-8851-02ab3e1f4a19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Unit\Hero">
+      <UniqueIdentifier>{be9803bf-c0cc-4e34-a7d6-6fda2ac24ca9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Layer">
+      <UniqueIdentifier>{9d1731da-4ee8-4ed4-8cc9-fecd64bc2db8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +94,7 @@
       <Filter>Game\Component\Map</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Unit.cpp">
-      <Filter>Game\Component\Object</Filter>
+      <Filter>Game\Component\Unit</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\CircularBuffer.cpp">
       <Filter>Network</Filter>
@@ -103,7 +103,7 @@
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ListenerLayer.cpp">
-      <Filter>Game\MultiPlay</Filter>
+      <Filter>Game\Layer</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MainScene.cpp">
       <Filter>Game\Scene</Filter>
@@ -111,20 +111,14 @@
     <ClCompile Include="..\Classes\LoadingBGLayer.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MultiGameScene.cpp">
-      <Filter>Game\MultiPlay</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Base\win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\FSM.cpp">
-      <Filter>Game\Component\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ObjectLayer.cpp">
-      <Filter>Game\Component\Object</Filter>
+      <Filter>Game\Component\Unit</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Missile.cpp">
-      <Filter>Game\Component\Object\Missile</Filter>
+      <Filter>Game\Component\Unit\Missile</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Skill.cpp">
       <Filter>Game\Component\Skill</Filter>
@@ -136,13 +130,13 @@
       <Filter>Game\Component\Player</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Magician.cpp">
-      <Filter>Game\Component\Object\Hero</Filter>
+      <Filter>Game\Component\Unit\Hero</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Hero.cpp">
-      <Filter>Game\Component\Object\Hero</Filter>
+      <Filter>Game\Component\Unit\Hero</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Jupiter.cpp">
-      <Filter>Game\Component\Object\Hero</Filter>
+      <Filter>Game\Component\Unit\Hero</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\EscLayer.cpp">
       <Filter>Game\UI</Filter>
@@ -181,19 +175,19 @@
       <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Laphinx.cpp">
-      <Filter>Game\Component\Object\Hero</Filter>
+      <Filter>Game\Component\Unit\Hero</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LightningPumpkinSkill.cpp">
       <Filter>Game\Component\Skill\Jupiter</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MapObject.cpp">
-      <Filter>Game\Component\Object\Obstruction</Filter>
+      <Filter>Game\Component\Unit\Obstruction</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MoveRock.cpp">
-      <Filter>Game\Component\Object\Obstruction</Filter>
+      <Filter>Game\Component\Unit\Obstruction</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Rock.cpp">
-      <Filter>Game\Component\Object\Obstruction</Filter>
+      <Filter>Game\Component\Unit\Obstruction</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SwipeSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx</Filter>
@@ -237,6 +231,12 @@
     <ClCompile Include="..\Classes\SwipeEffect.cpp">
       <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ObjectLayer.cpp">
+      <Filter>Game\Layer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -258,7 +258,7 @@
       <Filter>Game\Component\Map</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Unit.h">
-      <Filter>Game\Component\Object</Filter>
+      <Filter>Game\Component\Unit</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\CircularBuffer.h">
       <Filter>Network</Filter>
@@ -270,7 +270,7 @@
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ListenerLayer.h">
-      <Filter>Game\MultiPlay</Filter>
+      <Filter>Game\Layer</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MainScene.h">
       <Filter>Game\Scene</Filter>
@@ -278,17 +278,11 @@
     <ClInclude Include="..\Classes\LoadingBGLayer.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MultiGameScene.h">
-      <Filter>Game\MultiPlay</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Base\win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ObjectLayer.h">
-      <Filter>Game\Component\Object</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Missile.h">
-      <Filter>Game\Component\Object\Missile</Filter>
+      <Filter>Game\Component\Unit\Missile</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Skill.h">
       <Filter>Game\Component\Skill</Filter>
@@ -300,16 +294,16 @@
       <Filter>Game\Component\Player</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Shared\FSM.h">
-      <Filter>Game\Component\Object</Filter>
+      <Filter>Game\Component\Unit</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Magician.h">
-      <Filter>Game\Component\Object\Hero</Filter>
+      <Filter>Game\Component\Unit\Hero</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Hero.h">
-      <Filter>Game\Component\Object\Hero</Filter>
+      <Filter>Game\Component\Unit\Hero</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Jupiter.h">
-      <Filter>Game\Component\Object\Hero</Filter>
+      <Filter>Game\Component\Unit\Hero</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Macros.h">
       <Filter>Base</Filter>
@@ -354,19 +348,19 @@
       <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Laphinx.h">
-      <Filter>Game\Component\Object\Hero</Filter>
+      <Filter>Game\Component\Unit\Hero</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LightningPumpkinSkill.h">
       <Filter>Game\Component\Skill\Jupiter</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MapObject.h">
-      <Filter>Game\Component\Object\Obstruction</Filter>
+      <Filter>Game\Component\Unit\Obstruction</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MoveRock.h">
-      <Filter>Game\Component\Object\Obstruction</Filter>
+      <Filter>Game\Component\Unit\Obstruction</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Rock.h">
-      <Filter>Game\Component\Object\Obstruction</Filter>
+      <Filter>Game\Component\Unit\Obstruction</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SwipeSkill.h">
       <Filter>Game\Component\Skill\Laphinx</Filter>
@@ -409,6 +403,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SwipeEffect.h">
       <Filter>Game\Component\Effect\EffectSpriteType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ObjectLayer.h">
+      <Filter>Game\Layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

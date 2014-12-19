@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 #include "EscLayer.h"
-#include "MultiGameScene.h"
+#include "GameScene.h"
 #include "TcpClient.h"
 
 
@@ -40,7 +40,7 @@ void EscLayer::menuCallback2(Ref* sender)
         return;
     }
 
-    auto m_Scene = dynamic_cast<MultiGameScene*>(this->getParent());
+    auto m_Scene = dynamic_cast<GameScene*>(this->getParent());
     int roomId = m_Scene->GetRoomID();
 
     TcpClient::getInstance()->outRoomRequest(roomId);

@@ -4,7 +4,7 @@
 #include "ObjectLayer.h"
 #include "GameManager.h"
 #include "InputManager.h"
-#include "MultiGameScene.h"
+#include "GameScene.h"
 #include "Skill.h"
 #include "PacketType.h"
 #include "Hero.h"
@@ -86,7 +86,7 @@ void ListenerLayer::ScreenMove()
 ///////////////////////////////////////////////////////////////////////////
 void ListenerLayer::OnMouseDown(Event *event)
 {
-    if (!dynamic_cast<MultiGameScene*>(this->getParent())->IsStartGame())
+    if (!dynamic_cast<GameScene*>(this->getParent())->IsStartGame())
     {
         return;
     }
