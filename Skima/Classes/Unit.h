@@ -42,7 +42,6 @@ public:
     void            Movement(){ m_MoveState->Movement(this); }
 
     void            SetHp(int curHp);
-    void            SetHpBar();
     void            SetMyHpBar();
     void            SetEnemyHpBar();
     void            UpdateMyHpBar();
@@ -54,9 +53,9 @@ public:
 
 protected:
     MoveState*      m_MoveState	= nullptr;
-	MoveState*      m_StandbyState = nullptr;
-	MoveState*      m_MovingState = nullptr;
-	MoveState*      m_CrashedState = nullptr;
+    MoveState*      m_StandbyState = nullptr;
+    MoveState*      m_MovingState = nullptr;
+    MoveState*      m_CrashedState = nullptr;
 
 protected:
     MoveMotion      m_MoveMotionByDir;
@@ -70,10 +69,10 @@ protected:
     Vec2            m_TargetPos;
 
 protected:
-	Sprite*         m_RealSprite = nullptr;
-	Sprite*         m_Sprite = nullptr; // 투명 스프라이트
-	Sprite*         m_MyHpBar = nullptr;
-	Sprite*         m_EnemyHpBar = nullptr;
+    Sprite*         m_RealSprite = nullptr;
+    Sprite*         m_Sprite = nullptr; // 투명 스프라이트
+    Sprite*         m_MyHpBar = nullptr;
+    Sprite*         m_EnemyHpBar = nullptr;
     Sprite*         m_HpbarOut = nullptr;
     UnitType        m_UnitType;
 

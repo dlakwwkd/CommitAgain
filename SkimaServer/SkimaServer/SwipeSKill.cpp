@@ -24,5 +24,5 @@ void SwipeSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& ta
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 
-    FieldDamageRepeat(targetPos, m_Scale, m_Damage, 5, 200);
+    FieldDamageRepeat(targetPos, m_Scale, m_Damage, 2, 400);
 }

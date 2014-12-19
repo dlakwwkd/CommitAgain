@@ -18,7 +18,6 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
 
     SetMoveMotionToCache();
     SetSkillMotionToCache();
-	SetHpBar();
     
 	m_RealSprite = Sprite::createWithSpriteFrameName("Laphinx_S3.png");
     m_RealSprite->setScale(scale);

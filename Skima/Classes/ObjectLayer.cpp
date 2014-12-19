@@ -53,13 +53,10 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
     {
         m_Hero = unit;
         unit->SetMyHpBar();
-//         m_Hero = unit;
-//         unit->GetSprite()->addChild(unit->GetMyHpBar(), 16);
     }
     else
     {
         unit->SetEnemyHpBar();
-        //unit->GetSprite()->addChild(unit->GetOtherHpBar(), 16);
     }
     GET_UI_LAYER->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
 }

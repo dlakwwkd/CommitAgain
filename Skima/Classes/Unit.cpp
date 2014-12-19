@@ -37,20 +37,6 @@ void Unit::SetHp(int curHp)
     m_CurHp = curHp;
 }
 
-void Unit::SetHpBar()
-{
-    m_HpbarOut = Sprite::create("Images/hp_bar_out.png");
-    m_HpbarOut->setPosition(Vec2(-30, 80));
-    m_HpbarOut->setAnchorPoint(Vec2(0, 0));
-    m_Sprite->addChild(m_HpbarOut, 10);
-    m_MyHpBar = Sprite::create("Images/hp_bar_in.png");
-    m_MyHpBar->setPosition(Vec2(-25, 85));
-    m_MyHpBar->setAnchorPoint(Vec2(0, 0));
-    m_EnemyHpBar = Sprite::create("Images/hp_bar_in_enemy.png");
-    m_EnemyHpBar->setPosition(Vec2(-25, 85));
-    m_EnemyHpBar->setAnchorPoint(Vec2(0, 0));
-}
-
 void Unit::UpdateMyHpBar()
 {
     m_MyHpBar->setScaleX(m_CurHp / m_MaxHp);
@@ -94,14 +80,14 @@ void Unit::SetAllSpriteVisible()
     m_Sprite->setOpacity(255);
     m_RealSprite->setOpacity(255);
     m_HpbarOut->setOpacity(255);
-//     if (m_MyHpBar != nullptr)
-//     {
-//         m_MyHpBar->setOpacity(255);
-//     }
-//     if (m_EnemyHpBar != nullptr)
-//     {
-//         m_EnemyHpBar->setOpacity(255);
-//     }
+    if (m_MyHpBar != nullptr)
+    {
+        m_MyHpBar->setOpacity(255);
+    }
+    if (m_EnemyHpBar != nullptr)
+    {
+        m_EnemyHpBar->setOpacity(255);
+    }
 }
 
 void Unit::SetMyHpBar()

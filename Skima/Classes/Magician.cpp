@@ -9,21 +9,20 @@
 
 Magician::Magician(Vec2 createPos, float scale)
 {
-	m_HeroType = HERO_MAGICIAN;
-	m_MaxHp = 1000.0f;
-	m_CurHp = m_MaxHp;
-	m_Speed = 360.0f;
-	m_Sprite->setPosition(createPos);
-	m_Sprite->setScale(scale);
+    m_HeroType = HERO_MAGICIAN;
+    m_MaxHp = 1000.0f;
+    m_CurHp = m_MaxHp;
+    m_Speed = 360.0f;
+    m_Sprite->setPosition(createPos);
+    m_Sprite->setScale(scale);
 
-	SetMoveMotionToCache();
-	SetSkillMotionToCache();
-	SetHpBar();
+    SetMoveMotionToCache();
+    SetSkillMotionToCache();
 
     m_RealSprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");
     m_RealSprite->setScale(scale);
-	m_RealSprite->setAnchorPoint(Vec2(0, 0));
-	m_Sprite->addChild(m_RealSprite);
+    m_RealSprite->setAnchorPoint(Vec2(0, 0));
+    m_Sprite->addChild(m_RealSprite);
 
     auto shadow = Sprite::create("Jupiter/Jupiter_shadow.png");
     shadow->setPosition(Vec2(27.5f, 2.5f));

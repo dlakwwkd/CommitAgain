@@ -18,7 +18,6 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
 
 	SetMoveMotionToCache();
 	SetSkillMotionToCache();
-	SetHpBar();
 
 	m_RealSprite = Sprite::createWithSpriteFrameName("JupiterMove_S_01.png");
 	m_RealSprite->setScale(scale);
