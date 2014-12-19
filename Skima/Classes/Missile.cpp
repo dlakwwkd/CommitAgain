@@ -9,6 +9,7 @@
 
 Missile::Missile(int unitId)
 {
+    m_UnitType = UNIT_MISSILE;
     m_UnitID = unitId;
     m_InUse = false;
 }

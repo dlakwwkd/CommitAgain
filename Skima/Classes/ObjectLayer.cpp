@@ -52,11 +52,14 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
     if (playerID == TcpClient::getInstance()->getLoginId())
     {
         m_Hero = unit;
-        unit->GetSprite()->addChild(unit->GetMyHpBar(), 16);
+        unit->SetMyHpBar();
+//         m_Hero = unit;
+//         unit->GetSprite()->addChild(unit->GetMyHpBar(), 16);
     }
     else
     {
-        unit->GetSprite()->addChild(unit->GetOtherHpBar(), 16);
+        unit->SetEnemyHpBar();
+        //unit->GetSprite()->addChild(unit->GetOtherHpBar(), 16);
     }
     GET_UI_LAYER->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
 }

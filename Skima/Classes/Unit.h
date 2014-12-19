@@ -19,12 +19,13 @@ public:
     void            SetUnitID(int unitID){ m_UnitID = unitID; }
     void            SetTargetPos(Vec2 pos){ m_TargetPos = pos; }
     void            SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
+    void            SetAllSpriteVisible();
     int             GetUnitPlayerID(){ return m_PlayerID; }
     int             GetUnitID(){ return m_UnitID; }
     Sprite*         GetRealSprite(){ return m_RealSprite; }
     Sprite*         GetSprite(){ return m_Sprite; }
     Sprite*         GetMyHpBar(){ return m_MyHpBar; }
-    Sprite*         GetOtherHpBar(){ return m_OtherHpBar; }
+    Sprite*         GetOtherHpBar(){ return m_EnemyHpBar; }
     Sprite*         GetHpBarOut(){ return m_HpbarOut; }
     float           GetMaxHp(){ return m_MaxHp; }
     float           GetCurHp(){ return m_CurHp; }
@@ -42,10 +43,14 @@ public:
 
     void            SetHp(int curHp);
     void            SetHpBar();
+    void            SetMyHpBar();
+    void            SetEnemyHpBar();
     void            UpdateMyHpBar();
     void            UpdateOtherHpBar();
     void            Move();
     void            Crash();
+
+    UnitType        GetUnitType(){ return m_UnitType; }
 
 protected:
     MoveState*      m_MoveState	= nullptr;
@@ -68,8 +73,9 @@ protected:
 	Sprite*         m_RealSprite = nullptr;
 	Sprite*         m_Sprite = nullptr; // 투명 스프라이트
 	Sprite*         m_MyHpBar = nullptr;
-	Sprite*         m_OtherHpBar = nullptr;
+	Sprite*         m_EnemyHpBar = nullptr;
     Sprite*         m_HpbarOut = nullptr;
+    UnitType        m_UnitType;
 
     friend class ObjectManager;
 };

@@ -1,7 +1,6 @@
 #pragma once
 #include "Unit.h"
-class MapObject :
-    public Unit
+class MapObject : public Unit
 {
 public:
     MapObject();

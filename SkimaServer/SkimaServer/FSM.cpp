@@ -44,7 +44,7 @@ void MovingState::EndMove(Unit* unit)
     switch (GET_MAIN_TYPE(unit->GetUnitID()))
     {
     case UNIT_MISSILE:
-		Crashed(unit);
+        Crashed(unit);
         break;
     }
 }

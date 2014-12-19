@@ -6,7 +6,7 @@
 
 MapObject::MapObject()
 {
-
+    m_UnitType = UNIT_OBSTRUCT;
 }
 
 

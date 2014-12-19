@@ -6,6 +6,7 @@
 Hero::Hero()
 {
     m_IsPerforming = false;
+    m_UnitType = UNIT_HERO;
 
     m_Arrow = Sprite::create("Images/arrow.png");
     m_Arrow->setScale(0.1f, 0.1f);

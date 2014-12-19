@@ -17,6 +17,7 @@ Unit::Unit()
     m_MoveState = m_StandbyState = new StandbyState();
     m_MovingState = new MovingState();
     m_CrashedState = new CrashedState();
+    m_UnitType = UNIT_NONE;
 }
 
 Unit::~Unit()
@@ -45,9 +46,9 @@ void Unit::SetHpBar()
     m_MyHpBar = Sprite::create("Images/hp_bar_in.png");
     m_MyHpBar->setPosition(Vec2(-25, 85));
     m_MyHpBar->setAnchorPoint(Vec2(0, 0));
-    m_OtherHpBar = Sprite::create("Images/hp_bar_in_enemy.png");
-    m_OtherHpBar->setPosition(Vec2(-25, 85));
-    m_OtherHpBar->setAnchorPoint(Vec2(0, 0));
+    m_EnemyHpBar = Sprite::create("Images/hp_bar_in_enemy.png");
+    m_EnemyHpBar->setPosition(Vec2(-25, 85));
+    m_EnemyHpBar->setAnchorPoint(Vec2(0, 0));
 }
 
 void Unit::UpdateMyHpBar()
@@ -57,7 +58,7 @@ void Unit::UpdateMyHpBar()
 
 void Unit::UpdateOtherHpBar()
 {
-    m_OtherHpBar->setScaleX(m_CurHp / m_MaxHp);
+    m_EnemyHpBar->setScaleX(m_CurHp / m_MaxHp);
 }
 
 void Unit::Move()
@@ -86,4 +87,43 @@ void Unit::Crash()
     auto action1 = MoveTo::create(time, m_TargetPos);
     auto action2 = EaseOut::create(action1, 2.5f);
     m_Sprite->runAction(action2);
+}
+
+void Unit::SetAllSpriteVisible()
+{
+    m_Sprite->setOpacity(255);
+    m_RealSprite->setOpacity(255);
+    m_HpbarOut->setOpacity(255);
+//     if (m_MyHpBar != nullptr)
+//     {
+//         m_MyHpBar->setOpacity(255);
+//     }
+//     if (m_EnemyHpBar != nullptr)
+//     {
+//         m_EnemyHpBar->setOpacity(255);
+//     }
+}
+
+void Unit::SetMyHpBar()
+{
+    m_HpbarOut = Sprite::create("Images/hp_bar_out.png");
+    m_HpbarOut->setPosition(Vec2(-30, 80));
+    m_HpbarOut->setAnchorPoint(Vec2(0, 0));
+    m_Sprite->addChild(m_HpbarOut, 10);
+    m_MyHpBar = Sprite::create("Images/hp_bar_in.png");
+    m_MyHpBar->setPosition(Vec2(-25, 85));
+    m_MyHpBar->setAnchorPoint(Vec2(0, 0));
+    m_Sprite->addChild(m_MyHpBar, 16);
+}
+
+void Unit::SetEnemyHpBar()
+{
+    m_HpbarOut = Sprite::create("Images/hp_bar_out.png");
+    m_HpbarOut->setPosition(Vec2(-30, 80));
+    m_HpbarOut->setAnchorPoint(Vec2(0, 0));
+    m_Sprite->addChild(m_HpbarOut, 10);
+    m_EnemyHpBar = Sprite::create("Images/hp_bar_in_enemy.png");
+    m_EnemyHpBar->setPosition(Vec2(-25, 85));
+    m_EnemyHpBar->setAnchorPoint(Vec2(0, 0));
+    m_Sprite->addChild(m_EnemyHpBar, 16);
 }

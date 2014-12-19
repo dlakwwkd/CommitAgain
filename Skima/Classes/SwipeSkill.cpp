@@ -31,6 +31,10 @@ void SwipeSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
      
      auto direction = GenerateSkillDirection(targetPos, heroPos);
      effect->ShowSwipeMotionByDir(direction);
+
+     m_Hero->GetRealSprite()->setOpacity(255);
+     m_Hero->GetHpBarOut()->setOpacity(255);
+     //m_Hero->get
 }
 
 void SwipeSkill::SkillReady()
