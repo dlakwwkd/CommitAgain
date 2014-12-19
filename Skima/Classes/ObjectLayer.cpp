@@ -18,7 +18,7 @@
 #include "MoveRock.h"
 #include "Lava.h"
 
-#define GET_UI_LAYER	dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"))
+//#define GET_UI_LAYER	dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"))
 
 bool ObjectLayer::init()
 {
@@ -74,7 +74,7 @@ void ObjectLayer::CreateMapObject(int unitID, Vec2 pos)
         m_UnitList[unitID] = std::make_shared<MoveRock>(unitID, pos);
         break;
     case OS_LAVA:
-        Lava lava = new Lava(unitID, pos);
+        //Lava* lava = new Lava(unitID, pos);
         break;
 
     default:

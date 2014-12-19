@@ -219,9 +219,6 @@
     <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClCompile>
-    <ClCompile Include="RockEffect.cpp">
-      <Filter>Game\Component\Effect\EffectParticleType</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\SparkEffect.cpp">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClCompile>
@@ -237,7 +234,12 @@
     <ClCompile Include="..\Classes\ObjectLayer.cpp">
       <Filter>Game\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="Lava.cpp" />
+    <ClCompile Include="..\Classes\Lava.cpp">
+      <Filter>Game\Component\Unit\Obstruction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RockEffect.cpp">
+      <Filter>Game\Component\Unit\Obstruction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -393,9 +395,6 @@
     <ClInclude Include="..\Classes\LightningPumpkinEffect.h">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClInclude>
-    <ClInclude Include="RockEffect.h">
-      <Filter>Game\Component\Effect\EffectParticleType</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\SparkEffect.h">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClInclude>
@@ -411,7 +410,12 @@
     <ClInclude Include="..\Classes\ObjectLayer.h">
       <Filter>Game\Layer</Filter>
     </ClInclude>
-    <ClInclude Include="Lava.h" />
+    <ClInclude Include="..\Classes\Lava.h">
+      <Filter>Game\Component\Unit\Obstruction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RockEffect.h">
+      <Filter>Game\Component\Unit\Obstruction</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
