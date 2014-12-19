@@ -8,14 +8,16 @@
 
 HideSkill::HideSkill()
 {
-    m_CoolTime = 3;
+    m_CoolTime = 9;
+    m_HiddenTime = 5;
     m_CanUse = true;
 }
 
 HideSkill::HideSkill(Hero* hero)
 {
     m_Hero = hero;
-    m_CoolTime = 3;
+    m_CoolTime = 9;
+    m_HiddenTime = 5;
     m_CanUse = true;
 }
 
@@ -51,6 +53,30 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     myLaphinxSprite->runAction(action4);
     myHpbar->runAction(action3sub);
     HpFrame->runAction(action3subS);
+
+    auto vis1 = DelayTime::create(m_HiddenTime);
+    auto vis2 = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
+    auto vis3 = Sequence::create(vis1, vis2, NULL);
+    auto visSub1 = DelayTime::create(m_HiddenTime);
+    auto visSub2 = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myHpbar, 255));
+    auto visSub3 = Sequence::create(visSub1, visSub2, NULL);
+    auto visSubS1 = DelayTime::create(m_HiddenTime);
+    auto visSubS2 = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, HpFrame, 255));
+    auto visSubS3 = Sequence::create(visSubS1, visSubS2, NULL);
+    myLaphinxSprite->runAction(vis3);
+    myHpbar->runAction(visSub3);
+    HpFrame->runAction(visSubS3);
+
+    auto pause1 = DelayTime::create(m_HiddenTime - 0.05f);
+    auto pause2 = CallFunc::create(CC_CALLBACK_0(Skill::SetHeroPerforming, this, true));
+    auto pause3 = Sequence::create(pause1, pause2, NULL);
+    myLaphinxSprite->runAction(pause3);
+
+    auto after1 = DelayTime::create(m_HiddenTime+0.02f);
+    auto after2 = CallFunc::create(CC_CALLBACK_0(Skill::SetHeroPerforming, this, false));
+    auto after3 = Sequence::create(after1, after2, NULL);
+    myLaphinxSprite->runAction(after3);
+
 }
 void HideSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
 {
@@ -79,6 +105,24 @@ void HideSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
     enemyLaphinxSprite->runAction(action4);
     enemyHpbar->runAction(action4sub);
     HpFrame->runAction(action4subS);
+
+    auto vis1 = DelayTime::create(m_HiddenTime);
+    auto vis2 = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, enemyLaphinxSprite, 255));
+    auto vis3 = Sequence::create(vis1, vis2, NULL);
+    auto visSub1 = DelayTime::create(m_HiddenTime);
+    auto visSub2 = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, enemyHpbar, 255));
+    auto visSub3 = Sequence::create(visSub1, visSub2, NULL);
+    auto visSubS1 = DelayTime::create(m_HiddenTime);
+    auto visSubS2 = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, HpFrame, 255));
+    auto visSubS3 = Sequence::create(visSubS1, visSubS2, NULL);
+    enemyLaphinxSprite->runAction(vis3);
+    enemyHpbar->runAction(visSub3);
+    HpFrame->runAction(visSubS3);
+
+//     auto pause1 = DelayTime::create(m_HiddenTime - 0.1f);
+//     auto pause2 = CallFunc::create(CC_CALLBACK_0(Skill::SetHeroPerforming, this, false));
+//     auto pause3 = Sequence::create(pause1, pause2, NULL);
+//     e->runAction(pause3);
 }
 
 void HideSkill::SkillReady()
