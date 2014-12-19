@@ -41,32 +41,38 @@ bool MainScene::init()
     background->setScaleX(2.70f);
     background->setScaleY(2.30f);
     background->setAnchorPoint(Vec2::ZERO);
-
     this->addChild(background);
 
-    auto label1 = Label::createWithSystemFont("싱글 플레이", "Thonburi", 50);
-    auto label2 = Label::createWithSystemFont("멀티 플레이", "Thonburi", 50);
-    auto label3 = Label::createWithSystemFont("게임 종료", "Thonburi", 50);
+    auto winSize = Director::getInstance()->getWinSize();
+    auto loginScene = Sprite::create("Images/LoginScene.png");
+    loginScene->setPosition(Vec2(winSize.width / 2, winSize.height * 3 / 8));
+    auto loginButtonImage = MenuItemImage::create("Images/LoginButton.png", "Images/LoginButton_selected.png", CC_CALLBACK_1(MainScene::menuCallback1, this));
+    auto loginMenu = Menu::create(loginButtonImage, NULL);
+    loginScene->setScaleX(0.7f);
+    loginScene->setScaleY(0.5f);
+    loginMenu->setPosition(Vec2(winSize.width * 5 / 8 - 30, winSize.height * 3 / 8 - 40));
+    loginMenu->alignItemsVertically();
+    loginMenu->setAnchorPoint(Vec2(0, 0));
+    loginMenu->setScaleX(0.7f);
+    loginMenu->setScaleY(0.5f);
+    this->addChild(loginScene);
+    this->addChild(loginMenu);
 
-    auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(MainScene::menuCallback1, this));
-    auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(MainScene::menuCallback2, this));
-    auto menuItem3 = MenuItemLabel::create(label3, CC_CALLBACK_1(MainScene::menuCallback3, this));
+    auto textField = TextFieldTTF::textFieldWithPlaceHolder("이름을 입력해주세요.", Size(480, 30), kCCTextAlignmentCenter, "Arial", 20);
+    textField->setPosition(Vec2(winSize.width / 2 - 10, winSize.height * 3 / 8));
+    textField->attachWithIME();
+    textField->setTextColor(Color4B::BLACK);
+    this->addChild(textField, 1);
 
-    auto menu = Menu::create(menuItem1, menuItem2, menuItem3, NULL);
-    menu->alignItemsVertically();
-    this->addChild(menu, 0, "MainMenu");
     return true;
 }
 
 void MainScene::menuCallback1(Ref* sender)
 {
-}
-void MainScene::menuCallback2(Ref* sender)
-{
     auto scene = NetworkScene::createScene();
     Director::getInstance()->pushScene(scene);
 }
-void MainScene::menuCallback3(Ref* sender)
+void MainScene::menuCallback2(Ref* sender)
 {
     Director::getInstance()->end();
 }

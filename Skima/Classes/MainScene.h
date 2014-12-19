@@ -11,6 +11,5 @@ public:
 
     void menuCallback1(Ref* sender);
     void menuCallback2(Ref* sender);
-    void menuCallback3(Ref* sender);
 };
 
