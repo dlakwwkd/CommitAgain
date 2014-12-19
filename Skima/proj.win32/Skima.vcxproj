@@ -155,6 +155,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\HideSkill.cpp" />
     <ClCompile Include="..\Classes\IceballSkill.cpp" />
     <ClCompile Include="..\Classes\IceEffect.cpp" />
+    <ClCompile Include="..\Classes\InputBox.cpp" />
     <ClCompile Include="..\Classes\Jupiter.cpp" />
     <ClCompile Include="..\Classes\Laphinx.cpp" />
     <ClCompile Include="..\Classes\Lava.cpp" />
@@ -217,6 +218,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\HideSkill.h" />
     <ClInclude Include="..\Classes\IceballSkill.h" />
     <ClInclude Include="..\Classes\IceEffect.h" />
+    <ClInclude Include="..\Classes\InputBox.h" />
     <ClInclude Include="..\Classes\Jupiter.h" />
     <ClInclude Include="..\Classes\Laphinx.h" />
     <ClInclude Include="..\Classes\Lava.h" />

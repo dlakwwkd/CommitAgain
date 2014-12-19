@@ -1,6 +1,9 @@
 ﻿#include "pch.h"
 #include "MainScene.h"
 #include "NetworkScene.h"
+#include "InputBox.h"
+
+#define MAX_NAME_LEN 14
 
 Scene* MainScene::createScene()
 {
@@ -58,11 +61,20 @@ bool MainScene::init()
     this->addChild(loginScene);
     this->addChild(loginMenu);
 
-    auto textField = TextFieldTTF::textFieldWithPlaceHolder("이름을 입력해주세요.", Size(480, 30), kCCTextAlignmentCenter, "Arial", 20);
+   /* auto textField = TextFieldTTF::textFieldWithPlaceHolder("이름을 입력해주세요.", Size(480, 30), kCCTextAlignmentCenter, "Arial", 20);
     textField->setPosition(Vec2(winSize.width / 2 - 10, winSize.height * 3 / 8));
     textField->attachWithIME();
     textField->setTextColor(Color4B::BLACK);
-    this->addChild(textField, 1);
+    this->addChild(textField, 1);*/
+
+    std::string loginInfo = "이름을 입력해주세요";
+    std::string inputName;
+    auto inputBox = InputBox::create(loginInfo, inputName, MAX_NAME_LEN);
+    inputBox->setColor(Color3B::BLACK);
+    inputBox->beginInput();
+    inputBox->setFontSize(25.0f);
+    inputBox->setPosition(Vec2(winSize.width / 2 - 10, winSize.height * 3 / 8));
+    this->addChild(inputBox);
 
     return true;
 }

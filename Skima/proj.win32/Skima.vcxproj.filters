@@ -240,6 +240,9 @@
     <ClCompile Include="..\Classes\RockEffect.cpp">
       <Filter>Game\Component\Unit\Obstruction</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\InputBox.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -415,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\RockEffect.h">
       <Filter>Game\Component\Unit\Obstruction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InputBox.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
