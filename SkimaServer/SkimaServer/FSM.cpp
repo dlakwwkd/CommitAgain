@@ -44,7 +44,7 @@ void MovingState::EndMove(Unit* unit)
     switch (GET_MAIN_TYPE(unit->GetUnitID()))
     {
     case UNIT_MISSILE:
-        Crashed(unit);
+		Crashed(unit);
         break;
     }
 }
@@ -72,13 +72,6 @@ void CrashedState::EndCrash(Unit* unit)
     unit->GetBody()->SetAwake(false);
     unit->GetBody()->SetLinearDamping(0.0f);
     unit->SetState(unit->GetStandbyState());
-
-	switch (GET_MAIN_TYPE(unit->GetUnitID()))
-	{
-	case UNIT_MISSILE:
-		unit->GetOwner()->UnitListPop(unit->GetUnitID());
-		break;
-	}
 }
 
 void CrashedState::Movement(Unit* unit)

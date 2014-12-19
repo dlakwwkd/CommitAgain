@@ -38,7 +38,6 @@ public:
     void            Moving();
     void            Crashing(bool isCrashing);
     void            Damaged(int damage);
-    virtual void    Extinction(){}
 
     void			TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos);
     void            Crashed(){ m_State->Crashed(this); }
@@ -53,23 +52,20 @@ public:
     MoveState*      GetCrashedState(){ return (MoveState*)m_CrashedState; }
 
 protected:
-	Player*     m_Owner = nullptr;
-    int         m_UnitID;
-    int         m_MaxHp;
-    int         m_Hp;
-    int         m_Damage;
-    float       m_Speed; 
-    bool        m_InUse;
-    bool        m_Contacting;
-    b2Vec2      m_TargetPos; 
-	b2Body*     m_Body = nullptr;
-    
-    MoveState*  m_State = nullptr;
-	MoveState*  m_StandbyState = nullptr;
-	MoveState*  m_MovingState = nullptr;
-	MoveState*  m_CrashedState = nullptr;
-
-    friend class UnitPoolManager;
+	Player*     m_Owner			= nullptr;
+    int         m_UnitID		= -1;
+    int         m_MaxHp			= 0;
+    int         m_Hp			= 0;
+    int         m_Damage		= 0;
+    float       m_Speed			= 0; 
+    bool        m_InUse			= false;
+    bool        m_Contacting	= false;
+	b2Vec2      m_TargetPos		= { 0, 0 };
+	b2Body*     m_Body			= nullptr;
+    MoveState*  m_State			= nullptr;
+	MoveState*  m_StandbyState	= nullptr;
+	MoveState*  m_MovingState	= nullptr;
+	MoveState*  m_CrashedState	= nullptr;
 };
 
 

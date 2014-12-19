@@ -13,8 +13,8 @@ public:
 	void MissileShoot();
 
 private:
-	float m_Range;
-	float m_Livetime;
+	float m_Range		= 0;
+	float m_Livetime	= 0;
 
 };
 

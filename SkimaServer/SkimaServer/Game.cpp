@@ -23,8 +23,6 @@ Game::Game(GameRoom* room)
 
 Game::~Game()
 {
-    delete m_Computer;
-    delete m_Map;
 }
 
 void Game::Tick(float dt)
@@ -60,6 +58,7 @@ void Game::InitGame()
     }
     m_Computer = new Player(temp, PT_COMPUTER, PT_COMPUTER);// 100번 보면 이해됨.
     m_Computer->SetRoomID(roomId);
+	m_PlayerList[PT_COMPUTER] = m_Computer;
 
     m_Map = new Map(roomId);
     m_Map->InitMap(roomId, m_Computer);
@@ -71,7 +70,13 @@ void Game::EndGame()
 {
 	m_IsStart = false;
 
-    m_Map->ObjectListClear();
+	auto computer = m_PlayerList.find(PT_COMPUTER);
+	if (computer != m_PlayerList.end())
+	{
+		delete computer->second;
+		m_PlayerList.erase(computer);
+	}
+	delete m_Map;
 
 	for (auto& player : m_PlayerList)
 	{

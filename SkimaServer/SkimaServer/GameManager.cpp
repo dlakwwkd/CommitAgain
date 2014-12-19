@@ -216,7 +216,7 @@ void GameManager::GameOver(Player* player)
         return;
     }
     player->GetClient()->GameOverCast(player->GetPlayerID());
-    DeleteGame(game->second->GetGameID());
+	CallFuncAfter(1000, this, &GameManager::DeleteGame, game->second->GetGameID());
 }
 
 
@@ -314,6 +314,10 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
     }
 }
 
+void GameManager::DeleteUnit(Unit* unit)
+{
+	unit->GetOwner()->UnitListPop(unit->GetUnitID());
+}
 
 
 

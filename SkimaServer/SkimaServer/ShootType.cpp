@@ -35,7 +35,8 @@ void ShootType::ShootMissile(const b2Vec2& initPos)
     missile->SetSpeed(m_MissileSpeed);
     missile->SetDamage(m_Damage);
     missile->SetRange(m_Range);
-    missile->SetHp(m_MissileHp);
+	missile->SetMaxHp(m_MissileHp);
+	missile->SetHp(m_MissileHp);
     missile->MissileShoot();
 }
 

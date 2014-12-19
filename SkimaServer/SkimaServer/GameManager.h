@@ -45,11 +45,12 @@ public:
     bool                ApplyDamage(Unit* unitA, Unit* unitB);
     void                CrashDamage(Unit* unitA, Unit* unitB);
     void                FieldDamage(Player* caster, Rect* range, int damage);
+	void                DeleteUnit(Unit* unit);
 
 public:
     b2World*            GetWolrd(){ return m_World; }
     ContactListener*    GetContact(){ return m_Contact; }
-    void                DeleteBody(b2Body* body){ m_World->DestroyBody(body); }
+	void                DeleteBody(b2Body* body){ m_World->DestroyBody(body); }
 private:
     void                InitPhyWorld();
     void                DeletePhyWorld();

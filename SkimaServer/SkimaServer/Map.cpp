@@ -48,30 +48,6 @@ void Map::InitMap(int roomId, Player* player)
         auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
         MoveRock* rock = new MoveRock(player, b2Vec2(CONVERT_IN(pos, roomId)));
 
-        m_MapObjectList[rock->GetUnitID()] = rock;
         player->GetClient()->SendMapInfo(rock->GetUnitID(), rock->GetBody()->GetPosition());
     }
-}
-
-void Map::ObjectBreak(int unitId)
-{
-    auto rock = m_MapObjectList.find(unitId);
-
-    if (rock == m_MapObjectList.end())
-    {
-        printf(" - DeleteMapObject Failed ! : relevant object isn't \n");
-        return;
-    }
-    delete rock->second;
-    m_MapObjectList.erase(rock);
-}
-
-void Map::ObjectListClear()
-{
-    for (auto& mapObject : m_MapObjectList)
-    {
-        delete mapObject.second;
-        mapObject.second = nullptr;
-    }
-    m_MapObjectList.clear();
 }

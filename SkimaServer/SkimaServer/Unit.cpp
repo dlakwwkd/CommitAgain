@@ -9,13 +9,6 @@
 
 Unit::Unit()
 {
-	m_UnitID = -1;
-	m_Hp = m_MaxHp = -1;
-    m_Damage = 0;
-    m_Speed = -1;
-    m_Contacting = false;
-    m_TargetPos = { -1, -1 };
-
     m_State = m_StandbyState = new StandbyState;
     m_MovingState = new MovingState;
     m_CrashedState = new CrashedState;
@@ -23,10 +16,10 @@ Unit::Unit()
 
 Unit::~Unit()
 {
+	GGameManager->DeleteBody(m_Body);
 	delete m_StandbyState;
     delete m_MovingState;
     delete m_CrashedState;
-	CallFuncAfter(1, GGameManager, &GameManager::DeleteBody, m_Body);
 }
 
 void Unit::SetDynamicBody(Player* owner, int type, const b2Vec2& initPos, float scale)
@@ -103,6 +96,7 @@ void Unit::Crashing(bool isCrashing)
 	{
 	case UNIT_MISSILE:
 		isCrashing = false;
+		CallFuncAfter(1, GGameManager, &GameManager::DeleteUnit, this);
 		break;
 	};
 
@@ -135,21 +129,13 @@ void Unit::Damaged(int damage)
     case UNIT_HERO:
         if (m_Hp <= 0)
         {
-            CallFuncAfter(MANAGER_UPDATE_INTERVAL, GGameManager, &GameManager::GameOver, m_Owner);
+            CallFuncAfter(1000, GGameManager, &GameManager::GameOver, m_Owner);
         }
         break;
     case UNIT_OBSTRUCT:
         if (m_Hp <= 0)
         {
-            auto gameId = m_Owner->GetRoomID();
-
-            auto game = GGameManager->SearchGame(gameId);
-            if (game == nullptr)
-            {
-                printf("Object Game Can't Find");
-            }
-            auto map = game->GetMap();
-            CallFuncAfter(MANAGER_UPDATE_INTERVAL, map, &Map::ObjectBreak, m_UnitID);
+			CallFuncAfter(1, GGameManager, &GameManager::DeleteUnit, this);
         }
         break;
     default:

@@ -59,9 +59,6 @@
     <ClCompile Include="ContactListener.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="FSM.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Missile.cpp">
       <Filter>Game\Component\Unit\Missile</Filter>
     </ClCompile>
@@ -130,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="HideSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="FSM.cpp">
+      <Filter>Game\Component\Unit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,9 +222,6 @@
     <ClInclude Include="Magician.h">
       <Filter>Game\Component\Unit\Hero</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Shared\FSM.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Macros.h">
       <Filter>Main</Filter>
     </ClInclude>
@@ -284,6 +281,9 @@
     </ClInclude>
     <ClInclude Include="HideSkill.h">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Shared\FSM.h">
+      <Filter>Game\Component\Unit</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
