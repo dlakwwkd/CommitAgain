@@ -484,7 +484,7 @@ void TcpClient::processPacket()
     보낼 패킷 파싱하는 함수들
 */
 ///////////////////////////////////////////////////////////////////////////
-void TcpClient::loginRequest()
+void TcpClient::loginRequest(const char* playerName)
 {
     if (mLoginId > 0)
         return;
@@ -493,6 +493,7 @@ void TcpClient::loginRequest()
 
     LoginRequest sendData;
     sendData.mPlayerId = 1000 + rand() % 101;	// 아이디 임시로 랜덤 생성
+    strcpy(sendData.mPlayerName, playerName);
 
     send((const char*)&sendData, sizeof(LoginRequest));
 }

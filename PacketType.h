@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #define MAX_CHAT_LEN        256
-#define MAX_NAME_LEN        30
+#define MAX_NAME_LEN        14
 #define MAX_COMMENT_LEN	    40
 #define MAX_OBSTRUCT_SIZE   100
 
@@ -126,8 +126,10 @@ struct LoginRequest : public PacketHeader
         mSize = sizeof(LoginRequest);
         mType = PKT_CS_LOGIN;
         mPlayerId = -1;
+        memset(mPlayerName, 0, MAX_NAME_LEN);
     }
     int     mPlayerId;
+    char    mPlayerName[MAX_NAME_LEN];
 };
 struct LoginResult : public PacketHeader
 {
@@ -136,10 +138,8 @@ struct LoginResult : public PacketHeader
         mSize = sizeof(LoginResult);
         mType = PKT_SC_LOGIN;
         mPlayerId = -1;
-        memset(mName, 0, MAX_NAME_LEN);
     }
     int     mPlayerId;
-    char    mName[MAX_NAME_LEN];
 
 };
 

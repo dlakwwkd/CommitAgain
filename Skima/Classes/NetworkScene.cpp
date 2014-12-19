@@ -20,38 +20,21 @@ bool NetworkScene::init()
         return false;
     }
     
-    auto label0 = Label::createWithSystemFont("서버 접속", "Thonburi", 50);
     auto label1 = Label::createWithSystemFont("방 생성", "Thonburi", 50);
     auto label2 = Label::createWithSystemFont("방 참여", "Thonburi", 50);
     auto label3 = Label::createWithSystemFont("나가기", "Thonburi", 50);
 
-    auto menuItem0 = MenuItemLabel::create(label0, CC_CALLBACK_1(NetworkScene::menuCallback0, this));
     auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(NetworkScene::menuCallback1, this));
     auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(NetworkScene::menuCallback2, this));
     auto menuItem3 = MenuItemLabel::create(label3, CC_CALLBACK_1(NetworkScene::menuCallback3, this));
 
-    auto menu = Menu::create(menuItem0, menuItem1, menuItem2, menuItem3, NULL);
+    auto menu = Menu::create(menuItem1, menuItem2, menuItem3, NULL);
     menu->alignItemsVertically();
     this->addChild(menu, 0, "NetworkMenu");
 
-    // 3초 마다 Tick 함수를 호출한다.
     this->schedule(schedule_selector(NetworkScene::Tick), 3.0f);
+
     return true;
-}
-
-void NetworkScene::menuCallback0(Ref* sender)	// 서버 접속
-{
-    if (TcpClient::getInstance()->checkSocket() != NULL)
-        return;
-
-    ConnectLabelCreate("서버에 접속 중......", this);
-    if (TcpClient::getInstance()->connect() == false)
-    {
-        TcpClient::getInstance()->disconnect();
-        GET_CONNECT_LABEL->setString("서버 연결 실패.");
-        return;
-    }
-    TcpClient::getInstance()->loginRequest();
 }
 
 void NetworkScene::menuCallback1(Ref* sender)	// 방 생성
@@ -78,25 +61,6 @@ void NetworkScene::menuCallback3(Ref* sender)	// 나가기
     Director::getInstance()->popScene();
 }
 
-
-
-//////////////////////////////////////////////////////////////////////////
-void NetworkScene::Tick(float dt)
-{
-    if (TcpClient::getInstance()->checkSocket() == NULL)
-    {
-        ConnectLabelChange("서버 연결 끊김.");
-    }
-    else if (TcpClient::getInstance()->getLoginId() == -1)
-    {
-        TcpClient::getInstance()->loginRequest();
-    }
-    else
-    {
-        ConnectLabelChange("서버 연결 양호.");
-    }
-}
-//////////////////////////////////////////////////////////////////////////
 
 
 
@@ -137,4 +101,21 @@ void NetworkScene::JoinRoomComplete(int roomId)
     auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
     layer->SetRoomID(roomId);
     Director::getInstance()->pushScene(scene);
+}
+
+void NetworkScene::Tick(float dt)
+{
+    if (TcpClient::getInstance()->checkSocket() == NULL)
+    {
+       // ConnectLabelChange("로그인을 해주십시오.");
+        Director::getInstance()->popScene();
+    }
+    //else if (TcpClient::getInstance()->getLoginId() == -1)
+    //{
+    //    TcpClient::getInstance()->loginRequest("a"); //컴파일 에러 방지(임시)
+    //}
+    //else
+    //{
+    //    ConnectLabelChange("로그인 성공.");
+    //}
 }

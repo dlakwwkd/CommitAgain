@@ -1,9 +1,13 @@
 ﻿#include "pch.h"
 #include "MainScene.h"
 #include "NetworkScene.h"
+#include "RoomScene.h"
 #include "InputBox.h"
+#include "TcpClient.h"
+
 
 #define MAX_NAME_LEN 14
+#define GET_CONNECT_LABEL dynamic_cast<Label*>(this->getChildByName("ConnectLabel"))
 
 Scene* MainScene::createScene()
 {
@@ -20,6 +24,7 @@ bool MainScene::init()
         return false;
     }
 
+    // 배경화면 plist 보여주는 부분
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_01.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_02.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_03.plist");
@@ -46,6 +51,7 @@ bool MainScene::init()
     background->setAnchorPoint(Vec2::ZERO);
     this->addChild(background);
 
+    // Login창 띄우기
     auto winSize = Director::getInstance()->getWinSize();
     auto loginScene = Sprite::create("Images/LoginScene.png");
     loginScene->setPosition(Vec2(winSize.width / 2, winSize.height * 3 / 8));
@@ -60,32 +66,60 @@ bool MainScene::init()
     loginMenu->setScaleY(0.5f);
     this->addChild(loginScene);
     this->addChild(loginMenu);
-
-   /* auto textField = TextFieldTTF::textFieldWithPlaceHolder("이름을 입력해주세요.", Size(480, 30), kCCTextAlignmentCenter, "Arial", 20);
-    textField->setPosition(Vec2(winSize.width / 2 - 10, winSize.height * 3 / 8));
-    textField->attachWithIME();
-    textField->setTextColor(Color4B::BLACK);
-    this->addChild(textField, 1);*/
-
-    std::string loginInfo = "이름을 입력해주세요";
-    std::string inputName;
-    auto inputBox = InputBox::create(loginInfo, inputName, MAX_NAME_LEN);
-    inputBox->setColor(Color3B::BLACK);
-    inputBox->beginInput();
-    inputBox->setFontSize(25.0f);
-    inputBox->setPosition(Vec2(winSize.width / 2 - 10, winSize.height * 3 / 8));
-    this->addChild(inputBox);
+    
+    // Login입력 받는 box 구현
+    m_LoginBox = InputBox::create("이름을 입력해주세요", "Thonburi", MAX_NAME_LEN);
+    m_LoginBox->setColor(Color3B::BLACK);
+    m_LoginBox->beginInput();
+    m_LoginBox->setFontSize(25.0f);
+    m_LoginBox->setPosition(Vec2(winSize.width / 2 - 10, winSize.height * 3 / 8));
+    this->addChild(m_LoginBox);
 
     return true;
 }
 
 void MainScene::menuCallback1(Ref* sender)
 {
+    m_LoginName = m_LoginBox->getString();
+
+    if (TcpClient::getInstance()->checkSocket() != NULL)
+        return;
+
+    ConnectLabelCreate("로그인 시도 중......", this);
+    if (TcpClient::getInstance()->connect() == false)
+    {
+        TcpClient::getInstance()->disconnect();
+        GET_CONNECT_LABEL->setString("로그인 실패.");
+        m_LoginBox->clear();
+        m_LoginBox->beginInput();
+        return;
+    }
     auto scene = NetworkScene::createScene();
     Director::getInstance()->pushScene(scene);
+    TcpClient::getInstance()->loginRequest(m_LoginName.c_str());
 }
 void MainScene::menuCallback2(Ref* sender)
 {
     Director::getInstance()->end();
 }
 
+void MainScene::ConnectLabelCreate(const char* str, MainScene* scene)
+{
+    if (scene->getChildByName("ConnectLabel") != nullptr)
+    {
+        scene->removeChildByName("ConnectLabel");
+    }
+    auto label = Label::createWithSystemFont(str, "Thonburi", 50);
+    label->setAnchorPoint(Vec2::ZERO);
+    label->setHorizontalAlignment(TextHAlignment::CENTER);
+    scene->addChild(label, 0, "ConnectLabel");
+}
+
+void MainScene::ConnectLabelChange(const char* str)
+{
+    auto label = GET_CONNECT_LABEL;
+    if (label != nullptr)
+    {
+        label->setString(str);
+    }
+}

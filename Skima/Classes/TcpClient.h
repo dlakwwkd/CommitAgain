@@ -25,7 +25,7 @@ public:
     bool connect();
     void disconnect();
 
-    void loginRequest();
+    void loginRequest(const char* playerName);
     void makeRoomRequest();
     void joinRoomRequest();
     void outRoomRequest(int roomId);

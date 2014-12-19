@@ -163,7 +163,7 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
         session->Disconnect();
         return;
     }
-    session->LoginProcess(inPacket.mPlayerId);
+    session->LoginProcess(inPacket.mPlayerId, inPacket.mPlayerName);
 
     // 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
     // 	GDatabaseJobManager->PushDatabaseJobRequest(newDbJob);
@@ -347,14 +347,14 @@ REGISTER_HANDLER(PKT_CS_SKILL)
     보낼 패킷 파싱하는 함수들
     */
 ///////////////////////////////////////////////////////////////////////////
-void ClientSession::LoginProcess(int playerId)
+void ClientSession::LoginProcess(int playerId, char* playerName)
 {
-    mPlayer = new Player(this, playerId, PT_HUMAN);
+    printf(" Recv:   Login Name: %s \n", playerName);
+    mPlayer = new Player(this, playerId, playerName, PT_HUMAN);
     mLogon = true;
 
     LoginResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    strcpy_s(outPacket.mName, mPlayer->GetPlayerName());
 
     SendRequest(&outPacket);
     printf(" Send:   Login ID: %d \n", outPacket.mPlayerId);

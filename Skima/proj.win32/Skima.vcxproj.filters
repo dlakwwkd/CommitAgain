@@ -73,6 +73,9 @@
     <Filter Include="Game\Layer">
       <UniqueIdentifier>{9d1731da-4ee8-4ed4-8cc9-fecd64bc2db8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scene\MainScene">
+      <UniqueIdentifier>{d1bad8e8-f452-4392-a8d8-93377bcf82e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -104,9 +107,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\ListenerLayer.cpp">
       <Filter>Game\Layer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MainScene.cpp">
-      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LoadingBGLayer.cpp">
       <Filter>Game\UI</Filter>
@@ -241,7 +241,10 @@
       <Filter>Game\Component\Unit\Obstruction</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\InputBox.cpp">
-      <Filter>Game\Scene</Filter>
+      <Filter>Game\Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainScene.cpp">
+      <Filter>Game\Scene\MainScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,9 +280,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ListenerLayer.h">
       <Filter>Game\Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MainScene.h">
-      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LoadingBGLayer.h">
       <Filter>Game\UI</Filter>
@@ -420,7 +420,10 @@
       <Filter>Game\Component\Unit\Obstruction</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\InputBox.h">
-      <Filter>Game\Scene</Filter>
+      <Filter>Game\Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene.h">
+      <Filter>Game\Scene\MainScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

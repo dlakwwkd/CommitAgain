@@ -31,7 +31,7 @@ public:
     SOCKET	GetSocketKey() const { return mSocket; }
     Player*	GetPlayer() const { return mPlayer; }
 
-    void    LoginProcess(int playerId);
+    void LoginProcess(int playerId, char* playerName);
     void    MakeGameRoom();
     void    JoinGameRoom();
     void    OutGameRoom();

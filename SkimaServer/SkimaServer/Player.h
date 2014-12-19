@@ -21,17 +21,18 @@ enum Team
 class Player : public ObjectPool<Player>
 {
 public:
-    Player(ClientSession* client, int playerId, PlayerType type) : 
+    Player(ClientSession* client, int playerId, char* playerName, PlayerType type) :
         m_Client(client), m_PlayerType(type), m_Team(TEAM_N),
         m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_HeroType(HERO_NONE)
     {
-        ZeroMemory(m_PlayerName, sizeof(m_PlayerName));
-        itoa(playerId, m_PlayerName, 10);	// 임시로..
+        m_PlayerName = (char*)malloc(sizeof(char)*MAX_NAME_LEN);
+        ZeroMemory(m_PlayerName, sizeof(char)*MAX_NAME_LEN);
+        strcpy(m_PlayerName, playerName);
     }
     ~Player();
 
     ClientSession*  GetClient() const{ return m_Client; }
-    const char*	    GetPlayerName() const { return m_PlayerName; }
+    char*	        GetPlayerName() const { return m_PlayerName; }
     int             GetPlayerID() const { return m_PlayerID; }
     int             GetRoomID() const { return m_RoomID; }
     Hero*           GetMyHero(){ return m_Hero; }
@@ -54,7 +55,7 @@ private:
     ClientSession*  m_Client = nullptr;
     PlayerType      m_PlayerType;
     Team            m_Team;
-    char            m_PlayerName[MAX_NAME_LEN];
+    char*           m_PlayerName;
     int             m_PlayerID;
     int             m_RoomID;
     bool            m_IsReady;
