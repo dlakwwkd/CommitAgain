@@ -6,6 +6,7 @@
 #include "HideEffect.h"
 #include "ObjectLayer.h"
 #include "UnHideEffect.h"
+#include "Laphinx.h"
 
 HideSkill::HideSkill()
 {
@@ -60,7 +61,7 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 //     auto laphinx_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
 //     auto hpbar_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
 //     auto hpFrame_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
-    auto spriteUnhidden = CallFunc::create(CC_CALLBACK_0(HideSkill::SpriteVisible, this,heroPos));
+    auto spriteUnhidden = CallFunc::create(CC_CALLBACK_0(HideSkill::SpriteVisible, this));
 
     auto Laphinx_seq = Sequence::create(spriteDelay, laphinx_halfvis,setPerformingFalse,hiddenTime,spriteUnhidden, NULL);
     auto Hpbar_seq = Sequence::create(spriteDelay, hpbar_halfvis, NULL);
@@ -69,6 +70,27 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     myLaphinxSprite->runAction(Laphinx_seq);
     myHpbar->runAction(Hpbar_seq);
     HpFrame->runAction(Hpframe_seq);
+
+   //CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(HideSkill::);
+    //sch->scheduleSelector()
+
+//     myLaphinxSprite->scheduleOnce(s)
+//     myLaphinxSprite->stop
+// 
+//     auto scheduler = cocos2d::Director::getInstance()->getScheduler();
+//     CallFunc::create(CC_CALLBACK_0(HideSkill::SpriteVisible, this));
+//     CallFunc::execute()
+//     scheduler->performFunctionInCocosThread(CC_CALLBACK_0(HideSkill::SpriteVisible, this));
+    //scheduler
+
+//     scheduler->scheduleSelector(HideSkill::SpriteVisible);
+// 
+//     this->schedule(schedule_selector(HideSkill::SpriteVisible));
+// 
+    //this->scheduleOnce(SEL_SCHEDULE(&HideSkill::SpriteVisible),5.0f);
+    // myLaphinxSprite->scheduleOnce(SEL_SCHEDULE(Laphinx::SetAllSpriteVisible),5.0f);
+    
+//     schedule(SEL_SCHEDULE selector, float interval, unsigned int repeat, float delay);
 
 
 //     auto action1 = DelayTime::create(lastTime);
@@ -179,16 +201,20 @@ void HideSkill::MakeUnhiddenEffect()
     // appear effect Ãß°¡ 
 }
 
-void HideSkill::SpriteVisible(Vec2 heroPos)
+void HideSkill::SpriteVisible()
 {
-    if (m_Hero->GetHeroHiddenState() == false)  return;
+    if (m_Hero->GetHeroHiddenState() == false)  
+        return;
+
 
     else
     {
+        m_Hero->GetSprite()->stopAllActions();
+        Vec2 heroPos = m_Hero->GetSprite()->getPosition();
         //performing state true 
         //sprite Allstop ?
         auto appearEffect = new UnHideEffect();
-        appearEffect->CreateEffect(Vec2{ heroPos.x - 100, heroPos.y + 80 });
+        appearEffect->CreateEffect(Vec2{ heroPos.x - 80, heroPos.y + 80 });
 
         auto particleEffect = new HideEffect();
         particleEffect->CreateEffect(heroPos);

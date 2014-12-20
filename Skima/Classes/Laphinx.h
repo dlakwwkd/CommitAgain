@@ -11,6 +11,8 @@ public:
     virtual void            SetSkillMotionByDir(SkillKey key);
     ParticleSystemQuad*     GetQ_particle(){ return m_Qparticle; }
 
+    void                    SetAllSpriteVisible();
+
 private:
     virtual void            SetMoveMotionToCache();
     virtual void            SetSkillMotionToCache();

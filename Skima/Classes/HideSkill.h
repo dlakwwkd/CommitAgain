@@ -14,7 +14,7 @@ public:
 
     void            SetSpriteOpacity(Sprite* sprite, float opacity);
     void            MakeUnhiddenEffect();
-    void            SpriteVisible(Vec2 heroPos);
+    void            SpriteVisible();
 
 private:
     int             m_HiddenTime;

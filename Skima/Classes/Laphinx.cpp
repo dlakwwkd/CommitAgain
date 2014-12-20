@@ -114,3 +114,43 @@ void Laphinx::SetSkillMotionByDir(SkillKey key)
         break;
     }
 }
+
+void Laphinx::SetAllSpriteVisible()
+{
+// if (m_Hero->GetHeroHiddenState() == false)
+//         return;
+
+    if (this->GetHeroHiddenState() == false)
+        return;
+    else
+    {
+//         //Vec2 heroPos = m_Hero->GetSprite()->getPosition();
+//         //performing state true 
+//         //sprite Allstop ?
+// //         auto appearEffect = new UnHideEffect();
+// //         appearEffect->CreateEffect(Vec2{ heroPos.x - 100, heroPos.y + 80 });
+// // 
+// //         auto particleEffect = new HideEffect();
+// //         particleEffect->CreateEffect(heroPos);
+
+        m_RealSprite->setOpacity(255);
+        m_HpbarOut->setOpacity(255);
+       if (m_MyHpBar!=nullptr)
+       {
+           m_MyHpBar->setOpacity(255);
+       }
+       if (m_EnemyHpBar!=nullptr)
+       {
+           m_EnemyHpBar->setOpacity(255);
+       }
+        
+//         m_Hero->GetRealSprite()->setOpacity(255);
+//         m_Hero->GetMyHpBar()->setOpacity(255);
+//         m_Hero->GetHpBarOut()->setOpacity(255);
+
+        //performing state false
+
+    }
+}
+
+
