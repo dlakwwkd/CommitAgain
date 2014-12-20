@@ -107,15 +107,6 @@ void NetworkScene::Tick(float dt)
 {
     if (TcpClient::getInstance()->checkSocket() == NULL)
     {
-       // ConnectLabelChange("로그인을 해주십시오.");
         Director::getInstance()->popScene();
     }
-    //else if (TcpClient::getInstance()->getLoginId() == -1)
-    //{
-    //    TcpClient::getInstance()->loginRequest("a"); //컴파일 에러 방지(임시)
-    //}
-    //else
-    //{
-    //    ConnectLabelChange("로그인 성공.");
-    //}
 }
