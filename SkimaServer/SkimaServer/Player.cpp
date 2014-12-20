@@ -41,6 +41,7 @@ void Player::UnitListClear()
     for (auto& unit : m_UnitList)
     {
         delete unit.second;
+        unit.second = nullptr;
     }
     m_UnitList.clear();
 	printf(" - UnitListClear : player %d, size : %d \n", m_PlayerID, m_UnitList.size());

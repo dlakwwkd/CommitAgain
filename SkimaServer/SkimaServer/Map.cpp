@@ -42,7 +42,6 @@ Map::~Map()
 
     for (auto& lava : m_LavaList)
     {
-        delete lava.second;
         lava.second = nullptr;
     }
 
@@ -59,14 +58,14 @@ void Map::InitMap(int roomId, Player* player)
         player->GetClient()->SendMapInfo(rock->GetUnitID(), rock->GetBody()->GetPosition());
     }
 
-//     for (int i = 0; i < 3; ++i)
-//     {
-//         auto pos = b2Vec2((rand() % 7) * 240, (rand() % 5) * 210);
-//         Lava* lava = new Lava(player, b2Vec2(CONVERT_IN(pos, roomId)));
-//         m_LavaList[lava->GetUnitID()] = lava;
-//         
-//         player->GetClient()->SendMapInfo(lava->GetUnitID(), lava->GetPos());
-//     }
+    for (int i = 0; i < 1; ++i)
+    {
+        auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
+        Lava* lava = new Lava(player, b2Vec2(CONVERT_IN(pos, roomId)));
+        m_LavaList[lava->GetUnitID()] = lava;
+        
+        player->GetClient()->SendMapInfo(lava->GetUnitID(), lava->GetPos());
+    }
 }
 
 void Map::LavaDamage()
