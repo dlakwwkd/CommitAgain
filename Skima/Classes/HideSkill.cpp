@@ -5,6 +5,7 @@
 #include "Unit.h"
 #include "HideEffect.h"
 #include "ObjectLayer.h"
+#include "UnHideEffect.h"
 
 HideSkill::HideSkill()
 {
@@ -37,7 +38,7 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     auto myLaphinxSprite = m_Hero->GetRealSprite();
     auto myHpbar = m_Hero->GetMyHpBar();
     auto HpFrame = m_Hero->GetHpBarOut();
-
+    //auto cloakingSprite
     //spr opacity 단계
     //hidden countdown
     //performing set
@@ -59,7 +60,7 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 //     auto laphinx_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
 //     auto hpbar_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
 //     auto hpFrame_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
-    auto spriteUnhidden = CallFunc::create(CC_CALLBACK_0(HideSkill::SpriteVisible, this));
+    auto spriteUnhidden = CallFunc::create(CC_CALLBACK_0(HideSkill::SpriteVisible, this,heroPos));
 
     auto Laphinx_seq = Sequence::create(spriteDelay, laphinx_halfvis,setPerformingFalse,hiddenTime,spriteUnhidden, NULL);
     auto Hpbar_seq = Sequence::create(spriteDelay, hpbar_halfvis, NULL);
@@ -178,7 +179,7 @@ void HideSkill::MakeUnhiddenEffect()
     // appear effect 추가 
 }
 
-void HideSkill::SpriteVisible()
+void HideSkill::SpriteVisible(Vec2 heroPos)
 {
     if (m_Hero->GetHeroHiddenState() == false)  return;
 
@@ -186,7 +187,11 @@ void HideSkill::SpriteVisible()
     {
         //performing state true 
         //sprite Allstop ?
-        MakeUnhiddenEffect();
+        auto appearEffect = new UnHideEffect();
+        appearEffect->CreateEffect(Vec2{ heroPos.x - 100, heroPos.y + 80 });
+
+        auto particleEffect = new HideEffect();
+        particleEffect->CreateEffect(heroPos);
 
         m_Hero->GetRealSprite()->setOpacity(255);
         m_Hero->GetMyHpBar()->setOpacity(255);
