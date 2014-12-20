@@ -12,8 +12,6 @@ Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 	scene->addChild(layer, 0, "GameOverScene");
 	layer->SetRoomID(roomId);
 
-	char* strResult;
-
     if (playerId != loseId)
     {
         endScene = Sprite::create("Images/WinScene.png");

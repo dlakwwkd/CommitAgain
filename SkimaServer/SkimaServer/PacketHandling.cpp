@@ -353,18 +353,19 @@ void ClientSession::LoginProcess(int playerId, char* playerName)
     mPlayer = new Player(this, playerId, playerName, PT_HUMAN);
     mLogon = true;
 
-    //int i = 0;
-    //auto roomList = GGameManager->GetRoomList();
+    int i = 0;
+    auto roomList = GGameManager->GetRoomList();
 
     LoginResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-   /* for (auto& room : roomList)
+    //RoomInfo 보내는 부분
+    for (auto& room : roomList)
     {
-        outPacket.mRoomList[i].mRoomNum = room->GetRoomID();
-        for (auto& player : room->GetPlayerList())
+        outPacket.mRoomList[i].mRoomNum = room.first;
+        for (auto& player : room.second->GetPlayerList()) // room안에 player인원세기
             outPacket.mRoomList[i].mCurPlayerNum++;
         outPacket.mRoomList[i++].mMaxPlayerNum = MAX_PLAYER_NUM;
-    }*/
+    }
 
     SendRequest(&outPacket);
     printf(" Send:   Login ID: %d \n", outPacket.mPlayerId);

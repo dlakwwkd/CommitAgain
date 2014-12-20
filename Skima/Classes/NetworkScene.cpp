@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "NetworkScene.h"
+#include "PacketType.h"
 #include "RoomScene.h"
 #include "TcpClient.h"
 
@@ -83,6 +84,12 @@ void NetworkScene::ConnectLabelChange(const char* str)
     {
         label->setString(str);
     }
+}
+
+void NetworkScene::RoomInformation(RoomInfo* roomInfo)
+{
+    m_RoomList.push_back(roomInfo);
+    ConnectLabelChange("로그인 성공!!");
 }
 
 void NetworkScene::MakeRoomComplete(int roomId)

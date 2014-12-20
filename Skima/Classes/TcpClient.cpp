@@ -200,8 +200,8 @@ void TcpClient::processPacket()
 			auto scene = GET_NETWORK_SCENE;
 			if (scene)
 			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ConnectLabelChange, scene,
-					"로그인 성공!!"));
+				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::RoomInformation, scene,
+					recvData.mRoomList));
 			}
         }
         break;

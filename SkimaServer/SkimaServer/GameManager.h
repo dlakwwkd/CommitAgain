@@ -34,6 +34,7 @@ public:
     void                DeleteRoom(int roomId);
     GameRoom*           SearchRoom(int roomId);
     int                 SearchEmptyRoom();
+    const RoomList&     GetRoomList(){ return m_RoomList; }
     void                JoinRoom(int roomId, Player* player);
 
     Game*               SearchGame(int gameId);

@@ -2,6 +2,7 @@
 
 USING_NS_CC;
 
+struct RoomInfo;
 class NetworkScene : public LayerColor
 {
 public:
@@ -17,10 +18,11 @@ public:
 
     void ConnectLabelCreate(const char* str, NetworkScene* scene);
     void ConnectLabelChange(const char* str);
+    void RoomInformation(RoomInfo* roomInfo);
     void MakeRoomComplete(int roomId);
     void JoinRoomComplete(int roomId);
 
 private:
-
+    std::vector<RoomInfo*> m_RoomList;
 };
 
