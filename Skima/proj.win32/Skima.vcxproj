@@ -190,6 +190,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\TeleportEffect.cpp" />
     <ClCompile Include="..\Classes\TeleportSkill.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
+    <ClCompile Include="..\Classes\UnHideEffect.cpp" />
     <ClCompile Include="..\Classes\Unit.cpp" />
     <ClCompile Include="..\Classes\WaitingLayer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -253,6 +254,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\TeleportEffect.h" />
     <ClInclude Include="..\Classes\TeleportSkill.h" />
     <ClInclude Include="..\Classes\UILayer.h" />
+    <ClInclude Include="..\Classes\UnHideEffect.h" />
     <ClInclude Include="..\Classes\Unit.h" />
     <ClInclude Include="..\Classes\WaitingLayer.h" />
     <ClInclude Include="main.h" />

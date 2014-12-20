@@ -246,6 +246,9 @@
     <ClCompile Include="..\Classes\MainScene.cpp">
       <Filter>Game\Scene\MainScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\UnHideEffect.cpp">
+      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -424,6 +427,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MainScene.h">
       <Filter>Game\Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UnHideEffect.h">
+      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
