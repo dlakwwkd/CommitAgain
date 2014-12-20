@@ -201,7 +201,7 @@ void TcpClient::processPacket()
 			if (scene)
 			{
 				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ConnectLabelChange, scene,
-					"서버 접속 성공!!"));
+					"로그인 성공!!"));
 			}
         }
         break;
