@@ -36,9 +36,9 @@ void Game::Tick(float dt)
     }
 }
 
-void Game::LowTick()
+void Game::WaveTimer()
 {
-    //m_Map->LavaDamage();
+    
 }
 
 void Game::InitGame()
@@ -68,8 +68,14 @@ void Game::InitGame()
 
     m_Map = new Map(roomId);
     m_Map->InitMap(roomId, m_Computer);
+    IncRefCount();
 
     temp->ServerRunComplete();
+}
+
+void Game::StartGame()
+{
+    m_IsStart = true;
 }
 
 void Game::EndGame()
@@ -89,6 +95,7 @@ void Game::EndGame()
         player.second->SetTeam(TEAM_N);
         player.second->UnitListClear();
 	}
+    DecRefCount();
 }
 
 Player* Game::GetPlayer(int playerId)

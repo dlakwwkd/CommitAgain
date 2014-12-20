@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "RefCountable.h"
 class Player;
 class MapObject;
 class GameRoom;
@@ -6,7 +7,7 @@ class Map;
 
 typedef std::map<int, Player*> PlayerList;
 
-class Game
+class Game : public RefCountable
 {
 public:
     Game(GameRoom* room);
@@ -14,14 +15,14 @@ public:
 
     int                 GetGameID(){ return m_GameID; }
     int                 GetPlayerListSize(){ return m_PlayerList.size(); }
-    void                SetIsStart(bool isStart){ m_IsStart = isStart; }
     bool                IsStart(){ return m_IsStart; }
     void                SetLoadedPlayerNum(){ ++m_LoadedPlayerNum; }
     int                 GetLoadedPlayerNum(){ return m_LoadedPlayerNum; }
 
     void                Tick(float dt);
-    void                LowTick();
+    void                WaveTimer();
     void                InitGame();
+    void                StartGame();
 	void				EndGame();
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int playerId);

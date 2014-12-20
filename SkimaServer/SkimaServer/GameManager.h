@@ -28,6 +28,7 @@ public:
 
     void                Tick(float dt);
     void                LowTick();
+    void                CollectGarbageGames();
 
     GameRoom*           CreateRoom();
     void                DeleteRoom(int roomId);

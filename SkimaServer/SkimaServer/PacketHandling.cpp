@@ -251,8 +251,8 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
 
     if (game->GetLoadedPlayerNum() >= MAX_PLAYER_NUM)
     {
-        game->SetIsStart(true);
-        session->StartGame();
+        game->StartGame();
+        session->SendStartGame();
     }
 }
 
@@ -469,7 +469,7 @@ void ClientSession::SendMapInfo(int unitId, const b2Vec2& pos)
     printf(" Send: MapInfo Player ID: %d \n", mPlayer->GetPlayerID());
 }
 
-void ClientSession::StartGame()
+void ClientSession::SendStartGame()
 {
 	StartGameNotify outPacket;
 	outPacket.mPlayerId = mPlayer->GetPlayerID();

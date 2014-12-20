@@ -51,18 +51,34 @@ void GameManager::LowTick()
             unit->Crashing(false);
         }
     }
-
-    for (auto& game : m_GameList)
-    {
-        if (game.second->IsStart())
-        {
-            game.second->LowTick();
-        }
-    }
-
+    //CollectGarbageGames();
     CallFuncAfter(MANAGER_UPDATE_INTERVAL * 3, this, &GameManager::LowTick);
 }
 
+///////////////////////////////////////////////////////////////////////////
+/*
+    종료된 게임 제거 함수
+*/
+///////////////////////////////////////////////////////////////////////////
+void GameManager::CollectGarbageGames()
+{
+    std::vector<Game*> disconnectedGames;
+    std::for_each(m_GameList.begin(), m_GameList.end(),
+        [&](GameList::const_reference it)
+    {
+        Game* game = it.second;
+
+        if (false == game->IsStart() && 0 == game->GetRefCount())
+            disconnectedGames.push_back(game);
+    }
+    );
+    for (size_t i = 0; i < disconnectedGames.size(); ++i)
+    {
+        Game* game = disconnectedGames[i];
+        m_GameList.erase(game->GetGameID());
+        delete game;
+    }
+}
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -225,7 +241,8 @@ void GameManager::GameOver(Player* player)
         return;
     }
     player->GetClient()->GameOverCast(player->GetPlayerID());
-	CallFuncAfter(1000, this, &GameManager::DeleteGame, game->second->GetGameID());
+    //game->second->EndGame();
+    CallFuncAfter(1000, this, &GameManager::DeleteGame, game->second->GetGameID());
 }
 
 

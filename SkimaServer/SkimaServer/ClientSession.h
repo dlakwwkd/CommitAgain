@@ -31,7 +31,7 @@ public:
     SOCKET	GetSocketKey() const { return mSocket; }
     Player*	GetPlayer() const { return mPlayer; }
 
-    void LoginProcess(int playerId, char* playerName);
+    void    LoginProcess(int playerId, char* playerName);
     void    MakeGameRoom();
     void    JoinGameRoom();
     void    OutGameRoom();
@@ -40,7 +40,7 @@ public:
 	void    ServerRunComplete();
 	void	SendCreateHeroResult(			int unitId, const b2Vec2& pos);
 	void	SendMapInfo(					int unitId, const b2Vec2& pos);
-	void    StartGame();
+	void    SendStartGame();
 
 	void	TryMoveBroadCast(				int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
 	void	CrashedBroadCast(				int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed);
