@@ -196,11 +196,6 @@ void HideSkill::SetSpriteOpacity(Sprite* sprite, float opacity)
     sprite->setOpacity(opacity);
 }
 
-void HideSkill::MakeUnhiddenEffect()
-{
-    // appear effect Ãß°¡ 
-}
-
 void HideSkill::SpriteVisible()
 {
     if (m_Hero->GetHeroHiddenState() == false)  

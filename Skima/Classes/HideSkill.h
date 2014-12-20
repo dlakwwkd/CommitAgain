@@ -13,7 +13,6 @@ public:
     virtual void    SkillEnd();
 
     void            SetSpriteOpacity(Sprite* sprite, float opacity);
-    void            MakeUnhiddenEffect();
     void            SpriteVisible();
 
 private:
