@@ -38,7 +38,7 @@ void Game::Tick(float dt)
 
 void Game::LowTick()
 {
-    m_Map->LavaDamage();
+    //m_Map->LavaDamage();
 }
 
 void Game::InitGame()
