@@ -22,7 +22,6 @@ bool RoomScene::init()
         return false;
     }
 
-    m_RoomID = -1;
     m_IsReady = false;
     auto winSize = Director::getInstance()->getWinSize();
 
@@ -31,7 +30,7 @@ bool RoomScene::init()
     this->addChild(roomBackground, -1);
     auto selectZone = Sprite::create("Images/SelectZone.png");
     selectZone->setPosition(Vec2(winSize.width * 1 / 8, winSize.height * 3 / 8 - 30));
-    selectZone->setOpacity(150);
+    selectZone->setOpacity(100);
     this->addChild(selectZone, 1);
         
     /////////////////////////////////////////////////캐릭터 초상화 추가할 부분/////////////////////////////////////////////
@@ -126,7 +125,8 @@ void RoomScene::Tick(float dt)
     _itoa(m_RoomID, buf, 32);
     std::string roomNum = buf;
     roomNum += "번 방";
-    label->setString(roomNum.c_str());
+    label->setString(roomNum);
+ 
 }
 //////////////////////////////////////////////////////////////////////////
 

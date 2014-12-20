@@ -114,6 +114,13 @@ struct Coord
     float y;
 };
 
+struct RoomInfo
+{
+    int mRoomNum;
+    int mCurPlayerNum;
+    int mMaxPlayerNum;
+};
+
 ///////////////////////////////////////////////////////////////////////////
 /*
     로그인 관련
@@ -138,8 +145,10 @@ struct LoginResult : public PacketHeader
         mSize = sizeof(LoginResult);
         mType = PKT_SC_LOGIN;
         mPlayerId = -1;
+        memset(mRoomList, 0, sizeof(mRoomList));
     }
-    int     mPlayerId;
+    int         mPlayerId;
+    RoomInfo    mRoomList[255];
 
 };
 
