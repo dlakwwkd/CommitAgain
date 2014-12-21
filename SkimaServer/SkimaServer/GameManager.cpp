@@ -265,11 +265,10 @@ void GameManager::PlayerOut(Player* player)
     if (game != m_GameList.end())
     {
         game->second->OutPlayer(playerId);
-        if (game->second->GetPlayerListSize() < 2)
+        if (game->second->GetPlayerListSize() < 3)
         {
-            game->second->EndGame();
-            player->GetClient()->GameOverCast(playerId);
             DeleteGame(roomId);
+            player->GetClient()->GameOverCast(playerId);
         }
     }
     auto room = m_RoomList.find(roomId);

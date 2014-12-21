@@ -180,6 +180,7 @@
     <ClInclude Include="Jupiter.h" />
     <ClInclude Include="Laphinx.h" />
     <ClInclude Include="Lava.h" />
+    <ClInclude Include="Lava_Damage.h" />
     <ClInclude Include="LightningSkill.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Magician.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="Jupiter.cpp" />
     <ClCompile Include="Laphinx.cpp" />
     <ClCompile Include="Lava.cpp" />
+    <ClCompile Include="Lava_Damage.cpp" />
     <ClCompile Include="LightningSkill.cpp" />
     <ClCompile Include="Magician.cpp" />
     <ClCompile Include="Main.cpp" />

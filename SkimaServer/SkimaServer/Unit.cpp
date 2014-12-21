@@ -116,7 +116,7 @@ void Unit::Crashing(bool isCrashing)
         EndCrash();
     }
 
-    client->CrashedBroadCast(m_UnitID, curPos, expectPos, isCrashing);
+    client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, isCrashing);
 }
 
 void Unit::Damaged(int damage)

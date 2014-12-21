@@ -128,6 +128,9 @@
     <ClCompile Include="Lava.cpp">
       <Filter>Game\Component\Unit\Obstruct</Filter>
     </ClCompile>
+    <ClCompile Include="Lava_Damage.cpp">
+      <Filter>Game\Component\Skill\Lava Damage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -279,6 +282,9 @@
     <ClInclude Include="Lava.h">
       <Filter>Game\Component\Unit\Obstruct</Filter>
     </ClInclude>
+    <ClInclude Include="Lava_Damage.h">
+      <Filter>Game\Component\Skill\Lava Damage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -337,6 +343,9 @@
     </Filter>
     <Filter Include="Game\Component\Unit\Mob">
       <UniqueIdentifier>{4948f4fb-cbed-4d7e-a5e0-1b1d33adf779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\Lava Damage">
+      <UniqueIdentifier>{2f367189-6f70-492f-ab31-56254f1965d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

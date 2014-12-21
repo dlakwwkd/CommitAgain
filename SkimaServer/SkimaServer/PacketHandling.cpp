@@ -378,7 +378,7 @@ void ClientSession::MakeGameRoom()
 
     MakeRoomResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mRoomId = gameRoom->GetRoomID();
+    outPacket.mRoomId = mRoomId = gameRoom->GetRoomID();
 
     SendRequest(&outPacket);
     printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
@@ -395,7 +395,7 @@ void ClientSession::JoinGameRoom()
 
     InOutRoomResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mRoomId = roomId;
+    outPacket.mRoomId = mRoomId = roomId;
 
     SendRequest(&outPacket);
     printf(" Send: Join Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
@@ -454,10 +454,10 @@ void ClientSession::SendCreateHeroResult(int unitId, const b2Vec2& pos)
     printf(" Send: CreateHeroResult Player ID: %d \n", mPlayer->GetPlayerID());
 }
 
-void ClientSession::SendMapInfo(int unitId, const b2Vec2& pos)
+void ClientSession::SendMapInfo(int playerId, int unitId, const b2Vec2& pos)
 {
     CreateMapResult outPacket;
-    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mPlayerId = playerId;
     outPacket.mUnitId = unitId;
     outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
 
@@ -493,8 +493,8 @@ void ClientSession::TryMoveBroadCast(int unitId, const b2Vec2& curPos, const b2V
 	MoveBroadcastResult outPacket;
 	outPacket.mPlayerId = mPlayer->GetPlayerID();
 	outPacket.mUnitId = unitId;
-	outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
-	outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
+	outPacket.mCurrentPos = CONVERT_OUT(curPos, mRoomId);
+	outPacket.mTargetPos = CONVERT_OUT(targetPos, mRoomId);
 
 	if (!Broadcast(&outPacket))
 	{
@@ -502,14 +502,14 @@ void ClientSession::TryMoveBroadCast(int unitId, const b2Vec2& curPos, const b2V
 	}
 }
 
-void ClientSession::CrashedBroadCast(int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed)
+void ClientSession::CrashedBroadCast(int playerId, int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed)
 {
     CrashedBroadcastResult outPacket;
-    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mPlayerId = playerId;
     outPacket.mUnitId = unitId;
     outPacket.mIsCrashed = isCrashed;
-    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
-    outPacket.mExpectPos = CONVERT_OUT(expectPos, mPlayer->GetRoomID());
+    outPacket.mCurrentPos = CONVERT_OUT(curPos, mRoomId);
+    outPacket.mExpectPos = CONVERT_OUT(expectPos, mRoomId);
 
     if (!Broadcast(&outPacket))
     {

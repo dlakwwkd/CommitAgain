@@ -8,8 +8,6 @@ class MapObject;
 class Player;
 class Lava;
 
-typedef std::map<int, Lava*> LavaList;
-
 class Map : public RefCountable
 {
 public:
@@ -17,11 +15,8 @@ public:
     virtual ~Map();
 
     void InitMap(int roomId, Player* player);
-    void LavaDamage();
-    void ObjectListClear();
 
 private:
     b2Body*    m_Body = nullptr;
-    LavaList   m_LavaList;
 };
 

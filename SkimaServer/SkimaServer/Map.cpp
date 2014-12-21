@@ -39,13 +39,6 @@ Map::Map(int roomId)
 Map::~Map()
 {
     CallFuncAfter(1, GGameManager, &GameManager::DeleteBody, m_Body);
-
-    for (auto& lava : m_LavaList)
-    {
-        lava.second = nullptr;
-    }
-
-    m_LavaList.clear();
 }
 
 void Map::InitMap(int roomId, Player* player)
@@ -54,24 +47,16 @@ void Map::InitMap(int roomId, Player* player)
     {
         auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
         MoveRock* rock = new MoveRock(player, b2Vec2(CONVERT_IN(pos, roomId)));
+        player->UnitListPush(rock->GetUnitID(), rock);
 
-        player->GetClient()->SendMapInfo(rock->GetUnitID(), rock->GetBody()->GetPosition());
+        player->GetClient()->SendMapInfo(player->GetPlayerID(), rock->GetUnitID(), rock->GetBody()->GetPosition());
     }
 
-    for (int i = 0; i < 1; ++i)
-    {
-        auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
-        Lava* lava = new Lava(player, b2Vec2(CONVERT_IN(pos, roomId)));
-        m_LavaList[lava->GetUnitID()] = lava;
-        
-        player->GetClient()->SendMapInfo(lava->GetUnitID(), lava->GetPos());
-    }
-}
-
-void Map::LavaDamage()
-{
-    for (auto& lava : m_LavaList)
-    {
-        GGameManager->FieldDamage(lava.second->GetOwner(), lava.second->GetRange(), lava.second->GetDamage());
-    }
+//     for (int i = 0; i < 1; ++i)
+//     {
+//         auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
+//         Lava* lava = new Lava(player, b2Vec2(CONVERT_IN(pos, roomId)));
+//         
+//         player->GetClient()->SendMapInfo(lava->GetUnitID(), lava->GetPos());
+//     }
 }

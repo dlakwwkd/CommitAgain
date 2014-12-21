@@ -35,3 +35,10 @@ void FieldType::FieldDamageRepeat(b2Vec2 targetPos, float scale, int damage, int
         CallFuncAfter(repeatDelay, this, &FieldType::FieldDamageRepeat, targetPos, scale, damage, repeatNum, repeatDelay);
     }
 }
+
+void FieldType::FieldDamageInfinite(b2Vec2 targetPos, float scale, int damage, float repeatDelay)
+{
+    FieldDamage(targetPos, scale, damage);
+
+    CallFuncAfter(repeatDelay, this, &FieldType::FieldDamageInfinite, targetPos, scale, damage, repeatDelay);
+}

@@ -85,7 +85,9 @@ void Game::EndGame()
 	auto computer = m_PlayerList.find(PT_COMPUTER);
 	if (computer != m_PlayerList.end())
 	{
+        computer->second->UnitListClear();
 		delete computer->second;
+        computer->second = nullptr;
 		m_PlayerList.erase(computer);
 	}
 	delete m_Map;
