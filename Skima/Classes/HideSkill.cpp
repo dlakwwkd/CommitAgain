@@ -61,9 +61,9 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 //     auto laphinx_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
 //     auto hpbar_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
 //     auto hpFrame_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
-    auto spriteUnhidden = CallFunc::create(CC_CALLBACK_0(HideSkill::SpriteVisible, this));
+    auto spriteUnhidden = CallFunc::create(CC_CALLBACK_0(HideSkill::UnHide, this));
 
-    auto Laphinx_seq = Sequence::create(spriteDelay, laphinx_halfvis,setPerformingFalse,hiddenTime,spriteUnhidden, NULL);
+    auto Laphinx_seq = Sequence::create(spriteDelay, laphinx_halfvis,setPerformingFalse,hiddenTime,/*spriteUnhidden*/ NULL);
     auto Hpbar_seq = Sequence::create(spriteDelay, hpbar_halfvis, NULL);
     auto Hpframe_seq = Sequence::create(spriteDelay, hpFrame_halfvis, NULL);
 
@@ -71,7 +71,20 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     myHpbar->runAction(Hpbar_seq);
     HpFrame->runAction(Hpframe_seq);
 
-   //CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(HideSkill::);
+//     auto hid1= DelayTime::create(m_HiddenTime);
+//     auto hid_seq = Sequence::create(hid1, spriteUnhidden);
+//     m_Delay->runAction(hid_seq);
+
+
+   // this->scheduleOnce(schedule_selector(&MyClass::myModification), 10.0f);
+// 
+    //scheduler->setTimeScale(m_HiddenTime);    
+    auto scheduler = cocos2d::Director::getInstance()->getScheduler();
+    
+    scheduler->performFunctionInCocosThread(&HideSkill::Sleep);
+//     //scheduler->performFunctionInCocosThread(CallFunc::)
+    
+//         //CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(HideSkill::);
     //sch->scheduleSelector()
 
 //     myLaphinxSprite->scheduleOnce(s)
@@ -85,11 +98,10 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 
 //     scheduler->scheduleSelector(HideSkill::SpriteVisible);
 // 
-//     this->schedule(schedule_selector(HideSkill::SpriteVisible));
+//    this->schedule(schedule_selector(HideSkill::SpriteVisible));
 // 
     //this->scheduleOnce(SEL_SCHEDULE(&HideSkill::SpriteVisible),5.0f);
-    // myLaphinxSprite->scheduleOnce(SEL_SCHEDULE(Laphinx::SetAllSpriteVisible),5.0f);
-    
+    //myLaphinxSprite->scheduleOnce(SEL_SCHEDULE(&Laphinx::SetAllSpriteVisible), 5.0f);
 //     schedule(SEL_SCHEDULE selector, float interval, unsigned int repeat, float delay);
 
 
@@ -196,7 +208,7 @@ void HideSkill::SetSpriteOpacity(Sprite* sprite, float opacity)
     sprite->setOpacity(opacity);
 }
 
-void HideSkill::SpriteVisible()
+void HideSkill::UnHide()
 {
     if (m_Hero->GetHeroHiddenState() == false)  
         return;
@@ -223,4 +235,14 @@ void HideSkill::SpriteVisible()
     }
 
     
+}
+
+void HideSkill::Sleep()
+{
+    std::chrono::seconds duration(m_HiddenTime);
+    std::this_thread::sleep_for(duration);
+
+    auto scheduler = cocos2d::Director::getInstance()->getScheduler();
+
+    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(HideSkill::UnHide, this));
 }
