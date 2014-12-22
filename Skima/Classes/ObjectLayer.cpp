@@ -218,8 +218,8 @@ void ObjectLayer::DeleteMissile(int missileID)
     m_MissileList.erase(missile);
 }
 
-void ObjectLayer::CountHiddenTime(Sprite* sprite,float lastTime)
+void ObjectLayer::UnHide(int playerID, int unitID, Vec2 recvCurPos)
 {
-    //this->scheduleOnce(SEL_SCHEDULE(lastTime));
-    //this->scheduleOnce(SEL_SCHEDULE(HideSkill::UnHide), 5.0f);
+
 }
+

@@ -36,20 +36,21 @@ public:
     void    JoinGameRoom();
     void    OutGameRoom();
 
-	void    AllReadyNotify();
-	void    ServerRunComplete();
-	void	SendCreateHeroResult(			    int unitId, const b2Vec2& pos);
+    void    AllReadyNotify();
+    void    ServerRunComplete();
+    void	SendCreateHeroResult(			    int unitId, const b2Vec2& pos);
     void	SendMapInfo(        int playerId,   int unitId, const b2Vec2& pos);
-	void    SendStartGame();
+    void    SendStartGame();
 
-	void	TryMoveBroadCast(				    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
-	void	CrashedBroadCast(   int playerId,   int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed);
-	void	SkillBroadCast(					    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key);
-	void	SplashSkillBroadCast(			    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key);
-	void	ShootBroadCast(	    int playerId,	int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
-	void	BlinkBroadCast(	    int playerId,	int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
+    void	TryMoveBroadCast(				    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
+    void	CrashedBroadCast(   int playerId,   int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed);
+    void	SkillBroadCast(					    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key);
+    void    UnHideBroadCast(int unitId, const b2Vec2& curPos);
+    void	SplashSkillBroadCast(			    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key);
+    void	ShootBroadCast(	    int playerId,	int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
+    void	BlinkBroadCast(	    int playerId,	int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
     void    HpBroadCast(	    int playerId,	int unitId, int hp);
-	void    GameOverCast(	    int playerId);
+    void    GameOverCast(	    int playerId);
 
     // 	void    LoginDone(int pid, const char* name);
     // 	void    UpdateDone();

@@ -11,7 +11,7 @@ enum UnitType
     UNIT_HERO,
     UNIT_MISSILE,
     UNIT_OBSTRUCT,
-	UNIT_MOB,
+    UNIT_MOB,
 };
 enum HeroType
 {
@@ -30,8 +30,8 @@ enum MissileType
 enum ObstructType
 {
     OS_NONE,
-	OS_ROCK,
-	OS_MOVE_ROCK,
+    OS_ROCK,
+    OS_MOVE_ROCK,
     OS_LAVA
 };
 
@@ -90,6 +90,7 @@ enum PacketTypes
     PKT_SC_MISSILE = 50,
     PKT_SC_TELEPORT = 52,
     PKT_SC_HP = 54,
+    PKT_SC_UNHIDE =55,
 
     PKT_CS_CHAT = 91,
     PKT_SC_CHAT = 92,
@@ -498,6 +499,21 @@ struct TeleportBroadcastResult : public PacketHeader
     Coord       mCurrentPos;
     Coord       mTargetPos;
 };
+struct UnHideBroadcastResult : public PacketHeader
+{
+    UnHideBroadcastResult()
+    {
+        mSize = sizeof(UnHideBroadcastResult);
+        mType = PKT_SC_UNHIDE;
+        mPlayerId = -1;
+        mUnitId = -1;
+        mCurrentPos = { 0, };
+    }
+    int         mPlayerId;
+    int         mUnitId;
+    Coord       mCurrentPos;
+};
+
 
 struct HpBroadcastResult : public PacketHeader
 {

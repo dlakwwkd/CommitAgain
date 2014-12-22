@@ -306,6 +306,7 @@ REGISTER_HANDLER(PKT_CS_SKILL)
     hero->UseSkill(inPacket.mKey, currentPos, targetPos);
 }
 
+
 // 
 // REGISTER_HANDLER(PKT_CS_CHAT)
 // {
@@ -413,31 +414,31 @@ void ClientSession::OutGameRoom()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	로딩 처리 관련
+    로딩 처리 관련
 */
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::AllReadyNotify()
 {
-	GameRunNotify outPacket;
-	outPacket.mPlayerId = mPlayer->GetPlayerID();
+    GameRunNotify outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
 
-	if (!Broadcast(&outPacket))
-	{
-		Disconnect();
-	}
-	printf(" Send: GameRunNotify Room ID: %d \n", mPlayer->GetRoomID());
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+    printf(" Send: GameRunNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
 void ClientSession::ServerRunComplete()
 {
-	ServerRunCompleteNotify outPacket;
-	outPacket.mPlayerId = mPlayer->GetPlayerID();
+    ServerRunCompleteNotify outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
 
-	if (!Broadcast(&outPacket))
-	{
-		Disconnect();
-	}
-	printf(" Send: ServerRunCompleteNotify Room ID: %d \n", mPlayer->GetRoomID());
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+    printf(" Send: ServerRunCompleteNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
 void ClientSession::SendCreateHeroResult(int unitId, const b2Vec2& pos)
@@ -472,34 +473,34 @@ void ClientSession::SendMapInfo(int playerId, int unitId, const b2Vec2& pos)
 
 void ClientSession::SendStartGame()
 {
-	StartGameNotify outPacket;
-	outPacket.mPlayerId = mPlayer->GetPlayerID();
+    StartGameNotify outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
 
-	if (!Broadcast(&outPacket))
-	{
-		Disconnect();
-	}
-	printf(" Send: StartGameNotify Room ID: %d \n", mPlayer->GetRoomID());
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+    printf(" Send: StartGameNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-	게임 플레이 관련
+    게임 플레이 관련
 */
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::TryMoveBroadCast(int unitId, const b2Vec2& curPos, const b2Vec2& targetPos)
 {
-	MoveBroadcastResult outPacket;
-	outPacket.mPlayerId = mPlayer->GetPlayerID();
-	outPacket.mUnitId = unitId;
-	outPacket.mCurrentPos = CONVERT_OUT(curPos, mRoomId);
-	outPacket.mTargetPos = CONVERT_OUT(targetPos, mRoomId);
+    MoveBroadcastResult outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mUnitId = unitId;
+    outPacket.mCurrentPos = CONVERT_OUT(curPos, mRoomId);
+    outPacket.mTargetPos = CONVERT_OUT(targetPos, mRoomId);
 
-	if (!Broadcast(&outPacket))
-	{
-		Disconnect();
-	}
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
 }
 
 void ClientSession::CrashedBroadCast(int playerId, int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed)
@@ -525,6 +526,19 @@ void ClientSession::SkillBroadCast(int unitId, const b2Vec2& curPos, const b2Vec
     outPacket.mKey = key;
     outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
+
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+}
+
+void ClientSession::UnHideBroadCast(int unitId, const b2Vec2& curPos)
+{
+    UnHideBroadcastResult outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mUnitId = unitId;
+    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
     {

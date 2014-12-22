@@ -197,12 +197,12 @@ void TcpClient::processPacket()
 
             mLoginId = recvData.mPlayerId;
 
-			auto scene = GET_NETWORK_SCENE;
-			if (scene)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::RoomInformation, scene,
-					recvData.mRoomList));
-			}
+            auto scene = GET_NETWORK_SCENE;
+            if (scene)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::RoomInformation, scene,
+                    recvData.mRoomList));
+            }
         }
         break;
 
@@ -212,12 +212,12 @@ void TcpClient::processPacket()
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId == mLoginId);
 
-			auto scene = GET_NETWORK_SCENE;
-			if (scene)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, scene,
-					recvData.mRoomId));
-			}
+            auto scene = GET_NETWORK_SCENE;
+            if (scene)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, scene,
+                    recvData.mRoomId));
+            }
         }
         break;
 
@@ -229,12 +229,12 @@ void TcpClient::processPacket()
 
             if (recvData.mIsIn)
             {
-				auto scene = GET_NETWORK_SCENE;
-				if (scene)
-				{
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, scene,
-						recvData.mRoomId));
-				}
+                auto scene = GET_NETWORK_SCENE;
+                if (scene)
+                {
+                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, scene,
+                        recvData.mRoomId));
+                }
             }
             else
             {
@@ -249,11 +249,11 @@ void TcpClient::processPacket()
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
-			auto scene = GET_ROOM_SCENE;
-			if (scene)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::GameStartComplete, scene));
-			}
+            auto scene = GET_ROOM_SCENE;
+            if (scene)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::GameStartComplete, scene));
+            }
         }
         return; // 이 다음 패킷 수신 전에 콜백함수 호출이 필요하므로 리턴
 
@@ -265,16 +265,16 @@ void TcpClient::processPacket()
 
             Vec2 pos = CONVERT(recvData.mPos);
 
-			if (GET_GAME_SCENE == nullptr)
-			{
-				break;
-			}
-			auto layer = GET_OBJECT_LAYER;
-			if (layer)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateHero, layer,
-					recvData.mPlayerId, recvData.mUnitId, pos));
-			}
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateHero, layer,
+                    recvData.mPlayerId, recvData.mUnitId, pos));
+            }
         }
         break;
 
@@ -286,16 +286,16 @@ void TcpClient::processPacket()
 
             Vec2 pos = CONVERT(recvData.mPos);
 
-			if (GET_GAME_SCENE == nullptr)
-			{
-				break;
-			}
-			auto layer = GET_OBJECT_LAYER;
-			if (layer)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateMapObject, layer,
-					recvData.mUnitId, pos));
-			}
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateMapObject, layer,
+                    recvData.mUnitId, pos));
+            }
         }
         break;
 
@@ -305,15 +305,15 @@ void TcpClient::processPacket()
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
-			if (GET_GAME_SCENE == nullptr)
-			{
-				break;
-			}
-			auto layer = GET_LOADING_LAYER;
-			if (layer)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(LoadingBGLayer::SetLoadingFin, layer));
-			}
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_LOADING_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(LoadingBGLayer::SetLoadingFin, layer));
+            }
         }
         return; // 이 다음 패킷 수신 전에 콜백함수 호출이 필요하므로 리턴
 
@@ -323,11 +323,11 @@ void TcpClient::processPacket()
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
-			auto scene = GET_GAME_SCENE;
-			if (scene)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::StartGame, scene));
-			}
+            auto scene = GET_GAME_SCENE;
+            if (scene)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::StartGame, scene));
+            }
         }
         break;
 
@@ -340,16 +340,16 @@ void TcpClient::processPacket()
             Vec2 curPos = CONVERT(recvData.mCurrentPos);
             Vec2 targetPos = CONVERT(recvData.mTargetPos);
 
-			if (GET_GAME_SCENE == nullptr)
-			{
-				break;
-			}
-			auto layer = GET_OBJECT_LAYER;
-			if (layer)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitMove, layer,
-					recvData.mUnitId, curPos, targetPos));
-			}
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitMove, layer,
+                    recvData.mUnitId, curPos, targetPos));
+            }
         }
         break;
 
@@ -362,33 +362,33 @@ void TcpClient::processPacket()
             Vec2 expectPos = CONVERT(recvData.mExpectPos);
             Vec2 revisionPos = CONVERT(recvData.mCurrentPos);
 
-			if (GET_GAME_SCENE == nullptr)
-			{
-				break;
-			}
-			auto layer = GET_OBJECT_LAYER;
-			if (layer)
-			{
-				switch (GET_MAIN_TYPE(recvData.mUnitId))
-				{
-				case UNIT_HERO:
-				case UNIT_OBSTRUCT:
-					if (recvData.mIsCrashed)
-					{
-						scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
-							recvData.mUnitId, expectPos));
-					}
-					else
-					{
-						scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
-							recvData.mUnitId, revisionPos));
-					}
-					break;
-				case UNIT_MISSILE:
-					scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MissileCrash, layer,
-						recvData.mUnitId));
-					break;
-				}
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                switch (GET_MAIN_TYPE(recvData.mUnitId))
+                {
+                case UNIT_HERO:
+                case UNIT_OBSTRUCT:
+                    if (recvData.mIsCrashed)
+                    {
+                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
+                            recvData.mUnitId, expectPos));
+                    }
+                    else
+                    {
+                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
+                            recvData.mUnitId, revisionPos));
+                    }
+                    break;
+                case UNIT_MISSILE:
+                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MissileCrash, layer,
+                        recvData.mUnitId));
+                    break;
+                }
             }
         }
         break;
@@ -402,16 +402,16 @@ void TcpClient::processPacket()
             Vec2 curPos = CONVERT(recvData.mCurrentPos);
             Vec2 targetPos = CONVERT(recvData.mTargetPos);
 
-			if (GET_GAME_SCENE == nullptr)
-			{
-				break;
-			}
-			auto layer = GET_OBJECT_LAYER;
-			if (layer)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSkillUse, layer,
-					recvData.mPlayerId, recvData.mUnitId, recvData.mKey, curPos, targetPos));
-			}
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitSkillUse, layer,
+                    recvData.mPlayerId, recvData.mUnitId, recvData.mKey, curPos, targetPos));
+            }
         }
         break;
 
@@ -424,37 +424,58 @@ void TcpClient::processPacket()
             Vec2 curPos = CONVERT(recvData.mCurrentPos);
             Vec2 targetPos = CONVERT(recvData.mTargetPos);
 
-			if (GET_GAME_SCENE == nullptr)
-			{
-				break;
-			}
-			auto layer = GET_OBJECT_LAYER;
-			if (layer)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::ShootMissile, layer,
-					recvData.mUnitId, curPos, targetPos));
-			}
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::ShootMissile, layer,
+                    recvData.mUnitId, curPos, targetPos));
+            }
         }
         break;
 
         case PKT_SC_HP:
-		{
-			HpBroadcastResult recvData;
-			bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-			assert(ret && recvData.mPlayerId != -1);
+        {
+            HpBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
 
-			if (GET_GAME_SCENE == nullptr)
-			{
-				break;
-			}
-			auto layer = GET_OBJECT_LAYER;
-			if (layer)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitHpUpdate, layer,
-					recvData.mPlayerId, recvData.mUnitId, recvData.mHp));
-			}
-		}
-		break;
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitHpUpdate, layer,
+                    recvData.mPlayerId, recvData.mUnitId, recvData.mHp));
+            }
+        }
+        break;
+
+        case PKT_SC_UNHIDE:
+        {
+            UnHideBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            Vec2 curPos = CONVERT(recvData.mCurrentPos);
+
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnHide, layer,
+                    recvData.mPlayerId, recvData.mUnitId, curPos));
+            }
+        }
+        break;
 
         case PKT_SC_GAMEOVER:
         {
@@ -462,12 +483,12 @@ void TcpClient::processPacket()
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
-			auto scene = GET_GAME_SCENE;
-			if (scene)
-			{
-				scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::GameOver, scene,
-					mLoginId, recvData.mLoseId));
-			}
+            auto scene = GET_GAME_SCENE;
+            if (scene)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::GameOver, scene,
+                    mLoginId, recvData.mLoseId));
+            }
         }
         return;
 

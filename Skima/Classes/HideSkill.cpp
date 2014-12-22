@@ -75,13 +75,13 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     
 
 //     auto scheduler = cocos2d::Director::getInstance()->getScheduler();
-//     //scheduler->setTimeScale(m_HiddenTime);    
+//     scheduler->setTimeScale(m_HiddenTime);    
 //     scheduler->performFunctionInCocosThread(CC_CALLBACK_2(ObjectLayer::CountHiddenTime, this));
 //     
   //  GObjctLayer->CountHiddenTime(myLaphinxSprite,m_HiddenTime);
     //scheduler->performFunctionInCocosThread(CallFunc::)
 
-//         //CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(HideSkill::);
+    //CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(HideSkill::);
     //sch->scheduleSelector()
 
 //     myLaphinxSprite->scheduleOnce(s)
