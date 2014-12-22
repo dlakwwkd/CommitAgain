@@ -46,7 +46,7 @@ public:
     bool                ApplyDamage(Unit* unitA, Unit* unitB);
     void                CrashDamage(Unit* unitA, Unit* unitB);
     void                FieldDamage(Player* caster, Rect* range, int damage);
-	void                DeleteUnit(Unit* unit);
+	void                DeadUnit(Unit* unit);
 
 public:
     b2World*            GetWolrd(){ return m_World; }

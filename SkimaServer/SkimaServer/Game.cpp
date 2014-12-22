@@ -79,7 +79,6 @@ void Game::InitGame()
     // 주의: 여기서부턴 하드코딩의 구간입니다.^^
     ClientSession* temp;
     int i = 0;
-
     int roomId;
     for (auto& player : m_PlayerList)
     {
@@ -96,14 +95,13 @@ void Game::InitGame()
     }
     m_Computer = new Player(temp, PT_COMPUTER, "Computer", PT_COMPUTER);// 100번 보면 이해됨.
     m_Computer->SetRoomID(roomId);
-	m_PlayerList[PT_COMPUTER] = m_Computer;
     m_Computer->SetTeam(TEAM_C);
+	m_PlayerList[PT_COMPUTER] = m_Computer;
 
     m_Map = new Map(roomId);
     m_Map->InitMap(roomId, m_Computer);
 
     temp->ServerRunComplete();
-
 }
 
 void Game::StartGame()

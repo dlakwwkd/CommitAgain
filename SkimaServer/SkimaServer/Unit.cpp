@@ -101,7 +101,7 @@ void Unit::Crashing(bool isCrashing)
     {
     case UNIT_MISSILE:
         isCrashing = false;
-        CallFuncAfter(1, GGameManager, &GameManager::DeleteUnit, this);
+        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
         break;
     };
 
@@ -129,22 +129,9 @@ void Unit::Damaged(int damage)
     m_Hp -= damage;
     m_Owner->GetClient()->HpBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Hp);
 
-    switch (GET_MAIN_TYPE(m_UnitID))
+    if (m_Hp <= 0)
     {
-    case UNIT_HERO:
-        if (m_Hp <= 0)
-        {
-            CallFuncAfter(1000, GGameManager, &GameManager::GameOver, m_Owner);
-        }
-        break;
-    case UNIT_OBSTRUCT:
-        if (m_Hp <= 0)
-        {
-            CallFuncAfter(1, GGameManager, &GameManager::DeleteUnit, this);
-        }
-        break;
-    default:
-        break;
+        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
     }
 }
 

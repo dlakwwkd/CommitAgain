@@ -323,9 +323,15 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
     }
 }
 
-void GameManager::DeleteUnit(Unit* unit)
+void GameManager::DeadUnit(Unit* unit)
 {
-	unit->GetOwner()->UnitListPop(unit->GetUnitID());
+    auto unitId = unit->GetUnitID();
+    auto owner = unit->GetOwner();
+    if (GET_MAIN_TYPE(unitId) == UNIT_HERO)
+    {
+        CallFuncAfter(1000, GGameManager, &GameManager::GameOver, owner);
+    }
+    owner->UnitListPop(unit->GetUnitID());
 }
 
 
