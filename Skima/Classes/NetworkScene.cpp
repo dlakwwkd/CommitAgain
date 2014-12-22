@@ -37,7 +37,7 @@ bool NetworkScene::init()
     return true;
 }
 
-void NetworkScene::menuCallback1(Ref* sender)	// 방 생성
+void NetworkScene::menuCallback1(Ref* sender)
 {
     if (TcpClient::getInstance()->checkSocket() == NULL)
         return;
@@ -46,13 +46,13 @@ void NetworkScene::menuCallback1(Ref* sender)	// 방 생성
     TcpClient::getInstance()->makeRoomRequest();	
 }
 
-void NetworkScene::menuCallback2(Ref* sender)	// 방 참여
+void NetworkScene::menuCallback2(int roomNum)
 {
     if (TcpClient::getInstance()->checkSocket() == NULL)
         return;
 
     ConnectLabelChange("방에 들어가는 중...");
-    TcpClient::getInstance()->joinRoomRequest(m_SelectRoomNum);
+    TcpClient::getInstance()->joinRoomRequest(roomNum);
 }
 
 void NetworkScene::menuCallback3(Ref* sender)	// 나가기
@@ -102,16 +102,16 @@ void NetworkScene::UpdateRoomInfo()
             break;
 
         auto roomListFrame = Sprite::create("Images/RoomListFrame.png");
-        roomListFrame->setPosition(Vec2(winSize.width / 2, winSize.height * line));
-        roomListFrame->setAnchorPoint(Vec2(0, 0));
+        roomListFrame->setPosition(Vec2(winSize.width * 0.45f - 50, winSize.height * line));
         roomListFrame->setScaleX(1.50f);
-        this->addChild(roomListFrame);
+        this->addChild(roomListFrame, 1);
 
         auto joinRoomButton = MenuItemImage::create(
             "Images/JoinButton.png", 
             "Images/JoinButton_selected.png",
-            CC_CALLBACK_1(NetworkScene::menuCallback1, this));
+            CC_CALLBACK_0(NetworkScene::menuCallback2, this, room.mRoomNum));
         auto menu = Menu::create(joinRoomButton, NULL);
+        menu->setPosition(Vec2(600.0f, 110.0f));
         menu->alignItemsVertically();
         roomListFrame->addChild(menu);
 

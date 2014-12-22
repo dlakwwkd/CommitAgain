@@ -11,7 +11,7 @@ public:
     CREATE_FUNC(NetworkScene);
 
     void menuCallback1(Ref* sender);
-    void menuCallback2(Ref* sender);
+    void menuCallback2(int roomNum);
     void menuCallback3(Ref* sender);
 
     void Tick(float dt);
@@ -25,6 +25,5 @@ public:
 
 private:
     std::vector<RoomInfo>  m_RoomList;
-    int                    m_SelectRoomNum;
 };
 

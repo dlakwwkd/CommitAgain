@@ -29,4 +29,5 @@ void LightningSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
     auto func = std::bind(&LightningSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
     game->RepeatTimer(200, 5, func);
+
 }

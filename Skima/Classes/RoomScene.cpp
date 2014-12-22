@@ -5,7 +5,7 @@
 #include "GameScene.h"
 #include "WaitingLayer.h"
 
-#define GET_ROOM_STATE_LABEL dynamic_cast<LabelTTF*>(this->getChildByName("RoomStateLabel"))
+#define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
 
 Scene* RoomScene::createScene()
 {
