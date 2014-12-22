@@ -99,7 +99,7 @@ void Game::InitGame()
 	m_PlayerList[PT_COMPUTER] = m_Computer;
 
     m_Map = new Map(roomId);
-    m_Map->InitMap(roomId, m_Computer);
+    m_Map->InitMap(m_Computer, roomId);
 
     temp->ServerRunComplete();
 }
@@ -107,7 +107,7 @@ void Game::InitGame()
 void Game::StartGame()
 {
     m_IsStart = true;
-    auto func = std::bind(&Map::LavaCreate, m_Map, m_GameID, m_Computer);
+    auto func = std::bind(&Map::LavaCreate, m_Map, m_Computer, m_GameID);
     InfiniteTimer(6000, func);
 }
 
@@ -153,5 +153,10 @@ void Game::OutPlayer(int playerId)
     m_PlayerList.erase(player);
 
     printf("\n [Out  Game] Game ID %d, Player ID: %d \n", m_GameID, playerId);
+}
+
+void Game::MobWaveSystem()
+{
+
 }
 

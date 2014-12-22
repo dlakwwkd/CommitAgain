@@ -32,6 +32,8 @@ public:
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int playerId);
 
+    void                MobWaveSystem();
+
 private:
     PlayerList          m_PlayerList;
     Player*             m_Computer = nullptr;

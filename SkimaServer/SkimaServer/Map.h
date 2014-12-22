@@ -14,8 +14,8 @@ public:
     Map(int roomId);
     virtual ~Map();
 
-    void InitMap(int roomId, Player* player);
-    void LavaCreate(int roomId, Player* owner);
+    void InitMap(Player* player, int roomId);
+    void LavaCreate(Player* player, int roomId);
 
 private:
     b2Body*    m_Body = nullptr;

@@ -41,32 +41,23 @@ Map::~Map()
     CallFuncAfter(1, GGameManager, &GameManager::DeleteBody, m_Body);
 }
 
-void Map::InitMap(int roomId, Player* player)
+void Map::InitMap(Player* player, int roomId)
 {
     for (int i = 0; i < 5; ++i)
     {
         auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
-        MoveRock* rock = new MoveRock(player, b2Vec2(CONVERT_IN(pos, roomId)));
-
+        auto rock = new MoveRock(player, b2Vec2(CONVERT_IN(pos, roomId)));
         player->GetClient()->SendMapInfo(player->GetPlayerID(), rock->GetUnitID(), rock->GetBody()->GetPosition());
     }
-
-//     for (int i = 0; i < 1; ++i)
-//     {
-//         auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
-//         Lava* lava = new Lava(player, b2Vec2(CONVERT_IN(pos, roomId)));
-//         
-//         player->GetClient()->SendMapInfo(lava->GetUnitID(), lava->GetPos());
-//     }
 }
 
-void Map::LavaCreate(int roomId, Player* owner)
+void Map::LavaCreate(Player* player, int roomId)
 {
-    if (owner->GetClient()->GetPlayer() == nullptr)
+    if (player->GetClient()->GetPlayer() == nullptr)
     {
         return;
     }
     auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
-    auto lava = new Lava(owner, b2Vec2(CONVERT_IN(pos, roomId)));         
-    owner->GetClient()->SendMapInfo(owner->GetPlayerID(), lava->GetUnitID(), lava->GetPos());
+    auto lava = new Lava(player, b2Vec2(CONVERT_IN(pos, roomId)));         
+    player->GetClient()->SendMapInfo(player->GetPlayerID(), lava->GetUnitID(), lava->GetPos());
 }
