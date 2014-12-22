@@ -88,23 +88,7 @@ bool MainScene::init()
 
 void MainScene::menuCallback1(Ref* sender)
 {
-    m_LoginName = m_LoginBox->getString();
-
-    if (TcpClient::getInstance()->checkSocket() != NULL)
-        return;
-
-    ConnectLabelCreate("로그인 시도 중......", this);
-    if (TcpClient::getInstance()->connect() == false)
-    {
-        TcpClient::getInstance()->disconnect();
-        GET_CONNECT_LABEL->setString("로그인 실패.");
-        m_LoginBox->clear();
-        m_LoginBox->beginInput();
-        return;
-    }
-    auto scene = NetworkScene::createScene();
-    Director::getInstance()->pushScene(scene);
-    TcpClient::getInstance()->loginRequest(m_LoginName.c_str());
+    LoginToServer();
 }
 void MainScene::menuCallback2(Ref* sender)
 {
@@ -130,4 +114,34 @@ void MainScene::ConnectLabelChange(const char* str)
     {
         label->setString(str);
     }
+}
+
+void MainScene::LoginToServer()
+{
+    m_LoginName = m_LoginBox->getString();
+    if (m_LoginName[0] == '\0' || m_LoginName[0] == ' ') // Name맨앞 공백 혹은 안썼을 때 return
+    {
+        m_LoginBox->clear();
+        return;
+    }
+
+    if (TcpClient::getInstance()->checkSocket() != NULL)
+    {
+        m_LoginBox->clear();
+        m_LoginBox->beginInput();
+        return;
+    }
+
+    ConnectLabelCreate("로그인 시도 중......", this);
+    if (TcpClient::getInstance()->connect() == false)
+    {
+        TcpClient::getInstance()->disconnect();
+        GET_CONNECT_LABEL->setString("로그인 실패.");
+        m_LoginBox->clear();
+        m_LoginBox->beginInput();
+        return;
+    }
+    auto scene = NetworkScene::createScene();
+    Director::getInstance()->pushScene(scene);
+    TcpClient::getInstance()->loginRequest(m_LoginName.c_str());
 }

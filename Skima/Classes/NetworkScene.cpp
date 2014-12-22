@@ -22,6 +22,11 @@ bool NetworkScene::init()
     }
     auto winSize = Director::getInstance()->getWinSize();
 
+    auto background = Sprite::create("Images/NetworkBackground.png");
+    background->setPosition(winSize.width / 2, winSize.height / 2);
+    background->setOpacity(150);
+    this->addChild(background);
+
     auto createRoomButton = MenuItemImage::create("Images/CreateButton.png", "Images/CreateButton_selected.png",
         CC_CALLBACK_1(NetworkScene::menuCallback1, this));
 
@@ -106,6 +111,11 @@ void NetworkScene::UpdateRoomInfo()
         roomListFrame->setScaleX(1.50f);
         this->addChild(roomListFrame, 1);
 
+        auto roomListFrameBack = Sprite::create("Images/RoomListFrame_back.png");
+        roomListFrameBack->setPosition(Vec2(405.0f, 115.0f));
+        roomListFrameBack->setScaleX(1.10f);
+        roomListFrameBack->setOpacity(150);
+        roomListFrame->addChild(roomListFrameBack);
         auto joinRoomButton = MenuItemImage::create(
             "Images/JoinButton.png", 
             "Images/JoinButton_selected.png",
@@ -113,6 +123,7 @@ void NetworkScene::UpdateRoomInfo()
         auto menu = Menu::create(joinRoomButton, NULL);
         menu->setPosition(Vec2(600.0f, 110.0f));
         menu->alignItemsVertically();
+        joinRoomButton->setScaleX(0.8f);
         roomListFrame->addChild(menu);
 
         auto roomInfoLabel = Label::createWithSystemFont(" ", "Thonburi", 40);
@@ -123,6 +134,7 @@ void NetworkScene::UpdateRoomInfo()
         roomInfo += roomNum + "번 방       " + curPlayerNum + "명 / " + maxPlayerNum + "명";
         roomInfoLabel->setString(roomInfo);
         roomInfoLabel->setPosition(Vec2(240.0f, 110.0f));
+        roomInfoLabel->setScaleX(0.8f);
         roomListFrame->addChild(roomInfoLabel);
 
 

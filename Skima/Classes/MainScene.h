@@ -15,6 +15,7 @@ public:
 
     void ConnectLabelCreate(const char* str, MainScene* scene);
     void ConnectLabelChange(const char* str);
+    void LoginToServer();
 
 private:
     std::string m_LoginName;

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #define MAX_CHAT_LEN        256
-#define MAX_NAME_LEN        14
+#define MAX_NAME_LEN        15
 #define MAX_COMMENT_LEN	    40
 #define MAX_OBSTRUCT_SIZE   100
 

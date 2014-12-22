@@ -4,8 +4,6 @@
 
 #pragma comment (lib, "imm32")
 
-#define GET_MAIN_SCENE dynamic_cast<MainScene*>(->getParent())
-
 using namespace std;
 using namespace cocos2d;
 
@@ -63,12 +61,13 @@ LRESULT InputBox::HookProc(
         (InputBox*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
     auto result = CallWindowProc(
         _this->oldProc, hWnd, Msg, wParam, lParam);
-
+    auto mainScene =
+        (MainScene*)_this->getParent();
     switch (Msg){
     case WM_KEYDOWN:
         if (wParam == VK_RETURN)
         {   
-            _this->clear();
+            mainScene->LoginToServer();
         }
         break;
     case WM_IME_COMPOSITION:
