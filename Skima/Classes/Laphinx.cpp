@@ -158,8 +158,9 @@ void Laphinx::SetAllSpriteVisible()
 void Laphinx::HeroUnHide(Vec2 heroPos)
 {
     if (this->GetHeroHiddenState() == false)
+    {
         return;
-
+    }
     else
     {
         m_IsPerforming = true;

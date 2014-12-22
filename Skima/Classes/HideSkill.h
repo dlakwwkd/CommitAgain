@@ -13,6 +13,7 @@ public:
     virtual void    SkillEnd();
 
     void            SetSpriteOpacity(Sprite* sprite, float opacity);
+
    // virtual void    UnHide();
 private:
     int             m_HiddenTime;
