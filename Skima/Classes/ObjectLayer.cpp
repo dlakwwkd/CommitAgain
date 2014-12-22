@@ -221,5 +221,5 @@ void ObjectLayer::DeleteMissile(int missileID)
 void ObjectLayer::CountHiddenTime(Sprite* sprite,float lastTime)
 {
     //this->scheduleOnce(SEL_SCHEDULE(lastTime));
-    this->scheduleOnce(SEL_SCHEDULE(HideSkill::UnHide), 5.0f);
+    //this->scheduleOnce(SEL_SCHEDULE(HideSkill::UnHide), 5.0f);
 }
