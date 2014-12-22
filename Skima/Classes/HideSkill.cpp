@@ -79,9 +79,9 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
    // this->scheduleOnce(schedule_selector(&MyClass::myModification), 10.0f);
 // 
     //scheduler->setTimeScale(m_HiddenTime);    
-    auto scheduler = cocos2d::Director::getInstance()->getScheduler();
+    //auto scheduler = cocos2d::Director::getInstance()->getScheduler();
     
-    scheduler->performFunctionInCocosThread(&HideSkill::Sleep);
+    //scheduler->performFunctionInCocosThread(&HideSkill::Sleep);
 //     //scheduler->performFunctionInCocosThread(CallFunc::)
     
 //         //CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(HideSkill::);
