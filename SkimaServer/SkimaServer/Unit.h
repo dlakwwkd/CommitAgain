@@ -14,11 +14,11 @@ public:
 
 public:
     void            SetType(int type){ m_UnitID += type; }
-	void	        SetDamage(int damage) { m_Damage = damage; }
+    void	        SetDamage(int damage) { m_Damage = damage; }
     void            SetMaxHp(int MaxHp){ m_MaxHp = MaxHp; }
     void            SetHp(int Hp){ m_Hp = Hp; }
     void            SetSpeed(float speed){ m_Speed = speed; }
-	void			SetTargetPos(const b2Vec2& targetPos){ m_TargetPos = targetPos; }
+    void			SetTargetPos(const b2Vec2& targetPos){ m_TargetPos = targetPos; }
     void            SetContectState(bool state){ m_Contacting = state; }
 
     Player*         GetOwner(){ return m_Owner; }
@@ -27,13 +27,13 @@ public:
     int             GetMaxHp(){ return m_MaxHp; }
     int             GetHp(){ return m_Hp; }
     float           GetSpeed(){ return m_Speed; }
-	const b2Vec2&	GetTargetPos(){ return m_TargetPos; }
+    const b2Vec2&	GetTargetPos(){ return m_TargetPos; }
     bool            GetContectState(){ return m_Contacting; }
     b2Body*         GetBody(){ return m_Body; }
     void            InitBody(){ m_Body = nullptr; }
 
-	void			SetDynamicBody(Player* owner, int type, const b2Vec2& initPos, float scale);
-	void			SetStaticBody(Player* owner, int type, const b2Vec2& initPos, const b2Vec2& scale);
+    void			SetDynamicBody(Player* owner, int type, const b2Vec2& initPos, float scale);
+    void			SetStaticBody(Player* owner, int type, const b2Vec2& initPos, const b2Vec2& scale);
 
     void            Moving();
     void            Crashing(bool isCrashing);
@@ -45,6 +45,9 @@ public:
     void            EndCrash(){ m_State->EndCrash(this); }
     void            Movement(){ m_State->Movement(this); }
 
+    bool            GetUnitHiddenState(){ return m_IsHidden; }
+    void            SetUnitHiddenState(bool hidden){ m_IsHidden = hidden; }
+
     void            SetState(MoveState* state){ m_State = state; }
     MoveState*      GetState(){ return (MoveState*)m_State; }
     MoveState*      GetStandbyState(){ return (MoveState*)m_StandbyState; }
@@ -52,7 +55,7 @@ public:
     MoveState*      GetCrashedState(){ return (MoveState*)m_CrashedState; }
 
 protected:
-	Player*     m_Owner			= nullptr;
+    Player*     m_Owner			= nullptr;
     int         m_UnitID		= -1;
     int         m_MaxHp			= 0;
     int         m_Hp			= 0;
@@ -60,12 +63,13 @@ protected:
     float       m_Speed			= 0; 
     bool        m_InUse			= false;
     bool        m_Contacting	= false;
-	b2Vec2      m_TargetPos		= { 0, 0 };
-	b2Body*     m_Body			= nullptr;
+    bool        m_IsHidden      = false;
+    b2Vec2      m_TargetPos		= { 0, 0 };
+    b2Body*     m_Body			= nullptr;
     MoveState*  m_State			= nullptr;
-	MoveState*  m_StandbyState	= nullptr;
-	MoveState*  m_MovingState	= nullptr;
-	MoveState*  m_CrashedState	= nullptr;
+    MoveState*  m_StandbyState	= nullptr;
+    MoveState*  m_MovingState	= nullptr;
+    MoveState*  m_CrashedState	= nullptr;
 };
 
 

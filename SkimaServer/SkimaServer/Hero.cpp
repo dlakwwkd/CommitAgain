@@ -6,6 +6,7 @@ Hero::Hero()
 {
 	static int makeId = 0;
 	m_UnitID = SET_MAIN_TYPE(++makeId, UNIT_HERO);
+    m_IsHidden = false;
 }
 
 Hero::~Hero()
