@@ -24,10 +24,28 @@ Game::Game(GameRoom* room)
 
 Game::~Game()
 {
+    auto computer = m_PlayerList.find(PT_COMPUTER);
+    if (computer != m_PlayerList.end())
+    {
+        computer->second->UnitListClear();
+        delete computer->second;
+        computer->second = nullptr;
+        m_PlayerList.erase(computer);
+        m_Computer = nullptr;
+    }
+    delete m_Map;
+
+    for (auto& player : m_PlayerList)
+    {
+        player.second->SetTeam(TEAM_N);
+        player.second->UnitListClear();
+    }
 }
 
 void Game::Tick(float dt)
 {
+    printf("ref : %d\n", GetRefCount());
+
     for (auto& player : m_PlayerList)
     {
         for (auto& unit : player.second->GetUnitList())
@@ -37,13 +55,29 @@ void Game::Tick(float dt)
     }
 }
 
-void Game::WaveTimer()
+void Game::RepeatTimer(int repeatDelay, int repeatNum, const Task& func)
 {
-    
+    func();
+    if (--repeatNum > 0)
+    {
+        CallFuncAfter(repeatDelay, this, &Game::RepeatTimer, repeatDelay, repeatNum, func);
+    }
 }
+
+void Game::InfiniteTimer(int repeatDelay, const Task& func)
+{
+    func();
+    if (m_IsStart)
+    {
+        CallFuncAfter(repeatDelay, this, &Game::InfiniteTimer, repeatDelay, func);
+    }
+}
+
 
 void Game::InitGame()
 {
+    IncRefCount();
+
     // 주의: 여기서부턴 하드코딩의 구간입니다.^^
     ClientSession* temp;
     int i = 0;
@@ -69,39 +103,24 @@ void Game::InitGame()
 
     m_Map = new Map(roomId);
     m_Map->InitMap(roomId, m_Computer);
-    IncRefCount();
 
     temp->ServerRunComplete();
+
 }
 
 void Game::StartGame()
 {
     m_IsStart = true;
-    CallFuncAfter(6000, this, &Game::LavaCreate, 6000);
+    auto func = std::bind(&Map::LavaCreate, m_Map, m_GameID, m_Computer);
+    InfiniteTimer(6000, func);
 }
 
 void Game::EndGame()
 {
 	m_IsStart = false;
-
-	auto computer = m_PlayerList.find(PT_COMPUTER);
-	if (computer != m_PlayerList.end())
-	{
-        computer->second->UnitListClear();
-		delete computer->second;
-        computer->second = nullptr;
-		m_PlayerList.erase(computer);
-        m_Computer = nullptr;
-	}
-	delete m_Map;
-
-	for (auto& player : m_PlayerList)
-	{
-        player.second->SetTeam(TEAM_N);
-        player.second->UnitListClear();
-	}
     DecRefCount();
 }
+
 
 Player* Game::GetPlayer(int playerId)
 {
@@ -140,23 +159,3 @@ void Game::OutPlayer(int playerId)
     printf("\n [Out  Game] Game ID %d, Player ID: %d \n", m_GameID, playerId);
 }
 
-void Game::LavaCreate(int time)
-{
-    if (!m_IsStart || m_Computer == nullptr)
-    {
-        return;
-    }
-
-    m_Map->LavaCreate(m_GameID, m_Computer);
-
-
-    int nextTime = time * 9 / 10;
-
-    if (nextTime < 300)
-    {
-        nextTime = 300;
-    }
-    
-    CallFuncAfter(nextTime, this, &Game::LavaCreate, nextTime);
-    
-}

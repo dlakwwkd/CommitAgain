@@ -8,7 +8,7 @@ class MapObject;
 class Player;
 class Lava;
 
-class Map : public RefCountable
+class Map
 {
 public:
     Map(int roomId);

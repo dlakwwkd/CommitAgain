@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "SwipeSkill.h"
 #include "ClientSession.h"
+#include "GameManager.h"
+#include "Game.h"
 #include "Player.h"
 
 
@@ -24,5 +26,7 @@ void SwipeSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& ta
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 
-    FieldDamageRepeat(targetPos, m_Scale, m_Damage, 2, 400);
+    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
+    auto func = std::bind(&SwipeSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
+    game->RepeatTimer(300, 3, func);
 }

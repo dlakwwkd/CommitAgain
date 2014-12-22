@@ -1,9 +1,8 @@
 ﻿#pragma once
 #include "../../PacketType.h"
-#include "RefCountable.h"
 class Player;
 
-class Skill : public RefCountable
+class Skill
 {
 public:
     Skill();

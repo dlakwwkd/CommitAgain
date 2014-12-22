@@ -11,9 +11,6 @@ public:
 
 protected:
     void			FieldDamage(const b2Vec2& targetPos, float scale, int damage);
-    void            FieldDamageRepeat(b2Vec2 targetPos, float scale, int damage, int repeatNum, int repeatDelay);
-    void            FieldDamageInfinite(b2Vec2 targetPos, float scale, int damage, float repeatDelay);
-
 
 protected:
     float           m_Scale;

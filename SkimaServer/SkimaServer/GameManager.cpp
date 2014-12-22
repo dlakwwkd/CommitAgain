@@ -51,8 +51,8 @@ void GameManager::LowTick()
             unit->Crashing(false);
         }
     }
-    //CollectGarbageGames();
-    CallFuncAfter(MANAGER_UPDATE_INTERVAL * 3, this, &GameManager::LowTick);
+    CollectGarbageGames();
+    CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::LowTick);
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ void GameManager::CollectGarbageGames()
     {
         Game* game = it.second;
 
-        if (false == game->IsStart() && 0 == game->GetRefCount())
+        if (game->GetRefCount() < 1)
             disconnectedGames.push_back(game);
     }
     );
@@ -221,7 +221,6 @@ void GameManager::DeleteGame(int gameId)
         printf(" - DeleteGame Failed ! : relevant game isn't \n");
         return;
     }
-	game->second->EndGame();
 
 	delete game->second;
     m_GameList.erase(game);
@@ -240,9 +239,12 @@ void GameManager::GameOver(Player* player)
         printf(" - GameOver Failed ! : relevant game isn't \n");
         return;
     }
-    player->GetClient()->GameOverCast(player->GetPlayerID());
-    //game->second->EndGame();
-    CallFuncAfter(1000, this, &GameManager::DeleteGame, game->second->GetGameID());
+    if (game->second->IsStart())
+    {
+        player->GetClient()->GameOverCast(player->GetPlayerID());
+        game->second->EndGame();
+    }
+    //CallFuncAfter(1000, this, &GameManager::DeleteGame, game->second->GetGameID());
 }
 
 
@@ -265,9 +267,9 @@ void GameManager::PlayerOut(Player* player)
     if (game != m_GameList.end())
     {
         game->second->OutPlayer(playerId);
-        if (game->second->GetPlayerListSize() < 3)
+        if (game->second->IsStart())
         {
-            DeleteGame(roomId);
+            GameOver(player);
             player->GetClient()->GameOverCast(playerId);
         }
     }

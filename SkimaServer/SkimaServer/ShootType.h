@@ -13,7 +13,6 @@ protected:
     b2Vec2			GenerateInitPos(const b2Vec2& heroPos, const b2Vec2& targetPos);
 	void            ShootMissile(const b2Vec2& initPos);
 	void            ShootMissile(const b2Vec2& initPos, const b2Vec2& targetPos, MissileType type, float speed, float range, int damage){}
-    void            ShootMissileRepet(b2Vec2 initPos, int repeatNum, int repeatDelay);
     
 protected:
     MissileType     m_MissileType;

@@ -62,7 +62,11 @@ void Map::InitMap(int roomId, Player* player)
 
 void Map::LavaCreate(int roomId, Player* owner)
 {
+    if (owner->GetClient()->GetPlayer() == nullptr)
+    {
+        return;
+    }
     auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
-    Lava* lava = new Lava(owner, b2Vec2(CONVERT_IN(pos, roomId)));         
+    auto lava = new Lava(owner, b2Vec2(CONVERT_IN(pos, roomId)));         
     owner->GetClient()->SendMapInfo(owner->GetPlayerID(), lava->GetUnitID(), lava->GetPos());
 }

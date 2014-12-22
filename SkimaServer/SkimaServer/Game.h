@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "RefCountable.h"
+#include "Scheduler.h"
 class Player;
 class MapObject;
 class GameRoom;
@@ -18,16 +19,18 @@ public:
     bool                IsStart(){ return m_IsStart; }
     void                SetLoadedPlayerNum(){ ++m_LoadedPlayerNum; }
     int                 GetLoadedPlayerNum(){ return m_LoadedPlayerNum; }
+    Map*                GetMap(){ return m_Map; }
 
     void                Tick(float dt);
-    void                WaveTimer();
+    void                RepeatTimer(int repeatDelay, int repeatNum, const Task& func);
+    void                InfiniteTimer(int repeatDelay, const Task& func);
+
     void                InitGame();
     void                StartGame();
 	void				EndGame();
+
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int playerId);
-    Map*                GetMap(){ return m_Map; }
-    void                LavaCreate(int time);
 
 private:
     PlayerList          m_PlayerList;
