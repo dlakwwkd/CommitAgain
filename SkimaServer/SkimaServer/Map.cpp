@@ -60,3 +60,10 @@ void Map::InitMap(int roomId, Player* player)
 //         player->GetClient()->SendMapInfo(lava->GetUnitID(), lava->GetPos());
 //     }
 }
+
+void Map::LavaCreate(int roomId, Player* owner)
+{
+    auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
+    Lava* lava = new Lava(owner, b2Vec2(CONVERT_IN(pos, roomId)));         
+    owner->GetClient()->SendMapInfo(owner->GetPlayerID(), lava->GetUnitID(), lava->GetPos());
+}

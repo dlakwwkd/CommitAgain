@@ -27,6 +27,7 @@ public:
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int playerId);
     Map*                GetMap(){ return m_Map; }
+    void                LavaCreate(int time);
 
 private:
     PlayerList          m_PlayerList;

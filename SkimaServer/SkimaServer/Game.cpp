@@ -7,6 +7,7 @@
 #include "Rock.h"
 #include "MoveRock.h"
 #include "ClientSession.h"
+#include "Scheduler.h"
 
 
 Game::Game(GameRoom* room)
@@ -76,6 +77,7 @@ void Game::InitGame()
 void Game::StartGame()
 {
     m_IsStart = true;
+    CallFuncAfter(6000, this, &Game::LavaCreate, 6000);
 }
 
 void Game::EndGame()
@@ -135,4 +137,18 @@ void Game::OutPlayer(int playerId)
     m_PlayerList.erase(player);
 
     printf("\n [Out  Game] Game ID %d, Player ID: %d \n", m_GameID, playerId);
+}
+
+void Game::LavaCreate(int time)
+{
+    m_Map->LavaCreate(m_GameID, m_Computer);
+
+    int nextTime = time - 100;
+
+    if (nextTime < 10)
+    {
+        nextTime = 10;
+    }
+
+    CallFuncAfter(nextTime, this, &Game::LavaCreate, nextTime);
 }
