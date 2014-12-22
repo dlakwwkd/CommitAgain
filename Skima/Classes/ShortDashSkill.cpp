@@ -10,6 +10,7 @@ ShortDashSkill::ShortDashSkill()
 {
     m_CoolTime = 3;
     m_CanUse = true;
+    m_DashCount = 2;
 }
 
 ShortDashSkill::ShortDashSkill(Hero* hero)
@@ -17,6 +18,7 @@ ShortDashSkill::ShortDashSkill(Hero* hero)
     m_Hero = hero;
     m_CoolTime = 3;
     m_CanUse = true;
+    m_DashCount = 2;
 }
 
 
@@ -32,7 +34,7 @@ void ShortDashSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 
     m_Hero->EndMove();
     auto distance = heroPos.distance(targetPos);
-    auto time = distance / 1500.0f;
+    auto time = distance / 750.0f;
     auto action = MoveTo::create(time, targetPos);
     m_Hero->GetSprite()->runAction(action);
 }

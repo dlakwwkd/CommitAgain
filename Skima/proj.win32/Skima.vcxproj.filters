@@ -261,6 +261,12 @@
     <ClCompile Include="..\Classes\Mob.cpp">
       <Filter>Game\Component\Unit\Mob</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MeteorEffect.cpp">
+      <Filter>Game\Component\Effect\EffectParticleType</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MeteorAfterEffect.cpp">
+      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -451,6 +457,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Mob.h">
       <Filter>Game\Component\Unit\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MeteorEffect.h">
+      <Filter>Game\Component\Effect\EffectParticleType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MeteorAfterEffect.h">
+      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

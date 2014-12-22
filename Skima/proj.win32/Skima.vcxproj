@@ -165,6 +165,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\LightningEffect.cpp" />
     <ClCompile Include="..\Classes\Magician.cpp" />
     <ClCompile Include="..\Classes\MapObject.cpp" />
+    <ClCompile Include="..\Classes\MeteorAfterEffect.cpp" />
+    <ClCompile Include="..\Classes\MeteorEffect.cpp" />
     <ClCompile Include="..\Classes\MeteorSkill.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
     <ClCompile Include="..\Classes\Mob.cpp" />
@@ -233,6 +235,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Macros.h" />
     <ClInclude Include="..\Classes\Magician.h" />
     <ClInclude Include="..\Classes\MapObject.h" />
+    <ClInclude Include="..\Classes\MeteorAfterEffect.h" />
+    <ClInclude Include="..\Classes\MeteorEffect.h" />
     <ClInclude Include="..\Classes\MeteorSkill.h" />
     <ClInclude Include="..\Classes\Missile.h" />
     <ClInclude Include="..\Classes\Mob.h" />

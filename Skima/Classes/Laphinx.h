@@ -9,7 +9,7 @@ public:
 public:
     virtual void            SetMoveMotionByDir();
     virtual void            SetSkillMotionByDir(SkillKey key);
-    ParticleSystemQuad*     GetQ_particle(){ return m_Qparticle; }
+    ParticleSystemQuad*     GetQ_particle(){ return m_Wparticle; }
 
     void                    SetAllSpriteVisible();
     virtual void            HeroUnHide(Vec2 heroPos);
@@ -20,7 +20,7 @@ private:
     virtual void            SetSkillMotionToCache();
 
 private:
-    ParticleSystemQuad*     m_Qparticle;
+    ParticleSystemQuad*     m_Wparticle;
 
 };
 

@@ -7,6 +7,8 @@
 #include "HideSkill.h"
 #include "UnHideEffect.h"
 #include "HideEffect.h"
+#include "ShortDashSkill.h"
+#include "MeteorSkill.h"
 
 
 Laphinx::Laphinx(Vec2 createPos, float scale)
@@ -33,15 +35,16 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
 //     shadow->setOpacity(150);
 //    m_RealSprite->addChild(shadow, -2);
 
-    m_Qparticle = ParticleSystemQuad::create("Laphinx/LaphinxSpeedParticle.plist");
-    m_Qparticle->setPosition(Vec2(30.0f, 25.0f));
-    m_Qparticle->setScale(0.7f);
-    m_Qparticle->setVisible(false);
-    m_RealSprite->addChild(m_Qparticle, -1);
+    m_Wparticle = ParticleSystemQuad::create("Laphinx/LaphinxSpeedParticle.plist");
+    m_Wparticle->setPosition(Vec2(30.0f, 25.0f));
+    m_Wparticle->setScale(0.7f);
+    m_Wparticle->setVisible(false);
+    m_RealSprite->addChild(m_Wparticle, -1);
 
     m_SkillList[SKILL_Q] = new HideSkill(this);
-//     m_SkillList[SKILL_W] = new IceballSkill(this);
+    m_SkillList[SKILL_W] = new ShortDashSkill(this);
     m_SkillList[SKILL_E] = new SwipeSkill(this);
+    m_SkillList[SKILL_R] = new MeteorSkill(this);
 }
 
 
