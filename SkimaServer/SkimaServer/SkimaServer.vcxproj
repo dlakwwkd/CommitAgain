@@ -188,6 +188,7 @@
     <ClInclude Include="Exception.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="MeteorSkill.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="MoveRock.h" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Rock.h" />
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="ShootType.h" />
+    <ClInclude Include="ShortDashSkill.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SparkSkill.h" />
     <ClInclude Include="sqlite3.h" />
@@ -238,6 +240,7 @@
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="MeteorSkill.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="MoveRock.cpp" />
@@ -246,6 +249,7 @@
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="ShootType.cpp" />
+    <ClCompile Include="ShortDashSkill.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SparkSkill.cpp" />
     <ClCompile Include="sqlite3.c">

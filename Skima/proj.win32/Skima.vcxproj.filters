@@ -249,6 +249,12 @@
     <ClCompile Include="..\Classes\UnHideEffect.cpp">
       <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MeteorSkill.cpp">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ShortDashSkill.cpp">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -430,6 +436,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\UnHideEffect.h">
       <Filter>Game\Component\Effect\EffectSpriteType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MeteorSkill.h">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ShortDashSkill.h">
+      <Filter>Game\Component\Skill\Laphinx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

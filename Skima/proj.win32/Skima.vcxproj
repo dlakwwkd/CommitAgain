@@ -165,6 +165,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\LightningEffect.cpp" />
     <ClCompile Include="..\Classes\Magician.cpp" />
     <ClCompile Include="..\Classes\MapObject.cpp" />
+    <ClCompile Include="..\Classes\MeteorSkill.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
     <ClCompile Include="..\Classes\MoveRock.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
@@ -181,6 +182,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\NetworkScene.cpp" />
     <ClCompile Include="..\Classes\ObjectLayer.cpp" />
     <ClCompile Include="..\Classes\RoomScene.cpp" />
+    <ClCompile Include="..\Classes\ShortDashSkill.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp" />
     <ClCompile Include="..\Classes\SparkEffect.cpp" />
     <ClCompile Include="..\Classes\SparkSkill.cpp" />
@@ -230,6 +232,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Macros.h" />
     <ClInclude Include="..\Classes\Magician.h" />
     <ClInclude Include="..\Classes\MapObject.h" />
+    <ClInclude Include="..\Classes\MeteorSkill.h" />
     <ClInclude Include="..\Classes\Missile.h" />
     <ClInclude Include="..\Classes\MoveRock.h" />
     <ClInclude Include="..\Classes\Player.h" />
@@ -245,6 +248,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\NetworkScene.h" />
     <ClInclude Include="..\Classes\ObjectLayer.h" />
     <ClInclude Include="..\Classes\RoomScene.h" />
+    <ClInclude Include="..\Classes\ShortDashSkill.h" />
     <ClInclude Include="..\Classes\Skill.h" />
     <ClInclude Include="..\Classes\SparkEffect.h" />
     <ClInclude Include="..\Classes\SparkSkill.h" />

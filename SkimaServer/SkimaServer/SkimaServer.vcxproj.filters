@@ -131,6 +131,12 @@
     <ClCompile Include="Lava_Damage.cpp">
       <Filter>Game\Component\Skill\Lava Damage</Filter>
     </ClCompile>
+    <ClCompile Include="MeteorSkill.cpp">
+      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="ShortDashSkill.cpp">
+      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -284,6 +290,12 @@
     </ClInclude>
     <ClInclude Include="Lava_Damage.h">
       <Filter>Game\Component\Skill\Lava Damage</Filter>
+    </ClInclude>
+    <ClInclude Include="MeteorSkill.h">
+      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="ShortDashSkill.h">
+      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
