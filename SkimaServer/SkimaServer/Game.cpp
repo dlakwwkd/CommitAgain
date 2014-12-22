@@ -143,12 +143,14 @@ void Game::LavaCreate(int time)
 {
     m_Map->LavaCreate(m_GameID, m_Computer);
 
-    int nextTime = time - 100;
+    int nextTime = time * 2 / 3;
 
     if (nextTime < 10)
     {
         nextTime = 10;
     }
-
-    CallFuncAfter(nextTime, this, &Game::LavaCreate, nextTime);
+    if (m_IsStart)
+    {
+        CallFuncAfter(nextTime, this, &Game::LavaCreate, nextTime);
+    }
 }
