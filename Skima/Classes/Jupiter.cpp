@@ -123,3 +123,8 @@ void Jupiter::SetSkillMotionByDir(SkillKey key)
         break;
     }
 }
+
+void Jupiter::HeroUnHide(Vec2 heroPos)
+{
+
+}

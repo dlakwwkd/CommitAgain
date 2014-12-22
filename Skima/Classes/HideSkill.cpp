@@ -61,9 +61,9 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 //     auto laphinx_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
 //     auto hpbar_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
 //     auto hpFrame_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
-    auto spriteUnhidden = CallFunc::create(CC_CALLBACK_0(HideSkill::UnHide, this));
+ //   auto spriteUnhidden = CallFunc::create(CC_CALLBACK_0(HideSkill::UnHide, this));
 
-    auto Laphinx_seq = Sequence::create(spriteDelay, laphinx_halfvis,setPerformingFalse,hiddenTime,spriteUnhidden, NULL);
+    auto Laphinx_seq = Sequence::create(spriteDelay, laphinx_halfvis,setPerformingFalse,hiddenTime, NULL);
     auto Hpbar_seq = Sequence::create(spriteDelay, hpbar_halfvis, NULL);
     auto Hpframe_seq = Sequence::create(spriteDelay, hpFrame_halfvis, NULL);
 
@@ -205,28 +205,30 @@ void HideSkill::SetSpriteOpacity(Sprite* sprite, float opacity)
     sprite->setOpacity(opacity);
 }
 
-void HideSkill::UnHide()
-{
-    if (m_Hero->GetHeroHiddenState() == false)  
-        return;
-
-
-    else
-    {
-        m_Hero->GetSprite()->stopAllActions();
-        Vec2 heroPos = m_Hero->GetSprite()->getPosition();
-        //performing state true 
-        //sprite Allstop ?
-        auto appearEffect = new UnHideEffect();
-        appearEffect->CreateEffect(Vec2{ heroPos.x - 80, heroPos.y + 80 });
-
-        auto particleEffect = new HideEffect();
-        particleEffect->CreateEffect(heroPos);
-
-        m_Hero->GetRealSprite()->setOpacity(255);
-        m_Hero->GetMyHpBar()->setOpacity(255);
-        m_Hero->GetHpBarOut()->setOpacity(255);
-
-        //performing state false
-    }
-}
+// void HideSkill::UnHide()
+// {
+//     if (m_Hero->GetHeroHiddenState() == false)  
+//         return;
+// 
+//     else
+//     {
+//         m_Hero->SetHeroPerforming(true);
+//         m_Hero->SetUnitHiddenState(true);
+// 
+//         m_Hero->GetSprite()->stopAllActions();
+//         Vec2 heroPos = m_Hero->GetSprite()->getPosition();
+//         //performing state true 
+//         //sprite Allstop ?
+//         auto appearEffect = new UnHideEffect();
+//         appearEffect->CreateEffect(Vec2{ heroPos.x - 80, heroPos.y + 80 });
+// 
+//         auto particleEffect = new HideEffect();
+//         particleEffect->CreateEffect(heroPos);
+// 
+//         m_Hero->GetRealSprite()->setOpacity(255);
+//         m_Hero->GetMyHpBar()->setOpacity(255);
+//         m_Hero->GetHpBarOut()->setOpacity(255);
+// 
+//         //performing state false
+//     }
+// }

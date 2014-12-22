@@ -107,9 +107,10 @@ void Unit::Crashing(bool isCrashing)
 
     auto curPos = m_Body->GetPosition();
     auto expectPos = curPos;
-
+    
     if (isCrashing)
     {
+        m_IsHidden = false;
         auto velocity = m_Body->GetLinearVelocity();
         velocity *= 1.0f / DAMPING;
         expectPos += velocity;

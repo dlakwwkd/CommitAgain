@@ -12,6 +12,8 @@ public:
     ParticleSystemQuad*     GetQ_particle(){ return m_Qparticle; }
 
     void                    SetAllSpriteVisible();
+    virtual void            HeroUnHide(Vec2 heroPos);
+
 
 private:
     virtual void            SetMoveMotionToCache();

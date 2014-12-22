@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "Laphinx.h"
 #include "Scheduler.h"
+#include "GameManager.h"
+#include "Game.h"
 
 
 HideSkill::HideSkill(Player* owner)
@@ -20,13 +22,21 @@ void HideSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& tar
 {
     //to do : hero의 mspeed or mHp를 올려준다
     
-     auto hero = m_Owner->GetMyHero();
-//     hero->Crashing(false);
+    auto hero = m_Owner->GetMyHero();
+    hero->Crashing(false);
+    hero->SetUnitHiddenState(true);
  
-     auto client = m_Owner->GetClient();
-     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
+    auto client = m_Owner->GetClient();
+    client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key); // Do hide
 
-     //CallFuncAfter() -> laphinx에서 
-     //CallFuncAfter(8000, m_Owner->GetMyHero(), &Laphinx::UnHide);
+    auto mylaphinx = dynamic_cast<Laphinx*>(m_Owner->GetMyHero());
+
+    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
+    auto func = std::bind(&Laphinx::UnHide, mylaphinx);
+    game->RepeatTimer(8000, 1, func);
+
+
+    //CallFuncAfter() -> laphinx에서 
+    //CallFuncAfter(8000, m_Owner->GetMyHero(), &Laphinx::UnHide);
       
 }

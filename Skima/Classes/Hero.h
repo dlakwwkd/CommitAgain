@@ -31,6 +31,7 @@ public:
     virtual void    SetSkillMotionToCache()				= 0;
     virtual void    SetMoveMotionByDir()				= 0;
     virtual void    SetSkillMotionByDir(SkillKey key)	= 0;
+    virtual void    HeroUnHide(Vec2 heroPos)            = 0;
 
 protected:
     RepeatForever*  MakeAnimation(const char* format, int size);

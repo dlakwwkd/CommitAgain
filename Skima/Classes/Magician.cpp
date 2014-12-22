@@ -76,3 +76,8 @@ void Magician::SetSkillMotionByDir(SkillKey key)
 {
 
 }
+
+void Magician::HeroUnHide(Vec2 heroPos)
+{
+
+}

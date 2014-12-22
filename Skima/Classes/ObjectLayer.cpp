@@ -17,7 +17,6 @@
 #include "Rock.h"
 #include "MoveRock.h"
 #include "Lava.h"
-#include "HideSkill.h"
 
 //#define GET_UI_LAYER	dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"))
 
@@ -220,6 +219,17 @@ void ObjectLayer::DeleteMissile(int missileID)
 
 void ObjectLayer::UnHide(int playerID, int unitID, Vec2 recvCurPos)
 {
+    auto hero = m_HeroList.find(unitID);
+    if (hero == m_HeroList.end())
+    {
+        return;
+    }
 
+    if (hero->second->GetHeroType() == HERO_LAPHINX)
+    {
+        hero->second->HeroUnHide(recvCurPos);
+//         hero->second->GetSprite()->stopAllActions();
+//         hero->second->GetRealSprite()->stopAllActions();
+    }
 }
 

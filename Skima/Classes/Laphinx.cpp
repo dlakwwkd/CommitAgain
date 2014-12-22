@@ -5,6 +5,8 @@
 #include "SwipeSkill.h"
 #include "AdrenalineSkill.h"
 #include "HideSkill.h"
+#include "UnHideEffect.h"
+#include "HideEffect.h"
 
 
 Laphinx::Laphinx(Vec2 createPos, float scale)
@@ -153,4 +155,40 @@ void Laphinx::SetAllSpriteVisible()
     }
 }
 
+void Laphinx::HeroUnHide(Vec2 heroPos)
+{
+    if (this->GetHeroHiddenState() == false)
+        return;
+
+    else
+    {
+        m_IsPerforming = true;
+        m_Sprite->stopAllActions();
+        m_RealSprite->stopAllActions();
+
+        auto appearEffect = new UnHideEffect();
+        appearEffect->CreateEffect(Vec2{ heroPos.x - 80, heroPos.y + 80 });
+
+        auto particleEffect = new HideEffect();
+        particleEffect->CreateEffect(heroPos);
+
+        m_RealSprite->setOpacity(255);
+        m_Sprite->setOpacity(255);
+        m_HpbarOut->setOpacity(255);
+
+        if (m_MyHpBar != nullptr)
+        {
+            m_MyHpBar->setOpacity(255);
+        }
+        if (m_EnemyHpBar != nullptr)
+        {
+            m_EnemyHpBar->setOpacity(255);
+        }
+
+        m_IsPerforming = false;
+        m_IsHidden = false;
+
+        this->EndMove();
+    }
+}
 
