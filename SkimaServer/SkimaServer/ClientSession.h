@@ -33,7 +33,7 @@ public:
 
     void    LoginProcess(int playerId, char* playerName);
     void    MakeGameRoom();
-    void    JoinGameRoom();
+    void JoinGameRoom(int roomID);
     void    OutGameRoom();
 
     void    AllReadyNotify();

@@ -196,7 +196,7 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 
     if (inPacket.mIsIn)
     {
-        session->JoinGameRoom();	
+        session->JoinGameRoom(inPacket.mRoomId);	
     }
     else
     {
@@ -362,6 +362,9 @@ void ClientSession::LoginProcess(int playerId, char* playerName)
     //RoomInfo 보내는 부분
     for (auto& room : roomList)
     {
+        if (room.first <= 0) // 채워지지 않은 room이라면 break
+            break;
+
         outPacket.mRoomList[i].mRoomNum = room.first;
         for (auto& player : room.second->GetPlayerList()) // room안에 player인원세기
             outPacket.mRoomList[i].mCurPlayerNum++;
@@ -385,18 +388,17 @@ void ClientSession::MakeGameRoom()
     printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
 }
 
-void ClientSession::JoinGameRoom()
+void ClientSession::JoinGameRoom(int roomID)
 {
-    auto roomId = GGameManager->SearchEmptyRoom();
-    if (roomId < 0)
+    if (roomID < 0)
     {
         return;
     }
-    GGameManager->JoinRoom(roomId, mPlayer);
+    GGameManager->JoinRoom(roomID, mPlayer);
 
     InOutRoomResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mRoomId = mRoomId = roomId;
+    outPacket.mRoomId = mRoomId = roomID;
 
     SendRequest(&outPacket);
     printf(" Send: Join Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);

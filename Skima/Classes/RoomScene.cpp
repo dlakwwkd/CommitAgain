@@ -5,7 +5,7 @@
 #include "GameScene.h"
 #include "WaitingLayer.h"
 
-#define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
+#define GET_ROOM_STATE_LABEL dynamic_cast<LabelTTF*>(this->getChildByName("RoomStateLabel"))
 
 Scene* RoomScene::createScene()
 {
@@ -78,6 +78,7 @@ bool RoomScene::init()
 
     auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
     label->setAnchorPoint(Vec2::ZERO);
+    label->setPosition(Vec2(0, winSize.height * 0.9f));
     label->setHorizontalAlignment(TextHAlignment::CENTER);
     this->addChild(label, 0, "RoomStateLabel");
 
@@ -121,8 +122,8 @@ void RoomScene::Tick(float dt)
         return;
 
     // 방 번호를 문자열로 변환 후 라벨에 적용
-    char buf[32];
-    _itoa(m_RoomID, buf, 32);
+    char buf[4];
+    _itoa(m_RoomID, buf, 10);
     std::string roomNum = buf;
     roomNum += "번 방";
     label->setString(roomNum);

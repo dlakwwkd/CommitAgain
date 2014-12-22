@@ -76,7 +76,7 @@ bool MainScene::init()
     this->addChild(loginMenu);
     
     // Login입력 받는 box 구현
-    m_LoginBox = InputBox::create("이름을 입력해주세요", "Thonburi", MAX_NAME_LEN);
+    m_LoginBox = InputBox::create("이름을 입력", "Thonburi", MAX_NAME_LEN);
     m_LoginBox->setColor(Color3B::BLACK);
     m_LoginBox->beginInput();
     m_LoginBox->setFontSize(25.0f);

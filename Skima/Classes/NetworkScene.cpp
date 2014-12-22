@@ -16,22 +16,21 @@ Scene* NetworkScene::createScene()
 
 bool NetworkScene::init()
 {
-    if (!LayerColor::initWithColor(Color4B(100, 100, 200, 255)))
+    if (!LayerColor::initWithColor(Color4B::BLACK))
     {
         return false;
     }
-    
-    auto label1 = Label::createWithSystemFont("방 생성", "Thonburi", 50);
-    auto label2 = Label::createWithSystemFont("방 참여", "Thonburi", 50);
-    auto label3 = Label::createWithSystemFont("나가기", "Thonburi", 50);
+    auto winSize = Director::getInstance()->getWinSize();
 
-    auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(NetworkScene::menuCallback1, this));
-    auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(NetworkScene::menuCallback2, this));
-    auto menuItem3 = MenuItemLabel::create(label3, CC_CALLBACK_1(NetworkScene::menuCallback3, this));
+    auto createRoomButton = MenuItemImage::create("Images/CreateButton.png", "Images/CreateButton_selected.png",
+        CC_CALLBACK_1(NetworkScene::menuCallback1, this));
 
-    auto menu = Menu::create(menuItem1, menuItem2, menuItem3, NULL);
+    auto menu = Menu::create(createRoomButton, NULL);
+    menu->setAnchorPoint(Vec2(0, 0));
+    menu->setScale(1.3f);
+    menu->setPosition(Vec2(winSize.width * 0.9f, winSize.height*0.2f));
     menu->alignItemsVertically();
-    this->addChild(menu, 0, "NetworkMenu");
+    this->addChild(menu);
 
     this->schedule(schedule_selector(NetworkScene::Tick), 3.0f);
 
@@ -53,7 +52,7 @@ void NetworkScene::menuCallback2(Ref* sender)	// 방 참여
         return;
 
     ConnectLabelChange("방에 들어가는 중...");
-    TcpClient::getInstance()->joinRoomRequest();
+    TcpClient::getInstance()->joinRoomRequest(m_SelectRoomNum);
 }
 
 void NetworkScene::menuCallback3(Ref* sender)	// 나가기
@@ -86,10 +85,49 @@ void NetworkScene::ConnectLabelChange(const char* str)
     }
 }
 
-void NetworkScene::RoomInformation(RoomInfo* roomInfo)
+void NetworkScene::RoomInformation(RoomInfo roomInfo)
 {
     m_RoomList.push_back(roomInfo);
     ConnectLabelChange("로그인 성공!!");
+}
+
+void NetworkScene::UpdateRoomInfo()
+{
+    auto winSize = Director::getInstance()->getWinSize();
+    auto line = 0.9f;
+
+    for (auto& room : m_RoomList)
+    {
+        if (room.mRoomNum <= 0)
+            break;
+
+        auto roomListFrame = Sprite::create("Images/RoomListFrame.png");
+        roomListFrame->setPosition(Vec2(winSize.width / 2, winSize.height * line));
+        roomListFrame->setAnchorPoint(Vec2(0, 0));
+        roomListFrame->setScaleX(1.50f);
+        this->addChild(roomListFrame);
+
+        auto joinRoomButton = MenuItemImage::create(
+            "Images/JoinButton.png", 
+            "Images/JoinButton_selected.png",
+            CC_CALLBACK_1(NetworkScene::menuCallback1, this));
+        auto menu = Menu::create(joinRoomButton, NULL);
+        menu->alignItemsVertically();
+        roomListFrame->addChild(menu);
+
+        auto roomInfoLabel = Label::createWithSystemFont(" ", "Thonburi", 40);
+        std::string roomInfo;   char buf[4];
+        _itoa(room.mRoomNum, buf, 10);      std::string roomNum = buf;
+        _itoa(room.mCurPlayerNum, buf, 10); std::string curPlayerNum = buf;
+        _itoa(room.mMaxPlayerNum, buf, 10); std::string maxPlayerNum = buf;
+        roomInfo += roomNum + "번 방       " + curPlayerNum + "명 / " + maxPlayerNum + "명";
+        roomInfoLabel->setString(roomInfo);
+        roomInfoLabel->setPosition(Vec2(240.0f, 110.0f));
+        roomListFrame->addChild(roomInfoLabel);
+
+
+        line -= 0.12f;
+    }
 }
 
 void NetworkScene::MakeRoomComplete(int roomId)

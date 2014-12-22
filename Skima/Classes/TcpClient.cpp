@@ -200,8 +200,15 @@ void TcpClient::processPacket()
             auto scene = GET_NETWORK_SCENE;
             if (scene)
             {
-                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::RoomInformation, scene,
-                    recvData.mRoomList));
+                for (auto& room : recvData.mRoomList)
+                {
+                    if (room.mRoomNum <= 0) // roomNum이 0이하면 roomList의 끝이므로 break
+                        break;
+
+                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::RoomInformation, scene,
+                        room));
+                }
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::UpdateRoomInfo, scene));
             }
         }
         break;
@@ -530,7 +537,7 @@ void TcpClient::makeRoomRequest()
     send((const char*)&sendData, sizeof(MakeRoomRequest));
 }
 
-void TcpClient::joinRoomRequest()
+void TcpClient::joinRoomRequest(int roomID)
 {
     if (mLoginId < 0)
         return;
@@ -538,6 +545,7 @@ void TcpClient::joinRoomRequest()
     InOutRoomRequest sendData;
     sendData.mPlayerId = mLoginId;
     sendData.mIsIn = true;
+    sendData.mRoomId = roomID;
 
     send((const char*)&sendData, sizeof(InOutRoomRequest));
 }

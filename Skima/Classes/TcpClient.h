@@ -27,7 +27,7 @@ public:
 
     void loginRequest(const char* playerName);
     void makeRoomRequest();
-    void joinRoomRequest();
+    void joinRoomRequest(int roomID);
     void outRoomRequest(int roomId);
     void startGameRequest(int roomId,HeroType heroType);
     void runCompleteRequest(); //이름 체인지 + bool값 인자

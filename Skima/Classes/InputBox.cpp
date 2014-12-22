@@ -1,7 +1,10 @@
 ﻿#include "pch.h"
 #include "InputBox.h"
+#include "MainScene.h"
 
 #pragma comment (lib, "imm32")
+
+#define GET_MAIN_SCENE dynamic_cast<MainScene*>(->getParent())
 
 using namespace std;
 using namespace cocos2d;
@@ -64,7 +67,9 @@ LRESULT InputBox::HookProc(
     switch (Msg){
     case WM_KEYDOWN:
         if (wParam == VK_RETURN)
-            _this->endInput();
+        {   
+            _this->clear();
+        }
         break;
     case WM_IME_COMPOSITION:
     case WM_IME_NOTIFY:

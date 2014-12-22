@@ -4,6 +4,7 @@
 
 #include <string>
 
+class MainScene;
 class InputBox : public cocos2d::LabelTTF{
 public:
     static InputBox *create(
@@ -34,9 +35,9 @@ protected:
 private:
     int maxLength;
 
-    bool inputEnabled;
-    HWND editbox;
-    WNDPROC oldProc;
-    DWORD lastConv;
+    bool        inputEnabled;
+    HWND        editbox;
+    WNDPROC     oldProc;
+    DWORD       lastConv;
 };
 
