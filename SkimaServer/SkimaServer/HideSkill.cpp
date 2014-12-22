@@ -2,7 +2,8 @@
 #include "HideSkill.h"
 #include "ClientSession.h"
 #include "Player.h"
-
+#include "Laphinx.h"
+#include "Scheduler.h"
 
 HideSkill::HideSkill()
 {
@@ -28,11 +29,7 @@ void HideSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& tar
      auto client = m_Owner->GetClient();
      client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 
-     //CallFuncAfter()
-
-
-//      if (--repeatNum > 0)
-//      {
-//          CallFuncAfter(8000, this, &FieldType::FieldDamageRepeat, targetPos, scale, damage, repeatNum, repeatDelay);
-//      }
+     //CallFuncAfter() -> laphinx¿¡¼­ 
+     //CallFuncAfter(8000, m_Owner->GetMyHero(), &Laphinx::UnHide);
+      
 }

@@ -4,6 +4,8 @@
 #include "Skill.h"
 #include "SwipeSKill.h"
 #include "HideSkill.h"
+#include "ClientSession.h"
+#include "Player.h"
 
 Laphinx::Laphinx(Player* owner, const b2Vec2& pos, float scale)
 {
@@ -19,4 +21,19 @@ Laphinx::Laphinx(Player* owner, const b2Vec2& pos, float scale)
 
 Laphinx::~Laphinx()
 {
+}
+
+void Laphinx::UnHide()
+{
+    if (m_IsHidden == false)
+    {
+        return;
+    }
+
+    else
+    {
+        auto client = m_Owner->GetClient();
+        m_Body->SetAwake(false);
+        client->UnHideBroadCast(m_UnitID, m_Body->GetPosition());
+    }
 }

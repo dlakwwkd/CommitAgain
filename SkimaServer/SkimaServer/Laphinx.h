@@ -7,5 +7,7 @@ public:
     virtual ~Laphinx();
     
     virtual void Extinction(){}
+
+    void UnHide();
 };
 
