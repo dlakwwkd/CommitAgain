@@ -34,6 +34,11 @@ enum ObstructType
     OS_MOVE_ROCK,
     OS_LAVA
 };
+enum MobType
+{
+    MOB_NONE,
+    MOB_PEA,
+};
 
 enum SkillKey
 {
@@ -65,6 +70,7 @@ enum PacketTypes
     // SC로만 로딩 정보 전달(맵, 유닛 등) 
     PKT_SC_CREATE_MAP = 21,
     PKT_SC_CREATE_HERO = 22,
+    PKT_SC_CREATE_MOB = 23,
     ///////////////
 
     PKT_SC_RUN_COMPLETE = 31,
@@ -268,6 +274,21 @@ struct CreateMapResult : public PacketHeader
     {
         mSize = sizeof(CreateMapResult);
         mType = PKT_SC_CREATE_MAP;
+        mPlayerId = -1;
+        mUnitId = -1;
+        mPos = { 0, };
+    }
+    int         mPlayerId;
+    int         mUnitId;
+    Coord       mPos;
+};
+
+struct CreateMobResult : public PacketHeader
+{
+    CreateMobResult()
+    {
+        mSize = sizeof(CreateMobResult);
+        mType = PKT_SC_CREATE_MOB;
         mPlayerId = -1;
         mUnitId = -1;
         mPos = { 0, };

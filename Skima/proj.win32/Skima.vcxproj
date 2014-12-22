@@ -167,6 +167,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MapObject.cpp" />
     <ClCompile Include="..\Classes\MeteorSkill.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
+    <ClCompile Include="..\Classes\Mob.cpp" />
     <ClCompile Include="..\Classes\MoveRock.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\Rock.cpp" />
@@ -234,6 +235,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MapObject.h" />
     <ClInclude Include="..\Classes\MeteorSkill.h" />
     <ClInclude Include="..\Classes\Missile.h" />
+    <ClInclude Include="..\Classes\Mob.h" />
     <ClInclude Include="..\Classes\MoveRock.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\Rock.h" />

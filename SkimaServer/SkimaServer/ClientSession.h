@@ -33,13 +33,14 @@ public:
 
     void    LoginProcess(int playerId, char* playerName);
     void    MakeGameRoom();
-    void JoinGameRoom(int roomID);
+    void    JoinGameRoom(int roomID);
     void    OutGameRoom();
 
     void    AllReadyNotify();
     void    ServerRunComplete();
     void	SendCreateHeroResult(			    int unitId, const b2Vec2& pos);
     void	SendMapInfo(        int playerId,   int unitId, const b2Vec2& pos);
+    void    CreateMobBroadCast( int playerId,   int unitId, const b2Vec2& pos);
     void    SendStartGame();
 
     void	TryMoveBroadCast(				    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);

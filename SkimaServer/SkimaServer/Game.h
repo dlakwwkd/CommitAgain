@@ -5,6 +5,7 @@ class Player;
 class MapObject;
 class GameRoom;
 class Map;
+class Unit;
 
 typedef std::map<int, Player*> PlayerList;
 
@@ -33,6 +34,7 @@ public:
     void                OutPlayer(int playerId);
 
     void                MobWaveSystem();
+    void                Targeting(Unit* caster);
 
 private:
     PlayerList          m_PlayerList;

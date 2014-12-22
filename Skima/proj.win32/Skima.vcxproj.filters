@@ -76,6 +76,9 @@
     <Filter Include="Game\Scene\MainScene">
       <UniqueIdentifier>{d1bad8e8-f452-4392-a8d8-93377bcf82e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Unit\Mob">
+      <UniqueIdentifier>{58063a67-90bc-42e8-90a8-d708cb3982b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -254,6 +257,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\ShortDashSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Mob.cpp">
+      <Filter>Game\Component\Unit\Mob</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +448,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ShortDashSkill.h">
       <Filter>Game\Component\Skill\Laphinx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Mob.h">
+      <Filter>Game\Component\Unit\Mob</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

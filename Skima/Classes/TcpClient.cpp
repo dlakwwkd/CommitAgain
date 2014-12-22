@@ -305,6 +305,27 @@ void TcpClient::processPacket()
             }
         }
         break;
+        
+        case PKT_SC_CREATE_MOB:
+        {
+            CreateHeroResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            Vec2 pos = CONVERT(recvData.mPos);
+
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateMob, layer,
+                    recvData.mPlayerId, recvData.mUnitId, pos));
+            }
+        }
+        break;
 
         case PKT_SC_RUN_COMPLETE:
         {

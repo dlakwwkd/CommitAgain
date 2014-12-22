@@ -8,6 +8,7 @@
 #include "MoveRock.h"
 #include "ClientSession.h"
 #include "Scheduler.h"
+#include "Mob.h"
 
 
 Game::Game(GameRoom* room)
@@ -109,6 +110,7 @@ void Game::StartGame()
     m_IsStart = true;
     auto func = std::bind(&Map::LavaCreate, m_Map, m_Computer, m_GameID);
     InfiniteTimer(6000, func);
+    MobWaveSystem();
 }
 
 void Game::EndGame()
@@ -157,6 +159,48 @@ void Game::OutPlayer(int playerId)
 
 void Game::MobWaveSystem()
 {
+    if (m_IsStart)
+    {
+        b2Vec2 createPos = { MAX_MAP_SIZE_X / 2, MAX_MAP_SIZE_Y - 100 };
+        createPos = CONVERT_IN(createPos, m_GameID);
 
+        for (int i = 0; i < 2; ++i)
+        {
+            auto mob = new Mob();
+            mob->SetDynamicBody(m_Computer, MOB_PEA, createPos, DEF_SCALE);
+            mob->SetSpeed(REDUCE(200));
+            mob->SetDamage(20);
+            mob->SetMaxHp(200);
+            mob->SetHp(200);
+            mob->ChaseEnemy();
+            m_Computer->GetClient()->CreateMobBroadCast(PT_COMPUTER, mob->GetUnitID(), createPos);
+        }
+        CallFuncAfter(6000, this, &Game::MobWaveSystem);
+    }
+}
+
+void Game::Targeting(Unit* caster)
+{
+    auto curPos = caster->GetBody()->GetPosition();
+    float distance = 0;
+    b2Vec2 targetPos = { 0, 0 };
+
+    for (auto& player : m_PlayerList)
+    {
+        if (player.second->GetTeam() == caster->GetOwner()->GetTeam())
+        {
+            continue;
+        }
+        auto temp = player.second->GetMyHero()->GetBody()->GetPosition();
+        auto temp2 = temp - curPos;
+        auto temp3 = temp.Length();
+
+        if (temp3 > distance)
+        {
+            distance = temp3;
+            targetPos = temp;
+        }
+    }
+    caster->SetTargetPos(targetPos);
 }
 

@@ -17,6 +17,7 @@
 #include "Rock.h"
 #include "MoveRock.h"
 #include "Lava.h"
+#include "Mob.h"
 
 //#define GET_UI_LAYER	dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"))
 
@@ -80,6 +81,30 @@ void ObjectLayer::CreateMapObject(int unitID, Vec2 pos)
     default:
         break;
     }
+}
+
+void ObjectLayer::CreateMob(int playerID, int unitID, Vec2 location)
+{
+    std::shared_ptr<Mob> unit;
+    switch (GET_SIDE_TYPE(unitID))
+    {
+    case MOB_PEA:	unit = std::make_shared<Mob>(location, 1.0f);	break;
+    default: return;
+    }
+    unit->SetUnitID(unitID);
+    unit->SetUnitPlayerID(playerID);
+    m_UnitList[unitID] = unit;
+    this->addChild(unit->GetSprite(), 16);
+
+    if (playerID == TcpClient::getInstance()->getLoginId())
+    {
+        unit->SetMyHpBar();
+    }
+    else
+    {
+        unit->SetEnemyHpBar();
+    }
+    GET_UI_LAYER->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
 }
 
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)

@@ -562,6 +562,19 @@ void ClientSession::ShootBroadCast(int playerId,int unitId, const b2Vec2& curPos
     }
 }
 
+void ClientSession::CreateMobBroadCast(int playerId, int unitId, const b2Vec2& pos)
+{
+    CreateMobResult outPacket;
+    outPacket.mPlayerId = playerId;
+    outPacket.mUnitId = unitId;
+    outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
+
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+}
+
 void ClientSession::HpBroadCast(int playerId, int unitId, int hp)
 {
     HpBroadcastResult outPacket;
