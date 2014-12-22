@@ -5,9 +5,6 @@
 #include "Laphinx.h"
 #include "Scheduler.h"
 
-HideSkill::HideSkill()
-{
-}
 
 HideSkill::HideSkill(Player* owner)
 {

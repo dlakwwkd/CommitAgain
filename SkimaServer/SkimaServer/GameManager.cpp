@@ -62,19 +62,20 @@ void GameManager::LowTick()
 ///////////////////////////////////////////////////////////////////////////
 void GameManager::CollectGarbageGames()
 {
-    std::vector<Game*> disconnectedGames;
+    std::vector<Game*> garbageGames;
     std::for_each(m_GameList.begin(), m_GameList.end(),
         [&](GameList::const_reference it)
     {
-        Game* game = it.second;
+        auto game = it.second;
 
         if (game->GetRefCount() < 1)
-            disconnectedGames.push_back(game);
+            garbageGames.push_back(game);
     }
     );
-    for (size_t i = 0; i < disconnectedGames.size(); ++i)
+    for (size_t i = 0; i < garbageGames.size(); ++i)
     {
-        Game* game = disconnectedGames[i];
+        auto game = garbageGames[i];
+        printf(" - Destroy %d Game ! \n", game->GetGameID());
         m_GameList.erase(game->GetGameID());
         delete game;
     }
@@ -200,31 +201,13 @@ void GameManager::CreateGame(int gameId)
     }
     if (m_GameList.find(gameId) != m_GameList.end())
     {
-        DeleteGame(gameId);
+        printf(" - CreateGame Failed ! : gameId is duplicated \n");
+        return;
     }
     Game* game = new Game(room->second);
     m_GameList[gameId] = game;
     game->InitGame();
     room->second->InitReady();
-}
-
-void GameManager::DeleteGame(int gameId)
-{
-    if (gameId < 0)
-    {
-        printf(" - DeleteGame Failed ! : gameId is invalid \n");
-        return;
-    }
-    auto game = m_GameList.find(gameId);
-    if (game == m_GameList.end())
-    {
-        printf(" - DeleteGame Failed ! : relevant game isn't \n");
-        return;
-    }
-
-	delete game->second;
-    m_GameList.erase(game);
-    printf(" - Destroy %d Game ! \n", gameId);
 }
 
 void GameManager::GameOver(Player* player)
@@ -244,7 +227,6 @@ void GameManager::GameOver(Player* player)
         player->GetClient()->GameOverCast(player->GetPlayerID());
         game->second->EndGame();
     }
-    //CallFuncAfter(1000, this, &GameManager::DeleteGame, game->second->GetGameID());
 }
 
 
@@ -336,7 +318,6 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
                 pos.y > range->m_Bottom && pos.y < range->m_Top)
             {
                 unit.second->Damaged(damage);
-                printf("range left: %f, bottom: %f, range: %f, top: %f\n", range->m_Left, range->m_Bottom, range->m_Right, range->m_Top);
             }
         }
     }

@@ -4,10 +4,6 @@
 #include "Player.h"
 
 
-AdrenalineSkill::AdrenalineSkill()
-{
-}
-
 AdrenalineSkill::AdrenalineSkill(Player* owner)
 {
     m_Owner = owner;

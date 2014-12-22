@@ -3,7 +3,6 @@
 class AdrenalineSkill : public Skill
 {
 public:
-    AdrenalineSkill();
     AdrenalineSkill(Player* owner);
     virtual ~AdrenalineSkill();
 

@@ -22,8 +22,3 @@ void Lava_Damage::LavaDamage(b2Vec2 createPos, float scale, int damage, int repe
     auto func = std::bind(&Lava_Damage::FieldDamage, this, createPos, scale, damage);
     game->InfiniteTimer(repeatDelay, func);
 }
-
-void Lava_Damage::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos)
-{
-
-}

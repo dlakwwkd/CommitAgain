@@ -44,8 +44,6 @@ Game::~Game()
 
 void Game::Tick(float dt)
 {
-    printf("ref : %d\n", GetRefCount());
-
     for (auto& player : m_PlayerList)
     {
         for (auto& unit : player.second->GetUnitList())
