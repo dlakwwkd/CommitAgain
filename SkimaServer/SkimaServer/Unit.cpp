@@ -48,6 +48,11 @@ void Unit::SetDynamicBody(Player* owner, int type, const b2Vec2& initPos, float 
 
 void Unit::SetStaticBody(Player* owner, int type, const b2Vec2& initPos, const b2Vec2& scale)
 {
+    if (owner == nullptr)
+    {
+        return;
+    }
+
     m_UnitID = SET_SIDE_TYPE(m_UnitID, type);
     m_Owner = owner;
     m_Owner->UnitListPush(m_UnitID, this);

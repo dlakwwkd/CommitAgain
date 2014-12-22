@@ -47,7 +47,6 @@ void Map::InitMap(int roomId, Player* player)
     {
         auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
         MoveRock* rock = new MoveRock(player, b2Vec2(CONVERT_IN(pos, roomId)));
-        player->UnitListPush(rock->GetUnitID(), rock);
 
         player->GetClient()->SendMapInfo(player->GetPlayerID(), rock->GetUnitID(), rock->GetBody()->GetPosition());
     }

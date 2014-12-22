@@ -91,6 +91,7 @@ void Game::EndGame()
 		delete computer->second;
         computer->second = nullptr;
 		m_PlayerList.erase(computer);
+        m_Computer = nullptr;
 	}
 	delete m_Map;
 
@@ -141,16 +142,21 @@ void Game::OutPlayer(int playerId)
 
 void Game::LavaCreate(int time)
 {
+    if (!m_IsStart || m_Computer == nullptr)
+    {
+        return;
+    }
+
     m_Map->LavaCreate(m_GameID, m_Computer);
 
-    int nextTime = time * 2 / 3;
 
-    if (nextTime < 10)
+    int nextTime = time * 9 / 10;
+
+    if (nextTime < 300)
     {
-        nextTime = 10;
+        nextTime = 300;
     }
-    if (m_IsStart)
-    {
-        CallFuncAfter(nextTime, this, &Game::LavaCreate, nextTime);
-    }
+    
+    CallFuncAfter(nextTime, this, &Game::LavaCreate, nextTime);
+    
 }

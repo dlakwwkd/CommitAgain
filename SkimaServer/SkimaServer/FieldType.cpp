@@ -23,7 +23,10 @@ void FieldType::FieldDamage(const b2Vec2& targetPos, float scale, int damage)
     range.m_Left = targetPos.x - scale;
     range.m_Right = targetPos.x + scale;
 
-    GGameManager->FieldDamage(m_Owner, &range, damage);
+    if (m_Owner != nullptr && m_GameOn)
+    {
+        GGameManager->FieldDamage(m_Owner, &range, damage);
+    }
 }
 
 void FieldType::FieldDamageRepeat(b2Vec2 targetPos, float scale, int damage, int repeatNum, int repeatDelay)
@@ -38,7 +41,9 @@ void FieldType::FieldDamageRepeat(b2Vec2 targetPos, float scale, int damage, int
 
 void FieldType::FieldDamageInfinite(b2Vec2 targetPos, float scale, int damage, float repeatDelay)
 {
-    FieldDamage(targetPos, scale, damage);
-
-    CallFuncAfter(repeatDelay, this, &FieldType::FieldDamageInfinite, targetPos, scale, damage, repeatDelay);
+    if (m_GameOn)
+    {
+        FieldDamage(targetPos, scale, damage);
+        CallFuncAfter(repeatDelay, this, &FieldType::FieldDamageInfinite, targetPos, scale, damage, repeatDelay);
+    }
 }

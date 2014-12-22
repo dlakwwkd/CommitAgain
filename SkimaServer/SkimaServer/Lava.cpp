@@ -33,4 +33,6 @@ Lava::Lava(Player* owner, b2Vec2 createPos)
 
 Lava::~Lava()
 {
+    m_Damage->SetGameOn(false);
+    delete m_Damage;
 }
