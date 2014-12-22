@@ -17,6 +17,7 @@
 #include "Rock.h"
 #include "MoveRock.h"
 #include "Lava.h"
+#include "HideSkill.h"
 
 //#define GET_UI_LAYER	dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"))
 
@@ -215,4 +216,10 @@ void ObjectLayer::DeleteMissile(int missileID)
     }
     CC_SAFE_DELETE(missile->second);
     m_MissileList.erase(missile);
+}
+
+void ObjectLayer::CountHiddenTime(Sprite* sprite,float lastTime)
+{
+    //this->scheduleOnce(SEL_SCHEDULE(lastTime));
+    this->scheduleOnce(SEL_SCHEDULE(HideSkill::UnHide), 5.0f);
 }

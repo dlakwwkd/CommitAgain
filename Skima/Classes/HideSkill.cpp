@@ -7,7 +7,7 @@
 #include "ObjectLayer.h"
 #include "UnHideEffect.h"
 #include "Laphinx.h"
-
+#include "ObjectLayer.h"
 HideSkill::HideSkill()
 {
     m_CoolTime = 9;
@@ -63,7 +63,7 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 //     auto hpFrame_fullvis = CallFunc::create(CC_CALLBACK_0(HideSkill::SetSpriteOpacity, this, myLaphinxSprite, 255));
     auto spriteUnhidden = CallFunc::create(CC_CALLBACK_0(HideSkill::UnHide, this));
 
-    auto Laphinx_seq = Sequence::create(spriteDelay, laphinx_halfvis,setPerformingFalse,hiddenTime,/*spriteUnhidden*/ NULL);
+    auto Laphinx_seq = Sequence::create(spriteDelay, laphinx_halfvis,setPerformingFalse,hiddenTime,spriteUnhidden, NULL);
     auto Hpbar_seq = Sequence::create(spriteDelay, hpbar_halfvis, NULL);
     auto Hpframe_seq = Sequence::create(spriteDelay, hpFrame_halfvis, NULL);
 
@@ -71,19 +71,16 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     myHpbar->runAction(Hpbar_seq);
     HpFrame->runAction(Hpframe_seq);
 
-//     auto hid1= DelayTime::create(m_HiddenTime);
-//     auto hid_seq = Sequence::create(hid1, spriteUnhidden);
-//     m_Delay->runAction(hid_seq);
-
-
-   // this->scheduleOnce(schedule_selector(&MyClass::myModification), 10.0f);
-// 
-    //scheduler->setTimeScale(m_HiddenTime);    
-    auto scheduler = cocos2d::Director::getInstance()->getScheduler();
+   
     
-    scheduler->performFunctionInCocosThread(&HideSkill::Sleep);
-//     //scheduler->performFunctionInCocosThread(CallFunc::)
-    
+
+//     auto scheduler = cocos2d::Director::getInstance()->getScheduler();
+//     //scheduler->setTimeScale(m_HiddenTime);    
+//     scheduler->performFunctionInCocosThread(CC_CALLBACK_2(ObjectLayer::CountHiddenTime, this));
+//     
+    GObjctLayer->CountHiddenTime(myLaphinxSprite,m_HiddenTime);
+    //scheduler->performFunctionInCocosThread(CallFunc::)
+
 //         //CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(HideSkill::);
     //sch->scheduleSelector()
 
@@ -231,18 +228,5 @@ void HideSkill::UnHide()
         m_Hero->GetHpBarOut()->setOpacity(255);
 
         //performing state false
-
     }
-
-    
-}
-
-void HideSkill::Sleep()
-{
-    std::chrono::seconds duration(m_HiddenTime);
-    std::this_thread::sleep_for(duration);
-
-    auto scheduler = cocos2d::Director::getInstance()->getScheduler();
-
-    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(HideSkill::UnHide, this));
 }

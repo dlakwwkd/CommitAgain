@@ -31,6 +31,7 @@ public:
     void MissileCrash(int missileID);
     void DeleteMissile(int missileID);
 
+    void CountHiddenTime(Sprite* sprite,float lastTime);
 protected:
     std::shared_ptr<Hero>					m_Hero = nullptr;
     std::map<int, std::shared_ptr<Unit>>	m_UnitList;
@@ -40,3 +41,4 @@ protected:
     std::vector<std::shared_ptr<Unit>>		m_MobList;
 };
 
+extern ObjectLayer* GObjctLayer;

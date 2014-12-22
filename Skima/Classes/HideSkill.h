@@ -14,7 +14,6 @@ public:
 
     void            SetSpriteOpacity(Sprite* sprite, float opacity);
     void            UnHide();
-    void            Sleep();
 private:
     int             m_HiddenTime;
 };
