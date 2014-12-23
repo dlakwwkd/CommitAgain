@@ -6,7 +6,7 @@
 
 TeleportSkill::TeleportSkill(Player* owner)
 {
-    m_Range = REDUCE(224);
+    m_Range = Reduce(224.0f);
     m_Owner = owner;
 }
 

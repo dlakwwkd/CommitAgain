@@ -15,7 +15,7 @@ Lava::Lava(Player* owner, b2Vec2 createPos)
     m_Hp = 1000000;
     
     m_Damage = new Lava_Damage(m_Owner);
-    m_Damage->LavaDamage(GetBody()->GetPosition(), REDUCE(80.0f), 10, 300);
+    m_Damage->LavaDamage(GetBody()->GetPosition(), Reduce(80.0f), 10, 300);
 
     
 

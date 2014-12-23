@@ -24,7 +24,7 @@ void FlashSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& ta
     {
         return;
     }
-    displacement *= REDUCE(1500);
+    displacement *= Reduce(1500.0f);
     hero->GetBody()->SetLinearVelocity(displacement);
 
     auto client = m_Owner->GetClient();

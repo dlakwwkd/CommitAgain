@@ -78,9 +78,9 @@ void Game::InitGame()
     IncRefCount();
 
     // 주의: 여기서부턴 하드코딩의 구간입니다.^^
-    ClientSession* temp;
+    ClientSession* temp = nullptr;
     int i = 0;
-    int roomId;
+    int roomId = -1;
     for (auto& player : m_PlayerList)
     {
         player.second->SetTeam(TEAM_A);
@@ -171,7 +171,7 @@ void Game::MobWaveSystem()
     {
         auto mob = new Mob();
         mob->SetDynamicBody(m_Computer, MOB_PEA, createPos, DEF_SCALE);
-        mob->SetSpeed(REDUCE(200));
+        mob->SetSpeed(Reduce(200.0f));
         mob->SetDamage(20);
         mob->SetMaxHp(200);
         mob->SetHp(200);

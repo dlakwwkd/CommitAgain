@@ -24,7 +24,7 @@ void ShortDashSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2
     {
         return;
     }
-    displacement *= REDUCE(750);
+    displacement *= Reduce(750.0f);
     hero->GetBody()->SetLinearVelocity(displacement);
 
     auto client = m_Owner->GetClient();

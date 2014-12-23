@@ -21,7 +21,7 @@ b2Vec2 ShootType::GenerateInitPos(const b2Vec2& heroPos, const b2Vec2& targetPos
 {
     auto displacement = targetPos - heroPos;
     displacement.Normalize();
-    displacement *= m_HeroBodySize + REDUCE(64);
+    displacement *= m_HeroBodySize + Reduce(64);
     displacement += heroPos;
     return displacement;
 }

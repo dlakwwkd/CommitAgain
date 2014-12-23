@@ -6,13 +6,14 @@
 ///////////////////////////////////////////////////////////////////////////
 #define PTM_RATIO 32
 
-#define EXTEND(f) (f)*PTM_RATIO
-#define REDUCE(f) (f)/PTM_RATIO
-#define INCREASE(v) {EXTEND((v).x), EXTEND((v).y)}
-#define DECREASE(v) {REDUCE((v).x), REDUCE((v).y)}
+template <typename T>   T Extend(T input){ return input * PTM_RATIO; }
+template <typename T>   T Reduce(T input){ return input / PTM_RATIO; }
 
-#define CONVERT_IN(v, roomID)   {REDUCE((v).x), REDUCE((v).y + (roomID)*MAX_MAP_SIZE_Y)}
-#define CONVERT_OUT(v, roomID)  {EXTEND((v).x), EXTEND((v).y) - (roomID)*MAX_MAP_SIZE_Y}
+#define INCREASE(v) {Extend((v).x), Extend((v).y)}
+#define DECREASE(v) {Reduce((v).x), Reduce((v).y)}
+
+#define CONVERT_IN(v, roomID)   {Reduce((v).x), Reduce((v).y + static_cast<float>((roomID)*MAX_MAP_SIZE_Y))}
+#define CONVERT_OUT(v, roomID)  {Extend((v).x), Extend((v).y) - static_cast<float>((roomID)*MAX_MAP_SIZE_Y)}
 
 
 ///////////////////////////////////////////////////////////////////////////

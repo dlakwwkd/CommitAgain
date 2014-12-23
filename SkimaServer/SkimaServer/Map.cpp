@@ -12,7 +12,7 @@ Map::Map(int roomId)
     b2Vec2 edgePos = { MAX_MAP_SIZE_X, MAX_MAP_SIZE_Y};
     edgePos = CONVERT_IN(edgePos, roomId);
 
-    b2Vec2 startPos = { edgePos.x - REDUCE(MAX_MAP_SIZE_X), edgePos.y - REDUCE(MAX_MAP_SIZE_Y) };
+    b2Vec2 startPos = { edgePos.x - Reduce(MAX_MAP_SIZE_X), edgePos.y - Reduce(MAX_MAP_SIZE_Y) };
 
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0, 0);
@@ -45,7 +45,7 @@ void Map::InitMap(Player* player, int roomId)
 {
     for (int i = 0; i < 5; ++i)
     {
-        auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
+        auto pos = b2Vec2(static_cast<float>(rand() % MAX_MAP_SIZE_X), static_cast<float>(rand() % MAX_MAP_SIZE_Y));
         auto rock = new MoveRock(player, b2Vec2(CONVERT_IN(pos, roomId)));
         player->GetClient()->SendMapInfo(player->GetPlayerID(), rock->GetUnitID(), rock->GetBody()->GetPosition());
     }
@@ -57,7 +57,7 @@ void Map::LavaCreate(Player* player, int roomId)
     {
         return;
     }
-    auto pos = b2Vec2(rand() % MAX_MAP_SIZE_X, rand() % MAX_MAP_SIZE_Y);
+    auto pos = b2Vec2(static_cast<float>(rand() % MAX_MAP_SIZE_X), static_cast<float>(rand() % MAX_MAP_SIZE_Y));
     auto lava = new Lava(player, b2Vec2(CONVERT_IN(pos, roomId)));         
     player->GetClient()->SendMapInfo(player->GetPlayerID(), lava->GetUnitID(), lava->GetPos());
 }

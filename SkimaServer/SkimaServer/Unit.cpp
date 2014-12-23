@@ -34,7 +34,7 @@ void Unit::SetDynamicBody(Player* owner, int type, const b2Vec2& initPos, float 
     m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
     b2CircleShape circle;
-    circle.m_radius = REDUCE(scale);
+    circle.m_radius = Reduce(scale);
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &circle;
@@ -63,7 +63,7 @@ void Unit::SetStaticBody(Player* owner, int type, const b2Vec2& initPos, const b
     m_Body = GGameManager->GetWolrd()->CreateBody(&bodyDef);
 
     b2PolygonShape square;
-    square.SetAsBox(REDUCE(scale.x), REDUCE(scale.y));
+    square.SetAsBox(Reduce(scale.x), Reduce(scale.y));
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &square;
@@ -84,7 +84,7 @@ void Unit::Moving()
     {
         EndMove();
         printf(" - Reach: UnitID:  %d, \t\t\t x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
-            EXTEND(curPos.x), EXTEND(curPos.y));
+            Extend(curPos.x), Extend(curPos.y));
     }
 }
 
@@ -134,7 +134,7 @@ void Unit::Crashing(bool isCrashing)
         velocity *= 1.0f / DAMPING;
         expectPos += velocity;
         printf(" - Crashing:    UnitID: %d,  \t   expectPos:   x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
-            EXTEND(expectPos.x), EXTEND(expectPos.y));
+            Extend(expectPos.x), Extend(expectPos.y));
     } 
     else
     {

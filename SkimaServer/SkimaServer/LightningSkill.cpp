@@ -10,7 +10,7 @@ LightningSkill::LightningSkill(Player* owner)
 {
     m_Owner = owner;
     m_Damage = 75;
-    m_Scale = REDUCE(100);
+    m_Scale = Reduce(100.0f);
 }
 
 
