@@ -2,9 +2,6 @@
 #include "FSM.h"
 #include "Unit.h"
 #include "Player.h"
-#include "ClientSession.h"
-#include "Scheduler.h"
-#include "GameManager.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -46,16 +43,14 @@ void MovingState::Crashed(Unit* unit)
 
 void MovingState::EndMove(Unit* unit)
 {
+    if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_MISSILE)
+    {
+        unit->Crashed();
+        unit->Crashing();
+        return;
+    }
     unit->GetBody()->SetAwake(false);
     unit->SetState(unit->GetStandbyState());
-
-    switch (GET_MAIN_TYPE(unit->GetUnitID()))
-    {
-    case UNIT_MISSILE:
-        unit->CurPosSync();
-        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, unit);
-        break;
-    }
 }
 
 void MovingState::EndCrash(Unit* unit){}

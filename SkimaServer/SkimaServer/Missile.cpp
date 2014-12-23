@@ -19,6 +19,8 @@ Missile::~Missile()
 
 void Missile::MissileShoot()
 {
+    m_State = m_MovingState;
+
     auto currentPos = m_Body->GetPosition();
     auto displacement = m_TargetPos - currentPos;
     displacement.Normalize();
@@ -29,5 +31,4 @@ void Missile::MissileShoot()
     m_TargetPos = currentPos + displacement;
 
     m_Owner->GetClient()->ShootBroadCast(m_Owner->GetPlayerID(), m_UnitID, currentPos, m_TargetPos);
-    m_State->TryMove(this);
 }

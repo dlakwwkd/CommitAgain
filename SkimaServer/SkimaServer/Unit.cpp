@@ -111,6 +111,12 @@ void Unit::ReachCheck()
 
 void Unit::Crashing()
 {
+    if (GET_MAIN_TYPE(m_UnitID) == UNIT_MISSILE)
+    {
+        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
+        EndCrash();
+        return;
+    }
     auto client = m_Owner->GetClient();
     if (client == nullptr)
     {

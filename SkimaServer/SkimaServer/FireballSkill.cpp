@@ -9,7 +9,7 @@ FireballSkill::FireballSkill(Player* owner, float heroBodySize)
     m_Owner = owner;
     m_Damage = 400;
     m_MissileType = MS_FIRE_BALL;
-    m_MissileSpeed = Reduce(1200.0f);
+    m_MissileSpeed = Reduce(1000.0f);
     m_MissileScale = DEF_SCALE;
     m_HeroBodySize = Reduce(heroBodySize);
     m_Range = Reduce(800.0f);

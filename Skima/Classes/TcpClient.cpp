@@ -398,27 +398,20 @@ void TcpClient::processPacket()
             auto layer = GET_OBJECT_LAYER;
             if (layer)
             {
-                switch (GET_MAIN_TYPE(recvData.mUnitId))
+                if (recvData.mIsCrashed)
                 {
-                case UNIT_HERO:
-                case UNIT_OBSTRUCT:
-                case UNIT_MOB:
-                    if (recvData.mIsCrashed)
-                    {
-                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
-                            recvData.mUnitId, expectPos));
-                    }
-                    else
-                    {
-                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
-                            recvData.mUnitId, revisionPos));
-                    }
-                    break;
-                case UNIT_MISSILE:
+                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
+                        recvData.mUnitId, expectPos));
+                }
+                else
+                {
+                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
+                        recvData.mUnitId, revisionPos));
+
                     scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MissileCrash, layer,
                         recvData.mUnitId));
-                    break;
                 }
+                break;
             }
         }
         break;
