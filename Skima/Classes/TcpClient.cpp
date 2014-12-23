@@ -566,6 +566,7 @@ void TcpClient::loginRequest(const char* playerName)
     LoginRequest sendData;
     sendData.mPlayerId = 1000 + rand() % 101;	// 아이디 임시로 랜덤 생성
     strcpy(sendData.mPlayerName, playerName);
+    strcpy(mLoginName, playerName);
 
     send((const char*)&sendData, sizeof(LoginRequest));
 }
@@ -590,6 +591,7 @@ void TcpClient::joinRoomRequest(int roomID)
     sendData.mPlayerId = mLoginId;
     sendData.mIsIn = true;
     sendData.mRoomId = roomID;
+    strcpy(sendData.mPlayerName, mLoginName);
 
     send((const char*)&sendData, sizeof(InOutRoomRequest));
 }
@@ -603,6 +605,7 @@ void TcpClient::outRoomRequest(int roomId)
     sendData.mPlayerId = mLoginId;
     sendData.mIsIn = false;
     sendData.mRoomId = roomId;
+    strcpy(sendData.mPlayerName, mLoginName);
 
     send((const char*)&sendData, sizeof(InOutRoomRequest));
 }

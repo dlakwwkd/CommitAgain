@@ -199,10 +199,13 @@ struct InOutRoomRequest : public PacketHeader
         mPlayerId = -1;
         mRoomId = -1;
         mIsIn = true;
+        memset(mPlayerName, 0, MAX_NAME_LEN);
+
     }
     int     mPlayerId;
     int     mRoomId;
     bool    mIsIn;
+    char    mPlayerName[MAX_NAME_LEN];
 };
 struct InOutRoomResult : public PacketHeader
 {
@@ -213,10 +216,12 @@ struct InOutRoomResult : public PacketHeader
         mPlayerId = -1;
         mRoomId = -1;
         mIsIn = true;
+        memset(mPlayerName, 0, MAX_NAME_LEN);
     }
     int     mPlayerId;
     int     mRoomId;
     bool    mIsIn;
+    char    mPlayerName[MAX_NAME_LEN];
 };
 
 

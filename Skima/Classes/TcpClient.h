@@ -50,5 +50,6 @@ private:
     SOCKET          mSock;
     CircularBuffer  mRecvBuffer;
     int             mLoginId;
+    char            mLoginName[MAX_NAME_LEN];
 };
 
