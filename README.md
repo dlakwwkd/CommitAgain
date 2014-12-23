@@ -4,6 +4,7 @@
  - 방목록 시스템 구현
  - 전반적인 UI 개선
  - 배경음악 추가
+ - 새로운 스킬 추가(라핑크스의 Q스킬 - Hide)
  - ObjectPool 도입(기존의 ObjectManager 제거)
  - CallAfterFunc 제대로 사용
  - Timer 구현
