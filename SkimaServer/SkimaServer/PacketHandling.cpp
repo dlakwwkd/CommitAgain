@@ -395,7 +395,7 @@ void ClientSession::UpdateRoomInfo()
     }
 
     SendRequest(&outPacket);
-    printf(" Send:   RoomInformation: roomMaxNum: %d", i);
+    printf(" Send:   RoomInformation: roomMaxNum: %d, Player ID: %d \n", i, outPacket.mPlayerId);
 }
 
 void ClientSession::MakeGameRoom()

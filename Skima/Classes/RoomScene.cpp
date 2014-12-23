@@ -74,7 +74,7 @@ bool RoomScene::init()
 
     m_WaitingLayer = WaitingLayer::create();
     m_WaitingLayer->setVisible(false);
-    this->addChild(m_WaitingLayer);
+    this->addChild(m_WaitingLayer, 2);
 
     auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
     label->setAnchorPoint(Vec2::ZERO);

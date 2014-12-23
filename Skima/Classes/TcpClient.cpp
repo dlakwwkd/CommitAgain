@@ -200,6 +200,8 @@ void TcpClient::processPacket()
             auto scene = GET_NETWORK_SCENE;
             if (scene)
             {
+                //다음 update를 위한 초기화
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ClearRoomInfo, scene));
                 for (auto& room : recvData.mRoomList)
                 {
                     if (room.mRoomNum <= 0) // roomNum이 0이하면 roomList의 끝이므로 break
@@ -209,8 +211,6 @@ void TcpClient::processPacket()
                 }
                 if(recvData.mRoomList[0].mRoomNum > 0) // recvData의 첫번째 원소가 0이하면 방이 하나도 없으므로 update하지 않는다.
                     scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::UpdateRoomInfo, scene));
-                //다음 update를 위한 초기화
-                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ClearRoomInfo, scene));
             }
         }
         break;

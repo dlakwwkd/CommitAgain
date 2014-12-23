@@ -21,6 +21,7 @@ bool NetworkScene::init()
         return false;
     }
     auto winSize = Director::getInstance()->getWinSize();
+    ConnectLabelCreate("방 참여 혹은 방 생성을 해주십시오.", this);
 
     auto background = Sprite::create("Images/NetworkBackground.png");
     background->setPosition(winSize.width / 2, winSize.height / 2);
@@ -57,6 +58,18 @@ void NetworkScene::menuCallback2(int roomNum)
         return;
 
     ConnectLabelChange("방에 들어가는 중...");
+    for (auto& room : m_RoomList)
+    {
+        if (room.mRoomNum == roomNum)
+        {
+            if (room.mCurPlayerNum >= room.mMaxPlayerNum) // 들어가려 한 방이 꽉차있을 때
+            {
+                ConnectLabelChange("방의 인원이 초과하였습니다.");
+                return;
+            }
+            break;
+        }
+    }
     TcpClient::getInstance()->joinRoomRequest(roomNum);
 }
 
@@ -103,10 +116,12 @@ void NetworkScene::ClearRoomInfo()
 
 void NetworkScene::UpdateRoomInfo()
 {
+    //Update를 위한 남아있는 Sprite 초기화
     while (this->getChildByName("RoomListFrame") != nullptr)
     {
         this->removeChildByName("RoomListFrame");
     }
+
     auto winSize = Director::getInstance()->getWinSize();
     auto line = 0.9f;
 

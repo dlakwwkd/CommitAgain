@@ -5,7 +5,7 @@
 
 bool LoadingBGLayer::init()
 {
-    if (!LayerColor::initWithColor(Color4B(0,0,0,0))) //검은색 세팅
+    if (!LayerColor::initWithColor(Color4B::BLACK)) //검은색 세팅
     {
         return false;
     }
