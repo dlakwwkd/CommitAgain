@@ -31,7 +31,7 @@ public:
     SOCKET	GetSocketKey() const { return mSocket; }
     Player*	GetPlayer() const { return mPlayer; }
 
-    void    LoginProcess(int playerId, char* playerName);
+    void    LoginProcess(int playerId, const std::string& playerName);
     void    UpdateRoomInfo();
     void    MakeGameRoom();
     void    JoinGameRoom(int roomID);

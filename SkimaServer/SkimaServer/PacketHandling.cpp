@@ -348,9 +348,9 @@ REGISTER_HANDLER(PKT_CS_SKILL)
     보낼 패킷 파싱하는 함수들
     */
 ///////////////////////////////////////////////////////////////////////////
-void ClientSession::LoginProcess(int playerId, char* playerName)
+void ClientSession::LoginProcess(int playerId, const std::string& playerName)
 {
-    printf(" Recv:   Login Name: %s \n", playerName);
+    printf(" Recv:   Login Name: %s \n", playerName.c_str());
     mPlayer = new Player(this, playerId, playerName, PT_HUMAN);
     mLogon = true;
 

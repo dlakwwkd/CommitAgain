@@ -1,8 +1,9 @@
 ﻿#pragma once
 #include "RefCountable.h"
 
-#define MAX_MAP_SIZE_X 1680
-#define MAX_MAP_SIZE_Y 1050
+#define MAX_MAP_SIZE_X  1680
+#define MAX_MAP_SIZE_Y  1050
+#define INIT_ROCK_NUM   10
 
 class MapObject;
 class Player;

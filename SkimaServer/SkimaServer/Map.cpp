@@ -9,7 +9,7 @@
 
 Map::Map(int roomId)
 {
-    b2Vec2 edgePos = { MAX_MAP_SIZE_X, MAX_MAP_SIZE_Y};
+    b2Vec2 edgePos = { MAX_MAP_SIZE_X, MAX_MAP_SIZE_Y };
     edgePos = CONVERT_IN(edgePos, roomId);
 
     b2Vec2 startPos = { edgePos.x - Reduce(MAX_MAP_SIZE_X), edgePos.y - Reduce(MAX_MAP_SIZE_Y) };
@@ -43,7 +43,7 @@ Map::~Map()
 
 void Map::InitMap(Player* player, int roomId)
 {
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < INIT_ROCK_NUM; ++i)
     {
         auto pos = b2Vec2(static_cast<float>(rand() % MAX_MAP_SIZE_X), static_cast<float>(rand() % MAX_MAP_SIZE_Y));
         auto rock = new MoveRock(player, b2Vec2(CONVERT_IN(pos, roomId)));

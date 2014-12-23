@@ -18,6 +18,8 @@ void FlashSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& ta
 {
     auto hero = m_Owner->GetMyHero();
     hero->Crashing(false);
+    hero->SetTargetPos(targetPos);
+    hero->GetState()->TryMove(hero);
 
     auto displacement = targetPos - hero->GetBody()->GetPosition();
     if (displacement.Normalize() < 0.5f)

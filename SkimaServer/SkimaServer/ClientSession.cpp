@@ -198,14 +198,10 @@ void ClientSession::OnTick()
     if (!IsConnected())
         return;
 
-    //////////////////////////////////////////////////////////////////////////
-    ///여기에 등록
-
-    if (mPlayer != nullptr && mPlayer->GetRoomID() < 1)
+    if (mPlayer && mPlayer->GetRoomID() <= 0)
+    {
         UpdateRoomInfo();
-
-    //////////////////////////////////////////////////////////////////////////
-    
+    }
     CallFuncAfter(PLAYER_HEART_BEAT, this, &ClientSession::OnTick);
 }
 
