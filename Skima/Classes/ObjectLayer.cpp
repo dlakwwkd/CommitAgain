@@ -180,18 +180,28 @@ void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
     {
         return;
     }
-    if (GET_MAIN_TYPE(unitID) == UNIT_OBSTRUCT)
+    unit->second->SetHp(curHp);
+
+    if (curHp <= 0)
     {
-        if (curHp <= 0)
+        switch (GET_MAIN_TYPE(unitID))
+        {
+        case UNIT_OBSTRUCT:
         {
             auto mapObject = std::dynamic_pointer_cast<MapObject>(unit->second);
             mapObject->MapObjectBreak();
             m_UnitList.erase(unit);
         }
+            break;
+        case UNIT_MOB:
+        {
+            this->removeChild(unit->second->GetSprite());
+            m_UnitList.erase(unit);
+        }
+            break;
+        }
         return;
     }
-    unit->second->SetHp(curHp);
-
     if (m_Hero->GetUnitPlayerID() == playerID)
     {
         GET_UI_LAYER->UpdateHpBar(unit->second->GetCurHp(), unit->second->GetMaxHp());

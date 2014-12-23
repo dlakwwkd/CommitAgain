@@ -126,8 +126,8 @@ void Game::StartGame()
     m_IsStart = true;
     auto func = std::bind(&Map::LavaCreate, m_Map, m_Computer, m_GameID);
     InfiniteTimer(6000, func);
-    //MobWaveSystem();
-    //ChaseEnemy();
+    MobWaveSystem();
+    ChaseEnemy();
 }
 
 void Game::EndGame()
@@ -183,17 +183,15 @@ void Game::MobWaveSystem()
     b2Vec2 createPos = { MAX_MAP_SIZE_X / 2, MAX_MAP_SIZE_Y - 100 };
     createPos = CONVERT_IN(createPos, m_GameID);
 
-    for (int i = 0; i < 1; ++i)
-    {
-        auto mob = new Mob();
-        mob->SetDynamicBody(m_Computer, MOB_PEA, createPos, DEF_SCALE);
-        mob->SetSpeed(Reduce(200.0f));
-        mob->SetDamage(20);
-        mob->SetMaxHp(200);
-        mob->SetHp(200);
-        m_Computer->GetClient()->CreateMobBroadCast(PT_COMPUTER, mob->GetUnitID(), createPos);
-    }
-    CallFuncAfter(10000, this, &Game::MobWaveSystem);
+    auto mob = new Mob();
+    mob->SetDynamicBody(m_Computer, MOB_PEA, createPos, DEF_SCALE);
+    mob->SetSpeed(Reduce(200.0f));
+    mob->SetDamage(20);
+    mob->SetMaxHp(200);
+    mob->SetHp(200);
+    m_Computer->GetClient()->CreateMobBroadCast(PT_COMPUTER, mob->GetUnitID(), createPos);
+
+    CallFuncAfter(5000, this, &Game::MobWaveSystem);
 }
 
 void Game::ChaseEnemy()
@@ -209,7 +207,7 @@ void Game::ChaseEnemy()
             unit.second->Chasing();
         }
     }
-    CallFuncAfter(3000, this, &Game::ChaseEnemy);
+    CallFuncAfter(1000, this, &Game::ChaseEnemy);
 }
 
 void Game::Targeting(Unit* caster)
@@ -222,21 +220,29 @@ void Game::Targeting(Unit* caster)
     float distance = 0;
     b2Vec2 targetPos = { 0, 0 };
 
-    for (auto& player : m_PlayerList)
+    if (rand() % 2 == 0)
     {
-        if (player.second->GetTeam() == caster->GetOwner()->GetTeam())
+        for (auto& player : m_PlayerList)
         {
-            continue;
-        }
-        auto temp = player.second->GetMyHero()->GetBody()->GetPosition();
-        auto temp2 = temp - curPos;
-        auto temp3 = temp.Length();
+            if (player.second->GetTeam() == caster->GetOwner()->GetTeam())
+            {
+                continue;
+            }
+            auto temp = player.second->GetMyHero()->GetBody()->GetPosition();
+            auto temp2 = temp - curPos;
+            auto temp3 = temp.Length();
 
-        if (temp3 > distance)
-        {
-            distance = temp3;
-            targetPos = temp;
+            if (temp3 > distance)
+            {
+                distance = temp3;
+                targetPos = temp;
+            }
         }
+    }
+    else
+    {
+        targetPos.x = curPos.x + static_cast<float>(rand() % 200 - 100);
+        targetPos.y = curPos.y + static_cast<float>(rand() % 200 - 100);
     }
     caster->SetTargetPos(targetPos);
 }

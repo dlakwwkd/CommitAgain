@@ -40,12 +40,18 @@ void Unit::SetHp(int curHp)
 
 void Unit::UpdateMyHpBar()
 {
-    m_MyHpBar->setScaleX(m_CurHp / m_MaxHp);
+    if (m_MyHpBar)
+    {
+        m_MyHpBar->setScaleX(m_CurHp / m_MaxHp);
+    }
 }
 
 void Unit::UpdateOtherHpBar()
 {
-    m_EnemyHpBar->setScaleX(m_CurHp / m_MaxHp);
+    if (m_EnemyHpBar)
+    {
+        m_EnemyHpBar->setScaleX(m_CurHp / m_MaxHp);
+    }
 }
 
 void Unit::Move()
