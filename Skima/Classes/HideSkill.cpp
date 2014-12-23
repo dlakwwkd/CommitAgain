@@ -148,7 +148,7 @@ void HideSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
     m_Hero->SetUnitHiddenState(true);
 
     auto enemyLaphinxSprite = m_Hero->GetRealSprite();
-    auto enemyHpbar = m_Hero->GetMyHpBar();
+    auto enemyHpbar = m_Hero->GetEnemyHpBar();
     auto HpFrame = m_Hero->GetHpBarOut();
     //auto cloakingSprite
     //spr opacity ´Ü°è

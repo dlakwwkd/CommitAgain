@@ -25,7 +25,7 @@ public:
     Sprite*         GetRealSprite(){ return m_RealSprite; }
     Sprite*         GetSprite(){ return m_Sprite; }
     Sprite*         GetMyHpBar(){ return m_MyHpBar; }
-    Sprite*         GetOtherHpBar(){ return m_EnemyHpBar; }
+    Sprite*         GetEnemyHpBar(){ return m_EnemyHpBar; }
     Sprite*         GetHpBarOut(){ return m_HpbarOut; }
     float           GetMaxHp(){ return m_MaxHp; }
     float           GetCurHp(){ return m_CurHp; }
