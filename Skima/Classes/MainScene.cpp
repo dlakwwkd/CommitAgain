@@ -148,9 +148,6 @@ void MainScene::LoginToServer()
         m_LoginBox->beginInput();
         return;
     }
-
-    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-
     auto scene = NetworkScene::createScene();
     Director::getInstance()->pushScene(scene);
     TcpClient::getInstance()->loginRequest(m_LoginName.c_str());

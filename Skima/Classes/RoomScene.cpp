@@ -4,11 +4,16 @@
 #include "TcpClient.h"
 #include "GameScene.h"
 #include "WaitingLayer.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 #define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
 
 Scene* RoomScene::createScene()
 {
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+
     auto scene = Scene::create();
     auto layer = RoomScene::create();
     scene->addChild(layer, 0, "RoomScene");

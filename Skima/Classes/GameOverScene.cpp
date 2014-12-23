@@ -9,6 +9,8 @@ using namespace CocosDenshion;
 
 Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 {
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+
 	auto scene = Scene::create();
 	auto layer = GameOverScene::create();
     Sprite* endScene;
@@ -17,7 +19,7 @@ Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/winner.mp3");
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/loser.mp3");
-    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(5.0f);
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
 
     if (playerId != loseId)
     {

@@ -15,6 +15,8 @@ using namespace CocosDenshion;
 
 Scene* GameScene::createScene()
 {
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+
     auto scene = Scene::create();
     auto layer1 = GameScene::create();
     auto layer2 = ListenerLayer::create();
@@ -22,7 +24,7 @@ Scene* GameScene::createScene()
     layer1->addChild(layer2, 0, "ListenerLayer");
 
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/game.mp3");
-    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(5.0f);
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.01f);
 
     return scene;
 }
@@ -44,7 +46,7 @@ bool GameScene::init()
     this->addChild(layer3, 20, "EscLayer");
     layer3->setVisible(false);
     
-    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3", true);
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/game.mp3", true);
 
     return true;
 }
