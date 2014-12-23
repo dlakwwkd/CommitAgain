@@ -18,7 +18,7 @@
 #include "MoveRock.h"
 #include "Lava.h"
 #include "Mob.h"
-
+#include "MeteorSkill.h"
 //#define GET_UI_LAYER	dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"))
 
 bool ObjectLayer::init()
@@ -259,6 +259,16 @@ void ObjectLayer::UnHide(int playerID, int unitID, Vec2 recvCurPos)
 
 void ObjectLayer::MeteorCreate(int playerID, int unitID, Vec2 targetPos)
 {
+    auto hero = m_HeroList.find(unitID);
+    if (hero == m_HeroList.end())
+    {
+        return;
+    }
 
+    if (hero->second->GetHeroType() == HERO_LAPHINX)
+    {
+        auto meteorSKill = dynamic_cast<MeteorSkill*>(hero->second->GetSkill(SKILL_R));
+        meteorSKill->MakeMeteor(targetPos);
+    }
 }
 

@@ -45,6 +45,9 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
     m_SkillList[SKILL_W] = new ShortDashSkill(this);
     m_SkillList[SKILL_E] = new SwipeSkill(this);
     m_SkillList[SKILL_R] = new MeteorSkill(this);
+
+    auto meteorSkill = dynamic_cast<MeteorSkill*>(m_SkillList[SKILL_R]);
+    m_MeteorSKill = meteorSkill;
 }
 
 

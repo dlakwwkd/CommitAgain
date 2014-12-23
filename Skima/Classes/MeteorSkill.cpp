@@ -5,6 +5,7 @@
 #include "Hero.h"
 #include "Macros.h"
 #include "MeteorEffect.h"
+#include "MeteorAfterEffect.h"
 #include "ObjectLayer.h"
 
 
@@ -60,3 +61,10 @@ void MeteorSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
 {
 
 }
+
+void MeteorSkill::MakeMeteor(Vec2 targetpos)
+{
+    auto particleEffect = new MeteorEffect();
+    particleEffect->CreateEffect(targetpos);
+}
+

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Hero.h"
+class MeteorSkill;
 class Laphinx : public Hero
 {
 public:
@@ -13,7 +14,7 @@ public:
 
     void                    SetAllSpriteVisible();
     virtual void            HeroUnHide(Vec2 heroPos);
-
+    MeteorSkill*            GetMeteorSKill(){ return m_MeteorSKill; }
 
 private:
     virtual void            SetMoveMotionToCache();
@@ -21,6 +22,7 @@ private:
 
 private:
     ParticleSystemQuad*     m_Wparticle;
+    MeteorSkill*            m_MeteorSKill;
 
 };
 
