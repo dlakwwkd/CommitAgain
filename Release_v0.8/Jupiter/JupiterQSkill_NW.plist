@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>JupiterQSkill_NW_01.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{100,0},{52,71}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{7,32},{52,71}}</string>
+				<key>sourceSize</key>
+				<string>{59,109}</string>
+			</dict>
+
+			<key>JupiterQSkill_NW_02.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{72,160},{54,77}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{9,7},{54,77}}</string>
+				<key>sourceSize</key>
+				<string>{68,90}</string>
+			</dict>
+
+			<key>JupiterQSkill_NW_03.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,160},{71,63}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{2,21},{71,63}}</string>
+				<key>sourceSize</key>
+				<string>{75,90}</string>
+			</dict>
+
+			<key>JupiterQSkill_NW_04.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,81},{83,78}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{8,6},{83,78}}</string>
+				<key>sourceSize</key>
+				<string>{91,90}</string>
+			</dict>
+
+			<key>JupiterQSkill_NW_05.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{99,80}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,4},{99,80}}</string>
+				<key>sourceSize</key>
+				<string>{99,90}</string>
+			</dict>
+
+			<key>JupiterQSkill_NW_06.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{84,81},{53,63}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,21},{53,63}}</string>
+				<key>sourceSize</key>
+				<string>{59,90}</string>
+			</dict>
+
+			<key>JupiterQSkill_NW_07.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{127,145},{46,63}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{2,21},{46,63}}</string>
+				<key>sourceSize</key>
+				<string>{52,90}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{256,256}</string>
+			<key>textureFileName</key>
+			<string>JupiterQSkill_NW.png</string>
+			</dict>
+		</dict>
+</plist>

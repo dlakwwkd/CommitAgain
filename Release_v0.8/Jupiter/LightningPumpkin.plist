@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>LightningPumpkin_01.PNG</key>
+			<dict>
+				<key>frame</key>
+				<string>{{642,248},{319,252}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{319,252}}</string>
+				<key>sourceSize</key>
+				<string>{327,257}</string>
+			</dict>
+
+			<key>LightningPumpkin_02.PNG</key>
+			<dict>
+				<key>frame</key>
+				<string>{{642,0},{320,247}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{8,17},{320,247}}</string>
+				<key>sourceSize</key>
+				<string>{337,272}</string>
+			</dict>
+
+			<key>LightningPumpkin_03.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{321,248},{320,247}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{8,17},{320,247}}</string>
+				<key>sourceSize</key>
+				<string>{337,272}</string>
+			</dict>
+
+			<key>LightningPumpkin_04.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{321,0},{320,247}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{8,17},{320,247}}</string>
+				<key>sourceSize</key>
+				<string>{337,272}</string>
+			</dict>
+
+			<key>LightningPumpkin_05.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,248},{320,247}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{8,17},{320,247}}</string>
+				<key>sourceSize</key>
+				<string>{337,272}</string>
+			</dict>
+
+			<key>LightningPumpkin_06.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{320,247}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{8,17},{320,247}}</string>
+				<key>sourceSize</key>
+				<string>{337,272}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{1024,512}</string>
+			<key>textureFileName</key>
+			<string>LightningPumpkin.png</string>
+			</dict>
+		</dict>
+</plist>

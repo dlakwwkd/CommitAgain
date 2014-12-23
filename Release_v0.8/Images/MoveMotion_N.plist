@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>MoveMotion_N_01.PNG</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,223},{46,69}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{1,1},{46,69}}</string>
+				<key>sourceSize</key>
+				<string>{51,73}</string>
+			</dict>
+
+			<key>MoveMotion_N_02.PNG</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{52,70}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{6,3},{52,70}}</string>
+				<key>sourceSize</key>
+				<string>{58,76}</string>
+			</dict>
+
+			<key>MoveMotion_N_03.PNG</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,434},{45,68}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{5,5},{45,68}}</string>
+				<key>sourceSize</key>
+				<string>{55,78}</string>
+			</dict>
+
+			<key>MoveMotion_N_04.PNG</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,293},{46,69}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{4,4},{46,69}}</string>
+				<key>sourceSize</key>
+				<string>{55,77}</string>
+			</dict>
+
+			<key>MoveMotion_N_05.PNG</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,363},{45,70}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{6,3},{45,70}}</string>
+				<key>sourceSize</key>
+				<string>{57,76}</string>
+			</dict>
+
+			<key>MoveMotion_N_06.PNG</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,143},{50,79}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{4,0},{50,79}}</string>
+				<key>sourceSize</key>
+				<string>{54,79}</string>
+			</dict>
+
+			<key>MoveMotion_N_07.PNG</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,71},{50,71}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{11,5},{50,71}}</string>
+				<key>sourceSize</key>
+				<string>{61,81}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{64,512}</string>
+			<key>textureFileName</key>
+			<string>MoveMotion_N.png</string>
+			</dict>
+		</dict>
+</plist>
