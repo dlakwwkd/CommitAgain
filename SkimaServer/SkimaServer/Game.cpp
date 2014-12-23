@@ -78,9 +78,9 @@ void Game::InitGame()
     IncRefCount();
 
     // 주의: 여기서부턴 하드코딩의 구간입니다.^^
-    ClientSession* temp;
+    ClientSession* temp; ///< 이렇게 로컬 변수들 초기화 안하고 쓰면.. 만일 아래의 for안의 if문을 통과하지 않는 경우.. 맨 아래의 temp->ServerRunComplete()에서 뻑나겠지?
     int i = 0;
-    int roomId;
+    int roomId; ///< 이것도 초기화 안해놓으면, 마찬가지 이유로 쓰레기값을 쓸 경우가 생길 가능성 있음.
     for (auto& player : m_PlayerList)
     {
         player.second->SetTeam(TEAM_A);

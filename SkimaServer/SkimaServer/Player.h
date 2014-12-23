@@ -25,7 +25,9 @@ public:
         m_Client(client), m_PlayerType(type), m_Team(TEAM_N),
         m_PlayerID(playerId), m_RoomID(-1), m_IsReady(false), m_HeroType(HERO_NONE)
     {
-        m_PlayerName = (char*)malloc(sizeof(char)*MAX_NAME_LEN);
+		///# m_PlayerName 하나를 사용하기 위해 이렇게 많은 포인터 연산을 할 바에 그냥 std::string 써라 ㅎㅎ
+
+        m_PlayerName = (char*)malloc(sizeof(char)*MAX_NAME_LEN); 
         ZeroMemory(m_PlayerName, sizeof(char)*MAX_NAME_LEN);
         strcpy(m_PlayerName, playerName);
     }

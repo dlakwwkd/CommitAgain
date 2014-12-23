@@ -20,7 +20,7 @@ void Player::CreateHero(const b2Vec2& pos)
     default:
 		return;
     };
-    m_UnitList[m_Hero->GetUnitID()] = m_Hero;
+    m_UnitList[m_Hero->GetUnitID()] = m_Hero; ///< 이미 존재하는 포인터가 있는지 확인하는 습관을..
 
     m_Client->SendCreateHeroResult(m_Hero->GetUnitID(), pos);
 }
