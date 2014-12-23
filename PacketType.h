@@ -97,6 +97,7 @@ enum PacketTypes
     PKT_SC_TELEPORT = 52,
     PKT_SC_HP = 54,
     PKT_SC_UNHIDE =55,
+    PKT_SC_METEOR =56,
 
     PKT_CS_CHAT = 91,
     PKT_SC_CHAT = 92,
@@ -534,7 +535,20 @@ struct UnHideBroadcastResult : public PacketHeader
     int         mUnitId;
     Coord       mCurrentPos;
 };
-
+struct MeteorBroadcastResult : public PacketHeader
+{
+    MeteorBroadcastResult()
+    {
+        mSize = sizeof(MeteorBroadcastResult);
+        mType = PKT_SC_METEOR;
+        mPlayerId = -1;
+        mUnitId = -1;
+        mTargetPos = { 0, };
+    }
+    int         mPlayerId;
+    int         mUnitId;
+    Coord       mTargetPos;
+};
 
 struct HpBroadcastResult : public PacketHeader
 {

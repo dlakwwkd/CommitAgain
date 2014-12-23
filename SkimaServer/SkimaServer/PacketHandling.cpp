@@ -548,6 +548,19 @@ void ClientSession::UnHideBroadCast(int unitId, const b2Vec2& curPos)
     }
 }
 
+void ClientSession::MeteorBroadCast(int unitId, const b2Vec2& targetPos)
+{
+    MeteorBroadcastResult outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mUnitId = unitId;
+    outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
+
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+}
+
 void ClientSession::ShootBroadCast(int playerId,int unitId, const b2Vec2& curPos, const b2Vec2& targetPos)
 {
     MissileBroadcastResult outPacket;

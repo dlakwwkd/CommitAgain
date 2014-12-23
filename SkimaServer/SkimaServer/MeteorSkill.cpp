@@ -26,7 +26,7 @@ void MeteorSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& t
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 
-//     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-//     auto func = std::bind(&LightningSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
-//     game->RepeatTimer(200, 5, func);
+    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
+    auto func = std::bind(&MeteorSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
+    //game->RepeatTimer(200, 5, func); // todo Hide처럼 1.5초뒤에 첫 호출해줄것
 }

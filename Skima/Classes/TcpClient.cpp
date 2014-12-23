@@ -505,6 +505,27 @@ void TcpClient::processPacket()
         }
         break;
 
+        case PKT_SC_METEOR:
+        {
+            MeteorBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            Vec2 targetPos = CONVERT(recvData.mTargetPos);
+
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MeteorCreate, layer,
+                    recvData.mPlayerId, recvData.mUnitId, targetPos));
+            }
+        }
+            break;
+
         case PKT_SC_GAMEOVER:
         {
             GameOverNotify recvData;
