@@ -83,6 +83,8 @@ bool MainScene::init()
     m_LoginBox->setPosition(Vec2(winSize.width / 2 - 10, winSize.height / 4));
     this->addChild(m_LoginBox);
 
+    this->schedule(schedule_selector(MainScene::Tick), 3.0f);
+
     return true;
 }
 
@@ -144,4 +146,9 @@ void MainScene::LoginToServer()
     auto scene = NetworkScene::createScene();
     Director::getInstance()->pushScene(scene);
     TcpClient::getInstance()->loginRequest(m_LoginName.c_str());
+}
+
+void MainScene::Tick(float dt)
+{
+    m_LoginBox->beginInput(); //혹시라도 입력못받을까봐...
 }

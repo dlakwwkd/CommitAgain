@@ -375,6 +375,29 @@ void ClientSession::LoginProcess(int playerId, char* playerName)
     printf(" Send:   Login ID: %d \n", outPacket.mPlayerId);
 }
 
+void ClientSession::UpdateRoomInfo()
+{
+    int i = 0;
+    auto roomList = GGameManager->GetRoomList();
+
+    LoginResult outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+
+    for (auto& room : roomList)
+    {
+        if (room.first <= 0) // 채워지지 않은 room이라면 break
+            break;
+
+        outPacket.mRoomList[i].mRoomNum = room.first;
+        for (auto& player : room.second->GetPlayerList()) // room안에 player인원세기
+            outPacket.mRoomList[i].mCurPlayerNum++;
+        outPacket.mRoomList[i++].mMaxPlayerNum = MAX_PLAYER_NUM;
+    }
+
+    SendRequest(&outPacket);
+    printf(" Send:   RoomInformation: roomMaxNum: %d", i);
+}
+
 void ClientSession::MakeGameRoom()
 {
     GameRoom* gameRoom = GGameManager->CreateRoom();

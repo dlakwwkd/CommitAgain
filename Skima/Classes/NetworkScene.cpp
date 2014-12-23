@@ -98,7 +98,11 @@ void NetworkScene::RoomInformation(RoomInfo roomInfo)
 
 void NetworkScene::UpdateRoomInfo()
 {
+    if (this->getChildByName("RoomListFrame") != nullptr)
+        this->removeChild(this->getChildByName("RoomListFrame"));
+
     auto winSize = Director::getInstance()->getWinSize();
+    system("cls");
     auto line = 0.9f;
 
     for (auto& room : m_RoomList)
@@ -109,7 +113,7 @@ void NetworkScene::UpdateRoomInfo()
         auto roomListFrame = Sprite::create("Images/RoomListFrame.png");
         roomListFrame->setPosition(Vec2(winSize.width * 0.45f - 50, winSize.height * line));
         roomListFrame->setScaleX(1.50f);
-        this->addChild(roomListFrame, 1);
+        this->addChild(roomListFrame, 1, "RoomListFrame");
 
         auto roomListFrameBack = Sprite::create("Images/RoomListFrame_back.png");
         roomListFrameBack->setPosition(Vec2(405.0f, 115.0f));

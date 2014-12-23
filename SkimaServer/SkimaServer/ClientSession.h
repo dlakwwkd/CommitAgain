@@ -32,6 +32,7 @@ public:
     Player*	GetPlayer() const { return mPlayer; }
 
     void    LoginProcess(int playerId, char* playerName);
+    void    UpdateRoomInfo();
     void    MakeGameRoom();
     void    JoinGameRoom(int roomID);
     void    OutGameRoom();

@@ -201,13 +201,13 @@ void ClientSession::OnTick()
     //////////////////////////////////////////////////////////////////////////
     ///여기에 등록
 
-
+    if (mPlayer != nullptr && mRoomId == NULL)
+        UpdateRoomInfo();
 
     //////////////////////////////////////////////////////////////////////////
     
     CallFuncAfter(PLAYER_HEART_BEAT, this, &ClientSession::OnTick);
 }
-
 
 
 
