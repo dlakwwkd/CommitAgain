@@ -63,6 +63,8 @@ void GameScene::RemoveLoadingLayer()
 
 void GameScene::GameOver(int playerId, int loseId)
 {
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+
 	auto scene = GameOverScene::createScene(m_RoomId, playerId, loseId);
 	Director::getInstance()->popScene();
 	Director::getInstance()->pushScene(scene);

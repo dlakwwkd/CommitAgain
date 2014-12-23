@@ -64,6 +64,8 @@ bool GameOverScene::init()
 
 void GameOverScene::menuCallback1(Ref* sender)	// 게임 시작
 {
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+
 	Director::getInstance()->popScene();
 }
 
@@ -71,6 +73,8 @@ void GameOverScene::menuCallback2(Ref* sender)	// 나가기
 {
 	if (TcpClient::getInstance()->checkSocket() != NULL)
 		TcpClient::getInstance()->outRoomRequest(m_RoomId);
+
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
 	Director::getInstance()->popScene();
 	Director::getInstance()->popScene();

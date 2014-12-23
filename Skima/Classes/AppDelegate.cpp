@@ -3,11 +3,14 @@
 #include "MainScene.h"
 #include "TcpClient.h"
 #include "Macros.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
+using namespace CocosDenshion;
 
 AppDelegate::~AppDelegate()
 {
+    SimpleAudioEngine::end();
     TcpClient::getInstance()->destroyInstance();
 }
 

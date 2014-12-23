@@ -90,11 +90,6 @@ bool MainScene::init()
     this->schedule(schedule_selector(MainScene::Tick), 3.0f);
     SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3" ,true);
 
-    if (SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying())
-    {
-        CCLOG("Playing!");
-    }
-
     return true;
 }
 
@@ -153,6 +148,9 @@ void MainScene::LoginToServer()
         m_LoginBox->beginInput();
         return;
     }
+
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+
     auto scene = NetworkScene::createScene();
     Director::getInstance()->pushScene(scene);
     TcpClient::getInstance()->loginRequest(m_LoginName.c_str());
