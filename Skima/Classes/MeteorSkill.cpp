@@ -4,12 +4,15 @@
 #include "UILayer.h"
 #include "Hero.h"
 #include "Macros.h"
+#include "MeteorEffect.h"
+#include "ObjectLayer.h"
 
 
 MeteorSkill::MeteorSkill()
 {
     m_CoolTime = 3;
     m_CanUse = true;
+    m_CautionSprite = Sprite::create("Laphinx/MeteorCaution.png");
 }
 
 MeteorSkill::MeteorSkill(Hero* hero)
@@ -25,8 +28,16 @@ MeteorSkill::~MeteorSkill()
 
 void MeteorSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
-//     auto effect = new LightningEffect();
-//     effect->CreateEffect(targetPos);
+    m_CautionSprite->setScale(0.8f);
+    m_CautionSprite->setPosition(targetPos);
+    m_CautionSprite->setOpacity(255);
+    GET_OBJECT_LAYER->addChild(m_CautionSprite,14);
+
+    auto fadeOut1 = FadeOut::create(0.6f);
+    auto fadeIn = FadeIn::create(0.3f);
+    auto fadeOut2 = FadeOut::create(0.6f);
+    auto fade_seq = Sequence::create(fadeOut1, fadeIn, fadeOut2, NULL);
+    m_CautionSprite->runAction(fade_seq);
 }
 
 void MeteorSkill::SkillReady()
@@ -37,7 +48,6 @@ void MeteorSkill::SkillReady()
     auto uiLayer = GET_UI_LAYER;
     uiLayer->CursorChange(CURSOR_SPLASH);
     uiLayer->GetCurrentCursor()->setPosition(GET_IM->GetMouseLocation());
-
 }
 
 void MeteorSkill::SkillEnd()

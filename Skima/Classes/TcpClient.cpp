@@ -209,6 +209,8 @@ void TcpClient::processPacket()
                 }
                 if(recvData.mRoomList[0].mRoomNum > 0) // recvData의 첫번째 원소가 0이하면 방이 하나도 없으므로 update하지 않는다.
                     scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::UpdateRoomInfo, scene));
+                //다음 update를 위한 초기화
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ClearRoomInfo, scene));
             }
         }
         break;
@@ -504,6 +506,27 @@ void TcpClient::processPacket()
             }
         }
         break;
+
+        case PKT_SC_METEOR:
+        {
+            MeteorBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            Vec2 targetPos = CONVERT(recvData.mTargetPos);
+
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MeteorCreate, layer,
+                    recvData.mPlayerId, recvData.mUnitId, targetPos));
+            }
+        }
+            break;
 
         case PKT_SC_GAMEOVER:
         {

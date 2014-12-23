@@ -32,6 +32,7 @@ public:
     void MissileCrash(int missileID);
     void DeleteMissile(int missileID);
     void UnHide(int playerID, int unitID, Vec2 recvCurPos);
+    void MeteorCreate(int playerID, int unitID, Vec2 targetPos);
 
 protected:
     std::shared_ptr<Hero>					m_Hero = nullptr;
@@ -41,4 +42,3 @@ protected:
 
     std::vector<std::shared_ptr<Unit>>		m_MobList;
 };
-

@@ -4,7 +4,9 @@
 #include "RoomScene.h"
 #include "InputBox.h"
 #include "TcpClient.h"
+#include "SimpleAudioEngine.h"
 
+using namespace CocosDenshion;
 
 #define MAX_NAME_LEN 14
 #define GET_CONNECT_LABEL dynamic_cast<Label*>(this->getChildByName("ConnectLabel"))
@@ -14,6 +16,8 @@ Scene* MainScene::createScene()
     auto scene = Scene::create();
     auto layer = MainScene::create();
     scene->addChild(layer, 0, "MainScene");
+    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/mainscene.mp3");
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
     return scene;
 }
 
@@ -84,6 +88,12 @@ bool MainScene::init()
     this->addChild(m_LoginBox);
 
     this->schedule(schedule_selector(MainScene::Tick), 3.0f);
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3" ,true);
+
+    if (SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying())
+    {
+        CCLOG("Playing!");
+    }
 
     return true;
 }

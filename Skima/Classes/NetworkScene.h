@@ -20,6 +20,7 @@ public:
     void ConnectLabelChange(const char* str);
     void RoomInformation(RoomInfo roomInfo);
     void UpdateRoomInfo();
+    void ClearRoomInfo();
     void MakeRoomComplete(int roomId);
     void JoinRoomComplete(int roomId);
 

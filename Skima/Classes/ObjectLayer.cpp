@@ -253,8 +253,12 @@ void ObjectLayer::UnHide(int playerID, int unitID, Vec2 recvCurPos)
     if (hero->second->GetHeroType() == HERO_LAPHINX)
     {
         hero->second->HeroUnHide(recvCurPos);
-//         hero->second->GetSprite()->stopAllActions();
-//         hero->second->GetRealSprite()->stopAllActions();
+
     }
+}
+
+void ObjectLayer::MeteorCreate(int playerID, int unitID, Vec2 targetPos)
+{
+
 }
 

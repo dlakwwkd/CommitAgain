@@ -96,13 +96,18 @@ void NetworkScene::RoomInformation(RoomInfo roomInfo)
     ConnectLabelChange("로그인 성공!!");
 }
 
+void NetworkScene::ClearRoomInfo()
+{
+    m_RoomList.clear();
+}
+
 void NetworkScene::UpdateRoomInfo()
 {
-    if (this->getChildByName("RoomListFrame") != nullptr)
-        this->removeChild(this->getChildByName("RoomListFrame"));
-
+    while (this->getChildByName("RoomListFrame") != nullptr)
+    {
+        this->removeChildByName("RoomListFrame");
+    }
     auto winSize = Director::getInstance()->getWinSize();
-    system("cls");
     auto line = 0.9f;
 
     for (auto& room : m_RoomList)

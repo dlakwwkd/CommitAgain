@@ -9,6 +9,9 @@
 #include "windows.h"
 #include "GameOverScene.h"
 #include "EscLayer.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 Scene* GameScene::createScene()
 {
@@ -17,6 +20,9 @@ Scene* GameScene::createScene()
     auto layer2 = ListenerLayer::create();
     scene->addChild(layer1, 3, "GameScene");
     layer1->addChild(layer2, 0, "ListenerLayer");
+
+    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/game.mp3");
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(5.0f);
 
     return scene;
 }
@@ -38,6 +44,8 @@ bool GameScene::init()
     this->addChild(layer3, 20, "EscLayer");
     layer3->setVisible(false);
     
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3", true);
+
     return true;
 }
 
