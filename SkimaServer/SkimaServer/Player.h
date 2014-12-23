@@ -62,6 +62,7 @@ private:
 
     Hero*           m_Hero = nullptr;
     HeroType        m_HeroType;
+
     UnitList        m_UnitList;
 };
 
