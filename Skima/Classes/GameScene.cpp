@@ -24,7 +24,6 @@ Scene* GameScene::createScene()
     layer1->addChild(layer2, 0, "ListenerLayer");
 
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/game.mp3");
-    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.01f);
 
     return scene;
 }
@@ -47,6 +46,7 @@ bool GameScene::init()
     layer3->setVisible(false);
     
     SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/game.mp3", true);
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.00001f);
 
     return true;
 }

@@ -5,7 +5,9 @@
 #include "FireEffect.h"
 #include "IceEffect.h"
 #include "SparkEffect.h"
+#include "SimpleAudioEngine.h"
 
+using namespace CocosDenshion;
 
 Missile::Missile(int unitId)
 {
@@ -19,8 +21,9 @@ Missile::~Missile()
 {
 }
 
-void Missile::MissileCast(const char* image, float speed, Vec2 createPos, Vec2 targetPos)
+void Missile::MissileCast(const char* image, const char* soundEffect, float speed, Vec2 createPos, Vec2 targetPos)
 {
+    SimpleAudioEngine::getInstance()->playEffect(soundEffect);
     m_Particle = ParticleSystemQuad::create(image);
     m_Particle->setPosition(createPos);
     m_Particle->setScale(0.65f);

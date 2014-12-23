@@ -19,7 +19,6 @@ Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/winner.mp3");
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/loser.mp3");
-    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
 
     if (playerId != loseId)
     {
@@ -33,6 +32,7 @@ Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
         SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/loser.mp3");
 
 	}
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
     endScene->setAnchorPoint(Vec2(0, 0));
     endScene->setZOrder(1);
 

@@ -17,7 +17,6 @@ Scene* MainScene::createScene()
     auto layer = MainScene::create();
     scene->addChild(layer, 0, "MainScene");
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/mainscene.mp3");
-    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
     return scene;
 }
 
@@ -87,7 +86,8 @@ bool MainScene::init()
     m_LoginBox->setPosition(Vec2(winSize.width / 2 - 10, winSize.height / 4));
     this->addChild(m_LoginBox);
 
-    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3" ,true);
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3", true);
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
 
     return true;
 }
