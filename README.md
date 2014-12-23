@@ -5,6 +5,7 @@
  - 전반적인 UI 개선
  - 배경음악 추가
  - 새로운 스킬 추가(라핑크스의 Q스킬 - Hide)
+ - 새로운 장애물 추가(지속 데미지를 입히는 용암)
  - ObjectPool 도입(기존의 ObjectManager 제거)
  - CallAfterFunc 제대로 사용
  - Timer 구현
