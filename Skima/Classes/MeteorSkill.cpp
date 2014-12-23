@@ -4,10 +4,8 @@
 #include "UILayer.h"
 #include "Hero.h"
 #include "Macros.h"
-#include "MeteorEffect.h"
-#include "MeteorAfterEffect.h"
 #include "ObjectLayer.h"
-
+#include "MeteorSequenceEffect.h"
 
 MeteorSkill::MeteorSkill()
 {
@@ -64,7 +62,7 @@ void MeteorSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
 
 void MeteorSkill::MakeMeteor(Vec2 targetpos)
 {
-    auto particleEffect = new MeteorEffect();
+    auto particleEffect = new MeteorSequenceEffect();
     particleEffect->CreateEffect(targetpos);
 }
 

@@ -13,7 +13,6 @@ protected:
     void			CreateParticle(const char* file, const Vec2& createPos, float scale, float lastTime);
     void			AddSubParticle(const char* file, const Vec2& anchorPoint, const Vec2& createPos, float scale);
     void			ExtinctParticle();
-    void            MeteorSequenceEffect(const Vec2& createPos);
 protected:
     ParticleSystemQuad* m_Particle = nullptr;
 };

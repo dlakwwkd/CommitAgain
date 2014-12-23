@@ -12,5 +12,7 @@ public:
 
     void            SetSwipeMotionCache();
     void            ShowSwipeMotionByDir(Direction dir);
+
+
 };
 

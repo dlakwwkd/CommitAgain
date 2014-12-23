@@ -18,9 +18,9 @@ void EffectParticleType::CreateParticle(const char* file, const Vec2& createPos,
 {
     m_Particle = ParticleSystemQuad::create(file);
     m_Particle->setPosition(createPos);
-	m_Particle->setScale(scale);
-	auto action1 = DelayTime::create(lastTime);
-	auto action2 = CallFunc::create(CC_CALLBACK_0(EffectParticleType::ExtinctParticle, this));
+    m_Particle->setScale(scale);
+    auto action1 = DelayTime::create(lastTime);
+    auto action2 = CallFunc::create(CC_CALLBACK_0(EffectParticleType::ExtinctParticle, this));
     auto action3 = Sequence::create(action1, action2, NULL);
     m_Particle->runAction(action3);
     GET_OBJECT_LAYER->addChild(m_Particle, 20);
@@ -28,11 +28,11 @@ void EffectParticleType::CreateParticle(const char* file, const Vec2& createPos,
 
 void EffectParticleType::AddSubParticle(const char* file, const Vec2& anchorPoint, const Vec2& createPos, float scale)
 {
-	auto particle = ParticleSystemQuad::create(file);
-	particle->setAnchorPoint(anchorPoint);
-	particle->setPosition(createPos);
-	particle->setScale(scale);
-	m_Particle->addChild(particle);
+    auto particle = ParticleSystemQuad::create(file);
+    particle->setAnchorPoint(anchorPoint);
+    particle->setPosition(createPos);
+    particle->setScale(scale);
+    m_Particle->addChild(particle);
 }
 
 void EffectParticleType::ExtinctParticle()
@@ -40,14 +40,14 @@ void EffectParticleType::ExtinctParticle()
     GET_OBJECT_LAYER->removeChild(m_Particle);
     delete this;
 }
-
-void EffectParticleType::MeteorSequenceEffect(const Vec2& createPos)
-{
-    auto fireSpriteA = Sprite::create("Laphinx/fireA.plist");
-    auto fireSpriteB = Sprite::create("Laphinx/fireB.plist");
-    auto fireSpriteC = Sprite::create("Laphinx/fire.plist");
-
-    GET_OBJECT_LAYER->addChild(fireSpriteA, 20);
-    GET_OBJECT_LAYER->addChild(fireSpriteB, 20);
-    GET_OBJECT_LAYER->addChild(fireSpriteC, 20);
-}
+// 
+// void EffectParticleType::MeteorSequenceEffect(const Vec2& createPos)
+// {
+//     auto fireSpriteA = Sprite::create("Laphinx/fireA.plist");
+//     auto fireSpriteB = Sprite::create("Laphinx/fireB.plist");
+//     auto fireSpriteC = Sprite::create("Laphinx/fire.plist");
+// 
+//     GET_OBJECT_LAYER->addChild(fireSpriteA, 20);
+//     GET_OBJECT_LAYER->addChild(fireSpriteB, 20);
+//     GET_OBJECT_LAYER->addChild(fireSpriteC, 20);
+// }
