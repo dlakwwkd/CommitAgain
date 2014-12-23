@@ -9,12 +9,13 @@ Hero::Hero()
     m_UnitType = UNIT_HERO;
 
     m_Arrow = Sprite::create("Images/arrow.png");
-    m_Arrow->setScale(0.1f, 0.1f);
+    m_Arrow->setScale(0.3f, 0.3f);
     m_Arrow->setVisible(false);
     m_Sprite->addChild(m_Arrow);
 
     m_SkillRange = Sprite::create("Images/SkillRange.png");
-    m_SkillRange->setScale(1.2f, 1.2f);
+    m_SkillRange->setScale(1.5f, 1.5f);
+    m_SkillRange->setPosition(35.0f, 0.0f);
     m_SkillRange->setVisible(false);
     m_Sprite->addChild(m_SkillRange);
 }
