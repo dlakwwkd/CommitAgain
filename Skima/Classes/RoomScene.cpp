@@ -32,17 +32,18 @@ bool RoomScene::init()
 
     auto roomBackground = Sprite::create("Images/RoomBackground.png");
     roomBackground->setPosition(winSize.width / 2, winSize.height / 2);
+    roomBackground->setOpacity(150);
     this->addChild(roomBackground, -1);
     auto selectZone = Sprite::create("Images/SelectZone.png");
-    selectZone->setPosition(Vec2(winSize.width * 1 / 8, winSize.height * 3 / 8 - 30));
+    selectZone->setPosition(Vec2(winSize.width * 2 / 8, winSize.height * 3 / 8 - 30));
     selectZone->setOpacity(100);
     this->addChild(selectZone, 1);
         
     /////////////////////////////////////////////////캐릭터 초상화 추가할 부분/////////////////////////////////////////////
     /* Ready 캐릭터 전체모습 띄우는 부분 */
-    MakeHeroSprite("Images/SelectFace/[Select]Magician.png", Vec2(winSize.width * 1 / 8 - 70, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_MAGICIAN);
-    MakeHeroSprite("Jupiter/JupiterImage.png", Vec2(winSize.width * 1 / 8 - 50, winSize.height * 4 / 8), Vec2(1.5f, 1.5f), Vec2(0, 1), HERO_JUPITER);
-    MakeHeroSprite("Laphinx/LaphinxImage.png", Vec2(winSize.width * 1 / 8 - 80, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_LAPHINX);
+    MakeHeroSprite("Images/SelectFace/[Select]Magician.png", Vec2(winSize.width * 2 / 8 - 70, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_MAGICIAN);
+    MakeHeroSprite("Jupiter/JupiterImage.png", Vec2(winSize.width * 2 / 8 - 50, winSize.height * 4 / 8), Vec2(1.5f, 1.5f), Vec2(0, 1), HERO_JUPITER);
+    MakeHeroSprite("Laphinx/LaphinxImage.png", Vec2(winSize.width * 2 / 8 - 80, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_LAPHINX);
 
     /* 캐릭터 선택창버튼 초상화 추가 (width 1/8씩 ++) */
     auto magicanFace = MenuItemImage::create(
@@ -63,7 +64,7 @@ bool RoomScene::init()
 
     auto faceTable = Menu::create(magicanFace, jupiterFace,laphinxFace, NULL);
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    faceTable->setPosition(winSize.width * 3 / 8, winSize.height * 2 / 8);
+    faceTable->setPosition(winSize.width * 4 / 8, winSize.height * 2 / 8);
     this->addChild(faceTable);
 
     m_CurHero = HERO_MAGICIAN;
@@ -188,11 +189,11 @@ void RoomScene::ChangeSelectedHero(HeroType heroType)
 
     auto winSize = Director::getInstance()->getWinSize();
     auto zoneEffect = Sprite::create("Images/ZoneEffect.png");
-    zoneEffect->setPosition(Vec2(winSize.width * 1 / 8, winSize.height / 4));
+    zoneEffect->setPosition(Vec2(winSize.width * 2 / 8, winSize.height / 4));
     zoneEffect->setOpacity(100);
     this->addChild(zoneEffect, 2);
 
-    auto zoneAction_0 = MoveTo::create(1.0f, Vec2(winSize.width * 1 / 8, winSize.height / 2));
+    auto zoneAction_0 = MoveTo::create(1.0f, Vec2(winSize.width * 2 / 8, winSize.height / 2));
     auto zoneAction_1 = FadeTo::create(1.5f, 0);
     zoneEffect->runAction(zoneAction_0);
     zoneEffect->runAction(zoneAction_1);

@@ -13,8 +13,6 @@ public:
     void menuCallback1(Ref* sender);
     void menuCallback2(Ref* sender);
 
-    void Tick(float dt);
-
     void ConnectLabelCreate(const char* str, MainScene* scene);
     void ConnectLabelChange(const char* str);
     void LoginToServer();

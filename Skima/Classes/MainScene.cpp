@@ -87,7 +87,6 @@ bool MainScene::init()
     m_LoginBox->setPosition(Vec2(winSize.width / 2 - 10, winSize.height / 4));
     this->addChild(m_LoginBox);
 
-    this->schedule(schedule_selector(MainScene::Tick), 3.0f);
     SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3" ,true);
 
     return true;
@@ -129,6 +128,7 @@ void MainScene::LoginToServer()
     if (m_LoginName[0] == '\0' || m_LoginName[0] == ' ') // Name맨앞 공백 혹은 안썼을 때 return
     {
         m_LoginBox->clear();
+        m_LoginBox->beginInput();
         return;
     }
 
@@ -148,12 +148,8 @@ void MainScene::LoginToServer()
         m_LoginBox->beginInput();
         return;
     }
+    m_LoginBox->endInput();
     auto scene = NetworkScene::createScene();
     Director::getInstance()->pushScene(scene);
     TcpClient::getInstance()->loginRequest(m_LoginName.c_str());
-}
-
-void MainScene::Tick(float dt)
-{
-    m_LoginBox->beginInput(); //혹시라도 입력못받을까봐...
 }
