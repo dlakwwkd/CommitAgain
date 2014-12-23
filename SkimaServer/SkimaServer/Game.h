@@ -34,6 +34,7 @@ public:
     void                OutPlayer(int playerId);
 
     void                MobWaveSystem();
+    void                ChaseEnemy();
     void                Targeting(Unit* caster);
 
 private:

@@ -16,7 +16,6 @@ Mob::Mob(Vec2 createPos, float scale)
     m_RealSprite = Sprite::create("Images/Pea.png");
     m_RealSprite->setScale(scale);
     m_RealSprite->setAnchorPoint(Vec2(0, 0));
-    m_RealSprite->setPosition(-15, -10);
     m_Sprite->addChild(m_RealSprite);
 }
 

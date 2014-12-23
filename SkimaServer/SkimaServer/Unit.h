@@ -36,6 +36,7 @@ public:
     void			SetStaticBody(Player* owner, int type, const b2Vec2& initPos, const b2Vec2& scale);
 
     void            Moving();
+    void            Chasing();
     void            Crashing(bool isCrashing);
     void            Damaged(int damage);
 

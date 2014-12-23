@@ -88,6 +88,25 @@ void Unit::Moving()
     }
 }
 
+void Unit::Chasing()
+{
+    if (m_State == m_CrashedState)
+    {
+        return;
+    }
+    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
+    game->Targeting(this);
+
+    auto currentPos = m_Body->GetPosition();
+    auto displacement = m_TargetPos - currentPos;
+    displacement.Normalize();
+    displacement *= m_Speed;
+    m_Body->SetLinearVelocity(displacement);
+
+    m_Owner->GetClient()->TryMoveBroadCast(m_UnitID, currentPos, m_TargetPos);
+    m_State->TryMove(this);
+}
+
 void Unit::Crashing(bool isCrashing)
 {
     auto client = m_Owner->GetClient();

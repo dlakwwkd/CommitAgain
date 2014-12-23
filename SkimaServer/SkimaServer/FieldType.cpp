@@ -23,8 +23,5 @@ void FieldType::FieldDamage(const b2Vec2& targetPos, float scale, int damage)
     range.m_Left = targetPos.x - scale;
     range.m_Right = targetPos.x + scale;
 
-    if (m_Owner != nullptr && m_GameOn)
-    {
-        GGameManager->FieldDamage(m_Owner, &range, damage);
-    }
+    GGameManager->FieldDamage(m_Owner, &range, damage);
 }

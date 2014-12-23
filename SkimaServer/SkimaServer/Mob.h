@@ -6,8 +6,5 @@ class Mob : public Unit, public ObjectPool<Mob>
 public:
 	Mob();
 	virtual ~Mob();
-
-    void ChaseEnemy();
-    void Chasing();
 };
 

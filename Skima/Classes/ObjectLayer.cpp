@@ -104,7 +104,6 @@ void ObjectLayer::CreateMob(int playerID, int unitID, Vec2 location)
     {
         unit->SetEnemyHpBar();
     }
-    GET_UI_LAYER->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
 }
 
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)

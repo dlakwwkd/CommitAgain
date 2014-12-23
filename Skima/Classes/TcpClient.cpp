@@ -403,6 +403,7 @@ void TcpClient::processPacket()
                 {
                 case UNIT_HERO:
                 case UNIT_OBSTRUCT:
+                case UNIT_MOB:
                     if (recvData.mIsCrashed)
                     {
                         scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
