@@ -3,6 +3,9 @@
 #include "NetworkScene.h"
 #include "TcpClient.h"
 #include "GameScene.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 {
@@ -12,18 +15,29 @@ Scene* GameOverScene::createScene(int roomId, int playerId, int loseId)
 	scene->addChild(layer, 0, "GameOverScene");
 	layer->SetRoomID(roomId);
 
+    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/winner.mp3");
+    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/loser.mp3");
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(5.0f);
+
     if (playerId != loseId)
     {
         endScene = Sprite::create("Images/WinScene.png");
+        SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/winner.mp3");
+
     }
 	else
 	{
         endScene = Sprite::create("Images/LoseScene.png");
+        SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/loser.mp3");
+
 	}
     endScene->setAnchorPoint(Vec2(0, 0));
     endScene->setZOrder(1);
 
     layer->addChild(endScene);
+
+    
+
 	return scene;
 }
 
