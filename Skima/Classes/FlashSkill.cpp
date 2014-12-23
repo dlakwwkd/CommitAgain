@@ -30,11 +30,11 @@ void FlashSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     auto effect = new TeleportEffect();
     effect->CreateEffect(heroPos);
 
-    m_Hero->EndMove();
-    auto distance = heroPos.distance(targetPos);
-    auto time = distance / 1500.0f;
-    auto action = MoveTo::create(time, targetPos);
-    m_Hero->GetSprite()->runAction(action);
+    //m_Hero->EndMove();
+//     auto distance = heroPos.distance(targetPos);
+//     auto time = distance / 1500.0f;
+//     auto action = MoveTo::create(time, targetPos);
+//     m_Hero->GetSprite()->runAction(action);
 }
 
 void FlashSkill::SkillReady()

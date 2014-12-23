@@ -30,11 +30,11 @@ Game::~Game()
     {
         computer->second->UnitListClear();
         delete computer->second;
-        computer->second = nullptr;
         m_PlayerList.erase(computer);
         m_Computer = nullptr;
     }
     delete m_Map;
+    m_Map = nullptr;
 
     for (auto& player : m_PlayerList)
     {
@@ -56,10 +56,13 @@ void Game::Tick(float dt)
 
 void Game::RepeatTimer(int repeatDelay, int repeatNum, const Task& func)
 {
-    func();
-    if (--repeatNum > 0)
+    if (m_IsStart)
     {
-        CallFuncAfter(repeatDelay, this, &Game::RepeatTimer, repeatDelay, repeatNum, func);
+        func();
+        if (--repeatNum > 0)
+        {
+            CallFuncAfter(repeatDelay, this, &Game::RepeatTimer, repeatDelay, repeatNum, func);
+        }
     }
 }
 
@@ -69,6 +72,19 @@ void Game::InfiniteTimer(int repeatDelay, const Task& func)
     {
         func();
         CallFuncAfter(repeatDelay, this, &Game::InfiniteTimer, repeatDelay, func);
+    }
+}
+
+void Game::CallFuncOnce(int delay, const Task& func)
+{
+    CallFuncAfter(delay, this, &Game::RunFunction, func);
+}
+
+void Game::RunFunction(const Task& func)
+{
+    if (m_IsStart)
+    {
+        func();
     }
 }
 

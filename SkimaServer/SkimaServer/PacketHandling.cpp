@@ -278,6 +278,10 @@ REGISTER_HANDLER(PKT_CS_MOVE)
     b2Vec2 targetPos = CONVERT_IN(inPacket.mTargetPos, roomId);
     b2Vec2 currentPos = CONVERT_IN(inPacket.mCurrentPos, roomId);
 
+    if (GET_SIDE_TYPE(hero->GetUnitID()) == HERO_JUPITER)
+    {
+        hero->StopSkill(SKILL_E);
+    }
     hero->TryMove(currentPos, targetPos);
 }
 
@@ -618,6 +622,22 @@ void ClientSession::HpBroadCast(int playerId, int unitId, int hp)
     outPacket.mUnitId = unitId;
     outPacket.mHp = hp;
 
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+}
+
+void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type)
+{
+    BuffBroadcastResult outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mUnitId = unitId;
+    outPacket.mBonus = Extend(bonus);
+    outPacket.mBuffTarget = type;
+    
+    printf("speed: %.f \n", outPacket.mBonus);
+        
     if (!Broadcast(&outPacket))
     {
         Disconnect();

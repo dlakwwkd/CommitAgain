@@ -20,6 +20,7 @@ public:
     void            SetTargetPos(Vec2 pos){ m_TargetPos = pos; }
     void            SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
     void            SetAllSpriteVisible();
+
     int             GetUnitPlayerID(){ return m_PlayerID; }
     int             GetUnitID(){ return m_UnitID; }
     Sprite*         GetRealSprite(){ return m_RealSprite; }
@@ -29,6 +30,7 @@ public:
     Sprite*         GetHpBarOut(){ return m_HpbarOut; }
     float           GetMaxHp(){ return m_MaxHp; }
     float           GetCurHp(){ return m_CurHp; }
+    float           GetSpeed(){ return m_Speed; }
     Vec2            GetMoveTargetPos(){ return m_TargetPos; }
 
     MoveState*      GetMoveState(){ return m_MoveState; }
@@ -41,11 +43,13 @@ public:
     void            EndCrash(){ m_MoveState->EndCrash(this); }
     void            Movement(){ m_MoveState->Movement(this); }
 
+    void            SetSpeed(float speed) { m_Speed = speed; }
     void            SetHp(int curHp);
     void            SetMyHpBar();
     void            SetEnemyHpBar();
     void            UpdateMyHpBar();
     void            UpdateOtherHpBar();
+
     void            Move();
     void            Crash();
 

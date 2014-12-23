@@ -8,6 +8,7 @@ Skill::Skill()
     m_Damage = 0;
     m_Range = 0.0f;
     m_HeroBodySize = 0.0f;
+    m_IsOn = false;
 }
 
 

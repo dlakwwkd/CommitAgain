@@ -39,6 +39,14 @@ enum MobType
     MOB_NONE,
     MOB_PEA,
 };
+enum BuffTarget
+{
+    BUFF_NONE,
+    BUFF_HP,
+    BUFF_SPEED,
+    BUFF_DAMAGE,
+    BUFF_COOLTIME,
+};
 
 enum SkillKey
 {
@@ -54,55 +62,54 @@ enum SkillKey
 
 enum PacketTypes
 {
-    PKT_NONE = 0,
+    PKT_NONE            = 0,
 
-    PKT_CS_LOGIN = 1,
-    PKT_SC_LOGIN = 2,
+    PKT_CS_LOGIN        = 1,
+    PKT_SC_LOGIN        = 2,
 
-    PKT_CS_MAKE_ROOM = 11,
-    PKT_SC_MAKE_ROOM = 12,
-    PKT_CS_INOUT_ROOM = 13,
-    PKT_SC_INOUT_ROOM = 14,
-    PKT_CS_GAME_READY = 15,
-    PKT_SC_ALL_READY = 16,
+    PKT_CS_MAKE_ROOM    = 11,
+    PKT_SC_MAKE_ROOM    = 12,
+    PKT_CS_INOUT_ROOM   = 13,
+    PKT_SC_INOUT_ROOM   = 14,
+    PKT_CS_GAME_READY   = 15,
+    PKT_SC_ALL_READY    = 16,
 
     ///////////////
     // SC로만 로딩 정보 전달(맵, 유닛 등) 
-    PKT_SC_CREATE_MAP = 21,
-    PKT_SC_CREATE_HERO = 22,
-    PKT_SC_CREATE_MOB = 23,
+    PKT_SC_CREATE_MAP   = 21,
+    PKT_SC_CREATE_HERO  = 22,
+    PKT_SC_CREATE_MOB   = 23,
     ///////////////
 
     PKT_SC_RUN_COMPLETE = 31,
     PKT_CS_RUN_COMPLETE = 32,
 
-    PKT_SC_START_GAME = 33,
+    PKT_SC_START_GAME   = 33,
 
-    PKT_CS_OUT_GAME = 34,
-    PKT_SC_OUT_GAME = 35,
+    PKT_CS_OUT_GAME     = 34,
+    PKT_SC_OUT_GAME     = 35,
 
 
-    PKT_CS_MOVE = 41,
-    PKT_SC_MOVE = 42,
+    PKT_CS_MOVE         = 41,
+    PKT_SC_MOVE         = 42,
+    PKT_SC_CRASH        = 44,
 
-    PKT_SC_CRASH = 44,
+    PKT_CS_SKILL        = 45,
+    PKT_SC_SKILL        = 46,
+    PKT_CS_SPLASH       = 47,
+    PKT_SC_SPLASH       = 48,
 
-    PKT_CS_SKILL = 45,
-    PKT_SC_SKILL = 46,
+    PKT_SC_MISSILE      = 50,
+    PKT_SC_TELEPORT     = 52,
+    PKT_SC_HP           = 54,
+    PKT_SC_UNHIDE       = 55,
+    PKT_SC_METEOR       = 56,
+    PKT_SC_BUFF         = 57,
 
-    PKT_CS_SPLASH = 47,
-    PKT_SC_SPLASH = 48,
+    PKT_CS_CHAT         = 91,
+    PKT_SC_CHAT         = 92,
 
-    PKT_SC_MISSILE = 50,
-    PKT_SC_TELEPORT = 52,
-    PKT_SC_HP = 54,
-    PKT_SC_UNHIDE =55,
-    PKT_SC_METEOR =56,
-
-    PKT_CS_CHAT = 91,
-    PKT_SC_CHAT = 92,
-
-    PKT_SC_GAMEOVER = 100,
+    PKT_SC_GAMEOVER     = 100,
 
     PKT_MAX = 1024
 };
@@ -554,7 +561,6 @@ struct MeteorBroadcastResult : public PacketHeader
     int         mUnitId;
     Coord       mTargetPos;
 };
-
 struct HpBroadcastResult : public PacketHeader
 {
     HpBroadcastResult()
@@ -568,6 +574,23 @@ struct HpBroadcastResult : public PacketHeader
     int         mUnitId;
     int         mHp;
 };
+struct BuffBroadcastResult : public PacketHeader
+{
+    BuffBroadcastResult()
+    {
+        mSize = sizeof(BuffBroadcastResult);
+        mType = PKT_SC_BUFF;
+        mUnitId = -1;
+        mBonus = 0;
+        mBuffTarget = BUFF_NONE;
+    }
+    int         mPlayerId;
+    int         mUnitId;
+    float       mBonus;
+    BuffTarget  mBuffTarget;
+};
+
+
 ///////////////////////////////////////////////////////////////////////////
 /*
     채팅 관련

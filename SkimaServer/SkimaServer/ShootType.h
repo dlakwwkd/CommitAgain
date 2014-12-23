@@ -9,6 +9,7 @@ public:
     virtual ~ShootType();
     
     virtual void	SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos) = 0;
+    virtual void    CastStop(SkillKey key) = 0;
 protected:
     b2Vec2			GenerateInitPos(const b2Vec2& heroPos, const b2Vec2& targetPos);
 	void            ShootMissile(const b2Vec2& initPos);

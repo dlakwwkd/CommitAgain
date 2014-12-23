@@ -485,6 +485,25 @@ void TcpClient::processPacket()
             }
         }
         break;
+        
+        case PKT_SC_BUFF:
+        {
+            BuffBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitBuffApply, layer,
+                    recvData.mUnitId, recvData.mBonus, recvData.mBuffTarget));
+            }
+        }
+        break;
 
         case PKT_SC_UNHIDE:
         {

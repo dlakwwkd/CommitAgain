@@ -1,18 +1,20 @@
 #pragma once
 #include "Skill.h"
-class FieldType : public Skill
+class BuffType : public Skill
 {
 public:
-    FieldType();
-    virtual ~FieldType();
+    BuffType();
+    virtual ~BuffType();
 
     virtual void	SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos) = 0;
     virtual void    CastStop(SkillKey key) = 0;
 
 protected:
-    void			FieldDamage(const b2Vec2& targetPos, float scale, int damage);
+    void			MoveSpeedBonus();
+    void            MoveSpeedBonusEnd();
 
 protected:
-    float           m_Scale;
+    int             m_Duration;
+    float           m_Bonus;
 };
 

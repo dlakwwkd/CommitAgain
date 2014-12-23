@@ -137,6 +137,9 @@
     <ClCompile Include="ShortDashSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClCompile>
+    <ClCompile Include="BuffType.cpp">
+      <Filter>Game\Component\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -296,6 +299,9 @@
     </ClInclude>
     <ClInclude Include="ShortDashSkill.h">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffType.h">
+      <Filter>Game\Component\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

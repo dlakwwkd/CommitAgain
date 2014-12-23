@@ -203,6 +203,23 @@ void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
     }
 }
 
+void ObjectLayer::UnitBuffApply(int unitID, float bonus, BuffTarget type)
+{
+    auto unit = m_UnitList.find(unitID);
+    if (unit == m_UnitList.end())
+    {
+        return;
+    }
+    switch (type)
+    {
+    case BUFF_HP:       unit->second->SetHp(unit->second->GetCurHp() + bonus);      break;
+    case BUFF_SPEED:    unit->second->SetSpeed(unit->second->GetSpeed() + bonus);   break;
+    default:
+        break;
+    }
+}
+
+
 void ObjectLayer::ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos)
 {
     auto temp = m_MissileList.find(missileID);

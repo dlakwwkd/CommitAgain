@@ -160,6 +160,7 @@
     <ClInclude Include="..\..\PacketType.h" />
     <ClInclude Include="..\..\Shared\FSM.h" />
     <ClInclude Include="AdrenalineSkill.h" />
+    <ClInclude Include="BuffType.h" />
     <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="ClientManager.h" />
     <ClInclude Include="ClientSession.h" />
@@ -214,6 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdrenalineSkill.cpp" />
+    <ClCompile Include="BuffType.cpp" />
     <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="ClientSession.cpp" />

@@ -38,7 +38,7 @@ bool NetworkScene::init()
     menu->alignItemsVertically();
     this->addChild(menu);
 
-    this->schedule(schedule_selector(NetworkScene::Tick), 3.0f);
+    this->schedule(schedule_selector(NetworkScene::Tick), 1.0f);
 
     return true;
 }
