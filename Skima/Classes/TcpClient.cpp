@@ -209,8 +209,7 @@ void TcpClient::processPacket()
                     scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::RoomInformation, scene,
                         room));
                 }
-                if(recvData.mRoomList[0].mRoomNum > 0) // recvData의 첫번째 원소가 0이하면 방이 하나도 없으므로 update하지 않는다.
-                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::UpdateRoomInfo, scene));
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::UpdateRoomInfo, scene));
             }
         }
         break;
