@@ -1,15 +1,26 @@
-CommitAgain
-===========
+##= Release 0.8v =
+**변경사항**
+ - 로그인 시스템 구현
+ - 방목록 시스템 구현
+ - 전반적인 UI 개선
+ - 배경음악 추가
+ - ObjectPool 도입(기존의 ObjectManager 제거)
+ - CallAfterFunc 제대로 사용
+ - Timer 구현
+ - Mob 구현 중에 있음(일단 주석처리)
+ - 기타 여러 버그 수정 
 
-NHN NEXT 게임 프로젝트 CommitAgain팀입니다!
+**조작방법**
+ - 캐릭터 이동 : 마우스 우클릭  
+ - 스킬 사용 : Q or W or E + 마우스 좌클릭
 
+##Skima.sln 빌드하는 법(Cloning 했을 때)
+1. CommitAgain\Skima\cocos2d 폴더 안의 download-deps.py 실행   
+2. Skima.sln 실행후 솔루션 탐색기에서 Skima프로젝트를 시작 프로젝트로 설정후 빌드   
 
- * [**팀원 및 출사표**](https://github.com/dlakwwkd/CommitAgain/wiki/%ED%8C%80%EB%AA%85-&-%EC%B6%9C%EC%82%AC%ED%91%9C)
- * [**게임 컨셉 기획**](https://github.com/dlakwwkd/CommitAgain/wiki/%EC%BB%A8%EC%85%89-%EA%B8%B0%ED%9A%8D%EC%84%9C)
- * [**최신 배포 버전**](https://github.com/dlakwwkd/CommitAgain/tree/Release_v0.7)
-
-
-Clone 할 때 주의사항
-----
- * 클라는 cocos2d 폴더 안의 download-deps.py를 실행 후 빌드해야함
- * zip으로 다운받을 경우 서브모듈의 zip을 추가로 받아서 풀어야 함
+##Skima.sln 빌드하는 법(zip파일로 받았을 때)
+1. 깃허브의 Skima > cocos2d @4e645c > Download ZIP    
+2. ZIP 압축을 푼 후, cocos2d 폴더 안의 download-deps.py 실행   
+3. cocos2d-x-custom-3 폴더 안의 모든 파일 및 폴더를   
+       \CommitAgain-Release_v0.5\CommitAgain-Release_v0.5\Skima\cocos2d에 넣습니다   
+4. Skima.sln 실행후 솔루션 탐색기에서 Skima프로젝트를 시작 프로젝트로 설정후 빌드   
