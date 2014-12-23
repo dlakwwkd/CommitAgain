@@ -43,7 +43,6 @@ public:
 
     void                PlayerOut(Player* player);
 
-    bool                ApplyDamage(Unit* unitA, Unit* unitB);
     void                CrashDamage(Unit* unitA, Unit* unitB);
     void                FieldDamage(Player* caster, Rect* range, int damage);
 	void                DeadUnit(Unit* unit);

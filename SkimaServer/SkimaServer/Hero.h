@@ -12,7 +12,7 @@ public:
 
     const SkillList&	GetSkillList(){ return m_SkillList; }
     void				UseSkill(SkillKey skillKey, const b2Vec2& heroPos, const b2Vec2& targetPos);
-    void                StopSkill(SkillKey skillKey);
+    void                StopSkill();
     virtual void        Extinction(){}
 
 protected:

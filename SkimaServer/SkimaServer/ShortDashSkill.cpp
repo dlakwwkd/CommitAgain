@@ -7,6 +7,8 @@
 ShortDashSkill::ShortDashSkill(Player* owner)
 {
     m_Owner = owner;
+    m_Duration = 500;
+    m_SpeedBonus = Reduce(750.0f);
 }
 
 
@@ -17,16 +19,17 @@ ShortDashSkill::~ShortDashSkill()
 void ShortDashSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos)
 {
     auto hero = m_Owner->GetMyHero();
-    hero->Crashing(false);
-
-    auto displacement = targetPos - hero->GetBody()->GetPosition();
-    if (displacement.Normalize() < 0.5f)
-    {
-        return;
-    }
-    displacement *= Reduce(750.0f);
-    hero->GetBody()->SetLinearVelocity(displacement);
+    hero->EndMove();
+    hero->EndCrash();
 
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
+
+    MoveSpeedBonus();
+    hero->TryMove(heroPos, targetPos);
+}
+
+void ShortDashSkill::CastStop()
+{
+    MoveSpeedBonusEnd();
 }

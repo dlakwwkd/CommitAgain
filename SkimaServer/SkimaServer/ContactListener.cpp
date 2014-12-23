@@ -8,18 +8,16 @@ void ContactListener::BeginContact(b2Contact *contact)
     auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
     auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
-    auto lambda = [&](Unit* unit)
+    if (unitA && unitA->GetUnitID() > 0)
     {
-        if (!unit || unit->GetUnitID() < 0)
-        {
-            printf(" - BeginContact Failed ! : unit is invalid \n");
-            return;
-        }
-        unit->SetContectState(true);
-        unit->Crashed();
-    };
-    lambda(unitA);
-    lambda(unitB);
+        unitA->SetContectState(true);
+        unitA->Crashed();
+    }
+    if (unitB && unitB->GetUnitID() > 0)
+    {
+        unitB->SetContectState(true);
+        unitB->Crashed();
+    }
 }
 
 void ContactListener::EndContact(b2Contact* contact)
@@ -27,20 +25,20 @@ void ContactListener::EndContact(b2Contact* contact)
     auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
     auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
-    auto lambda = [&](Unit* unit)
+    int damageAble = 0;
+    if (unitA && unitA->GetUnitID() > 0)
     {
-        if (!unit || unit->GetUnitID() < 0)
-        {
-            printf(" - EndContact Failed ! : unit is invalid \n");
-            return;
-        }
-        unit->Crashing(true);
-        unit->SetContectState(false);
-    };
-    lambda(unitA);
-    lambda(unitB);
-
-    if (GGameManager->ApplyDamage(unitA, unitB))
+        unitA->Crashing();
+        unitA->SetContectState(false);
+        ++damageAble;
+    }
+    if (unitB && unitB->GetUnitID() > 0)
+    {
+        unitB->Crashing();
+        unitB->SetContectState(false);
+        ++damageAble;
+    }
+    if (damageAble == 2)
     {
         GGameManager->CrashDamage(unitA, unitB);
     }

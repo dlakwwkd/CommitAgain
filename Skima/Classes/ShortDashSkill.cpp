@@ -31,12 +31,6 @@ void ShortDashSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
     auto effect = new TeleportEffect();
     effect->CreateEffect(heroPos);
-
-    m_Hero->EndMove();
-    auto distance = heroPos.distance(targetPos);
-    auto time = distance / 750.0f;
-    auto action = MoveTo::create(time, targetPos);
-    m_Hero->GetSprite()->runAction(action);
 }
 
 void ShortDashSkill::SkillReady()

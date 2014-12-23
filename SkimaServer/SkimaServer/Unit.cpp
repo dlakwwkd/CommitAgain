@@ -78,6 +78,27 @@ void Unit::SetStaticBody(Player* owner, int type, const b2Vec2& initPos, const b
 
 void Unit::Moving()
 {
+    auto client = m_Owner->GetClient();
+    if (client == nullptr)
+    {
+        printf(" - TryMove Failed ! : client is invalid \n");
+        return;
+    }
+    auto curPos = m_Body->GetPosition();
+    auto displacement = m_TargetPos - curPos;
+    if (displacement.Normalize() < 0.5f)
+    {
+        m_Body->SetLinearVelocity(b2Vec2(0, 0));
+        return;
+    }
+    displacement *= m_Speed;
+    m_Body->SetLinearVelocity(displacement);
+
+    client->TryMoveBroadCast(m_UnitID, curPos, m_TargetPos);
+}
+
+void Unit::ReachCheck()
+{
     auto curPos = m_Body->GetPosition();
     auto distance = m_TargetPos - curPos;
     if (distance.Length() < 0.5f)
@@ -88,61 +109,41 @@ void Unit::Moving()
     }
 }
 
-void Unit::Chasing()
-{
-    if (m_State == m_CrashedState)
-    {
-        return;
-    }
-    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    game->Targeting(this);
-
-    auto currentPos = m_Body->GetPosition();
-    auto displacement = m_TargetPos - currentPos;
-    displacement.Normalize();
-    displacement *= m_Speed;
-    m_Body->SetLinearVelocity(displacement);
-
-    m_Owner->GetClient()->TryMoveBroadCast(m_UnitID, currentPos, m_TargetPos);
-    m_State->TryMove(this);
-}
-
-void Unit::Crashing(bool isCrashing)
+void Unit::Crashing()
 {
     auto client = m_Owner->GetClient();
     if (client == nullptr)
     {
-        EndCrash();
         printf(" - Crashing Failed ! : client is invalid \n");
         return;
     }
-    switch (GET_MAIN_TYPE(m_UnitID))
-    {
-    case UNIT_MISSILE:
-        isCrashing = false;
-        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
-        break;
-    };
-
     auto curPos = m_Body->GetPosition();
     auto expectPos = curPos;
-    
-    if (isCrashing)
-    {
-        m_IsHidden = false;
-        auto velocity = m_Body->GetLinearVelocity();
-        velocity *= 1.0f / DAMPING;
-        expectPos += velocity;
-        printf(" - Crashing:    UnitID: %d,  \t   expectPos:   x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
-            Extend(expectPos.x), Extend(expectPos.y));
-    } 
-    else
-    {
-        EndCrash();
-    }
+    auto velocity = m_Body->GetLinearVelocity();
+    velocity *= 1.0f / DAMPING;
+    expectPos += velocity;
+    printf(" - Crashing:    UnitID: %d,  \t   expectPos:   x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
+        Extend(expectPos.x), Extend(expectPos.y));
 
-    client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, isCrashing);
+    m_IsHidden = false;
+
+    client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, true);
 }
+
+void Unit::CurPosSync()
+{
+    auto client = m_Owner->GetClient();
+    if (client == nullptr)
+    {
+        printf(" - CurPosSync Failed ! : client is invalid \n");
+        return;
+    }
+    auto curPos = m_Body->GetPosition();
+    auto expectPos = curPos;
+
+    client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, false);
+}
+
 
 void Unit::Damaged(int damage)
 {
@@ -156,26 +157,15 @@ void Unit::Damaged(int damage)
 }
 
 
+void Unit::Chasing()
+{
+    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
+    game->Targeting(this);
+    m_State->TryMove(this);
+}
+
 void Unit::TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos)
 {
-    auto client = m_Owner->GetClient();
-    if (client == nullptr)
-    {
-        printf(" - TryMove Failed ! : client is invalid \n");
-        return;
-    }
-
-    auto displacement = targetPos - m_Body->GetPosition();
-    if (displacement.Normalize() < 0.5f)
-    {
-        m_Body->SetLinearVelocity(b2Vec2(0, 0));
-        return;
-    }
-    displacement *= m_Speed;
-    m_Body->SetLinearVelocity(displacement);
-
     m_TargetPos = targetPos;
     m_State->TryMove(this);
-
-    client->TryMoveBroadCast(m_UnitID, currentPos, m_TargetPos);
 }

@@ -48,7 +48,7 @@ void GameManager::LowTick()
 				continue;
             }
             //현재 위치 동기화 (패킷을 날려주기 위해)
-            unit->Crashing(false);
+            unit->CurPosSync();
         }
     }
     CollectGarbageGames();
@@ -272,23 +272,13 @@ void GameManager::PlayerOut(Player* player)
     데미지 계산 함수들
 */
 ///////////////////////////////////////////////////////////////////////////
-bool GameManager::ApplyDamage(Unit* unitA, Unit* unitB)
-{
-	if (!unitA || !unitB || unitA->GetUnitID() < 0 || unitB->GetUnitID() < 0 ||
-		(unitA->GetOwner()->GetTeam() == unitB->GetOwner()->GetTeam()))
-	{
-		return false;
-	}
-    else
-    {
-        return true;
-    }
-}
-
 void GameManager::CrashDamage(Unit* unitA, Unit* unitB)
 {
-    unitA->Damaged(unitB->GetDamage());
-    unitB->Damaged(unitA->GetDamage());
+    if (unitA->GetOwner()->GetTeam() != unitB->GetOwner()->GetTeam())
+    {
+        unitA->Damaged(unitB->GetDamage());
+        unitB->Damaged(unitA->GetDamage());
+    }
 }
 
 void GameManager::FieldDamage(Player* caster, Rect* range, int damage)

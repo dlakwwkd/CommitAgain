@@ -90,7 +90,19 @@ void MovingState::EndMove(Unit* unit)
     }
 }
 
-void MovingState::EndCrash(Unit* unit){}
+void MovingState::EndCrash(Unit* unit)
+{
+    if (unit == nullptr) return;
+    unit->SetMoveState(unit->GetStandbyState());
+    unit->GetSprite()->stopAllActions();
+    if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
+    {
+        unit->GetRealSprite()->stopAllActions();
+    }
+    auto action1 = MoveTo::create(0.1f, unit->GetMoveTargetPos());
+    auto action2 = EaseSineIn::create(action1);
+    unit->GetSprite()->runAction(action2);
+}
 void MovingState::Movement(Unit* unit)
 {
 }

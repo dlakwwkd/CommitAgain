@@ -2,6 +2,9 @@
 #include "FSM.h"
 #include "Unit.h"
 #include "Player.h"
+#include "ClientSession.h"
+#include "Scheduler.h"
+#include "GameManager.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -11,6 +14,7 @@
 void StandbyState::TryMove(Unit* unit)
 {
     unit->SetState(unit->GetMovingState());
+    unit->Moving();
 }
 
 void StandbyState::Crashed(Unit* unit)
@@ -29,7 +33,11 @@ void StandbyState::Movement(Unit* unit){}
     /*이동중 상태*/
 
 //////////////////////////////////////////////////////////////////////////
-void MovingState::TryMove(Unit* unit){}
+void MovingState::TryMove(Unit* unit)
+{
+    unit->Moving();
+}
+
 void MovingState::Crashed(Unit* unit)
 {
     unit->GetBody()->SetLinearDamping(DAMPING);
@@ -44,7 +52,8 @@ void MovingState::EndMove(Unit* unit)
     switch (GET_MAIN_TYPE(unit->GetUnitID()))
     {
     case UNIT_MISSILE:
-        Crashed(unit);
+        unit->CurPosSync();
+        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, unit);
         break;
     }
 }
@@ -52,7 +61,7 @@ void MovingState::EndMove(Unit* unit)
 void MovingState::EndCrash(Unit* unit){}
 void MovingState::Movement(Unit* unit)
 {
-    unit->Moving();
+    unit->ReachCheck();
 }
 
 
@@ -69,6 +78,7 @@ void CrashedState::Crashed(Unit* unit)
 void CrashedState::EndMove(Unit* unit){}
 void CrashedState::EndCrash(Unit* unit)
 {
+    unit->CurPosSync();
     unit->GetBody()->SetAwake(false);
     unit->GetBody()->SetLinearDamping(0.0f);
     unit->SetState(unit->GetStandbyState());
@@ -83,6 +93,6 @@ void CrashedState::Movement(Unit* unit)
     auto velocity = unit->GetBody()->GetLinearVelocity();
     if (velocity.Length() < 0.5f)
     {
-        unit->Crashing(false);
+        unit->EndCrash();
     }
 }

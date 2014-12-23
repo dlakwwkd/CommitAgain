@@ -278,10 +278,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
     b2Vec2 targetPos = CONVERT_IN(inPacket.mTargetPos, roomId);
     b2Vec2 currentPos = CONVERT_IN(inPacket.mCurrentPos, roomId);
 
-    if (GET_SIDE_TYPE(hero->GetUnitID()) == HERO_JUPITER)
-    {
-        hero->StopSkill(SKILL_E);
-    }
+    hero->StopSkill();
     hero->TryMove(currentPos, targetPos);
 }
 
@@ -636,8 +633,8 @@ void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type)
     outPacket.mBonus = Extend(bonus);
     outPacket.mBuffTarget = type;
     
-    printf("speed: %.f \n", outPacket.mBonus);
-        
+    printf(" - BuffBonus: %.f \n", outPacket.mBonus);
+
     if (!Broadcast(&outPacket))
     {
         Disconnect();

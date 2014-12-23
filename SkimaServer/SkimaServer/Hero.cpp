@@ -28,13 +28,10 @@ void Hero::UseSkill(SkillKey skillKey, const b2Vec2& heroPos, const b2Vec2& targ
     skill->second->SkillCast(skillKey, heroPos, targetPos);
 }
 
-void Hero::StopSkill(SkillKey skillKey)
+void Hero::StopSkill()
 {
-    auto skill = m_SkillList.find(skillKey);
-    if (skill == m_SkillList.end())
+    for (auto& skill : m_SkillList)
     {
-        printf("StopSkill() Failed!! \n");
-        return;
+        skill.second->CastStop();
     }
-    skill->second->CastStop(skillKey);
 }

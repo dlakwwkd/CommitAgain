@@ -23,7 +23,8 @@ void HideSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& tar
     //to do : hero의 mspeed or mHp를 올려준다
     
     auto hero = m_Owner->GetMyHero();
-    hero->Crashing(false);
+    hero->EndMove();
+    hero->EndCrash();
     hero->SetUnitHiddenState(true);
  
     auto client = m_Owner->GetClient();

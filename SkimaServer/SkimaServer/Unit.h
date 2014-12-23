@@ -36,10 +36,13 @@ public:
     void			SetStaticBody(Player* owner, int type, const b2Vec2& initPos, const b2Vec2& scale);
 
     void            Moving();
-    void            Chasing();
-    void            Crashing(bool isCrashing);
+    void            ReachCheck();
+    void            Crashing();
+    void            CurPosSync();
+
     void            Damaged(int damage);
 
+    void            Chasing();
     void			TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos);
     void            Crashed(){ m_State->Crashed(this); }
     void            EndMove(){ m_State->EndMove(this); }
