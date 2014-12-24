@@ -34,10 +34,6 @@ void HideSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& tar
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
     auto func = std::bind(&Laphinx::UnHide, mylaphinx);
-    game->RepeatTimer(10000, 1, func);
-
-
-    //CallFuncAfter() -> laphinx¿¡¼­ 
-    //CallFuncAfter(8000, m_Owner->GetMyHero(), &Laphinx::UnHide);
+    game->CallFuncOnce(10000, func);
       
 }

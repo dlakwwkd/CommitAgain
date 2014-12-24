@@ -88,6 +88,9 @@ bool RoomScene::init()
     label->setHorizontalAlignment(TextHAlignment::CENTER);
     this->addChild(label, 0, "RoomStateLabel");
 
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/banpick.mp3", true);
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
+
     // 1초 마다 Tick 함수를 호출한다.
     this->schedule(schedule_selector(RoomScene::Tick), 1.0f);
     return true;

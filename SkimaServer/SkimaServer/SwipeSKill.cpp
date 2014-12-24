@@ -4,6 +4,7 @@
 #include "GameManager.h"
 #include "Game.h"
 #include "Player.h"
+#include "Unit.h"
 
 
 SwipeSkill::SwipeSkill(Player* owner)
@@ -25,6 +26,8 @@ void SwipeSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& ta
 
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
+
+    hero->SetUnitHiddenState(false);
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
     auto func = std::bind(&SwipeSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);

@@ -12,9 +12,10 @@ bool LoadingBGLayer::init()
     this->setOpacity(210);
 
     m_IsLoadingFin = false;
+    auto winSize = Director::getInstance()->getWinSize();
 
     auto label = LabelTTF::create("Loading...", "Arial", 50);
-    label->setPosition(500, 400);
+    label->setPosition(winSize*1/2);
     this->addChild(label);
 
     this->schedule(schedule_selector(LoadingBGLayer::Tick), 1.0f);
