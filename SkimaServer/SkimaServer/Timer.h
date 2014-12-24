@@ -7,7 +7,7 @@ class Timer : public RefCountable, public ObjectPool<Timer>
 {
 public:
     Timer(int gameId);
-    ~Timer();
+    virtual ~Timer();
 
     int     GetTimerId(){ return m_TimerID; }
     void    SetOff(){ m_IsOn = false; }

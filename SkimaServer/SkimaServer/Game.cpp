@@ -10,6 +10,7 @@
 #include "Scheduler.h"
 #include "Mob.h"
 #include "Timer.h"
+#include "WaveSystem.h"
 
 
 Game::Game(GameRoom* room)
@@ -34,6 +35,7 @@ Game::~Game()
         m_PlayerList.erase(computer);
     }
     delete m_Map;
+    delete m_WaveSystem;
 
     for (auto& player : m_PlayerList)
     {
@@ -121,9 +123,12 @@ void Game::StartGame()
     auto timer = new Timer(m_GameID);
     timer->InfiniteTimer(6000, func);
     PushTimer(timer);
-    
-    MobWaveSystem();
-    ChaseEnemy();
+
+    m_WaveSystem = new WaveSystem(this);
+    auto func2 = std::bind(&WaveSystem::WaveLoop, m_WaveSystem);
+    auto timer2 = new Timer(m_GameID);
+    timer2->InfiniteTimer(20000, func2);
+    PushTimer(timer2);
 }
 
 void Game::EndGame()
@@ -175,41 +180,6 @@ void Game::OutPlayer(int playerId)
     printf("\n [Out  Game] Game ID %d, Player ID: %d \n", m_GameID, playerId);
 }
 
-void Game::MobWaveSystem()
-{
-    if (!m_IsStart)
-    {
-        return;
-    }
-    b2Vec2 createPos = { MAX_MAP_SIZE_X / 2, MAX_MAP_SIZE_Y - 100 };
-    createPos = CONVERT_IN(createPos, m_GameID);
-
-    auto mob = new Mob();
-    mob->SetDynamicBody(m_Computer, MOB_PEA, createPos, DEF_SCALE);
-    mob->SetSpeed(Reduce(200.0f));
-    mob->SetDamage(20);
-    mob->SetMaxHp(200);
-    mob->SetHp(200);
-    m_Computer->GetClient()->CreateMobBroadCast(PT_COMPUTER, mob->GetUnitID(), createPos);
-
-    CallFuncAfter(5000, this, &Game::MobWaveSystem);
-}
-
-void Game::ChaseEnemy()
-{
-    if (!m_IsStart)
-    {
-        return;
-    }
-    for (auto& unit : m_Computer->GetUnitList())
-    {
-        if (GET_MAIN_TYPE(unit.second->GetUnitID()) == UNIT_MOB)
-        {
-            unit.second->Chasing();
-        }
-    }
-    CallFuncAfter(1000, this, &Game::ChaseEnemy);
-}
 
 void Game::Targeting(Unit* caster)
 {
@@ -221,7 +191,7 @@ void Game::Targeting(Unit* caster)
     float distance = 0;
     b2Vec2 targetPos = { 0, 0 };
 
-    if (rand() % 2 == 0)
+    if (rand() % 3 == 0)
     {
         for (auto& player : m_PlayerList)
         {
@@ -229,14 +199,19 @@ void Game::Targeting(Unit* caster)
             {
                 continue;
             }
-            auto temp = player.second->GetMyHero()->GetBody()->GetPosition();
-            auto temp2 = temp - curPos;
-            auto temp3 = temp.Length();
-
-            if (temp3 > distance)
+            auto enemy = player.second->GetMyHero();
+            if (enemy == nullptr)
             {
-                distance = temp3;
-                targetPos = temp;
+                continue;
+            }
+            auto enemyPos = enemy->GetBody()->GetPosition();
+            auto displacement = enemyPos - curPos;
+            auto length = displacement.Length();
+
+            if (length > distance)
+            {
+                distance = length;
+                targetPos = enemyPos;
             }
         }
     }

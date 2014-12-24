@@ -7,6 +7,7 @@ class GameRoom;
 class Map;
 class Unit;
 class Timer;
+class WaveSystem;
 
 typedef std::map<int, Player*>  PlayerList;
 typedef std::map<int, Timer*>   TimerList;
@@ -35,13 +36,12 @@ public:
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int playerId);
 
-    void                MobWaveSystem();
-    void                ChaseEnemy();
     void                Targeting(Unit* caster);
 
 private:
     PlayerList          m_PlayerList;
     TimerList           m_TimerList;
+    WaveSystem*         m_WaveSystem = nullptr;
     Player*             m_Computer = nullptr;
     Map*                m_Map = nullptr;
     bool                m_IsStart;

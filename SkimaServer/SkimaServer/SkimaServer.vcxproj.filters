@@ -143,6 +143,9 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
+    <ClCompile Include="WaveSystem.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -307,6 +310,9 @@
       <Filter>Game\Component\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveSystem.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,7 @@
 #pragma once
 #include "FieldType.h"
+class Timer;
+
 class Lava_Damage :
     public FieldType
 {
@@ -11,5 +13,8 @@ public:
     virtual void CastStop(){}
 
     void LavaDamage(b2Vec2 createPos, float scale, int damage, int repeatDelay);
+
+private:
+    Timer* m_Timer = nullptr;
 };
 

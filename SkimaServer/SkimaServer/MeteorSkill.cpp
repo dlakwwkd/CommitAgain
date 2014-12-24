@@ -28,8 +28,8 @@ void MeteorSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& t
     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto timer = new Timer(m_Owner->GetRoomID());
     auto func = std::bind(&MeteorSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
+    auto timer = new Timer(m_Owner->GetRoomID());
     timer->CallFuncOnce(1200, func);
     game->PushTimer(timer);
 }

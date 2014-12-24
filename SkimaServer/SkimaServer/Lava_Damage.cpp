@@ -15,13 +15,17 @@ Lava_Damage::Lava_Damage(Player* owner)
 
 Lava_Damage::~Lava_Damage()
 {
+    if (m_Timer)
+    {
+        m_Timer->SetOff();
+    }
 }
 
 void Lava_Damage::LavaDamage(b2Vec2 createPos, float scale, int damage, int repeatDelay)
 {
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto timer = new Timer(m_Owner->GetRoomID());
     auto func = std::bind(&Lava_Damage::FieldDamage, this, createPos, scale, damage);
-    timer->InfiniteTimer(repeatDelay, func);
-    game->PushTimer(timer);
+    m_Timer = new Timer(m_Owner->GetRoomID());
+    m_Timer->InfiniteTimer(repeatDelay, func);
+    game->PushTimer(m_Timer);
 }

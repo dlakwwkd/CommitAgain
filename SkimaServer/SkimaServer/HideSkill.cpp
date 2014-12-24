@@ -33,8 +33,8 @@ void HideSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& tar
     auto mylaphinx = dynamic_cast<Laphinx*>(m_Owner->GetMyHero());
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto timer = new Timer(m_Owner->GetRoomID());
     auto func = std::bind(&Laphinx::UnHide, mylaphinx);
+    auto timer = new Timer(m_Owner->GetRoomID());
     timer->CallFuncOnce(10000, func);
     game->PushTimer(timer);
 }

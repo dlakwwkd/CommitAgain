@@ -23,6 +23,11 @@ void Player::CreateHero(const b2Vec2& pos)
     m_Client->SendCreateHeroResult(m_Hero->GetUnitID(), pos);
 }
 
+void Player::DeathHero()
+{
+    m_Hero = nullptr;
+}
+
 void Player::UnitListPop(int unitID)
 {
     auto unit = m_UnitList.find(unitID);

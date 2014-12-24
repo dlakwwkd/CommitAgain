@@ -213,6 +213,7 @@
     <ClInclude Include="ThreadLocal.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Unit.h" />
+    <ClInclude Include="WaveSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdrenalineSkill.cpp" />
@@ -273,6 +274,7 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="FSM.cpp" />
+    <ClCompile Include="WaveSystem.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

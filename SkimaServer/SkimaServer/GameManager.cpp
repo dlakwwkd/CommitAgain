@@ -331,6 +331,7 @@ void GameManager::DeadUnit(Unit* unit)
     auto owner = unit->GetOwner();
     if (GET_MAIN_TYPE(unitId) == UNIT_HERO)
     {
+        owner->DeathHero();
         CallFuncAfter(1000, GGameManager, &GameManager::GameOver, owner);
     }
     owner->UnitListPop(unit->GetUnitID());
