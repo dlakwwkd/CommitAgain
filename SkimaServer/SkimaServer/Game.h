@@ -6,8 +6,10 @@ class MapObject;
 class GameRoom;
 class Map;
 class Unit;
+class Timer;
 
-typedef std::map<int, Player*> PlayerList;
+typedef std::map<int, Player*>  PlayerList;
+typedef std::map<int, Timer*>   TimerList;
 
 class Game : public RefCountable
 {
@@ -23,10 +25,8 @@ public:
     Map*                GetMap(){ return m_Map; }
 
     void                Tick(float dt);
-    void                RepeatTimer(int repeatDelay, int repeatNum, const Task& func);
-    void                InfiniteTimer(int repeatDelay, const Task& func);
-    void                CallFuncOnce(int delay, const Task& func);
-    void                RunFunction(const Task& func);
+    void                PushTimer(Timer* timer);
+    void                PopTimer(int timerId);
 
     void                InitGame();
     void                StartGame();
@@ -41,6 +41,7 @@ public:
 
 private:
     PlayerList          m_PlayerList;
+    TimerList           m_TimerList;
     Player*             m_Computer = nullptr;
     Map*                m_Map = nullptr;
     bool                m_IsStart;

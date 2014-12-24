@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Unit.h"
+#include "Timer.h"
 
 
 SwipeSkill::SwipeSkill(Player* owner)
@@ -30,6 +31,8 @@ void SwipeSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& ta
     hero->SetUnitHiddenState(false);
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
+    auto timer = new Timer(m_Owner->GetRoomID());
     auto func = std::bind(&SwipeSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
-    game->RepeatTimer(300, 3, func);
+    timer->RepeatTimer(300, 3, func);
+    game->PushTimer(timer);
 }

@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "BuffType.h"
 #include "ClientSession.h"
-#include "Player.h"
-#include "Game.h"
 #include "GameManager.h"
+#include "Game.h"
+#include "Player.h"
+#include "Timer.h"
 
 
 BuffType::BuffType()
@@ -28,7 +29,9 @@ void BuffType::MoveSpeedBonus()
 
         auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
         auto func = std::bind(&BuffType::MoveSpeedBonusEnd, this);
-        game->CallFuncOnce(m_Duration, func);
+        auto timer = new Timer(m_Owner->GetRoomID());
+        timer->CallFuncOnce(m_Duration, func);
+        game->PushTimer(timer);
 
         auto client = m_Owner->GetClient();
         client->BuffBroadCast(hero->GetUnitID(), m_SpeedBonus, BUFF_SPEED);

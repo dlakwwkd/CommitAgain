@@ -9,6 +9,7 @@
 #include "ClientSession.h"
 #include "Scheduler.h"
 #include "Mob.h"
+#include "Timer.h"
 
 
 Game::Game(GameRoom* room)
@@ -31,10 +32,8 @@ Game::~Game()
         computer->second->UnitListClear();
         delete computer->second;
         m_PlayerList.erase(computer);
-        m_Computer = nullptr;
     }
     delete m_Map;
-    m_Map = nullptr;
 
     for (auto& player : m_PlayerList)
     {
@@ -54,40 +53,33 @@ void Game::Tick(float dt)
     }
 }
 
-void Game::RepeatTimer(int repeatDelay, int repeatNum, const Task& func)
+void Game::PushTimer(Timer* timer)
 {
-    if (m_IsStart)
+    auto iter = m_TimerList.find(timer->GetTimerId());
+    if (iter == m_TimerList.end())
     {
-        func();
-        if (--repeatNum > 0)
-        {
-            CallFuncAfter(repeatDelay, this, &Game::RepeatTimer, repeatDelay, repeatNum, func);
-        }
+        m_TimerList[timer->GetTimerId()] = timer;
+        printf(" - PushTimer : curNum: %d \n", m_TimerList.size());
+    }
+    else
+    {
+        printf(" - PushTimer Failed ! \n");
     }
 }
 
-void Game::InfiniteTimer(int repeatDelay, const Task& func)
+void Game::PopTimer(int timerId)
 {
-    if (m_IsStart)
+    auto iter = m_TimerList.find(timerId);
+    if (iter == m_TimerList.end())
     {
-        func();
-        CallFuncAfter(repeatDelay, this, &Game::InfiniteTimer, repeatDelay, func);
+        printf(" - PopTimer Failed ! \n");
+    }
+    else
+    {
+        m_TimerList.erase(iter);
+        printf(" - PopTimer : curNum: %d \n", m_TimerList.size());
     }
 }
-
-void Game::CallFuncOnce(int delay, const Task& func)
-{
-    CallFuncAfter(delay, this, &Game::RunFunction, func);
-}
-
-void Game::RunFunction(const Task& func)
-{
-    if (m_IsStart)
-    {
-        func();
-    }
-}
-
 
 void Game::InitGame()
 {
@@ -124,8 +116,12 @@ void Game::InitGame()
 void Game::StartGame()
 {
     m_IsStart = true;
+
     auto func = std::bind(&Map::LavaCreate, m_Map, m_Computer, m_GameID);
-    InfiniteTimer(6000, func);
+    auto timer = new Timer(m_GameID);
+    timer->InfiniteTimer(6000, func);
+    PushTimer(timer);
+    
     MobWaveSystem();
     ChaseEnemy();
 }
@@ -134,6 +130,11 @@ void Game::EndGame()
 {
 	m_IsStart = false;
     DecRefCount();
+
+    for (auto& timer : m_TimerList)
+    {
+        timer.second->SetOff();
+    }
 }
 
 

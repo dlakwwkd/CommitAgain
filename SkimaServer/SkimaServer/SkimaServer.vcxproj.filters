@@ -140,6 +140,9 @@
     <ClCompile Include="BuffType.cpp">
       <Filter>Game\Component\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -302,6 +305,9 @@
     </ClInclude>
     <ClInclude Include="BuffType.h">
       <Filter>Game\Component\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Game\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

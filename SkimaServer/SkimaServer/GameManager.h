@@ -6,9 +6,10 @@ class Player;
 class b2World;
 class ContactListener;
 class Unit;
+class Timer;
 
-typedef std::map<int, Game*> GameList;
-typedef std::map<int, GameRoom*> RoomList;
+typedef std::map<int, Game*>        GameList;
+typedef std::map<int, GameRoom*>    RoomList;
 
 struct Rect
 {
@@ -29,6 +30,7 @@ public:
     void                Tick(float dt);
     void                LowTick();
     void                CollectGarbageGames();
+    void                DestroyTimer(Timer* timer, int gameId);
 
     GameRoom*           CreateRoom();
     void                DeleteRoom(int roomId);

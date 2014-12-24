@@ -9,6 +9,7 @@
 #include "Config.h"
 #include "Player.h"
 #include "Unit.h"
+#include "Timer.h"
 
 GameManager* GGameManager = nullptr;
 
@@ -57,7 +58,7 @@ void GameManager::LowTick()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-    종료된 게임 제거 함수
+    쓰레기 처리
 */
 ///////////////////////////////////////////////////////////////////////////
 void GameManager::CollectGarbageGames()
@@ -80,6 +81,17 @@ void GameManager::CollectGarbageGames()
         delete game;
     }
 }
+
+void GameManager::DestroyTimer(Timer* timer, int gameId)
+{
+    auto game = m_GameList.find(gameId);
+    if (game != m_GameList.end())
+    {
+        game->second->PopTimer(timer->GetTimerId());
+    }
+    delete timer;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////
 /*

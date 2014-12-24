@@ -211,6 +211,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TeleportSkill.h" />
     <ClInclude Include="ThreadLocal.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Unit.h" />
   </ItemGroup>
   <ItemGroup>
@@ -269,6 +270,7 @@
     <ClCompile Include="SwipeSKill.cpp" />
     <ClCompile Include="TeleportSkill.cpp" />
     <ClCompile Include="ThreadLocal.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="FSM.cpp" />
   </ItemGroup>
