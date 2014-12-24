@@ -35,7 +35,8 @@ bool UILayer::init()
     this->addChild(sprite("Images/HpBar_interface.png", Vec2(400, 88), Vec2(0.68f, 1.030f), Vec2(0.0, 0.0)), 10, "HpBar");
     this->addChild(sprite("Images/fireball.jpg",        Vec2(443, 38), Vec2(0.03f, 0.033f), Vec2(0.5, 0.5)));
     this->addChild(sprite("Images/iceball.jpg",         Vec2(518, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/teleport_icon.png",   Vec2(593, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/teleport_icon.png",   Vec2(590, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/Meteor_icon.png",     Vec2(663, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
 
     auto cooltimeBox = [&](SkillKey key, Vec2 pos)
     {
@@ -46,6 +47,7 @@ bool UILayer::init()
     this->addChild(cooltimeBox(SKILL_Q, Vec2(413, 8)));
     this->addChild(cooltimeBox(SKILL_W, Vec2(490, 8)));
     this->addChild(cooltimeBox(SKILL_E, Vec2(567, 8)));
+    this->addChild(cooltimeBox(SKILL_R, Vec2(630, 8)));
     
 	auto cursor = [&](CursorMode mode, const char* image, Vec2 scale, Vec2 anchor)
     {

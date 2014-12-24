@@ -217,6 +217,7 @@ SkillKey ListenerLayer::KeyboardToSkillKey(EventKeyboard::KeyCode keyCode)
     case KEY_Q: return SKILL_Q;
     case KEY_W: return SKILL_W;
     case KEY_E: return SKILL_E;
+    case KEY_R: return SKILL_R;
     default:    return SKILL_NONE;
     }
 }

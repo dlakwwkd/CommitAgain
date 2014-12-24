@@ -9,7 +9,7 @@
 MeteorSkill::MeteorSkill(Player* owner)
 {
     m_Owner = owner;
-    m_Damage = 75;
+    m_Damage = 500;
     m_Scale = Reduce(100.0f);
 }
 
@@ -28,5 +28,5 @@ void MeteorSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& t
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
     auto func = std::bind(&MeteorSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
-    //game->RepeatTimer(200, 5, func); // todo Hide처럼 1.5초뒤에 첫 호출해줄것
+    game->CallFuncOnce(1.2f, func);
 }
