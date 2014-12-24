@@ -5,7 +5,9 @@
 #include "UILayer.h"
 #include "Hero.h"
 #include "Macros.h"
+#include "SimpleAudioEngine.h"
 
+using namespace CocosDenshion;
 
 LightningSkill::LightningSkill()
 {
@@ -26,6 +28,7 @@ LightningSkill::~LightningSkill()
 
 void LightningSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/thunder.mp3");
     auto effect = new LightningEffect();
     effect->CreateEffect(targetPos);
 }

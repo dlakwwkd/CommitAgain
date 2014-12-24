@@ -4,7 +4,9 @@
 #include "GameManager.h"
 #include "Hero.h"
 #include "Unit.h"
+#include "SimpleAudioEngine.h"
 
+using namespace CocosDenshion;
 
 FlashSkill::FlashSkill()
 {
@@ -27,6 +29,7 @@ FlashSkill::~FlashSkill()
 
 void FlashSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/flash.mp3");
     auto effect = new TeleportEffect();
     effect->CreateEffect(heroPos);
 }

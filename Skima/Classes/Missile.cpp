@@ -49,11 +49,16 @@ void Missile::MissileCrash()
 
     Effect* effect;
     auto type = GET_SIDE_TYPE(m_UnitID);
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/hit2.wav");
+
     switch (type)
     {
-	case MS_FIRE_BALL:  effect = new FireEffect();  break;
-	case MS_ICE_BALL:   effect = new IceEffect();   break;
-	case MS_SPARK:      effect = new SparkEffect(); break;
+	case MS_FIRE_BALL:  
+        effect = new FireEffect();  break;
+	case MS_ICE_BALL:   
+        effect = new IceEffect();   break;
+	case MS_SPARK:      
+        effect = new SparkEffect(); break;
 	default: return;
     }
     effect->CreateEffect(m_Particle->getPosition());

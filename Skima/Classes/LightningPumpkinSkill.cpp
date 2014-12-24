@@ -5,7 +5,9 @@
 #include "UILayer.h"
 #include "Macros.h"
 #include "Hero.h"
+#include "SimpleAudioEngine.h"
 
+using namespace CocosDenshion;
 
 LightningPumpkinSkill::LightningPumpkinSkill()
 {

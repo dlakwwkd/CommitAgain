@@ -4,6 +4,9 @@
 #include "GameManager.h"
 #include "Hero.h"
 #include "Unit.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 TeleportSkill::TeleportSkill()
 {
@@ -24,6 +27,7 @@ TeleportSkill::~TeleportSkill()
 
 void TeleportSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/teleport.wav");
     auto effect = new TeleportEffect();
     effect->CreateEffect(heroPos);
 

@@ -229,7 +229,6 @@ void ObjectLayer::UnitBuffApply(int unitID, float bonus, BuffTarget type)
     }
 }
 
-
 void ObjectLayer::ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos)
 {
     auto temp = m_MissileList.find(missileID);
@@ -241,8 +240,8 @@ void ObjectLayer::ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos)
     switch (GET_SIDE_TYPE(missileID))
     {
     case MS_FIRE_BALL:	missile->MissileCast("Images/fire.plist", "Music/Effect/fireballshoot.mp3", 1000.0f, createPos, targetPos);   break;
-    case MS_ICE_BALL:   missile->MissileCast("Images/ice.plist", "", 800.0f, createPos, targetPos);     break;
-    case MS_SPARK:      missile->MissileCast("Jupiter/spark.plist","", 1300.0f, createPos, targetPos); break;
+    case MS_ICE_BALL:   missile->MissileCast("Images/ice.plist", "Music/Effect/iceballshoot.mp3", 800.0f, createPos, targetPos);     break;
+    case MS_SPARK:      missile->MissileCast("Jupiter/spark.plist", "Music/Effect/lightningshoot.mp3", 1300.0f, createPos, targetPos); break;
     }
     m_MissileList[missileID] = missile;
 }
