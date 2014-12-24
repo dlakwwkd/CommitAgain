@@ -4,7 +4,9 @@
 #include "GameManager.h"
 #include "Hero.h"
 #include "Unit.h"
+#include "SimpleAudioEngine.h"
 
+using namespace CocosDenshion;
 
 ShortDashSkill::ShortDashSkill()
 {
@@ -29,6 +31,7 @@ ShortDashSkill::~ShortDashSkill()
 
 void ShortDashSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/dash.wav");
     auto effect = new TeleportEffect();
     effect->CreateEffect(heroPos);
 }

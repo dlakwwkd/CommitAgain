@@ -77,7 +77,8 @@ void GameOverScene::menuCallback2(Ref* sender)	// 나가기
 		TcpClient::getInstance()->outRoomRequest(m_RoomId);
 
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3", true);
 
-	Director::getInstance()->popScene();
+    Director::getInstance()->popScene();
 	Director::getInstance()->popScene();
 }

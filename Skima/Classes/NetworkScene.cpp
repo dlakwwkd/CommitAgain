@@ -3,6 +3,9 @@
 #include "PacketType.h"
 #include "RoomScene.h"
 #include "TcpClient.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 #define GET_CONNECT_LABEL dynamic_cast<Label*>(this->getChildByName("ConnectLabel"))
 
@@ -168,6 +171,7 @@ void NetworkScene::UpdateRoomInfo()
 
 void NetworkScene::MakeRoomComplete(int roomId)
 {
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     ConnectLabelChange("서버 연결 양호.");
     auto scene = RoomScene::createScene();
     auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
@@ -177,6 +181,7 @@ void NetworkScene::MakeRoomComplete(int roomId)
 
 void NetworkScene::JoinRoomComplete(int roomId)
 {
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     ConnectLabelChange("서버 연결 양호.");
     auto scene = RoomScene::createScene();
     auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));

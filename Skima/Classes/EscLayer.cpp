@@ -2,7 +2,9 @@
 #include "EscLayer.h"
 #include "GameScene.h"
 #include "TcpClient.h"
+#include "SimpleAudioEngine.h"
 
+using namespace CocosDenshion;
 
 bool EscLayer::init()
 {
@@ -35,6 +37,9 @@ void EscLayer::menuCallback1(Ref* sender)
 
 void EscLayer::menuCallback2(Ref* sender)
 {
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3", true);
+
     if (TcpClient::getInstance()->checkSocket() == NULL)
     {
         return;

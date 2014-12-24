@@ -12,8 +12,6 @@ using namespace CocosDenshion;
 
 Scene* RoomScene::createScene()
 {
-    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-
     auto scene = Scene::create();
     auto layer = RoomScene::create();
     scene->addChild(layer, 0, "RoomScene");
@@ -142,6 +140,7 @@ void RoomScene::Tick(float dt)
 
 void RoomScene::GameStartComplete()
 {
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     auto scene = GameScene::createScene();
 
     auto layer = dynamic_cast<GameScene*>(scene->getChildByName("GameScene"));

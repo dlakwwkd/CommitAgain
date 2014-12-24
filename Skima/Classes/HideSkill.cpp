@@ -8,6 +8,10 @@
 #include "UnHideEffect.h"
 #include "Laphinx.h"
 #include "ObjectLayer.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
+
 HideSkill::HideSkill()
 {
     m_CoolTime = 9;
@@ -31,6 +35,7 @@ HideSkill::~HideSkill()
 
 void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/hide.mp3");
     auto effect = new HideEffect();
     effect->CreateEffect(heroPos);
     m_Hero->SetHeroPerforming(true);

@@ -3,6 +3,9 @@
 #include "Hero.h"
 #include "Skill.h"
 #include "GameManager.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 Unit::Unit()
 {
@@ -75,6 +78,11 @@ void Unit::Move()
 
 void Unit::Crash()
 {
+    if (GET_MAIN_TYPE(m_UnitID) == UNIT_HERO && GET_SIDE_TYPE(m_UnitID) == HERO_LAPHINX)
+    {
+        SimpleAudioEngine::getInstance()->playEffect("Music/Effect/Laphixhit.mp3");
+    }
+
     auto distance = m_Sprite->getPosition().distance(m_TargetPos);
     auto time = sqrt(distance) / 15;
     auto action1 = MoveTo::create(time, m_TargetPos);
