@@ -12,6 +12,9 @@ MeteorSkill::MeteorSkill()
     m_CoolTime = 3;
     m_CanUse = true;
     m_CautionSprite = Sprite::create("Laphinx/MeteorCaution.png");
+    m_CautionSprite->setScale(0.8f);
+    m_CautionSprite->setOpacity(0);
+    GET_OBJECT_LAYER->addChild(m_CautionSprite, 14);
 }
 
 MeteorSkill::MeteorSkill(Hero* hero)
@@ -20,6 +23,9 @@ MeteorSkill::MeteorSkill(Hero* hero)
     m_CoolTime = 3;
     m_CanUse = true;
     m_CautionSprite = Sprite::create("Laphinx/MeteorCaution.png");
+    m_CautionSprite->setScale(0.8f);
+    m_CautionSprite->setOpacity(0);
+    GET_OBJECT_LAYER->addChild(m_CautionSprite, 14);
 }
 
 MeteorSkill::~MeteorSkill()
@@ -28,10 +34,8 @@ MeteorSkill::~MeteorSkill()
 
 void MeteorSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
-    m_CautionSprite->setScale(0.8f);
     m_CautionSprite->setPosition(targetPos);
     m_CautionSprite->setOpacity(255);
-    GET_OBJECT_LAYER->addChild(m_CautionSprite,14);
 
     auto fadeOut1 = FadeOut::create(0.45f);
     auto fadeIn = FadeIn::create(0.15f);
