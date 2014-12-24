@@ -9,7 +9,7 @@ Hero::Hero()
     m_UnitType = UNIT_HERO;
 
     m_Arrow = Sprite::create("Images/arrow.png");
-    m_Arrow->setScale(0.3f, 0.3f);
+    m_Arrow->setScale(0.8f, 0.8f);
     m_Arrow->setVisible(false);
     m_Sprite->addChild(m_Arrow);
 

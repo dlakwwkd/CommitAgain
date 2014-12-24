@@ -131,8 +131,6 @@ void Unit::Crashing()
     printf(" - Crashing:    UnitID: %d,  \t   expectPos:   x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
         Extend(expectPos.x), Extend(expectPos.y));
 
-    m_IsHidden = false;
-
     client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, true);
 }
 

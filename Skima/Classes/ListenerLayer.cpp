@@ -249,7 +249,7 @@ void ListenerLayer::SetArrowPos()
     auto displacement = GET_IM->GetMouseLocation() - this->getPosition() - GET_OBJECT_LAYER->GetMyHero()->GetHeroPos();
     auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2));
     auto arrow = GET_OBJECT_LAYER->GetMyHero()->GetArrow();
-    arrow->setPosition(Vec2(30, 30) + displacement / distance * 100);
+    arrow->setPosition(Vec2(30, 30) + displacement / distance * 50);
     int degree = acos(displacement.y / distance) / M_PI * 180; //내적
     if (displacement.x < 0)
     {
