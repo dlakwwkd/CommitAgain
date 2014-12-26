@@ -27,21 +27,6 @@ Game::Game(GameRoom* room)
 
 Game::~Game()
 {
-    auto computer = m_PlayerList.find(PT_COMPUTER);
-    if (computer != m_PlayerList.end())
-    {
-        computer->second->UnitListClear();
-        delete computer->second;
-        m_PlayerList.erase(computer);
-    }
-    delete m_Map;
-    delete m_WaveSystem;
-
-    for (auto& player : m_PlayerList)
-    {
-        player.second->SetTeam(TEAM_N);
-        player.second->UnitListClear();
-    }
 }
 
 void Game::Tick(float dt)
@@ -61,7 +46,6 @@ void Game::PushTimer(Timer* timer)
     if (iter == m_TimerList.end())
     {
         m_TimerList[timer->GetTimerId()] = timer;
-        printf(" - PushTimer : curNum: %d \n", m_TimerList.size());
     }
     else
     {
@@ -79,14 +63,11 @@ void Game::PopTimer(int timerId)
     else
     {
         m_TimerList.erase(iter);
-        printf(" - PopTimer : curNum: %d \n", m_TimerList.size());
     }
 }
 
 void Game::InitGame()
 {
-    IncRefCount();
-
     // 주의: 여기서부턴 하드코딩의 구간입니다.^^
     ClientSession* temp = nullptr;
     int i = 0;
@@ -134,11 +115,25 @@ void Game::StartGame()
 void Game::EndGame()
 {
 	m_IsStart = false;
-    DecRefCount();
 
     for (auto& timer : m_TimerList)
     {
         timer.second->SetOff();
+    }
+    delete m_Map;
+    delete m_WaveSystem;
+
+    auto computer = m_PlayerList.find(PT_COMPUTER);
+    if (computer != m_PlayerList.end())
+    {
+        computer->second->UnitListClear();
+        delete computer->second;
+        m_PlayerList.erase(computer);
+    }
+    for (auto& player : m_PlayerList)
+    {
+        player.second->SetTeam(TEAM_N);
+        player.second->UnitListClear();
     }
 }
 

@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include "RefCountable.h"
-#include "Scheduler.h"
 class Player;
 class MapObject;
 class GameRoom;
@@ -12,7 +10,7 @@ class WaveSystem;
 typedef std::map<int, Player*>  PlayerList;
 typedef std::map<int, Timer*>   TimerList;
 
-class Game : public RefCountable
+class Game
 {
 public:
     Game(GameRoom* room);

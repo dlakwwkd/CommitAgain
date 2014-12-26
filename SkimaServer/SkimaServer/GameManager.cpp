@@ -52,7 +52,6 @@ void GameManager::LowTick()
             unit->CurPosSync();
         }
     }
-    CollectGarbageGames();
     CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::LowTick);
 }
 
@@ -61,27 +60,6 @@ void GameManager::LowTick()
     쓰레기 처리
 */
 ///////////////////////////////////////////////////////////////////////////
-void GameManager::CollectGarbageGames()
-{
-    std::vector<Game*> garbageGames;
-    std::for_each(m_GameList.begin(), m_GameList.end(),
-        [&](GameList::const_reference it)
-    {
-        auto game = it.second;
-
-        if (game->GetRefCount() < 1)
-            garbageGames.push_back(game);
-    }
-    );
-    for (size_t i = 0; i < garbageGames.size(); ++i)
-    {
-        auto game = garbageGames[i];
-        printf(" - Destroy %d Game ! \n", game->GetGameID());
-        m_GameList.erase(game->GetGameID());
-        delete game;
-    }
-}
-
 void GameManager::DestroyTimer(Timer* timer, int gameId)
 {
     auto game = m_GameList.find(gameId);
@@ -222,6 +200,24 @@ void GameManager::CreateGame(int gameId)
     room->second->InitReady();
 }
 
+void GameManager::DeleteGame(int gameId)
+{
+    if (gameId < 0)
+    {
+        printf(" - DeleteGame Failed ! : gameId is invalid \n");
+        return;
+    }
+    auto game = m_GameList.find(gameId);
+    if (game == m_GameList.end())
+    {
+        printf(" - DeleteGame Failed ! : relevant game isn't \n");
+        return;
+    }
+    delete game->second;
+    m_GameList.erase(game);
+    printf(" - Destroy %d Game ! \n", gameId);
+}
+
 void GameManager::GameOver(Player* player)
 {
     if (player == nullptr)
@@ -236,9 +232,10 @@ void GameManager::GameOver(Player* player)
     }
     if (game->second->IsStart())
     {
-        player->GetClient()->GameOverCast(player->GetPlayerID());
         game->second->EndGame();
+        player->GetClient()->GameOverCast(player->GetPlayerID());
     }
+    DeleteGame(game->first);
 }
 
 
@@ -261,11 +258,7 @@ void GameManager::PlayerOut(Player* player)
     if (game != m_GameList.end())
     {
         game->second->OutPlayer(playerId);
-        if (game->second->IsStart())
-        {
-            GameOver(player);
-            player->GetClient()->GameOverCast(playerId);
-        }
+        GameOver(player);
     }
     auto room = m_RoomList.find(roomId);
     if (room != m_RoomList.end())
@@ -329,12 +322,13 @@ void GameManager::DeadUnit(Unit* unit)
 {
     auto unitId = unit->GetUnitID();
     auto owner = unit->GetOwner();
+    owner->UnitListPop(unit->GetUnitID());
+
     if (GET_MAIN_TYPE(unitId) == UNIT_HERO)
     {
-        owner->DeathHero();
-        CallFuncAfter(1000, GGameManager, &GameManager::GameOver, owner);
+        owner->DeadHero();
+        GameOver(owner);
     }
-    owner->UnitListPop(unit->GetUnitID());
 }
 
 

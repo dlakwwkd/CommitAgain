@@ -23,7 +23,7 @@ void Player::CreateHero(const b2Vec2& pos)
     m_Client->SendCreateHeroResult(m_Hero->GetUnitID(), pos);
 }
 
-void Player::DeathHero()
+void Player::DeadHero()
 {
     m_Hero = nullptr;
 }

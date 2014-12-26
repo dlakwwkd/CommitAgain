@@ -128,8 +128,8 @@ void Unit::Crashing()
     auto velocity = m_Body->GetLinearVelocity();
     velocity *= 1.0f / DAMPING;
     expectPos += velocity;
-    printf(" - Crashing:    UnitID: %d,  \t   expectPos:   x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
-        Extend(expectPos.x), Extend(expectPos.y));
+//     printf(" - Crashing:    UnitID: %d,  \t   expectPos:   x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
+//         Extend(expectPos.x), Extend(expectPos.y));
 
     client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, true);
 }

@@ -41,6 +41,7 @@ public:
 
     Game*               SearchGame(int gameId);
     void                CreateGame(int gameId);
+    void                DeleteGame(int gameId);
     void                GameOver(Player* player);
 
     void                PlayerOut(Player* player);

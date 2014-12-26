@@ -37,7 +37,7 @@ public:
     bool                IsReady() { return m_IsReady; }
 
     void			    CreateHero(const b2Vec2& pos);
-    void                DeathHero();
+    void                DeadHero();
     void                SetRoomID(int roomId){ m_RoomID = roomId; }
     void                SetHeroType(HeroType heroType){ m_HeroType = heroType; }
     void                SetTeam(Team team){ m_Team = team; }
