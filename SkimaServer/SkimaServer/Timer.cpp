@@ -28,7 +28,7 @@ void Timer::RepeatTimer(int repeatDelay, int repeatNum, const Task& func)
             return;
         }
     }
-    CallFuncAfter(1, GGameManager, &GameManager::DestroyTimer, this, m_GameID);
+    CallFuncAfter(1, GGameManager, &GameManager::DestroyTimer, this);
 }
 
 void Timer::InfiniteTimer(int repeatDelay, const Task& func)
@@ -39,7 +39,7 @@ void Timer::InfiniteTimer(int repeatDelay, const Task& func)
         CallFuncAfter(repeatDelay, this, &Timer::InfiniteTimer, repeatDelay, func);
         return;
     }
-    CallFuncAfter(1, GGameManager, &GameManager::DestroyTimer, this, m_GameID);
+    CallFuncAfter(1, GGameManager, &GameManager::DestroyTimer, this);
 }
 
 void Timer::CallFuncOnce(int delay, const Task& func)
@@ -55,5 +55,5 @@ void Timer::RunFunction(const Task& func)
         func();
         return;
     }
-    CallFuncAfter(1, GGameManager, &GameManager::DestroyTimer, this, m_GameID);
+    CallFuncAfter(1, GGameManager, &GameManager::DestroyTimer, this);
 }

@@ -177,7 +177,6 @@ void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighVa
     LScheduler->DoTasks(); ///< 주기적으로 task 처리
     GClientManager->OnPeriodWork();
 
-
     static float deltaTime;
     static DWORD currentTime;
     static DWORD lastTime = GetTickCount();

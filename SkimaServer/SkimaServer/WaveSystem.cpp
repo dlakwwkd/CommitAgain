@@ -28,7 +28,7 @@ void WaveSystem::WaveLoop()
     }
     auto func = std::bind(&WaveSystem::WaveProcess, this);
     auto timer = new Timer(m_Game->GetGameID());
-    timer->RepeatTimer(100, 20, func);
+    timer->RepeatTimer(100, 10, func);
     m_Game->PushTimer(timer);
 }
 

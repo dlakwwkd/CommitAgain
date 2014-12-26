@@ -30,7 +30,7 @@ public:
     void                Tick(float dt);
     void                LowTick();
     void                CollectGarbageGames();
-    void                DestroyTimer(Timer* timer, int gameId);
+    void                DestroyTimer(Timer* timer);
 
     GameRoom*           CreateRoom();
     void                DeleteRoom(int roomId);

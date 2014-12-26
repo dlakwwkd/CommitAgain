@@ -102,13 +102,13 @@ void Game::StartGame()
 
     auto func = std::bind(&Map::LavaCreate, m_Map, m_Computer, m_GameID);
     auto timer = new Timer(m_GameID);
-    timer->InfiniteTimer(6000, func);
+    timer->RepeatTimer(10000, 10, func);
     PushTimer(timer);
 
     m_WaveSystem = new WaveSystem(this);
     auto func2 = std::bind(&WaveSystem::WaveLoop, m_WaveSystem);
     auto timer2 = new Timer(m_GameID);
-    timer2->InfiniteTimer(20000, func2);
+    timer2->InfiniteTimer(30000, func2);
     PushTimer(timer2);
 }
 

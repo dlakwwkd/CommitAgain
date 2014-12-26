@@ -48,7 +48,6 @@ void GameManager::LowTick()
             {
 				continue;
             }
-            //현재 위치 동기화 (패킷을 날려주기 위해)
             unit->CurPosSync();
         }
     }
@@ -57,12 +56,12 @@ void GameManager::LowTick()
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-    쓰레기 처리
+    타이머 제거
 */
 ///////////////////////////////////////////////////////////////////////////
-void GameManager::DestroyTimer(Timer* timer, int gameId)
+void GameManager::DestroyTimer(Timer* timer)
 {
-    auto game = m_GameList.find(gameId);
+    auto game = m_GameList.find(timer->GetGameId());
     if (game != m_GameList.end())
     {
         game->second->PopTimer(timer->GetTimerId());

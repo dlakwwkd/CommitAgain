@@ -88,7 +88,7 @@ void Unit::Moving()
     auto displacement = m_TargetPos - curPos;
     if (displacement.Normalize() < 0.5f)
     {
-        m_Body->SetLinearVelocity(b2Vec2(0, 0));
+        m_Body->SetAwake(false);
         return;
     }
     displacement *= m_Speed;
@@ -104,8 +104,6 @@ void Unit::ReachCheck()
     if (distance.Length() < 0.5f)
     {
         EndMove();
-        printf(" - Reach: UnitID:  %d, \t\t\t x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
-            Extend(curPos.x), Extend(curPos.y));
     }
 }
 
@@ -128,8 +126,6 @@ void Unit::Crashing()
     auto velocity = m_Body->GetLinearVelocity();
     velocity *= 1.0f / DAMPING;
     expectPos += velocity;
-//     printf(" - Crashing:    UnitID: %d,  \t   expectPos:   x : %.f \t y : %.f\n", INIT_TYPE(m_UnitID),
-//         Extend(expectPos.x), Extend(expectPos.y));
 
     client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, true);
 }
