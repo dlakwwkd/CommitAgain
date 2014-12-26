@@ -45,6 +45,7 @@ void Unit::UpdateMyHpBar()
 {
     if (m_MyHpBar)
     {
+        SimpleAudioEngine::getInstance()->playEffect("Music/Effect/damage.mp3");
         m_MyHpBar->setScaleX(m_CurHp / m_MaxHp);
     }
 }
@@ -53,6 +54,7 @@ void Unit::UpdateOtherHpBar()
 {
     if (m_EnemyHpBar)
     {
+        SimpleAudioEngine::getInstance()->playEffect("Music/Effect/damage.mp3");
         m_EnemyHpBar->setScaleX(m_CurHp / m_MaxHp);
     }
 }
@@ -78,10 +80,7 @@ void Unit::Move()
 
 void Unit::Crash()
 {
-    if (GET_MAIN_TYPE(m_UnitID) == UNIT_HERO && GET_SIDE_TYPE(m_UnitID) == HERO_LAPHINX)
-    {
-        SimpleAudioEngine::getInstance()->playEffect("Music/Effect/Laphixhit.mp3");
-    }
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/crash.mp3");
 
     auto distance = m_Sprite->getPosition().distance(m_TargetPos);
     auto time = sqrt(distance) / 15;

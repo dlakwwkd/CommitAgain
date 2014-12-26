@@ -49,7 +49,6 @@ void Missile::MissileCrash()
 
     Effect* effect;
     auto type = GET_SIDE_TYPE(m_UnitID);
-    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/hit2.wav");
 
     switch (type)
     {
