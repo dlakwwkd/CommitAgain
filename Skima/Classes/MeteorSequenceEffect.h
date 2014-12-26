@@ -1,18 +1,22 @@
 #pragma once
 #include "EffectSpriteType.h"
+#include "EffectParticleType.h"
 #include "Enums.h"
 class MeteorSequenceEffect : public EffectSpriteType
 {
 public:
-    MeteorSequenceEffect();
+    MeteorSequenceEffect(const Vec2& targetPos);
     virtual ~MeteorSequenceEffect();
 
-    virtual void	CreateEffect(const Vec2& createPos);
-    virtual void    ExtinctEffect();
+    virtual void    	CreateEffect(const Vec2& createPos);
+    virtual void        ExtinctEffect();
 
-    void            SetSwipeMotionCache();
-    void            ShowSwipeMotionByDir(Direction dir);
-
+    void                SetExplodeCache();
+    void                ShowExplodeSprite();
+    void                ExtinctMeteorParticle();
+    void                SetParticleVisible(ParticleSystemQuad* particle);
+protected:
+    ParticleSystemQuad* m_MeteorParticle;
 
 };
 

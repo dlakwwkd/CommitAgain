@@ -39,7 +39,7 @@ void MeteorSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 
     auto fadeOut1 = FadeOut::create(0.45f);
     auto fadeIn = FadeIn::create(0.15f);
-    auto fadeOut2 = FadeOut::create(0.4f); //total 1.0f //+ meteor 0.2f
+    auto fadeOut2 = FadeOut::create(0.4f); //total 1.2f = caution 1.0f + particle 0.2f
     auto fade_seq = Sequence::create(fadeOut1, fadeIn, fadeOut2, NULL);
     m_CautionSprite->runAction(fade_seq);
 }
@@ -67,7 +67,7 @@ void MeteorSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
 
 void MeteorSkill::MakeMeteor(Vec2 targetpos)
 {
-    auto particleEffect = new MeteorSequenceEffect();
-    particleEffect->CreateEffect(targetpos);
+    auto particleEffect = new MeteorSequenceEffect(targetpos); // particle
+    particleEffect->CreateEffect(targetpos); //explode sprite
 }
 

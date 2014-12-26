@@ -32,4 +32,6 @@ void MeteorSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& t
     auto timer = new Timer(m_Owner->GetRoomID());
     timer->CallFuncOnce(1200, func);
     game->PushTimer(timer);
+
+    client->MeteorBroadCast(hero->GetUnitID(), targetPos);
 }
