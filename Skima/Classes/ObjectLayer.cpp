@@ -19,6 +19,10 @@
 #include "Lava.h"
 #include "Mob.h"
 #include "MeteorSkill.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
+
 //#define GET_UI_LAYER	dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"))
 
 bool ObjectLayer::init()
@@ -125,6 +129,13 @@ void ObjectLayer::UnitCrash(int unitID, Vec2 exPos)
         return;
     }
     unit->second->SetTargetPos(exPos);
+    if (GET_MAIN_TYPE(unit->second->GetUnitID()) == UNIT_HERO)
+    {
+        if (GET_SIDE_TYPE(unit->second->GetUnitID()) == HERO_LAPHINX)
+        {
+            SimpleAudioEngine::getInstance()->playEffect("Music/Effect/crash.mp3");
+        }
+    }
     unit->second->Crashed();
 }
 
@@ -195,6 +206,7 @@ void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
             break;
         case UNIT_MOB:
         {
+            SimpleAudioEngine::getInstance()->playEffect("Music/Effect/mobdied.mp3");
             this->removeChild(unit->second->GetSprite());
             m_UnitList.erase(unit);
         }
@@ -202,6 +214,8 @@ void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
         }
         return;
     }
+
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/damage.mp3");
     if (m_Hero->GetUnitPlayerID() == playerID)
     {
         GET_UI_LAYER->UpdateHpBar(unit->second->GetCurHp(), unit->second->GetMaxHp());
