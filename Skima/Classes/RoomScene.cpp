@@ -33,7 +33,7 @@ bool RoomScene::init()
     roomBackground->setOpacity(150);
     this->addChild(roomBackground, -1);
     auto selectZone = Sprite::create("Images/SelectZone.png");
-    selectZone->setPosition(Vec2(winSize.width * 2 / 8, winSize.height * 3 / 8 - 30));
+    selectZone->setPosition(Vec2(winSize.width / 4, winSize.height * 3 / 8 - 30));
     selectZone->setOpacity(100);
     this->addChild(selectZone, 1);
         
@@ -191,11 +191,11 @@ void RoomScene::ChangeSelectedHero(HeroType heroType)
 
     auto winSize = Director::getInstance()->getWinSize();
     auto zoneEffect = Sprite::create("Images/ZoneEffect.png");
-    zoneEffect->setPosition(Vec2(winSize.width * 2 / 8, winSize.height / 4));
+    zoneEffect->setPosition(Vec2(winSize.width / 4, winSize.height / 4));
     zoneEffect->setOpacity(100);
     this->addChild(zoneEffect, 2);
 
-    auto zoneAction_0 = MoveTo::create(1.0f, Vec2(winSize.width * 2 / 8, winSize.height / 2));
+    auto zoneAction_0 = MoveTo::create(1.0f, Vec2(winSize.width / 4, winSize.height / 2));
     auto zoneAction_1 = FadeTo::create(1.5f, 0);
     zoneEffect->runAction(zoneAction_0);
     zoneEffect->runAction(zoneAction_1);
