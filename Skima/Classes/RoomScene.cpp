@@ -9,6 +9,7 @@
 using namespace CocosDenshion;
 
 #define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
+#define GET_WAITING_LAYER    dynamic_cast<WaitingLayer*>(this->getChildByName("WaitingLayer"))
 
 Scene* RoomScene::createScene()
 {
@@ -76,9 +77,9 @@ bool RoomScene::init()
     buttonMenu->setPosition(winSize.width * 7 / 8 , winSize.height * 3 / 8);
     this->addChild(buttonMenu);
 
-    m_WaitingLayer = WaitingLayer::create();
-    m_WaitingLayer->setVisible(false);
-    this->addChild(m_WaitingLayer, 2);
+    auto waitLayer = WaitingLayer::create();
+    waitLayer->setVisible(false);
+    this->addChild(waitLayer, 2, "WaitingLayer");
 
     auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
     label->setAnchorPoint(Vec2::ZERO);
@@ -137,6 +138,10 @@ void RoomScene::Tick(float dt)
  
 }
 //////////////////////////////////////////////////////////////////////////
+void RoomScene::GameStart()
+{
+    GET_WAITING_LAYER->GameStart();
+}
 
 void RoomScene::GameStartComplete()
 {
@@ -155,11 +160,11 @@ void RoomScene::WaitingCheck()
 {
     if (m_IsReady == true)
     {
-        m_WaitingLayer->setVisible(true);
+        GET_WAITING_LAYER->setVisible(true);
     }
     else
     {
-        m_WaitingLayer->setVisible(false);
+        GET_WAITING_LAYER->setVisible(false);
     }
 }
 
@@ -200,7 +205,6 @@ void RoomScene::ChangeSelectedHero(HeroType heroType)
     zoneEffect->runAction(zoneAction_0);
     zoneEffect->runAction(zoneAction_1);
 }
-
 void RoomScene::ClickHero(HeroType heroType)
 {
     m_CurHero = heroType;

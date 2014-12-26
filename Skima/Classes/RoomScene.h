@@ -25,6 +25,7 @@ public:
     void Tick(float dt);
     void ClickHero(HeroType heroType);
 
+    void GameStart();
     void GameStartComplete();
 
 private:
@@ -32,6 +33,4 @@ private:
     bool        m_IsReady;
     HeroType    m_CurHero;
     FaceList    m_HeroImageList;
-    LayerColor* m_WaitingLayer;
-
 };

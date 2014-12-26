@@ -1,9 +1,12 @@
 ﻿#include "pch.h"
 #include "WaitingLayer.h"
+#include "RoomScene.h"
+
+#define GET_CONNECT_LABEL dynamic_cast<Label*>(this->getChildByName("ConnectLabel"))
 
 bool WaitingLayer::init()
 {
-    if (!LayerColor::initWithColor(Color4B(0,0,0,0))) //검은색 세팅
+    if (!LayerColor::initWithColor(Color4B::BLACK)) //검은색 세팅
     {
         return false;
     }
@@ -11,10 +14,34 @@ bool WaitingLayer::init()
 
     auto winSize = Director::getInstance()->getWinSize();
 
-    auto label = LabelTTF::create("Please Wait", "Arial", 50);
-    label->setPosition(winSize.width/2, winSize.height/2);
-    this->addChild(label);
+    auto label = Label::create("다른 플레이어를 기다리는 중...", "Arial", 50);
+    label->setPosition(Vec2(winSize.width/2, winSize.height/2));  
+    this->addChild(label, 1, "ConnectLabel");
 
     return true;
 }
 
+void WaitingLayer::GameStart()
+{
+    auto winSize = Director::getInstance()->getWinSize();
+
+    auto label1 = GET_CONNECT_LABEL;
+    if (label1 != nullptr)
+    {
+        label1->setString("게임을 시작합니다.");
+        label1->setPositionY(winSize.height * 3 / 4);
+    }
+    auto label2 = Label::create("", "Arial", 100);
+    label2->setPosition(Vec2(winSize.width / 2, winSize.height / 2));
+    this->addChild(label2);
+    
+    auto action0 = CallFunc::create(CC_CALLBACK_0(Label::setString, label2, "3"));
+    auto action1 = DelayTime::create(1.0f);
+    auto action2 = CallFunc::create(CC_CALLBACK_0(Label::setString, label2, "2"));
+    auto action4 = CallFunc::create(CC_CALLBACK_0(Label::setString, label2, "1"));
+    auto action6 = CallFunc::create(CC_CALLBACK_0(RoomScene::GameStartComplete, dynamic_cast<RoomScene*>(this->getParent())));
+    auto action = Sequence::create(action0, action1, action2,
+        action1, action4, action1, action6, NULL);
+
+    label2->runAction(action);
+}

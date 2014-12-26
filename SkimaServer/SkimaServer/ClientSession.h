@@ -37,6 +37,7 @@ public:
     void    JoinGameRoom(int roomID);
     void    OutGameRoom();
 
+    void    PlayerReadyNotify();
     void    AllReadyNotify();
     void    ServerRunComplete();
     void	SendCreateHeroResult(			    int unitId, const b2Vec2& pos);

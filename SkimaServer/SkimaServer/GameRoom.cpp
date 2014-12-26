@@ -11,7 +11,7 @@ void GameRoom::ReadySign()
     {
         m_IsAllReady = true;
         printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", m_RoomID);
-        CallFuncAfter(1000, GGameManager, &GameManager::CreateGame, m_RoomID);
+        CallFuncAfter(5000, GGameManager, &GameManager::CreateGame, m_RoomID);
     }
     printf(" - Room[%d] ReadyNum: %d \n", m_RoomID, m_ReadyNum);
 }

@@ -251,6 +251,16 @@ void TcpClient::processPacket()
         }
         break;
 
+        case PKT_SC_GAME_READY:
+        {
+            GameReadyResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            auto scene = GET_ROOM_SCENE;
+        }
+        break;
+
         case PKT_SC_ALL_READY:
         {
             GameRunNotify recvData;
@@ -260,7 +270,7 @@ void TcpClient::processPacket()
             auto scene = GET_ROOM_SCENE;
             if (scene)
             {
-                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::GameStartComplete, scene));
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::GameStart, scene));
             }
         }
         return; // 이 다음 패킷 수신 전에 콜백함수 호출이 필요하므로 리턴
@@ -627,11 +637,11 @@ void TcpClient::startGameRequest(int roomId,HeroType heroType)
     if (mLoginId < 0)
         return;
 
-    GameReadyNotify sendData;
+    GameReadyRequest sendData;
     sendData.mPlayerId = mLoginId;
     sendData.mHeroType = heroType; 
 
-    send((const char*)&sendData, sizeof(GameReadyNotify));
+    send((const char*)&sendData, sizeof(GameReadyRequest));
 }
 
 void TcpClient::runCompleteRequest()

@@ -72,7 +72,8 @@ enum PacketTypes
     PKT_CS_INOUT_ROOM   = 13,
     PKT_SC_INOUT_ROOM   = 14,
     PKT_CS_GAME_READY   = 15,
-    PKT_SC_ALL_READY    = 16,
+    PKT_SC_GAME_READY   = 16,
+    PKT_SC_ALL_READY    = 17,
 
     ///////////////
     // SC로만 로딩 정보 전달(맵, 유닛 등) 
@@ -238,11 +239,11 @@ struct InOutRoomResult : public PacketHeader
     게임 로딩, 구동 관련
     */
 ///////////////////////////////////////////////////////////////////////////
-struct GameReadyNotify : public PacketHeader
+struct GameReadyRequest : public PacketHeader
 {
-    GameReadyNotify()
+    GameReadyRequest()
     {
-        mSize = sizeof(GameReadyNotify);
+        mSize = sizeof(GameReadyRequest);
         mType = PKT_CS_GAME_READY;
         mPlayerId = -1;
         mRoomId = -1;
@@ -251,6 +252,20 @@ struct GameReadyNotify : public PacketHeader
     int         mPlayerId;
     int         mRoomId;
     HeroType    mHeroType;
+};
+struct GameReadyResult : public PacketHeader
+{
+    GameReadyResult()
+    {
+        mSize = sizeof(GameReadyResult);
+        mType = PKT_SC_GAME_READY;
+        mPlayerId = -1;
+        mRoomId = -1;
+        memset(mPlayerName, 0, MAX_NAME_LEN);
+    }
+    char    mPlayerName[MAX_NAME_LEN];
+    int     mPlayerId; 
+    int     mRoomId;
 };
 struct GameRunNotify : public PacketHeader
 {

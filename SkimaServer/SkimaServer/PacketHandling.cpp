@@ -206,7 +206,7 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 
 REGISTER_HANDLER(PKT_CS_GAME_READY)
 {
-    GameReadyNotify inPacket;
+    GameReadyRequest inPacket;
     if (false == session->ParsePacket(inPacket))
     {
         printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
@@ -224,6 +224,7 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
     player->SetReady(true);
     player->SetHeroType(inPacket.mHeroType);
     printf(" - Player %d is Ready ! \n", inPacket.mPlayerId);
+    session->PlayerReadyNotify();
 
     if (room->IsAllReady())
     {
@@ -443,6 +444,20 @@ void ClientSession::OutGameRoom()
     로딩 처리 관련
 */
 ///////////////////////////////////////////////////////////////////////////
+
+void ClientSession::PlayerReadyNotify()
+{
+    GameReadyResult outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    strcpy(outPacket.mPlayerName, mPlayer->GetPlayerName().c_str());
+
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+    printf(" Send: Player: %s is ready, Room ID: %d \n",mPlayer->GetPlayerName().c_str(), mPlayer->GetRoomID());
+}
+
 void ClientSession::AllReadyNotify()
 {
     GameRunNotify outPacket;
