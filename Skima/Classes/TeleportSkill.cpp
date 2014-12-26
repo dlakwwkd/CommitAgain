@@ -8,15 +8,10 @@
 
 using namespace CocosDenshion;
 
-TeleportSkill::TeleportSkill()
-{
-    m_CoolTime = 3;
-    m_CanUse = true;
-}
 TeleportSkill::TeleportSkill(Hero* hero)
 {
     m_Hero = hero;
-    m_CoolTime = 5;
+    m_CoolTime = 3;
     m_CanUse = true;
 }
 
@@ -32,7 +27,7 @@ void TeleportSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     effect->CreateEffect(heroPos);
 
     m_Hero->EndMove();
-    m_Hero->GetSprite()->setPosition(targetPos);
+    m_Hero->GetCenterSprite()->setPosition(targetPos);
 }
 
 void TeleportSkill::SkillReady()

@@ -10,13 +10,13 @@ Mob::Mob(Vec2 createPos, float scale)
     m_MaxHp = 200.0f;
     m_CurHp = m_MaxHp;
     m_Speed = 200.0f;
-    m_Sprite->setPosition(createPos);
-    m_Sprite->setScale(scale);
+    m_CenterSprite->setPosition(createPos);
+    m_CenterSprite->setScale(scale);
 
     m_RealSprite = Sprite::create("Images/Pea.png");
     m_RealSprite->setScale(scale);
     m_RealSprite->setAnchorPoint(Vec2(0, 0));
-    m_Sprite->addChild(m_RealSprite);
+    m_CenterSprite->addChild(m_RealSprite);
 }
 
 

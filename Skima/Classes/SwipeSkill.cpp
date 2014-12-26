@@ -7,12 +7,6 @@
 #include "SwipeEffect.h"
 
 
-SwipeSkill::SwipeSkill()
-{
-    m_CoolTime = 1;
-    m_CanUse = true;
-}
-
 SwipeSkill::SwipeSkill(Hero* hero)
 {
     m_Hero = hero;

@@ -8,13 +8,6 @@
 
 using namespace CocosDenshion;
 
-ShortDashSkill::ShortDashSkill()
-{
-    m_CoolTime = 3;
-    m_CanUse = true;
-    m_DashCount = 2;
-}
-
 ShortDashSkill::ShortDashSkill(Hero* hero)
 {
     m_Hero = hero;

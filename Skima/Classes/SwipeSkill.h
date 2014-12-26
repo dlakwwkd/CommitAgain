@@ -1,11 +1,10 @@
 #pragma once
 #include "Skill.h"
-
 class Hero;
+
 class SwipeSkill : public Skill
 {
 public:
-    SwipeSkill();
     SwipeSkill(Hero* hero);
     virtual ~SwipeSkill();
 

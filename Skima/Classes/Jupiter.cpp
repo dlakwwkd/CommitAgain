@@ -13,8 +13,8 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
 	m_MaxHp = 1000.0f;
 	m_CurHp = m_MaxHp;
 	m_Speed = 450.0f;
-	m_Sprite->setPosition(createPos);
-	m_Sprite->setScale(scale);
+	m_CenterSprite->setPosition(createPos);
+	m_CenterSprite->setScale(scale);
 
 	SetMoveMotionToCache();
 	SetSkillMotionToCache();
@@ -23,7 +23,7 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
 	m_RealSprite->setScale(scale);
 	m_RealSprite->setAnchorPoint(Vec2(0,0));
 	m_RealSprite->setPosition(-15, -10);
-	m_Sprite->addChild(m_RealSprite);
+	m_CenterSprite->addChild(m_RealSprite);
 
     auto shadow = Sprite::create("Jupiter/Jupiter_shadow.png");
     shadow->setPosition(40, -10);
@@ -59,7 +59,7 @@ void Jupiter::SetMoveMotionToCache()
 
 void Jupiter::SetMoveMotionByDir()
 {
-    switch (CalcMoveDirection(m_TargetPos - m_Sprite->getPosition()))
+    switch (CalcMoveDirection(m_TargetPos - m_CenterSprite->getPosition()))
     {
     case E:  m_RealSprite->runAction(MakeAnimation("JupiterMove_E_%02d.png", 7));  break;
     case W:  m_RealSprite->runAction(MakeAnimation("JupiterMove_W_%02d.png", 7));  break;
@@ -93,7 +93,7 @@ void Jupiter::SetSkillMotionByDir(SkillKey key)
     switch (key)
     {
     case SKILL_Q:
-        switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
         {
         case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_SE_%02d.png", 7)); break;
         case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_SW_%02d.png", 7)); break;
@@ -103,7 +103,7 @@ void Jupiter::SetSkillMotionByDir(SkillKey key)
         break;
 
     case SKILL_W:
-        switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
         {
         case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SE_%02d.png", 3)); break;
         case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SW_%02d.png", 3)); break;
@@ -113,7 +113,7 @@ void Jupiter::SetSkillMotionByDir(SkillKey key)
         break;
 
     case SKILL_E:
-        switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
         {
         case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_SE_%02d.png", 2)); break;
         case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_SW_%02d.png", 2)); break;

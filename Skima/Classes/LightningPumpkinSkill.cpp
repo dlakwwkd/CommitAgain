@@ -9,12 +9,6 @@
 
 using namespace CocosDenshion;
 
-LightningPumpkinSkill::LightningPumpkinSkill()
-{
-    m_CoolTime = 3;
-    m_CanUse = true;
-}
-
 LightningPumpkinSkill::LightningPumpkinSkill(Hero* hero)
 {
     m_Hero = hero;

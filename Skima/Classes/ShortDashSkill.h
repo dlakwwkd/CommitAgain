@@ -3,7 +3,6 @@
 class ShortDashSkill : public Skill
 {
 public:
-    ShortDashSkill();
     ShortDashSkill(Hero* hero);
     virtual ~ShortDashSkill();
 

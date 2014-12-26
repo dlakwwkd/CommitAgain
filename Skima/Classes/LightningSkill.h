@@ -1,11 +1,10 @@
 #pragma once
 #include "Skill.h"
-
 class Hero;
+
 class LightningSkill : public Skill
 {
 public:
-    LightningSkill();
     LightningSkill(Hero* hero);
     virtual ~LightningSkill();
 

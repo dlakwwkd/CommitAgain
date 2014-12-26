@@ -42,8 +42,8 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     m_Hero->SetUnitHiddenState(true);
 
     auto myLaphinxSprite = m_Hero->GetRealSprite();
-    auto myHpbar = m_Hero->GetMyHpBar();
-    auto HpFrame = m_Hero->GetHpBarOut();
+    auto myHpbar = m_Hero->GetHpBar();
+    auto HpFrame = m_Hero->GetHpBarFrame();
 
     myLaphinxSprite->setOpacity(204);
     myHpbar->setOpacity(204);
@@ -74,8 +74,8 @@ void HideSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
     m_Hero->SetUnitHiddenState(true);
 
     auto enemyLaphinxSprite = m_Hero->GetRealSprite();
-    auto enemyHpbar = m_Hero->GetEnemyHpBar();
-    auto HpFrame = m_Hero->GetHpBarOut();
+    auto enemyHpbar = m_Hero->GetHpBar();
+    auto HpFrame = m_Hero->GetHpBarFrame();
 
 
     enemyLaphinxSprite->setOpacity(204);

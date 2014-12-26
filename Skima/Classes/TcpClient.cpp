@@ -672,27 +672,3 @@ void TcpClient::skillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey)
     send((const char*)&sendData, sizeof(SkillRequest));
 }
 
-
-
-
-
-
-
-
-
-
-
-
-//  void TcpClient::chatRequest(const char* chat)
-//  {
-// 	 if (mLoginId < 0)
-// 		 return;
-// 
-// 	 ChatBroadcastRequest sendData;
-// 
-// 	 sendData.mPlayerId = mLoginId;
-// 	 memcpy(sendData.mChat, chat, strlen(chat));
-// 
-// 	 send((const char*)&sendData, sizeof(ChatBroadcastRequest));
-//  }
-// 

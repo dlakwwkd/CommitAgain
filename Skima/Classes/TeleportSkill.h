@@ -1,11 +1,10 @@
 #pragma once
 #include "Skill.h"
-class TeleportSkill :	public Skill
+class TeleportSkill : public Skill
 {
 public:
-    TeleportSkill();
     TeleportSkill(Hero* hero);
-    ~TeleportSkill();
+    virtual ~TeleportSkill();
 
     virtual void SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos);
     virtual void SkillCast(Vec2 heroPos, Vec2 targetPos);

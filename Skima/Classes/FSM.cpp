@@ -23,7 +23,7 @@ void StandbyState::Crashed(Unit* unit)
         unit->SetUnitHiddenState(false);
     }
     unit->SetMoveState(unit->GetCrashedState());
-    unit->GetSprite()->stopAllActions();
+    unit->GetCenterSprite()->stopAllActions();
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -40,9 +40,9 @@ void StandbyState::EndMove(Unit* unit){}
 void StandbyState::EndCrash(Unit* unit)
 {
     if (unit == nullptr) return;
-    auto action1 = MoveTo::create(1.0f, unit->GetMoveTargetPos());
+    auto action1 = MoveTo::create(1.0f, unit->GetTargetPos());
     auto action2 = EaseSineIn::create(action1);
-    unit->GetSprite()->runAction(action2);
+    unit->GetCenterSprite()->runAction(action2);
 }
 void StandbyState::Movement(Unit* unit){}
 
@@ -55,7 +55,7 @@ void StandbyState::Movement(Unit* unit){}
 void MovingState::TryMove(Unit* unit)
 {
     if (unit == nullptr) return;
-    unit->GetSprite()->stopAllActions();
+    unit->GetCenterSprite()->stopAllActions();
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -74,7 +74,7 @@ void MovingState::Crashed(Unit* unit)
         unit->SetUnitHiddenState(false);
     }
     unit->SetMoveState(unit->GetCrashedState());
-    unit->GetSprite()->stopAllActions();
+    unit->GetCenterSprite()->stopAllActions();
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -87,7 +87,7 @@ void MovingState::EndMove(Unit* unit)
 {
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
-    unit->GetSprite()->stopAllActions();
+    unit->GetCenterSprite()->stopAllActions();
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -99,15 +99,15 @@ void MovingState::EndCrash(Unit* unit)
 {
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
-    unit->GetSprite()->stopAllActions();
+    unit->GetCenterSprite()->stopAllActions();
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
         unit->GetRealSprite()->setVisible(true);
     }
-    auto action1 = MoveTo::create(0.1f, unit->GetMoveTargetPos());
+    auto action1 = MoveTo::create(0.1f, unit->GetTargetPos());
     auto action2 = EaseSineIn::create(action1);
-    unit->GetSprite()->runAction(action2);
+    unit->GetCenterSprite()->runAction(action2);
 }
 void MovingState::Movement(Unit* unit)
 {
@@ -128,7 +128,7 @@ void CrashedState::Crashed(Unit* unit)
         unit->SetAllSpriteVisible();
         unit->SetUnitHiddenState(false);
     }
-    unit->GetSprite()->stopAllActions();
+    unit->GetCenterSprite()->stopAllActions();
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -141,16 +141,16 @@ void CrashedState::EndCrash(Unit* unit)
 {
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
-    unit->GetSprite()->stopAllActions();
+    unit->GetCenterSprite()->stopAllActions();
     if(GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
         unit->GetRealSprite()->setVisible(true);
     }
 
-    auto action1 = MoveTo::create(0.1f, unit->GetMoveTargetPos());
+    auto action1 = MoveTo::create(0.1f, unit->GetTargetPos());
     auto action2 = EaseSineIn::create(action1);
-    unit->GetSprite()->runAction(action2);
+    unit->GetCenterSprite()->runAction(action2);
 }
 void CrashedState::Movement(Unit* unit)
 {

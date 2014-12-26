@@ -50,38 +50,30 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
     case HERO_LAPHINX:	unit = std::make_shared<Laphinx>(location, 1.0f);   break;
     default: return;
     }
+    unit->SetPlayerID(playerID);
     unit->SetUnitID(unitID);
-    unit->SetUnitPlayerID(playerID);
-    m_UnitList[unitID] = unit;
-    m_HeroList[unitID] = unit;
-    this->addChild(unit->GetSprite(), 16);
-
     if (playerID == TcpClient::getInstance()->getLoginId())
     {
         m_Hero = unit;
         unit->SetMyHpBar();
+        GET_UI_LAYER->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
     }
     else
     {
         unit->SetEnemyHpBar();
     }
-    GET_UI_LAYER->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
+    m_UnitList[unitID] = unit;
+    m_HeroList[unitID] = unit;
+    this->addChild(unit->GetCenterSprite(), 16);
 }
 
 void ObjectLayer::CreateMapObject(int unitID, Vec2 pos)
 {
     switch (GET_SIDE_TYPE(unitID))
     {
-    case OS_ROCK:
-        m_UnitList[unitID] = std::make_shared<Rock>(unitID, pos);
-        break;
-    case OS_MOVE_ROCK:
-        m_UnitList[unitID] = std::make_shared<MoveRock>(unitID, pos);
-        break;
-    case OS_LAVA:
-        m_UnitList[unitID] = std::make_shared<Lava>(unitID, pos);
-        break;
-
+    case OS_ROCK:       m_UnitList[unitID] = std::make_shared<Rock>(unitID, pos);       break;
+    case OS_MOVE_ROCK:  m_UnitList[unitID] = std::make_shared<MoveRock>(unitID, pos);   break;
+    case OS_LAVA:       m_UnitList[unitID] = std::make_shared<Lava>(unitID, pos);       break;
     default:
         break;
     }
@@ -93,21 +85,15 @@ void ObjectLayer::CreateMob(int playerID, int unitID, Vec2 location)
     switch (GET_SIDE_TYPE(unitID))
     {
     case MOB_PEA:	unit = std::make_shared<Mob>(location, 1.0f);	break;
-    default: return;
+    default:
+        return;
     }
+    unit->SetPlayerID(playerID);
     unit->SetUnitID(unitID);
-    unit->SetUnitPlayerID(playerID);
-    m_UnitList[unitID] = unit;
-    this->addChild(unit->GetSprite(), 16);
+    unit->SetUnitHpBar();
 
-    if (playerID == TcpClient::getInstance()->getLoginId())
-    {
-        unit->SetMyHpBar();
-    }
-    else
-    {
-        unit->SetEnemyHpBar();
-    }
+    m_UnitList[unitID] = unit;
+    this->addChild(unit->GetCenterSprite(), 16);
 }
 
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)
@@ -154,12 +140,12 @@ void ObjectLayer::UnitSkillUse(int playerID,int unitID, SkillKey key, Vec2 recvC
     if (hero->second->GetHeroType() == HERO_LAPHINX && key == SKILL_Q)
     {
         hero->second->SetTargetPos(targetPos);
-        hero->second->GetSprite()->stopAllActions();
+        hero->second->GetCenterSprite()->stopAllActions();
         hero->second->GetRealSprite()->stopAllActions();
         hero->second->GetRealSprite()->setVisible(true);
         hero->second->SetSkillMotionByDir(key);
 
-        if (m_Hero->GetUnitPlayerID()==playerID)
+        if (m_Hero->GetPlayerID()==playerID)
         {
             hero->second->SkillCast(key, recvCurPos, targetPos);
         }
@@ -171,7 +157,7 @@ void ObjectLayer::UnitSkillUse(int playerID,int unitID, SkillKey key, Vec2 recvC
     else
     {
         hero->second->SetTargetPos(targetPos);
-        hero->second->GetSprite()->stopAllActions();
+        hero->second->GetCenterSprite()->stopAllActions();
         hero->second->GetRealSprite()->stopAllActions();
         hero->second->GetRealSprite()->setVisible(true);
         hero->second->SetSkillMotionByDir(key);
@@ -202,22 +188,18 @@ void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
         case UNIT_MOB:
         {
             SimpleAudioEngine::getInstance()->playEffect("Music/Effect/mobdied.mp3");
-            this->removeChild(unit->second->GetSprite());
+            this->removeChild(unit->second->GetCenterSprite());
             m_UnitList.erase(unit);
         }
             break;
         }
         return;
     }
-    if (m_Hero->GetUnitPlayerID() == playerID)
+    if (m_Hero->GetPlayerID() == playerID)
     {
         GET_UI_LAYER->UpdateHpBar(unit->second->GetCurHp(), unit->second->GetMaxHp());
-        unit->second->UpdateMyHpBar();
     }
-    else
-    {
-        unit->second->UpdateOtherHpBar();
-    }
+    unit->second->UpdateHpBar();
 }
 
 void ObjectLayer::UnitBuffApply(int unitID, float bonus, BuffTarget type)

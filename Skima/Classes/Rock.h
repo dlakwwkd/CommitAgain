@@ -4,6 +4,6 @@ class Rock : public MapObject
 {
 public:
     Rock(int id, Vec2 pos);
-    ~Rock();
+    virtual ~Rock();
 };
 

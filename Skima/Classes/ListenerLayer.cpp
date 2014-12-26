@@ -91,7 +91,7 @@ void ListenerLayer::OnMouseDown(Event *event)
         return;
     }
     auto hero = GET_OBJECT_LAYER->GetMyHero();	_ASSERT(hero != nullptr);
-    auto sprite = hero->GetSprite();				_ASSERT(sprite != nullptr);
+    auto sprite = hero->GetCenterSprite();				_ASSERT(sprite != nullptr);
     auto heroPos = sprite->getPosition();
     auto mousePos = GET_IM->GetMouseLocation();
     auto key = KeyboardToSkillKey(GET_IM->SearchTargetingKey());

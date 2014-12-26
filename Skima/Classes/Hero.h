@@ -8,7 +8,7 @@ public:
     Hero();
     virtual ~Hero();
 
-    Vec2            GetHeroPos() { return m_Sprite->getPosition(); }
+    Vec2            GetHeroPos() { return m_CenterSprite->getPosition(); }
     Sprite*         GetArrow() { return m_Arrow; }
     Sprite*         GetSkillRange(){ return m_SkillRange; }
     HeroType        GetHeroType(){ return m_HeroType; }

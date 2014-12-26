@@ -4,7 +4,7 @@ class MapObject : public Unit
 {
 public:
     MapObject();
-    ~MapObject();
+    virtual ~MapObject();
 
     void MapObjectBreak();
 };

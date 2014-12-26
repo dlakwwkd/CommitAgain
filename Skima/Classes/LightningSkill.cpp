@@ -9,12 +9,6 @@
 
 using namespace CocosDenshion;
 
-LightningSkill::LightningSkill()
-{
-    m_CoolTime = 3;
-    m_CanUse = true;
-}
-
 LightningSkill::LightningSkill(Hero* hero)
 {
     m_Hero = hero;

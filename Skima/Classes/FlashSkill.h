@@ -3,7 +3,6 @@
 class FlashSkill : public Skill
 {
 public:
-    FlashSkill();
     FlashSkill(Hero* hero);
     virtual ~FlashSkill();
 

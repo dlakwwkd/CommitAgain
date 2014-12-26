@@ -4,6 +4,6 @@ class MoveRock : public MapObject
 {
 public:
     MoveRock(int id, Vec2 pos);
-    ~MoveRock();
+    virtual ~MoveRock();
 };
 

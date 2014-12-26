@@ -16,8 +16,8 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
     m_MaxHp = 1000.0f;
     m_CurHp = m_MaxHp;
     m_Speed = 450.0f;
-    m_Sprite->setPosition(createPos);
-    m_Sprite->setScale(scale);
+    m_CenterSprite->setPosition(createPos);
+    m_CenterSprite->setScale(scale);
 
     SetMoveMotionToCache();
     SetSkillMotionToCache();
@@ -26,7 +26,7 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
     m_RealSprite->setScale(scale);
     m_RealSprite->setAnchorPoint(Vec2(0, 0));
     m_RealSprite->setPosition(-50, -50);
-    m_Sprite->addChild(m_RealSprite);
+    m_CenterSprite->addChild(m_RealSprite);
 
 //     auto shadow = Sprite::create("Jupiter/Jupiter_shadow.png");
 //     shadow->setPosition(Vec2(27.5f, 2.5f));
@@ -62,7 +62,7 @@ void Laphinx::SetMoveMotionToCache()
 
 void Laphinx::SetMoveMotionByDir()
 {
-    switch (CalcMoveDirection(m_TargetPos - m_Sprite->getPosition()))
+    switch (CalcMoveDirection(m_TargetPos - m_CenterSprite->getPosition()))
     {
     case E:  m_RealSprite->runAction(MakeAnimation("Laphinx_E%d.png", 8));   	break;
     case W:  m_RealSprite->runAction(MakeAnimation("Laphinx_W%d.png", 8));   	break;
@@ -92,7 +92,7 @@ void Laphinx::SetSkillMotionByDir(SkillKey key)
     switch (key)
     {
     case SKILL_Q:
-        switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
         {
         case SE: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_Qskill_SE%02d.png", 2)); break;
         case SW: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_Qskill_SW%02d.png", 2)); break;
@@ -105,7 +105,7 @@ void Laphinx::SetSkillMotionByDir(SkillKey key)
         break;
 
     case SKILL_E:
-        switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
         {
         case SE: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_SE%02d.png", 10)); break;
         case SW: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_SW%02d.png", 10)); break;
@@ -114,7 +114,7 @@ void Laphinx::SetSkillMotionByDir(SkillKey key)
         }
         break;
     case SKILL_R:
-        switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
         {
         case SE: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_SE%02d.png", 10)); break;
         case SW: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_SW%02d.png", 10)); break;
@@ -132,15 +132,11 @@ void Laphinx::SetAllSpriteVisible()
     else
     {
         m_RealSprite->setOpacity(255);
-        m_HpbarOut->setOpacity(255);
-       if (m_MyHpBar!=nullptr)
-       {
-           m_MyHpBar->setOpacity(255);
-       }
-       if (m_EnemyHpBar!=nullptr)
-       {
-           m_EnemyHpBar->setOpacity(255);
-       }
+        m_HpBarFrame->setOpacity(255);
+        if (m_HpBar != nullptr)
+        {
+            m_HpBar->setOpacity(255);
+        }
     }
 }
 
@@ -153,7 +149,7 @@ void Laphinx::HeroUnHide(Vec2 heroPos)
     else
     {
         m_IsPerforming = true;
-        m_Sprite->stopAllActions();
+        m_CenterSprite->stopAllActions();
         m_RealSprite->stopAllActions();
         m_RealSprite->setVisible(true);
 
@@ -164,16 +160,11 @@ void Laphinx::HeroUnHide(Vec2 heroPos)
         particleEffect->CreateEffect(heroPos);
 
         m_RealSprite->setOpacity(255);
-        m_Sprite->setOpacity(255);
-        m_HpbarOut->setOpacity(255);
-
-        if (m_MyHpBar != nullptr)
+        m_CenterSprite->setOpacity(255);
+        m_HpBarFrame->setOpacity(255);
+        if (m_HpBar != nullptr)
         {
-            m_MyHpBar->setOpacity(255);
-        }
-        if (m_EnemyHpBar != nullptr)
-        {
-            m_EnemyHpBar->setOpacity(255);
+            m_HpBar->setOpacity(255);
         }
 
         m_IsPerforming = false;
