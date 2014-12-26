@@ -103,10 +103,15 @@ void Unit::SetEnemyHpBar()
 
 void Unit::SetUnitHpBar()
 {
+    m_HpBarFrame = Sprite::create("Images/hp_bar_frame_mob.png");
+    m_HpBarFrame->setPosition(Vec2(-27, 83));
+    m_HpBarFrame->setAnchorPoint(Vec2(0, 0));
+
     m_HpBar = Sprite::create("Images/hp_bar_in_mob.png");
     m_HpBar->setPosition(Vec2(-25, 85));
     m_HpBar->setAnchorPoint(Vec2(0, 0));
 
+    m_CenterSprite->addChild(m_HpBarFrame, 10);
     m_CenterSprite->addChild(m_HpBar, 16);
 }
 

@@ -2,9 +2,10 @@
 #include "Enums.h"
 #include "PacketType.h"
 #include "FSM.h"
-class Skill;
 
 USING_NS_CC;
+
+class Skill;
 
 typedef std::map<Direction, Animation*> MoveMotion;
 
