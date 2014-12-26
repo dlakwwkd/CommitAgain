@@ -9,7 +9,7 @@ Mob::Mob(Vec2 createPos, float scale)
     m_UnitType = UNIT_MOB;
     m_MaxHp = 200.0f;
     m_CurHp = m_MaxHp;
-    m_Speed = 200.0f;
+    m_Speed = 100.0f;
     m_CenterSprite->setPosition(createPos);
     m_CenterSprite->setScale(scale);
 

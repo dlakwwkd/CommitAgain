@@ -18,6 +18,7 @@
 #include "MoveRock.h"
 #include "Lava.h"
 #include "Mob.h"
+#include "MapLayer.h"
 #include "MeteorSkill.h"
 #include "SimpleAudioEngine.h"
 
@@ -37,6 +38,11 @@ bool ObjectLayer::init()
 //////////////////////////////////////////////////////////////////////////
 void ObjectLayer::Tick(float dt)
 {
+    for (auto& unit : m_UnitList)
+    {
+        unit.second->Movement();
+        unit.second->GetCenterSprite()->setZOrder(-unit.second->GetCenterSprite()->getPosition().y);
+    }
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -48,7 +54,8 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
     case HERO_MAGICIAN:	unit = std::make_shared<Magician>(location, 1.0f);	break;
     case HERO_JUPITER:	unit = std::make_shared<Jupiter>(location, 1.0f);	break;
     case HERO_LAPHINX:	unit = std::make_shared<Laphinx>(location, 1.0f);   break;
-    default: return;
+    default:
+        return;
     }
     unit->SetPlayerID(playerID);
     unit->SetUnitID(unitID);
@@ -64,19 +71,27 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
     }
     m_UnitList[unitID] = unit;
     m_HeroList[unitID] = unit;
-    this->addChild(unit->GetCenterSprite(), 16);
+    this->addChild(unit->GetCenterSprite());
 }
 
 void ObjectLayer::CreateMapObject(int unitID, Vec2 pos)
 {
+    std::shared_ptr<MapObject> obj;
     switch (GET_SIDE_TYPE(unitID))
     {
-    case OS_ROCK:       m_UnitList[unitID] = std::make_shared<Rock>(unitID, pos);       break;
-    case OS_MOVE_ROCK:  m_UnitList[unitID] = std::make_shared<MoveRock>(unitID, pos);   break;
-    case OS_LAVA:       m_UnitList[unitID] = std::make_shared<Lava>(unitID, pos);       break;
+    case OS_ROCK:       m_UnitList[unitID] =    obj = std::make_shared<Rock>(unitID, pos);       break;
+    case OS_MOVE_ROCK:  m_UnitList[unitID] =    obj = std::make_shared<MoveRock>(unitID, pos);   break;
+    case OS_LAVA:
+        obj = std::make_shared<Lava>(unitID, pos);
+        obj->SetUnitID(unitID);
+        GET_MAP_LAYER->addChild(obj->GetCenterSprite());
+        return;
     default:
         break;
     }
+    obj->SetUnitID(unitID);
+
+    this->addChild(obj->GetCenterSprite());
 }
 
 void ObjectLayer::CreateMob(int playerID, int unitID, Vec2 location)
@@ -93,7 +108,7 @@ void ObjectLayer::CreateMob(int playerID, int unitID, Vec2 location)
     unit->SetUnitHpBar();
 
     m_UnitList[unitID] = unit;
-    this->addChild(unit->GetCenterSprite(), 16);
+    this->addChild(unit->GetCenterSprite());
 }
 
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)

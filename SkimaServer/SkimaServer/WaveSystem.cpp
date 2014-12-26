@@ -41,7 +41,7 @@ void WaveSystem::WaveProcess()
     auto computer = m_Game->GetPlayer(PT_COMPUTER);
     auto mob = new Mob();
     mob->SetDynamicBody(computer, MOB_PEA, m_RegenPos, DEF_SCALE);
-    mob->SetSpeed(Reduce(200.0f));
+    mob->SetSpeed(Reduce(100.0f));
     mob->SetDamage(20);
     mob->SetMaxHp(200);
     mob->SetHp(200);

@@ -186,6 +186,9 @@ void TcpClient::processPacket()
 
         if (header.mSize > mRecvBuffer.GetStoredSize())
             break;
+        
+        if (cocos2d::Director::getInstance()->getRunningScene() == nullptr)
+            break;
 
         switch (header.mType)
         {
