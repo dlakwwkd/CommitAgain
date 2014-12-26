@@ -10,8 +10,6 @@ public:
 public:
     virtual void            SetMoveMotionByDir();
     virtual void            SetSkillMotionByDir(SkillKey key);
-    ParticleSystemQuad*     GetQ_particle(){ return m_Wparticle; }
-
     void                    SetAllSpriteVisible();
     virtual void            HeroUnHide(Vec2 heroPos);
     MeteorSkill*            GetMeteorSKill(){ return m_MeteorSKill; }
@@ -21,7 +19,6 @@ private:
     virtual void            SetSkillMotionToCache();
 
 private:
-    ParticleSystemQuad*     m_Wparticle;
     MeteorSkill*            m_MeteorSKill;
 
 };

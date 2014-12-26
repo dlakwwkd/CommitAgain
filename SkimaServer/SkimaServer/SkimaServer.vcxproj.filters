@@ -116,9 +116,6 @@
     <ClCompile Include="Mob.cpp">
       <Filter>Game\Component\Unit\Mob</Filter>
     </ClCompile>
-    <ClCompile Include="AdrenalineSkill.cpp">
-      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
-    </ClCompile>
     <ClCompile Include="HideSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClCompile>
@@ -284,9 +281,6 @@
     </ClInclude>
     <ClInclude Include="Mob.h">
       <Filter>Game\Component\Unit\Mob</Filter>
-    </ClInclude>
-    <ClInclude Include="AdrenalineSkill.h">
-      <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClInclude>
     <ClInclude Include="HideSkill.h">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>

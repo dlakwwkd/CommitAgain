@@ -2,6 +2,7 @@
 #include "EffectSpriteType.h"
 #include "EffectParticleType.h"
 #include "Enums.h"
+
 class MeteorSequenceEffect : public EffectSpriteType
 {
 public:
@@ -15,6 +16,8 @@ public:
     void                ShowExplodeSprite();
     void                ExtinctMeteorParticle();
     void                SetParticleVisible(ParticleSystemQuad* particle);
+    Size                GenerateInitPos(const Vec2&targetpos);
+
 protected:
     ParticleSystemQuad* m_MeteorParticle;
 

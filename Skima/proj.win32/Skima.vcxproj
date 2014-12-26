@@ -138,7 +138,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\AdrenalineSkill.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\CircularBuffer.cpp" />
     <ClCompile Include="..\Classes\Effect.cpp" />
@@ -165,8 +164,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\LightningEffect.cpp" />
     <ClCompile Include="..\Classes\Magician.cpp" />
     <ClCompile Include="..\Classes\MapObject.cpp" />
-    <ClCompile Include="..\Classes\MeteorAfterEffect.cpp" />
-    <ClCompile Include="..\Classes\MeteorEffect.cpp" />
     <ClCompile Include="..\Classes\MeteorSequenceEffect.cpp" />
     <ClCompile Include="..\Classes\MeteorSkill.cpp" />
     <ClCompile Include="..\Classes\Missile.cpp" />
@@ -207,7 +204,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClInclude Include="..\..\PacketType.h" />
     <ClInclude Include="..\..\Shared\FSM.h" />
-    <ClInclude Include="..\Classes\AdrenalineSkill.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\CircularBuffer.h" />
     <ClInclude Include="..\Classes\Effect.h" />
@@ -236,8 +232,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Macros.h" />
     <ClInclude Include="..\Classes\Magician.h" />
     <ClInclude Include="..\Classes\MapObject.h" />
-    <ClInclude Include="..\Classes\MeteorAfterEffect.h" />
-    <ClInclude Include="..\Classes\MeteorEffect.h" />
     <ClInclude Include="..\Classes\MeteorSequenceEffect.h" />
     <ClInclude Include="..\Classes\MeteorSkill.h" />
     <ClInclude Include="..\Classes\Missile.h" />

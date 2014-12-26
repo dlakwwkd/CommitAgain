@@ -55,3 +55,15 @@ void EffectSpriteType::ExtinctSprite()
     GET_OBJECT_LAYER->removeChild(m_Sprite);
     delete this;
 }
+
+Animate* EffectSpriteType::MakeExplodeAnimation(const char* format, int size)
+{
+    auto animation = Animation::create();
+    animation->setDelayPerUnit(0.05f);
+    for (int i = 1; i < size + 1; ++i)
+    {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+        animation->addSpriteFrame(frame);
+    }
+    return Animate::create(animation);
+}

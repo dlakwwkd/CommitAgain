@@ -3,7 +3,6 @@
 #include "GameManager.h"
 #include "PacketType.h"
 #include "SwipeSkill.h"
-#include "AdrenalineSkill.h"
 #include "HideSkill.h"
 #include "UnHideEffect.h"
 #include "HideEffect.h"
@@ -34,12 +33,6 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
 //     shadow->setScale(0.75f);
 //     shadow->setOpacity(150);
 //    m_RealSprite->addChild(shadow, -2);
-
-    m_Wparticle = ParticleSystemQuad::create("Laphinx/LaphinxSpeedParticle.plist");
-    m_Wparticle->setPosition(Vec2(30.0f, 25.0f));
-    m_Wparticle->setScale(0.7f);
-    m_Wparticle->setVisible(false);
-    m_RealSprite->addChild(m_Wparticle, -1);
 
     m_SkillList[SKILL_Q] = new HideSkill(this);
     m_SkillList[SKILL_W] = new ShortDashSkill(this);
@@ -120,27 +113,24 @@ void Laphinx::SetSkillMotionByDir(SkillKey key)
         case NW: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_NW%02d.png", 10)); break;
         }
         break;
+    case SKILL_R:
+        switch (CalcSkillDirection(m_TargetPos - m_Sprite->getPosition()))
+        {
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_SE%02d.png", 10)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_SW%02d.png", 10)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_NE%02d.png", 10)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("Laphinx_NW%02d.png", 10)); break;
+        }
+        break;
     }
 }
 
 void Laphinx::SetAllSpriteVisible()
 {
-// if (m_Hero->GetHeroHiddenState() == false)
-//         return;
-
     if (this->GetHeroHiddenState() == false)
         return;
     else
     {
-//         //Vec2 heroPos = m_Hero->GetSprite()->getPosition();
-//         //performing state true 
-//         //sprite Allstop ?
-// //         auto appearEffect = new UnHideEffect();
-// //         appearEffect->CreateEffect(Vec2{ heroPos.x - 100, heroPos.y + 80 });
-// // 
-// //         auto particleEffect = new HideEffect();
-// //         particleEffect->CreateEffect(heroPos);
-
         m_RealSprite->setOpacity(255);
         m_HpbarOut->setOpacity(255);
        if (m_MyHpBar!=nullptr)
@@ -151,13 +141,6 @@ void Laphinx::SetAllSpriteVisible()
        {
            m_EnemyHpBar->setOpacity(255);
        }
-        
-//         m_Hero->GetRealSprite()->setOpacity(255);
-//         m_Hero->GetMyHpBar()->setOpacity(255);
-//         m_Hero->GetHpBarOut()->setOpacity(255);
-
-        //performing state false
-
     }
 }
 

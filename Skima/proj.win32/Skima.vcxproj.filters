@@ -195,9 +195,6 @@
     <ClCompile Include="..\Classes\SwipeSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AdrenalineSkill.cpp">
-      <Filter>Game\Component\Skill\Laphinx</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\HideSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx</Filter>
     </ClCompile>
@@ -260,12 +257,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Mob.cpp">
       <Filter>Game\Component\Unit\Mob</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MeteorEffect.cpp">
-      <Filter>Game\Component\Effect\EffectParticleType</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MeteorAfterEffect.cpp">
-      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MeteorSequenceEffect.cpp">
       <Filter>Game\Component\Effect\EffectSpriteType</Filter>
@@ -395,9 +386,6 @@
     <ClInclude Include="..\Classes\SwipeSkill.h">
       <Filter>Game\Component\Skill\Laphinx</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\AdrenalineSkill.h">
-      <Filter>Game\Component\Skill\Laphinx</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\HideSkill.h">
       <Filter>Game\Component\Skill\Laphinx</Filter>
     </ClInclude>
@@ -460,12 +448,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Mob.h">
       <Filter>Game\Component\Unit\Mob</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MeteorEffect.h">
-      <Filter>Game\Component\Effect\EffectParticleType</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MeteorAfterEffect.h">
-      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MeteorSequenceEffect.h">
       <Filter>Game\Component\Effect\EffectSpriteType</Filter>
