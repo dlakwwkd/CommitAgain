@@ -9,7 +9,7 @@ Hero::Hero()
     m_UnitType = UNIT_HERO;
 
     m_Arrow = Sprite::create("Images/arrow.png");
-    m_Arrow->setScale(0.8f, 0.8f);
+    m_Arrow->setScale(1.0f, 1.0f);
     m_Arrow->setVisible(false);
     m_CenterSprite->addChild(m_Arrow);
 
@@ -98,14 +98,17 @@ RepeatForever* Hero::MakeAnimation(const char* format, int size)
 
     if (m_HeroType == HERO_LAPHINX)
     {
-        if (size < 5)       animation->setDelayPerUnit(0.2f);
-        else if (size >= 5) animation->setDelayPerUnit(0.05f);
+        if (size < 5)
+            animation->setDelayPerUnit(0.2f);
+        else
+            animation->setDelayPerUnit(0.05f);
     }
-
     else
     {
-        if (size < 5)       animation->setDelayPerUnit(0.2f);
-        else if (size >= 5) animation->setDelayPerUnit(0.1f);
+        if (size < 5)
+            animation->setDelayPerUnit(0.2f);
+        else
+            animation->setDelayPerUnit(0.1f);
     }
 
     for (int i = 1; i < size + 1; ++i)
@@ -123,14 +126,17 @@ Animate* Hero::MakeAnimationOnce(const char* format, int size)
 
     if (m_HeroType == HERO_LAPHINX)
     {
-        if (size < 5)       animation->setDelayPerUnit(0.2f);
-        else if (size >= 5) animation->setDelayPerUnit(0.05f);
+        if (size < 5)
+            animation->setDelayPerUnit(0.2f);
+        else
+            animation->setDelayPerUnit(0.05f);
     }
-
     else
     {
-        if (size < 5)       animation->setDelayPerUnit(0.2f);
-        else if (size >= 5) animation->setDelayPerUnit(0.1f);
+        if (size < 5)
+            animation->setDelayPerUnit(0.2f);
+        else
+            animation->setDelayPerUnit(0.1f);
     }
 
     for (int i = 1; i < size + 1; ++i)
@@ -163,8 +169,10 @@ Direction Hero::CalcMoveDirection(Vec2 displacement)
     }
     else if (displacement.x == 0)
     {
-        if (displacement.y < 0)                 return Direction::S;
-        if (displacement.y >= 0)                return Direction::N;
+        if (displacement.y < 0)
+            return Direction::S;
+        else
+            return Direction::N;
     }
     return Direction::E;
 }
@@ -175,13 +183,17 @@ Direction Hero::CalcSkillDirection(Vec2 displacement)
 
     if (displacement.x > 0)
     {
-        if (slope >= 0) return Direction::NE;
-        if (slope < 0)  return Direction::SE;
+        if (slope >= 0)
+            return Direction::NE;
+        else
+            return Direction::SE;
     }
-    else if (displacement.x < 0)
+    else
     {
-        if (slope >= 0) return Direction::SW;
-        if (slope < 0)  return Direction::NW;
+        if (slope >= 0)
+            return Direction::SW;
+        else
+            return Direction::NW;
     }
     return Direction::SE;
 }

@@ -247,14 +247,16 @@ void ListenerLayer::SetArrowPos()
     {
         return;
     }
-    auto displacement = GET_IM->GetMouseLocation() - this->getPosition() - GET_OBJECT_LAYER->GetMyHero()->GetHeroPos();
-    auto distance = sqrt(pow(displacement.x, 2) + pow(displacement.y, 2));
-    auto arrow = GET_OBJECT_LAYER->GetMyHero()->GetArrow();
-    arrow->setPosition(Vec2(30, 30) + displacement / distance * 50);
-    int degree = acos(displacement.y / distance) / M_PI * 180; //내적
+    auto hero = GET_OBJECT_LAYER->GetMyHero();
+    auto displacement = GET_IM->GetMouseLocation() - this->getPosition() - hero->GetHeroPos();
+    auto distance = displacement.getLength();
+    auto arrow = hero->GetArrow();
+
+    float degree = acos(displacement.y / distance) / M_PI * 180; //내적
     if (displacement.x < 0)
     {
         degree = degree * -1;
     }
+    arrow->setPosition(Vec2(25, 25) + displacement / distance * 100);
     arrow->setRotation(degree);
 }

@@ -503,13 +503,11 @@ void ClientSession::SendMapInfo(int playerId, int unitId, const b2Vec2& pos)
     outPacket.mUnitId = unitId;
     outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
 
-    printf("createPos x: %f y: %f\n", outPacket.mPos.x, outPacket.mPos.y);
-
     if (!Broadcast(&outPacket))
     {
         Disconnect();
     }
-    printf(" Send: MapInfo Player ID: %d \n", mPlayer->GetPlayerID());
+    printf(" Send: MapInfo Player ID: %d \t createPos  x: %.f \t y: %.f\n", mPlayer->GetPlayerID(), outPacket.mPos.x, outPacket.mPos.y);
 }
 
 void ClientSession::SendStartGame()

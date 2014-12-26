@@ -17,10 +17,10 @@ bool UILayer::init()
     auto menuItem = MenuItemImage::create("Images/Exit.png","Images/Exit_selected.png", CC_CALLBACK_1(UILayer::ClickExit, this));
     menuItem->setScale(0.3f, 0.3f);
     auto menu = Menu::create(menuItem, NULL);
-    menu->setPosition(winSize.width - 40, 12);
-    this->addChild(menu);
     auto hpLabel = Label::createWithSystemFont("\0","Thonburi",20);
+    menu->setPosition(winSize.width - 40, 12);
     hpLabel->setPosition(Vec2(590, 105));
+    this->addChild(menu);
     this->addChild(hpLabel, 11, "HpLabel");
 
     auto sprite = [](const char* image, Vec2 pos, Vec2 scale, Vec2 anchor)

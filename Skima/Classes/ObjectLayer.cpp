@@ -151,31 +151,17 @@ void ObjectLayer::UnitSkillUse(int playerID,int unitID, SkillKey key, Vec2 recvC
     {
         return;
     }
-    
-    if (hero->second->GetHeroType() == HERO_LAPHINX && key == SKILL_Q)
-    {
-        hero->second->SetTargetPos(targetPos);
-        hero->second->GetCenterSprite()->stopAllActions();
-        hero->second->GetRealSprite()->stopAllActions();
-        hero->second->GetRealSprite()->setVisible(true);
-        hero->second->SetSkillMotionByDir(key);
+    hero->second->SetTargetPos(targetPos);
+    hero->second->GetCenterSprite()->stopAllActions();
+    hero->second->GetRealSprite()->setVisible(true);
+    hero->second->SetSkillMotionByDir(key);
 
-        if (m_Hero->GetPlayerID()==playerID)
-        {
-            hero->second->SkillCast(key, recvCurPos, targetPos);
-        }
-        else
-        {
-            hero->second->SkillCastForEnemy(key, recvCurPos, targetPos);
-        }
+    if (hero->second->GetHeroType() == HERO_LAPHINX && key == SKILL_Q && m_Hero->GetPlayerID() != playerID)
+    {
+        hero->second->SkillCastForEnemy(key, recvCurPos, targetPos);
     }
     else
     {
-        hero->second->SetTargetPos(targetPos);
-        hero->second->GetCenterSprite()->stopAllActions();
-        hero->second->GetRealSprite()->stopAllActions();
-        hero->second->GetRealSprite()->setVisible(true);
-        hero->second->SetSkillMotionByDir(key);
         hero->second->SkillCast(key, recvCurPos, targetPos);
     }
     
