@@ -172,6 +172,7 @@ void Laphinx::HeroUnHide(Vec2 heroPos)
         m_IsPerforming = true;
         m_Sprite->stopAllActions();
         m_RealSprite->stopAllActions();
+        m_RealSprite->setVisible(true);
 
         auto appearEffect = new UnHideEffect();
         appearEffect->CreateEffect(Vec2{ heroPos.x - 80, heroPos.y + 80 });

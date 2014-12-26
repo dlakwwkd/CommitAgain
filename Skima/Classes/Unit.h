@@ -59,6 +59,9 @@ public:
     UnitType        GetUnitType(){ return m_UnitType; }
 
 protected:
+    void            Damaged();
+
+protected:
     MoveState*      m_MoveState	= nullptr;
     MoveState*      m_StandbyState = nullptr;
     MoveState*      m_MovingState = nullptr;
@@ -81,6 +84,7 @@ protected:
     Sprite*         m_MyHpBar = nullptr;
     Sprite*         m_EnemyHpBar = nullptr;
     Sprite*         m_HpbarOut = nullptr;
+    Sprite*         m_Damaged = nullptr;
     UnitType        m_UnitType;
     bool            m_IsHidden;
 

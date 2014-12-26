@@ -27,6 +27,7 @@ void StandbyState::Crashed(Unit* unit)
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
+        unit->GetRealSprite()->setVisible(true);
     }
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_OBSTRUCT)
     {
@@ -58,6 +59,8 @@ void MovingState::TryMove(Unit* unit)
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
+        unit->GetRealSprite()->setVisible(true);
+
     }
     unit->Move();
 }
@@ -75,6 +78,7 @@ void MovingState::Crashed(Unit* unit)
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
+        unit->GetRealSprite()->setVisible(true);
     }
     unit->Crash();
 }
@@ -87,6 +91,7 @@ void MovingState::EndMove(Unit* unit)
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
+        unit->GetRealSprite()->setVisible(true);
     }
 }
 
@@ -98,6 +103,7 @@ void MovingState::EndCrash(Unit* unit)
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
+        unit->GetRealSprite()->setVisible(true);
     }
     auto action1 = MoveTo::create(0.1f, unit->GetMoveTargetPos());
     auto action2 = EaseSineIn::create(action1);
@@ -126,6 +132,7 @@ void CrashedState::Crashed(Unit* unit)
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
+        unit->GetRealSprite()->setVisible(true);
     }
     unit->Crash();
 }
@@ -138,6 +145,7 @@ void CrashedState::EndCrash(Unit* unit)
     if(GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
+        unit->GetRealSprite()->setVisible(true);
     }
 
     auto action1 = MoveTo::create(0.1f, unit->GetMoveTargetPos());

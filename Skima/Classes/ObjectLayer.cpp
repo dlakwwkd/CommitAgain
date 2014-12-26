@@ -129,13 +129,6 @@ void ObjectLayer::UnitCrash(int unitID, Vec2 exPos)
         return;
     }
     unit->second->SetTargetPos(exPos);
-    if (GET_MAIN_TYPE(unit->second->GetUnitID()) == UNIT_HERO)
-    {
-        if (GET_SIDE_TYPE(unit->second->GetUnitID()) == HERO_LAPHINX)
-        {
-            SimpleAudioEngine::getInstance()->playEffect("Music/Effect/crash.mp3");
-        }
-    }
     unit->second->Crashed();
 }
 
@@ -163,6 +156,7 @@ void ObjectLayer::UnitSkillUse(int playerID,int unitID, SkillKey key, Vec2 recvC
         hero->second->SetTargetPos(targetPos);
         hero->second->GetSprite()->stopAllActions();
         hero->second->GetRealSprite()->stopAllActions();
+        hero->second->GetRealSprite()->setVisible(true);
         hero->second->SetSkillMotionByDir(key);
 
         if (m_Hero->GetUnitPlayerID()==playerID)
@@ -179,6 +173,7 @@ void ObjectLayer::UnitSkillUse(int playerID,int unitID, SkillKey key, Vec2 recvC
         hero->second->SetTargetPos(targetPos);
         hero->second->GetSprite()->stopAllActions();
         hero->second->GetRealSprite()->stopAllActions();
+        hero->second->GetRealSprite()->setVisible(true);
         hero->second->SetSkillMotionByDir(key);
         hero->second->SkillCast(key, recvCurPos, targetPos);
     }
@@ -214,8 +209,6 @@ void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
         }
         return;
     }
-
-    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/damage.mp3");
     if (m_Hero->GetUnitPlayerID() == playerID)
     {
         GET_UI_LAYER->UpdateHpBar(unit->second->GetCurHp(), unit->second->GetMaxHp());

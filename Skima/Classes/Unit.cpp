@@ -3,6 +3,9 @@
 #include "Hero.h"
 #include "Skill.h"
 #include "GameManager.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 
 Unit::Unit()
@@ -15,6 +18,13 @@ Unit::Unit()
     m_TargetPos = { 0, 0 };
     m_InUse = false;
     m_Sprite = Sprite::create("Images/CloackingUnit.png");
+
+//     m_Damaged = Sprite::create("Images/Red.png");
+//     m_Damaged->setZOrder(5);
+//     m_Damaged->setOpacity(80);
+//     m_Damaged->setVisible(false);
+    //m_RealSprite->addChild(m_Damaged);
+
     m_MoveState = m_StandbyState = new StandbyState();
     m_MovingState = new MovingState();
     m_CrashedState = new CrashedState();
@@ -43,6 +53,7 @@ void Unit::UpdateMyHpBar()
 {
     if (m_MyHpBar)
     {
+        Damaged();
         m_MyHpBar->setScaleX(m_CurHp / m_MaxHp);
     }
 }
@@ -51,6 +62,7 @@ void Unit::UpdateOtherHpBar()
 {
     if (m_EnemyHpBar)
     {
+        Damaged();
         m_EnemyHpBar->setScaleX(m_CurHp / m_MaxHp);
     }
 }
@@ -120,4 +132,18 @@ void Unit::SetEnemyHpBar()
     m_EnemyHpBar->setPosition(Vec2(-25, 85));
     m_EnemyHpBar->setAnchorPoint(Vec2(0, 0));
     m_Sprite->addChild(m_EnemyHpBar, 16);
+}
+
+void Unit::Damaged()
+{
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/damage.mp3");
+
+//     auto action1 = TintTo::create(0.1f,0x50,0x00,0x00);
+//     auto action2 = TintTo::create(0.1f, 0x00, 0x00, 0x00);
+//     auto action3 = Sequence::create(action1, action2, action1, NULL);
+    
+    auto action1 = Blink::create(0.5f, 4);
+
+    m_RealSprite->runAction(action1);
+    //m_Damaged->setVisible(false);
 }
