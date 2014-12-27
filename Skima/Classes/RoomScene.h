@@ -13,7 +13,8 @@ public:
     virtual bool init();
     CREATE_FUNC(RoomScene);
 
-    void SetRoomID(int id) { m_RoomID = id; };
+    void SetRoomID(int id) { m_RoomInfo.mRoomNum = id; };
+    void UpdateRoomInfo(RoomInfo roomInfo);
     void GameStartCallback(Ref* sender);
     void GameExitCallback(Ref* sender);
     void WaitingCheck();
@@ -29,7 +30,7 @@ public:
     void GameStartComplete();
 
 private:
-    int         m_RoomID;
+    RoomInfo    m_RoomInfo;
     bool        m_IsReady;
     HeroType    m_CurHero;
     FaceList    m_HeroImageList;

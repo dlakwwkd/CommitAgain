@@ -9,6 +9,7 @@
 using namespace CocosDenshion;
 
 #define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
+#define GET_ROOM_PLAYER_LABEL dynamic_cast<Label*>(this->getChildByName("PlayerNumLabel"))
 #define GET_WAITING_LAYER    dynamic_cast<WaitingLayer*>(this->getChildByName("WaitingLayer"))
 
 Scene* RoomScene::createScene()
@@ -81,11 +82,16 @@ bool RoomScene::init()
     waitLayer->setVisible(false);
     this->addChild(waitLayer, 2, "WaitingLayer");
 
-    auto label = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
-    label->setAnchorPoint(Vec2::ZERO);
-    label->setPosition(Vec2(0, winSize.height * 0.9f));
-    label->setHorizontalAlignment(TextHAlignment::CENTER);
-    this->addChild(label, 0, "RoomStateLabel");
+    auto label1 = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
+    label1->setAnchorPoint(Vec2::ZERO);
+    label1->setPosition(Vec2(0, winSize.height * 0.9f));
+    label1->setHorizontalAlignment(TextHAlignment::CENTER);
+    this->addChild(label1, 0, "RoomStateLabel");
+
+    auto label2 = Label::createWithSystemFont("방 인원: 1명 / 2명", "Thonburi", 70);
+    label2->setPosition(Vec2(0, winSize.height * 0.7f));
+    label2->setHorizontalAlignment(TextHAlignment::CENTER);
+    this->addChild(label2, 0, "PlayerNumLabel");
 
     SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/banpick.mp3", true);
     SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
@@ -103,14 +109,14 @@ void RoomScene::GameStartCallback(Ref* sender)	// 게임 시작
     }
     m_IsReady = true;
     WaitingCheck();
-    TcpClient::getInstance()->startGameRequest(m_RoomID,m_CurHero);
+    TcpClient::getInstance()->startGameRequest(m_RoomInfo.mRoomNum,m_CurHero);
 }
 
 void RoomScene::GameExitCallback(Ref* sender)	// 나가기
 {
     if (TcpClient::getInstance()->checkSocket() != NULL)
     {
-        TcpClient::getInstance()->outRoomRequest(m_RoomID);
+        TcpClient::getInstance()->outRoomRequest(m_RoomInfo.mRoomNum);
     }
 
     m_IsReady = false;
@@ -125,19 +131,38 @@ void RoomScene::Tick(float dt)
     {
         Director::getInstance()->popScene();
     }
-    auto label = GET_ROOM_STATE_LABEL;
-    if(label == nullptr)
+    auto label1 = GET_ROOM_STATE_LABEL;
+    if(label1 == nullptr)
         return;
 
     // 방 번호를 문자열로 변환 후 라벨에 적용
     char buf[4];
-    _itoa(m_RoomID, buf, 10);
+    _itoa(m_RoomInfo.mRoomNum, buf, 10);
     std::string roomNum = buf;
     roomNum += "번 방";
-    label->setString(roomNum);
- 
+    label1->setString(roomNum);
 }
 //////////////////////////////////////////////////////////////////////////
+void RoomScene::UpdateRoomInfo(RoomInfo roomInfo)
+{
+    auto label2 = GET_ROOM_PLAYER_LABEL;
+    if (label2 == nullptr)
+        return;
+
+    m_RoomInfo = roomInfo;
+
+    char buf[4];
+    std::string roomInfoStr = "방의 인원: ";
+    _itoa(m_RoomInfo.mCurPlayerNum, buf, 10);
+    std::string curPlayerNum = buf;
+    curPlayerNum += "명 / ";
+    _itoa(m_RoomInfo.mMaxPlayerNum, buf, 10);
+    std::string maxPlayerNum = buf;
+    maxPlayerNum += "명";
+    roomInfoStr += curPlayerNum + maxPlayerNum;
+    label2->setString(roomInfoStr);
+}
+
 void RoomScene::GameStart()
 {
     GET_WAITING_LAYER->GameStart();
@@ -149,7 +174,7 @@ void RoomScene::GameStartComplete()
     auto scene = GameScene::createScene();
 
     auto layer = dynamic_cast<GameScene*>(scene->getChildByName("GameScene"));
-    layer->SetRoomID(m_RoomID);
+    layer->SetRoomID(m_RoomInfo.mRoomNum);
 
     m_IsReady = false;
     WaitingCheck();

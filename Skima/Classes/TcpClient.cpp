@@ -227,7 +227,7 @@ void TcpClient::processPacket()
             if (scene)
             {
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::MakeRoomComplete, scene,
-                    recvData.mRoomId));
+                    recvData.mRoomInfo));
             }
         }
         break;
@@ -236,20 +236,40 @@ void TcpClient::processPacket()
         {
             InOutRoomResult recvData;
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-            assert(ret && recvData.mPlayerId == mLoginId);
+            assert(ret && recvData.mPlayerId != -1);
 
             if (recvData.mIsIn)
             {
-                auto scene = GET_NETWORK_SCENE;
-                if (scene)
+                if (recvData.mPlayerId != mLoginId)
                 {
-                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, scene,
-                        recvData.mRoomId));
+                    auto scene = GET_ROOM_SCENE;
+                    if (scene)
+                    {
+                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::UpdateRoomInfo, scene,
+                            recvData.mRoomInfo));
+                    }
+                }
+                else
+                {
+                    auto scene = GET_NETWORK_SCENE;
+                    if (scene)
+                    {
+                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, scene,
+                            recvData.mRoomInfo));
+                    }
                 }
             }
             else
             {
-                //나간 플레이어 처리 필요
+                if (recvData.mPlayerId != mLoginId)
+                {
+                    auto scene = GET_ROOM_SCENE;
+                    if (scene)
+                    {
+                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::UpdateRoomInfo, scene,
+                            recvData.mRoomInfo));
+                    }
+                }
             }
         }
         break;
@@ -615,8 +635,7 @@ void TcpClient::joinRoomRequest(int roomID)
     InOutRoomRequest sendData;
     sendData.mPlayerId = mLoginId;
     sendData.mIsIn = true;
-    sendData.mRoomId = roomID;
-    strcpy(sendData.mPlayerName, mLoginName);
+    sendData.mRoomInfo.mRoomNum = roomID;
 
     send((const char*)&sendData, sizeof(InOutRoomRequest));
 }
@@ -629,8 +648,7 @@ void TcpClient::outRoomRequest(int roomId)
     InOutRoomRequest sendData;
     sendData.mPlayerId = mLoginId;
     sendData.mIsIn = false;
-    sendData.mRoomId = roomId;
-    strcpy(sendData.mPlayerName, mLoginName);
+    sendData.mRoomInfo.mRoomNum = roomId;
 
     send((const char*)&sendData, sizeof(InOutRoomRequest));
 }

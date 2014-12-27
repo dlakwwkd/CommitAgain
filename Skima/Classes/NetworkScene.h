@@ -21,8 +21,8 @@ public:
     void RoomInformation(RoomInfo roomInfo);
     void UpdateRoomInfo();
     void ClearRoomInfo();
-    void MakeRoomComplete(int roomId);
-    void JoinRoomComplete(int roomId);
+    void MakeRoomComplete(RoomInfo roomInfo);
+    void JoinRoomComplete(RoomInfo roomInfo);
 
 private:
     std::vector<RoomInfo>  m_RoomList;

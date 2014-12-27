@@ -196,7 +196,7 @@ REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 
     if (inPacket.mIsIn)
     {
-        session->JoinGameRoom(inPacket.mRoomId);	
+        session->JoinGameRoom(inPacket.mRoomInfo.mRoomNum);	
     }
     else
     {
@@ -405,12 +405,18 @@ void ClientSession::MakeGameRoom()
     GameRoom* gameRoom = GGameManager->CreateRoom();
     GGameManager->JoinRoom(gameRoom->GetRoomID(), mPlayer);
 
+    auto roomList = GGameManager->GetRoomList();
+    auto room = roomList[gameRoom->GetRoomID()];
+
     MakeRoomResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mRoomId = mRoomId = gameRoom->GetRoomID();
+    outPacket.mRoomInfo.mRoomNum = mRoomId = gameRoom->GetRoomID();
+    for (auto& player : room->GetPlayerList()) // room안에 player인원세기
+        outPacket.mRoomInfo.mCurPlayerNum++;
+    outPacket.mRoomInfo.mMaxPlayerNum = MAX_PLAYER_NUM;
 
     SendRequest(&outPacket);
-    printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
+    printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId);
 }
 
 void ClientSession::JoinGameRoom(int roomID)
@@ -420,13 +426,21 @@ void ClientSession::JoinGameRoom(int roomID)
         return;
     }
     GGameManager->JoinRoom(roomID, mPlayer);
+    auto roomList = GGameManager->GetRoomList();
+    auto room = roomList[roomID];
 
     InOutRoomResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mRoomId = mRoomId = roomID;
+    outPacket.mRoomInfo.mRoomNum = mRoomId = roomID;
+    for (auto& player : room->GetPlayerList()) // room안에 player인원세기
+        outPacket.mRoomInfo.mCurPlayerNum++;
+    outPacket.mRoomInfo.mMaxPlayerNum = MAX_PLAYER_NUM;
 
-    SendRequest(&outPacket);
-    printf(" Send: Join Room ID: %d, Player ID: %d \n", outPacket.mRoomId, outPacket.mPlayerId);
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+    printf(" Send: Join Room ID: %d, Player ID: %d \n", outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId);
 }
 
 void ClientSession::OutGameRoom()
@@ -436,6 +450,22 @@ void ClientSession::OutGameRoom()
         return;
     }
     GGameManager->PlayerOut(mPlayer);
+    auto roomList = GGameManager->GetRoomList();
+    auto room = roomList[mPlayer->GetRoomID()];
+
+    InOutRoomResult outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mRoomInfo.mRoomNum = room->GetRoomID();
+    for (auto& player : room->GetPlayerList()) // room안에 player인원세기
+        outPacket.mRoomInfo.mCurPlayerNum++;
+    outPacket.mRoomInfo.mMaxPlayerNum = MAX_PLAYER_NUM;
+    outPacket.mIsIn = false;
+
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+    printf(" Send: Out Room ID: %d, Player ID: %d \n", outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId);
 }
 
 
@@ -449,7 +479,6 @@ void ClientSession::PlayerReadyNotify()
 {
     GameReadyResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    strcpy(outPacket.mPlayerName, mPlayer->GetPlayerName().c_str());
 
     if (!Broadcast(&outPacket))
     {

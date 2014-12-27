@@ -132,6 +132,13 @@ struct Coord
 
 struct RoomInfo
 {
+    RoomInfo()
+    {
+        mRoomNum = 0;
+        mCurPlayerNum = 0;
+        mMaxPlayerNum = 0;
+    }
+
     int mRoomNum;
     int mCurPlayerNum;
     int mMaxPlayerNum;
@@ -191,10 +198,9 @@ struct MakeRoomResult : public PacketHeader
         mSize = sizeof(MakeRoomResult);
         mType = PKT_SC_MAKE_ROOM;
         mPlayerId = -1;
-        mRoomId = -1;
     }
-    int     mPlayerId;
-    int     mRoomId;
+    int         mPlayerId;
+    RoomInfo    mRoomInfo;
 };
 
 
@@ -205,15 +211,11 @@ struct InOutRoomRequest : public PacketHeader
         mSize = sizeof(InOutRoomRequest);
         mType = PKT_CS_INOUT_ROOM;
         mPlayerId = -1;
-        mRoomId = -1;
         mIsIn = true;
-        memset(mPlayerName, 0, MAX_NAME_LEN);
-
     }
-    int     mPlayerId;
-    int     mRoomId;
-    bool    mIsIn;
-    char    mPlayerName[MAX_NAME_LEN];
+    int         mPlayerId;
+    bool        mIsIn;
+    RoomInfo    mRoomInfo;
 };
 struct InOutRoomResult : public PacketHeader
 {
@@ -222,14 +224,11 @@ struct InOutRoomResult : public PacketHeader
         mSize = sizeof(InOutRoomResult);
         mType = PKT_SC_INOUT_ROOM;
         mPlayerId = -1;
-        mRoomId = -1;
         mIsIn = true;
-        memset(mPlayerName, 0, MAX_NAME_LEN);
     }
-    int     mPlayerId;
-    int     mRoomId;
-    bool    mIsIn;
-    char    mPlayerName[MAX_NAME_LEN];
+    int         mPlayerId;
+    bool        mIsIn;
+    RoomInfo    mRoomInfo;
 };
 
 

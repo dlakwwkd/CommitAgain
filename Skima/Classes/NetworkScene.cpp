@@ -169,23 +169,23 @@ void NetworkScene::UpdateRoomInfo()
     }
 }
 
-void NetworkScene::MakeRoomComplete(int roomId)
+void NetworkScene::MakeRoomComplete(RoomInfo roomInfo)
 {
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     ConnectLabelChange("서버 연결 양호.");
     auto scene = RoomScene::createScene();
     auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
-    layer->SetRoomID(roomId);
+    layer->UpdateRoomInfo(roomInfo);
     Director::getInstance()->pushScene(scene);
 }
 
-void NetworkScene::JoinRoomComplete(int roomId)
+void NetworkScene::JoinRoomComplete(RoomInfo roomInfo)
 {
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     ConnectLabelChange("서버 연결 양호.");
     auto scene = RoomScene::createScene();
     auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
-    layer->SetRoomID(roomId);
+    layer->UpdateRoomInfo(roomInfo);
     Director::getInstance()->pushScene(scene);
 }
 
