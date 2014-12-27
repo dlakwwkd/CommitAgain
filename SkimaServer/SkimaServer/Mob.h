@@ -12,6 +12,7 @@ public:
 
     void    ChaseEnemy();
     void    Chasing();
+    void    DeadMob();
 
 private:
     Timer*  m_Timer = nullptr;

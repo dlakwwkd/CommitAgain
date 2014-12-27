@@ -126,7 +126,7 @@
       <Filter>Game\Component\Unit\Obstruct</Filter>
     </ClCompile>
     <ClCompile Include="Lava_Damage.cpp">
-      <Filter>Game\Component\Skill\Lava Damage</Filter>
+      <Filter>Game\Component\Skill\Neutrality Skill</Filter>
     </ClCompile>
     <ClCompile Include="MeteorSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
@@ -145,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Game\Component\Unit\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="BuffSkill.cpp">
+      <Filter>Game\Component\Skill\Neutrality Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,7 +298,7 @@
       <Filter>Game\Component\Unit\Obstruct</Filter>
     </ClInclude>
     <ClInclude Include="Lava_Damage.h">
-      <Filter>Game\Component\Skill\Lava Damage</Filter>
+      <Filter>Game\Component\Skill\Neutrality Skill</Filter>
     </ClInclude>
     <ClInclude Include="MeteorSkill.h">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
@@ -314,6 +317,9 @@
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Game\Component\Unit\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffSkill.h">
+      <Filter>Game\Component\Skill\Neutrality Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -374,11 +380,11 @@
     <Filter Include="Game\Component\Unit\Mob">
       <UniqueIdentifier>{4948f4fb-cbed-4d7e-a5e0-1b1d33adf779}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Skill\Lava Damage">
-      <UniqueIdentifier>{2f367189-6f70-492f-ab31-56254f1965d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Component\Unit\Item">
       <UniqueIdentifier>{956a5576-ab55-4f74-92e5-74dffaa2e99b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Skill\Neutrality Skill">
+      <UniqueIdentifier>{2f367189-6f70-492f-ab31-56254f1965d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

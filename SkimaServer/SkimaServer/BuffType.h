@@ -10,8 +10,15 @@ public:
     virtual void    CastStop() = 0;
 
 protected:
-    void			MoveSpeedBonus();
-    void            MoveSpeedBonusEnd();
+    void			DashSkillCast();
+    void            DashSkillEnd();
+
+    void            MoveSpeedBonus(int duration, float bonus);
+    void            MoveSpeedBonusEnd(float bonus);
+    void            DamageUpBonus(int duration, int bonus);
+    void            DamageUpBonusEnd(int bonus);
+    void            ShieldBonus(int bonus);
+    void            ShieldBonusEnd();
 
 protected:
     int             m_Duration;

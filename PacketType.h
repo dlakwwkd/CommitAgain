@@ -12,6 +12,7 @@ enum UnitType
     UNIT_MISSILE,
     UNIT_OBSTRUCT,
     UNIT_MOB,
+    UNIT_ITEM,
 };
 enum HeroType
 {
@@ -39,6 +40,11 @@ enum MobType
     MOB_NONE,
     MOB_PEA,
 };
+enum ItemType
+{
+    ITEM_NONE,
+    ITEM_NORMAL,
+};
 enum BuffTarget
 {
     BUFF_NONE,
@@ -46,6 +52,7 @@ enum BuffTarget
     BUFF_SPEED,
     BUFF_DAMAGE,
     BUFF_COOLTIME,
+    BUFF_SHIELD,
 };
 
 enum SkillKey

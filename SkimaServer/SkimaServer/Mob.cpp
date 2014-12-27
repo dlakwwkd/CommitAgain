@@ -5,7 +5,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Timer.h"
-
+#include "Item.h"
 
 
 Mob::Mob()
@@ -41,4 +41,24 @@ void Mob::Chasing()
 {
     m_Game->Targeting(this);
     m_State->TryMove(this);
+}
+
+void Mob::DeadMob()
+{
+ //랜덤 함수 필요
+    auto gamble = rand() % 10;
+    if (gamble == 0)
+    {
+        auto item = new Item(this, BUFF_SPEED);
+    }
+    else if (gamble == 1)
+    {
+        auto item = new Item(this, BUFF_SHIELD);
+    }
+    else
+    {
+        return;
+    }
+
+    // 클라에 아이템 생성 패킷 전송
 }

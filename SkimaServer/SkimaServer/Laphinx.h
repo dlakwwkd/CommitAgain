@@ -6,8 +6,6 @@ public:
     Laphinx(Player* owner, const b2Vec2& pos, float scale);
     virtual ~Laphinx();
     
-    virtual void Extinction(){}
-
     void UnHide();
 };
 

@@ -48,7 +48,7 @@ void MovingState::EndMove(Unit* unit)
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_MISSILE)
     {
         unit->Crashed();
-        unit->Crashing();
+        unit->Crashing(nullptr);
         return;
     }
     unit->GetBody()->SetAwake(false);

@@ -2,8 +2,7 @@
 #include "FieldType.h"
 class Timer;
 
-class Lava_Damage :
-    public FieldType
+class Lava_Damage : public FieldType
 {
 public:
     Lava_Damage(Player* owner);

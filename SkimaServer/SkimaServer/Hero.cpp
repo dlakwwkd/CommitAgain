@@ -2,6 +2,7 @@
 #include "Hero.h"
 #include "Skill.h"
 
+
 Hero::Hero()
 {
 	static int makeId = 0;
@@ -11,10 +12,10 @@ Hero::Hero()
 
 Hero::~Hero()
 {
-	for (auto& skill : m_SkillList)
-	{
-		delete skill.second;
-	}
+    for (auto& skill : m_SkillList)
+    {
+        delete skill.second;
+    }
 }
 
 void Hero::UseSkill(SkillKey skillKey, const b2Vec2& heroPos, const b2Vec2& targetPos)

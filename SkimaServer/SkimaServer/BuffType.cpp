@@ -18,7 +18,7 @@ BuffType::~BuffType()
 {
 }
 
-void BuffType::MoveSpeedBonus()
+void BuffType::DashSkillCast()
 {
     if (!m_IsOn)
     {
@@ -28,7 +28,7 @@ void BuffType::MoveSpeedBonus()
         hero->SetDamage(hero->GetDamage() + m_Damage);
 
         auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-        auto func = std::bind(&BuffType::MoveSpeedBonusEnd, this);
+        auto func = std::bind(&BuffType::DashSkillEnd, this);
         auto timer = new Timer(m_Owner->GetRoomID());
         timer->CallFuncOnce(m_Duration, func);
         game->PushTimer(timer);
@@ -38,7 +38,7 @@ void BuffType::MoveSpeedBonus()
     }
 }
 
-void BuffType::MoveSpeedBonusEnd()
+void BuffType::DashSkillEnd()
 {
     if (m_IsOn)
     {
@@ -52,4 +52,56 @@ void BuffType::MoveSpeedBonusEnd()
         auto client = m_Owner->GetClient();
         client->BuffBroadCast(hero->GetUnitID(), (-m_SpeedBonus), BUFF_SPEED);
     }
+}
+
+
+void BuffType::MoveSpeedBonus(int duration, float bonus)
+{
+    auto hero = m_Owner->GetMyHero();
+    hero->SetSpeed(hero->GetSpeed() + bonus);
+
+    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
+    auto func = std::bind(&BuffType::MoveSpeedBonusEnd, this, bonus);
+    auto timer = new Timer(m_Owner->GetRoomID());
+    timer->CallFuncOnce(duration, func);
+    game->PushTimer(timer);
+
+    auto client = m_Owner->GetClient();
+    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_SPEED);
+}
+
+void BuffType::MoveSpeedBonusEnd(float bonus)
+{
+    auto hero = m_Owner->GetMyHero();
+    hero->SetSpeed(hero->GetSpeed() - bonus);
+
+    auto client = m_Owner->GetClient();
+    client->BuffBroadCast(hero->GetUnitID(), (-bonus), BUFF_SPEED);
+}
+
+void BuffType::DamageUpBonus(int duration, int bonus)
+{
+
+}
+
+void BuffType::DamageUpBonusEnd(int bonus)
+{
+
+}
+
+void BuffType::ShieldBonus(int bonus)
+{
+    auto hero = m_Owner->GetMyHero();
+    hero->SetShield(hero->GetShield() + bonus);
+
+    auto client = m_Owner->GetClient();
+    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_SHIELD);
+}
+
+void BuffType::ShieldBonusEnd()
+{
+    auto hero = m_Owner->GetMyHero();
+
+    auto client = m_Owner->GetClient();
+    client->BuffBroadCast(hero->GetUnitID(), 0, BUFF_SHIELD);
 }

@@ -28,13 +28,13 @@ void ContactListener::EndContact(b2Contact* contact)
     int damageAble = 0;
     if (unitA && unitA->GetUnitID() > 0)
     {
-        unitA->Crashing();
+        unitA->Crashing(unitB);
         unitA->SetContectState(false);
         ++damageAble;
     }
     if (unitB && unitB->GetUnitID() > 0)
     {
-        unitB->Crashing();
+        unitB->Crashing(unitA);
         unitB->SetContectState(false);
         ++damageAble;
     }

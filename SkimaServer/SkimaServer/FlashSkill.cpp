@@ -26,11 +26,11 @@ void FlashSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& ta
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 
-    MoveSpeedBonus();
+    DashSkillCast();
     hero->TryMove(heroPos, targetPos);
 }
 
 void FlashSkill::CastStop()
 {
-    MoveSpeedBonusEnd();
+    DashSkillEnd();
 }

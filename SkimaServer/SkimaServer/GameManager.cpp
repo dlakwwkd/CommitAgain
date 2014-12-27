@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Unit.h"
 #include "Timer.h"
+#include "Mob.h"
 
 GameManager* GGameManager = nullptr;
 
@@ -321,13 +322,21 @@ void GameManager::DeadUnit(Unit* unit)
 {
     auto unitId = unit->GetUnitID();
     auto owner = unit->GetOwner();
-    owner->UnitListPop(unit->GetUnitID());
 
-    if (GET_MAIN_TYPE(unitId) == UNIT_HERO)
+    switch(GET_MAIN_TYPE(unitId))
     {
+    case UNIT_HERO:
+        owner->UnitListPop(unit->GetUnitID());
         owner->DeadHero();
         GameOver(owner);
+        return;
+        
+    case UNIT_MOB:
+        auto mob = dynamic_cast<Mob*>(unit);
+        mob->DeadMob();
+        break;
     }
+    owner->UnitListPop(unit->GetUnitID());
 }
 
 

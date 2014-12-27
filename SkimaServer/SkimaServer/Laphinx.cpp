@@ -8,6 +8,8 @@
 #include "Player.h"
 #include "ShortDashSkill.h"
 #include "MeteorSkill.h"
+#include "BuffSkill.h"
+
 
 Laphinx::Laphinx(Player* owner, const b2Vec2& pos, float scale)
 {
@@ -15,6 +17,8 @@ Laphinx::Laphinx(Player* owner, const b2Vec2& pos, float scale)
     m_Hp = m_MaxHp = 1000;
     m_Speed = Reduce(450.0f);
     m_Damage = 80;
+
+    m_Buff = new BuffSkill(m_Owner);
     m_SkillList[SKILL_Q] = new HideSkill(m_Owner);
     m_SkillList[SKILL_W] = new ShortDashSkill(m_Owner);
     m_SkillList[SKILL_E] = new SwipeSkill(m_Owner);

@@ -2,6 +2,7 @@
 #include "..\..\PacketType.h"
 #include "FSM.h"
 class Player;
+class BuffSkill;
 
 #define DAMPING 5.0f
 #define DEF_SCALE 15.0f
@@ -18,6 +19,7 @@ public:
     void            SetMaxHp(int MaxHp){ m_MaxHp = MaxHp; }
     void            SetHp(int Hp){ m_Hp = Hp; }
     void            SetSpeed(float speed){ m_Speed = speed; }
+    void            SetShield(int shield){ m_Shield = shield; }
     void			SetTargetPos(const b2Vec2& targetPos){ m_TargetPos = targetPos; }
     void            SetContectState(bool state){ m_Contacting = state; }
 
@@ -27,6 +29,7 @@ public:
     int             GetMaxHp(){ return m_MaxHp; }
     int             GetHp(){ return m_Hp; }
     float           GetSpeed(){ return m_Speed; }
+    int             GetShield(){ return m_Shield; }
     const b2Vec2&	GetTargetPos(){ return m_TargetPos; }
     bool            GetContectState(){ return m_Contacting; }
     b2Body*         GetBody(){ return m_Body; }
@@ -37,10 +40,11 @@ public:
 
     void            Moving();
     void            ReachCheck();
-    void            Crashing();
+    void            Crashing(Unit* contactUnit);
     void            CurPosSync();
 
     void            Damaged(int damage);
+    void            UseBuff(BuffTarget type);
 
     void			TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos);
     void            Crashed(){ m_State->Crashed(this); }
@@ -62,6 +66,7 @@ protected:
     int         m_UnitID		= -1;
     int         m_MaxHp			= 0;
     int         m_Hp			= 0;
+    int         m_Shield        = 0;
     int         m_Damage		= 0;
     float       m_Speed			= 0; 
     bool        m_InUse			= false;
@@ -69,6 +74,7 @@ protected:
     bool        m_IsHidden      = false;
     b2Vec2      m_TargetPos		= { 0, 0 };
     b2Body*     m_Body			= nullptr;
+    BuffSkill*  m_Buff          = nullptr;
     MoveState*  m_State			= nullptr;
     MoveState*  m_StandbyState	= nullptr;
     MoveState*  m_MovingState	= nullptr;

@@ -6,12 +6,14 @@
 #include "ClientSession.h"
 #include "Game.h"
 #include "Map.h"
+#include "BuffSkill.h"
+#include "Item.h"
 
 Unit::Unit()
 {
-    m_State = m_StandbyState = new StandbyState;
-    m_MovingState = new MovingState;
-    m_CrashedState = new CrashedState;
+    m_State = m_StandbyState = new StandbyState();
+    m_MovingState = new MovingState();
+    m_CrashedState = new CrashedState();
 }
 
 Unit::~Unit()
@@ -107,10 +109,17 @@ void Unit::ReachCheck()
     }
 }
 
-void Unit::Crashing()
+void Unit::Crashing(Unit* contactUnit)
 {
-    if (GET_MAIN_TYPE(m_UnitID) == UNIT_MISSILE)
+    switch (GET_MAIN_TYPE(m_UnitID))
     {
+    case UNIT_MISSILE:
+        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
+        EndCrash();
+        return;
+    case UNIT_ITEM:
+        auto item = dynamic_cast<Item*>(this);
+        contactUnit->UseBuff(item->GetBuffTarget());
         CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
         EndCrash();
         return;
@@ -147,16 +156,34 @@ void Unit::CurPosSync()
 
 void Unit::Damaged(int damage)
 {
-    m_Hp -= damage;
-    m_Owner->GetClient()->HpBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Hp);
+    m_Hp -= (damage - m_Shield);
+    m_Shield -= damage;
 
+    if (m_Buff->IsShieldOn() && m_Shield <= 0)
+    {
+        m_Shield = 0;
+        m_Buff->ShieldDestroy();
+        // 실드 파괴
+    }
     if (m_Hp <= 0)
     {
         CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
     }
+    m_Owner->GetClient()->HpBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Hp);
 }
 
-
+void Unit::UseBuff(BuffTarget type)
+{
+    switch (type)
+    {
+    case BUFF_SPEED:
+        m_Buff->SpeedBuff();
+        break;
+    case BUFF_SHIELD:
+        m_Buff->ShieldBuff();
+        break;
+    }
+}
 
 void Unit::TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos)
 {
