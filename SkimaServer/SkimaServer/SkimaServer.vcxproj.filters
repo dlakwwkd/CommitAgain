@@ -143,6 +143,9 @@
     <ClCompile Include="WaveSystem.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Game\Component\Unit\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -309,6 +312,9 @@
     <ClInclude Include="WaveSystem.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Game\Component\Unit\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -370,6 +376,9 @@
     </Filter>
     <Filter Include="Game\Component\Skill\Lava Damage">
       <UniqueIdentifier>{2f367189-6f70-492f-ab31-56254f1965d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Unit\Item">
+      <UniqueIdentifier>{956a5576-ab55-4f74-92e5-74dffaa2e99b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -17,5 +17,6 @@ public:
 
 protected:
     SkillList	        m_SkillList;
+
 };
 
