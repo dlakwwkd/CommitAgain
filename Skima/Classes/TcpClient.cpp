@@ -363,7 +363,7 @@ void TcpClient::processPacket()
         
         case PKT_SC_CREATE_ITEM:
         {
-            CreateItemResult recvData;
+            ItemBroadcastResult recvData;
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
@@ -376,8 +376,16 @@ void TcpClient::processPacket()
             auto layer = GET_OBJECT_LAYER;
             if (layer)
             {
-                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateItem, layer,
-                    recvData.mPlayerId, recvData.mUnitId, pos));
+                if (recvData.mIsCreate)
+                {
+                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateItem, layer,
+                        recvData.mPlayerId, recvData.mUnitId, pos));
+                }
+                else
+                {
+                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::RemoveItem, layer,
+                        recvData.mPlayerId, recvData.mUnitId));
+                }
             }
         }
         break;

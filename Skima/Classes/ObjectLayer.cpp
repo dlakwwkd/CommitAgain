@@ -21,6 +21,7 @@
 #include "MapLayer.h"
 #include "MeteorSkill.h"
 #include "SimpleAudioEngine.h"
+#include "Item.h"
 
 using namespace CocosDenshion;
 
@@ -113,19 +114,29 @@ void ObjectLayer::CreateMob(int playerID, int unitID, Vec2 location)
 
 void ObjectLayer::CreateItem(int playerID, int unitID, Vec2 location)
 {
-    std::shared_ptr<Mob> unit;
+    std::shared_ptr<Item> unit;
     switch (GET_SIDE_TYPE(unitID))
     {
-    case MOB_PEA:	unit = std::make_shared<Mob>(location, 1.0f);	break;
+    case ITEM_NORMAL:	unit = std::make_shared<Item>(location, 1.0f);	break;
     default:
         return;
     }
     unit->SetPlayerID(playerID);
     unit->SetUnitID(unitID);
-    unit->SetUnitHpBar();
 
     m_UnitList[unitID] = unit;
     this->addChild(unit->GetCenterSprite());
+}
+
+void ObjectLayer::RemoveItem(int playerID, int unitID)
+{
+    auto unit = m_UnitList.find(unitID);
+    if (unit == m_UnitList.end())
+    {
+        return;
+    }
+    this->removeChild(unit->second->GetCenterSprite());
+    m_UnitList.erase(unit);
 }
 
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)

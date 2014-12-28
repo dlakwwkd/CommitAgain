@@ -10,9 +10,9 @@ public:
 	Mob();
 	virtual ~Mob();
 
-    void    ChaseEnemy();
-    void    Chasing();
-    void    DeadMob();
+    void            ChaseEnemy();
+    void            Chasing();
+    virtual void    Dead();
 
 private:
     Timer*  m_Timer = nullptr;

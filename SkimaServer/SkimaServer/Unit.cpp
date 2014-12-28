@@ -120,11 +120,12 @@ void Unit::Crashing(Unit* contactUnit)
     case UNIT_ITEM:
         if (GET_MAIN_TYPE(contactUnit->GetUnitID()) != UNIT_HERO)
         {
-            break;
+            return;
         }
+        
+        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
         auto item = dynamic_cast<Item*>(this);
         contactUnit->UseBuff(item->GetBuffTarget());
-        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
         EndCrash();
         return;
     }
@@ -160,22 +161,37 @@ void Unit::CurPosSync()
 
 void Unit::Damaged(int damage)
 {
-    m_Hp -= (damage - m_Shield);
-    m_Shield -= damage;
-
-    if (m_Shield <= 0)
+    if (GET_MAIN_TYPE(m_UnitID) == UNIT_ITEM)
     {
-        m_Shield = 0;
-        if (m_Buff && m_Buff->IsShieldOn())
+        return;
+    }
+
+    if (m_Buff && m_Buff->IsShieldOn())
+    {
+        m_Shield -= damage;
+
+        if (m_Shield <= 0)
         {
-            m_Buff->ShieldDestroy();
+            m_Shield = 0;
+            if (m_Buff && m_Buff->IsShieldOn())
+            {
+                m_Buff->ShieldDestroy();
+            }
         }
     }
+
+    m_Hp -= damage;
+
     if (m_Hp <= 0)
     {
         CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
     }
     m_Owner->GetClient()->HpBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Hp);
+}
+
+void Unit::Dead()
+{
+
 }
 
 void Unit::UseBuff(BuffTarget type)

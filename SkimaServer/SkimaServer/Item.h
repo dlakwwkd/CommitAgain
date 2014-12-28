@@ -8,7 +8,9 @@ public:
     Item(Mob* mob, BuffTarget type);
     virtual ~Item();
 
-    BuffTarget GetBuffTarget() { return m_BuffType; }
+    BuffTarget      GetBuffTarget() { return m_BuffType; }
+
+    virtual void    Dead();
 
 private:
     BuffTarget m_BuffType;

@@ -24,6 +24,7 @@ void StandbyState::Crashed(Unit* unit)
     }
     unit->SetMoveState(unit->GetCrashedState());
     unit->GetCenterSprite()->stopAllActions();
+    unit->GetCenterSprite()->setVisible(true);
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -56,6 +57,7 @@ void MovingState::TryMove(Unit* unit)
 {
     if (unit == nullptr) return;
     unit->GetCenterSprite()->stopAllActions();
+    unit->GetCenterSprite()->setVisible(true);
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -75,6 +77,8 @@ void MovingState::Crashed(Unit* unit)
     }
     unit->SetMoveState(unit->GetCrashedState());
     unit->GetCenterSprite()->stopAllActions();
+    unit->GetCenterSprite()->setVisible(true);
+
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -88,6 +92,8 @@ void MovingState::EndMove(Unit* unit)
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
     unit->GetCenterSprite()->stopAllActions();
+    unit->GetCenterSprite()->setVisible(true);
+
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -100,6 +106,8 @@ void MovingState::EndCrash(Unit* unit)
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
     unit->GetCenterSprite()->stopAllActions();
+    unit->GetCenterSprite()->setVisible(true);
+
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -129,6 +137,8 @@ void CrashedState::Crashed(Unit* unit)
         unit->SetUnitHiddenState(false);
     }
     unit->GetCenterSprite()->stopAllActions();
+    unit->GetCenterSprite()->setVisible(true);
+
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();
@@ -142,6 +152,8 @@ void CrashedState::EndCrash(Unit* unit)
     if (unit == nullptr) return;
     unit->SetMoveState(unit->GetStandbyState());
     unit->GetCenterSprite()->stopAllActions();
+    unit->GetCenterSprite()->setVisible(true);
+
     if(GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_HERO)
     {
         unit->GetRealSprite()->stopAllActions();

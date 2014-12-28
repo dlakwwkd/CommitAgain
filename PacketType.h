@@ -404,18 +404,20 @@ struct CreateMobResult : public PacketHeader
     Coord       mPos;
 };
 
-struct CreateItemResult : public PacketHeader
+struct ItemBroadcastResult : public PacketHeader
 {
-    CreateItemResult()
+    ItemBroadcastResult()
     {
-        mSize = sizeof(CreateItemResult);
+        mSize = sizeof(ItemBroadcastResult);
         mType = PKT_SC_CREATE_ITEM;
         mPlayerId = -1;
         mUnitId = -1;
+        mIsCreate = false;
         mPos = { 0, };
     }
     int         mPlayerId;
     int         mUnitId;
+    bool        mIsCreate;
     Coord       mPos;
 };
 

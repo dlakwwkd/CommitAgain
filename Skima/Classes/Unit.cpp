@@ -20,12 +20,6 @@ Unit::Unit()
     m_IsHidden = false;
     m_TargetPos = { 0, 0 };
     m_CenterSprite = Sprite::create("Images/CloackingUnit.png");
-//     m_Damaged = Sprite::create("Images/Red.png");
-//     m_Damaged->setZOrder(5);
-//     m_Damaged->setOpacity(80);
-//     m_Damaged->setVisible(false);
-    //m_RealSprite->addChild(m_Damaged);
-
     m_MoveState = m_StandbyState = new StandbyState();
     m_MovingState = new MovingState();
     m_CrashedState = new CrashedState();

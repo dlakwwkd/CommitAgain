@@ -43,12 +43,13 @@ void Mob::Chasing()
     m_State->TryMove(this);
 }
 
-void Mob::DeadMob()
+void Mob::Dead()
 {
+    auto client = m_Owner->GetClient();
     auto gamble = rand() % 10;
     if (gamble == 0)
     {
-        auto item = new Item(this, BUFF_SPEED);
+        auto item = new Item(this, BUFF_SPEED); 
     }
     else if (gamble == 1)
     {
@@ -58,11 +59,11 @@ void Mob::DeadMob()
     {
         return;
     }
-    auto client = m_Owner->GetClient();
+    
     if (client == nullptr)
     {
         printf(" - DeadMob Failed ! : client is invalid \n");
         return;
     }
-    client->CreateMobBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Body->GetPosition());
+    
 }

@@ -362,12 +362,8 @@ void GameManager::DeadUnit(Unit* unit)
         owner->DeadHero();
         GameOver(owner);
         return;
-        
-    case UNIT_MOB:
-        auto mob = dynamic_cast<Mob*>(unit);
-        mob->DeadMob();
-        break;
     }
+    unit->Dead();
     owner->UnitListPop(unit->GetUnitID());
 }
 

@@ -82,6 +82,9 @@
     <Filter Include="Game\Scene\NetworkScene">
       <UniqueIdentifier>{0c45d992-0c33-4bc4-9709-69e7bc0f4df9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Unit\Item">
+      <UniqueIdentifier>{01d4a5c7-7457-4c00-8af9-b984045a7218}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -272,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\MakeRoomLayer.cpp">
       <Filter>Game\Scene\NetworkScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item.cpp">
+      <Filter>Game\Component\Unit\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -472,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MakeRoomLayer.h">
       <Filter>Game\Scene\NetworkScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item.h">
+      <Filter>Game\Component\Unit\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

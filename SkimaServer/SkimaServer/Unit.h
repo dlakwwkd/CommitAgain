@@ -44,6 +44,7 @@ public:
     void            CurPosSync();
 
     void            Damaged(int damage);
+    virtual void    Dead();
     void            UseBuff(BuffTarget type);
 
     void			TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos);

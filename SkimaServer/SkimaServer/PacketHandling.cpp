@@ -675,11 +675,12 @@ void ClientSession::CreateMobBroadCast(int playerId, int unitId, const b2Vec2& p
     }
 }
 
-void ClientSession::CreateItemBroadCast(int playerId, int unitId, const b2Vec2& pos)
+void ClientSession::ItemBroadCast(int playerId, int unitId, const b2Vec2& pos, bool isCreate)
 {
-    CreateMobResult outPacket;
+    ItemBroadcastResult outPacket;
     outPacket.mPlayerId = playerId;
     outPacket.mUnitId = unitId;
+    outPacket.mIsCreate = isCreate;
     outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
