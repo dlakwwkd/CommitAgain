@@ -637,13 +637,14 @@ void TcpClient::loginRequest(const char* playerName)
     send((const char*)&sendData, sizeof(LoginRequest));
 }
 
-void TcpClient::makeRoomRequest()
+void TcpClient::makeRoomRequest(RoomInfo roomInfo)
 {
     if (mLoginId < 0)
         return;
 
     MakeRoomRequest sendData;
     sendData.mPlayerId = mLoginId;
+    sendData.mRoomInfo = roomInfo;
 
     send((const char*)&sendData, sizeof(MakeRoomRequest));
 }

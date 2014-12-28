@@ -26,7 +26,7 @@ public:
     void disconnect();
 
     void loginRequest(const char* playerName);
-    void makeRoomRequest();
+    void makeRoomRequest(RoomInfo roomInfo);
     void joinRoomRequest(int roomID);
     void outRoomRequest(int roomId);
     void startGameRequest(int roomId, Team team, HeroType heroType);

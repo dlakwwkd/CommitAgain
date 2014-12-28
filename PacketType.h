@@ -28,6 +28,12 @@ enum HeroType
     HERO_JUPITER,
     HERO_LAPHINX,
 };
+enum RoomType
+{
+    ROOM_NONE,
+    ROOM_BATTLE,
+    ROOM_BOSS,
+};
 enum MissileType
 {
     MS_NONE,
@@ -149,11 +155,13 @@ struct RoomInfo
         mRoomNum = 0;
         mCurPlayerNum = 0;
         mMaxPlayerNum = 0;
+        mRoomType = ROOM_NONE;
     }
 
-    int mRoomNum;
-    int mCurPlayerNum;
-    int mMaxPlayerNum;
+    int         mRoomNum;
+    int         mCurPlayerNum;
+    int         mMaxPlayerNum;
+    RoomType    mRoomType;
 };
 
 ///////////////////////////////////////////////////////////////////////////
