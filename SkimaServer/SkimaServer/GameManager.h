@@ -18,6 +18,12 @@ struct Rect
     float m_Left	= 0;
     float m_Right	= 0;
 };
+enum Walldirection
+{
+    SLASHDIRECTION,
+    REVERSE_SLASHDIRECTION,
+};
+
 
 #define MAX_PLAYER_NUM 8
 
@@ -48,6 +54,7 @@ public:
 
     void                CrashDamage(Unit* unitA, Unit* unitB);
     void                FieldDamage(Player* caster, Rect* range, int damage);
+    void                WallFieldDamage(Player* caster, Rect* range, int damage);
 	void                DeadUnit(Unit* unit);
 
 public:

@@ -1,5 +1,6 @@
 #pragma once
 #include "Skill.h"
+#include "GameManager.h"
 class FieldType : public Skill
 {
 public:
@@ -11,7 +12,7 @@ public:
 
 protected:
     void			FieldDamage(const b2Vec2& targetPos, float scale, int damage);
-
+    void            WallFieldDamage(const b2Vec2& targetPos, Walldirection direction, int damage);
 protected:
     float           m_Scale;
 };

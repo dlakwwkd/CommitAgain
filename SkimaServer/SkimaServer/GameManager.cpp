@@ -317,7 +317,56 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
         }
     }
 }
+void GameManager::WallFieldDamage(Player* caster, Rect* range, int damage)
+{
+    if (!caster || !range)
+    {
+        printf(" - FieldDamage() Faild ! : invalid player or range \n");
+        return;
+    }
 
+
+    b2Vec2 vertices[4];
+
+    vertices[0].Set(0.0f, 0.0f);
+    vertices[1].Set(1.0f, 0.0f);
+    vertices[2].Set(5.0f, 6.0f);
+    vertices[3].Set(4.0f, 7.0f);
+    int32 count = 4;
+
+//     b2PolygonShape* polygon;
+//     polygon->Set(vertices, count);
+
+    b2Transform transform;
+    transform.SetIdentity();
+// 
+//     b2Vec2 point(5.0f, 2.0f);
+// 
+//     bool hit = polygon->TestPoint(transform, point);
+//     auto game = m_GameList.find(caster->GetRoomID());
+//     if (game == m_GameList.end())
+//     {
+//         printf(" - FieldDamage() Faild ! : invalid gameID \n");
+//         return;
+//     }
+//     for (auto& player : game->second->m_PlayerList)
+//     {
+//         if (player.second->GetTeam() == caster->GetTeam())
+//         {
+//             continue;
+//         }
+//         for (auto& unit : player.second->GetUnitList())
+//         {
+//             auto pos = unit.second->GetBody()->GetPosition();
+// 
+//             if (pos.x > range->m_Left && pos.x < range->m_Right &&
+//                 pos.y > range->m_Bottom && pos.y < range->m_Top)
+//             {
+//                 unit.second->Damaged(damage);
+//             }
+//         }
+//     }
+}
 void GameManager::DeadUnit(Unit* unit)
 {
     auto unitId = unit->GetUnitID();
