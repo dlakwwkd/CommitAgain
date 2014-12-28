@@ -149,6 +149,9 @@
     <ClCompile Include="BuffSkill.cpp">
       <Filter>Game\Component\Skill\Neutrality Skill</Filter>
     </ClCompile>
+    <ClCompile Include="FireWallSkill.cpp">
+      <Filter>Game\Component\Skill\Magician Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -320,6 +323,9 @@
     </ClInclude>
     <ClInclude Include="BuffSkill.h">
       <Filter>Game\Component\Skill\Neutrality Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="FireWallSkill.h">
+      <Filter>Game\Component\Skill\Magician Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

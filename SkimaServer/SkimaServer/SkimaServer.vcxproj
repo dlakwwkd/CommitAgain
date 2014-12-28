@@ -171,6 +171,7 @@
     <ClInclude Include="DbHelper.h" />
     <ClInclude Include="FieldType.h" />
     <ClInclude Include="FireballSkill.h" />
+    <ClInclude Include="FireWallSkill.h" />
     <ClInclude Include="FlashSkill.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameManager.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="DbHelper.cpp" />
     <ClCompile Include="FieldType.cpp" />
     <ClCompile Include="FireballSkill.cpp" />
+    <ClCompile Include="FireWallSkill.cpp" />
     <ClCompile Include="FlashSkill.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameManager.cpp" />

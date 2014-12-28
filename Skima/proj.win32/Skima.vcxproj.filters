@@ -261,6 +261,12 @@
     <ClCompile Include="..\Classes\RockEffect.cpp">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\FireWallEffect.cpp">
+      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FireWallSkill.cpp">
+      <Filter>Game\Component\Skill\Magician</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -451,6 +457,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\RockEffect.h">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FireWallEffect.h">
+      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FireWallSkill.h">
+      <Filter>Game\Component\Skill\Magician</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
