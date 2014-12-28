@@ -7,7 +7,7 @@
 
 void GameRoom::ReadySign()
 {
-    if (++m_ReadyNum >= MAX_PLAYER_NUM)
+    if (++m_ReadyNum >= m_PlayerList.size())
     {
         m_IsAllReady = true;
         printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", m_RoomID);

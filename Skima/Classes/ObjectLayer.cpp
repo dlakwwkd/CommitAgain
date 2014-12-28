@@ -111,6 +111,23 @@ void ObjectLayer::CreateMob(int playerID, int unitID, Vec2 location)
     this->addChild(unit->GetCenterSprite());
 }
 
+void ObjectLayer::CreateItem(int playerID, int unitID, Vec2 location)
+{
+    std::shared_ptr<Mob> unit;
+    switch (GET_SIDE_TYPE(unitID))
+    {
+    case MOB_PEA:	unit = std::make_shared<Mob>(location, 1.0f);	break;
+    default:
+        return;
+    }
+    unit->SetPlayerID(playerID);
+    unit->SetUnitID(unitID);
+    unit->SetUnitHpBar();
+
+    m_UnitList[unitID] = unit;
+    this->addChild(unit->GetCenterSprite());
+}
+
 void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)
 {
     auto unit = m_UnitList.find(unitID);

@@ -19,7 +19,7 @@ struct Rect
     float m_Right	= 0;
 };
 
-#define MAX_PLAYER_NUM 2
+#define MAX_PLAYER_NUM 8
 
 class GameManager : public RefCountable
 {

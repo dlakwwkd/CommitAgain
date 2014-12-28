@@ -118,6 +118,10 @@ void Unit::Crashing(Unit* contactUnit)
         EndCrash();
         return;
     case UNIT_ITEM:
+        if (GET_MAIN_TYPE(contactUnit->GetUnitID()) != UNIT_HERO)
+        {
+            break;
+        }
         auto item = dynamic_cast<Item*>(this);
         contactUnit->UseBuff(item->GetBuffTarget());
         CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
@@ -159,11 +163,13 @@ void Unit::Damaged(int damage)
     m_Hp -= (damage - m_Shield);
     m_Shield -= damage;
 
-    if (m_Buff->IsShieldOn() && m_Shield <= 0)
+    if (m_Shield <= 0)
     {
         m_Shield = 0;
-        m_Buff->ShieldDestroy();
-        // 실드 파괴
+        if (m_Buff && m_Buff->IsShieldOn())
+        {
+            m_Buff->ShieldDestroy();
+        }
     }
     if (m_Hp <= 0)
     {

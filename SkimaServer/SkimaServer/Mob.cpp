@@ -45,7 +45,6 @@ void Mob::Chasing()
 
 void Mob::DeadMob()
 {
- //랜덤 함수 필요
     auto gamble = rand() % 10;
     if (gamble == 0)
     {
@@ -59,6 +58,11 @@ void Mob::DeadMob()
     {
         return;
     }
-
-    // 클라에 아이템 생성 패킷 전송
+    auto client = m_Owner->GetClient();
+    if (client == nullptr)
+    {
+        printf(" - DeadMob Failed ! : client is invalid \n");
+        return;
+    }
+    client->CreateMobBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Body->GetPosition());
 }

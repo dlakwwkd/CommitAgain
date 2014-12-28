@@ -43,6 +43,7 @@ public:
     void	SendCreateHeroResult(			    int unitId, const b2Vec2& pos);
     void	SendMapInfo(        int playerId,   int unitId, const b2Vec2& pos);
     void    CreateMobBroadCast( int playerId,   int unitId, const b2Vec2& pos);
+    void    CreateItemBroadCast(int playerId,   int unitId, const b2Vec2& pos);
     void    SendStartGame();
 
     void	TryMoveBroadCast(				    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
@@ -54,7 +55,7 @@ public:
     void	ShootBroadCast(	    int playerId,	int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
     void	BlinkBroadCast(	    int playerId,	int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
     void    HpBroadCast(	    int playerId,	int unitId, int hp);
-    void BuffBroadCast(                      int unitId, float bonus, BuffTarget type);
+    void    BuffBroadCast(                      int unitId, float bonus, BuffTarget type);
     void    GameOverCast(	    int playerId);
 
     // 	void    LoginDone(int pid, const char* name);

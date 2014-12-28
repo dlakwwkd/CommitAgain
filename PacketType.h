@@ -87,6 +87,7 @@ enum PacketTypes
     PKT_SC_CREATE_MAP   = 21,
     PKT_SC_CREATE_HERO  = 22,
     PKT_SC_CREATE_MOB   = 23,
+    PKT_SC_CREATE_ITEM  = 24,
     ///////////////
 
     PKT_SC_RUN_COMPLETE = 31,
@@ -284,9 +285,65 @@ struct GameRunNotify : public PacketHeader
     int         mPlayerId;
 };
 
+struct ServerRunCompleteNotify : public PacketHeader
+{
+    ServerRunCompleteNotify()
+    {
+        mSize = sizeof(ServerRunCompleteNotify);
+        mType = PKT_SC_RUN_COMPLETE;
+        mPlayerId = -1;
+    }
+    int         mPlayerId;
+};
+struct ClientRunCompleteNotify : public PacketHeader
+{
+    ClientRunCompleteNotify()
+    {
+        mSize = sizeof(ClientRunCompleteNotify);
+        mType = PKT_CS_RUN_COMPLETE;
+        mPlayerId = -1;
+    }
+    int         mPlayerId;
+};
 
-//////////////////////////////////////////////////////////////////////////
-// 로딩 관련 데이터 전송
+struct StartGameNotify : public PacketHeader
+{
+    StartGameNotify()
+    {
+        mSize = sizeof(StartGameNotify);
+        mType = PKT_SC_START_GAME;
+        mPlayerId = -1;
+    }
+    int         mPlayerId;
+};
+
+struct OutGameRequest : public PacketHeader
+{
+    OutGameRequest()
+    {
+        mSize = sizeof(OutGameRequest);
+        mType = PKT_CS_OUT_GAME;
+        mPlayerId = -1;
+    }
+    int         mPlayerId;
+};
+struct OutGameResult : public PacketHeader
+{
+    OutGameResult()
+    {
+        mSize = sizeof(OutGameResult);
+        mType = PKT_SC_OUT_GAME;
+        mPlayerId = -1;
+    }
+    int         mPlayerId;
+};
+
+
+///////////////////////////////////////////////////////////////////////////
+/*
+    유닛 생성 관련
+*/
+///////////////////////////////////////////////////////////////////////////
 struct CreateHeroResult : public PacketHeader
 {
     CreateHeroResult()
@@ -331,69 +388,26 @@ struct CreateMobResult : public PacketHeader
     int         mUnitId;
     Coord       mPos;
 };
-//////////////////////////////////////////////////////////////////////////
 
-
-struct ServerRunCompleteNotify : public PacketHeader
+struct CreateItemResult : public PacketHeader
 {
-    ServerRunCompleteNotify()
+    CreateItemResult()
     {
-        mSize = sizeof(ServerRunCompleteNotify);
-        mType = PKT_SC_RUN_COMPLETE;
+        mSize = sizeof(CreateItemResult);
+        mType = PKT_SC_CREATE_ITEM;
         mPlayerId = -1;
+        mUnitId = -1;
+        mPos = { 0, };
     }
     int         mPlayerId;
+    int         mUnitId;
+    Coord       mPos;
 };
-struct ClientRunCompleteNotify : public PacketHeader
-{
-    ClientRunCompleteNotify()
-    {
-        mSize = sizeof(ClientRunCompleteNotify);
-        mType = PKT_CS_RUN_COMPLETE;
-        mPlayerId = -1;
-    }
-    int         mPlayerId;
-};
-
-struct StartGameNotify : public PacketHeader
-{
-    StartGameNotify()
-    {
-        mSize = sizeof(StartGameNotify);
-        mType = PKT_SC_START_GAME;
-        mPlayerId = -1;
-    }
-    int         mPlayerId;
-};
-
-
-
-struct OutGameRequest : public PacketHeader
-{
-    OutGameRequest()
-    {
-        mSize = sizeof(OutGameRequest);
-        mType = PKT_CS_OUT_GAME;
-        mPlayerId = -1;
-    }
-    int         mPlayerId;
-};
-struct OutGameResult : public PacketHeader
-{
-    OutGameResult()
-    {
-        mSize = sizeof(OutGameResult);
-        mType = PKT_SC_OUT_GAME;
-        mPlayerId = -1;
-    }
-    int         mPlayerId;
-};
-
 
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-    게임 내 유닛 관련
+    게임 플레이 관련
     */
 ///////////////////////////////////////////////////////////////////////////
 struct MoveRequest : public PacketHeader
@@ -611,38 +625,6 @@ struct BuffBroadcastResult : public PacketHeader
     BuffTarget  mBuffTarget;
 };
 
-
-///////////////////////////////////////////////////////////////////////////
-/*
-    채팅 관련
-    */
-///////////////////////////////////////////////////////////////////////////
-struct ChatBroadcastRequest : public PacketHeader
-{
-    ChatBroadcastRequest()
-    {
-        mSize = sizeof(ChatBroadcastRequest);
-        mType = PKT_CS_CHAT;
-        mPlayerId = -1;
-        memset(mChat, 0, MAX_CHAT_LEN);
-    }
-    int         mPlayerId;
-    char        mChat[MAX_CHAT_LEN];
-};
-struct ChatBroadcastResult : public PacketHeader
-{
-    ChatBroadcastResult()
-    {
-        mSize = sizeof(ChatBroadcastResult);
-        mType = PKT_SC_CHAT;
-        mPlayerId = -1;
-        memset(mName, 0, MAX_NAME_LEN);
-        memset(mChat, 0, MAX_CHAT_LEN);
-    }
-    int         mPlayerId;
-    char        mName[MAX_NAME_LEN];
-    char        mChat[MAX_CHAT_LEN];
-};
 
 ///////////////////////////////////////////////////////////////////////////
 /*
