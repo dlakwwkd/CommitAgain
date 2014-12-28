@@ -22,7 +22,9 @@ enum Direction
     SE,
     SW,
     NE,
-    NW
+    NW,
+    SLASH,
+    BACKSLASH,
 };
 
 enum GameResult

@@ -11,8 +11,13 @@ FireWallEffect::~FireWallEffect()
 
 void FireWallEffect::CreateEffect(const Vec2& createPos)
 {
-    CreateSprite("Images/CloackingUnit.png", createPos, 0.3f, 1.0f);
-    SetSwipeMotionCache();
+}
+
+void FireWallEffect::CreateEffect(const Vec2& createPos, Direction direction)
+{
+    CreateSprite("Images/CloackingUnit.png", createPos, 3.0f, 6.0f);
+    SetFireMotionCache();
+    ShowFireMotionByDir(direction);
 }
 
 void FireWallEffect::ExtinctEffect()
@@ -20,19 +25,19 @@ void FireWallEffect::ExtinctEffect()
     ExtinctSprite();
 }
 
-void FireWallEffect::SetSwipeMotionCache()
+void FireWallEffect::SetFireMotionCache()
 {
-//     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Swipe_SE_NW.plist");
-//     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Swipe_SW_NE.plist");
+     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("FireWall/fire.plist");
+     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("FireWall/fireA.plist");
+     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("FireWall/fireB.plist");
 }
 
-void FireWallEffect::ShowSwipeMotionByDir(Direction dir)
+void FireWallEffect::ShowFireMotionByDir(Direction dir)
 {
-//     switch (dir)
-//     {
-//     case SE:    m_Sprite->runAction(MakeAnimationOnce("Swipe_SE_NW%d.png", 6)); break;
-//     case SW:    m_Sprite->runAction(MakeAnimationOnce("Swipe_SW_NE%d.png", 6)); break;
-//     case NE:    m_Sprite->runAction(MakeAnimationOnce("Swipe_SW_NE%d.png", 6)); break;
-//     case NW:    m_Sprite->runAction(MakeAnimationOnce("Swipe_SE_NW%d.png", 6)); break;
-//     }
+    switch (dir)
+    {
+    case SLASH:     m_Sprite->runAction(MakeFastAnimation("fire%02d.png", 25)); break;
+    case BACKSLASH: m_Sprite->runAction(MakeFastAnimation("fire_A%02d.png", 25)); break;
+    
+    }
 }

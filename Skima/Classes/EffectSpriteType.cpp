@@ -56,7 +56,7 @@ void EffectSpriteType::ExtinctSprite()
     delete this;
 }
 
-Animate* EffectSpriteType::MakeExplodeAnimation(const char* format, int size)
+Animate* EffectSpriteType::MakeFastAnimation(const char* format, int size)
 {
     auto animation = Animation::create();
     animation->setDelayPerUnit(0.05f);

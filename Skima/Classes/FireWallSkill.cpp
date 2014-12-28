@@ -10,7 +10,7 @@
 FireWallSkill::FireWallSkill(Hero* hero)
 {
     m_Hero = hero;
-    m_CoolTime = 1;
+    m_CoolTime = 5;
     m_CanUse = true;
 }
 
@@ -21,13 +21,8 @@ FireWallSkill::~FireWallSkill()
 void FireWallSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
      auto effect = new FireWallEffect();
-     effect->CreateEffect(targetPos);
-     
-     auto direction = GenerateSkillDirection(targetPos, heroPos);
-     effect->ShowSwipeMotionByDir(direction);
-
-     m_Hero->SetAllSpriteVisible();
-     m_Hero->SetUnitHiddenState(false);
+     auto direction = GenerateWallDirection(heroPos, targetPos);
+     effect->CreateEffect(targetPos,direction);
 }
 
 void FireWallSkill::SkillReady()
@@ -50,4 +45,18 @@ void FireWallSkill::SkillEnd()
 void FireWallSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
 {
 
+}
+
+Direction FireWallSkill::GenerateWallDirection(Vec2 heroPos, Vec2 targetPos)
+{
+    Vec2 displacement = targetPos - heroPos;
+    float slope = displacement.y / displacement.x;
+    if (slope >= 0)
+    {
+        return BACKSLASH;
+    }
+    else
+    {
+        return SLASH;
+    }
 }

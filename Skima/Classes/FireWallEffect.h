@@ -7,10 +7,11 @@ public:
     FireWallEffect();
     virtual ~FireWallEffect();
 
+    void            CreateEffect(const Vec2& createPos, Direction direction);
     virtual void	CreateEffect(const Vec2& createPos);
     virtual void    ExtinctEffect();
 
-    void            SetSwipeMotionCache();
-    void            ShowSwipeMotionByDir(Direction dir);
+    void            SetFireMotionCache();
+    void            ShowFireMotionByDir(Direction dir);
 };
 
