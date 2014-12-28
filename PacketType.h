@@ -5,6 +5,13 @@
 #define MAX_COMMENT_LEN	    40
 #define MAX_OBSTRUCT_SIZE   100
 
+enum Team
+{
+    TEAM_N,
+    TEAM_A,
+    TEAM_B,
+    TEAM_C
+};
 enum UnitType
 {
     UNIT_NONE,
@@ -252,10 +259,12 @@ struct GameReadyRequest : public PacketHeader
         mType = PKT_CS_GAME_READY;
         mPlayerId = -1;
         mRoomId = -1;
+        mTeam = TEAM_N;
         mHeroType = HERO_NONE;
     }
     int         mPlayerId;
     int         mRoomId;
+    Team        mTeam;
     HeroType    mHeroType;
 };
 struct GameReadyResult : public PacketHeader

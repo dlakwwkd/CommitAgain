@@ -223,6 +223,7 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
     room->ReadySign();
     player->SetReady(true);
     player->SetHeroType(inPacket.mHeroType);
+    player->SetTeam(inPacket.mTeam);
     printf(" - Player %d is Ready ! \n", inPacket.mPlayerId);
     session->PlayerReadyNotify();
 

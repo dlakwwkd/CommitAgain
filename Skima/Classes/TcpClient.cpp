@@ -674,14 +674,15 @@ void TcpClient::outRoomRequest(int roomId)
     send((const char*)&sendData, sizeof(InOutRoomRequest));
 }
 
-void TcpClient::startGameRequest(int roomId,HeroType heroType)
+void TcpClient::startGameRequest(int roomId, Team team, HeroType heroType)
 {
     if (mLoginId < 0)
         return;
 
     GameReadyRequest sendData;
     sendData.mPlayerId = mLoginId;
-    sendData.mHeroType = heroType; 
+    sendData.mTeam = team;
+    sendData.mHeroType = heroType;
 
     send((const char*)&sendData, sizeof(GameReadyRequest));
 }
