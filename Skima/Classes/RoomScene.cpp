@@ -81,7 +81,7 @@ bool RoomScene::init()
     auto teamButtonB = MenuItemLabel::create(labelB, CC_CALLBACK_1(RoomScene::TeamSelectBCallback, this));
     teamButtonB->setPosition(Vec2(80, 80));
 
-    auto label3 = Label::createWithSystemFont("팀: A", "Thonburi", 70);
+    auto label3 = Label::createWithSystemFont("팀: A", "Thonburi", 50);
     label3->setPosition(Vec2(100, winSize.height * 0.5f));
     label3->setHorizontalAlignment(TextHAlignment::CENTER);
     this->addChild(label3, 0, "TeamStateLabel");
@@ -99,13 +99,14 @@ bool RoomScene::init()
     waitLayer->setVisible(false);
     this->addChild(waitLayer, 2, "WaitingLayer");
 
-    auto label1 = Label::createWithSystemFont("연결 중...", "Thonburi", 50);
-    label1->setAnchorPoint(Vec2::ZERO);
+    auto label1 = Label::createWithSystemFont("연결 중...", "Thonburi", 70);
+    label1->setAnchorPoint(Vec2(0, 0));
     label1->setPosition(Vec2(0, winSize.height * 0.9f));
     label1->setHorizontalAlignment(TextHAlignment::CENTER);
     this->addChild(label1, 0, "RoomStateLabel");
 
-    auto label2 = Label::createWithSystemFont("방 인원: 1명 / 2명", "Thonburi", 70);
+    auto label2 = Label::createWithSystemFont(" ", "Thonburi", 50);
+    label2->setAnchorPoint(Vec2(0, 0));
     label2->setPosition(Vec2(0, winSize.height * 0.7f));
     label2->setHorizontalAlignment(TextHAlignment::CENTER);
     this->addChild(label2, 0, "PlayerNumLabel");
@@ -190,7 +191,7 @@ void RoomScene::UpdateRoomInfo(RoomInfo roomInfo)
     m_RoomInfo = roomInfo;
 
     char buf[4];
-    std::string roomInfoStr = "방의 인원: ";
+    std::string roomInfoStr = "방 인원: ";
     _itoa(m_RoomInfo.mCurPlayerNum, buf, 10);
     std::string curPlayerNum = buf;
     curPlayerNum += "명 / ";

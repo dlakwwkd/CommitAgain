@@ -26,6 +26,5 @@ public:
 
 private:
     std::vector<RoomInfo>  m_RoomList;
-    //RoomInfo               m_MakeRoomInfo;
 };
 

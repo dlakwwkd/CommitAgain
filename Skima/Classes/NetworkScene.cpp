@@ -4,6 +4,7 @@
 #include "RoomScene.h"
 #include "TcpClient.h"
 #include "SimpleAudioEngine.h"
+#include "MakeRoomLayer.h"
 
 using namespace CocosDenshion;
 
@@ -41,6 +42,8 @@ bool NetworkScene::init()
     menu->alignItemsVertically();
     this->addChild(menu);
 
+    auto createRoomLayer = MakeRoomLayer::create();
+
     this->schedule(schedule_selector(NetworkScene::Tick), 1.0f);
 
     return true;
@@ -51,8 +54,8 @@ void NetworkScene::menuCallback1(Ref* sender)
     if (TcpClient::getInstance()->checkSocket() == NULL)
         return;
 
-    ConnectLabelChange("방 생성 중...");
-    TcpClient::getInstance()->makeRoomRequest();	
+    RoomInfo roomInfo; //임시방편
+    TcpClient::getInstance()->makeRoomRequest(roomInfo);
 }
 
 void NetworkScene::menuCallback2(int roomNum)
