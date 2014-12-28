@@ -3,8 +3,7 @@
 
 USING_NS_CC;
 
-//struct RoomInfo;
-class MakeRoomLayer : Layer
+class MakeRoomLayer : public Layer
 {
 public:
     virtual bool init();
@@ -12,7 +11,9 @@ public:
 
     void    UpMaxPlayerNum();
     void    DownMaxPlayerNum();
-
+    void    ChangeRoomMode(RoomType roomMode);
+    void    MakeRoom();
+    void    CancelMakeRoom();
 private:
     RoomInfo    m_MakeRoomInfo;
 };

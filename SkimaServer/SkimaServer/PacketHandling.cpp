@@ -177,7 +177,7 @@ REGISTER_HANDLER(PKT_CS_MAKE_ROOM)
         printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
         return;
     }
-    session->MakeGameRoom();
+    session->MakeGameRoom(inPacket.mRoomInfo);
 }
 
 REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
@@ -401,7 +401,7 @@ void ClientSession::UpdateRoomInfo()
     printf(" Send:   RoomInformation: roomMaxNum: %d, Player ID: %d \n", i, outPacket.mPlayerId);
 }
 
-void ClientSession::MakeGameRoom()
+void ClientSession::MakeGameRoom(RoomInfo roomInfo)
 {
     GameRoom* gameRoom = GGameManager->CreateRoom();
     GGameManager->JoinRoom(gameRoom->GetRoomID(), mPlayer);
@@ -416,11 +416,9 @@ void ClientSession::MakeGameRoom()
     MakeRoomResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
     outPacket.mRoomInfo.mRoomNum = mRoomId = gameRoom->GetRoomID();
-    for (auto& player : room->second->GetPlayerList()) // room안에 player인원세기
-    {
-        outPacket.mRoomInfo.mCurPlayerNum++;
-    }
-    outPacket.mRoomInfo.mMaxPlayerNum = MAX_PLAYER_NUM;
+    outPacket.mRoomInfo.mCurPlayerNum = 1; //방 생성한 player 1명
+    outPacket.mRoomInfo.mMaxPlayerNum = roomInfo.mMaxPlayerNum;
+    outPacket.mRoomInfo.mRoomType = roomInfo.mRoomType;
 
     SendRequest(&outPacket);
     printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId);

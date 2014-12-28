@@ -9,6 +9,7 @@
 using namespace CocosDenshion;
 
 #define GET_CONNECT_LABEL dynamic_cast<Label*>(this->getChildByName("ConnectLabel"))
+#define GET_MAKEROOM_LAYER dynamic_cast<Layer*>(this->getChildByName("MakeRoomLayer"))
 
 Scene* NetworkScene::createScene()
 {
@@ -42,8 +43,6 @@ bool NetworkScene::init()
     menu->alignItemsVertically();
     this->addChild(menu);
 
-    auto createRoomLayer = MakeRoomLayer::create();
-
     this->schedule(schedule_selector(NetworkScene::Tick), 1.0f);
 
     return true;
@@ -54,8 +53,11 @@ void NetworkScene::menuCallback1(Ref* sender)
     if (TcpClient::getInstance()->checkSocket() == NULL)
         return;
 
-    RoomInfo roomInfo; //임시방편
-    TcpClient::getInstance()->makeRoomRequest(roomInfo);
+    if (GET_MAKEROOM_LAYER != nullptr)
+        this->removeChildByName("MakeRoomLayer");
+
+    auto makeRoomLayer = MakeRoomLayer::create();
+    this->addChild(makeRoomLayer, 3, "MakeRoomLayer");
 }
 
 void NetworkScene::menuCallback2(int roomNum)
@@ -112,7 +114,6 @@ void NetworkScene::ConnectLabelChange(const char* str)
 void NetworkScene::RoomInformation(RoomInfo roomInfo)
 {
     m_RoomList.push_back(roomInfo);
-    ConnectLabelChange("로그인 성공!!");
 }
 
 void NetworkScene::ClearRoomInfo()
@@ -198,4 +199,5 @@ void NetworkScene::Tick(float dt)
     {
         Director::getInstance()->popScene();
     }
+    ConnectLabelChange("서버 연결 양호.");
 }
