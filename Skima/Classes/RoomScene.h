@@ -15,6 +15,8 @@ public:
 
     void SetRoomID(int id) { m_RoomInfo.mRoomNum = id; };
     void UpdateRoomInfo(RoomInfo roomInfo);
+    void TeamSelectACallback(Ref* sender);
+    void TeamSelectBCallback(Ref* sender);
     void GameStartCallback(Ref* sender);
     void GameExitCallback(Ref* sender);
     void WaitingCheck();
@@ -33,5 +35,6 @@ private:
     RoomInfo    m_RoomInfo;
     bool        m_IsReady;
     HeroType    m_CurHero;
+    Team        m_CurTeam;
     FaceList    m_HeroImageList;
 };

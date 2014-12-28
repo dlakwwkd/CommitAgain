@@ -8,6 +8,7 @@
 
 using namespace CocosDenshion;
 
+#define GET_TEAM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("TeamStateLabel"))
 #define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
 #define GET_ROOM_PLAYER_LABEL dynamic_cast<Label*>(this->getChildByName("PlayerNumLabel"))
 #define GET_WAITING_LAYER    dynamic_cast<WaitingLayer*>(this->getChildByName("WaitingLayer"))
@@ -68,13 +69,29 @@ bool RoomScene::init()
     this->addChild(faceTable);
 
     m_CurHero = HERO_MAGICIAN;
+    m_CurTeam = TEAM_A;
     m_HeroImageList[HERO_MAGICIAN]->setVisible(true);
+
+    /// 팀 선택 임시방편..
+    //////////////////////////////////////////////////////////////////////////
+    auto labelA = Label::createWithSystemFont("A 팀", "Thonburi", 50);
+    auto teamButtonA = MenuItemLabel::create(labelA, CC_CALLBACK_1(RoomScene::TeamSelectACallback, this));
+    teamButtonA->setPosition(Vec2(-80, 80));
+    auto labelB = Label::createWithSystemFont("B 팀", "Thonburi", 50);
+    auto teamButtonB = MenuItemLabel::create(labelB, CC_CALLBACK_1(RoomScene::TeamSelectBCallback, this));
+    teamButtonB->setPosition(Vec2(80, 80));
+
+    auto label3 = Label::createWithSystemFont("팀: A", "Thonburi", 70);
+    label3->setPosition(Vec2(100, winSize.height * 0.5f));
+    label3->setHorizontalAlignment(TextHAlignment::CENTER);
+    this->addChild(label3, 0, "TeamStateLabel");
+    //////////////////////////////////////////////////////////////////////////
 
     auto readyButton = MenuItemImage::create("Images/GameReady.png", "Images/GameReady_Selected.png", CC_CALLBACK_1(RoomScene::GameStartCallback, this));
     auto exitButton = MenuItemImage::create("Images/ExitGame.png", "Images/ExitGame_Selected.png", CC_CALLBACK_1(RoomScene::GameExitCallback, this));
     exitButton->setPosition(Vec2(0, -80));
     exitButton->setScale(1.3f);
-    auto buttonMenu = Menu::create(readyButton, exitButton, NULL); 
+    auto buttonMenu = Menu::create(readyButton, exitButton, teamButtonA, teamButtonB, NULL); 
     buttonMenu->setPosition(winSize.width * 7 / 8 , winSize.height * 3 / 8);
     this->addChild(buttonMenu);
 
@@ -101,6 +118,27 @@ bool RoomScene::init()
     return true;
 }
 
+/// 팀 선택 정보 표시 임시방편...
+//////////////////////////////////////////////////////////////////////////
+void RoomScene::TeamSelectACallback(Ref* sender)
+{
+    auto label = GET_TEAM_STATE_LABEL;
+    if (label == nullptr)
+        return;
+    m_CurTeam = TEAM_A;
+    label->setString("팀: A");
+}
+
+void RoomScene::TeamSelectBCallback(Ref* sender)
+{
+    auto label = GET_TEAM_STATE_LABEL;
+    if (label == nullptr)
+        return;
+    m_CurTeam = TEAM_B;
+    label->setString("팀: B");
+}
+//////////////////////////////////////////////////////////////////////////
+
 void RoomScene::GameStartCallback(Ref* sender)	// 게임 시작
 {
     if (TcpClient::getInstance()->checkSocket() == NULL || m_IsReady)
@@ -109,7 +147,7 @@ void RoomScene::GameStartCallback(Ref* sender)	// 게임 시작
     }
     m_IsReady = true;
     WaitingCheck();
-    TcpClient::getInstance()->startGameRequest(m_RoomInfo.mRoomNum,m_CurHero);
+    TcpClient::getInstance()->startGameRequest(m_RoomInfo.mRoomNum, m_CurTeam, m_CurHero);
 }
 
 void RoomScene::GameExitCallback(Ref* sender)	// 나가기
