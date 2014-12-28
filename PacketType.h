@@ -115,9 +115,6 @@ enum PacketTypes
     PKT_SC_METEOR       = 56,
     PKT_SC_BUFF         = 57,
 
-    PKT_CS_CHAT         = 91,
-    PKT_SC_CHAT         = 92,
-
     PKT_SC_GAMEOVER     = 100,
 
     PKT_MAX = 1024
@@ -197,7 +194,8 @@ struct MakeRoomRequest : public PacketHeader
         mType = PKT_CS_MAKE_ROOM;
         mPlayerId = -1;
     }
-    int     mPlayerId;
+    int         mPlayerId;
+    RoomInfo    mRoomInfo;
 };
 struct MakeRoomResult : public PacketHeader
 {
