@@ -70,22 +70,27 @@ void Game::InitGame()
 {
     // 주의: 여기서부턴 하드코딩의 구간입니다.^^
     ClientSession* temp = nullptr;
-    int i = 0;
     int roomId = -1;
+    float i = Reduce(-100.0f);
+    b2Vec2 createPos = { 0, 0 };
     for (auto& player : m_PlayerList)
     {
-        player.second->SetTeam(TEAM_A);
-        b2Vec2 createPos = { MAX_MAP_SIZE_X / 4, MAX_MAP_SIZE_Y / 2 };
-        roomId = player.second->GetRoomID();
-        if (++i == 2)
+        if (i < 0.0f)
         {
-            player.second->SetTeam(TEAM_B);
-            createPos.x += MAX_MAP_SIZE_X / 2;
             temp = player.second->GetClient();
+        }
+        i += Reduce(100.0f);
+        roomId = player.second->GetRoomID();
+        switch (player.second->GetTeam())
+        {
+        case TEAM_A:    createPos = { MAX_MAP_SIZE_X / 4, MAX_MAP_SIZE_Y / 2 + i };                         break;
+        case TEAM_B:    createPos = { MAX_MAP_SIZE_X / 4 + MAX_MAP_SIZE_X / 2, MAX_MAP_SIZE_Y / 2 + i };    break;
+        default:
+            break;
         }
         player.second->CreateHero(CONVERT_IN(createPos, roomId));
     }
-    m_Computer = new Player(temp, PT_COMPUTER, "Computer", PT_COMPUTER);// 100번 보면 이해됨.
+    m_Computer = new Player(temp, PT_COMPUTER, "Computer", PT_COMPUTER);
     m_Computer->SetRoomID(roomId);
     m_Computer->SetTeam(TEAM_C);
 	m_PlayerList[PT_COMPUTER] = m_Computer;

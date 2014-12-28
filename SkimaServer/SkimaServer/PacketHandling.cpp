@@ -251,7 +251,7 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
     auto game = GGameManager->SearchGame(player->GetRoomID());		if (!game)      return;
     game->SetLoadedPlayerNum();
 
-    if (game->GetLoadedPlayerNum() >= MAX_PLAYER_NUM)
+    if (game->GetLoadedPlayerNum() >= game->GetPlayerListSize() - 1)
     {
         game->StartGame();
         session->SendStartGame();
