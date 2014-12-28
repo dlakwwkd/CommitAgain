@@ -2,7 +2,7 @@
 #include "FieldType.h"
 #include "Scheduler.h"
 #include "GameManager.h"
-
+#include "Macros.h"
 
 
 FieldType::FieldType()
@@ -28,20 +28,29 @@ void FieldType::FieldDamage(const b2Vec2& targetPos, float scale, int damage)
 
 void FieldType::WallFieldDamage(const b2Vec2& targetPos, Walldirection direction, int damage)
 {
-    //switch(direction) 
-    //{}
     b2Vec2 polygon[4];
-    polygon[0].Set(targetPos.x, targetPos.y); // 상수연산 설정
-    polygon[1].Set(targetPos.x, targetPos.y); 
-    polygon[2].Set(targetPos.x, targetPos.y);
-    polygon[3].Set(targetPos.x, targetPos.y);
-    int32 count = 4;
+    int32 count = 4;  // 기다란 직사격형 모양의 4꼭지점
+    switch (direction)
+    {
+    case SLASH:
+        polygon[0].Set(targetPos.x + Reduce(565 - 21), targetPos.y + Reduce(565 + 21)); // Up
+        polygon[1].Set(targetPos.x + Reduce(565 + 21), targetPos.y + Reduce(565 - 21)); // Right
+        polygon[2].Set(targetPos.x + Reduce(-565 + 21), targetPos.y + Reduce(-565 - 21)); // Down
+        polygon[3].Set(targetPos.x + Reduce(-565 - 21), targetPos.y + Reduce(-565 + 21)); // Left
+        break;
 
-    b2PolygonShape wall;
-    wall.Set(polygon, count);
+    case BACKSLASH:
+        polygon[0].Set(targetPos.x + Reduce(-565 + 21), targetPos.y + Reduce(565 + 21)); // Up
+        polygon[1].Set(targetPos.x + Reduce(-565 - 21), targetPos.y + Reduce(565 - 21)); // Right
+        polygon[2].Set(targetPos.x + Reduce(565 - 21), targetPos.y + Reduce(-565 - 21)); // Down
+        polygon[3].Set(targetPos.x + Reduce(565 + 21), targetPos.y + Reduce(-565 + 21)); // Left
+        break;
+    default:
+        break;
+    }
 
-    
-     //GGameManager->FieldDamage(m_Owner, &range, damage); // &polyfonshape 넘겨줄것
+    b2PolygonShape wallShape;
+    wallShape.Set(polygon, count);
 
-
+    GGameManager->WallFieldDamage(m_Owner, &wallShape, damage);
 }

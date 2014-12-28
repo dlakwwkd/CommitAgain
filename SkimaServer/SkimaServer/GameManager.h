@@ -20,8 +20,8 @@ struct Rect
 };
 enum Walldirection
 {
-    SLASHDIRECTION,
-    REVERSE_SLASHDIRECTION,
+    SLASH, //  /방향
+    BACKSLASH, //  /의 역방향
 };
 
 
@@ -54,7 +54,7 @@ public:
 
     void                CrashDamage(Unit* unitA, Unit* unitB);
     void                FieldDamage(Player* caster, Rect* range, int damage);
-    void                WallFieldDamage(Player* caster, Rect* range, int damage);
+    void                WallFieldDamage(Player* caster, b2PolygonShape* wallShape, int damage);
 	void                DeadUnit(Unit* unit);
 
 public:

@@ -12,7 +12,6 @@ FireWallSkill::FireWallSkill(Player* owner)
 {
     m_Owner = owner;
     m_Damage = 75;
-    m_Scale = Reduce(100.0f);
 }
 
 
@@ -28,9 +27,27 @@ void FireWallSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2&
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 
+    auto direction = GenerateWalldirection(heroPos, targetPos);
+
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto func = std::bind(&FireWallSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
+    auto func = std::bind(&FireWallSkill::WallFieldDamage, this, targetPos, direction, m_Damage);
     auto timer = new Timer(m_Owner->GetRoomID());
-    timer->RepeatTimer(300, 3, func);
+    timer->RepeatTimer(300, 20, func);
     game->PushTimer(timer);
+}
+
+Walldirection FireWallSkill::GenerateWalldirection(const b2Vec2& heroPos, const b2Vec2& targetPos)
+{
+    b2Vec2 displacement = targetPos - heroPos;
+    float slope = displacement.y / displacement.x;
+
+    if (slope >= 0)
+    {
+        return BACKSLASH;
+    }
+
+    else 
+    {
+        return SLASH;
+    }
 }
