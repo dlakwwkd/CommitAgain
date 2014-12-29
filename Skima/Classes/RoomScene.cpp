@@ -42,7 +42,7 @@ bool RoomScene::init()
         
     /////////////////////////////////////////////////캐릭터 초상화 추가할 부분/////////////////////////////////////////////
     /* Ready 캐릭터 전체모습 띄우는 부분 */
-    MakeHeroSprite("Images/Unit/Magician/MagicianImage.png", Vec2(winSize.width * 2 / 8 - 70, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_MAGICIAN);
+    MakeHeroSprite("Images/Unit/Magician/MagicianImage.png", Vec2(winSize.width * 2 / 8 - 50, winSize.height * 4 / 8 - 20), Vec2(1.5f, 1.5f), Vec2(0, 1), HERO_MAGICIAN);
     MakeHeroSprite("Images/Unit/Jupiter/JupiterImage.png", Vec2(winSize.width * 2 / 8 - 50, winSize.height * 4 / 8), Vec2(1.5f, 1.5f), Vec2(0, 1), HERO_JUPITER);
     MakeHeroSprite("Images/Unit/Laphinx/LaphinxImage.png", Vec2(winSize.width * 2 / 8 - 80, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_LAPHINX);
 

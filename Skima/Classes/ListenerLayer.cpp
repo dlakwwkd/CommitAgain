@@ -258,7 +258,7 @@ void ListenerLayer::SetArrowPos()
     {
         degree = degree * -1;
     }
-    arrow->setPosition(Vec2(25, 25) + displacement / distance * 100);
+    arrow->setPosition(displacement / distance * 100);
     arrow->setRotation(degree);
 }
 
@@ -278,6 +278,6 @@ void ListenerLayer::SetNearRangePos()
     {
         degree = degree * -1;
     }
-    nearRange->setPosition(Vec2(25, 25) + displacement / distance * 80);
+    nearRange->setPosition(displacement / distance * 120);
     nearRange->setRotation(degree);
 }

@@ -12,7 +12,6 @@ Item::Item(Vec2 createPos, float scale)
 
     m_RealSprite = Sprite::create("Images/Unit/item.png");
     m_RealSprite->setScale(scale);
-    //m_RealSprite->setAnchorPoint(Vec2(0, 0));
     m_CenterSprite->addChild(m_RealSprite);
 }
 

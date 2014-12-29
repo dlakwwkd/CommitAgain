@@ -7,13 +7,13 @@ Buff::Buff(Hero* hero)
 {
     m_Owner = hero;
 
-    auto shieldSprite = Sprite::create("Images/Effect/buff_shield.png");
-    BuffObject shield{ BUFF_SHIELD, 0, shieldSprite, nullptr };
-    m_BuffList[BUFF_SHIELD] = shield;
-
     auto speedParticle = ParticleSystemQuad::create("Images/Effect/Particle_Speed_Buff.plist");
     BuffObject speed{ BUFF_SPEED, 0, nullptr, speedParticle };
     m_BuffList[BUFF_SPEED] = speed;
+
+    auto shieldSprite = Sprite::create("Images/Effect/buff_shield.png");
+    BuffObject shield{ BUFF_SHIELD, 0, shieldSprite, nullptr };
+    m_BuffList[BUFF_SHIELD] = shield;
 
     for (auto& buff : m_BuffList)
     {
@@ -23,14 +23,15 @@ Buff::Buff(Hero* hero)
         if (sprite != nullptr)
         {
             sprite->setVisible(false);
-            sprite->setPosition(Vec2(12.5f, 30.0f));
+            sprite->setScaleX(0.8f);
+            sprite->setScaleY(0.6f);
             hero->GetCenterSprite()->addChild(sprite);
         }
 
         if (particle != nullptr)
         {
             particle->setVisible(false);
-            particle->setPosition(25.0f, 15.0f);
+            particle->setPosition(Vec2::ZERO);
             particle->setScale(0.5f);
             hero->GetCenterSprite()->addChild(speedParticle, -1);
         }

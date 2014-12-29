@@ -22,7 +22,7 @@ Magician::Magician(Vec2 createPos, float scale)
 
     m_RealSprite = Sprite::createWithSpriteFrameName("MoveMotion_S_03.PNG");
     m_RealSprite->setScale(scale);
-    m_RealSprite->setAnchorPoint(Vec2(0, 0));
+    m_RealSprite->setPosition(Vec2(0, 10));
     m_CenterSprite->addChild(m_RealSprite);
 
     auto shadow = Sprite::create("Images/Unit/unit_shadow.png");

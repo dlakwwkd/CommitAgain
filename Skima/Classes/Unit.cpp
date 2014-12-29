@@ -99,15 +99,13 @@ void Unit::SetEnemyHpBar()
 void Unit::SetUnitHpBar()
 {
     m_HpBarFrame = Sprite::create("Images/Interface/hp_bar_frame_mob.png");
-    m_HpBarFrame->setPosition(Vec2(-27, 83));
-    m_HpBarFrame->setAnchorPoint(Vec2(0, 0));
+    m_HpBarFrame->setPosition(Vec2(0, 50));
+    m_CenterSprite->addChild(m_HpBarFrame, 10);
 
     m_HpBar = Sprite::create("Images/Interface/hp_bar_in_mob.png");
-    m_HpBar->setPosition(Vec2(-25, 85));
     m_HpBar->setAnchorPoint(Vec2(0, 0));
-
-    m_CenterSprite->addChild(m_HpBarFrame, 10);
-    m_CenterSprite->addChild(m_HpBar, 16);
+    m_HpBar->setPosition(Vec2(2, 2));
+    m_HpBarFrame->addChild(m_HpBar);
 }
 
 void Unit::UpdateHpBar()
@@ -125,15 +123,13 @@ void Unit::UpdateHpBar()
 void Unit::SetHeroHpBar(const char* barImage)
 {
     m_HpBarFrame = Sprite::create("Images/Interface/hp_bar_frame.png");
-    m_HpBarFrame->setPosition(Vec2(-30, 80));
-    m_HpBarFrame->setAnchorPoint(Vec2(0, 0));
+    m_HpBarFrame->setPosition(Vec2(0, 75));
+    m_CenterSprite->addChild(m_HpBarFrame, 10);
 
     m_HpBar = Sprite::create(barImage);
-    m_HpBar->setPosition(Vec2(-25, 85));
     m_HpBar->setAnchorPoint(Vec2(0, 0));
-
-    m_CenterSprite->addChild(m_HpBarFrame, 10);
-    m_CenterSprite->addChild(m_HpBar, 16);
+    m_HpBar->setPosition(Vec2(5, 5));
+    m_HpBarFrame->addChild(m_HpBar);
 }
 
 void Unit::Damaged()
