@@ -115,6 +115,7 @@ enum PacketTypes
     PKT_CS_MOVE         = 41,
     PKT_SC_MOVE         = 42,
     PKT_SC_CRASH        = 44,
+    PKT_SC_SYNC         = 45,
 
     PKT_CS_SKILL        = 45,
     PKT_SC_SKILL        = 46,
@@ -469,15 +470,28 @@ struct CrashedBroadcastResult : public PacketHeader
         mType = PKT_SC_CRASH;
         mPlayerId = -1;
         mUnitId = -1;
-        mIsCrashed = true;
         mCurrentPos = { 0, };
         mExpectPos = { 0, };
     }
     int         mPlayerId;
     int         mUnitId;
-    bool        mIsCrashed;
     Coord       mCurrentPos;
     Coord       mExpectPos;
+};
+
+struct SyncPosBroadcastResult : public PacketHeader
+{
+    SyncPosBroadcastResult()
+    {
+        mSize = sizeof(SyncPosBroadcastResult);
+        mType = PKT_SC_SYNC;
+        mPlayerId = -1;
+        mUnitId = -1;
+        mCurrentPos = { 0, };
+    }
+    int         mPlayerId;
+    int         mUnitId;
+    Coord       mCurrentPos;
 };
 
 struct SkillRequest : public PacketHeader

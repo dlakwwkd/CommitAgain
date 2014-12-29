@@ -310,39 +310,6 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 }
 
 
-// 
-// REGISTER_HANDLER(PKT_CS_CHAT)
-// {
-// 	ChatBroadcastRequest inPacket;
-// 	if (false == session->ParsePacket(inPacket))
-// 	{
-// 		printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
-// 		return;
-// 	}
-// 
-// 	if (inPacket.mPlayerId != session->GetPlayerId())
-// 	{
-// 		printf("[DEBUG] PKT_CS_CHAT: invalid player ID: %d \n", session->GetPlayerId());
-// 		return;
-// 	}
-// 
-// 	/// chatting의 경우 여기서 바로 방송
-// 
-// 	ChatBroadcastResult outPacket;
-// 	outPacket.mPlayerId = inPacket.mPlayerId;
-// 	strcpy_s(outPacket.mName, session->GetPlayerName());
-// 	strcpy_s(outPacket.mChat, inPacket.mChat);
-// 
-// 	/// 채팅은 바로 방송 하면 끝
-// 	if (!session->Broadcast(&outPacket))
-// 	{
-// 		session->Disconnect();
-// 	}
-// }
-
-
-
-
 
 
 
@@ -587,14 +554,26 @@ void ClientSession::TryMoveBroadCast(int unitId, const b2Vec2& curPos, const b2V
     }
 }
 
-void ClientSession::CrashedBroadCast(int playerId, int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed)
+void ClientSession::CrashedBroadCast(int playerId, int unitId, const b2Vec2& curPos, const b2Vec2& expectPos)
 {
     CrashedBroadcastResult outPacket;
     outPacket.mPlayerId = playerId;
     outPacket.mUnitId = unitId;
-    outPacket.mIsCrashed = isCrashed;
     outPacket.mCurrentPos = CONVERT_OUT(curPos, mRoomId);
     outPacket.mExpectPos = CONVERT_OUT(expectPos, mRoomId);
+
+    if (!Broadcast(&outPacket))
+    {
+        Disconnect();
+    }
+}
+
+void ClientSession::SyncPosBroadCast(int playerId, int unitId, const b2Vec2& curPos)
+{
+    SyncPosBroadcastResult outPacket;
+    outPacket.mPlayerId = playerId;
+    outPacket.mUnitId = unitId;
+    outPacket.mCurrentPos = CONVERT_OUT(curPos, mRoomId);
 
     if (!Broadcast(&outPacket))
     {

@@ -124,9 +124,7 @@ void Unit::CurPosSync()
         return;
     }
     auto curPos = m_Body->GetPosition();
-    auto expectPos = curPos;
-
-    client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, false);
+    client->SyncPosBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos);
 }
 
 
@@ -217,6 +215,6 @@ void Unit::Crashed(Unit* contactUnit)
     velocity *= 1.0f / DAMPING;
     expectPos += velocity;
 
-    client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, true);
+    client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos);
     m_State->Crashed(this);
 }

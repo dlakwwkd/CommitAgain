@@ -436,6 +436,26 @@ void TcpClient::processPacket()
             assert(ret && recvData.mPlayerId != -1);
 
             Vec2 expectPos = CONVERT(recvData.mExpectPos);
+
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
+                    recvData.mUnitId, expectPos));
+            }
+        }
+        break;
+        
+        case PKT_SC_SYNC:
+        {
+            SyncPosBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
             Vec2 revisionPos = CONVERT(recvData.mCurrentPos);
 
             if (GET_GAME_SCENE == nullptr)
@@ -445,20 +465,11 @@ void TcpClient::processPacket()
             auto layer = GET_OBJECT_LAYER;
             if (layer)
             {
-                if (recvData.mIsCrashed)
-                {
-                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrash, layer,
-                        recvData.mUnitId, expectPos));
-                }
-                else
-                {
-                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
-                        recvData.mUnitId, revisionPos));
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitCrashEnd, layer,
+                    recvData.mUnitId, revisionPos));
 
-                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MissileCrash, layer,
-                        recvData.mUnitId));
-                }
-                break;
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MissileCrash, layer,
+                    recvData.mUnitId));
             }
         }
         break;

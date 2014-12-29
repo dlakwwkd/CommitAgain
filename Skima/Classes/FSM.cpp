@@ -41,7 +41,9 @@ void StandbyState::EndMove(Unit* unit){}
 void StandbyState::EndCrash(Unit* unit)
 {
     if (unit == nullptr) return;
-    auto action1 = MoveTo::create(1.0f, unit->GetTargetPos());
+    unit->GetCenterSprite()->stopAllActions();
+    unit->GetCenterSprite()->setVisible(true);
+    auto action1 = MoveTo::create(0.1f, unit->GetTargetPos());
     auto action2 = EaseSineIn::create(action1);
     unit->GetCenterSprite()->runAction(action2);
 }

@@ -43,11 +43,12 @@ public:
     void	SendCreateHeroResult(			    int unitId, const b2Vec2& pos);
     void	SendMapInfo(        int playerId,   int unitId, const b2Vec2& pos);
     void    CreateMobBroadCast( int playerId,   int unitId, const b2Vec2& pos);
-    void    ItemBroadCast(int playerId,   int unitId, const b2Vec2& pos,    bool isCreate);
+    void    ItemBroadCast(      int playerId,   int unitId, const b2Vec2& pos,    bool isCreate);
     void    SendStartGame();
 
     void	TryMoveBroadCast(				    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
-    void	CrashedBroadCast(   int playerId,   int unitId, const b2Vec2& curPos, const b2Vec2& expectPos, bool isCrashed);
+    void	CrashedBroadCast(   int playerId,   int unitId, const b2Vec2& curPos, const b2Vec2& expectPos);
+    void	SyncPosBroadCast(   int playerId,   int unitId, const b2Vec2& curPos);
     void	SkillBroadCast(					    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key);
     void    UnHideBroadCast(                    int unitId, const b2Vec2& curPos);
     void    MeteorBroadCast(                    int unitId, const b2Vec2& targetPos);
