@@ -12,11 +12,12 @@ public:
 protected:
 	void			CreateSprite(const char* file, const Vec2& createPos, float scale, float lastTime);
 	void			AddSubSprite(const char* file, const Vec2& anchorPoint, const Vec2& createPos, float scale);
+    void            CreateFireSubSprite(Sprite* sprite, Vec2 createPos, float scale, float lastTime);
 	Animate*        MakeAnimationOnce(const char* format, int size);
     Animate*        MakeFastAnimationOnce(const char* format, int size);
     RepeatForever*  MakeFastAnimationForever(const char* format, int size);
 	void			ExtinctSprite();
-
+    void            ExtinctSubSprite(Sprite* sprite);
 protected:
 	Sprite*         m_Sprite = nullptr;
 };

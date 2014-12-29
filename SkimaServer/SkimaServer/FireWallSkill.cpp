@@ -32,7 +32,7 @@ void FireWallSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2&
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
     auto func = std::bind(&FireWallSkill::WallFieldDamage, this, targetPos, direction, m_Damage);
     auto timer = new Timer(m_Owner->GetRoomID());
-    timer->RepeatTimer(300, 20, func);
+    timer->RepeatTimer(300, 15, func);
     game->PushTimer(timer);
 }
 

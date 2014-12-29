@@ -7,11 +7,22 @@ public:
     FireWallEffect();
     virtual ~FireWallEffect();
 
-    void            CreateEffect(const Vec2& createPos, Direction direction);
+    void            CreateFireEffect(Vec2 createPos);
     virtual void	CreateEffect(const Vec2& createPos);
     virtual void    ExtinctEffect();
 
     void            SetFireMotionCache();
-    void            ShowFireMotionByDir(Direction dir);
+    void            ShowFireMotion();
+
+public:
+    Sprite*         m_FireSprite1;
+    Sprite*         m_FireSprite2;
+    Sprite*         m_FireSprite3;
+    Sprite*         m_FireSprite4;
+    Sprite*         m_FireSprite5;
+    Sprite*         m_FireSprite6;
+    Sprite*         m_FireSprite7;
+    Sprite*         m_FireSprite8;
+
 };
 

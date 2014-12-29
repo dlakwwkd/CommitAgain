@@ -21,8 +21,8 @@ FireWallSkill::~FireWallSkill()
 void FireWallSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
      auto effect = new FireWallEffect();
-     auto direction = GenerateWallDirection(heroPos, targetPos);
-     effect->CreateEffect(targetPos,direction);
+     //auto direction = GenerateWallDirection(heroPos, targetPos);
+     effect->CreateFireEffect(targetPos);
 }
 
 void FireWallSkill::SkillReady()

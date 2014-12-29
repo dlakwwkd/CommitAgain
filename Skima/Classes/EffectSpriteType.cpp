@@ -56,6 +56,11 @@ void EffectSpriteType::ExtinctSprite()
     delete this;
 }
 
+void EffectSpriteType::ExtinctSubSprite(Sprite* sprite)
+{
+    GET_OBJECT_LAYER->removeChild(sprite);
+}
+
 Animate* EffectSpriteType::MakeFastAnimationOnce(const char* format, int size)
 {
     auto animation = Animation::create();
@@ -81,3 +86,15 @@ RepeatForever* EffectSpriteType::MakeFastAnimationForever(const char* format, in
 
     return RepeatForever::create(Animate::create(animation));
 }
+
+void EffectSpriteType::CreateFireSubSprite(Sprite* sprite,Vec2 createPos, float scale, float lastTime)
+{
+    sprite->setPosition(createPos);
+    sprite->setScale(scale);
+    auto action1 = DelayTime::create(lastTime);
+    auto action2 = CallFunc::create(CC_CALLBACK_0(EffectSpriteType::ExtinctSubSprite, this,sprite));
+    auto action3 = Sequence::create(action1, action2, NULL);
+    sprite->runAction(action3);
+    GET_OBJECT_LAYER->addChild(sprite, 20);
+}
+
