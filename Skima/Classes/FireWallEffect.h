@@ -23,6 +23,7 @@ public:
     Sprite*         m_FireSprite6;
     Sprite*         m_FireSprite7;
     Sprite*         m_FireSprite8;
-
+    
+    ParticleSystemQuad* m_FireParticle;
 };
 

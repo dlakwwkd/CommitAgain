@@ -13,6 +13,9 @@ FireWallEffect::FireWallEffect()
     m_FireSprite7 = Sprite::create("Images/CloackingUnit.png");
     m_FireSprite8 = Sprite::create("Images/CloackingUnit.png");
 
+    m_FireParticle = ParticleSystemQuad::create("FireWallParticle.plist");
+    m_FireParticle->setScale(1.0f);
+    m_FireParticle->setVisible(false);
 }
 
 FireWallEffect::~FireWallEffect()
@@ -38,6 +41,9 @@ void FireWallEffect::CreateFireEffect(Vec2 createPos)
     SetFireMotionCache();
     ShowFireMotion();
 
+    m_FireParticle->setPosition(Vec2(createPos.x,createPos.y-scale*40));
+    m_FireParticle->setVisible(true);
+    GET_OBJECT_LAYER->addChild(m_FireParticle);
 }
 
 void FireWallEffect::ExtinctEffect()
