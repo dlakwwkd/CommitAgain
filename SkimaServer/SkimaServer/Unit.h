@@ -21,7 +21,6 @@ public:
     void            SetSpeed(float speed){ m_Speed = speed; }
     void            SetShield(int shield){ m_Shield = shield; }
     void			SetTargetPos(const b2Vec2& targetPos){ m_TargetPos = targetPos; }
-    void            SetContectState(bool state){ m_Contacting = state; }
 
     Player*         GetOwner(){ return m_Owner; }
     int             GetUnitID(){ return m_UnitID; }
@@ -31,7 +30,6 @@ public:
     float           GetSpeed(){ return m_Speed; }
     int             GetShield(){ return m_Shield; }
     const b2Vec2&	GetTargetPos(){ return m_TargetPos; }
-    bool            GetContectState(){ return m_Contacting; }
     b2Body*         GetBody(){ return m_Body; }
     void            InitBody(){ m_Body = nullptr; }
 
@@ -40,7 +38,7 @@ public:
 
     void            Moving();
     void            ReachCheck();
-    void            Crashing(Unit* contactUnit);
+    void            Crashing();
     void            CurPosSync();
 
     void            Damaged(int damage);
@@ -48,7 +46,7 @@ public:
     void            UseBuff(BuffTarget type);
 
     void			TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos);
-    void            Crashed(){ m_State->Crashed(this); }
+    void            Crashed(Unit* contactUnit);
     void            EndMove(){ m_State->EndMove(this); }
     void            EndCrash(){ m_State->EndCrash(this); }
     void            Movement(){ m_State->Movement(this); }
@@ -71,7 +69,6 @@ protected:
     int         m_Damage		= 0;
     float       m_Speed			= 0; 
     bool        m_InUse			= false;
-    bool        m_Contacting	= false;
     bool        m_IsHidden      = false;
     b2Vec2      m_TargetPos		= { 0, 0 };
     b2Body*     m_Body			= nullptr;

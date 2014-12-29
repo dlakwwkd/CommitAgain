@@ -18,7 +18,6 @@ void StandbyState::Crashed(Unit* unit)
 {
     unit->GetBody()->SetLinearDamping(DAMPING);
     unit->SetState(unit->GetCrashedState());
-    unit->SetUnitHiddenState(false);
 }
 
 void StandbyState::EndMove(Unit* unit){}
@@ -40,15 +39,13 @@ void MovingState::Crashed(Unit* unit)
 {
     unit->GetBody()->SetLinearDamping(DAMPING);
     unit->SetState(unit->GetCrashedState());
-    unit->SetUnitHiddenState(false);
 }
 
 void MovingState::EndMove(Unit* unit)
 {
     if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_MISSILE)
     {
-        unit->Crashed();
-        unit->Crashing(nullptr);
+        unit->Crashed(nullptr);
         return;
     }
     unit->GetBody()->SetAwake(false);
@@ -83,10 +80,6 @@ void CrashedState::EndCrash(Unit* unit)
 
 void CrashedState::Movement(Unit* unit)
 {
-    if (unit->GetContectState() == true)
-    {
-        return;
-    }
     auto velocity = unit->GetBody()->GetLinearVelocity();
     if (velocity.Length() < 0.5f)
     {

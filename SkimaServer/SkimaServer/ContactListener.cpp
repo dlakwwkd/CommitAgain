@@ -3,20 +3,18 @@
 #include "GameManager.h"
 #include "Unit.h"
 
-void ContactListener::BeginContact(b2Contact *contact)
+void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
 {
     auto unitA = static_cast<Unit*>(contact->GetFixtureA()->GetBody()->GetUserData());
     auto unitB = static_cast<Unit*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
     if (unitA && unitA->GetUnitID() > 0)
     {
-        unitA->SetContectState(true);
-        unitA->Crashed();
+        unitA->Crashing();
     }
     if (unitB && unitB->GetUnitID() > 0)
     {
-        unitB->SetContectState(true);
-        unitB->Crashed();
+        unitB->Crashing();
     }
 }
 
@@ -28,14 +26,12 @@ void ContactListener::EndContact(b2Contact* contact)
     int damageAble = 0;
     if (unitA && unitA->GetUnitID() > 0)
     {
-        unitA->Crashing(unitB);
-        unitA->SetContectState(false);
+        unitA->Crashed(unitB);
         ++damageAble;
     }
     if (unitB && unitB->GetUnitID() > 0)
     {
-        unitB->Crashing(unitA);
-        unitB->SetContectState(false);
+        unitB->Crashed(unitA);
         ++damageAble;
     }
     if (damageAble == 2)
