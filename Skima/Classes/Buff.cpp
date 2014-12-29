@@ -7,13 +7,13 @@ Buff::Buff(Hero* hero)
 {
     m_Owner = hero;
 
-    auto shieldSprite = Sprite::create("Images/buff_speed.png");
+    auto shieldSprite = Sprite::create("Images/Effect/buff_shield.png");
     BuffObject shield{ BUFF_SHIELD, 0, shieldSprite, nullptr };
     m_BuffList[BUFF_SHIELD] = shield;
 
-    auto speedParticle = ParticleSystemQuad::create("Images/particle_speed_buff.plist");
+    auto speedParticle = ParticleSystemQuad::create("Images/Effect/Particle_Speed_Buff.plist");
     BuffObject speed{ BUFF_SPEED, 0, nullptr, speedParticle };
-    m_BuffList[BUFF_SHIELD] = shield;
+    m_BuffList[BUFF_SPEED] = shield;
 
     for (auto& buff : m_BuffList)
     {
@@ -82,8 +82,6 @@ void Buff::BuffEnd(BuffTarget type, float bonus)
     {
     case BUFF_SPEED:
         m_Owner->SetSpeed(m_Owner->GetSpeed() + bonus);
-        break;
-    case BUFF_SHIELD:
         break;
     }
 

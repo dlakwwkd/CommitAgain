@@ -70,6 +70,7 @@ protected:
     float       m_Speed			= 0; 
     bool        m_InUse			= false;
     bool        m_IsHidden      = false;
+    bool        m_IsDead        = false;
     b2Vec2      m_TargetPos		= { 0, 0 };
     b2Body*     m_Body			= nullptr;
     BuffSkill*  m_Buff          = nullptr;

@@ -355,6 +355,7 @@ void GameManager::DeadUnit(Unit* unit)
 {
     auto unitId = unit->GetUnitID();
     auto owner = unit->GetOwner();
+    printf("dead unit : %d\n", unit->GetUnitID());
 
     switch(GET_MAIN_TYPE(unitId))
     {

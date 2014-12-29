@@ -15,7 +15,7 @@ SparkSkill::SparkSkill(Player* owner, float heroBodySize)
     m_MissileScale = DEF_SCALE;
 	m_HeroBodySize = Reduce(heroBodySize);
 	m_Range = Reduce(800.0f);
-	m_MissileHp = 100;
+    m_MissileHp = 100;
 }
 
 

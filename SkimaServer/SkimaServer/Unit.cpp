@@ -154,6 +154,7 @@ void Unit::Damaged(int damage)
     if (m_Hp <= 0)
     {
         CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
+        printf("callfuncafter dead : %d\n", m_UnitID);
     }
     m_Owner->GetClient()->HpBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Hp);
 }
@@ -186,10 +187,16 @@ void Unit::TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos)
 
 void Unit::Crashed(Unit* contactUnit)
 {
+    if (m_IsDead)
+    {
+        return;
+    }
     switch (GET_MAIN_TYPE(m_UnitID))
     {
     case UNIT_MISSILE:
+        m_IsDead = true;
         CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
+        printf("callfuncafter dead : %d\n", m_UnitID);
         EndCrash();
         return;
     case UNIT_ITEM:
@@ -197,7 +204,9 @@ void Unit::Crashed(Unit* contactUnit)
         {
             return;
         }
+        m_IsDead = true;
         CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
+        printf("callfuncafter dead : %d\n", m_UnitID);
         auto item = dynamic_cast<Item*>(this);
         contactUnit->UseBuff(item->GetBuffTarget());
         EndCrash();
