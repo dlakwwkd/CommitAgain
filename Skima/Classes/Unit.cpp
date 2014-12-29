@@ -136,12 +136,13 @@ void Unit::Damaged()
 {
     SimpleAudioEngine::getInstance()->playEffect("Music/Effect/damage.mp3");
 
-//     auto action1 = TintTo::create(0.1f,0x50,0x00,0x00);
-//     auto action2 = TintTo::create(0.1f, 0x00, 0x00, 0x00);
-//     auto action3 = Sequence::create(action1, action2, action1, NULL);
+    auto action1 = TintTo::create(0, 255, 0, 0);
+    auto action2 = TintTo::create(0.1f, 255, 255, 255);
+    auto action3 = Sequence::create(action1, action2, action1, action2, action1, action2, NULL);
     
-    auto action1 = Blink::create(0.5f, 4);
 
-    m_RealSprite->runAction(action1);
+    //auto action1 = Blink::create(0.5f, 4);
+
+    m_RealSprite->runAction(action3);
     //m_Damaged->setVisible(false);
 }

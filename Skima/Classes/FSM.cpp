@@ -29,6 +29,7 @@ void StandbyState::Crashed(Unit* unit)
     {
         unit->GetRealSprite()->stopAllActions();
         unit->GetRealSprite()->setVisible(true);
+        unit->GetRealSprite()->setColor(Color3B(255, 255, 255));
     }
     unit->Crash();
 }
@@ -60,7 +61,7 @@ void MovingState::TryMove(Unit* unit)
     {
         unit->GetRealSprite()->stopAllActions();
         unit->GetRealSprite()->setVisible(true);
-
+        unit->GetRealSprite()->setColor(Color3B(255, 255, 255));
     }
     unit->Move();
 }
@@ -81,6 +82,7 @@ void MovingState::Crashed(Unit* unit)
     {
         unit->GetRealSprite()->stopAllActions();
         unit->GetRealSprite()->setVisible(true);
+        unit->GetRealSprite()->setColor(Color3B(255, 255, 255));
     }
     unit->Crash();
 }
@@ -96,6 +98,7 @@ void MovingState::EndMove(Unit* unit)
     {
         unit->GetRealSprite()->stopAllActions();
         unit->GetRealSprite()->setVisible(true);
+        unit->GetRealSprite()->setColor(Color3B(255, 255, 255));
     }
 }
 
@@ -110,6 +113,7 @@ void MovingState::EndCrash(Unit* unit)
     {
         unit->GetRealSprite()->stopAllActions();
         unit->GetRealSprite()->setVisible(true);
+        unit->GetRealSprite()->setColor(Color3B(255, 255, 255));
     }
     auto action1 = MoveTo::create(0.1f, unit->GetTargetPos());
     auto action2 = EaseSineIn::create(action1);
@@ -141,6 +145,7 @@ void CrashedState::Crashed(Unit* unit)
     {
         unit->GetRealSprite()->stopAllActions();
         unit->GetRealSprite()->setVisible(true);
+        unit->GetRealSprite()->setColor(Color3B(255, 255, 255));
     }
     unit->Crash();
 }
@@ -156,6 +161,7 @@ void CrashedState::EndCrash(Unit* unit)
     {
         unit->GetRealSprite()->stopAllActions();
         unit->GetRealSprite()->setVisible(true);
+        unit->GetRealSprite()->setColor(Color3B(255, 255, 255));
     }
 
     auto action1 = MoveTo::create(0.1f, unit->GetTargetPos());
