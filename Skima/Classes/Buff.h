@@ -3,9 +3,10 @@
 
 struct BuffObject
 {
-    BuffTarget mType;
-    int        mBuffNum;
-    Sprite*    mSprite;
+    BuffTarget          mType;
+    int                 mBuffNum;
+    Sprite*             mSprite;
+    ParticleSystemQuad* mParticle;
 };
 
 typedef std::map<BuffTarget,BuffObject> BuffList;
@@ -22,8 +23,8 @@ public:
 
     void            BuffUse(BuffTarget type, float bonus);
     void            BuffEnd(BuffTarget type, float bonus);
-    void            BuffDraw(Sprite* sprite);
-    void            BuffErase(Sprite* sprite);
+    void            BuffDraw(BuffObject* buff);
+    void            BuffErase(BuffObject* buff);
     
 
 private:

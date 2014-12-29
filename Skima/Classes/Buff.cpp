@@ -6,19 +6,36 @@
 Buff::Buff(Hero* hero)
 {
     m_Owner = hero;
-    auto speedSprite = Sprite::create("Images/buff_speed.png");
-    BuffObject speed{ BUFF_SPEED, 0, speedSprite };
-    m_BuffList[BUFF_SPEED] = speed;
-//     BuffObject shield{ BUFF_SHIELD, 0, nullptr };
-//     m_BuffList[BUFF_SHIELD] = shield;
+
+    auto shieldSprite = Sprite::create("Images/buff_speed.png");
+    BuffObject shield{ BUFF_SHIELD, 0, shieldSprite, nullptr };
+    m_BuffList[BUFF_SHIELD] = shield;
+
+    auto speedParticle = ParticleSystemQuad::create("Images/particle_speed_buff.plist");
+    BuffObject speed{ BUFF_SPEED, 0, nullptr, speedParticle };
+    m_BuffList[BUFF_SHIELD] = shield;
 
     for (auto& buff : m_BuffList)
     {
         auto sprite = buff.second.mSprite;
+        auto particle = buff.second.mParticle;
         auto pos = hero->GetCenterSprite()->getPosition();
-        sprite->setVisible(false);
-        sprite->setPosition(Vec2(pos.x - 410.0f, pos.y - 490.0f));
-        hero->GetCenterSprite()->addChild(sprite);
+
+        if (sprite != nullptr)
+        {
+            sprite->setVisible(false);
+            sprite->setPosition(Vec2(pos.x - 410.0f, pos.y - 490.0f));
+            hero->GetCenterSprite()->addChild(sprite);
+        }
+
+        if (particle != nullptr)
+        {
+            particle->setVisible(false);
+            particle->setPosition(30, 25);
+            particle->setScale(0.7f);
+            hero->GetCenterSprite()->addChild(speedParticle, -1);
+        }
+        
     }
 }
 
@@ -36,7 +53,7 @@ void Buff::BuffUse(BuffTarget type, float bonus)
     }
     if (buff->second.mBuffNum <= 0)
     {
-        BuffDraw(buff->second.mSprite);
+        BuffDraw(&buff->second);
     }
     buff->second.mBuffNum++;
 
@@ -73,16 +90,32 @@ void Buff::BuffEnd(BuffTarget type, float bonus)
     buff->second.mBuffNum--;
     if (buff->second.mBuffNum >= 0)
     {
-        BuffErase(buff->second.mSprite);
+        BuffErase(&buff->second);
     }
 }
 
-void Buff::BuffDraw(Sprite* sprite)
+void Buff::BuffDraw(BuffObject* buff)
 {
-    sprite->setVisible(true);
+    if (buff->mSprite != nullptr)
+    {
+        buff->mSprite->setVisible(true);
+    }
+
+    if (buff->mParticle != nullptr)
+    {
+        buff->mParticle->setVisible(true);
+    }
 }
 
-void Buff::BuffErase(Sprite* sprite)
+void Buff::BuffErase(BuffObject* buff)
 {
-    sprite->setVisible(false);
+    if (buff->mSprite != nullptr)
+    {
+        buff->mSprite->setVisible(false);
+    }
+
+    if (buff->mParticle != nullptr)
+    {
+        buff->mParticle->setVisible(false);
+    }
 }
