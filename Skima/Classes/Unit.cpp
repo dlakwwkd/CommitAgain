@@ -65,6 +65,19 @@ void Unit::Crash()
 
 
 
+void Unit::InitCenterSprite()
+{
+    m_CenterSprite->stopAllActions();
+    m_CenterSprite->setVisible(true);
+}
+
+void Unit::InitRealSprite()
+{
+    m_RealSprite->stopAllActions();
+    m_RealSprite->setVisible(true);
+    m_RealSprite->setColor(Color3B(255, 255, 255));
+}
+
 void Unit::SetAllSpriteVisible()
 {
     m_CenterSprite->setOpacity(255);

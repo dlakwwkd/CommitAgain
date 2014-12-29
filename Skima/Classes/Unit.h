@@ -51,6 +51,8 @@ public:
     void            Move();
     void            Crash();
 
+    void            InitCenterSprite();
+    void            InitRealSprite();
     void            SetAllSpriteVisible();
     void            SetHp(int curHp);
     void            SetMyHpBar();
