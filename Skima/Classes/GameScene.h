@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Enums.h"
+#include "PacketType.h"
 
 USING_NS_CC;
 
@@ -11,15 +12,16 @@ public:
     virtual bool init();
     CREATE_FUNC(GameScene);
 
-	void SetRoomID(int id) { m_RoomId = id; }
-    int  GetRoomID(){ return m_RoomId; }
-    bool IsStartGame(){ return m_IsStartGame; }
+	void        SetRoomInfo(RoomInfo roomInfo) { m_RoomInfo = roomInfo; }
+    RoomInfo    GetRoomInfo(){ return m_RoomInfo; }
+    int         GetRoomID(){ return m_RoomInfo.mRoomNum; }
+    bool        IsStartGame(){ return m_IsStartGame; }
 
-    void StartGame();
-    void RemoveLoadingLayer();
-    void GameOver(int playerId, int loseId);
+    void        StartGame();
+    void        RemoveLoadingLayer();
+    void        GameOver(int playerId, int loseId);
 
 private:
-    bool	m_IsStartGame;
-	int		m_RoomId;
+    bool	    m_IsStartGame;
+    RoomInfo    m_RoomInfo;
 };

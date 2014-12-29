@@ -8,7 +8,7 @@ using namespace CocosDenshion;
 
 bool EscLayer::init()
 {
-    if (!LayerColor::initWithColor(Color4B(0,0,0,0))) //검은색 세팅
+    if (!LayerColor::initWithColor(Color4B::BLACK)) //검은색 세팅
     {
         return false;
     }
@@ -45,10 +45,10 @@ void EscLayer::menuCallback2(Ref* sender)
         return;
     }
 
-    auto m_Scene = dynamic_cast<GameScene*>(this->getParent());
-    int roomId = m_Scene->GetRoomID();
+    auto scene = dynamic_cast<GameScene*>(this->getParent());
+    int roomId = scene->GetRoomID();
 
-    TcpClient::getInstance()->outRoomRequest(roomId);
+    TcpClient::getInstance()->outRoomRequest(scene->GetRoomInfo());
     TcpClient::getInstance()->disconnect();
     ShowCursor(true);
 

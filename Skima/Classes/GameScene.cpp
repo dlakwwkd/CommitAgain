@@ -69,7 +69,7 @@ void GameScene::GameOver(int playerId, int loseId)
     m_IsStartGame = false;
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
-    auto scene = GameOverScene::createScene(m_RoomId, playerId, loseId);
+    auto scene = GameOverScene::createScene(m_RoomInfo, playerId, loseId);
     Director::getInstance()->popScene();
     Director::getInstance()->pushScene(scene);
 }

@@ -155,7 +155,7 @@ void RoomScene::GameExitCallback(Ref* sender)	// 나가기
 {
     if (TcpClient::getInstance()->checkSocket() != NULL)
     {
-        TcpClient::getInstance()->outRoomRequest(m_RoomInfo.mRoomNum);
+        TcpClient::getInstance()->outRoomRequest(m_RoomInfo);
     }
 
     m_IsReady = false;
@@ -213,7 +213,7 @@ void RoomScene::GameStartComplete()
     auto scene = GameScene::createScene();
 
     auto layer = dynamic_cast<GameScene*>(scene->getChildByName("GameScene"));
-    layer->SetRoomID(m_RoomInfo.mRoomNum);
+    layer->SetRoomInfo(m_RoomInfo);
 
     m_IsReady = false;
     WaitingCheck();

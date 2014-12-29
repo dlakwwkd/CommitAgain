@@ -10,10 +10,10 @@ void GameRoom::ReadySign()
     if (++m_ReadyNum >= m_PlayerList.size())
     {
         m_IsAllReady = true;
-        printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", m_RoomID);
-        CallFuncAfter(5000, GGameManager, &GameManager::CreateGame, m_RoomID);
+        printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", m_RoomInfo.mRoomNum);
+        CallFuncAfter(5000, GGameManager, &GameManager::CreateGame, m_RoomInfo.mRoomNum);
     }
-    printf(" - Room[%d] ReadyNum: %d \n", m_RoomID, m_ReadyNum);
+    printf(" - Room[%d] ReadyNum: %d \n", m_RoomInfo.mRoomNum, m_ReadyNum);
 }
 
 void GameRoom::InitReady()
@@ -42,13 +42,14 @@ void GameRoom::JoinPlayer(Player* player)
 		return;
 	}
     m_PlayerList[player->GetPlayerID()] = player;
-    player->SetRoomID(m_RoomID);
-    printf("\n [Join Room] Room ID %d, Player ID: %d \n", m_RoomID, player->GetPlayerID());
+    player->SetRoomID(m_RoomInfo.mRoomNum);
+    m_RoomInfo.mCurPlayerNum++;
+    printf("\n [Join Room] Room ID %d, Player ID: %d \n", m_RoomInfo.mRoomNum, player->GetPlayerID());
 
-    if (m_PlayerList.size() >= MAX_PLAYER_NUM)
+    if (m_PlayerList.size() >= m_RoomInfo.mMaxPlayerNum)
     {
         m_JoinAble = false;
-        printf(" - Room %d is Full ! \n", m_RoomID);
+        printf(" - Room %d is Full ! \n", m_RoomInfo.mRoomNum);
     }
 }
 
@@ -71,10 +72,11 @@ void GameRoom::OutPlayer(int playerId)
     }
     player->second->SetRoomID(-1);
     player->second->SetReady(false);
+    m_RoomInfo.mCurPlayerNum--;
 
     m_PlayerList.erase(player);
 
-    printf("\n [Out  Room] Room ID %d, Player ID: %d \n", m_RoomID, playerId);
+    printf("\n [Out  Room] Room ID %d, Player ID: %d \n", m_RoomInfo.mRoomNum, playerId);
     if (m_PlayerList.size() != 0)
     {
         m_JoinAble = true;

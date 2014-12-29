@@ -76,7 +76,7 @@ void GameManager::DestroyTimer(Timer* timer)
     GameRoom 관련
 */
 ///////////////////////////////////////////////////////////////////////////
-GameRoom* GameManager::CreateRoom()
+GameRoom* GameManager::CreateRoom(RoomInfo roomInfo)
 {
     if (++m_MakeRoomNum == 1)
     {
@@ -86,7 +86,8 @@ GameRoom* GameManager::CreateRoom()
     {
         DeleteRoom(m_MakeRoomNum);
     }
-    GameRoom* room = new GameRoom(m_MakeRoomNum);
+    roomInfo.mRoomNum = m_MakeRoomNum;
+    GameRoom* room = new GameRoom(roomInfo,m_MakeRoomNum);
     m_RoomList[m_MakeRoomNum] = room;
     return room;
 }

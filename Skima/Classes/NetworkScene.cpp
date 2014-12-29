@@ -75,10 +75,10 @@ void NetworkScene::menuCallback2(int roomNum)
                 ConnectLabelChange("방의 인원이 초과하였습니다.");
                 return;
             }
+            TcpClient::getInstance()->joinRoomRequest(room);
             break;
         }
     }
-    TcpClient::getInstance()->joinRoomRequest(roomNum);
 }
 
 void NetworkScene::menuCallback3(Ref* sender)	// 나가기

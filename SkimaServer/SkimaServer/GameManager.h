@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "RefCountable.h"
+#include "../../PacketType.h"
 class Game;
 class GameRoom;
 class Player;
@@ -38,7 +39,7 @@ public:
     void                CollectGarbageGames();
     void                DestroyTimer(Timer* timer);
 
-    GameRoom*           CreateRoom();
+    GameRoom*           CreateRoom(RoomInfo roomInfo);
     void                DeleteRoom(int roomId);
     GameRoom*           SearchRoom(int roomId);
     int                 SearchEmptyRoom();

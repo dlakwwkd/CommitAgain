@@ -238,37 +238,22 @@ void TcpClient::processPacket()
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
-            if (recvData.mIsIn)
+            if (recvData.mPlayerId != mLoginId)
             {
-                if (recvData.mPlayerId != mLoginId)
+                auto scene = GET_ROOM_SCENE;
+                if (scene)
                 {
-                    auto scene = GET_ROOM_SCENE;
-                    if (scene)
-                    {
-                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::UpdateRoomInfo, scene,
-                            recvData.mRoomInfo));
-                    }
-                }
-                else
-                {
-                    auto scene = GET_NETWORK_SCENE;
-                    if (scene)
-                    {
-                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, scene,
-                            recvData.mRoomInfo));
-                    }
+                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::UpdateRoomInfo, scene,
+                        recvData.mRoomInfo));
                 }
             }
             else
             {
-                if (recvData.mPlayerId != mLoginId)
+                auto scene = GET_NETWORK_SCENE;
+                if (scene)
                 {
-                    auto scene = GET_ROOM_SCENE;
-                    if (scene)
-                    {
-                        scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::UpdateRoomInfo, scene,
-                            recvData.mRoomInfo));
-                    }
+                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::JoinRoomComplete, scene,
+                        recvData.mRoomInfo));
                 }
             }
         }
@@ -657,7 +642,7 @@ void TcpClient::makeRoomRequest(RoomInfo roomInfo)
     send((const char*)&sendData, sizeof(MakeRoomRequest));
 }
 
-void TcpClient::joinRoomRequest(int roomID)
+void TcpClient::joinRoomRequest(RoomInfo roomInfo)
 {
     if (mLoginId < 0)
         return;
@@ -665,12 +650,12 @@ void TcpClient::joinRoomRequest(int roomID)
     InOutRoomRequest sendData;
     sendData.mPlayerId = mLoginId;
     sendData.mIsIn = true;
-    sendData.mRoomInfo.mRoomNum = roomID;
+    sendData.mRoomInfo = roomInfo;
 
     send((const char*)&sendData, sizeof(InOutRoomRequest));
 }
 
-void TcpClient::outRoomRequest(int roomId)
+void TcpClient::outRoomRequest(RoomInfo roomInfo)
 {
     if (mLoginId < 0)
         return;
@@ -678,7 +663,7 @@ void TcpClient::outRoomRequest(int roomId)
     InOutRoomRequest sendData;
     sendData.mPlayerId = mLoginId;
     sendData.mIsIn = false;
-    sendData.mRoomInfo.mRoomNum = roomId;
+    sendData.mRoomInfo = roomInfo;
 
     send((const char*)&sendData, sizeof(InOutRoomRequest));
 }

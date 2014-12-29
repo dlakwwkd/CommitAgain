@@ -16,7 +16,7 @@
 Game::Game(GameRoom* room)
 {
 	m_IsStart = false;
-    m_GameID = room->m_RoomID;
+    m_GameID = room->m_RoomInfo.mRoomNum;
     m_LoadedPlayerNum = 0;
 
     for (auto& player : room->m_PlayerList)

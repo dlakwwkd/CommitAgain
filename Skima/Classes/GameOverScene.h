@@ -1,20 +1,21 @@
 ﻿#pragma once
 #include "Enums.h"
+#include "PacketType.h"
 
 USING_NS_CC;
 
 class GameOverScene : public LayerColor
 {
 public:
-	static Scene* createScene(int roomId, int playerId, int loseId);
+	static Scene* createScene(RoomInfo roomInfo, int playerId, int loseId);
 	virtual bool init();
 	CREATE_FUNC(GameOverScene);
 
-	void SetRoomID(int id) { m_RoomId = id; };
+	void SetRoomInfo(RoomInfo roomInfo) { m_RoomInfo = roomInfo; };
 
 	void menuCallback1(Ref* sender);
 	void menuCallback2(Ref* sender);
 
 private:
-	int m_RoomId;
+    RoomInfo m_RoomInfo;
 };
