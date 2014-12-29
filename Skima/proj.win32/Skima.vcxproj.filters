@@ -85,6 +85,9 @@
     <Filter Include="Game\Component\Unit\Item">
       <UniqueIdentifier>{01d4a5c7-7457-4c00-8af9-b984045a7218}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Skill\Buff">
+      <UniqueIdentifier>{f1fc4099-957d-46b5-9f59-013767b27153}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -278,6 +281,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Item.cpp">
       <Filter>Game\Component\Unit\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Buff.cpp">
+      <Filter>Game\Component\Skill\Buff</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -481,6 +487,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Item.h">
       <Filter>Game\Component\Unit\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Buff.h">
+      <Filter>Game\Component\Skill\Buff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
