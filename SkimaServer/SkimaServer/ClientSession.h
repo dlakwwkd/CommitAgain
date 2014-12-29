@@ -33,9 +33,9 @@ public:
 
     void    LoginProcess(int playerId, const std::string& playerName);
     void    UpdateRoomInfo();
-    void MakeGameRoom(RoomInfo roomInfo);
-    void JoinGameRoom(RoomInfo roomInfo);
-    void OutGameRoom(RoomInfo roomInfo);
+    void    MakeGameRoom(RoomInfo roomInfo);
+    void    JoinGameRoom(RoomInfo roomInfo);
+    void    OutGameRoom(RoomInfo roomInfo);
 
     void    PlayerReadyNotify();
     void    AllReadyNotify();

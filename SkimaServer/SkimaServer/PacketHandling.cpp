@@ -405,6 +405,7 @@ void ClientSession::MakeGameRoom(RoomInfo roomInfo)
 {
     GameRoom* gameRoom = GGameManager->CreateRoom(roomInfo);
     GGameManager->JoinRoom(gameRoom->GetRoomID(), mPlayer);
+    mRoomId = gameRoom->GetRoomID();
 
     auto roomList = GGameManager->GetRoomList();
     auto room = roomList.find(gameRoom->GetRoomID());
@@ -433,6 +434,8 @@ void ClientSession::JoinGameRoom(RoomInfo roomInfo)
     GGameManager->JoinRoom(roomInfo.mRoomNum, mPlayer);
     auto roomList = GGameManager->GetRoomList();
     auto room = roomList.find(roomInfo.mRoomNum);
+    mRoomId = roomInfo.mRoomNum;
+
     if (room == roomList.end())
     {
         printf(" JoinGameRoom() Failed ! \n");
