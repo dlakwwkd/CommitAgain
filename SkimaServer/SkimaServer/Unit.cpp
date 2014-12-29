@@ -109,39 +109,10 @@ void Unit::ReachCheck()
     }
 }
 
-void Unit::Crashing(Unit* contactUnit)
+void Unit::Crashing()
 {
-    switch (GET_MAIN_TYPE(m_UnitID))
-    {
-    case UNIT_MISSILE:
-        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
-        EndCrash();
-        return;
-    case UNIT_ITEM:
-        if (GET_MAIN_TYPE(contactUnit->GetUnitID()) != UNIT_HERO)
-        {
-            return;
-        }
-        
-        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
-        auto item = dynamic_cast<Item*>(this);
-        contactUnit->UseBuff(item->GetBuffTarget());
-        EndCrash();
-        return;
-    }
-    auto client = m_Owner->GetClient();
-    if (client == nullptr)
-    {
-        printf(" - Crashing Failed ! : client is invalid \n");
-        return;
-    }
-    auto curPos = m_Body->GetPosition();
-    auto expectPos = curPos;
-    auto velocity = m_Body->GetLinearVelocity();
-    velocity *= 1.0f / DAMPING;
-    expectPos += velocity;
-
-    client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, true);
+    m_IsHidden = false;
+    CurPosSync();
 }
 
 void Unit::CurPosSync()
@@ -207,8 +178,45 @@ void Unit::UseBuff(BuffTarget type)
     }
 }
 
+
+
 void Unit::TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos)
 {
     m_TargetPos = targetPos;
     m_State->TryMove(this);
+}
+
+void Unit::Crashed(Unit* contactUnit)
+{
+    switch (GET_MAIN_TYPE(m_UnitID))
+    {
+    case UNIT_MISSILE:
+        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
+        EndCrash();
+        return;
+    case UNIT_ITEM:
+        if (GET_MAIN_TYPE(contactUnit->GetUnitID()) != UNIT_HERO)
+        {
+            return;
+        }
+        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
+        auto item = dynamic_cast<Item*>(this);
+        contactUnit->UseBuff(item->GetBuffTarget());
+        EndCrash();
+        return;
+    }
+    auto client = m_Owner->GetClient();
+    if (client == nullptr)
+    {
+        printf(" - Crashed Failed ! : client is invalid \n");
+        return;
+    }
+    auto curPos = m_Body->GetPosition();
+    auto expectPos = curPos;
+    auto velocity = m_Body->GetLinearVelocity();
+    velocity *= 1.0f / DAMPING;
+    expectPos += velocity;
+
+    client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos, true);
+    m_State->Crashed(this);
 }
