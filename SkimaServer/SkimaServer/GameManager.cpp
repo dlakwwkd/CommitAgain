@@ -52,7 +52,7 @@ void GameManager::LowTick()
             unit->CurPosSync();
         }
     }
-    printf(" - Total Body Num : %d \n", m_World->GetBodyCount());
+    //printf(" - Total Body Num : %d \n", m_World->GetBodyCount());
     CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::LowTick);
 }
 

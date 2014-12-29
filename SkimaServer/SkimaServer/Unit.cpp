@@ -130,6 +130,10 @@ void Unit::CurPosSync()
 
 void Unit::Damaged(int damage)
 {
+    if (m_IsDead)
+    {
+        return;
+    }
     if (GET_MAIN_TYPE(m_UnitID) == UNIT_ITEM)
     {
         return;
@@ -154,8 +158,9 @@ void Unit::Damaged(int damage)
 
     if (m_Hp <= 0)
     {
+        m_IsDead = true;
         CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
-        printf("callfuncafter dead : %d\n", m_UnitID);
+        printf(" - CallFuncAfter: DeadUnit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(m_UnitID), GET_SIDE_TYPE(m_UnitID), INIT_TYPE(m_UnitID));
     }
     m_Owner->GetClient()->HpBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Hp);
 }
