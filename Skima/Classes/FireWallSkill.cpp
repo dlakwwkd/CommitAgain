@@ -9,7 +9,7 @@
 
 FireWallSkill::FireWallSkill(Hero* hero)
 {
-    m_Hero = hero;
+    m_Owner = hero;
     m_CoolTime = 5;
     m_CanUse = true;
 }
@@ -27,7 +27,7 @@ void FireWallSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 
 void FireWallSkill::SkillReady()
 {
-    auto rangeCircle = m_Hero->GetSkillRange();
+    auto rangeCircle = m_Owner->GetSkillRange();
     rangeCircle->setVisible(true);
 
     auto uiLayer = GET_UI_LAYER;
@@ -38,7 +38,7 @@ void FireWallSkill::SkillReady()
 
 void FireWallSkill::SkillEnd()
 {
-    auto rangeCircle = m_Hero->GetSkillRange();
+    auto rangeCircle = m_Owner->GetSkillRange();
     rangeCircle->setVisible(false);
 }
 

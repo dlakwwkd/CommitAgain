@@ -9,7 +9,7 @@
 
 SwipeSkill::SwipeSkill(Hero* hero)
 {
-    m_Hero = hero;
+    m_Owner = hero;
     m_CoolTime = 1;
     m_CanUse = true;
 }
@@ -26,13 +26,13 @@ void SwipeSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
      auto direction = GenerateSkillDirection(targetPos, heroPos);
      effect->ShowSwipeMotionByDir(direction);
 
-     m_Hero->SetAllSpriteVisible();
-     m_Hero->SetUnitHiddenState(false);
+     m_Owner->SetAllSpriteVisible();
+     m_Owner->SetUnitHiddenState(false);
 }
 
 void SwipeSkill::SkillReady()
 {
-    auto nearRange = m_Hero->GetNearSkillRange();
+    auto nearRange = m_Owner->GetNearSkillRange();
     nearRange->setVisible(true);
 
     auto uiLayer = GET_UI_LAYER;
@@ -43,7 +43,7 @@ void SwipeSkill::SkillReady()
 
 void SwipeSkill::SkillEnd()
 {
-    auto nearRange = m_Hero->GetNearSkillRange();
+    auto nearRange = m_Owner->GetNearSkillRange();
     nearRange->setVisible(false);
 }
 

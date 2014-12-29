@@ -24,8 +24,8 @@ public:
     Direction       GenerateSkillDirection(Vec2 targetPos, Vec2 curPos);
 
 protected:
-    Hero*			m_Hero = nullptr;
-    int				m_CoolTime;
-    bool			m_CanUse;
+    Hero*			m_Owner = nullptr;
+    int				m_CoolTime = 0;
+    bool			m_CanUse = false;
 };
 

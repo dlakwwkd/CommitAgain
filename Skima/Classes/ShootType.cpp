@@ -19,13 +19,13 @@ void ShootType::SkillCast(Vec2 heroPos, Vec2 targetPos)
 
 void ShootType::SkillReady()
 {
-    auto arrow = m_Hero->GetArrow();
+    auto arrow = m_Owner->GetArrow();
     arrow->setVisible(true);
 }
 
 void ShootType::SkillEnd()
 {
-    auto arrow = m_Hero->GetArrow();
+    auto arrow = m_Owner->GetArrow();
     arrow->setVisible(false);
 }
 

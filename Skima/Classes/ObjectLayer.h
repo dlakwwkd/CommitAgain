@@ -29,7 +29,7 @@ public:
     void UnitCrashEnd(int unitID, Vec2 revisePos);
     void UnitSkillUse(int playerID, int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);
     void UnitHpUpdate(int playerID, int unitID, int curHp);
-    void UnitBuffApply(int unitID, float bonus, BuffTarget type);
+    void UnitBuffApply(int unitID, float bonus, BuffTarget type, bool isOn);
 
     void ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos);
     void MissileCrash(int missileID);

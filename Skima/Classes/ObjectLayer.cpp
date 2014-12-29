@@ -22,6 +22,7 @@
 #include "MeteorSkill.h"
 #include "SimpleAudioEngine.h"
 #include "Item.h"
+#include "Buff.h"
 
 using namespace CocosDenshion;
 
@@ -231,19 +232,26 @@ void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
     unit->second->UpdateHpBar();
 }
 
-void ObjectLayer::UnitBuffApply(int unitID, float bonus, BuffTarget type)
+void ObjectLayer::UnitBuffApply(int unitID, float bonus, BuffTarget type, bool isOn)
 {
     auto unit = m_UnitList.find(unitID);
     if (unit == m_UnitList.end())
     {
         return;
     }
-    switch (type)
+    if (GET_MAIN_TYPE(unitID) != UNIT_HERO)
     {
-    case BUFF_HP:       unit->second->SetHp(unit->second->GetCurHp() + bonus);      break;
-    case BUFF_SPEED:    unit->second->SetSpeed(unit->second->GetSpeed() + bonus);   break;
-    default:
-        break;
+        return;
+    }
+    
+    auto hero = std::dynamic_pointer_cast<Hero>(unit->second);
+    if (isOn)
+    {
+        hero->GetBuff()->BuffUse(type, bonus);
+    }
+    else
+    {
+        hero->GetBuff()->BuffEnd(type, bonus);
     }
 }
 

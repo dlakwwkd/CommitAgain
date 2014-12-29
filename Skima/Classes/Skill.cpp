@@ -33,6 +33,6 @@ Direction Skill::GenerateSkillDirection(Vec2 targetPos, Vec2 curPos)
 
 void Skill::SetHeroPerforming(bool isPerforming)
 {
-    m_Hero->SetHeroPerforming(isPerforming);
+    m_Owner->SetHeroPerforming(isPerforming);
 }
 

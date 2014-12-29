@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Unit.h"
 class Skill;
+class Buff;
 
 class Hero : public Unit
 {
@@ -16,6 +17,7 @@ public:
 
     Skill*          GetSkill(SkillKey key);
     int             GetSkillCoolTime(SkillKey key);
+    Buff*           GetBuff() { return m_Buff; }
     bool            GetSkillCanUse(SkillKey key);
     void			SetSkillCanUse(SkillKey key, bool isUse);
 
@@ -47,5 +49,6 @@ protected:
     Sprite*                     m_SkillRange = nullptr;
     Sprite*                     m_NearSkillRange = nullptr;
     bool                        m_IsPerforming;
+    Buff*                       m_Buff;
 };
 

@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "Hero.h"
 #include "Skill.h"
+#include "Buff.h"
 
 
 Hero::Hero()
@@ -31,6 +32,9 @@ Hero::Hero()
 
 Hero::~Hero()
 {
+    delete m_Buff;
+    m_Buff = nullptr;
+
     for (auto& skill : m_SkillList)
     {
         delete skill.second;

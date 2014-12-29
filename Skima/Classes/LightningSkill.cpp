@@ -11,7 +11,7 @@ using namespace CocosDenshion;
 
 LightningSkill::LightningSkill(Hero* hero)
 {
-    m_Hero = hero;
+    m_Owner = hero;
     m_CoolTime = 3;
     m_CanUse = true;
 }
@@ -29,7 +29,7 @@ void LightningSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 
 void LightningSkill::SkillReady()
 {
-    auto rangeCircle = m_Hero->GetSkillRange();
+    auto rangeCircle = m_Owner->GetSkillRange();
     rangeCircle->setVisible(true);
 
     auto uiLayer = GET_UI_LAYER;
@@ -40,7 +40,7 @@ void LightningSkill::SkillReady()
 
 void LightningSkill::SkillEnd()
 {
-    auto rangeCircle = m_Hero->GetSkillRange();
+    auto rangeCircle = m_Owner->GetSkillRange();
     rangeCircle->setVisible(false);
 }
 

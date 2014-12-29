@@ -34,7 +34,7 @@ void BuffType::DashSkillCast()
         game->PushTimer(timer);
 
         auto client = m_Owner->GetClient();
-        client->BuffBroadCast(hero->GetUnitID(), m_SpeedBonus, BUFF_SPEED);
+        client->BuffBroadCast(hero->GetUnitID(), m_SpeedBonus, BUFF_SPEED, m_IsOn);
     }
 }
 
@@ -50,7 +50,7 @@ void BuffType::DashSkillEnd()
         hero->CurPosSync();
 
         auto client = m_Owner->GetClient();
-        client->BuffBroadCast(hero->GetUnitID(), (-m_SpeedBonus), BUFF_SPEED);
+        client->BuffBroadCast(hero->GetUnitID(), (-m_SpeedBonus), BUFF_SPEED, m_IsOn);
     }
 }
 
@@ -67,7 +67,7 @@ void BuffType::MoveSpeedBonus(int duration, float bonus)
     game->PushTimer(timer);
 
     auto client = m_Owner->GetClient();
-    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_SPEED);
+    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_SPEED, true);
 }
 
 void BuffType::MoveSpeedBonusEnd(float bonus)
@@ -76,7 +76,7 @@ void BuffType::MoveSpeedBonusEnd(float bonus)
     hero->SetSpeed(hero->GetSpeed() - bonus);
 
     auto client = m_Owner->GetClient();
-    client->BuffBroadCast(hero->GetUnitID(), (-bonus), BUFF_SPEED);
+    client->BuffBroadCast(hero->GetUnitID(), (-bonus), BUFF_SPEED, false);
 }
 
 void BuffType::DamageUpBonus(int duration, int bonus)
@@ -95,7 +95,7 @@ void BuffType::ShieldBonus(int bonus)
     hero->SetShield(hero->GetShield() + bonus);
 
     auto client = m_Owner->GetClient();
-    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_SHIELD);
+    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_SHIELD, true);
 }
 
 void BuffType::ShieldBonusEnd()
@@ -103,5 +103,5 @@ void BuffType::ShieldBonusEnd()
     auto hero = m_Owner->GetMyHero();
 
     auto client = m_Owner->GetClient();
-    client->BuffBroadCast(hero->GetUnitID(), 0, BUFF_SHIELD);
+    client->BuffBroadCast(hero->GetUnitID(), 0, BUFF_SHIELD, false);
 }

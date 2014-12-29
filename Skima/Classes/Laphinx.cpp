@@ -8,6 +8,8 @@
 #include "HideEffect.h"
 #include "ShortDashSkill.h"
 #include "MeteorSkill.h"
+#include "Buff.h"
+
 
 
 Laphinx::Laphinx(Vec2 createPos, float scale)
@@ -41,6 +43,8 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
 
     auto meteorSkill = dynamic_cast<MeteorSkill*>(m_SkillList[SKILL_R]);
     m_MeteorSKill = meteorSkill;
+
+    m_Buff = new Buff(this);
 }
 
 

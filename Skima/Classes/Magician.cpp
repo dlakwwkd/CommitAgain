@@ -6,6 +6,7 @@
 #include "IceballSkill.h"
 #include "TeleportSkill.h"
 #include "FireWallSkill.h"
+#include "Buff.h"
 
 Magician::Magician(Vec2 createPos, float scale)
 {
@@ -34,6 +35,8 @@ Magician::Magician(Vec2 createPos, float scale)
     m_SkillList[SKILL_W] = new IceballSkill(this);
     m_SkillList[SKILL_E] = new TeleportSkill(this);
     m_SkillList[SKILL_R] = new FireWallSkill(this);
+
+    m_Buff = new Buff(this);
 }
 
 

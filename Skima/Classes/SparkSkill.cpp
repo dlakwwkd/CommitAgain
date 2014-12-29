@@ -4,7 +4,7 @@
 
 SparkSkill::SparkSkill(Hero* hero)
 {
-    m_Hero = hero;
+    m_Owner = hero;
     m_CoolTime = 3;
 }
 

@@ -23,6 +23,7 @@ Unit::Unit()
     m_MoveState = m_StandbyState = new StandbyState();
     m_MovingState = new MovingState();
     m_CrashedState = new CrashedState();
+    
 }
 
 Unit::~Unit()

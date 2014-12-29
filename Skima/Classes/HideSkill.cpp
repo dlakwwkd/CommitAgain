@@ -21,7 +21,7 @@ HideSkill::HideSkill()
 
 HideSkill::HideSkill(Hero* hero)
 {
-    m_Hero = hero;
+    m_Owner = hero;
     m_CoolTime = 9;
     m_HiddenTime = 5;
     m_CanUse = true;
@@ -38,12 +38,12 @@ void HideSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     SimpleAudioEngine::getInstance()->playEffect("Music/Effect/hide.mp3");
     auto effect = new HideEffect();
     effect->CreateEffect(heroPos);
-    m_Hero->SetHeroPerforming(true);
-    m_Hero->SetUnitHiddenState(true);
+    m_Owner->SetHeroPerforming(true);
+    m_Owner->SetUnitHiddenState(true);
 
-    auto myLaphinxSprite = m_Hero->GetRealSprite();
-    auto myHpbar = m_Hero->GetHpBar();
-    auto HpFrame = m_Hero->GetHpBarFrame();
+    auto myLaphinxSprite = m_Owner->GetRealSprite();
+    auto myHpbar = m_Owner->GetHpBar();
+    auto HpFrame = m_Owner->GetHpBarFrame();
 
     myLaphinxSprite->setOpacity(204);
     myHpbar->setOpacity(204);
@@ -70,12 +70,12 @@ void HideSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
 {
     auto effect = new HideEffect();
     effect->CreateEffect(heroPos);
-    m_Hero->SetHeroPerforming(true);
-    m_Hero->SetUnitHiddenState(true);
+    m_Owner->SetHeroPerforming(true);
+    m_Owner->SetUnitHiddenState(true);
 
-    auto enemyLaphinxSprite = m_Hero->GetRealSprite();
-    auto enemyHpbar = m_Hero->GetHpBar();
-    auto HpFrame = m_Hero->GetHpBarFrame();
+    auto enemyLaphinxSprite = m_Owner->GetRealSprite();
+    auto enemyHpbar = m_Owner->GetHpBar();
+    auto HpFrame = m_Owner->GetHpBarFrame();
 
 
     enemyLaphinxSprite->setOpacity(204);

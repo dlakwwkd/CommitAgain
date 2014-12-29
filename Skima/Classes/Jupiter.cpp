@@ -5,6 +5,8 @@
 #include "LightningSkill.h"
 #include "FlashSkill.h"
 #include "PacketType.h"
+#include "Buff.h"
+
 
 
 Jupiter::Jupiter(Vec2 createPos, float scale)
@@ -38,6 +40,8 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
     m_SkillList[SKILL_Q] = new SparkSkill(this);
     m_SkillList[SKILL_W] = new LightningSkill(this);
     m_SkillList[SKILL_E] = new FlashSkill(this);
+
+    m_Buff = new Buff(this);
 }
 
 

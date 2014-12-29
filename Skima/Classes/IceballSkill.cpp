@@ -4,7 +4,7 @@
 
 IceballSkill::IceballSkill(Hero* hero)
 {
-    m_Hero = hero;
+    m_Owner = hero;
     m_CoolTime = 1;
 }
 
