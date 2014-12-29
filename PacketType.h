@@ -635,11 +635,13 @@ struct BuffBroadcastResult : public PacketHeader
         mUnitId = -1;
         mBonus = 0;
         mBuffTarget = BUFF_NONE;
+        mIsOn = false;
     }
     int         mPlayerId;
     int         mUnitId;
     float       mBonus;
     BuffTarget  mBuffTarget;
+    bool        mIsOn;
 };
 
 

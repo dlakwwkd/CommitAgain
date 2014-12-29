@@ -697,13 +697,14 @@ void ClientSession::HpBroadCast(int playerId, int unitId, int hp)
     }
 }
 
-void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type)
+void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type, bool isOn)
 {
     BuffBroadcastResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
     outPacket.mUnitId = unitId;
     outPacket.mBonus = Extend(bonus);
     outPacket.mBuffTarget = type;
+    outPacket.mIsOn = isOn;
     
     printf(" - BuffBonus: %.f \n", outPacket.mBonus);
 

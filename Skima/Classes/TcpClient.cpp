@@ -540,7 +540,7 @@ void TcpClient::processPacket()
             if (layer)
             {
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitBuffApply, layer,
-                    recvData.mUnitId, recvData.mBonus, recvData.mBuffTarget));
+                    recvData.mUnitId, recvData.mBonus, recvData.mBuffTarget, recvData.mIsOn));
             }
         }
         break;
