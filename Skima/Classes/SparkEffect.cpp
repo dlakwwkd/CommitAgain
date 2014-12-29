@@ -13,7 +13,7 @@ SparkEffect::~SparkEffect()
 
 void SparkEffect::CreateEffect(const Vec2& createPos)
 {
-	CreateParticle("Jupiter/spark_effect.plist", createPos, 0.5f, 2.0f);
+	CreateParticle("Images/Effect/spark_effect.plist", createPos, 0.5f, 2.0f);
 }
 
 void SparkEffect::ExtinctEffect()

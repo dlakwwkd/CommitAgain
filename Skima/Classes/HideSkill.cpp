@@ -12,13 +12,6 @@
 
 using namespace CocosDenshion;
 
-HideSkill::HideSkill()
-{
-    m_CoolTime = 9;
-    m_HiddenTime = 5;
-    m_CanUse = true;
-}
-
 HideSkill::HideSkill(Hero* hero)
 {
     m_Owner = hero;

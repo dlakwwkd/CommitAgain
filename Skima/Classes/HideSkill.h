@@ -3,7 +3,6 @@
 class HideSkill : public Skill
 {
 public:
-    HideSkill();
     HideSkill(Hero* hero);
     virtual ~HideSkill();
 

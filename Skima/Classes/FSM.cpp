@@ -30,10 +30,6 @@ void StandbyState::Crashed(Unit* unit)
         unit->GetRealSprite()->stopAllActions();
         unit->GetRealSprite()->setVisible(true);
     }
-    if (GET_MAIN_TYPE(unit->GetUnitID()) == UNIT_OBSTRUCT)
-    {
-        CCLOG("OBSTRUCT CRASH");
-    }
     unit->Crash();
 }
 

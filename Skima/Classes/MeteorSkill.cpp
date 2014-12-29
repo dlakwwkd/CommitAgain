@@ -7,22 +7,12 @@
 #include "ObjectLayer.h"
 #include "MeteorSequenceEffect.h"
 
-MeteorSkill::MeteorSkill()
-{
-    m_CoolTime = 3;
-    m_CanUse = true;
-    m_CautionSprite = Sprite::create("Laphinx/MeteorCaution.png");
-    m_CautionSprite->setScale(0.8f);
-    m_CautionSprite->setOpacity(0);
-    GET_OBJECT_LAYER->addChild(m_CautionSprite, 14);
-}
-
 MeteorSkill::MeteorSkill(Hero* hero)
 {
     m_Owner = hero;
     m_CoolTime = 3;
     m_CanUse = true;
-    m_CautionSprite = Sprite::create("Laphinx/MeteorCaution.png");
+    m_CautionSprite = Sprite::create("Images/Effect/MeteorCaution.png");
     m_CautionSprite->setScale(0.8f);
     m_CautionSprite->setOpacity(0);
     GET_OBJECT_LAYER->addChild(m_CautionSprite, 14);

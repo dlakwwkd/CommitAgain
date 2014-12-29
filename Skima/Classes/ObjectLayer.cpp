@@ -265,9 +265,9 @@ void ObjectLayer::ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos)
     auto missile = new Missile(missileID);
     switch (GET_SIDE_TYPE(missileID))
     {
-    case MS_FIRE_BALL:	missile->MissileCast("Images/fire.plist", "Music/Effect/fireballshoot.mp3", 1000.0f, createPos, targetPos);   break;
-    case MS_ICE_BALL:   missile->MissileCast("Images/ice.plist", "Music/Effect/iceballshoot.mp3", 800.0f, createPos, targetPos);     break;
-    case MS_SPARK:      missile->MissileCast("Jupiter/spark.plist", "Music/Effect/lightningshoot.mp3", 1300.0f, createPos, targetPos); break;
+    case MS_FIRE_BALL:	missile->MissileCast("Images/Missile/fire.plist",   "Music/Effect/fireballshoot.mp3",   1000.0f, createPos, targetPos); break;
+    case MS_ICE_BALL:   missile->MissileCast("Images/Missile/ice.plist",    "Music/Effect/iceballshoot.mp3",    800.0f, createPos, targetPos);  break;
+    case MS_SPARK:      missile->MissileCast("Images/Missile/spark.plist",  "Music/Effect/lightningshoot.mp3",  1300.0f, createPos, targetPos); break;
     }
     m_MissileList[missileID] = missile;
 }

@@ -13,7 +13,7 @@ Buff::Buff(Hero* hero)
 
     auto speedParticle = ParticleSystemQuad::create("Images/Effect/Particle_Speed_Buff.plist");
     BuffObject speed{ BUFF_SPEED, 0, nullptr, speedParticle };
-    m_BuffList[BUFF_SPEED] = shield;
+    m_BuffList[BUFF_SPEED] = speed;
 
     for (auto& buff : m_BuffList)
     {

@@ -4,16 +4,16 @@
 
 FireWallEffect::FireWallEffect()
 {
-    m_FireSprite1 = Sprite::create("Images/CloackingUnit.png");
-    m_FireSprite2 = Sprite::create("Images/CloackingUnit.png");
-    m_FireSprite3 = Sprite::create("Images/CloackingUnit.png");
-    m_FireSprite4 = Sprite::create("Images/CloackingUnit.png");
-    m_FireSprite5 = Sprite::create("Images/CloackingUnit.png");
-    m_FireSprite6 = Sprite::create("Images/CloackingUnit.png");
-    m_FireSprite7 = Sprite::create("Images/CloackingUnit.png");
-    m_FireSprite8 = Sprite::create("Images/CloackingUnit.png");
+    m_FireSprite1 = Sprite::create("Images/Unit/CloackingUnit.png");
+    m_FireSprite2 = Sprite::create("Images/Unit/CloackingUnit.png");
+    m_FireSprite3 = Sprite::create("Images/Unit/CloackingUnit.png");
+    m_FireSprite4 = Sprite::create("Images/Unit/CloackingUnit.png");
+    m_FireSprite5 = Sprite::create("Images/Unit/CloackingUnit.png");
+    m_FireSprite6 = Sprite::create("Images/Unit/CloackingUnit.png");
+    m_FireSprite7 = Sprite::create("Images/Unit/CloackingUnit.png");
+    m_FireSprite8 = Sprite::create("Images/Unit/CloackingUnit.png");
 
-    m_FireParticle = ParticleSystemQuad::create("FireWallParticle.plist");
+    m_FireParticle = ParticleSystemQuad::create("Images/Effect/FireWall/FireWallParticle.plist");
     m_FireParticle->setScale(1.0f);
     m_FireParticle->setVisible(false);
 }
@@ -37,7 +37,7 @@ void FireWallEffect::CreateFireEffect(Vec2 createPos)
     CreateFireSubSprite(m_FireSprite6,Vec2(createPos.x - scale*0, createPos.y - scale*12), scale, 4.5f);
     CreateFireSubSprite(m_FireSprite7,Vec2(createPos.x - scale*20, createPos.y - scale*11), scale, 4.5f);
     CreateFireSubSprite(m_FireSprite8,Vec2(createPos.x - scale*18, createPos.y + scale*16), scale, 4.5f);
-    CreateSprite("Images/CloackingUnit.png", createPos, scale, 4.5f);
+    CreateSprite("Images/Unit/CloackingUnit.png", createPos, scale, 4.5f);
     SetFireMotionCache();
     ShowFireMotion();
 
@@ -53,9 +53,9 @@ void FireWallEffect::ExtinctEffect()
 
 void FireWallEffect::SetFireMotionCache()
 {
-     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("FireWall/fire.plist");
-     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("FireWall/fireA.plist");
-     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("FireWall/fireB.plist");
+     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Effect/FireWall/fire.plist");
+     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Effect/FireWall/fireA.plist");
+     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Effect/FireWall/fireB.plist");
 }
 
 void FireWallEffect::ShowFireMotion()

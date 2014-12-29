@@ -13,7 +13,7 @@ IceEffect::~IceEffect()
 
 void IceEffect::CreateEffect(const Vec2& createPos)
 {
-	CreateParticle("Images/ice_break.plist", createPos, 0.4f, 2.0f);
+	CreateParticle("Images/Effect/ice_break.plist", createPos, 0.4f, 2.0f);
 }
 
 void IceEffect::ExtinctEffect()

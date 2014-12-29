@@ -11,7 +11,7 @@ SwipeEffect::~SwipeEffect()
 
 void SwipeEffect::CreateEffect(const Vec2& createPos)
 {
-    CreateSprite("Images/CloackingUnit.png", createPos, 0.3f, 1.0f);
+    CreateSprite("Images/Unit/CloackingUnit.png", createPos, 0.3f, 1.0f);
     SetSwipeMotionCache();
 }
 
@@ -22,8 +22,8 @@ void SwipeEffect::ExtinctEffect()
 
 void SwipeEffect::SetSwipeMotionCache()
 {
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Swipe_SE_NW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Swipe_SW_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Effect/Swipe_SE_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Effect/Swipe_SW_NE.plist");
 }
 
 void SwipeEffect::ShowSwipeMotionByDir(Direction dir)

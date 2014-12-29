@@ -6,7 +6,7 @@ Rock::Rock(int id, Vec2 pos)
 {
     m_UnitID = id;
 
-    m_CenterSprite = Sprite::create("Images/rock.png");
+    m_CenterSprite = Sprite::create("Images/Unit/rock.png");
     m_CenterSprite->setPosition(pos);
 }
 

@@ -19,7 +19,7 @@ Unit::Unit()
     m_InUse = false;
     m_IsHidden = false;
     m_TargetPos = { 0, 0 };
-    m_CenterSprite = Sprite::create("Images/CloackingUnit.png");
+    m_CenterSprite = Sprite::create("Images/Unit/CloackingUnit.png");
     m_MoveState = m_StandbyState = new StandbyState();
     m_MovingState = new MovingState();
     m_CrashedState = new CrashedState();
@@ -88,21 +88,21 @@ void Unit::SetHp(int curHp)
 
 void Unit::SetMyHpBar()
 {
-    SetHeroHpBar("Images/hp_bar_in.png");
+    SetHeroHpBar("Images/Interface/hp_bar_in.png");
 }
 
 void Unit::SetEnemyHpBar()
 {
-    SetHeroHpBar("Images/hp_bar_in_enemy.png");
+    SetHeroHpBar("Images/Interface/hp_bar_in_enemy.png");
 }
 
 void Unit::SetUnitHpBar()
 {
-    m_HpBarFrame = Sprite::create("Images/hp_bar_frame_mob.png");
+    m_HpBarFrame = Sprite::create("Images/Interface/hp_bar_frame_mob.png");
     m_HpBarFrame->setPosition(Vec2(-27, 83));
     m_HpBarFrame->setAnchorPoint(Vec2(0, 0));
 
-    m_HpBar = Sprite::create("Images/hp_bar_in_mob.png");
+    m_HpBar = Sprite::create("Images/Interface/hp_bar_in_mob.png");
     m_HpBar->setPosition(Vec2(-25, 85));
     m_HpBar->setAnchorPoint(Vec2(0, 0));
 
@@ -124,7 +124,7 @@ void Unit::UpdateHpBar()
 
 void Unit::SetHeroHpBar(const char* barImage)
 {
-    m_HpBarFrame = Sprite::create("Images/hp_bar_frame.png");
+    m_HpBarFrame = Sprite::create("Images/Interface/hp_bar_frame.png");
     m_HpBarFrame->setPosition(Vec2(-30, 80));
     m_HpBarFrame->setAnchorPoint(Vec2(0, 0));
 

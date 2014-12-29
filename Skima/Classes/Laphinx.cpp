@@ -54,14 +54,14 @@ Laphinx::~Laphinx()
 
 void Laphinx::SetMoveMotionToCache()
 {
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_E.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_N.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_S.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_W.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_NE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_NW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_SE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/LaphinxMov_SW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/LaphinxMov_E.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/LaphinxMov_N.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/LaphinxMov_S.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/LaphinxMov_W.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/LaphinxMov_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/LaphinxMov_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/LaphinxMov_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/LaphinxMov_SW.plist");
 }
 
 void Laphinx::SetMoveMotionByDir()
@@ -81,14 +81,14 @@ void Laphinx::SetMoveMotionByDir()
 
 void Laphinx::SetSkillMotionToCache()
 {
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_QSkill_NE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_QSkill_NW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_QSkill_SE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_QSkill_SW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_NE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_NW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_SE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/Laphinx_ESkill_SW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/Laphinx_QSkill_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/Laphinx_QSkill_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/Laphinx_QSkill_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/Laphinx_QSkill_SW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/Laphinx_ESkill_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/Laphinx_ESkill_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/Laphinx_ESkill_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Laphinx/Laphinx_ESkill_SW.plist");
 }
 
 void Laphinx::SetSkillMotionByDir(SkillKey key)

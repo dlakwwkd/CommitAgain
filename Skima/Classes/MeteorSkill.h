@@ -1,11 +1,10 @@
 #pragma once
 #include "Skill.h"
-
 class Hero;
+
 class MeteorSkill : public Skill
 {
 public:
-    MeteorSkill();
     MeteorSkill(Hero* hero);
     virtual ~MeteorSkill();
 

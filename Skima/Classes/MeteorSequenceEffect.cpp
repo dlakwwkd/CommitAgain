@@ -4,7 +4,7 @@
 
 MeteorSequenceEffect::MeteorSequenceEffect(const Vec2& targetPos)
 {
-    m_MeteorParticle = ParticleSystemQuad::create("Laphinx/meteorEtoW.plist");
+    m_MeteorParticle = ParticleSystemQuad::create("Images/Effect/meteorEtoW.plist");
 
     auto initPos = GenerateInitPos(targetPos);
     m_MeteorParticle->setPosition(initPos);
@@ -27,7 +27,7 @@ MeteorSequenceEffect::~MeteorSequenceEffect()
 
 void MeteorSequenceEffect::CreateEffect(const Vec2& createPos)
 {
-     CreateSprite("Images/CloackingUnit.png", createPos, 1.5f,1.95f);
+     CreateSprite("Images/Unit/CloackingUnit.png", createPos, 1.5f,1.95f);
      SetExplodeCache();
 }
 
@@ -43,7 +43,7 @@ void MeteorSequenceEffect::ExtinctMeteorParticle()
 
 void MeteorSequenceEffect::SetExplodeCache()
 {
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Laphinx/FirePool/explode.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Effect/FirePool/explode.plist");
 }
 
 void MeteorSequenceEffect::ShowExplodeSprite()

@@ -9,17 +9,17 @@ Hero::Hero()
     m_IsPerforming = false;
     m_UnitType = UNIT_HERO;
 
-    m_Arrow = Sprite::create("Images/arrow.png");
+    m_Arrow = Sprite::create("Images/Cursor/arrow.png");
     m_Arrow->setScale(1.0f, 1.0f);
     m_Arrow->setVisible(false);
     m_CenterSprite->addChild(m_Arrow);
 
-    m_SkillRange = Sprite::create("Images/SkillRange.png");
+    m_SkillRange = Sprite::create("Images/Cursor/SkillRange.png");
     m_SkillRange->setScale(1.5f, 1.5f);
     m_SkillRange->setPosition(35.0f, 0.0f);
     m_SkillRange->setVisible(false);
 
-    m_NearSkillRange = Sprite::create("Images/nearSkillRange.png");
+    m_NearSkillRange = Sprite::create("Images/Cursor/nearSkillRange.png");
     m_NearSkillRange->setScale(0.5f);
     m_NearSkillRange->setPosition(0.0f, 0.0f);
     m_NearSkillRange->setOpacity(120);

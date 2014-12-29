@@ -22,13 +22,13 @@ Scene* GameOverScene::createScene(RoomInfo roomInfo, int playerId, int loseId)
 
     if (playerId != loseId)
     {
-        endScene = Sprite::create("Images/WinScene.png");
+        endScene = Sprite::create("Images/Background/WinScene.png");
         SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/winner.mp3");
 
     }
 	else
 	{
-        endScene = Sprite::create("Images/LoseScene.png");
+        endScene = Sprite::create("Images/Background/LoseScene.png");
         SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/loser.mp3");
 
 	}

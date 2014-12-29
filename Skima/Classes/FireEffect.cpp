@@ -12,7 +12,7 @@ FireEffect::~FireEffect()
 
 void FireEffect::CreateEffect(const Vec2& createPos)
 {
-	CreateParticle("Images/fire_explosion.plist", createPos, 0.5f, 2.0f);
+	CreateParticle("Images/Effect/fire_explosion.plist", createPos, 0.5f, 2.0f);
 }
 
 void FireEffect::ExtinctEffect()

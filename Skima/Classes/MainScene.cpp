@@ -29,20 +29,20 @@ bool MainScene::init()
     auto winSize = Director::getInstance()->getWinSize();
 
     // 배경화면 plist 보여주는 부분
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_01.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_02.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_03.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_04.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_05.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_06.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_07.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_08.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_09.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MainBackground_10.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Background/MainBackground_01.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Background/MainBackground_02.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Background/MainBackground_03.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Background/MainBackground_04.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Background/MainBackground_05.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Background/MainBackground_06.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Background/MainBackground_07.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Background/MainBackground_08.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Background/MainBackground_09.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Background/MainBackground_10.plist");
 
     auto background1 = Sprite::createWithSpriteFrameName("MainBackground_001.png");
-    auto background2 = Sprite::create("Images/MainBackground2.png");
-    auto title = Sprite::create("Images/SkimaTitle.png");
+    auto background2 = Sprite::create("Images/Background/MainBackground2.png");
+    auto title = Sprite::create("Images/Background/SkimaTitle.png");
     auto animation = Animation::create();
     animation->setDelayPerUnit(0.2f);
 
@@ -64,9 +64,9 @@ bool MainScene::init()
     this->addChild(title);
 
     // Login창 띄우기
-    auto loginScene = Sprite::create("Images/LoginScene.png");
+    auto loginScene = Sprite::create("Images/Interface/LoginScene.png");
     loginScene->setPosition(Vec2(winSize.width / 2, winSize.height / 4));
-    auto loginButtonImage = MenuItemImage::create("Images/LoginButton.png", "Images/LoginButton_selected.png", CC_CALLBACK_1(MainScene::menuCallback1, this));
+    auto loginButtonImage = MenuItemImage::create("Images/Interface/LoginButton.png", "Images/Interface/LoginButton_selected.png", CC_CALLBACK_1(MainScene::menuCallback1, this));
     auto loginMenu = Menu::create(loginButtonImage, NULL);
     loginScene->setScaleX(0.7f);
     loginScene->setScaleY(0.5f);

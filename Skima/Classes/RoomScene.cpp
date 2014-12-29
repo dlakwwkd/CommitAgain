@@ -31,35 +31,35 @@ bool RoomScene::init()
     m_IsReady = false;
     auto winSize = Director::getInstance()->getWinSize();
 
-    auto roomBackground = Sprite::create("Images/RoomBackground.png");
+    auto roomBackground = Sprite::create("Images/Background/RoomBackground.png");
     roomBackground->setPosition(winSize.width / 2, winSize.height / 2);
     roomBackground->setOpacity(150);
     this->addChild(roomBackground, -1);
-    auto selectZone = Sprite::create("Images/SelectZone.png");
+    auto selectZone = Sprite::create("Images/Interface/SelectZone.png");
     selectZone->setPosition(Vec2(winSize.width / 4, winSize.height * 3 / 8 - 30));
     selectZone->setOpacity(100);
     this->addChild(selectZone, 1);
         
     /////////////////////////////////////////////////캐릭터 초상화 추가할 부분/////////////////////////////////////////////
     /* Ready 캐릭터 전체모습 띄우는 부분 */
-    MakeHeroSprite("Images/SelectFace/[Select]Magician.png", Vec2(winSize.width * 2 / 8 - 70, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_MAGICIAN);
-    MakeHeroSprite("Jupiter/JupiterImage.png", Vec2(winSize.width * 2 / 8 - 50, winSize.height * 4 / 8), Vec2(1.5f, 1.5f), Vec2(0, 1), HERO_JUPITER);
-    MakeHeroSprite("Laphinx/LaphinxImage.png", Vec2(winSize.width * 2 / 8 - 80, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_LAPHINX);
+    MakeHeroSprite("Images/Unit/Magician/MagicianImage.png", Vec2(winSize.width * 2 / 8 - 70, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_MAGICIAN);
+    MakeHeroSprite("Images/Unit/Jupiter/JupiterImage.png", Vec2(winSize.width * 2 / 8 - 50, winSize.height * 4 / 8), Vec2(1.5f, 1.5f), Vec2(0, 1), HERO_JUPITER);
+    MakeHeroSprite("Images/Unit/Laphinx/LaphinxImage.png", Vec2(winSize.width * 2 / 8 - 80, winSize.height * 4 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1), HERO_LAPHINX);
 
     /* 캐릭터 선택창버튼 초상화 추가 (width 1/8씩 ++) */
     auto magicanFace = MenuItemImage::create(
-        "Images/SelectFace/[Select]Magician.png",
-        "Images/SelectFace/[Select]Magician_selected.png",
+        "Images/Interface/[Select]Magician.png",
+        "Images/Interface/[Select]Magician_selected.png",
         CC_CALLBACK_0(RoomScene::ClickHero, this, HERO_MAGICIAN));
     SetFaceProperty(magicanFace, Vec2(winSize.width * 1 / 8, winSize.height * 5 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1));
     auto jupiterFace = MenuItemImage::create(
-        "Images/SelectFace/[Select]Jupiter.png",
-        "Images/SelectFace/[Select]Jupiter_selected.png",
+        "Images/Interface/[Select]Jupiter.png",
+        "Images/Interface/[Select]Jupiter_selected.png",
         CC_CALLBACK_0(RoomScene::ClickHero, this, HERO_JUPITER));
     SetFaceProperty(jupiterFace, Vec2(winSize.width * 2 / 8, winSize.height * 5 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1));
     auto laphinxFace = MenuItemImage::create(
-        "Images/SelectFace/[Select]Laphinx.png", 
-        "Images/SelectFace/[Select]Laphinx_selected.png",
+        "Images/Interface/[Select]Laphinx.png", 
+        "Images/Interface/[Select]Laphinx_selected.png",
         CC_CALLBACK_0(RoomScene::ClickHero, this, HERO_LAPHINX));
     SetFaceProperty(laphinxFace, Vec2(winSize.width * 3 / 8, winSize.height * 5 / 8), Vec2(1.0f, 1.0f), Vec2(0, 1));
 
@@ -87,8 +87,8 @@ bool RoomScene::init()
     this->addChild(label3, 0, "TeamStateLabel");
     //////////////////////////////////////////////////////////////////////////
 
-    auto readyButton = MenuItemImage::create("Images/GameReady.png", "Images/GameReady_Selected.png", CC_CALLBACK_1(RoomScene::GameStartCallback, this));
-    auto exitButton = MenuItemImage::create("Images/ExitGame.png", "Images/ExitGame_Selected.png", CC_CALLBACK_1(RoomScene::GameExitCallback, this));
+    auto readyButton = MenuItemImage::create("Images/Interface/GameReady.png", "Images/Interface/GameReady_Selected.png", CC_CALLBACK_1(RoomScene::GameStartCallback, this));
+    auto exitButton = MenuItemImage::create("Images/Interface/ExitGame.png", "Images/Interface/ExitGame_Selected.png", CC_CALLBACK_1(RoomScene::GameExitCallback, this));
     exitButton->setPosition(Vec2(0, -80));
     exitButton->setScale(1.3f);
     auto buttonMenu = Menu::create(readyButton, exitButton, teamButtonA, teamButtonB, NULL); 
@@ -259,7 +259,7 @@ void RoomScene::ChangeSelectedHero(HeroType heroType)
     m_HeroImageList[heroType]->setVisible(true);
 
     auto winSize = Director::getInstance()->getWinSize();
-    auto zoneEffect = Sprite::create("Images/ZoneEffect.png");
+    auto zoneEffect = Sprite::create("Images/Interface/ZoneEffect.png");
     zoneEffect->setPosition(Vec2(winSize.width / 4, winSize.height / 4));
     zoneEffect->setOpacity(100);
     this->addChild(zoneEffect, 2);

@@ -14,7 +14,7 @@ bool UILayer::init()
         return false;
     }
     auto winSize = Director::getInstance()->getWinSize();
-    auto menuItem = MenuItemImage::create("Images/Exit.png","Images/Exit_selected.png", CC_CALLBACK_1(UILayer::ClickExit, this));
+    auto menuItem = MenuItemImage::create("Images/Interface/Exit.png","Images/Interface/Exit_selected.png", CC_CALLBACK_1(UILayer::ClickExit, this));
     menuItem->setScale(0.3f, 0.3f);
     auto menu = Menu::create(menuItem, NULL);
     auto hpLabel = Label::createWithSystemFont("\0","Thonburi",20);
@@ -31,16 +31,16 @@ bool UILayer::init()
         sprite->setAnchorPoint(anchor);
         return sprite;
     };
-    this->addChild(sprite("Images/interface.png",       Vec2(400, 95), Vec2(1.03f, 1.030f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/HpBar_interface.png", Vec2(400, 88), Vec2(0.68f, 1.030f), Vec2(0.0, 0.0)), 10, "HpBar");
-    this->addChild(sprite("Images/fireball.jpg",        Vec2(443, 38), Vec2(0.03f, 0.033f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/iceball.jpg",         Vec2(518, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/teleport_icon.png",   Vec2(590, 38), Vec2(0.70f, 0.800f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/Meteor_icon.png",     Vec2(663, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/Interface/interface.png",       Vec2(400, 95), Vec2(1.03f, 1.030f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/Interface/HpBar_interface.png", Vec2(400, 88), Vec2(0.68f, 1.030f), Vec2(0.0, 0.0)), 10, "HpBar");
+    this->addChild(sprite("Images/Interface/fireball.jpg",        Vec2(443, 38), Vec2(0.03f, 0.033f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/Interface/iceball.jpg",         Vec2(518, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/Interface/teleport_icon.png",   Vec2(590, 38), Vec2(0.70f, 0.800f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/Interface/Meteor_icon.png",     Vec2(663, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
 
     auto cooltimeBox = [&](SkillKey key, Vec2 pos)
     {
-        m_CooltimeBox[key] = sprite("Images/black.jpg", pos, Vec2(COOLTIME_BOX_X, COOLTIME_BOX_Y), Vec2(0.0, 0.0));
+        m_CooltimeBox[key] = sprite("Images/Interface/black.jpg", pos, Vec2(COOLTIME_BOX_X, COOLTIME_BOX_Y), Vec2(0.0, 0.0));
         m_CooltimeBox[key]->setOpacity(200);
         return m_CooltimeBox[key];
     };
@@ -55,12 +55,12 @@ bool UILayer::init()
         m_CursorShape[mode]->setVisible(false);
         return m_CursorShape[mode];
     };
-	m_Cursor = cursor(CURSOR_DEFAULT, "Images/cursor_default.png", Vec2(1, 1), Vec2(0, 1));
+	m_Cursor = cursor(CURSOR_DEFAULT, "Images/Cursor/cursor_default.png", Vec2(1, 1), Vec2(0, 1));
     m_Cursor->setVisible(true);
     this->addChild(m_Cursor, 10);
-	this->addChild(cursor(CURSOR_ATTACK, "Images/cursor_attack.png",			Vec2(1, 1),			Vec2(0, 1)),		10);
-	this->addChild(cursor(CURSOR_TELEPORT, "Images/cursor_teleport.png",		Vec2(0.2f, 0.08f),	Vec2(0.5f, 0.5f)),	10);
-	this->addChild(cursor(CURSOR_SPLASH, "Images/cursor_splash.png",			Vec2(1.5f, 1.5f),	Vec2(0.5f, 0.5f)),	10);
+	this->addChild(cursor(CURSOR_ATTACK, "Images/Cursor/cursor_attack.png",			Vec2(1, 1),			Vec2(0, 1)),		10);
+	this->addChild(cursor(CURSOR_TELEPORT, "Images/Cursor/cursor_teleport.png",		Vec2(0.2f, 0.08f),	Vec2(0.5f, 0.5f)),	10);
+	this->addChild(cursor(CURSOR_SPLASH, "Images/Cursor/cursor_splash.png",			Vec2(1.5f, 1.5f),	Vec2(0.5f, 0.5f)),	10);
 
     return true;
 }

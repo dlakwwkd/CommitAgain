@@ -27,12 +27,12 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
 	m_RealSprite->setPosition(-15, -10);
 	m_CenterSprite->addChild(m_RealSprite);
 
-    auto shadow = Sprite::create("Jupiter/Jupiter_shadow.png");
+    auto shadow = Sprite::create("Images/Unit/unit_shadow.png");
     shadow->setPosition(40, -10);
     shadow->setOpacity(150);
 	m_RealSprite->addChild(shadow, -2);
 
-	auto particle = ParticleSystemQuad::create("Jupiter/Jupiter_particle.plist");
+	auto particle = ParticleSystemQuad::create("Images/Unit/Jupiter/Jupiter_particle.plist");
     particle->setPosition(30, 25);
     particle->setScale(0.7f);
 	m_RealSprite->addChild(particle, -1);
@@ -51,14 +51,14 @@ Jupiter::~Jupiter()
 
 void Jupiter::SetMoveMotionToCache()
 {
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterMove_E.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterMove_W.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterMove_S.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterMove_N.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterMove_SE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterMove_SW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterMove_NE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterMove_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_E.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_W.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_S.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_N.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_SW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_NW.plist");
 }
 
 void Jupiter::SetMoveMotionByDir()
@@ -78,18 +78,18 @@ void Jupiter::SetMoveMotionByDir()
 
 void Jupiter::SetSkillMotionToCache()
 {
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterQSkill_SE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterQSkill_SW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterQSkill_NE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterQSkill_NW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterWSkill_SE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterWSkill_SW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterWSkill_NE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterWSkill_NW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterESkill_SE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterESkill_SW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterESkill_NE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Jupiter/JupiterESkill_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterQSkill_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterQSkill_SW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterQSkill_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterQSkill_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterWSkill_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterWSkill_SW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterWSkill_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterWSkill_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterESkill_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterESkill_SW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterESkill_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterESkill_NW.plist");
 }
 
 void Jupiter::SetSkillMotionByDir(SkillKey key)

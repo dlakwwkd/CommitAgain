@@ -28,12 +28,12 @@ bool NetworkScene::init()
     auto winSize = Director::getInstance()->getWinSize();
     ConnectLabelCreate("방 참여 혹은 방 생성을 해주십시오.", this);
 
-    auto background = Sprite::create("Images/NetworkBackground.png");
+    auto background = Sprite::create("Images/Background/NetworkBackground.png");
     background->setPosition(winSize.width / 2, winSize.height / 2);
     background->setOpacity(150);
     this->addChild(background);
 
-    auto createRoomButton = MenuItemImage::create("Images/CreateButton.png", "Images/CreateButton_selected.png",
+    auto createRoomButton = MenuItemImage::create("Images/Interface/CreateButton.png", "Images/Interface/CreateButton_selected.png",
         CC_CALLBACK_1(NetworkScene::menuCallback1, this));
 
     auto menu = Menu::create(createRoomButton, NULL);
@@ -137,19 +137,19 @@ void NetworkScene::UpdateRoomInfo()
         if (room.mRoomNum <= 0)
             break;
 
-        auto roomListFrame = Sprite::create("Images/RoomListFrame.png");
+        auto roomListFrame = Sprite::create("Images/Interface/RoomListFrame.png");
         roomListFrame->setPosition(Vec2(winSize.width * 0.45f - 50, winSize.height * line));
         roomListFrame->setScaleX(1.50f);
         this->addChild(roomListFrame, 1, "RoomListFrame");
 
-        auto roomListFrameBack = Sprite::create("Images/RoomListFrame_back.png");
+        auto roomListFrameBack = Sprite::create("Images/Interface/RoomListFrame_back.png");
         roomListFrameBack->setPosition(Vec2(405.0f, 115.0f));
         roomListFrameBack->setScaleX(1.10f);
         roomListFrameBack->setOpacity(150);
         roomListFrame->addChild(roomListFrameBack);
         auto joinRoomButton = MenuItemImage::create(
-            "Images/JoinButton.png", 
-            "Images/JoinButton_selected.png",
+            "Images/Interface/JoinButton.png", 
+            "Images/Interface/JoinButton_selected.png",
             CC_CALLBACK_0(NetworkScene::menuCallback2, this, room.mRoomNum));
         auto menu = Menu::create(joinRoomButton, NULL);
         menu->setPosition(Vec2(600.0f, 110.0f));

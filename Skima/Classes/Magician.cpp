@@ -25,7 +25,7 @@ Magician::Magician(Vec2 createPos, float scale)
     m_RealSprite->setAnchorPoint(Vec2(0, 0));
     m_CenterSprite->addChild(m_RealSprite);
 
-    auto shadow = Sprite::create("Jupiter/Jupiter_shadow.png");
+    auto shadow = Sprite::create("Images/Unit/unit_shadow.png");
     shadow->setPosition(Vec2(27.5f, 2.5f));
     shadow->setScale(0.75f);
     shadow->setOpacity(150);
@@ -46,14 +46,14 @@ Magician::~Magician()
 
 void Magician::SetMoveMotionToCache()
 {
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_E.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_W.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_S.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_N.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_SE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_SW.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_NE.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/MoveMotion_NW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Magician/MoveMotion_E.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Magician/MoveMotion_W.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Magician/MoveMotion_S.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Magician/MoveMotion_N.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Magician/MoveMotion_SE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Magician/MoveMotion_SW.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Magician/MoveMotion_NE.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Magician/MoveMotion_NW.plist");
 }
 
 void Magician::SetMoveMotionByDir()
