@@ -141,14 +141,15 @@ void Unit::Damaged(int damage)
 
         if (m_Shield <= 0)
         {
+            damage = m_Shield;
             m_Shield = 0;
-            if (m_Buff && m_Buff->IsShieldOn())
-            {
-                m_Buff->ShieldDestroy();
-            }
+            m_Buff->ShieldDestroy();
+        }
+        else
+        {
+            damage = 0;
         }
     }
-
     m_Hp -= damage;
 
     if (m_Hp <= 0)

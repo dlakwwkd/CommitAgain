@@ -32,7 +32,7 @@ Buff::Buff(Hero* hero)
         {
             particle->setVisible(false);
             particle->setPosition(30, 25);
-            particle->setScale(0.7f);
+            particle->setScale(0.5f);
             hero->GetCenterSprite()->addChild(speedParticle, -1);
         }
         
@@ -51,7 +51,7 @@ void Buff::BuffUse(BuffTarget type, float bonus)
     {
         return;
     }
-    if (buff->second.mBuffNum <= 0)
+    if (buff->second.mBuffNum == 0)
     {
         BuffDraw(&buff->second);
     }
@@ -86,7 +86,7 @@ void Buff::BuffEnd(BuffTarget type, float bonus)
     }
 
     buff->second.mBuffNum--;
-    if (buff->second.mBuffNum >= 0)
+    if (buff->second.mBuffNum == 0)
     {
         BuffErase(&buff->second);
     }
