@@ -278,6 +278,6 @@ void ListenerLayer::SetNearRangePos()
     {
         degree = degree * -1;
     }
-    nearRange->setPosition(Vec2(25, 25) + displacement / distance * 50);
+    nearRange->setPosition(Vec2(25, 25) + displacement / distance * 80);
     nearRange->setRotation(degree);
 }

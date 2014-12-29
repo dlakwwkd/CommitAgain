@@ -19,12 +19,13 @@ Hero::Hero()
     m_SkillRange->setVisible(false);
 
     m_NearSkillRange = Sprite::create("Images/nearSkillRange.png");
-    m_NearSkillRange->setScale(2.0f);
+    m_NearSkillRange->setScale(0.5f);
     m_NearSkillRange->setPosition(0.0f, 0.0f);
+    m_NearSkillRange->setOpacity(120);
     m_NearSkillRange->setVisible(false);
 
     m_CenterSprite->addChild(m_SkillRange);
-    m_CenterSprite->addChild(m_NearSkillRange);
+    m_CenterSprite->addChild(m_NearSkillRange,2);
 }
 
 
