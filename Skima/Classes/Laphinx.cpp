@@ -23,7 +23,7 @@ Laphinx::Laphinx(Vec2 createPos, float scale)
     SetSkillMotionToCache();
     
     m_RealSprite = Sprite::createWithSpriteFrameName("Laphinx_S3.png");
-    m_RealSprite->setScale(scale);
+    m_RealSprite->setScale(scale-0.15f);
     m_RealSprite->setAnchorPoint(Vec2(0, 0));
     m_RealSprite->setPosition(-50, -50);
     m_CenterSprite->addChild(m_RealSprite);
