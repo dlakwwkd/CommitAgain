@@ -19,19 +19,18 @@ Buff::Buff(Hero* hero)
     {
         auto sprite = buff.second.mSprite;
         auto particle = buff.second.mParticle;
-        auto pos = hero->GetCenterSprite()->getPosition();
 
         if (sprite != nullptr)
         {
             sprite->setVisible(false);
-            sprite->setPosition(Vec2(pos.x - 410.0f, pos.y - 490.0f));
+            sprite->setPosition(Vec2(12.5f, 30.0f));
             hero->GetCenterSprite()->addChild(sprite);
         }
 
         if (particle != nullptr)
         {
             particle->setVisible(false);
-            particle->setPosition(30, 25);
+            particle->setPosition(25.0f, 15.0f);
             particle->setScale(0.5f);
             hero->GetCenterSprite()->addChild(speedParticle, -1);
         }
