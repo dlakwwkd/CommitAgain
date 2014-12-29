@@ -15,7 +15,7 @@ void FireWallEffect::CreateEffect(const Vec2& createPos)
 
 void FireWallEffect::CreateEffect(const Vec2& createPos, Direction direction)
 {
-    CreateSprite("Images/CloackingUnit.png", createPos, 3.0f, 6.0f);
+    CreateSprite("Images/CloackingUnit.png", createPos, 1.0f, 6.0f);
     SetFireMotionCache();
     ShowFireMotionByDir(direction);
 }
@@ -36,8 +36,8 @@ void FireWallEffect::ShowFireMotionByDir(Direction dir)
 {
     switch (dir)
     {
-    case SLASH:     m_Sprite->runAction(MakeFastAnimation("fire%02d.png", 25)); break;
-    case BACKSLASH: m_Sprite->runAction(MakeFastAnimation("fire_A%02d.png", 25)); break;
+    case SLASH:     m_Sprite->runAction(MakeFastAnimationForever("fire%02d.png", 25)); break;
+    case BACKSLASH: m_Sprite->runAction(MakeFastAnimationForever("fire_A%02d.png", 25)); break;
     
     }
 }

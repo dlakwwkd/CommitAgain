@@ -56,7 +56,7 @@ void EffectSpriteType::ExtinctSprite()
     delete this;
 }
 
-Animate* EffectSpriteType::MakeFastAnimation(const char* format, int size)
+Animate* EffectSpriteType::MakeFastAnimationOnce(const char* format, int size)
 {
     auto animation = Animation::create();
     animation->setDelayPerUnit(0.05f);
@@ -66,4 +66,18 @@ Animate* EffectSpriteType::MakeFastAnimation(const char* format, int size)
         animation->addSpriteFrame(frame);
     }
     return Animate::create(animation);
+}
+
+RepeatForever* EffectSpriteType::MakeFastAnimationForever(const char* format, int size)
+{
+    auto animation = Animation::create();
+    animation->setDelayPerUnit(0.05f);
+
+    for (int i = 1; i < size + 1; ++i)
+    {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+        animation->addSpriteFrame(frame);
+    }
+
+    return RepeatForever::create(Animate::create(animation));
 }

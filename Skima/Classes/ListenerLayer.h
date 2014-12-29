@@ -24,6 +24,7 @@ private:
     void            CoolTimeStart(SkillKey key);
     void            CoolTimeEnd(SkillKey key);
     void            SetArrowPos();
+    void            SetNearRangePos();
 
 private:
     bool            m_Targeting;

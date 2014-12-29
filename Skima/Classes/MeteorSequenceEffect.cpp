@@ -48,7 +48,7 @@ void MeteorSequenceEffect::SetExplodeCache()
 
 void MeteorSequenceEffect::ShowExplodeSprite()
 {
-    m_Sprite->runAction(MakeFastAnimation("explode%02d.png", 15));
+    m_Sprite->runAction(MakeFastAnimationOnce("explode%02d.png", 15));
 }
 
 void MeteorSequenceEffect::SetParticleVisible(ParticleSystemQuad* particle)

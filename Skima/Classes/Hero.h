@@ -11,6 +11,7 @@ public:
     Vec2            GetHeroPos() { return m_CenterSprite->getPosition(); }
     Sprite*         GetArrow() { return m_Arrow; }
     Sprite*         GetSkillRange(){ return m_SkillRange; }
+    Sprite*         GetNearSkillRange(){ return m_NearSkillRange; }
     HeroType        GetHeroType(){ return m_HeroType; }
 
     Skill*          GetSkill(SkillKey key);
@@ -44,6 +45,7 @@ protected:
     HeroType                    m_HeroType;
     Sprite*                     m_Arrow	= nullptr;
     Sprite*                     m_SkillRange = nullptr;
+    Sprite*                     m_NearSkillRange = nullptr;
     bool                        m_IsPerforming;
 };
 

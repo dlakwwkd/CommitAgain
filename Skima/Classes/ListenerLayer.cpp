@@ -161,6 +161,7 @@ void ListenerLayer::OnMouseMove(Event *event)
     GET_IM->CheckMouseScroll();
     GET_UI_LAYER->GetCurrentCursor()->setPosition(location);
     SetArrowPos();
+    SetNearRangePos();
 }
 
 
@@ -259,4 +260,24 @@ void ListenerLayer::SetArrowPos()
     }
     arrow->setPosition(Vec2(25, 25) + displacement / distance * 100);
     arrow->setRotation(degree);
+}
+
+void ListenerLayer::SetNearRangePos()
+{
+    if (!m_Targeting || GET_OBJECT_LAYER->GetMyHero() == nullptr)
+    {
+        return;
+    }
+    auto hero = GET_OBJECT_LAYER->GetMyHero();
+    auto displacement = GET_IM->GetMouseLocation() - this->getPosition() - hero->GetHeroPos();
+    auto distance = displacement.getLength();
+    auto nearRange = hero->GetNearSkillRange();
+
+    float degree = acos(displacement.y / distance) / M_PI * 180; //내적
+    if (displacement.x < 0)
+    {
+        degree = degree * -1;
+    }
+    nearRange->setPosition(Vec2(25, 25) + displacement / distance * 50);
+    nearRange->setRotation(degree);
 }

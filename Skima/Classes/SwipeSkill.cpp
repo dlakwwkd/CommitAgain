@@ -32,19 +32,19 @@ void SwipeSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 
 void SwipeSkill::SkillReady()
 {
-    auto rangeCircle = m_Hero->GetSkillRange();
-    rangeCircle->setVisible(true);
+    auto nearRange = m_Hero->GetNearSkillRange();
+    nearRange->setVisible(true);
 
     auto uiLayer = GET_UI_LAYER;
-    uiLayer->CursorChange(CURSOR_SPLASH);
+    uiLayer->CursorChange(CURSOR_ATTACK);
     uiLayer->GetCurrentCursor()->setPosition(GET_IM->GetMouseLocation());
 
 }
 
 void SwipeSkill::SkillEnd()
 {
-    auto rangeCircle = m_Hero->GetSkillRange();
-    rangeCircle->setVisible(false);
+    auto nearRange = m_Hero->GetNearSkillRange();
+    nearRange->setVisible(false);
 }
 
 void SwipeSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
