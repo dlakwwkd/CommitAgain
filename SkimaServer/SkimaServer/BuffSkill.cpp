@@ -15,7 +15,7 @@ BuffSkill::~BuffSkill()
 
 void BuffSkill::SpeedBuff()
 {
-    MoveSpeedBonus(3000, Reduce(100.0f));
+    MoveSpeedBonus(5000, Reduce(300.0f));
 }
 
 void BuffSkill::ShieldBuff()
