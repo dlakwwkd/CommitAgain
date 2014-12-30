@@ -42,7 +42,7 @@ void FireWallSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2&
     auto posTimer = new Timer(m_Owner->GetRoomID());
 
     auto posFunc = std::bind(&FireWallSkill::DoNextAttack, this);
-    posTimer->RepeatTimer(200, MAXCALL, posFunc);
+    posTimer->WaitRepeatTimer(300, MAXCALL, posFunc);
     game->PushTimer(posTimer);
 }
 

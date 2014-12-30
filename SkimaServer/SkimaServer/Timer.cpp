@@ -57,3 +57,17 @@ void Timer::RunFunction(const Task& func)
     }
     CallFuncAfter(1, GGameManager, &GameManager::DestroyTimer, this);
 }
+
+void Timer::WaitRepeatTimer(int repeatDelay, int repeatNum, const Task& func)
+{
+    if (m_IsOn)
+    {
+        if (repeatNum > 0)
+        {
+            CallFuncAfter(repeatDelay, this, &Timer::RepeatTimer, repeatDelay, repeatNum, func);
+            --repeatNum;
+            return;
+        }
+    }
+    CallFuncAfter(1, GGameManager, &GameManager::DestroyTimer, this);
+}

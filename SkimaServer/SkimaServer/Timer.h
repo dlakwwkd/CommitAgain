@@ -14,6 +14,7 @@ public:
     int     GetGameId(){ return m_GameID; }
 
     void    RepeatTimer(int repeatDelay, int repeatNum, const Task& func);
+    void    WaitRepeatTimer(int repeatDelay, int repeatNum, const Task& func);
     void    InfiniteTimer(int repeatDelay, const Task& func);
     void    CallFuncOnce(int delay, const Task& func);
     
