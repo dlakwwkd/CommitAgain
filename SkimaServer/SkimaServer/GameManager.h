@@ -8,6 +8,7 @@ class b2World;
 class ContactListener;
 class Unit;
 class Timer;
+class Item;
 
 typedef std::map<int, Game*>        GameList;
 typedef std::map<int, GameRoom*>    RoomList;
@@ -55,6 +56,7 @@ public:
 
     void                CrashDamage(Unit* unitA, Unit* unitB);
     void                FieldDamage(Player* caster, Rect* range, int damage);
+    void                FieldCheck(Item* item, b2Vec2 pos, float scale);
     void                WallFieldDamage(Player* caster, b2PolygonShape* wallShape, int damage);
 	void                DeadUnit(Unit* unit);
 

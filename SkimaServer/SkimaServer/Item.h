@@ -1,6 +1,7 @@
 #pragma once
 #include "Unit.h"
 class Mob;
+class Timer;
 
 class Item : public Unit
 {
@@ -13,6 +14,7 @@ public:
     virtual void    Dead();
 
 private:
-    BuffTarget m_BuffType;
+    BuffTarget  m_BuffType;
+    Timer*      m_Timer = nullptr;
 };
 

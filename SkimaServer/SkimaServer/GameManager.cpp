@@ -11,6 +11,7 @@
 #include "Unit.h"
 #include "Timer.h"
 #include "Mob.h"
+#include "Item.h"
 
 GameManager* GGameManager = nullptr;
 
@@ -319,6 +320,53 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
         }
     }
 }
+
+void GameManager::FieldCheck(Item* item, b2Vec2 pos, float scale)
+{
+    if (!item)
+    {
+        printf(" - FieldCheck() Faild ! : invalid item \n");
+        return;
+    }
+    auto computer = item->GetOwner();
+    auto game = m_GameList.find(computer->GetRoomID());
+    if (game == m_GameList.end())
+    {
+        printf(" - FieldCheck() Faild ! : invalid gameID \n");
+        return;
+    }
+
+    Rect range;
+    range.m_Top = pos.y + scale;
+    range.m_Bottom = pos.y - scale;
+    range.m_Left = pos.x - scale;
+    range.m_Right = pos.x + scale;
+
+    for (auto& player : game->second->m_PlayerList)
+    {
+        if (player.second->GetTeam() == computer->GetTeam())
+        {
+            continue;
+        }
+        for (auto& unit : player.second->GetUnitList())
+        {
+            auto pos = unit.second->GetBody()->GetPosition();
+
+            if (pos.x > range.m_Left && pos.x < range.m_Right &&
+                pos.y > range.m_Bottom && pos.y < range.m_Top)
+            {
+                if (GET_MAIN_TYPE(unit.second->GetUnitID()) != UNIT_HERO)
+                {
+                    continue;
+                }
+                item->SetDead();
+                CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, item);
+                unit.second->UseBuff(item->GetBuffTarget());
+            }
+        }
+    }
+}
+
 void GameManager::WallFieldDamage(Player* caster, b2PolygonShape* wallShape, int damage)
 {
     if (!caster || !wallShape)

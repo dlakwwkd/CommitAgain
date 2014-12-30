@@ -21,6 +21,7 @@ public:
     void            SetSpeed(float speed){ m_Speed = speed; }
     void            SetShield(int shield){ m_Shield = shield; }
     void			SetTargetPos(const b2Vec2& targetPos){ m_TargetPos = targetPos; }
+    void            SetDead(){ m_IsDead = true; }
 
     Player*         GetOwner(){ return m_Owner; }
     int             GetUnitID(){ return m_UnitID; }

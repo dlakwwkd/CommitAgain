@@ -83,6 +83,9 @@ void Buff::BuffEnd(BuffTarget type, float bonus)
     case BUFF_SPEED:
         m_Owner->SetSpeed(m_Owner->GetSpeed() + bonus);
         break;
+    case BUFF_SHIELD:
+        buff->second.mBuffNum = 1;
+        break;
     }
 
     buff->second.mBuffNum--;

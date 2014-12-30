@@ -202,19 +202,7 @@ void Unit::Crashed(Unit* contactUnit)
     case UNIT_MISSILE:
         m_IsDead = true;
         CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
-        printf("callfuncafter dead : %d\n", m_UnitID);
-        EndCrash();
-        return;
-    case UNIT_ITEM:
-        if (GET_MAIN_TYPE(contactUnit->GetUnitID()) != UNIT_HERO)
-        {
-            return;
-        }
-        m_IsDead = true;
-        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
-        printf("callfuncafter dead : %d\n", m_UnitID);
-        auto item = dynamic_cast<Item*>(this);
-        contactUnit->UseBuff(item->GetBuffTarget());
+        printf(" - CallFuncAfter: DeadUnit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(m_UnitID), GET_SIDE_TYPE(m_UnitID), INIT_TYPE(m_UnitID));
         EndCrash();
         return;
     }
