@@ -4,7 +4,7 @@
 #include "UILayer.h"
 #include "Hero.h"
 #include "Macros.h"
-#include "FireWallEffect.h"
+#include "FireEffect.h"
 
 
 FireWallSkill::FireWallSkill(Hero* hero)
@@ -20,9 +20,9 @@ FireWallSkill::~FireWallSkill()
 
 void FireWallSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
-     auto effect = new FireWallEffect();
+     auto effect = new FireEffect();
      //auto direction = GenerateWallDirection(heroPos, targetPos);
-     effect->CreateFireEffect(targetPos);
+     effect->CreateEffect(targetPos);
 }
 
 void FireWallSkill::SkillReady()

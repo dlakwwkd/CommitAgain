@@ -34,7 +34,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 		int h = GetSystemMetrics(SM_CYSCREEN);
 
 		glview->setFrameSize(DISPLAY_X, DISPLAY_Y);
-		glview->setDesignResolutionSize(DISPLAY_X, DISPLAY_Y, ResolutionPolicy::NO_BORDER);
+        glview->setDesignResolutionSize(MAX_MAP_SIZE_X, MAX_MAP_SIZE_Y, ResolutionPolicy::NO_BORDER);
     }
 
     // turn on display FPS

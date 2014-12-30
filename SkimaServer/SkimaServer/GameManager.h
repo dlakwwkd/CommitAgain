@@ -22,6 +22,10 @@ struct Rect
 };
 enum WallDirection
 {
+    N,
+    S,
+    W,
+    E,
     NW,
     NE,
     SW,

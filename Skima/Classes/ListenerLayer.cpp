@@ -24,7 +24,7 @@ bool ListenerLayer::init()
     {
         return false;
     }
-    this->setPosition(-(MAX_MAP_SIZE_X - DISPLAY_X)/2, -(MAX_MAP_SIZE_Y - DISPLAY_Y)/2);
+    //this->setPosition(-(MAX_MAP_SIZE_X - DISPLAY_X)/2, -(MAX_MAP_SIZE_Y - DISPLAY_Y)/2);
 
     auto layer1 = MapLayer::create();
     auto layer2 = ObjectLayer::create();
@@ -52,7 +52,7 @@ bool ListenerLayer::init()
 //////////////////////////////////////////////////////////////////////////
 void ListenerLayer::Tick(float dt)
 {
-    ScreenMove();
+    //ScreenMove();
 }
 //////////////////////////////////////////////////////////////////////////
 

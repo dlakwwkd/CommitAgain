@@ -36,7 +36,7 @@ void Missile::MissileShoot()
 void Missile::MissileExplosion()
 {
     auto curPos = m_Body->GetPosition();
-    auto scale = Reduce(100.0f);
+    auto scale = Reduce(80.0f);
     Rect range;
     range.m_Top = curPos.y + scale;
     range.m_Bottom = curPos.y - scale;

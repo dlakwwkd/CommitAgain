@@ -9,7 +9,7 @@ bool MapLayer::init()
         return false;
     }
     auto sprite = Sprite::create("Images/Background/bg2.png");
-    sprite->setPosition(this->getAnchorPointInPoints() + Vec2((MAX_MAP_SIZE_X - DISPLAY_X) / 2, (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2));
+    sprite->setPosition(this->getAnchorPointInPoints());
     this->addChild(sprite);
     return true;
 }

@@ -7,14 +7,16 @@
 #include "Unit.h"
 #include "Timer.h"
 
-#define MAXCALL 3
-#define REPEATTIME 5
+#define MAX_CALL 4
+#define REPEAT_TIME 8
+#define CALL_DELAY 100
+#define REPEAT_DELAY 100
 
 FireWallSkill::FireWallSkill(Player* owner)
 {
     m_Owner = owner;
-    m_Damage = 75;
-    m_Scale = Reduce(100.0f);
+    m_Damage = 64;
+    m_Scale = Reduce(80.0f);
     m_CallCount = 0;
     m_PrevTaretPos = b2Vec2(-1, -1);
 }
@@ -36,13 +38,12 @@ void FireWallSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2&
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
     auto func = std::bind(&FireWallSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
     auto timer = new Timer(m_Owner->GetRoomID());
-    timer->RepeatTimer(300, REPEATTIME, func);
+    timer->RepeatTimer(REPEAT_DELAY, REPEAT_TIME, func);
     game->PushTimer(timer);
 
-    auto posTimer = new Timer(m_Owner->GetRoomID());
-
     auto posFunc = std::bind(&FireWallSkill::DoNextAttack, this);
-    posTimer->WaitRepeatTimer(300, MAXCALL, posFunc);
+    auto posTimer = new Timer(m_Owner->GetRoomID());
+    posTimer->WaitRepeatTimer(CALL_DELAY, MAX_CALL, posFunc);
     game->PushTimer(posTimer);
 }
 
@@ -66,13 +67,13 @@ void FireWallSkill::DoNextAttack()
     auto timerSW = new Timer(m_Owner->GetRoomID());
     auto timerNW = new Timer(m_Owner->GetRoomID());
 
-    timerNE->RepeatTimer(300, REPEATTIME, funcNE);
+    timerNE->RepeatTimer(REPEAT_DELAY, REPEAT_TIME, funcNE);
     game->PushTimer(timerNE);
-    timerSE->RepeatTimer(300, REPEATTIME, funcSE);
+    timerSE->RepeatTimer(REPEAT_DELAY, REPEAT_TIME, funcSE);
     game->PushTimer(timerSE);    
-    timerSW->RepeatTimer(300, REPEATTIME, funcSW);
+    timerSW->RepeatTimer(REPEAT_DELAY, REPEAT_TIME, funcSW);
     game->PushTimer(timerSW);    
-    timerNW->RepeatTimer(300, REPEATTIME, funcNW);
+    timerNW->RepeatTimer(REPEAT_DELAY, REPEAT_TIME, funcNW);
     game->PushTimer(timerNW);
 
     auto client = m_Owner->GetClient();
@@ -81,7 +82,7 @@ void FireWallSkill::DoNextAttack()
     client->SkillBroadCast(hero->GetUnitID(), m_PrevTaretPos, nextPosSW, SKILL_R);
     client->SkillBroadCast(hero->GetUnitID(), m_PrevTaretPos, nextPosNW, SKILL_R);
 
-    if (m_CallCount == MAXCALL)
+    if (m_CallCount == MAX_CALL)
     {
          m_CallCount = 0;
     }
@@ -93,18 +94,14 @@ b2Vec2 FireWallSkill::GenerateNextCenterPos(WallDirection direction)
 
     switch (direction)
     {
-    case NE:
-        nextPos = b2Vec2(m_PrevTaretPos.x + 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y + 1.414*m_Scale*m_CallCount);
-        break;
-    case SE:
-        nextPos = b2Vec2(m_PrevTaretPos.x + 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y - 1.414*m_Scale*m_CallCount);
-        break;
-    case SW:
-        nextPos = b2Vec2(m_PrevTaretPos.x - 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y - 1.414*m_Scale*m_CallCount);
-        break;
-    case NW:
-        nextPos = b2Vec2(m_PrevTaretPos.x - 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y + 1.414*m_Scale*m_CallCount);
-        break;
+    case N:     nextPos = b2Vec2(m_PrevTaretPos.x, m_PrevTaretPos.y + m_Scale*m_CallCount);    break;
+    case S:     nextPos = b2Vec2(m_PrevTaretPos.x, m_PrevTaretPos.y + m_Scale*m_CallCount);    break;
+    case W:     nextPos = b2Vec2(m_PrevTaretPos.x, m_PrevTaretPos.y + m_Scale*m_CallCount);    break;
+    case E:     nextPos = b2Vec2(m_PrevTaretPos.x, m_PrevTaretPos.y + m_Scale*m_CallCount);    break;
+    case NE:    nextPos = b2Vec2(m_PrevTaretPos.x + 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y + 1.414*m_Scale*m_CallCount);    break;
+    case SE:    nextPos = b2Vec2(m_PrevTaretPos.x + 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y - 1.414*m_Scale*m_CallCount);    break;
+    case SW:    nextPos = b2Vec2(m_PrevTaretPos.x - 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y - 1.414*m_Scale*m_CallCount);    break;
+    case NW:    nextPos = b2Vec2(m_PrevTaretPos.x - 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y + 1.414*m_Scale*m_CallCount);    break;
     }
     return nextPos;
 }
