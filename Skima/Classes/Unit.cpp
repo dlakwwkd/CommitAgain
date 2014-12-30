@@ -6,6 +6,7 @@
 #include "SimpleAudioEngine.h"
 #include "Mob.h"
 #include "Macros.h"
+#include "Buff.h"
 #include <memory>
 using namespace CocosDenshion;
 
