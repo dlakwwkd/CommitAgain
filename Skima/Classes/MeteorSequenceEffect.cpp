@@ -60,29 +60,37 @@ Size MeteorSequenceEffect::GenerateInitPos(const Vec2&targetpos)
 {
     auto winSize = Director::getInstance()->getWinSize();
 
-    if (targetpos.x < winSize.width * 1 / 12)
+    if (targetpos.x < winSize.width * 1 / 16)
     {
         return Size(0, winSize.height) ;
     }
-    else if (winSize.width * 1 / 12 <= targetpos.x && targetpos.x < winSize.width * 3 / 12)
+    else if (winSize.width * 1 / 16 <= targetpos.x && targetpos.x < winSize.width * 3 / 16)
     {
-        return Size(winSize.width*2/12, winSize.height);
+        return Size(winSize.width * 2 / 16, winSize.height);
     }
-    else if (winSize.width * 3 / 12 <= targetpos.x && targetpos.x < winSize.width * 5 / 12)
+    else if (winSize.width * 3 / 12 <= targetpos.x && targetpos.x < winSize.width * 5 / 16)
     {
-        return Size(winSize.width * 4 / 12, winSize.height);
+        return Size(winSize.width * 4 / 16, winSize.height);
     }
-    else if (winSize.width * 5 / 12 <= targetpos.x && targetpos.x < winSize.width * 7 / 12)
+    else if (winSize.width * 5 / 16 <= targetpos.x && targetpos.x < winSize.width * 7 / 16)
     {
-        return Size(winSize.width * 6 / 12, winSize.height);
+        return Size(winSize.width * 6 / 16, winSize.height);
     }
-    else if (winSize.width * 7 / 12 <= targetpos.x && targetpos.x < winSize.width * 9 / 12)
+    else if (winSize.width * 7 / 16 <= targetpos.x && targetpos.x < winSize.width * 9 / 16)
     {
-        return Size(winSize.width * 8 / 12, winSize.height);
+        return Size(winSize.width * 8 / 16, winSize.height);
     }
-    else if (winSize.width * 9 / 12 <= targetpos.x && targetpos.x < winSize.width * 11 / 12)
+    else if (winSize.width * 9 / 16 <= targetpos.x && targetpos.x < winSize.width * 11 / 16)
     {
-        return Size(winSize.width * 10 / 12, winSize.height);
+        return Size(winSize.width * 10 / 16, winSize.height);
+    }
+    else if (winSize.width * 11 / 16 <= targetpos.x && targetpos.x < winSize.width * 13 / 16)
+    {
+        return Size(winSize.width * 12 / 16, winSize.height);
+    }
+    else if (winSize.width * 13 / 16 <= targetpos.x && targetpos.x < winSize.width * 15 / 16)
+    {
+        return Size(winSize.width * 14 / 16, winSize.height);
     }
     else
     {
