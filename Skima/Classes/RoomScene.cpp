@@ -279,14 +279,14 @@ void RoomScene::PrintMenuByRoomType()
          auto roomTypeImage = Sprite::create("Images/Interface/TeamModeButton.png");
          roomTypeImage->setPosition(Vec2(winSize.width / 2, winSize.height * 7 / 8));
          this->addChild(roomTypeImage);
-         auto label1 = Label::createWithSystemFont("팀 1", "Thonburi", 50);
+         auto label1 = Label::createWithSystemFont("1 팀", "Thonburi", 50);
          auto teamButton1 = MenuItemLabel::create(label1, CC_CALLBACK_1(RoomScene::TeamSelectACallback, this));
          teamButton1->setPosition(Vec2(-80, 80));
-         auto label2 = Label::createWithSystemFont("팀 2", "Thonburi", 50);
+         auto label2 = Label::createWithSystemFont("2 팀", "Thonburi", 50);
          auto teamButton2 = MenuItemLabel::create(label2, CC_CALLBACK_1(RoomScene::TeamSelectBCallback, this));
          teamButton2->setPosition(Vec2(80, 80));
          
-         auto label3 = Label::createWithSystemFont("팀: 1", "Thonburi", 50);
+         auto label3 = Label::createWithSystemFont("1 팀", "Thonburi", 50);
          label3->setPosition(Vec2(100, winSize.height * 0.5f));
          label3->setHorizontalAlignment(TextHAlignment::CENTER);
          this->addChild(label3, 0, "TeamStateLabel");

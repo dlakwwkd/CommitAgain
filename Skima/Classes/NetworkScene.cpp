@@ -144,20 +144,47 @@ void NetworkScene::UpdateRoomInfo()
 
         auto roomListFrame = Sprite::create("Images/Interface/RoomListFrame.png");
         roomListFrame->setPosition(Vec2(winSize.width * 0.45f - 50, winSize.height * line));
-        roomListFrame->setScaleX(1.50f);
+        roomListFrame->setScaleX(1.5f);
         this->addChild(roomListFrame, 1, "RoomListFrame");
 
         auto roomListFrameBack = Sprite::create("Images/Interface/RoomListFrame_back.png");
-        roomListFrameBack->setPosition(Vec2(405.0f, 115.0f));
+        roomListFrameBack->setPosition(Vec2(505.0f, 115.0f));
         roomListFrameBack->setScaleX(1.10f);
         roomListFrameBack->setOpacity(150);
         roomListFrame->addChild(roomListFrameBack);
+        switch (room.mRoomType)
+        {
+        case ROOM_NONE:
+        {
+            break;
+        }
+        case ROOM_MELEE:
+        {
+            auto roomType = Sprite::create("Images/Interface/MeleeModeButton.png");
+            roomType->setScaleX(0.7f);
+            roomType->setPosition(Vec2(550.0f, 110.0f));
+            roomListFrame->addChild(roomType);
+            break;
+        }
+        case ROOM_TEAM:
+        {
+            auto roomType = Sprite::create("Images/Interface/TeamModeButton.png");
+            roomType->setScaleX(0.7f);
+            roomType->setPosition(Vec2(550.0f, 110.0f));
+            roomListFrame->addChild(roomType);
+            break;
+        }
+        default:
+        {
+            break;
+        }
+        }
         auto joinRoomButton = MenuItemImage::create(
             "Images/Interface/JoinButton.png", 
             "Images/Interface/JoinButton_selected.png",
             CC_CALLBACK_0(NetworkScene::menuCallback2, this, room.mRoomNum));
         auto menu = Menu::create(joinRoomButton, NULL);
-        menu->setPosition(Vec2(600.0f, 110.0f));
+        menu->setPosition(Vec2(800.0f, 110.0f));
         menu->alignItemsVertically();
         joinRoomButton->setScaleX(0.8f);
         roomListFrame->addChild(menu);

@@ -52,8 +52,8 @@ bool MainScene::init()
         animation->addSpriteFrame(frame);
     }
     background1->runAction(RepeatForever::create(Animate::create(animation)));
-    background1->setScaleX(2.70f);
-    background1->setScaleY(2.30f);
+    background1->setScaleX(3.60f);
+    background1->setScaleY(3.0f);
     background1->setAnchorPoint(Vec2::ZERO);
     background2->setPosition(Vec2(winSize.width / 2, winSize.height / 2));
     background2->setOpacity(50);
@@ -66,17 +66,13 @@ bool MainScene::init()
     // Login창 띄우기
     auto loginScene = Sprite::create("Images/Interface/LoginScene.png");
     loginScene->setPosition(Vec2(winSize.width / 2, winSize.height / 4));
+    loginScene->setScaleY(0.7f);
     auto loginButtonImage = MenuItemImage::create("Images/Interface/LoginButton.png", "Images/Interface/LoginButton_selected.png", CC_CALLBACK_1(MainScene::menuCallback1, this));
     auto loginMenu = Menu::create(loginButtonImage, NULL);
-    loginScene->setScaleX(0.7f);
-    loginScene->setScaleY(0.5f);
-    loginMenu->setPosition(Vec2(winSize.width * 5 / 8 - 30, winSize.height / 4 - 40));
+    loginMenu->setPosition(Vec2(470.0f, 80.0f));
     loginMenu->alignItemsVertically();
-    loginMenu->setAnchorPoint(Vec2(0, 0));
-    loginMenu->setScaleX(0.7f);
-    loginMenu->setScaleY(0.5f);
     this->addChild(loginScene);
-    this->addChild(loginMenu);
+    loginScene->addChild(loginMenu);
     
     // Login입력 받는 box 구현
     m_LoginBox = InputBox::create("이름을 입력", "Thonburi", MAX_NAME_LEN);
