@@ -59,6 +59,10 @@ void Mob::Dead()
     {
         auto item = new Item(this, BUFF_SHIELD);
     }
+    else if (gamble < 9)
+    {
+        auto item = new Item(this, BUFF_DAMAGE);
+    }
     else
     {
         return;

@@ -1,13 +1,10 @@
 ﻿#include "pch.h"
 #include "Buff.h"
 #include "Hero.h"
-#include "BuffEffect.h"
-
 
 Buff::Buff(Hero* hero)
 {
     m_Owner = hero;
-    m_Effect = new BuffEffect();
 
     auto speedParticle = ParticleSystemQuad::create("Images/Effect/Particle_Speed_Buff.plist");
     BuffObject speed{ BUFF_SPEED, 0, nullptr, speedParticle };
@@ -19,6 +16,10 @@ Buff::Buff(Hero* hero)
 
     BuffObject hp{ BUFF_HP, 0, nullptr, nullptr };
     m_BuffList[BUFF_HP] = hp;
+
+    auto damageParticle = ParticleSystemQuad::create("Images/Effect/particle_damage_buff.plist");
+    BuffObject damage{ BUFF_DAMAGE, 0, nullptr, damageParticle };
+    m_BuffList[BUFF_DAMAGE] = damage;
 
     for (auto& buff : m_BuffList)
     {
@@ -42,6 +43,8 @@ Buff::Buff(Hero* hero)
         }
         
     }
+
+    damageParticle->setScale(0.8f);
 }
 
 
@@ -130,7 +133,7 @@ void Buff::HpBuffEffect()
 {
     m_HpParticle = ParticleSystemQuad::create("Images/Effect/particle_hp_buff.plist");
     m_HpParticle->setPosition(Vec2::ZERO);
-    m_HpParticle->setScale(0.5f);
+    m_HpParticle->setScale(0.3f);
     auto action1 = DelayTime::create(2.0f);
     auto action2 = CallFunc::create(CC_CALLBACK_0(Buff::RemoveEffect, this));
     auto action3 = Sequence::create(action1, action2, NULL);

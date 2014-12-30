@@ -183,6 +183,9 @@ void Unit::UseBuff(BuffTarget type)
     case BUFF_HP:
         m_Buff->HpBuff();
         break;
+    case BUFF_DAMAGE:
+        m_Buff->DamageBuff();
+        break;
     }
 }
 

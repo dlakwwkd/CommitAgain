@@ -120,3 +120,27 @@ void BuffType::HpBonus(int bonus)
     client->BuffBroadCast(hero->GetUnitID(), 0, BUFF_HP, true);
     client->HpBroadCast(m_Owner->GetPlayerID(), hero->GetUnitID(), hero->GetHp());
 }
+
+void BuffType::DamageBonus(int duration, float bonus)
+{
+    auto hero = m_Owner->GetMyHero();
+    hero->SetDamageBonus(hero->GetDamageBonus() * bonus);
+
+    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
+    auto func = std::bind(&BuffType::DamageBonusEnd, this, bonus);
+    auto timer = new Timer(m_Owner->GetRoomID());
+    timer->CallFuncOnce(duration, func);
+    game->PushTimer(timer);
+
+    auto client = m_Owner->GetClient();
+    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_DAMAGE, true);
+}
+
+void BuffType::DamageBonusEnd(float bonus)
+{
+    auto hero = m_Owner->GetMyHero();
+    hero->SetDamageBonus(1.0f);
+
+    auto client = m_Owner->GetClient();
+    client->BuffBroadCast(hero->GetUnitID(), (-bonus), BUFF_DAMAGE, false);
+}

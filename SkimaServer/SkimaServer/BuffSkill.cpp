@@ -35,3 +35,8 @@ void BuffSkill::HpBuff()
     HpBonus(150);
 }
 
+void BuffSkill::DamageBuff()
+{
+    DamageBonus(2000, 1.5);
+}
+

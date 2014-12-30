@@ -285,9 +285,6 @@
     <ClCompile Include="..\Classes\Buff.cpp">
       <Filter>Game\Component\Skill\Buff</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BuffEffect.cpp">
-      <Filter>Game\Component\Effect\EffectParticleType</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -493,9 +490,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Buff.h">
       <Filter>Game\Component\Skill\Buff</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BuffEffect.h">
-      <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

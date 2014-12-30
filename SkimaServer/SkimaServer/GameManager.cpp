@@ -293,8 +293,8 @@ void GameManager::CrashDamage(Unit* unitA, Unit* unitB)
 {
     if (unitA->GetOwner()->GetTeam() != unitB->GetOwner()->GetTeam())
     {
-        unitA->Damaged(unitB->GetDamage());
-        unitB->Damaged(unitA->GetDamage());
+        unitA->Damaged(unitB->GetDamage() * unitB->GetDamageBonus());
+        unitB->Damaged(unitA->GetDamage() * unitA->GetDamageBonus());
     }
 }
 
