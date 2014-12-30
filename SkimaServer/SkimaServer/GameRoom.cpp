@@ -9,7 +9,7 @@ void GameRoom::ReadySign()
 {
     if (++m_ReadyNum >= m_PlayerList.size())
     {
-        m_IsAllReady = true;
+        m_RoomInfo.mIsStart = true;
         printf(" - All Player is Ready ! :: %d Room is Game Start !! \n", m_RoomInfo.mRoomNum);
         CallFuncAfter(5000, GGameManager, &GameManager::CreateGame, m_RoomInfo.mRoomNum);
     }
@@ -18,7 +18,6 @@ void GameRoom::ReadySign()
 
 void GameRoom::InitReady()
 {
-    m_IsAllReady = false;
     m_ReadyNum = 0;
 
     for (auto &player : m_PlayerList)

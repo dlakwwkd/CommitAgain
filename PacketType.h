@@ -157,12 +157,14 @@ struct RoomInfo
         mCurPlayerNum = 0;
         mMaxPlayerNum = 0;
         mRoomType = ROOM_NONE;
+        mIsStart = false;
     }
 
     int         mRoomNum;
     int         mCurPlayerNum;
     int         mMaxPlayerNum;
     RoomType    mRoomType;
+    bool        mIsStart;
 };
 
 ///////////////////////////////////////////////////////////////////////////

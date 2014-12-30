@@ -26,7 +26,7 @@ bool NetworkScene::init()
         return false;
     }
     auto winSize = Director::getInstance()->getWinSize();
-    ConnectLabelCreate("방 참여 혹은 방 생성을 해주십시오.", this);
+    ConnectLabelCreate("로그인 성공!!!", this);
 
     auto background = Sprite::create("Images/Background/NetworkBackground.png");
     background->setPosition(winSize.width / 2, winSize.height / 2);
@@ -70,7 +70,12 @@ void NetworkScene::menuCallback2(int roomNum)
     {
         if (room.mRoomNum == roomNum)
         {
-            if (room.mCurPlayerNum >= room.mMaxPlayerNum) // 들어가려 한 방이 꽉차있을 때
+            if (room.mIsStart) //들어가려한 방이 게임이 시작된 방일 때
+            {
+                ConnectLabelChange("이미 게임이 시작된 방입니다.");
+                return;
+            }
+            if (room.mCurPlayerNum >= room.mMaxPlayerNum) // 들어가려한 방이 꽉차있을 때
             {
                 ConnectLabelChange("방의 인원이 초과하였습니다.");
                 return;
@@ -199,5 +204,5 @@ void NetworkScene::Tick(float dt)
     {
         Director::getInstance()->popScene();
     }
-    ConnectLabelChange("서버 연결 양호.");
+    ConnectLabelChange("방 참여 혹은 방 생성을 해주십시오.");
 }

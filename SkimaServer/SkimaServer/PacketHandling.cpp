@@ -359,9 +359,7 @@ void ClientSession::UpdateRoomInfo()
         if (room.first <= 0) // 채워지지 않은 room이라면 break
             break;
 
-        outPacket.mRoomList[i].mRoomNum = room.first;
-        outPacket.mRoomList[i].mCurPlayerNum = roomInfo.mCurPlayerNum;
-        outPacket.mRoomList[i++].mMaxPlayerNum = roomInfo.mMaxPlayerNum;
+        outPacket.mRoomList[i++] = roomInfo;
     }
 
     SendRequest(&outPacket);
@@ -387,6 +385,7 @@ void ClientSession::MakeGameRoom(RoomInfo roomInfo)
     outPacket.mRoomInfo.mCurPlayerNum = 1; //방 생성한 player 1명
     outPacket.mRoomInfo.mMaxPlayerNum = roomInfo.mMaxPlayerNum;
     outPacket.mRoomInfo.mRoomType = roomInfo.mRoomType;
+    outPacket.mRoomInfo.mIsStart = false;
 
     SendRequest(&outPacket);
     printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId);

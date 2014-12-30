@@ -7,7 +7,7 @@ typedef std::map<int, Player*> PlayerList;
 class GameRoom
 {
 public:
-    GameRoom(RoomInfo roomInfo, int roomNum) : m_ReadyNum(0), m_JoinAble(true), m_IsAllReady(false), m_IsGameExist(false)
+    GameRoom(RoomInfo roomInfo, int roomNum) : m_ReadyNum(0), m_JoinAble(true), m_IsGameExist(false)
     {
         m_RoomInfo = roomInfo;
         m_RoomInfo.mRoomNum = roomNum;
@@ -19,7 +19,8 @@ public:
     int			        GetPlayerListSize(){ return m_PlayerList.size(); }
     void		        SetIsGameExist(bool isGameExist){ m_IsGameExist = isGameExist; }
     bool		        IsGameExist(){ return m_IsGameExist; }
-    bool		        IsAllReady(){ return m_IsAllReady; }
+    void                SetIsGameStart(bool isStart){ m_RoomInfo.mIsStart = isStart; }
+    bool		        IsAllReady(){ return m_RoomInfo.mIsStart; }
     bool		        IsJoinAble(){ return m_JoinAble; }
 
     void		        ReadySign();
@@ -33,7 +34,6 @@ private:
     RoomInfo    m_RoomInfo;
     int			m_ReadyNum;
     bool		m_JoinAble;
-    bool		m_IsAllReady;
     bool		m_IsGameExist;
 
     friend class Game;

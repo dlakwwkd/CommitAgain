@@ -233,9 +233,18 @@ void GameManager::GameOver(Player* player)
         printf(" - GameOver Failed ! : relevant game isn't \n");
         return;
     }
+
+    auto room = m_RoomList.find(player->GetRoomID());
+    if (room == m_RoomList.end())
+    {
+        printf(" - GameOver Failed ! : relevant room isn't \n");
+        return;
+    }
+
     if (game->second->IsStart())
     {
         game->second->EndGame();
+        room->second->SetIsGameStart(false);
         player->GetClient()->GameOverCast(player->GetPlayerID());
     }
     DeleteGame(game->first);
