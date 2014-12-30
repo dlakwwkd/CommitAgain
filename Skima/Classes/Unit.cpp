@@ -4,7 +4,7 @@
 #include "Skill.h"
 #include "GameManager.h"
 #include "SimpleAudioEngine.h"
-
+#include "Mob.h"
 using namespace CocosDenshion;
 
 
@@ -42,6 +42,10 @@ void Unit::Move()
     {
         auto hero = dynamic_cast<Hero*>(this);
         hero->SetMoveMotionByDir();
+    }
+    if (GET_MAIN_TYPE(m_UnitID) == UNIT_MOB)
+    {
+        this->SetMoveMotionByDir();
     }
 
     auto gap = m_TargetPos - m_CenterSprite->getPosition();
@@ -216,10 +220,10 @@ RepeatForever* Unit::MakeUnitAnimation(const char* format, int size)
 {
     auto animation = Animation::create();
     if (size < 5)
-        animation->setDelayPerUnit(0.2f);
+        animation->setDelayPerUnit(1.0f);
     
     else
-        animation->setDelayPerUnit(0.1f);
+        animation->setDelayPerUnit(0.3f);
 
     for (int i = 1; i < size + 1; ++i)
     {
@@ -227,4 +231,23 @@ RepeatForever* Unit::MakeUnitAnimation(const char* format, int size)
         animation->addSpriteFrame(frame);
     }
     return RepeatForever::create(Animate::create(animation));
+}
+
+Animate* Unit::MakeUnitAnimationOnce(const char* format, int size)
+{
+    auto animation = Animation::create();
+
+    if (size < 5)
+        animation->setDelayPerUnit(0.3f);
+    else
+        animation->setDelayPerUnit(0.3f);
+   
+
+    for (int i = 1; i < size + 1; ++i)
+    {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+        animation->addSpriteFrame(frame);
+    }
+
+    return Animate::create(animation);
 }

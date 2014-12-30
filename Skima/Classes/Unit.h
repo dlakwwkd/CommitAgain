@@ -69,6 +69,8 @@ protected:
     void            SetHeroHpBar(const char* barImage);
     void            Damaged();
     RepeatForever*  MakeUnitAnimation(const char* format, int size);
+    Animate*        MakeUnitAnimationOnce(const char* format, int size);
+
     Direction       CalcMoveDirection(Vec2 displacement);
     Direction       CalcSkillDirection(Vec2 displacement);
 
