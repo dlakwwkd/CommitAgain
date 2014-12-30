@@ -98,3 +98,17 @@ void EffectSpriteType::CreateFireSubSprite(Sprite* sprite,Vec2 createPos, float 
     GET_OBJECT_LAYER->addChild(sprite, 20);
 }
 
+RepeatForever* EffectSpriteType::MakeAnimationForever(const char* format, int size)
+{
+    auto animation = Animation::create();
+    animation->setDelayPerUnit(0.2f);
+
+    for (int i = 1; i < size + 1; ++i)
+    {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+        animation->addSpriteFrame(frame);
+    }
+
+    return RepeatForever::create(Animate::create(animation));
+}
+

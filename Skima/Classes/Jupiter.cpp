@@ -6,7 +6,7 @@
 #include "FlashSkill.h"
 #include "PacketType.h"
 #include "Buff.h"
-
+#include "LightningPumpkinSkill.h"
 
 
 Jupiter::Jupiter(Vec2 createPos, float scale)
@@ -39,6 +39,7 @@ Jupiter::Jupiter(Vec2 createPos, float scale)
     m_SkillList[SKILL_Q] = new SparkSkill(this);
     m_SkillList[SKILL_W] = new LightningSkill(this);
     m_SkillList[SKILL_E] = new FlashSkill(this);
+    m_SkillList[SKILL_R] = new LightningPumpkinSkill(this);
 
     m_Buff = new Buff(this);
 }
@@ -122,6 +123,16 @@ void Jupiter::SetSkillMotionByDir(SkillKey key)
         case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_SW_%02d.png", 2)); break;
         case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_NE_%02d.png", 2)); break;
         case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_NW_%02d.png", 2)); break;
+        }
+        break;
+
+    case SKILL_R:
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
+        {
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SE_%02d.png", 3)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SW_%02d.png", 3)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NE_%02d.png", 3)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NW_%02d.png", 3)); break;
         }
         break;
     }

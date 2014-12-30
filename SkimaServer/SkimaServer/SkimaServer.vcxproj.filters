@@ -152,6 +152,9 @@
     <ClCompile Include="FireWallSkill.cpp">
       <Filter>Game\Component\Skill\Magician Skill</Filter>
     </ClCompile>
+    <ClCompile Include="LightningPumpkinSkill.cpp">
+      <Filter>Game\Component\Skill\Jupiter Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -326,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="FireWallSkill.h">
       <Filter>Game\Component\Skill\Magician Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="LightningPumpkinSkill.h">
+      <Filter>Game\Component\Skill\Jupiter Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

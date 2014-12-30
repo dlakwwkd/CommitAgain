@@ -222,9 +222,6 @@
     <ClCompile Include="..\Classes\LightningEffect.cpp">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp">
-      <Filter>Game\Component\Effect\EffectParticleType</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\SparkEffect.cpp">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClCompile>
@@ -284,6 +281,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Buff.cpp">
       <Filter>Game\Component\Skill\Buff</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp">
+      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -428,9 +428,6 @@
     <ClInclude Include="..\Classes\LightningEffect.h">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\LightningPumpkinEffect.h">
-      <Filter>Game\Component\Effect\EffectParticleType</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\SparkEffect.h">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClInclude>
@@ -490,6 +487,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Buff.h">
       <Filter>Game\Component\Skill\Buff</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LightningPumpkinEffect.h">
+      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
