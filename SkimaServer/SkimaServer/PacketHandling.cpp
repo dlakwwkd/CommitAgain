@@ -493,12 +493,14 @@ void ClientSession::ServerRunComplete()
     printf(" Send: ServerRunCompleteNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
-void ClientSession::SendCreateHeroResult(int unitId, const b2Vec2& pos)
+void ClientSession::SendCreateHeroResult(int unitId, const b2Vec2& pos, RoomType roomType)
 {
     CreateHeroResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
     outPacket.mUnitId = unitId;
     outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
+    outPacket.mTeam = mPlayer->GetTeam();
+    outPacket.mRoomType = roomType;
 
     if (!Broadcast(&outPacket))
     {

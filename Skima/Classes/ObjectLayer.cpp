@@ -48,33 +48,48 @@ void ObjectLayer::Tick(float dt)
 }
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
+void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location, Team team, RoomType roomType)
 {
-    std::shared_ptr<Hero> unit;
+    std::shared_ptr<Hero> hero;
     switch (GET_SIDE_TYPE(unitID))
     {
-    case HERO_MAGICIAN:	unit = std::make_shared<Magician>(location, 1.0f);	break;
-    case HERO_JUPITER:	unit = std::make_shared<Jupiter>(location, 1.0f);	break;
-    case HERO_LAPHINX:	unit = std::make_shared<Laphinx>(location, 1.0f);   break;
+    case HERO_MAGICIAN:	hero = std::make_shared<Magician>(location, 1.0f);	break;
+    case HERO_JUPITER:	hero = std::make_shared<Jupiter>(location, 1.0f);	break;
+    case HERO_LAPHINX:	hero = std::make_shared<Laphinx>(location, 1.0f);   break;
     default:
         return;
     }
-    unit->SetPlayerID(playerID);
-    unit->SetUnitID(unitID);
+    hero->SetPlayerID(playerID);
+    hero->SetUnitID(unitID);
     if (playerID == TcpClient::getInstance()->getLoginId())
     {
-        m_Hero = unit;
-        unit->SetMyHpBar();
-        GET_UI_LAYER->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
-        unit->SetSkillSprite();
+        m_Hero = hero;
+        hero->SetMyHpBar();
+        GET_UI_LAYER->UpdateHpBar(hero->GetCurHp(), hero->GetMaxHp());
+        hero->SetSkillSprite();
     }
     else
     {
-        unit->SetEnemyHpBar();
+        switch (roomType)
+        {
+        case ROOM_NONE:
+            break;
+        case ROOM_MELEE:
+            hero->SetEnemyHpBar();
+            break;
+        case ROOM_TEAM:
+            if (team == TcpClient::getInstance()->getTeam())
+                hero->SetTeamHpBar();
+            else
+                hero->SetEnemyHpBar();
+            break;
+        default:
+            break;
+        }
     }
-    m_UnitList[unitID] = unit;
-    m_HeroList[unitID] = unit;
-    this->addChild(unit->GetCenterSprite());
+    m_UnitList[unitID] = hero;
+    m_HeroList[unitID] = hero;
+    this->addChild(hero->GetCenterSprite());
 }
 
 void ObjectLayer::CreateMapObject(int unitID, Vec2 pos)

@@ -29,7 +29,7 @@ public:
     void                SetReady(bool ready) { m_IsReady = ready; }
     bool                IsReady() { return m_IsReady; }
 
-    void			    CreateHero(const b2Vec2& pos);
+    void			    CreateHero(const b2Vec2& pos, RoomType roomType);
     void                DeadHero();
     void                SetRoomID(int roomId){ m_RoomID = roomId; }
     void                SetHeroType(HeroType heroType){ m_HeroType = heroType; }

@@ -377,10 +377,14 @@ struct CreateHeroResult : public PacketHeader
         mPlayerId = -1;
         mUnitId = -1;
         mPos = { 0, };
+        mTeam = TEAM_N;
+        mRoomType = ROOM_NONE;
     }
     int         mPlayerId;
     int         mUnitId;
     Coord       mPos;
+    Team        mTeam;
+    RoomType    mRoomType;
 };
 
 struct CreateMapResult : public PacketHeader

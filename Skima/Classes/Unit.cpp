@@ -114,6 +114,11 @@ void Unit::SetEnemyHpBar()
     SetHeroHpBar("Images/Interface/hp_bar_in_enemy.png");
 }
 
+void Unit::SetTeamHpBar()
+{
+    SetHeroHpBar("Images/Interface/hp_bar_in_team.png");
+}
+
 void Unit::SetUnitHpBar()
 {
     m_HpBarFrame = Sprite::create("Images/Interface/hp_bar_frame_mob.png");

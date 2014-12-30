@@ -10,7 +10,7 @@ Player::~Player()
     UnitListClear();
 }
 
-void Player::CreateHero(const b2Vec2& pos)
+void Player::CreateHero(const b2Vec2& pos, RoomType roomType)
 {
     switch (m_HeroType)
     {
@@ -20,7 +20,7 @@ void Player::CreateHero(const b2Vec2& pos)
     default:
 		return;
     };
-    m_Client->SendCreateHeroResult(m_Hero->GetUnitID(), pos);
+    m_Client->SendCreateHeroResult(m_Hero->GetUnitID(), pos, roomType);
 }
 
 void Player::DeadHero()

@@ -22,19 +22,20 @@ public:
 
     SOCKET  checkSocket(){ return mSock; }
     int     getLoginId(){ return mLoginId; }
-    bool connect();
-    void disconnect();
+    Team    getTeam(){ return mTeam; }
+    bool    connect();
+    void    disconnect();
 
-    void loginRequest(const char* playerName);
-    void makeRoomRequest(RoomInfo roomInfo);
-    void joinRoomRequest(RoomInfo roomInfo);
-    void outRoomRequest(RoomInfo roomInfo);
-    void startGameRequest(int roomId, Team team, HeroType heroType);
-    void runCompleteRequest(); //이름 체인지 + bool값 인자
+    void    loginRequest(const char* playerName);
+    void    makeRoomRequest(RoomInfo roomInfo);
+    void    joinRoomRequest(RoomInfo roomInfo);
+    void    outRoomRequest(RoomInfo roomInfo);
+    void    startGameRequest(int roomId, Team team, HeroType heroType);
+    void    runCompleteRequest(); //이름 체인지 + bool값 인자
 
-    void moveRequest(Vec2 curPos, Vec2 targetPos);
-    void skillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey);
-    void splashSkillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey);
+    void    moveRequest(Vec2 curPos, Vec2 targetPos);
+    void    skillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey);
+    void    splashSkillRequest(Vec2 curPos, Vec2 targetPos, SkillKey skillKey);
 
 //	void chatRequest(const char* chat);
 
@@ -51,5 +52,6 @@ private:
     CircularBuffer  mRecvBuffer;
     int             mLoginId;
     char            mLoginName[MAX_NAME_LEN];
+    Team            mTeam;
 };
 

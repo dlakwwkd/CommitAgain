@@ -63,6 +63,7 @@ public:
     void            SetHp(int curHp);
     void            SetMyHpBar();
     void            SetEnemyHpBar();
+    void            SetTeamHpBar();
     void            SetUnitHpBar();
     void            UpdateHpBar();
 protected:

@@ -19,7 +19,7 @@ public:
 
     void Tick(float dt);
 
-    void CreateHero(int playerID, int unitID, Vec2 location);
+    void CreateHero(int playerID, int unitID, Vec2 location, Team team, RoomType roomType);
     void CreateMapObject(int unitID, Vec2 pos);
     void CreateMob(int playerID, int unitID, Vec2 location, int hp, float speed);
     void CreateItem(int playerID, int unitID, Vec2 location, BuffTarget buffType);

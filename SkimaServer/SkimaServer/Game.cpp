@@ -101,7 +101,7 @@ void Game::InitGame(RoomType roomType)
         default:
             break;
         }
-        player.second->CreateHero(CONVERT_IN(createPos, roomId));
+        player.second->CreateHero(CONVERT_IN(createPos, roomId), roomType);
     }
     m_Computer = new Player(temp, PT_COMPUTER, "Computer", PT_COMPUTER);
     m_Computer->SetRoomID(roomId);

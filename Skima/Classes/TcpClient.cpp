@@ -299,7 +299,7 @@ void TcpClient::processPacket()
             if (layer)
             {
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateHero, layer,
-                    recvData.mPlayerId, recvData.mUnitId, pos));
+                    recvData.mPlayerId, recvData.mUnitId, pos, recvData.mTeam, recvData.mRoomType));
             }
         }
         break;
@@ -683,6 +683,7 @@ void TcpClient::startGameRequest(int roomId, Team team, HeroType heroType)
 {
     if (mLoginId < 0)
         return;
+    mTeam = team;
 
     GameReadyRequest sendData;
     sendData.mPlayerId = mLoginId;
