@@ -34,6 +34,10 @@ public:
     float           GetSpeed(){ return m_Speed; }
     bool            GetHeroHiddenState(){ return m_IsHidden; }
 
+    virtual void    SetMoveMotionToCache() = 0;
+    virtual void    SetMoveMotionByDir() = 0;
+
+
     Sprite*         GetCenterSprite(){ return m_CenterSprite; }
     Sprite*         GetRealSprite(){ return m_RealSprite; }
     Sprite*         GetHpBarFrame(){ return m_HpBarFrame; }
@@ -64,6 +68,9 @@ public:
 protected:
     void            SetHeroHpBar(const char* barImage);
     void            Damaged();
+    RepeatForever*  MakeUnitAnimation(const char* format, int size);
+    Direction       CalcMoveDirection(Vec2 displacement);
+    Direction       CalcSkillDirection(Vec2 displacement);
 
 protected:
     UnitType        m_UnitType;

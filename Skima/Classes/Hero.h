@@ -39,8 +39,8 @@ public:
 protected:
     RepeatForever*  MakeAnimation(const char* format, int size);
     Animate*        MakeAnimationOnce(const char* format, int size);
-    Direction       CalcMoveDirection(Vec2 displacement);
-    Direction       CalcSkillDirection(Vec2 displacement);
+//     Direction       CalcMoveDirection(Vec2 displacement);
+//     Direction       CalcSkillDirection(Vec2 displacement);
 
 protected:
     std::map<SkillKey, Skill*>  m_SkillList;

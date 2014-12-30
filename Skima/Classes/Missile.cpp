@@ -70,3 +70,13 @@ void Missile::MissileDelete()
     m_Particle = nullptr;
     GET_OBJECT_LAYER->DeleteMissile(m_UnitID);
 }
+
+void Missile::SetMoveMotionToCache()
+{
+
+}
+
+void Missile::SetMoveMotionByDir()
+{
+
+}

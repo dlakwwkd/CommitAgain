@@ -11,6 +11,9 @@ public:
     void MissileCrash();
     void MissileDelete();
 
+    virtual void    SetMoveMotionToCache();
+    virtual void    SetMoveMotionByDir();
+
 protected:
     ParticleSystemQuad* m_Particle = nullptr;
 };
