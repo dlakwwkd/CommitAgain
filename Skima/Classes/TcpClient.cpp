@@ -290,7 +290,10 @@ void TcpClient::processPacket()
             assert(ret && recvData.mPlayerId != -1);
 
             Vec2 pos = CONVERT(recvData.mPos);
-            mTeam = recvData.mTeam;
+            if (recvData.mPlayerId == mLoginId)
+            {
+                mTeam = recvData.mTeam;
+            }
 
             if (GET_GAME_SCENE == nullptr)
             {
@@ -690,11 +693,10 @@ void TcpClient::startGameRequest(int roomId, Team team, HeroType heroType)
 {
     if (mLoginId < 0)
         return;
-    mTeam = team;
 
     GameReadyRequest sendData;
     sendData.mPlayerId = mLoginId;
-    sendData.mTeam = team;
+    sendData.mTeam = mTeam = team;
     sendData.mHeroType = heroType;
 
     send((const char*)&sendData, sizeof(GameReadyRequest));
