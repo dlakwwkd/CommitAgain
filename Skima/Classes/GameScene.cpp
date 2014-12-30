@@ -64,12 +64,12 @@ void GameScene::RemoveLoadingLayer()
     this->removeChildByName("LoadingBGLayer");
 }
 
-void GameScene::GameOver(int playerId, int loseId)
+void GameScene::GameOver(int playerId, bool isWin)
 {
     m_IsStartGame = false;
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
-    auto scene = GameOverScene::createScene(m_RoomInfo, playerId, loseId);
+    auto scene = GameOverScene::createScene(m_RoomInfo, playerId, isWin);
     Director::getInstance()->popScene();
     Director::getInstance()->pushScene(scene);
 }

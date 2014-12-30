@@ -7,14 +7,14 @@ typedef std::map<int, Player*> PlayerList;
 class GameRoom
 {
 public:
-    GameRoom(RoomInfo roomInfo, int roomNum) : m_ReadyNum(0), m_JoinAble(true), m_IsGameExist(false)
+    GameRoom(const RoomInfo& roomInfo, int roomNum) : m_ReadyNum(0), m_JoinAble(true), m_IsGameExist(false)
     {
         m_RoomInfo = roomInfo;
         m_RoomInfo.mRoomNum = roomNum;
     }
     ~GameRoom(){}
 
-    RoomInfo            GetRoomInfo(){ return m_RoomInfo; }
+    const RoomInfo&     GetRoomInfo(){ return m_RoomInfo; }
     int			        GetRoomID(){ return m_RoomInfo.mRoomNum; }
     int			        GetPlayerListSize(){ return m_PlayerList.size(); }
     void		        SetIsGameExist(bool isGameExist){ m_IsGameExist = isGameExist; }

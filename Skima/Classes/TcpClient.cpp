@@ -604,11 +604,17 @@ void TcpClient::processPacket()
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
+            bool isWin = false;
+            if (mTeam == recvData.mWinTeam)
+            {
+                isWin = true;
+            }
+
             auto scene = GET_GAME_SCENE;
             if (scene)
             {
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(GameScene::GameOver, scene,
-                    mLoginId, recvData.mLoseId));
+                    mLoginId, isWin));
             }
         }
         return;

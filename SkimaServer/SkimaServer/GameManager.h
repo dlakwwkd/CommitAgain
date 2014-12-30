@@ -64,7 +64,7 @@ public:
     void                FieldDamage(Player* caster, Rect* range, int damage);
     void                FieldCheck(Item* item, b2Vec2 pos, float scale);
     void                WallFieldDamage(Player* caster, b2PolygonShape* wallShape, int damage);
-	void                DeadUnit(Unit* unit);
+    void                DeadUnit(Unit* unit, int gameId);
 
 public:
     b2World*            GetWolrd(){ return m_World; }

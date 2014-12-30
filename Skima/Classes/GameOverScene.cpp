@@ -7,7 +7,7 @@
 
 using namespace CocosDenshion;
 
-Scene* GameOverScene::createScene(RoomInfo roomInfo, int playerId, int loseId)
+Scene* GameOverScene::createScene(RoomInfo roomInfo, int playerId, bool isWin)
 {
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
@@ -20,7 +20,7 @@ Scene* GameOverScene::createScene(RoomInfo roomInfo, int playerId, int loseId)
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/winner.mp3");
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/loser.mp3");
 
-    if (playerId != loseId)
+    if (isWin)
     {
         endScene = Sprite::create("Images/Background/WinScene.png");
         SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/winner.mp3");
@@ -37,8 +37,6 @@ Scene* GameOverScene::createScene(RoomInfo roomInfo, int playerId, int loseId)
     endScene->setZOrder(1);
 
     layer->addChild(endScene);
-
-    
 
 	return scene;
 }

@@ -689,10 +689,10 @@ struct GameOverNotify : public PacketHeader
         mSize = sizeof(GameOverNotify);
         mType = PKT_SC_GAMEOVER;
         mPlayerId = -1;
-        mLoseId = -1;
+        mWinTeam = TEAM_N;
     }
     int         mPlayerId;
-    int         mLoseId;
+    Team        mWinTeam;
 };
 
 

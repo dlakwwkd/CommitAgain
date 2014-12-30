@@ -53,7 +53,7 @@ void GameManager::LowTick()
             unit->CurPosSync();
         }
     }
-    //printf(" - Total Body Num : %d \n", m_World->GetBodyCount());
+    printf(" - Total Body Num : %d \n", m_World->GetBodyCount());
     CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::LowTick);
 }
 
@@ -228,12 +228,32 @@ void GameManager::GameOver(Player* player)
     {
         return;
     }
+    player->SetGameOver();
+
     auto game = m_GameList.find(player->GetRoomID());
     if (game == m_GameList.end())
     {
         printf(" - GameOver Failed ! : relevant game isn't \n");
         return;
     }
+
+    int surviveTeamNum = 0;
+    auto temp = TEAM_C;
+    for (auto& otherPlayer : game->second->GetPlayerList())
+    {
+        if (otherPlayer.second->IsGameOver() || otherPlayer.second->GetTeam() == temp)
+        {
+            continue;
+        }
+        ++surviveTeamNum;
+        temp = otherPlayer.second->GetTeam();
+    }
+
+    if (surviveTeamNum > 1)
+    {
+        return;
+    }
+    auto winTeam = temp;
 
     auto room = m_RoomList.find(player->GetRoomID());
     if (room == m_RoomList.end())
@@ -246,7 +266,7 @@ void GameManager::GameOver(Player* player)
     {
         game->second->EndGame();
         room->second->SetIsGameStart(false);
-        player->GetClient()->GameOverCast(player->GetPlayerID());
+        player->GetClient()->GameOverCast(winTeam);
     }
     DeleteGame(game->first);
 }
@@ -266,44 +286,14 @@ void GameManager::PlayerOut(Player* player)
     }
     auto playerId = player->GetPlayerID();
     auto roomId = player->GetRoomID();
-    auto room = m_RoomList.find(roomId);
-    auto roomInfo = room->second->GetRoomInfo();
 
     auto game = m_GameList.find(roomId);
     if (game != m_GameList.end())
     {
-        switch (roomInfo.mRoomType)
-        {
-        case ROOM_NONE:
-            break;
-        case ROOM_MELEE:
-            if (--roomInfo.mCurPlayerNum <= 1)
-            {
-                GameOver(player);
-            }
-            break;
-        case ROOM_TEAM:
-        {
-            int team1 = 0, team2 = 0;
-            for (auto otherPlayer : game->second->GetPlayerList())
-            {
-                if (otherPlayer.second->GetPlayerID() == playerId)
-                    continue;
-                switch (otherPlayer.second->GetTeam())
-                {
-                case TEAM_1:    team1++;    break;
-                case TEAM_2:    team2++;    break;
-                default:                    break;
-                }
-            }
-            if (team1 == 0 || team2 == 0)
-                GameOver(player);
-        }
-        default:
-            break;
-        }
         game->second->OutPlayer(playerId);
+        GameOver(player);
     }
+    auto room = m_RoomList.find(roomId);
     if (room != m_RoomList.end())
     {
         room->second->OutPlayer(playerId);
@@ -404,7 +394,7 @@ void GameManager::FieldCheck(Item* item, b2Vec2 pos, float scale)
                     continue;
                 }
                 item->SetDead();
-                CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, item);
+                CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, item, computer->GetRoomID());
                 unit.second->UseBuff(item->GetBuffTarget());
             }
         }
@@ -447,54 +437,23 @@ void GameManager::WallFieldDamage(Player* caster, b2PolygonShape* wallShape, int
         }
     }
 }
-void GameManager::DeadUnit(Unit* unit)
+void GameManager::DeadUnit(Unit* unit, int gameId)
 {
-    auto unitID = unit->GetUnitID();
-    auto owner = unit->GetOwner();
-    printf(" - Dead Unit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(unitID), GET_SIDE_TYPE(unitID), INIT_TYPE(unitID));
-
-    switch (GET_MAIN_TYPE(unitID))
+    if (m_GameList.find(gameId) == m_GameList.end())
     {
-    case UNIT_HERO:
-    {
-        //auto playerID = owner->GetPlayerID();
-        auto roomID = owner->GetRoomID();
-        //auto game = m_GameList.find(roomID);
-        auto room = m_RoomList.find(roomID);
-        auto roomInfo = room->second->GetRoomInfo();
-        owner->UnitListPop(unit->GetUnitID());
-        owner->DeadHero();
-        PlayerOut(owner);
-        //switch (roomInfo.mRoomType)
-        //{
-        //case ROOM_NONE:
-        //    break;
-        //case ROOM_MELEE:
-        //    if (--roomInfo.mCurPlayerNum <= 1)
-        //    {
-        //        GameOver(owner);
-        //    }
-        //    break;
-        //case ROOM_TEAM:
-        //{
-        //    int team1 = 0, team2 = 0;
-        //    for (auto otherPlayer : game->second->GetPlayerList())
-        //    {
-        //        if (otherPlayer.second->GetPlayerID() == playerID)
-        //            continue;
-        //        switch (otherPlayer.second->GetTeam())
-        //        {
-        //        case TEAM_1:    team1++;    break;
-        //        case TEAM_2:    team2++;    break;
-        //        default:                    break;
-        //        }
-        //    }
-        //    if (team1 == 0 || team2 == 0)
-        //        GameOver(owner);
-        //}
-        //}
         return;
     }
+    auto unitId = unit->GetUnitID();
+    auto owner = unit->GetOwner();
+    printf(" - Dead Unit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(unitId), GET_SIDE_TYPE(unitId), INIT_TYPE(unitId));
+
+    switch(GET_MAIN_TYPE(unitId))
+    {
+    case UNIT_HERO:
+        owner->UnitListPop(unit->GetUnitID());
+        owner->DeadHero();
+        GameOver(owner);
+        return;
     }
     unit->Dead();
     owner->UnitListPop(unit->GetUnitID());

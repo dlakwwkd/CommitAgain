@@ -238,10 +238,27 @@ void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
             m_UnitList.erase(unit);
         }
             break;
+        case UNIT_HERO:
+        {
+            SimpleAudioEngine::getInstance()->playEffect("Music/Effect/mobdied.mp3");
+            this->removeChild(unit->second->GetCenterSprite());
+
+            if (unit->second == m_Hero)
+            {
+                m_Hero = nullptr;
+            }
+            auto hero = m_HeroList.find(unitID);
+            if (hero != m_HeroList.end())
+            {
+                m_HeroList.erase(hero);
+            }
+            m_UnitList.erase(unit);
+        }
+            break;
         }
         return;
     }
-    if (m_Hero->GetPlayerID() == playerID)
+    if (m_Hero && m_Hero->GetPlayerID() == playerID)
     {
         GET_UI_LAYER->UpdateHpBar(unit->second->GetCurHp(), unit->second->GetMaxHp());
     }

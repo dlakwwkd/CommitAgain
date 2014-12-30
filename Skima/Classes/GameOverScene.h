@@ -7,7 +7,7 @@ USING_NS_CC;
 class GameOverScene : public LayerColor
 {
 public:
-	static Scene* createScene(RoomInfo roomInfo, int playerId, int loseId);
+    static Scene* createScene(RoomInfo roomInfo, int playerId, bool isWin);
 	virtual bool init();
 	CREATE_FUNC(GameOverScene);
 

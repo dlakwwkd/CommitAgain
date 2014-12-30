@@ -19,7 +19,7 @@ public:
 
     void        StartGame();
     void        RemoveLoadingLayer();
-    void        GameOver(int playerId, int loseId);
+    void        GameOver(int playerId, bool isWin);
 
 private:
     bool	    m_IsStartGame;

@@ -29,8 +29,13 @@ public:
     void                SetReady(bool ready) { m_IsReady = ready; }
     bool                IsReady() { return m_IsReady; }
 
+    void                InitGameOverStatus() { m_IsGameOver = false; }
+    void                SetGameOver() { m_IsGameOver = true; }
+    bool                IsGameOver() { return m_IsGameOver; }
+
     void			    CreateHero(const b2Vec2& pos, RoomType roomType);
     void                DeadHero();
+
     void                SetRoomID(int roomId){ m_RoomID = roomId; }
     void                SetHeroType(HeroType heroType){ m_HeroType = heroType; }
     void                SetTeam(Team team){ m_Team = team; }
@@ -40,16 +45,17 @@ public:
     void                UnitListClear();
 
 private:
-    ClientSession*      m_Client    = nullptr;
-    int                 m_PlayerID  = -1;
+    ClientSession*      m_Client        = nullptr;
+    int                 m_PlayerID      = -1;
     std::string         m_PlayerName;
     PlayerType          m_PlayerType;
 
-    Hero*               m_Hero      = nullptr;
-    HeroType            m_HeroType  = HERO_NONE;
-    Team                m_Team      = TEAM_N;
-    int                 m_RoomID    = -1;
-    bool                m_IsReady   = false;
+    Hero*               m_Hero          = nullptr;
+    HeroType            m_HeroType      = HERO_NONE;
+    Team                m_Team          = TEAM_N;
+    int                 m_RoomID        = -1;
+    bool                m_IsReady       = false;
+    bool                m_IsGameOver    = false;
     UnitList            m_UnitList;
 };
 

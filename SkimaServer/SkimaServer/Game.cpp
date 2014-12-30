@@ -77,6 +77,7 @@ void Game::InitGame(RoomType roomType)
     b2Vec2 createPos = { 0, 0 };
     for (auto& player : m_PlayerList)
     {
+        player.second->InitGameOverStatus();
         if (roomType == ROOM_MELEE)
         {
             player.second->SetTeam(Team(++num));

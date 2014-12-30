@@ -697,11 +697,11 @@ void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type, bool
     }
 }
 
-void ClientSession::GameOverCast(int playerId)
+void ClientSession::GameOverCast(Team winTeam)
 {
     GameOverNotify outPacket;
-    outPacket.mPlayerId = playerId;
-    outPacket.mLoseId = playerId;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mWinTeam = winTeam;
 
     if (!Broadcast(&outPacket))
     {

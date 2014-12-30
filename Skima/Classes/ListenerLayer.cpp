@@ -90,7 +90,11 @@ void ListenerLayer::OnMouseDown(Event *event)
     {
         return;
     }
-    auto hero = GET_OBJECT_LAYER->GetMyHero();	_ASSERT(hero != nullptr);
+    auto hero = GET_OBJECT_LAYER->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
     auto sprite = hero->GetCenterSprite();				_ASSERT(sprite != nullptr);
     auto heroPos = sprite->getPosition();
     auto mousePos = GET_IM->GetMouseLocation();
@@ -175,7 +179,6 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
     GET_IM->SetKeyStatus(keyCode, true);
 
-    auto hero = GET_OBJECT_LAYER->GetMyHero();	_ASSERT(hero != nullptr);
     auto key = KeyboardToSkillKey(keyCode);
     if (key == SKILL_NONE)
     {
@@ -189,6 +192,11 @@ void ListenerLayer::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
         }
     }
 
+    auto hero = GET_OBJECT_LAYER->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
     if (!m_Targeting && hero->GetSkillCanUse(key))
     {
         GET_UI_LAYER->CursorChange(CURSOR_ATTACK);
