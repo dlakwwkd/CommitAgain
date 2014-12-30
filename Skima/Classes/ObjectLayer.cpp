@@ -113,12 +113,12 @@ void ObjectLayer::CreateMob(int playerID, int unitID, Vec2 location)
     this->addChild(unit->GetCenterSprite());
 }
 
-void ObjectLayer::CreateItem(int playerID, int unitID, Vec2 location)
+void ObjectLayer::CreateItem(int playerID, int unitID, Vec2 location, BuffTarget buffType)
 {
     std::shared_ptr<Item> unit;
     switch (GET_SIDE_TYPE(unitID))
     {
-    case ITEM_NORMAL:	unit = std::make_shared<Item>(location, 1.0f);	break;
+    case ITEM_NORMAL:	unit = std::make_shared<Item>(location, 1.0f, buffType);	break;
     default:
         return;
     }

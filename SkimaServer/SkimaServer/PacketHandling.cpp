@@ -649,13 +649,14 @@ void ClientSession::CreateMobBroadCast(int playerId, int unitId, const b2Vec2& p
     }
 }
 
-void ClientSession::ItemBroadCast(int playerId, int unitId, const b2Vec2& pos, bool isCreate)
+void ClientSession::ItemBroadCast(int playerId, int unitId, const b2Vec2& pos, bool isCreate, BuffTarget buffType)
 {
     ItemBroadcastResult outPacket;
     outPacket.mPlayerId = playerId;
     outPacket.mUnitId = unitId;
     outPacket.mIsCreate = isCreate;
     outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
+    outPacket.mBuffType = buffType;
 
     if (!Broadcast(&outPacket))
     {

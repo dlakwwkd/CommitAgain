@@ -415,11 +415,13 @@ struct ItemBroadcastResult : public PacketHeader
         mUnitId = -1;
         mIsCreate = false;
         mPos = { 0, };
+        mBuffType = BUFF_NONE;
     }
     int         mPlayerId;
     int         mUnitId;
     bool        mIsCreate;
     Coord       mPos;
+    BuffTarget  mBuffType;
 };
 
 

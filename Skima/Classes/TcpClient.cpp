@@ -364,7 +364,7 @@ void TcpClient::processPacket()
                 if (recvData.mIsCreate)
                 {
                     scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateItem, layer,
-                        recvData.mPlayerId, recvData.mUnitId, pos));
+                        recvData.mPlayerId, recvData.mUnitId, pos, recvData.mBuffType));
                 }
                 else
                 {

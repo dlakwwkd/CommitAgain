@@ -6,7 +6,7 @@ class Timer;
 class Item : public Unit
 {
 public:
-    Item(Mob* mob, BuffTarget type);
+    Item(Mob* mob, BuffTarget buffType);
     virtual ~Item();
 
     BuffTarget      GetBuffTarget() { return m_BuffType; }
@@ -14,6 +14,7 @@ public:
     virtual void    Dead();
 
 private:
+    ItemType    m_Type;
     BuffTarget  m_BuffType;
     Timer*      m_Timer = nullptr;
 };

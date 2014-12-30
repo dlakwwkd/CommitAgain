@@ -22,7 +22,7 @@ public:
     void CreateHero(int playerID, int unitID, Vec2 location);
     void CreateMapObject(int unitID, Vec2 pos);
     void CreateMob(int playerID, int unitID, Vec2 location);
-    void CreateItem(int playerID, int unitID, Vec2 location);
+    void CreateItem(int playerID, int unitID, Vec2 location, BuffTarget buffType);
     void RemoveItem(int playerID, int unitID);
     void UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos);
     void UnitCrash(int unitID, Vec2 exPos);

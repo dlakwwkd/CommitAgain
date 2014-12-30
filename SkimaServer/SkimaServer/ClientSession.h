@@ -43,7 +43,7 @@ public:
     void	SendCreateHeroResult(			    int unitId, const b2Vec2& pos);
     void	SendMapInfo(        int playerId,   int unitId, const b2Vec2& pos);
     void    CreateMobBroadCast( int playerId,   int unitId, const b2Vec2& pos);
-    void    ItemBroadCast(      int playerId,   int unitId, const b2Vec2& pos,    bool isCreate);
+    void    ItemBroadCast(      int playerId,   int unitId, const b2Vec2& pos, bool isCreate, BuffTarget buffType);
     void    SendStartGame();
 
     void	TryMoveBroadCast(				    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);

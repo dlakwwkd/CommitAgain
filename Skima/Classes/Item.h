@@ -3,7 +3,7 @@
 class Item :	public Unit
 {
 public:
-    Item(Vec2 createPos, float scale);
+    Item(Vec2 createPos, float scale, BuffTarget buffType);
     virtual ~Item();
 };
 
