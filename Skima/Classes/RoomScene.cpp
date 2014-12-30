@@ -137,6 +137,10 @@ void RoomScene::GameExitCallback(Ref* sender)	// 나가기
 
     m_IsReady = false;
     WaitingCheck();
+
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3", true);
+
     Director::getInstance()->popScene();
 }
 
