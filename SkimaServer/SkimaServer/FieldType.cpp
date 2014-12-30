@@ -43,7 +43,7 @@ void FieldType::WallFieldDamage(const b2Vec2& targetPos, Walldirection direction
         polygon[0].Set(targetPos.x + Reduce(-565 + 21), targetPos.y + Reduce(565 + 21)); // Up
         polygon[1].Set(targetPos.x + Reduce(-565 - 21), targetPos.y + Reduce(565 - 21)); // Right
         polygon[2].Set(targetPos.x + Reduce(565 - 21), targetPos.y + Reduce(-565 - 21)); // Down
-        polygon[3].Set(targetPos.x + Reduce(565 + 21), targetPos.y + Reduce(-565 + 21)); // Left
+         polygon[3].Set(targetPos.x + Reduce(565 + 21), targetPos.y + Reduce(-565 + 21)); // Left
         break;
     default:
         break;

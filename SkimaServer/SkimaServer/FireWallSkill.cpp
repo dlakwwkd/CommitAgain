@@ -46,7 +46,7 @@ Walldirection FireWallSkill::GenerateWalldirection(const b2Vec2& heroPos, const 
         return BACKSLASH;
     }
 
-    else 
+    else
     {
         return SLASH;
     }
