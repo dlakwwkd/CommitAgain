@@ -30,3 +30,8 @@ void BuffSkill::ShieldDestroy()
     m_ShieldOn = false;
 }
 
+void BuffSkill::HpBuff()
+{
+    HpBonus(150);
+}
+

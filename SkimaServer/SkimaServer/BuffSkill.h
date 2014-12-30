@@ -14,6 +14,7 @@ public:
     void SpeedBuff();
     void ShieldBuff();
     void ShieldDestroy();
+    void HpBuff();
 
 protected:
     bool m_ShieldOn = false;

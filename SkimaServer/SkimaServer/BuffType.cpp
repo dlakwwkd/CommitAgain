@@ -105,3 +105,18 @@ void BuffType::ShieldBonusEnd()
     auto client = m_Owner->GetClient();
     client->BuffBroadCast(hero->GetUnitID(), 0, BUFF_SHIELD, false);
 }
+
+void BuffType::HpBonus(int bonus)
+{
+    auto hero = m_Owner->GetMyHero();
+    int hp = hero->GetHp() + bonus;
+    if (hp > hero->GetMaxHp())
+    {
+        hp = hero->GetMaxHp();
+    }
+    hero->SetHp(hp);
+
+    auto client = m_Owner->GetClient();
+    client->BuffBroadCast(hero->GetUnitID(), 0, BUFF_HP, true);
+    client->HpBroadCast(m_Owner->GetPlayerID(), hero->GetUnitID(), hero->GetHp());
+}

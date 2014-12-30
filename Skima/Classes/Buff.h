@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "Skill.h"
 
+class BuffEffect;
+
 struct BuffObject
 {
     BuffTarget          mType;
@@ -25,9 +27,14 @@ public:
     void            BuffEnd(BuffTarget type, float bonus);
     void            BuffDraw(BuffObject* buff);
     void            BuffErase(BuffObject* buff);
+
+    void            HpBuffEffect();
+    void            RemoveEffect();
     
 
 private:
-    BuffList        m_BuffList;
+    BuffList            m_BuffList;
+    BuffEffect*         m_Effect;
+    ParticleSystemQuad* m_HpParticle;
 };
 

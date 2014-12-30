@@ -1,11 +1,13 @@
 ﻿#include "pch.h"
 #include "Buff.h"
 #include "Hero.h"
+#include "BuffEffect.h"
 
 
 Buff::Buff(Hero* hero)
 {
     m_Owner = hero;
+    m_Effect = new BuffEffect();
 
     auto speedParticle = ParticleSystemQuad::create("Images/Effect/Particle_Speed_Buff.plist");
     BuffObject speed{ BUFF_SPEED, 0, nullptr, speedParticle };
@@ -14,6 +16,9 @@ Buff::Buff(Hero* hero)
     auto shieldSprite = Sprite::create("Images/Effect/buff_shield.png");
     BuffObject shield{ BUFF_SHIELD, 0, shieldSprite, nullptr };
     m_BuffList[BUFF_SHIELD] = shield;
+
+    BuffObject hp{ BUFF_HP, 0, nullptr, nullptr };
+    m_BuffList[BUFF_HP] = hp;
 
     for (auto& buff : m_BuffList)
     {
@@ -33,7 +38,7 @@ Buff::Buff(Hero* hero)
             particle->setVisible(false);
             particle->setPosition(Vec2::ZERO);
             particle->setScale(0.5f);
-            hero->GetCenterSprite()->addChild(speedParticle, -1);
+            hero->GetCenterSprite()->addChild(particle, -1);
         }
         
     }
@@ -59,8 +64,8 @@ void Buff::BuffUse(BuffTarget type, float bonus)
 
     switch (type)
     {
-    case BUFF_HP:       
-        m_Owner->SetHp(m_Owner->GetCurHp() + bonus);      
+    case BUFF_HP:
+        HpBuffEffect();
         break;
     case BUFF_SPEED:    
         m_Owner->SetSpeed(m_Owner->GetSpeed() + bonus);
@@ -119,4 +124,21 @@ void Buff::BuffErase(BuffObject* buff)
     {
         buff->mParticle->setVisible(false);
     }
+}
+
+void Buff::HpBuffEffect()
+{
+    m_HpParticle = ParticleSystemQuad::create("Images/Effect/particle_hp_buff.plist");
+    m_HpParticle->setPosition(Vec2::ZERO);
+    m_HpParticle->setScale(0.5f);
+    auto action1 = DelayTime::create(2.0f);
+    auto action2 = CallFunc::create(CC_CALLBACK_0(Buff::RemoveEffect, this));
+    auto action3 = Sequence::create(action1, action2, NULL);
+    m_HpParticle->runAction(action3);
+    m_Owner->GetCenterSprite()->addChild(m_HpParticle, 20);
+}
+
+void Buff::RemoveEffect()
+{
+    m_Owner->GetCenterSprite()->removeChild(m_HpParticle, true);
 }

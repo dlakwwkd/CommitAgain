@@ -19,6 +19,7 @@ protected:
     void            DamageUpBonusEnd(int bonus);
     void            ShieldBonus(int bonus);
     void            ShieldBonusEnd();
+    void            HpBonus(int bonus);
 
 protected:
     int             m_Duration;

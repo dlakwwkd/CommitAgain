@@ -180,6 +180,9 @@ void Unit::UseBuff(BuffTarget type)
     case BUFF_SHIELD:
         m_Buff->ShieldBuff();
         break;
+    case BUFF_HP:
+        m_Buff->HpBuff();
+        break;
     }
 }
 

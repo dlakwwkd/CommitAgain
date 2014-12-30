@@ -46,12 +46,16 @@ void Mob::Chasing()
 void Mob::Dead()
 {
     auto client = m_Owner->GetClient();
-    auto gamble = rand() % 10;
-    if (gamble == 0)
+    auto gamble = rand() % 20;
+    if (gamble < 3)
     {
         auto item = new Item(this, BUFF_SPEED); 
     }
-    else if (gamble == 1)
+    else if (gamble < 6)
+    {
+        auto item = new Item(this, BUFF_HP);
+    }
+    else if (gamble < 8)
     {
         auto item = new Item(this, BUFF_SHIELD);
     }
