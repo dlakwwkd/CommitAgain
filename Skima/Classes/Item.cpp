@@ -36,3 +36,13 @@ Item::Item(Vec2 createPos, float scale, BuffTarget buffType)
 Item::~Item()
 {
 }
+
+void Item::SetMoveMotionToCache()
+{
+
+}
+
+void Item::SetMoveMotionByDir()
+{
+
+}

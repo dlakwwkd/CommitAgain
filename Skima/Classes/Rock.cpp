@@ -14,3 +14,13 @@ Rock::Rock(int id, Vec2 pos)
 Rock::~Rock()
 {
 }
+
+void Rock::SetMoveMotionToCache()
+{
+
+}
+
+void Rock::SetMoveMotionByDir()
+{
+
+}

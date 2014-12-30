@@ -15,3 +15,13 @@ Lava::Lava(int id, Vec2 pos)
 Lava::~Lava()
 {
 }
+
+void Lava::SetMoveMotionToCache()
+{
+
+}
+
+void Lava::SetMoveMotionByDir()
+{
+
+}
