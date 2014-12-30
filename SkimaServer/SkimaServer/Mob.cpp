@@ -63,6 +63,10 @@ void Mob::Dead()
     {
         auto item = new Item(this, BUFF_DAMAGE);
     }
+    else if (gamble < 10)
+    {
+        auto item = new Item(this, BUFF_COOLTIME);
+    }
     else
     {
         return;

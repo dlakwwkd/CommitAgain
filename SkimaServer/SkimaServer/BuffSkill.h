@@ -16,6 +16,7 @@ public:
     void            ShieldDestroy();
     void            HpBuff();
     void            DamageBuff();
+    void            CooltimeBuff();
 
 protected:
     bool            m_ShieldOn = false;

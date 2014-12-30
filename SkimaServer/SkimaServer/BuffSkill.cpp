@@ -20,7 +20,7 @@ void BuffSkill::SpeedBuff()
 
 void BuffSkill::ShieldBuff()
 {
-    ShieldBonus(300);
+    ShieldBonus(100);
     m_ShieldOn = true;
 }
 
@@ -38,5 +38,10 @@ void BuffSkill::HpBuff()
 void BuffSkill::DamageBuff()
 {
     DamageBonus(2000, 1.5);
+}
+
+void BuffSkill::CooltimeBuff()
+{
+    CooltimeBonus(5000, 0.5f);
 }
 

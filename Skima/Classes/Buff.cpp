@@ -21,6 +21,10 @@ Buff::Buff(Hero* hero)
     BuffObject damage{ BUFF_DAMAGE, 0, nullptr, damageParticle };
     m_BuffList[BUFF_DAMAGE] = damage;
 
+    auto cooltimeParticle = ParticleSystemQuad::create("Images/Effect/particle_cooltime_buff.plist");
+    BuffObject cooltime{ BUFF_COOLTIME, 0, nullptr, cooltimeParticle };
+    m_BuffList[BUFF_COOLTIME] = cooltime;
+
     for (auto& buff : m_BuffList)
     {
         auto sprite = buff.second.mSprite;
@@ -50,6 +54,7 @@ Buff::Buff(Hero* hero)
 
 Buff::~Buff()
 {
+    
 }
 
 void Buff::BuffUse(BuffTarget type, float bonus)
@@ -73,7 +78,8 @@ void Buff::BuffUse(BuffTarget type, float bonus)
     case BUFF_SPEED:    
         m_Owner->SetSpeed(m_Owner->GetSpeed() + bonus);
         break;
-    case BUFF_SHIELD:   
+    case BUFF_COOLTIME: 
+        m_Owner->SetCooltimeBonus(m_Owner->GetCooltime() * bonus);
         break;
     }
 }
@@ -93,6 +99,9 @@ void Buff::BuffEnd(BuffTarget type, float bonus)
         break;
     case BUFF_SHIELD:
         buff->second.mBuffNum = 1;
+        break;
+    case BUFF_COOLTIME:
+        m_Owner->SetCooltimeBonus(m_Owner->GetCooltime() / bonus);
         break;
     }
 

@@ -19,6 +19,7 @@ public:
     void            SetPlayerID(int playerID){ m_PlayerID = playerID; }
     void            SetUnitID(int unitID){ m_UnitID = unitID; }
     void            SetSpeed(float speed) { m_Speed = speed; }
+    void            SetCooltimeBonus(float bonus){ m_CooltimeBonus = bonus; }
     void            SetTargetPos(Vec2 pos){ m_TargetPos = pos; }
     void            SetMoveState(MoveState* moveState) { m_MoveState = moveState; }
     void            SetUnitHiddenState(bool isHidden) { m_IsHidden = isHidden; }
@@ -30,6 +31,7 @@ public:
     float           GetMaxHp(){ return m_MaxHp; }
     float           GetCurHp(){ return m_CurHp; }
     float           GetSpeed(){ return m_Speed; }
+    float           GetCooltime(){ return m_CooltimeBonus; }
     bool            GetHeroHiddenState(){ return m_IsHidden; }
 
     Sprite*         GetCenterSprite(){ return m_CenterSprite; }
@@ -71,6 +73,7 @@ protected:
     float           m_MaxHp;
     float           m_CurHp;
     float           m_Speed;
+    float           m_CooltimeBonus = 1.0f;
     bool            m_InUse;
     bool            m_IsHidden;
     Vec2            m_TargetPos;

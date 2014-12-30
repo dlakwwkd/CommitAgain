@@ -188,6 +188,9 @@ void Unit::UseBuff(BuffTarget type)
     case BUFF_DAMAGE:
         m_Buff->DamageBuff();
         break;
+    case BUFF_COOLTIME:
+        m_Buff->CooltimeBuff();
+        break;
     }
 }
 

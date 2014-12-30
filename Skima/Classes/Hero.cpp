@@ -55,7 +55,7 @@ int Hero::GetSkillCoolTime(SkillKey key)
 {
     auto skill = GetSkill(key);
     if (!skill) return -1;
-    return skill->GetCoolTime();
+    return skill->GetCoolTime() * m_CooltimeBonus;
 }
 
 bool Hero::GetSkillCanUse(SkillKey key)

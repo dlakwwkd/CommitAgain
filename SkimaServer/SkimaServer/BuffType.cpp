@@ -139,8 +139,30 @@ void BuffType::DamageBonus(int duration, float bonus)
 void BuffType::DamageBonusEnd(float bonus)
 {
     auto hero = m_Owner->GetMyHero();
-    hero->SetDamageBonus(1.0f);
+    hero->SetDamageBonus(hero->GetDamageBonus() / bonus);
 
     auto client = m_Owner->GetClient();
-    client->BuffBroadCast(hero->GetUnitID(), (-bonus), BUFF_DAMAGE, false);
+    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_DAMAGE, false);
+}
+
+void BuffType::CooltimeBonus(int duration, float bonus)
+{
+    auto hero = m_Owner->GetMyHero();
+
+    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
+    auto func = std::bind(&BuffType::CooltimeBonumEnd, this, bonus);
+    auto timer = new Timer(m_Owner->GetRoomID());
+    timer->CallFuncOnce(duration, func);
+    game->PushTimer(timer);
+
+    auto client = m_Owner->GetClient();
+    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_COOLTIME, true);
+}
+
+void BuffType::CooltimeBonumEnd(float bonus)
+{
+    auto hero = m_Owner->GetMyHero();
+
+    auto client = m_Owner->GetClient();
+    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_COOLTIME, false);
 }
