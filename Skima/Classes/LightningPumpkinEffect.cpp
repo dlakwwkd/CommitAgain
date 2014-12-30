@@ -2,10 +2,10 @@
 #include "LightningPumpkinEffect.h"
 
 
-LightningPumpkinEffect::LightningPumpkinEffect(const Vec2& targetPos)
+LightningPumpkinEffect::LightningPumpkinEffect()
 {
-    m_Sprite->setOpacity(160);
-    SetPumpkinCache();
+//    m_Sprite = Sprite::create("Images/Unit/CloackingUnit.png");
+    
 //     m_MeteorParticle = ParticleSystemQuad::create("Images/Effect/meteorEtoW.plist");
 // 
 //     auto initPos = GenerateInitPos(targetPos);
@@ -29,7 +29,9 @@ LightningPumpkinEffect::~LightningPumpkinEffect()
 
 void LightningPumpkinEffect::CreateEffect(const Vec2& createPos)
 {
-    CreateSprite("Images/Unit/CloackingUnit.png", createPos, 1.5f, 3.0f);
+    CreateSprite("Images/Unit/CloackingUnit.png", createPos, 1.0f, 4.4f);
+    m_Sprite->setOpacity(140);
+    SetPumpkinCache();
     ShowPumpkinSprite();
 }
 
@@ -50,7 +52,7 @@ void LightningPumpkinEffect::SetPumpkinCache()
 
 void LightningPumpkinEffect::ShowPumpkinSprite()
 {
-    m_Sprite->runAction(MakeAnimationForever("LightningPumpkin_%02d.PNG", 6));
+    m_Sprite->runAction(MakeAnimationForever("LightningPumpkin_%02d.png", 3));
 }
 
 void LightningPumpkinEffect::SetParticleVisible(ParticleSystemQuad* particle)

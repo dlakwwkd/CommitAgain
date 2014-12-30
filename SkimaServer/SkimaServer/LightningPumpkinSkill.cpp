@@ -8,7 +8,7 @@
 #include "Timer.h"
 #include <time.h>
 
-#define MAX_CALL 10
+#define MAX_CALL 8
 #define REPEAT_TIME 8
 #define CALL_DELAY 400
 #define REPEAT_DELAY 100
@@ -37,8 +37,8 @@ void LightningPumpkinSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const
     auto hero = m_Owner->GetMyHero();
     hero->EndMove();
 
-    auto client = m_Owner->GetClient();
-    client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
+    //auto client = m_Owner->GetClient();
+    //client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
     m_PrevTaretPos = targetPos;
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());

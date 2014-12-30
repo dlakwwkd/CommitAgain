@@ -3,7 +3,7 @@
 class LightningPumpkinEffect : public EffectSpriteType
 {
 public:
-    LightningPumpkinEffect(const Vec2& targetPos);
+    LightningPumpkinEffect();
     virtual ~LightningPumpkinEffect();
 
     virtual void    	CreateEffect(const Vec2& createPos);

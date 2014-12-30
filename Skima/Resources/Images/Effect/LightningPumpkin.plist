@@ -4,88 +4,46 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>LightningPumpkin_01.PNG</key>
+			<key>LightningPumpkin_01.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{642,248},{319,252}}</string>
+				<string>{{644,0},{319,247}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{0,0},{319,252}}</string>
+				<string>{{0,0},{319,247}}</string>
 				<key>sourceSize</key>
-				<string>{327,257}</string>
+				<string>{319,247}</string>
 			</dict>
 
-			<key>LightningPumpkin_02.PNG</key>
+			<key>LightningPumpkin_02.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{642,0},{320,247}}</string>
+				<string>{{0,0},{322,247}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{8,17},{320,247}}</string>
+				<string>{{0,0},{322,247}}</string>
 				<key>sourceSize</key>
-				<string>{337,272}</string>
+				<string>{323,247}</string>
 			</dict>
 
 			<key>LightningPumpkin_03.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{321,248},{320,247}}</string>
+				<string>{{323,0},{320,247}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{8,17},{320,247}}</string>
-				<key>sourceSize</key>
-				<string>{337,272}</string>
-			</dict>
-
-			<key>LightningPumpkin_04.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{321,0},{320,247}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{8,17},{320,247}}</string>
-				<key>sourceSize</key>
-				<string>{337,272}</string>
-			</dict>
-
-			<key>LightningPumpkin_05.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,248},{320,247}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{8,17},{320,247}}</string>
-				<key>sourceSize</key>
-				<string>{337,272}</string>
-			</dict>
-
-			<key>LightningPumpkin_06.png</key>
-			<dict>
-				<key>frame</key>
 				<string>{{0,0},{320,247}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{8,17},{320,247}}</string>
 				<key>sourceSize</key>
-				<string>{337,272}</string>
+				<string>{325,247}</string>
 			</dict>
 
 		</dict>
@@ -95,7 +53,7 @@
 			<key>format</key>
 			<integer>2</integer>
 			<key>size</key>
-			<string>{1024,512}</string>
+			<string>{1024,256}</string>
 			<key>textureFileName</key>
 			<string>LightningPumpkin.png</string>
 			</dict>

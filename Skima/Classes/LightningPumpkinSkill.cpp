@@ -7,6 +7,7 @@
 #include "Hero.h"
 #include "SimpleAudioEngine.h"
 #include "LightningEffect.h"
+#include "LightningPumpkinEffect.h"
 using namespace CocosDenshion;
 
 LightningPumpkinSkill::LightningPumpkinSkill(Hero* hero)
