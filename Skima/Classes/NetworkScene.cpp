@@ -185,6 +185,7 @@ void NetworkScene::MakeRoomComplete(RoomInfo roomInfo)
     auto scene = RoomScene::createScene();
     auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
     layer->UpdateRoomInfo(roomInfo);
+    layer->PrintMenuByRoomType();
     Director::getInstance()->pushScene(scene);
 }
 
@@ -195,6 +196,7 @@ void NetworkScene::JoinRoomComplete(RoomInfo roomInfo)
     auto scene = RoomScene::createScene();
     auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
     layer->UpdateRoomInfo(roomInfo);
+    layer->PrintMenuByRoomType();
     Director::getInstance()->pushScene(scene);
 }
 

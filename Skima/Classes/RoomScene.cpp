@@ -69,31 +69,8 @@ bool RoomScene::init()
     this->addChild(faceTable);
 
     m_CurHero = HERO_MAGICIAN;
-    m_CurTeam = TEAM_A;
+    m_CurTeam = TEAM_1;
     m_HeroImageList[HERO_MAGICIAN]->setVisible(true);
-
-    /// 팀 선택 임시방편..
-    //////////////////////////////////////////////////////////////////////////
-    auto labelA = Label::createWithSystemFont("A 팀", "Thonburi", 50);
-    auto teamButtonA = MenuItemLabel::create(labelA, CC_CALLBACK_1(RoomScene::TeamSelectACallback, this));
-    teamButtonA->setPosition(Vec2(-80, 80));
-    auto labelB = Label::createWithSystemFont("B 팀", "Thonburi", 50);
-    auto teamButtonB = MenuItemLabel::create(labelB, CC_CALLBACK_1(RoomScene::TeamSelectBCallback, this));
-    teamButtonB->setPosition(Vec2(80, 80));
-
-    auto label3 = Label::createWithSystemFont("팀: A", "Thonburi", 50);
-    label3->setPosition(Vec2(100, winSize.height * 0.5f));
-    label3->setHorizontalAlignment(TextHAlignment::CENTER);
-    this->addChild(label3, 0, "TeamStateLabel");
-    //////////////////////////////////////////////////////////////////////////
-
-    auto readyButton = MenuItemImage::create("Images/Interface/GameReady.png", "Images/Interface/GameReady_Selected.png", CC_CALLBACK_1(RoomScene::GameStartCallback, this));
-    auto exitButton = MenuItemImage::create("Images/Interface/ExitGame.png", "Images/Interface/ExitGame_Selected.png", CC_CALLBACK_1(RoomScene::GameExitCallback, this));
-    exitButton->setPosition(Vec2(0, -80));
-    exitButton->setScale(1.3f);
-    auto buttonMenu = Menu::create(readyButton, exitButton, teamButtonA, teamButtonB, NULL); 
-    buttonMenu->setPosition(winSize.width * 7 / 8 , winSize.height * 3 / 8);
-    this->addChild(buttonMenu);
 
     auto waitLayer = WaitingLayer::create();
     waitLayer->setVisible(false);
@@ -126,8 +103,8 @@ void RoomScene::TeamSelectACallback(Ref* sender)
     auto label = GET_TEAM_STATE_LABEL;
     if (label == nullptr)
         return;
-    m_CurTeam = TEAM_A;
-    label->setString("팀: A");
+    m_CurTeam = TEAM_1;
+    label->setString("1 팀");
 }
 
 void RoomScene::TeamSelectBCallback(Ref* sender)
@@ -135,8 +112,8 @@ void RoomScene::TeamSelectBCallback(Ref* sender)
     auto label = GET_TEAM_STATE_LABEL;
     if (label == nullptr)
         return;
-    m_CurTeam = TEAM_B;
-    label->setString("팀: B");
+    m_CurTeam = TEAM_2;
+    label->setString("2 팀");
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -273,5 +250,58 @@ void RoomScene::ClickHero(HeroType heroType)
 {
     m_CurHero = heroType;
     ChangeSelectedHero(heroType);
+}
+
+void RoomScene::PrintMenuByRoomType()
+{
+    auto winSize = Director::getInstance()->getWinSize();
+
+    switch (m_RoomInfo.mRoomType)
+    {
+    case ROOM_NONE:
+        break;
+    case ROOM_MELEE:
+    {
+         auto roomTypeImage = Sprite::create("Images/Interface/MeleeModeButton.png");
+         roomTypeImage->setPosition(Vec2(winSize.width / 2, winSize.height * 7 / 8));
+         this->addChild(roomTypeImage);
+         auto readyButton = MenuItemImage::create("Images/Interface/GameReady.png", "Images/Interface/GameReady_Selected.png", CC_CALLBACK_1(RoomScene::GameStartCallback, this));
+         auto exitButton = MenuItemImage::create("Images/Interface/ExitGame.png", "Images/Interface/ExitGame_Selected.png", CC_CALLBACK_1(RoomScene::GameExitCallback, this));
+         exitButton->setPosition(Vec2(0, -80));
+         exitButton->setScale(1.3f);
+         auto buttonMenu = Menu::create(readyButton, exitButton, NULL);
+         buttonMenu->setPosition(winSize.width * 7 / 8, winSize.height * 3 / 8);
+         this->addChild(buttonMenu);
+         break;
+    }
+    case ROOM_TEAM:
+    {
+         auto roomTypeImage = Sprite::create("Images/Interface/TeamModeButton.png");
+         roomTypeImage->setPosition(Vec2(winSize.width / 2, winSize.height * 7 / 8));
+         this->addChild(roomTypeImage);
+         auto label1 = Label::createWithSystemFont("팀 1", "Thonburi", 50);
+         auto teamButton1 = MenuItemLabel::create(label1, CC_CALLBACK_1(RoomScene::TeamSelectACallback, this));
+         teamButton1->setPosition(Vec2(-80, 80));
+         auto label2 = Label::createWithSystemFont("팀 2", "Thonburi", 50);
+         auto teamButton2 = MenuItemLabel::create(label2, CC_CALLBACK_1(RoomScene::TeamSelectBCallback, this));
+         teamButton2->setPosition(Vec2(80, 80));
+         
+         auto label3 = Label::createWithSystemFont("팀: 1", "Thonburi", 50);
+         label3->setPosition(Vec2(100, winSize.height * 0.5f));
+         label3->setHorizontalAlignment(TextHAlignment::CENTER);
+         this->addChild(label3, 0, "TeamStateLabel");
+         
+         auto readyButton = MenuItemImage::create("Images/Interface/GameReady.png", "Images/Interface/GameReady_Selected.png", CC_CALLBACK_1(RoomScene::GameStartCallback, this));
+         auto exitButton = MenuItemImage::create("Images/Interface/ExitGame.png", "Images/Interface/ExitGame_Selected.png", CC_CALLBACK_1(RoomScene::GameExitCallback, this));
+         exitButton->setPosition(Vec2(0, -80));
+         exitButton->setScale(1.3f);
+         auto buttonMenu = Menu::create(readyButton, exitButton, teamButton1, teamButton2, NULL);
+         buttonMenu->setPosition(winSize.width * 7 / 8, winSize.height * 3 / 8);
+         this->addChild(buttonMenu);
+         break;
+    }
+    default:
+        break;
+    }
 }
 

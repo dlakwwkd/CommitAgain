@@ -15,6 +15,7 @@ public:
 
     void SetRoomID(int id) { m_RoomInfo.mRoomNum = id; };
     void UpdateRoomInfo(RoomInfo roomInfo);
+    void PrintMenuByRoomType();
     void TeamSelectACallback(Ref* sender);
     void TeamSelectBCallback(Ref* sender);
     void GameStartCallback(Ref* sender);

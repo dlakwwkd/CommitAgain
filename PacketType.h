@@ -8,9 +8,15 @@
 enum Team
 {
     TEAM_N,
-    TEAM_A,
-    TEAM_B,
-    TEAM_C
+    TEAM_C,
+    TEAM_1,
+    TEAM_2,
+    TEAM_3,
+    TEAM_4,
+    TEAM_5,
+    TEAM_6,
+    TEAM_7,
+    TEAM_8,
 };
 enum UnitType
 {
@@ -31,8 +37,8 @@ enum HeroType
 enum RoomType
 {
     ROOM_NONE,
-    ROOM_BATTLE,
-    ROOM_BOSS,
+    ROOM_MELEE,
+    ROOM_TEAM,
 };
 enum MissileType
 {

@@ -199,7 +199,8 @@ void GameManager::CreateGame(int gameId)
     }
     Game* game = new Game(room->second);
     m_GameList[gameId] = game;
-    game->InitGame();
+    auto roomInfo = room->second->GetRoomInfo();
+    game->InitGame(roomInfo.mRoomType);
     room->second->InitReady();
 }
 

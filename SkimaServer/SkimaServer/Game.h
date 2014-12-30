@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "../../PacketType.h"
 class Player;
 class MapObject;
 class GameRoom;
@@ -27,7 +28,7 @@ public:
     void                PushTimer(Timer* timer);
     void                PopTimer(int timerId);
 
-    void                InitGame();
+    void                InitGame(RoomType roomType);
     void                StartGame();
 	void				EndGame();
 

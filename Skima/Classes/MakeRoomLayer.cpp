@@ -4,8 +4,8 @@
 #include "TcpClient.h"
 
 #define GET_MAXPLAYER_LABEL dynamic_cast<Label*>(this->getChildByName("MakeRoomFrame")->getChildByName("MaxPlayerNumLabel"))
-#define GET_VSMODE_SPRITE   dynamic_cast<Sprite*>(this->getChildByName("MakeRoomFrame")->getChildByName("VSSelect"))
-#define GET_BOSSMODE_SPRITE dynamic_cast<Sprite*>(this->getChildByName("MakeRoomFrame")->getChildByName("BossSelect"))
+#define GET_VSMODE_SPRITE   dynamic_cast<Sprite*>(this->getChildByName("MakeRoomFrame")->getChildByName("MeleeSelect"))
+#define GET_BOSSMODE_SPRITE dynamic_cast<Sprite*>(this->getChildByName("MakeRoomFrame")->getChildByName("TeamSelect"))
 
 bool MakeRoomLayer::init()
 {
@@ -13,7 +13,7 @@ bool MakeRoomLayer::init()
         return false;
 
     auto winSize = Director::getInstance()->getWinSize();
-
+    m_MakeRoomInfo.mRoomType = ROOM_MELEE;
     m_MakeRoomInfo.mMaxPlayerNum = 2;
 
     auto _bg = MenuItemImage::create("Images/Background/BlackBG.png", "Images/Background/BlackBG.png");
@@ -38,20 +38,20 @@ bool MakeRoomLayer::init()
     menu1->alignItemsHorizontallyWithPadding(100.0f);
     frame->addChild(menu1);
 
-    auto VSMode = MenuItemImage::create("Images/Interface/VSMode.png", "Images/Interface/VSMode.png",
-        CC_CALLBACK_0(MakeRoomLayer::ChangeRoomMode, this, ROOM_BATTLE));
-    auto BossMode = MenuItemImage::create("Images/Interface/BossMode.png", "Images/Interface/BossMode.png",
-        CC_CALLBACK_0(MakeRoomLayer::ChangeRoomMode, this, ROOM_BOSS));
-    auto VSModeSelect = Sprite::create("Images/Interface/RoomModeSelect.png");
-    VSModeSelect->setVisible(false);
-    VSModeSelect->setPosition(Vec2(280.0f, 230.0f));
-    auto BossModeSelect = Sprite::create("Images/Interface/RoomModeSelect.png");
-    BossModeSelect->setVisible(false);
-    BossModeSelect->setPosition(Vec2(620.0f, 230.0f));
-    frame->addChild(VSModeSelect, 1, "VSSelect");
-    frame->addChild(BossModeSelect, 1, "BossSelect");
+    auto MeleeMode = MenuItemImage::create("Images/Interface/MeleeModeButton.png", "Images/Interface/MeleeModeButton.png",
+        CC_CALLBACK_0(MakeRoomLayer::ChangeRoomMode, this, ROOM_MELEE));
+    auto TeamMode = MenuItemImage::create("Images/Interface/TeamModeButton.png", "Images/Interface/TeamModeButton.png",
+        CC_CALLBACK_0(MakeRoomLayer::ChangeRoomMode, this, ROOM_TEAM));
+    auto MeleeModeSelect = Sprite::create("Images/Interface/RoomModeSelect.png");
+    MeleeModeSelect->setVisible(true);
+    MeleeModeSelect->setPosition(Vec2(280.0f, 230.0f));
+    auto TeamModeSelect = Sprite::create("Images/Interface/RoomModeSelect.png");
+    TeamModeSelect->setVisible(false);
+    TeamModeSelect->setPosition(Vec2(620.0f, 230.0f));
+    frame->addChild(MeleeModeSelect, 1, "MeleeSelect");
+    frame->addChild(TeamModeSelect, 1, "TeamSelect");
 
-    auto menu2 = Menu::create(VSMode, BossMode, NULL);
+    auto menu2 = Menu::create(MeleeMode, TeamMode, NULL);
     menu2->setPosition(Vec2(450.0f, 230.0f));
     menu2->alignItemsHorizontallyWithPadding(100.0f);
     frame->addChild(menu2);
@@ -108,11 +108,11 @@ void MakeRoomLayer::ChangeRoomMode(RoomType roomMode)
         GET_VSMODE_SPRITE->setVisible(false);
         GET_BOSSMODE_SPRITE->setVisible(false);
         break;
-    case ROOM_BATTLE:
+    case ROOM_MELEE:
         GET_VSMODE_SPRITE->setVisible(true);
         GET_BOSSMODE_SPRITE->setVisible(false);
         break;
-    case ROOM_BOSS:
+    case ROOM_TEAM:
         GET_VSMODE_SPRITE->setVisible(false);
         GET_BOSSMODE_SPRITE->setVisible(true);
         break;

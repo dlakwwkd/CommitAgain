@@ -66,25 +66,38 @@ void Game::PopTimer(int timerId)
     }
 }
 
-void Game::InitGame()
+void Game::InitGame(RoomType roomType)
 {
     // 주의: 여기서부턴 하드코딩의 구간입니다.^^
     ClientSession* temp = nullptr;
     int roomId = -1;
-    float i = Reduce(-100.0f);
+    float i = 150.0f;
+    float j = -150.0f;
+    int num = 1;
     b2Vec2 createPos = { 0, 0 };
     for (auto& player : m_PlayerList)
     {
-        if (i < 0.0f)
+        if (roomType == ROOM_MELEE)
+        {
+            player.second->SetTeam(Team(++num));
+        }
+
+        if (num <= 2)
         {
             temp = player.second->GetClient();
         }
-        i += Reduce(100.0f);
         roomId = player.second->GetRoomID();
+        //Team에 따라 생성위치 설정
         switch (player.second->GetTeam())
         {
-        case TEAM_A:    createPos = { MAX_MAP_SIZE_X / 4, MAX_MAP_SIZE_Y / 2 + i };                         break;
-        case TEAM_B:    createPos = { MAX_MAP_SIZE_X / 4 + MAX_MAP_SIZE_X / 2, MAX_MAP_SIZE_Y / 2 + i };    break;
+        case TEAM_1:    createPos = { MAX_MAP_SIZE_X / 4, MAX_MAP_SIZE_Y / 6 + i };                             i += 150.0f;   break;
+        case TEAM_2:    createPos = { MAX_MAP_SIZE_X / 4 + MAX_MAP_SIZE_X / 2, MAX_MAP_SIZE_Y * 5 / 6 + j };    j -= 150.0f;   break;
+        case TEAM_3:    createPos = { MAX_MAP_SIZE_X / 4, MAX_MAP_SIZE_Y / 6 + i };                             i += 150.0f;   break;
+        case TEAM_4:    createPos = { MAX_MAP_SIZE_X / 4 + MAX_MAP_SIZE_X / 2, MAX_MAP_SIZE_Y * 5 / 6 + j };    j -= 150.0f;   break;
+        case TEAM_5:    createPos = { MAX_MAP_SIZE_X / 4, MAX_MAP_SIZE_Y / 6 + i };                             i += 150.0f;   break;
+        case TEAM_6:    createPos = { MAX_MAP_SIZE_X / 4 + MAX_MAP_SIZE_X / 2, MAX_MAP_SIZE_Y * 5 / 6 + j };    j -= 150.0f;   break;
+        case TEAM_7:    createPos = { MAX_MAP_SIZE_X / 4, MAX_MAP_SIZE_Y / 6 + i };                             i += 150.0f;   break;
+        case TEAM_8:    createPos = { MAX_MAP_SIZE_X / 4 + MAX_MAP_SIZE_X / 2, MAX_MAP_SIZE_Y * 5 / 6 + j };    j -= 150.0f;   break;
         default:
             break;
         }
