@@ -11,7 +11,7 @@ MeteorSkill::MeteorSkill(Player* owner)
 {
     m_Owner = owner;
     m_Damage = 500;
-    m_Scale = Reduce(100.0f);
+    m_Scale = Reduce(130.0f);
 }
 
 

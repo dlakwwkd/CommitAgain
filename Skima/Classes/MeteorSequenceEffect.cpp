@@ -4,17 +4,17 @@
 
 MeteorSequenceEffect::MeteorSequenceEffect(const Vec2& targetPos)
 {
-    m_MeteorParticle = ParticleSystemQuad::create("Images/Effect/meteorEtoW.plist");
+    m_MeteorParticle = ParticleSystemQuad::create("Images/Effect/meteor.plist");
 
     auto initPos = GenerateInitPos(targetPos);
     m_MeteorParticle->setPosition(initPos);
-    m_MeteorParticle->setScale(1.0f);
+    m_MeteorParticle->setScale(0.8f);
     m_MeteorParticle->setVisible(false);
     GET_OBJECT_LAYER->addChild(m_MeteorParticle, 20);
 
-    auto action1 = DelayTime::create(1.0f);
+    auto action1 = DelayTime::create(0.7f);
     auto action2 = CallFunc::create(CC_CALLBACK_0(MeteorSequenceEffect::SetParticleVisible, this,m_MeteorParticle));
-    auto action3 = MoveTo::create(0.2f,targetPos);
+    auto action3 = MoveTo::create(0.5f,targetPos);
     auto action4 = CallFunc::create(CC_CALLBACK_0(MeteorSequenceEffect::ExtinctMeteorParticle, this));
     auto action5 = CallFunc::create(CC_CALLBACK_0(MeteorSequenceEffect::ShowExplodeSprite, this));
     auto action6 = Sequence::create(action1, action2,action3,action4,action5, NULL);
@@ -27,7 +27,7 @@ MeteorSequenceEffect::~MeteorSequenceEffect()
 
 void MeteorSequenceEffect::CreateEffect(const Vec2& createPos)
 {
-     CreateSprite("Images/Unit/CloackingUnit.png", createPos, 1.5f,1.95f);
+     CreateSprite("Images/Unit/CloackingUnit.png", createPos, 2.0f,2.05f);
      SetExplodeCache();
 }
 

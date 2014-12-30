@@ -13,10 +13,10 @@ using namespace CocosDenshion;
 MeteorSkill::MeteorSkill(Hero* hero)
 {
     m_Owner = hero;
-    m_CoolTime = 10;
+    m_CoolTime = 6;
     m_CanUse = true;
     m_CautionSprite = Sprite::create("Images/Effect/MeteorCaution.png");
-    m_CautionSprite->setScale(0.8f);
+    m_CautionSprite->setScale(1.5f);
     m_CautionSprite->setOpacity(0);
     GET_OBJECT_LAYER->addChild(m_CautionSprite, 14);
     CreateSprite("Images/Interface/Meteor_icon.png");
@@ -35,9 +35,9 @@ void MeteorSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
     SimpleAudioEngine::getInstance()->playEffect("Music/Effect/meteor_shoot.mp3");
 
 
-    auto fadeOut1 = FadeOut::create(0.45f);
-    auto fadeIn = FadeIn::create(0.15f);
-    auto fadeOut2 = FadeOut::create(0.4f); //total 1.2f = caution 1.0f + particle 0.2f
+    auto fadeOut1 = FadeOut::create(0.3f);
+    auto fadeIn = FadeIn::create(0.2f);
+    auto fadeOut2 = FadeOut::create(0.2f); //total 1.2
     auto fade_seq = Sequence::create(fadeOut1, fadeIn, fadeOut2, NULL);
     m_CautionSprite->runAction(fade_seq);
 }
@@ -49,6 +49,7 @@ void MeteorSkill::SkillReady()
 
     auto uiLayer = GET_UI_LAYER;
     uiLayer->CursorChange(CURSOR_SPLASH);
+    uiLayer->GetCurrentCursor()->setScale(2.0f);
     uiLayer->GetCurrentCursor()->setPosition(GET_IM->GetMouseLocation());
 }
 
