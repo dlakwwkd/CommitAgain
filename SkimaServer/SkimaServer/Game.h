@@ -32,6 +32,7 @@ public:
     void                StartGame();
 	void				EndGame();
 
+    const PlayerList&   GetPlayerList(){ return m_PlayerList; }
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int playerId);
 
