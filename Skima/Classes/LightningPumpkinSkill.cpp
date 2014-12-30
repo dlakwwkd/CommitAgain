@@ -14,7 +14,7 @@ LightningPumpkinSkill::LightningPumpkinSkill(Hero* hero)
     m_Owner = hero;
     m_CoolTime = 3;
     m_CanUse = true;
-    CreateSprite("Images/Interface/lightning.jpg", Vec2(0.103f, 0.135f), Vec2(0.5, 0.5));
+    CreateSprite("Images/Interface/lightning.jpg");
 }
 
 

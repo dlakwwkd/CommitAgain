@@ -7,7 +7,7 @@ FireballSkill::FireballSkill(Hero* hero)
     m_Owner = hero;
     m_CoolTime = 2;
 
-    CreateSprite("Images/Interface/fireball.jpg", Vec2(0.03f, 0.033f), Vec2(0.5, 0.5));
+    CreateSprite("Images/Interface/fireball.jpg");
 }
 
 

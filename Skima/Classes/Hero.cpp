@@ -219,22 +219,22 @@ void Hero::SetSkillSprite()
 {
     if (GetSkill(SKILL_Q) && GetSkill(SKILL_Q)->GetSprite())
     {
-        GetSkill(SKILL_Q)->GetSprite()->setPosition(Vec2(442, 38));
+        GetSkill(SKILL_Q)->GetSprite()->setPosition(Vec2(MAX_MAP_SIZE_X / 2 - 128, 73));
         GET_UI_LAYER->addChild(GetSkill(SKILL_Q)->GetSprite());
     }
     if (GetSkill(SKILL_W) && GetSkill(SKILL_W)->GetSprite())
     {
-        GetSkill(SKILL_W)->GetSprite()->setPosition(Vec2(518, 38));
+        GetSkill(SKILL_W)->GetSprite()->setPosition(Vec2(MAX_MAP_SIZE_X / 2 - 45, 73));
         GET_UI_LAYER->addChild(GetSkill(SKILL_W)->GetSprite());
     }
     if (GetSkill(SKILL_E) && GetSkill(SKILL_E)->GetSprite())
     {
-        GetSkill(SKILL_E)->GetSprite()->setPosition(Vec2(595, 38));
+        GetSkill(SKILL_E)->GetSprite()->setPosition(Vec2(MAX_MAP_SIZE_X / 2 + 38, 72));
         GET_UI_LAYER->addChild(GetSkill(SKILL_E)->GetSprite());
     }
     if (GetSkill(SKILL_R) && GetSkill(SKILL_R)->GetSprite())
     {
-        GetSkill(SKILL_R)->GetSprite()->setPosition(Vec2(673, 38));
+        GetSkill(SKILL_R)->GetSprite()->setPosition(Vec2(MAX_MAP_SIZE_X / 2 + 119, 72));
         GET_UI_LAYER->addChild(GetSkill(SKILL_R)->GetSprite());
     }
 }

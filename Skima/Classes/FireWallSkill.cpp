@@ -12,7 +12,7 @@ FireWallSkill::FireWallSkill(Hero* hero)
     m_Owner = hero;
     m_CoolTime = 12;
     m_CanUse = true;
-    CreateSprite("Images/Interface/firewall.jpg", Vec2(0.045f, 0.033f), Vec2(0.5, 0.5));
+    CreateSprite("Images/Interface/firewall.jpg");
 }
 
 FireWallSkill::~FireWallSkill()

@@ -14,7 +14,7 @@ TeleportSkill::TeleportSkill(Hero* hero)
     m_CoolTime = 3;
     m_CanUse = true;
 
-    CreateSprite("Images/Interface/teleport_icon.png", Vec2(0.80f, 0.80f), Vec2(0.5, 0.5));
+    CreateSprite("Images/Interface/teleport_icon.png");
 }
 
 

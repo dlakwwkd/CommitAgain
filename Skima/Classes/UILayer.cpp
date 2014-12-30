@@ -4,9 +4,6 @@
 #include "PacketType.h"
 #include <crtdbg.h>
 
-#define COOLTIME_BOX_X 0.03f
-#define COOLTIME_BOX_Y 0.033f
-
 bool UILayer::init()
 {
     if (!Layer::init())
@@ -17,10 +14,11 @@ bool UILayer::init()
     auto menuItem = MenuItemImage::create("Images/Interface/Exit.png","Images/Interface/Exit_selected.png", CC_CALLBACK_1(UILayer::ClickExit, this));
     menuItem->setScale(0.3f, 0.3f);
     auto menu = Menu::create(menuItem, NULL);
-    auto hpLabel = Label::createWithSystemFont("\0","Thonburi",20);
     menu->setPosition(winSize.width - 40, 12);
-    hpLabel->setPosition(Vec2(590, 105));
     this->addChild(menu);
+
+    auto hpLabel = Label::createWithSystemFont("\0", "Thonburi", 23);
+    hpLabel->setPosition(Vec2(MAX_MAP_SIZE_X / 2, 143));
     this->addChild(hpLabel, 11, "HpLabel");
 
     auto sprite = [](const char* image, Vec2 pos, Vec2 scale, Vec2 anchor)
@@ -31,20 +29,20 @@ bool UILayer::init()
         sprite->setAnchorPoint(anchor);
         return sprite;
     };
-    this->addChild(sprite("Images/Interface/interface.png",       Vec2(400, 95), Vec2(1.03f, 1.030f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/Interface/HpBar_interface.png", Vec2(400, 88), Vec2(0.68f, 1.030f), Vec2(0.0, 0.0)), 10, "HpBar");
+    this->addChild(sprite("Images/Interface/interface.png",       Vec2(MAX_MAP_SIZE_X / 2, 100), Vec2(1.1f, 1.1f), Vec2(0.5, 0.5)));
+    this->addChild(sprite("Images/Interface/HpBar_interface.png", Vec2(MAX_MAP_SIZE_X / 2 - 204, 141), Vec2(0.72f, 1.1f), Vec2(0.0, 0.5)), 10, "HpBar");
 
     auto cooltimeBox = [&](SkillKey key, Vec2 pos)
     {
-        m_CooltimeBox[key] = sprite("Images/Interface/black.jpg", pos, Vec2(COOLTIME_BOX_X, COOLTIME_BOX_Y), Vec2(0.0, 0.0));
+        m_CooltimeBox[key] = sprite("Images/Interface/black.jpg", pos, Vec2(0.5, 0.5), Vec2(0.0, 0.0));
         m_CooltimeBox[key]->setOpacity(200);
         m_CooltimeBox[key]->setZOrder(10);
         return m_CooltimeBox[key];
     };
-    this->addChild(cooltimeBox(SKILL_Q, Vec2(413, 8)));
-    this->addChild(cooltimeBox(SKILL_W, Vec2(490, 8)));
-    this->addChild(cooltimeBox(SKILL_E, Vec2(567, 8)));
-    this->addChild(cooltimeBox(SKILL_R, Vec2(645, 8)));
+    this->addChild(cooltimeBox(SKILL_Q, Vec2(MAX_MAP_SIZE_X / 2 - 150, 48)));
+    this->addChild(cooltimeBox(SKILL_W, Vec2(MAX_MAP_SIZE_X / 2 - 70, 48)));
+    this->addChild(cooltimeBox(SKILL_E, Vec2(MAX_MAP_SIZE_X / 2 + 13, 48)));
+    this->addChild(cooltimeBox(SKILL_R, Vec2(MAX_MAP_SIZE_X / 2 + 92, 48)));
     
 	auto cursor = [&](CursorMode mode, const char* image, Vec2 scale, Vec2 anchor)
     {
@@ -85,7 +83,7 @@ void UILayer::HideCooltimeBox(SkillKey key)
         return;
     }
     m_CooltimeBox[key]->setVisible(false);
-    m_CooltimeBox[key]->setScale(COOLTIME_BOX_X, COOLTIME_BOX_Y);
+    m_CooltimeBox[key]->setScale(0.5, 0.5);
 }
 
 void UILayer::ClickExit(Ref* sender)
@@ -104,7 +102,7 @@ void UILayer::UpdateHpBar(float curHp, float maxHp)
     auto hpLabel = dynamic_cast<Label*>(this->getChildByName("HpLabel"));
     hpLabel->setString(currentHp);
     auto hpBar = dynamic_cast<Sprite*>(this->getChildByName("HpBar"));
-    hpBar->setScaleX(0.68f*(curHp / maxHp));
+    hpBar->setScaleX(0.72f*(curHp / maxHp));
 }
 
 Sprite* UILayer::GetCooltimeBox(SkillKey key)

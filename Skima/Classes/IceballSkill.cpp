@@ -7,7 +7,7 @@ IceballSkill::IceballSkill(Hero* hero)
     m_Owner = hero;
     m_CoolTime = 2;
 
-    CreateSprite("Images/Interface/iceball.jpg", Vec2(0.55f, 0.800f), Vec2(0.5, 0.5));
+    CreateSprite("Images/Interface/iceball.jpg");
 }
 
 IceballSkill::~IceballSkill()

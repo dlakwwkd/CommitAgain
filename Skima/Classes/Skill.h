@@ -24,7 +24,7 @@ public:
     void            SetHeroPerforming(bool isPerforming);
     Direction       GenerateSkillDirection(Vec2 targetPos, Vec2 curPos);
 
-    void            CreateSprite(const char* image, Vec2 scale, Vec2 anchor);
+    void            CreateSprite(const char* image);
 
 protected:
     Hero*			m_Owner = nullptr;
