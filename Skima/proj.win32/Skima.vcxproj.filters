@@ -285,6 +285,9 @@
     <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp">
       <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\FireWallParticleEffect.cpp">
+      <Filter>Game\Component\Effect\EffectParticleType</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -490,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\LightningPumpkinEffect.h">
       <Filter>Game\Component\Effect\EffectSpriteType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FireWallParticleEffect.h">
+      <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

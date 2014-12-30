@@ -148,6 +148,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\FireballSkill.cpp" />
     <ClCompile Include="..\Classes\FireEffect.cpp" />
     <ClCompile Include="..\Classes\FireWallEffect.cpp" />
+    <ClCompile Include="..\Classes\FireWallParticleEffect.cpp" />
     <ClCompile Include="..\Classes\FireWallSkill.cpp" />
     <ClCompile Include="..\Classes\FlashSkill.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
@@ -220,6 +221,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\FireballSkill.h" />
     <ClInclude Include="..\Classes\FireEffect.h" />
     <ClInclude Include="..\Classes\FireWallEffect.h" />
+    <ClInclude Include="..\Classes\FireWallParticleEffect.h" />
     <ClInclude Include="..\Classes\FireWallSkill.h" />
     <ClInclude Include="..\Classes\FlashSkill.h" />
     <ClInclude Include="..\Classes\GameManager.h" />

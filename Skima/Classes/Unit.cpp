@@ -260,7 +260,7 @@ Animate* Unit::MakeUnitAnimationOnce(const char* format, int size)
     if (size < 5)
         animation->setDelayPerUnit(0.3f);
     else
-        animation->setDelayPerUnit(0.3f);
+        animation->setDelayPerUnit(0.2f);
    
 
     for (int i = 1; i < size + 1; ++i)

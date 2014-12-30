@@ -6,6 +6,7 @@
 #include "Macros.h"
 #include "FireEffect.h"
 #include "SimpleAudioEngine.h"
+#include "FireWallParticleEffect.h"
 
 using namespace CocosDenshion;
 
@@ -25,7 +26,7 @@ FireWallSkill::~FireWallSkill()
 void FireWallSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
     SimpleAudioEngine::getInstance()->playEffect("Music/Effect/firewall.mp3");
-     auto effect = new FireEffect();
+    auto effect = new FireWallParticleEffect();
      //auto direction = GenerateWallDirection(heroPos, targetPos);
      effect->CreateEffect(targetPos);
 }

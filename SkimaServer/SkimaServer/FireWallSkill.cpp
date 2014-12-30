@@ -7,10 +7,10 @@
 #include "Unit.h"
 #include "Timer.h"
 
-#define MAX_CALL 4
-#define REPEAT_TIME 8
-#define CALL_DELAY 100
-#define REPEAT_DELAY 100
+#define MAX_CALL 5
+#define REPEAT_TIME 15
+#define CALL_DELAY 200
+#define REPEAT_DELAY 200
 
 FireWallSkill::FireWallSkill(Player* owner)
 {
