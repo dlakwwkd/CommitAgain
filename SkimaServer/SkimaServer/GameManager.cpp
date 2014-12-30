@@ -311,6 +311,10 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
         printf(" - FieldDamage() Faild ! : invalid gameID \n");
         return;
     }
+    if (caster->GetTeam() != TEAM_C)
+    {
+        damage *= caster->GetMyHero()->GetDamageBonus();
+    }
     for (auto& player : game->second->m_PlayerList)
     {
         if (player.second->GetTeam() == caster->GetTeam())
@@ -389,7 +393,10 @@ void GameManager::WallFieldDamage(Player* caster, b2PolygonShape* wallShape, int
         printf(" - WallFieldDamage() Faild ! : invalid gameID \n");
         return;
     }
-    
+    if (caster->GetTeam() != TEAM_C)
+    {
+        damage *= caster->GetMyHero()->GetDamageBonus();
+    }
     for (auto& player : game->second->m_PlayerList)
     {
         if (player.second->GetTeam() == caster->GetTeam())

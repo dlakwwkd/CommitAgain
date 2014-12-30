@@ -8,6 +8,8 @@
 #include "Map.h"
 #include "BuffSkill.h"
 #include "Item.h"
+#include "Missile.h"
+
 
 Unit::Unit()
 {
@@ -206,10 +208,7 @@ void Unit::Crashed(Unit* contactUnit)
     switch (GET_MAIN_TYPE(m_UnitID))
     {
     case UNIT_MISSILE:
-        m_IsDead = true;
-        CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
-        printf(" - CallFuncAfter: DeadUnit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(m_UnitID), GET_SIDE_TYPE(m_UnitID), INIT_TYPE(m_UnitID));
-        EndCrash();
+        dynamic_cast<Missile*>(this)->MissileExplosion();
         return;
     }
     auto client = m_Owner->GetClient();

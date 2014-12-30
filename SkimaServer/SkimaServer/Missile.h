@@ -10,7 +10,8 @@ public:
 	void SetRange(float range) { m_Range = range; }
 	void SetLivetime(float livetime) { m_Livetime = livetime; }
 
-	void MissileShoot();
+    void MissileShoot();
+    void MissileExplosion();
 
 private:
 	float m_Range		= 0;

@@ -34,7 +34,7 @@ void SwipeSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& ta
     hero->SetUnitHiddenState(false);
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto func = std::bind(&SwipeSkill::FieldDamage, this, attackPos, Reduce(80.0f), m_Damage* hero->GetDamageBonus());
+    auto func = std::bind(&SwipeSkill::FieldDamage, this, attackPos, Reduce(80.0f), m_Damage);
     auto timer = new Timer(m_Owner->GetRoomID());
     timer->RepeatTimer(300, 3, func);
     game->PushTimer(timer);

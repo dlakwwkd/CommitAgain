@@ -32,3 +32,21 @@ void Missile::MissileShoot()
 
     m_Owner->GetClient()->ShootBroadCast(m_Owner->GetPlayerID(), m_UnitID, currentPos, m_TargetPos);
 }
+
+void Missile::MissileExplosion()
+{
+    auto curPos = m_Body->GetPosition();
+    auto scale = Reduce(100.0f);
+    Rect range;
+    range.m_Top = curPos.y + scale;
+    range.m_Bottom = curPos.y - scale;
+    range.m_Left = curPos.x - scale;
+    range.m_Right = curPos.x + scale;
+
+    GGameManager->FieldDamage(m_Owner, &range, m_Damage);
+
+    m_IsDead = true;
+    CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this);
+    printf(" - CallFuncAfter: DeadUnit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(m_UnitID), GET_SIDE_TYPE(m_UnitID), INIT_TYPE(m_UnitID));
+    EndCrash();
+}
