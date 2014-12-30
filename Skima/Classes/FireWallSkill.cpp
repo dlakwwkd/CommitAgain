@@ -10,7 +10,7 @@
 FireWallSkill::FireWallSkill(Hero* hero)
 {
     m_Owner = hero;
-    m_CoolTime = 5;
+    m_CoolTime = 10;
     m_CanUse = true;
 }
 
