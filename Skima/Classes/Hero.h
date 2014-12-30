@@ -28,6 +28,7 @@ public:
 
     bool            GetHeroPerforming(){ return m_IsPerforming; }
     void            SetHeroPerforming(bool performing) { m_IsPerforming = performing; }
+    void            SetSkillSprite();
 
 
     virtual void    SetMoveMotionToCache()				= 0;
@@ -41,6 +42,7 @@ protected:
     Animate*        MakeAnimationOnce(const char* format, int size);
 //     Direction       CalcMoveDirection(Vec2 displacement);
 //     Direction       CalcSkillDirection(Vec2 displacement);
+
 
 protected:
     std::map<SkillKey, Skill*>  m_SkillList;

@@ -18,6 +18,7 @@ HideSkill::HideSkill(Hero* hero)
     m_CoolTime = 9;
     m_HiddenTime = 5;
     m_CanUse = true;
+    CreateSprite("Images/Interface/hide.jpg", Vec2(0.12f, 0.13f), Vec2(0.5, 0.5));
 }
 
 

@@ -14,6 +14,7 @@ ShortDashSkill::ShortDashSkill(Hero* hero)
     m_CoolTime = 3;
     m_CanUse = true;
     m_DashCount = 2;
+    CreateSprite("Images/Interface/dash.jpg", Vec2(0.055f, 0.065f), Vec2(0.5, 0.5));
 }
 
 

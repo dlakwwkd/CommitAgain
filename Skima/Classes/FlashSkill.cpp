@@ -13,6 +13,7 @@ FlashSkill::FlashSkill(Hero* hero)
     m_Owner = hero;
     m_CoolTime = 3;
     m_CanUse = true;
+    CreateSprite("Images/Interface/flash.png", Vec2(0.2f, 0.2f), Vec2(0.5, 0.5));
 }
 
 

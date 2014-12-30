@@ -2,6 +2,7 @@
 #include "Hero.h"
 #include "Skill.h"
 #include "Buff.h"
+#include "UILayer.h"
 
 
 Hero::Hero()
@@ -213,5 +214,29 @@ Animate* Hero::MakeAnimationOnce(const char* format, int size)
 //     }
 //     return Direction::SE;
 // }
+
+void Hero::SetSkillSprite()
+{
+    if (GetSkill(SKILL_Q) && GetSkill(SKILL_Q)->GetSprite())
+    {
+        GetSkill(SKILL_Q)->GetSprite()->setPosition(Vec2(442, 38));
+        GET_UI_LAYER->addChild(GetSkill(SKILL_Q)->GetSprite());
+    }
+    if (GetSkill(SKILL_W) && GetSkill(SKILL_W)->GetSprite())
+    {
+        GetSkill(SKILL_W)->GetSprite()->setPosition(Vec2(518, 38));
+        GET_UI_LAYER->addChild(GetSkill(SKILL_W)->GetSprite());
+    }
+    if (GetSkill(SKILL_E) && GetSkill(SKILL_E)->GetSprite())
+    {
+        GetSkill(SKILL_E)->GetSprite()->setPosition(Vec2(595, 38));
+        GET_UI_LAYER->addChild(GetSkill(SKILL_E)->GetSprite());
+    }
+    if (GetSkill(SKILL_R) && GetSkill(SKILL_R)->GetSprite())
+    {
+        GetSkill(SKILL_R)->GetSprite()->setPosition(Vec2(673, 38));
+        GET_UI_LAYER->addChild(GetSkill(SKILL_R)->GetSprite());
+    }
+}
 
 

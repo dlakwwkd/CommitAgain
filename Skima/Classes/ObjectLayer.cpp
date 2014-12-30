@@ -66,6 +66,7 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location)
         m_Hero = unit;
         unit->SetMyHpBar();
         GET_UI_LAYER->UpdateHpBar(unit->GetCurHp(), unit->GetMaxHp());
+        unit->SetSkillSprite();
     }
     else
     {

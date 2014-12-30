@@ -33,21 +33,18 @@ bool UILayer::init()
     };
     this->addChild(sprite("Images/Interface/interface.png",       Vec2(400, 95), Vec2(1.03f, 1.030f), Vec2(0.5, 0.5)));
     this->addChild(sprite("Images/Interface/HpBar_interface.png", Vec2(400, 88), Vec2(0.68f, 1.030f), Vec2(0.0, 0.0)), 10, "HpBar");
-    this->addChild(sprite("Images/Interface/fireball.jpg",        Vec2(443, 38), Vec2(0.03f, 0.033f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/Interface/iceball.jpg",         Vec2(518, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/Interface/teleport_icon.png",   Vec2(590, 38), Vec2(0.70f, 0.800f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/Interface/Meteor_icon.png",     Vec2(663, 38), Vec2(0.55f, 0.800f), Vec2(0.5, 0.5)));
 
     auto cooltimeBox = [&](SkillKey key, Vec2 pos)
     {
         m_CooltimeBox[key] = sprite("Images/Interface/black.jpg", pos, Vec2(COOLTIME_BOX_X, COOLTIME_BOX_Y), Vec2(0.0, 0.0));
         m_CooltimeBox[key]->setOpacity(200);
+        m_CooltimeBox[key]->setZOrder(10);
         return m_CooltimeBox[key];
     };
     this->addChild(cooltimeBox(SKILL_Q, Vec2(413, 8)));
     this->addChild(cooltimeBox(SKILL_W, Vec2(490, 8)));
     this->addChild(cooltimeBox(SKILL_E, Vec2(567, 8)));
-    this->addChild(cooltimeBox(SKILL_R, Vec2(630, 8)));
+    this->addChild(cooltimeBox(SKILL_R, Vec2(645, 8)));
     
 	auto cursor = [&](CursorMode mode, const char* image, Vec2 scale, Vec2 anchor)
     {

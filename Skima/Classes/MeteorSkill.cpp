@@ -16,6 +16,8 @@ MeteorSkill::MeteorSkill(Hero* hero)
     m_CautionSprite->setScale(0.8f);
     m_CautionSprite->setOpacity(0);
     GET_OBJECT_LAYER->addChild(m_CautionSprite, 14);
+    CreateSprite("Images/Interface/Meteor_icon.png", Vec2(0.5f, 0.7f), Vec2(0.5, 0.5));
+
 }
 
 MeteorSkill::~MeteorSkill()

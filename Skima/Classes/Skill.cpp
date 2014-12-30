@@ -36,3 +36,10 @@ void Skill::SetHeroPerforming(bool isPerforming)
     m_Owner->SetHeroPerforming(isPerforming);
 }
 
+void Skill::CreateSprite(const char* image, Vec2 scale, Vec2 anchor)
+{
+    m_Sprite = Sprite::create(image);
+    m_Sprite->setScale(scale.x, scale.y);
+    m_Sprite->setAnchorPoint(anchor);
+}
+
