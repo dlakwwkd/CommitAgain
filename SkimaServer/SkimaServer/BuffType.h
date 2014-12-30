@@ -22,8 +22,8 @@ protected:
     void            HpBonus(int bonus);
     void            DamageBonus(int duration, int bonus);
     void            DamageBonusEnd(int bonus);
-    void            CooltimeBonus(int duration, int bonus);
-    void            CooltimeBonumEnd(int bonus);
+    void            CooltimeBonus(int duration, float bonus);
+    void            CooltimeBonumEnd(float bonus);
 
 protected:
     int             m_Duration;

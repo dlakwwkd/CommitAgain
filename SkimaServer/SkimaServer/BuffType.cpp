@@ -95,7 +95,7 @@ void BuffType::ShieldBonus(int bonus)
     hero->SetShield(hero->GetShield() + bonus);
 
     auto client = m_Owner->GetClient();
-    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_SHIELD, true);
+    client->BuffBroadCast(hero->GetUnitID(), 0, BUFF_SHIELD, true);
 }
 
 void BuffType::ShieldBonusEnd()
@@ -133,7 +133,7 @@ void BuffType::DamageBonus(int duration, int bonus)
     game->PushTimer(timer);
 
     auto client = m_Owner->GetClient();
-    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_DAMAGE, true);
+    client->BuffBroadCast(hero->GetUnitID(), 0, BUFF_DAMAGE, true);
 }
 
 void BuffType::DamageBonusEnd(int bonus)
@@ -142,10 +142,10 @@ void BuffType::DamageBonusEnd(int bonus)
     hero->SetDamageBonus(hero->GetDamageBonus() - bonus);
 
     auto client = m_Owner->GetClient();
-    client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_DAMAGE, false);
+    client->BuffBroadCast(hero->GetUnitID(), 0, BUFF_DAMAGE, false);
 }
 
-void BuffType::CooltimeBonus(int duration, int bonus)
+void BuffType::CooltimeBonus(int duration, float bonus)
 {
     auto hero = m_Owner->GetMyHero();
 
@@ -159,7 +159,7 @@ void BuffType::CooltimeBonus(int duration, int bonus)
     client->BuffBroadCast(hero->GetUnitID(), bonus, BUFF_COOLTIME, true);
 }
 
-void BuffType::CooltimeBonumEnd(int bonus)
+void BuffType::CooltimeBonumEnd(float bonus)
 {
     auto hero = m_Owner->GetMyHero();
 

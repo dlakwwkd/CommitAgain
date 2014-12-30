@@ -327,7 +327,7 @@ void TcpClient::processPacket()
         
         case PKT_SC_CREATE_MOB:
         {
-            CreateHeroResult recvData;
+            CreateMobResult recvData;
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
@@ -341,7 +341,7 @@ void TcpClient::processPacket()
             if (layer)
             {
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateMob, layer,
-                    recvData.mPlayerId, recvData.mUnitId, pos));
+                    recvData.mPlayerId, recvData.mUnitId, pos, recvData.mHp, recvData.mSpeed));
             }
         }
         break;

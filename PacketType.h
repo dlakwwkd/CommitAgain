@@ -406,10 +406,14 @@ struct CreateMobResult : public PacketHeader
         mType = PKT_SC_CREATE_MOB;
         mPlayerId = -1;
         mUnitId = -1;
+        mHp = 0;
+        mSpeed = 0;
         mPos = { 0, };
     }
     int         mPlayerId;
     int         mUnitId;
+    int         mHp;
+    float       mSpeed;
     Coord       mPos;
 };
 

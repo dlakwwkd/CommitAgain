@@ -635,11 +635,13 @@ void ClientSession::ShootBroadCast(int playerId,int unitId, const b2Vec2& curPos
     }
 }
 
-void ClientSession::CreateMobBroadCast(int playerId, int unitId, const b2Vec2& pos)
+void ClientSession::CreateMobBroadCast(int playerId, int unitId, const b2Vec2& pos, int hp, float speed)
 {
     CreateMobResult outPacket;
     outPacket.mPlayerId = playerId;
     outPacket.mUnitId = unitId;
+    outPacket.mHp = hp;
+    outPacket.mSpeed = Extend(speed);
     outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))

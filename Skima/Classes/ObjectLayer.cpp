@@ -96,12 +96,12 @@ void ObjectLayer::CreateMapObject(int unitID, Vec2 pos)
     this->addChild(obj->GetCenterSprite());
 }
 
-void ObjectLayer::CreateMob(int playerID, int unitID, Vec2 location)
+void ObjectLayer::CreateMob(int playerID, int unitID, Vec2 location, int hp, float speed)
 {
     std::shared_ptr<Mob> unit;
     switch (GET_SIDE_TYPE(unitID))
     {
-    case MOB_PEA:	unit = std::make_shared<Mob>(location, 1.0f);	break;
+    case MOB_PEA:	unit = std::make_shared<Mob>(location, 1.0f, hp, speed);	break;
     default:
         return;
     }

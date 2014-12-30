@@ -4,12 +4,12 @@
 #include "ObjectLayer.h"
 
 
-Mob::Mob(Vec2 createPos, float scale)
+Mob::Mob(Vec2 createPos, float scale, int hp, float speed)
 {
     m_UnitType = UNIT_MOB;
-    m_MaxHp = 200.0f;
+    m_MaxHp = hp;
     m_CurHp = m_MaxHp;
-    m_Speed = 100.0f;
+    m_Speed = speed;
     m_CenterSprite->setPosition(createPos);
     m_CenterSprite->setScale(scale);
 

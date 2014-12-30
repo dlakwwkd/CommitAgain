@@ -13,6 +13,7 @@ WaveSystem::WaveSystem(Game* game)
     m_Game = game;
     m_RegenPos = { MAX_MAP_SIZE_X / 2, MAX_MAP_SIZE_Y - 100 };
     m_RegenPos = CONVERT_IN(m_RegenPos, m_Game->GetGameID());
+    m_WaveNum = 0;
 }
 
 
@@ -26,6 +27,7 @@ void WaveSystem::WaveLoop()
     {
         return;
     }
+    ++m_WaveNum;
     auto func = std::bind(&WaveSystem::WaveProcess, this);
     auto timer = new Timer(m_Game->GetGameID());
     timer->RepeatTimer(100, 10, func);
@@ -41,10 +43,10 @@ void WaveSystem::WaveProcess()
     auto computer = m_Game->GetPlayer(PT_COMPUTER);
     auto mob = new Mob();
     mob->SetDynamicBody(computer, MOB_PEA, m_RegenPos, DEF_SCALE);
-    mob->SetSpeed(Reduce(100.0f));
-    mob->SetDamage(20);
-    mob->SetMaxHp(200);
-    mob->SetHp(200);
+    mob->SetSpeed(Reduce(100.0f + m_WaveNum*5));
+    mob->SetDamage(20 + m_WaveNum);
+    mob->SetMaxHp(200 + m_WaveNum*20);
+    mob->SetHp(mob->GetMaxHp());
     mob->ChaseEnemy();
-    computer->GetClient()->CreateMobBroadCast(PT_COMPUTER, mob->GetUnitID(), m_RegenPos);
+    computer->GetClient()->CreateMobBroadCast(PT_COMPUTER, mob->GetUnitID(), m_RegenPos, mob->GetMaxHp(), mob->GetSpeed());
 }

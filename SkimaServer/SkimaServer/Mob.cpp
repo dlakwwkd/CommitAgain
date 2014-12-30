@@ -67,15 +67,4 @@ void Mob::Dead()
     {
         auto item = new Item(this, BUFF_COOLTIME);
     }
-    else
-    {
-        return;
-    }
-    
-    if (client == nullptr)
-    {
-        printf(" - DeadMob Failed ! : client is invalid \n");
-        return;
-    }
-    
 }

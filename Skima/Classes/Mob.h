@@ -3,7 +3,7 @@
 class Mob :	public Unit
 {
 public:
-    Mob(Vec2 createPos, float scale);
+    Mob(Vec2 createPos, float scale, int hp, float speed);
     virtual ~Mob();
 };
 
