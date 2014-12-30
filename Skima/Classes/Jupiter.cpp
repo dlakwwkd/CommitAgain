@@ -12,9 +12,9 @@
 Jupiter::Jupiter(Vec2 createPos, float scale)
 {
 	m_HeroType = HERO_JUPITER;
-	m_MaxHp = 1000.0f;
+	m_MaxHp = 1200.0f;
 	m_CurHp = m_MaxHp;
-	m_Speed = 450.0f;
+	m_Speed = 370.0f;
 	m_CenterSprite->setPosition(createPos);
 	m_CenterSprite->setScale(scale);
 

@@ -33,7 +33,7 @@ void Mob::ChaseEnemy()
     m_Timer = new Timer(m_Owner->GetRoomID());
 
     auto func = std::bind(&Mob::Chasing, this);
-    m_Timer->InfiniteTimer(1000, func);
+    m_Timer->InfiniteTimer(3000, func);
     m_Game->PushTimer(m_Timer);
 }
 

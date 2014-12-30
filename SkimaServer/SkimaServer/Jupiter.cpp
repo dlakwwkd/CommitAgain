@@ -10,8 +10,8 @@
 Jupiter::Jupiter(Player* owner, const b2Vec2& pos, float scale)
 {
 	SetDynamicBody(owner, HERO_JUPITER, pos, scale);
-	m_Hp = m_MaxHp = 1000;
-	m_Speed = Reduce(450.0f);
+	m_Hp = m_MaxHp = 1200;
+	m_Speed = Reduce(370.0f);
 
     m_Buff = new BuffSkill(m_Owner);
 	m_SkillList[SKILL_Q] = new SparkSkill(m_Owner, scale);

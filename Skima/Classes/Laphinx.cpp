@@ -15,9 +15,9 @@
 Laphinx::Laphinx(Vec2 createPos, float scale)
 {
     m_HeroType = HERO_LAPHINX;
-    m_MaxHp = 1000.0f;
+    m_MaxHp = 1800.0f;
     m_CurHp = m_MaxHp;
-    m_Speed = 450.0f;
+    m_Speed = 350.0f;
     m_CenterSprite->setPosition(createPos);
     m_CenterSprite->setScale(scale);
 

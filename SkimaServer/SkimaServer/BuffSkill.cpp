@@ -15,12 +15,12 @@ BuffSkill::~BuffSkill()
 
 void BuffSkill::SpeedBuff()
 {
-    MoveSpeedBonus(5000, Reduce(300.0f));
+    MoveSpeedBonus(5000, Reduce(200.0f));
 }
 
 void BuffSkill::ShieldBuff()
 {
-    ShieldBonus(100);
+    ShieldBonus(200);
     m_ShieldOn = true;
 }
 
@@ -42,6 +42,6 @@ void BuffSkill::DamageBuff()
 
 void BuffSkill::CooltimeBuff()
 {
-    CooltimeBonus(5000, Reduce(1.0f));
+    CooltimeBonus(5000, Reduce(2.0f));
 }
 

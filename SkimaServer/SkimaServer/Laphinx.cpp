@@ -14,8 +14,8 @@
 Laphinx::Laphinx(Player* owner, const b2Vec2& pos, float scale)
 {
     SetDynamicBody(owner, HERO_LAPHINX, pos, scale);
-    m_Hp = m_MaxHp = 1000;
-    m_Speed = Reduce(450.0f);
+    m_Hp = m_MaxHp = 1800;
+    m_Speed = Reduce(350.0f);
     m_Damage = 80;
 
     m_Buff = new BuffSkill(m_Owner);

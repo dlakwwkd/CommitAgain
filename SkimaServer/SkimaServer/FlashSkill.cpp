@@ -8,7 +8,7 @@ FlashSkill::FlashSkill(Player* owner)
 {
     m_Owner = owner;
     m_Damage = 100;
-    m_Duration = 1000;
+    m_Duration = 500;
     m_SpeedBonus = Reduce(1200.0f);
 }
 

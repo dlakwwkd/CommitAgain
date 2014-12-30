@@ -10,7 +10,7 @@
 MeteorSkill::MeteorSkill(Hero* hero)
 {
     m_Owner = hero;
-    m_CoolTime = 3;
+    m_CoolTime = 10;
     m_CanUse = true;
     m_CautionSprite = Sprite::create("Images/Effect/MeteorCaution.png");
     m_CautionSprite->setScale(0.8f);

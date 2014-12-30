@@ -11,9 +11,9 @@
 Magician::Magician(Vec2 createPos, float scale)
 {
     m_HeroType = HERO_MAGICIAN;
-    m_MaxHp = 1000.0f;
+    m_MaxHp = 1500.0f;
     m_CurHp = m_MaxHp;
-    m_Speed = 360.0f;
+    m_Speed = 320.0f;
     m_CenterSprite->setPosition(createPos);
     m_CenterSprite->setScale(scale);
 

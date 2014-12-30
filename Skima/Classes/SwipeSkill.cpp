@@ -10,7 +10,7 @@
 SwipeSkill::SwipeSkill(Hero* hero)
 {
     m_Owner = hero;
-    m_CoolTime = 1;
+    m_CoolTime = 2;
     m_CanUse = true;
     CreateSprite("Images/Interface/swipe.png", Vec2(0.95f, 0.95f), Vec2(0.5, 0.5));
 }
