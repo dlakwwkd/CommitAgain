@@ -31,6 +31,7 @@ void LightningSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 void LightningSkill::SkillReady()
 {
     auto rangeCircle = m_Owner->GetSkillRange();
+    rangeCircle->setScale(2.1f);
     rangeCircle->setVisible(true);
 
     auto uiLayer = GET_UI_LAYER;
