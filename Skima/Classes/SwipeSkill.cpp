@@ -5,7 +5,9 @@
 #include "Hero.h"
 #include "Macros.h"
 #include "SwipeEffect.h"
+#include "SimpleAudioEngine.h"
 
+using namespace CocosDenshion;
 
 SwipeSkill::SwipeSkill(Hero* hero)
 {
@@ -21,6 +23,7 @@ SwipeSkill::~SwipeSkill()
 
 void SwipeSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
+     SimpleAudioEngine::getInstance()->playEffect("Music/Effect/swipe.mp3");
      auto effect = new SwipeEffect();
      effect->CreateEffect(targetPos);
      

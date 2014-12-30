@@ -16,7 +16,9 @@ public:
     void                ShowExplodeSprite();
     void                ExtinctMeteorParticle();
     void                SetParticleVisible(ParticleSystemQuad* particle);
+    void                MakeExplodeSound();
     Size                GenerateInitPos(const Vec2&targetpos);
+    
 
 protected:
     ParticleSystemQuad* m_MeteorParticle;
