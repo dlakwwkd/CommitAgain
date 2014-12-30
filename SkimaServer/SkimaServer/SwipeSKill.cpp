@@ -26,6 +26,22 @@ void SwipeSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& ta
     auto hero = m_Owner->GetMyHero();
     hero->EndMove();
 
+    auto attackPos = ModifyAttackPos(heroPos, targetPos);
+
+    auto client = m_Owner->GetClient();
+    client->SkillBroadCast(hero->GetUnitID(), heroPos, attackPos, key);
+
+    hero->SetUnitHiddenState(false);
+
+    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
+    auto func = std::bind(&SwipeSkill::FieldDamage, this, attackPos, Reduce(80.0f), m_Damage* hero->GetDamageBonus());
+    auto timer = new Timer(m_Owner->GetRoomID());
+    timer->RepeatTimer(300, 3, func);
+    game->PushTimer(timer);
+}
+
+b2Vec2 SwipeSkill::ModifyAttackPos(const b2Vec2& heroPos, const b2Vec2& targetPos)
+{
     auto direction = targetPos - heroPos;
     auto distance = direction.Normalize();
     auto attackPos = targetPos;
@@ -34,15 +50,10 @@ void SwipeSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& ta
         direction *= m_Range;
         attackPos = heroPos + direction;
     }
-
-    auto client = m_Owner->GetClient();
-    client->SkillBroadCast(hero->GetUnitID(), heroPos, attackPos, key);
-
-    hero->SetUnitHiddenState(false);
-
-    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto func = std::bind(&SwipeSkill::FieldDamage, this, attackPos, Reduce(80.0f), m_Damage * hero->GetDamageBonus());
-    auto timer = new Timer(m_Owner->GetRoomID());
-    timer->RepeatTimer(300, 3, func);
-    game->PushTimer(timer);
+    if (distance < m_Range * 1 / 2)
+    {
+        direction *= m_Range;
+        attackPos = heroPos + direction;
+    }
+    return attackPos;
 }

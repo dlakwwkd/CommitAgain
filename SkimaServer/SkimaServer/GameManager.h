@@ -20,10 +20,12 @@ struct Rect
     float m_Left	= 0;
     float m_Right	= 0;
 };
-enum Walldirection
+enum WallDirection
 {
-    SLASH, //  /방향
-    BACKSLASH, //  /의 역방향
+    NW,
+    NE,
+    SW,
+    SE,
 };
 
 

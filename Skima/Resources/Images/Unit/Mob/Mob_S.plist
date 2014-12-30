@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>Mob_S01.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{74,104}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{8,11},{74,104}}</string>
+				<key>sourceSize</key>
+				<string>{88,122}</string>
+			</dict>
+
+			<key>Mob_S02.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{73,105},{72,94}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{6,15},{72,94}}</string>
+				<key>sourceSize</key>
+				<string>{83,122}</string>
+			</dict>
+
+			<key>Mob_S03.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{146,104},{71,94}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{7,17},{71,94}}</string>
+				<key>sourceSize</key>
+				<string>{90,122}</string>
+			</dict>
+
+			<key>Mob_S04.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{147,0},{70,94}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{2,18},{70,94}}</string>
+				<key>sourceSize</key>
+				<string>{76,122}</string>
+			</dict>
+
+			<key>Mob_S05.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{218,91},{69,92}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{7,21},{69,92}}</string>
+				<key>sourceSize</key>
+				<string>{82,122}</string>
+			</dict>
+
+			<key>Mob_S06.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{218,0},{69,90}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{7,20},{69,90}}</string>
+				<key>sourceSize</key>
+				<string>{81,122}</string>
+			</dict>
+
+			<key>Mob_S07.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,105},{72,98}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{9,15},{72,98}}</string>
+				<key>sourceSize</key>
+				<string>{86,122}</string>
+			</dict>
+
+			<key>Mob_S08.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{75,0},{71,103}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{8,13},{71,103}}</string>
+				<key>sourceSize</key>
+				<string>{88,122}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{512,256}</string>
+			<key>textureFileName</key>
+			<string>Mob_S.png</string>
+			</dict>
+		</dict>
+</plist>
