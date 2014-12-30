@@ -24,6 +24,10 @@ void BuffType::DashSkillCast()
     {
         m_IsOn = true;
         auto hero = m_Owner->GetMyHero();
+        if (hero == nullptr)
+        {
+            return;
+        }
         hero->SetSpeed(hero->GetSpeed() + m_SpeedBonus);
         hero->SetDamage(hero->GetDamage() + m_Damage);
 
@@ -44,6 +48,10 @@ void BuffType::DashSkillEnd()
     {
         m_IsOn = false;
         auto hero = m_Owner->GetMyHero();
+        if (hero == nullptr)
+        {
+            return;
+        }
         hero->SetSpeed(hero->GetSpeed() - m_SpeedBonus);
         hero->SetDamage(hero->GetDamage() - m_Damage);
         hero->EndMove();
@@ -58,6 +66,10 @@ void BuffType::DashSkillEnd()
 void BuffType::MoveSpeedBonus(int duration, float bonus)
 {
     auto hero = m_Owner->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
     hero->SetSpeed(hero->GetSpeed() + bonus);
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
@@ -73,6 +85,10 @@ void BuffType::MoveSpeedBonus(int duration, float bonus)
 void BuffType::MoveSpeedBonusEnd(float bonus)
 {
     auto hero = m_Owner->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
     hero->SetSpeed(hero->GetSpeed() - bonus);
 
     auto client = m_Owner->GetClient();
@@ -92,6 +108,10 @@ void BuffType::DamageUpBonusEnd(int bonus)
 void BuffType::ShieldBonus(int bonus)
 {
     auto hero = m_Owner->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
     hero->SetShield(hero->GetShield() + bonus);
 
     auto client = m_Owner->GetClient();
@@ -101,6 +121,10 @@ void BuffType::ShieldBonus(int bonus)
 void BuffType::ShieldBonusEnd()
 {
     auto hero = m_Owner->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
 
     auto client = m_Owner->GetClient();
     client->BuffBroadCast(hero->GetUnitID(), 0, BUFF_SHIELD, false);
@@ -109,6 +133,10 @@ void BuffType::ShieldBonusEnd()
 void BuffType::HpBonus(int bonus)
 {
     auto hero = m_Owner->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
     int hp = hero->GetHp() + bonus;
     if (hp > hero->GetMaxHp())
     {
@@ -124,6 +152,10 @@ void BuffType::HpBonus(int bonus)
 void BuffType::DamageBonus(int duration, int bonus)
 {
     auto hero = m_Owner->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
     hero->SetDamageBonus(hero->GetDamageBonus() + bonus);
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
@@ -139,6 +171,10 @@ void BuffType::DamageBonus(int duration, int bonus)
 void BuffType::DamageBonusEnd(int bonus)
 {
     auto hero = m_Owner->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
     hero->SetDamageBonus(hero->GetDamageBonus() - bonus);
 
     auto client = m_Owner->GetClient();
@@ -148,6 +184,10 @@ void BuffType::DamageBonusEnd(int bonus)
 void BuffType::CooltimeBonus(int duration, float bonus)
 {
     auto hero = m_Owner->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
     auto func = std::bind(&BuffType::CooltimeBonumEnd, this, bonus);
@@ -162,6 +202,10 @@ void BuffType::CooltimeBonus(int duration, float bonus)
 void BuffType::CooltimeBonumEnd(float bonus)
 {
     auto hero = m_Owner->GetMyHero();
+    if (hero == nullptr)
+    {
+        return;
+    }
 
     auto client = m_Owner->GetClient();
     client->BuffBroadCast(hero->GetUnitID(), (-bonus), BUFF_COOLTIME, false);

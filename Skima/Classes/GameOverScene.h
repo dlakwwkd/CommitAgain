@@ -13,7 +13,7 @@ public:
 
 	void SetRoomInfo(RoomInfo roomInfo) { m_RoomInfo = roomInfo; };
 
-	void menuCallback1(Ref* sender);
+	//void menuCallback1(Ref* sender);
 	void menuCallback2(Ref* sender);
 
 private:

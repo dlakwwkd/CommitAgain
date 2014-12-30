@@ -48,26 +48,26 @@ bool GameOverScene::init()
 		return false;
 	}
 	ShowCursor(true);
-	auto label1 = Label::createWithSystemFont("Play Again", "Thonburi", 50);
+	//auto label1 = Label::createWithSystemFont("Play Again", "Thonburi", 50);
 	auto label2 = Label::createWithSystemFont("Exit", "Thonburi", 50);
 
-	auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(GameOverScene::menuCallback1, this));
+	//auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(GameOverScene::menuCallback1, this));
 	auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(GameOverScene::menuCallback2, this));
 
-	auto menu = Menu::create(menuItem1, menuItem2, NULL);
+	auto menu = Menu::create(menuItem2, NULL);
 	menu->alignItemsVertically();
-	menu->setPositionY(200);
+	menu->setPositionY(250);
 	this->addChild(menu, 2, "GameOverMenu");
 
 	return true;
 }
-
-void GameOverScene::menuCallback1(Ref* sender)	// 게임 시작
-{
-    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-
-	Director::getInstance()->popScene();
-}
+// 
+// void GameOverScene::menuCallback1(Ref* sender)	// 게임 시작
+// {
+//     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+// 
+// 	Director::getInstance()->popScene();
+// }
 
 void GameOverScene::menuCallback2(Ref* sender)	// 나가기
 {
