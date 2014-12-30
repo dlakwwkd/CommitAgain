@@ -37,11 +37,11 @@ void BuffSkill::HpBuff()
 
 void BuffSkill::DamageBuff()
 {
-    DamageBonus(2000, 1.5);
+    DamageBonus(2000, 50);
 }
 
 void BuffSkill::CooltimeBuff()
 {
-    CooltimeBonus(5000, 0.5f);
+    CooltimeBonus(5000, 1);
 }
 

@@ -79,7 +79,7 @@ void Buff::BuffUse(BuffTarget type, float bonus)
         m_Owner->SetSpeed(m_Owner->GetSpeed() + bonus);
         break;
     case BUFF_COOLTIME: 
-        m_Owner->SetCooltimeBonus(m_Owner->GetCooltime() * bonus);
+        m_Owner->SetCooltimeBonus(m_Owner->GetCooltimeBonus() + bonus);
         break;
     }
 }
@@ -101,7 +101,7 @@ void Buff::BuffEnd(BuffTarget type, float bonus)
         buff->second.mBuffNum = 1;
         break;
     case BUFF_COOLTIME:
-        m_Owner->SetCooltimeBonus(m_Owner->GetCooltime() / bonus);
+        m_Owner->SetCooltimeBonus(m_Owner->GetCooltimeBonus() + bonus);
         break;
     }
 

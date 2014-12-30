@@ -294,8 +294,8 @@ void GameManager::CrashDamage(Unit* unitA, Unit* unitB)
 {
     if (unitA->GetOwner()->GetTeam() != unitB->GetOwner()->GetTeam())
     {
-        unitA->Damaged(unitB->GetDamage() * unitB->GetDamageBonus());
-        unitB->Damaged(unitA->GetDamage() * unitA->GetDamageBonus());
+        unitA->Damaged(unitB->GetDamage() + unitB->GetDamageBonus());
+        unitB->Damaged(unitA->GetDamage() + unitA->GetDamageBonus());
     }
 }
 
@@ -314,7 +314,7 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
     }
     if (caster->GetTeam() != TEAM_C)
     {
-        damage *= caster->GetMyHero()->GetDamageBonus();
+        damage += caster->GetMyHero()->GetDamageBonus();
     }
     for (auto& player : game->second->m_PlayerList)
     {
@@ -396,7 +396,7 @@ void GameManager::WallFieldDamage(Player* caster, b2PolygonShape* wallShape, int
     }
     if (caster->GetTeam() != TEAM_C)
     {
-        damage *= caster->GetMyHero()->GetDamageBonus();
+        damage += caster->GetMyHero()->GetDamageBonus();
     }
     for (auto& player : game->second->m_PlayerList)
     {

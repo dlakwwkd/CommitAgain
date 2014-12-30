@@ -15,6 +15,7 @@ Unit::Unit()
     m_PlayerID = -1;
     m_UnitID = -1;
     m_CurHp = m_MaxHp = 0;
+    m_CooltimeBonus = 0;
     m_Speed = 0;
     m_InUse = false;
     m_IsHidden = false;

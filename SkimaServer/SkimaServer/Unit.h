@@ -16,7 +16,7 @@ public:
 public:
     void            SetType(int type){ m_UnitID += type; }
     void	        SetDamage(int damage) { m_Damage = damage; }
-    void            SetDamageBonus(float damage){ m_DamageBonus = damage; }
+    void            SetDamageBonus(int damage){ m_DamageBonus = damage; }
     void            SetMaxHp(int MaxHp){ m_MaxHp = MaxHp; }
     void            SetHp(int Hp){ m_Hp = Hp; }
     void            SetSpeed(float speed){ m_Speed = speed; }
@@ -27,7 +27,7 @@ public:
     Player*         GetOwner(){ return m_Owner; }
     int             GetUnitID(){ return m_UnitID; }
     int             GetDamage(){ return m_Damage; }
-    float           GetDamageBonus() { return m_DamageBonus; }
+    int             GetDamageBonus() { return m_DamageBonus; }
     int             GetMaxHp(){ return m_MaxHp; }
     int             GetHp(){ return m_Hp; }
     float           GetSpeed(){ return m_Speed; }
@@ -70,7 +70,7 @@ protected:
     int         m_Hp			= 0;
     int         m_Shield        = 0;
     int         m_Damage		= 0;
-    float       m_DamageBonus   = 1;
+    int         m_DamageBonus   = 0;
     float       m_Speed			= 0; 
     bool        m_InUse			= false;
     bool        m_IsHidden      = false;
