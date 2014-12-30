@@ -6,6 +6,9 @@
 #include "Macros.h"
 #include "ObjectLayer.h"
 #include "MeteorSequenceEffect.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 MeteorSkill::MeteorSkill(Hero* hero)
 {
@@ -28,6 +31,9 @@ void MeteorSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
     m_CautionSprite->setPosition(targetPos);
     m_CautionSprite->setOpacity(255);
+
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/meteor_shoot.mp3");
+
 
     auto fadeOut1 = FadeOut::create(0.45f);
     auto fadeIn = FadeIn::create(0.15f);
@@ -61,5 +67,6 @@ void MeteorSkill::MakeMeteor(Vec2 targetpos)
 {
     auto particleEffect = new MeteorSequenceEffect(targetpos); // particle
     particleEffect->CreateEffect(targetpos); //explode sprite
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/meteor_hit.mp3"); //파티클이 끝나기도 전에 터져 버림
 }
 

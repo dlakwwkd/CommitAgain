@@ -1,6 +1,10 @@
 ﻿#include "pch.h"
 #include "Buff.h"
 #include "Hero.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
+
 
 Buff::Buff(Hero* hero)
 {
@@ -59,11 +63,15 @@ Buff::~Buff()
 
 void Buff::BuffUse(BuffTarget type, float bonus)
 {
+
     auto buff = m_BuffList.find(type);
     if (buff == m_BuffList.end())
     {
         return;
     }
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/buff_on.mp3");
+
+
     if (buff->second.mBuffNum == 0)
     {
         BuffDraw(&buff->second);
@@ -99,6 +107,8 @@ void Buff::BuffEnd(BuffTarget type, float bonus)
         break;
     case BUFF_SHIELD:
         buff->second.mBuffNum = 1;
+        SimpleAudioEngine::getInstance()->playEffect("Music/Effect/shield_off.mp3");
+
         break;
     case BUFF_COOLTIME:
         m_Owner->SetCooltimeBonus(m_Owner->GetCooltimeBonus() + bonus);
@@ -111,6 +121,17 @@ void Buff::BuffEnd(BuffTarget type, float bonus)
         BuffErase(&buff->second);
     }
 }
+
+int Buff::GetBuffNum(BuffTarget type)
+{
+    auto buff = m_BuffList.find(type);
+    if (buff == m_BuffList.end())
+    {
+        return -1;
+    }
+    return buff->second.mBuffNum;
+}
+
 
 void Buff::BuffDraw(BuffObject* buff)
 {

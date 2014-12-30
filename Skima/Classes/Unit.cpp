@@ -5,6 +5,8 @@
 #include "GameManager.h"
 #include "SimpleAudioEngine.h"
 #include "Mob.h"
+#include "Macros.h"
+#include <memory>
 using namespace CocosDenshion;
 
 
@@ -157,7 +159,19 @@ void Unit::SetHeroHpBar(const char* barImage)
 
 void Unit::Damaged()
 {
-    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/damage.mp3");
+    if (GET_MAIN_TYPE(m_UnitID) == UNIT_HERO)
+    {
+        auto hero = dynamic_cast<Hero*>(this);
+
+        if (hero->GetBuff()->GetBuffNum(BUFF_SHIELD) > 0)
+        {
+            SimpleAudioEngine::getInstance()->playEffect("Music/Effect/shield.mp3");
+
+        }
+    }
+    {
+        SimpleAudioEngine::getInstance()->playEffect("Music/Effect/damage.mp3");
+    }
 
     auto action1 = TintTo::create(0, 255, 0, 0);
     auto action2 = TintTo::create(0.1f, 255, 255, 255);

@@ -21,6 +21,8 @@ public:
     virtual void    SkillReady(){};
     virtual void    SkillEnd(){};
 
+    int             GetBuffNum(BuffTarget type);
+
     void            BuffUse(BuffTarget type, float bonus);
     void            BuffEnd(BuffTarget type, float bonus);
     void            BuffDraw(BuffObject* buff);

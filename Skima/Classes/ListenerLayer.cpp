@@ -11,7 +11,7 @@
 #include "UILayer.h"
 #include "EscLayer.h"
 #include "math.h"
-#include "Macros.h"
+//#include "Macros.h"
 
 #define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
 #define GET_UI_LAYER        dynamic_cast<UILayer*>(this->getParent()->getChildByName("UILayer"))
