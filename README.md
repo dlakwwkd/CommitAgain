@@ -1,4 +1,4 @@
-##= Release 0.3v = 
+##= Release v0.3 = 
 
 변경사항   
  - 서버에 Box2D 라이브러리 추가  
