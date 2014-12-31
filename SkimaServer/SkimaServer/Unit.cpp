@@ -162,7 +162,7 @@ void Unit::Damaged(int damage)
     {
         m_IsDead = true;
         CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this, m_Owner->GetRoomID());
-        printf(" - CallFuncAfter: DeadUnit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(m_UnitID), GET_SIDE_TYPE(m_UnitID), INIT_TYPE(m_UnitID));
+        //printf(" - CallFuncAfter: DeadUnit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(m_UnitID), GET_SIDE_TYPE(m_UnitID), INIT_TYPE(m_UnitID));
     }
     m_Owner->GetClient()->HpBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Hp);
 }

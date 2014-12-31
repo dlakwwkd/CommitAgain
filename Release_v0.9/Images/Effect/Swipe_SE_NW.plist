@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>Swipe_SE_NW1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{568,0},{567,463}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{14,40},{567,463}}</string>
+				<key>sourceSize</key>
+				<string>{600,600}</string>
+			</dict>
+
+			<key>Swipe_SE_NW2.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1136,0},{567,463}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{14,40},{567,463}}</string>
+				<key>sourceSize</key>
+				<string>{600,600}</string>
+			</dict>
+
+			<key>Swipe_SE_NW3.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{568,464},{567,463}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{14,40},{567,463}}</string>
+				<key>sourceSize</key>
+				<string>{600,600}</string>
+			</dict>
+
+			<key>Swipe_SE_NW4.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1136,464},{567,463}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{14,40},{567,463}}</string>
+				<key>sourceSize</key>
+				<string>{600,600}</string>
+			</dict>
+
+			<key>Swipe_SE_NW5.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,493},{567,463}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{14,40},{567,463}}</string>
+				<key>sourceSize</key>
+				<string>{600,600}</string>
+			</dict>
+
+			<key>Swipe_SE_NW6.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{567,492}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{14,40},{567,492}}</string>
+				<key>sourceSize</key>
+				<string>{600,600}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{2048,1024}</string>
+			<key>textureFileName</key>
+			<string>Swipe_SE_NW.png</string>
+			</dict>
+		</dict>
+</plist>

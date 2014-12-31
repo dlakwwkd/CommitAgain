@@ -47,6 +47,6 @@ void Missile::MissileExplosion()
 
     m_IsDead = true;
     CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, this, m_Owner->GetRoomID());
-    printf(" - CallFuncAfter: DeadUnit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(m_UnitID), GET_SIDE_TYPE(m_UnitID), INIT_TYPE(m_UnitID));
+    //printf(" - CallFuncAfter: DeadUnit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(m_UnitID), GET_SIDE_TYPE(m_UnitID), INIT_TYPE(m_UnitID));
     EndCrash();
 }

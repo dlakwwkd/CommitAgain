@@ -40,7 +40,7 @@ public:
     void    PlayerReadyNotify();
     void    AllReadyNotify();
     void    ServerRunComplete();
-    void SendCreateHeroResult(			    int unitId, const b2Vec2& pos, RoomType roomType);
+    void    SendCreateHeroResult(int unitId, const b2Vec2& pos, RoomType roomType);
     void	SendMapInfo(        int playerId,   int unitId, const b2Vec2& pos);
     void    CreateMobBroadCast( int playerId,   int unitId, const b2Vec2& pos, int hp, float speed);
     void    ItemBroadCast(      int playerId,   int unitId, const b2Vec2& pos, bool isCreate, BuffTarget buffType);

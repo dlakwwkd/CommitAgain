@@ -271,7 +271,7 @@ REGISTER_HANDLER(PKT_CS_MOVE)
         printf("[DEBUG] Player Info error! \n");
         return;
     }
-    printf(" Receive: LoginID: %d \t\t\t x : %.f \t y : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
+    //printf(" Receive: LoginID: %d \t\t\t x : %.f \t y : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto hero = player->GetMyHero();									if (!hero)      return;
@@ -297,7 +297,7 @@ REGISTER_HANDLER(PKT_CS_SKILL)
         printf("[DEBUG] Player Info error! \n");
         return;
     }
-    printf(" SkillReceive: LoginID: %d \t\t\t x : %.f \t y : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
+    //printf(" SkillReceive: LoginID: %d \t\t\t x : %.f \t y : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto hero = player->GetMyHero();									if (!hero)      return;
@@ -363,7 +363,7 @@ void ClientSession::UpdateRoomInfo()
     }
 
     SendRequest(&outPacket);
-    printf(" Send:   RoomInformation: roomMaxNum: %d, Player ID: %d \n", i, outPacket.mPlayerId);
+    //printf(" Send:   RoomInformation: roomMaxNum: %d, Player ID: %d \n", i, outPacket.mPlayerId);
 }
 
 void ClientSession::MakeGameRoom(RoomInfo roomInfo)
@@ -506,7 +506,7 @@ void ClientSession::SendCreateHeroResult(int unitId, const b2Vec2& pos, RoomType
     {
         Disconnect();
     }
-    printf(" Send: CreateHeroResult Player ID: %d \n", mPlayer->GetPlayerID());
+    //printf(" Send: CreateHeroResult Player ID: %d \n", mPlayer->GetPlayerID());
 }
 
 void ClientSession::SendMapInfo(int playerId, int unitId, const b2Vec2& pos)
@@ -520,7 +520,7 @@ void ClientSession::SendMapInfo(int playerId, int unitId, const b2Vec2& pos)
     {
         Disconnect();
     }
-    printf(" Send: MapInfo Player ID: %d \t createPos  x: %.f \t y: %.f\n", mPlayer->GetPlayerID(), outPacket.mPos.x, outPacket.mPos.y);
+    //printf(" Send: MapInfo Player ID: %d \t createPos  x: %.f \t y: %.f\n", mPlayer->GetPlayerID(), outPacket.mPos.x, outPacket.mPos.y);
 }
 
 void ClientSession::SendStartGame()
@@ -689,7 +689,7 @@ void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type, bool
     outPacket.mBuffTarget = type;
     outPacket.mIsOn = isOn;
     
-    printf(" - BuffBonus: %.f \n", outPacket.mBonus);
+    //printf(" - BuffBonus: %.f \n", outPacket.mBonus);
 
     if (!Broadcast(&outPacket))
     {

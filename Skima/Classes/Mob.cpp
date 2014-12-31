@@ -18,6 +18,12 @@ Mob::Mob(Vec2 createPos, float scale, int hp, float speed)
     m_RealSprite->setScale(scale*0.8f);
     m_CenterSprite->addChild(m_RealSprite);
 
+    auto shadow = Sprite::create("Images/Unit/unit_shadow.png");
+    shadow->setPosition(Vec2(5, -35));
+    shadow->setScale(0.9f);
+    shadow->setOpacity(125);
+    m_CenterSprite->addChild(shadow, -2);
+
     SetMoveMotionToCache();
 }
 

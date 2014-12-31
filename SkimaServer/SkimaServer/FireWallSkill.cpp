@@ -8,7 +8,7 @@
 #include "Timer.h"
 
 #define MAX_CALL 5
-#define REPEAT_TIME 15
+#define REPEAT_TIME 10
 #define CALL_DELAY 200
 #define REPEAT_DELAY 200
 
@@ -94,10 +94,6 @@ b2Vec2 FireWallSkill::GenerateNextCenterPos(WallDirection direction)
 
     switch (direction)
     {
-    case N:     nextPos = b2Vec2(m_PrevTaretPos.x, m_PrevTaretPos.y + m_Scale*m_CallCount);    break;
-    case S:     nextPos = b2Vec2(m_PrevTaretPos.x, m_PrevTaretPos.y + m_Scale*m_CallCount);    break;
-    case W:     nextPos = b2Vec2(m_PrevTaretPos.x, m_PrevTaretPos.y + m_Scale*m_CallCount);    break;
-    case E:     nextPos = b2Vec2(m_PrevTaretPos.x, m_PrevTaretPos.y + m_Scale*m_CallCount);    break;
     case NE:    nextPos = b2Vec2(m_PrevTaretPos.x + 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y + 1.414*m_Scale*m_CallCount);    break;
     case SE:    nextPos = b2Vec2(m_PrevTaretPos.x + 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y - 1.414*m_Scale*m_CallCount);    break;
     case SW:    nextPos = b2Vec2(m_PrevTaretPos.x - 1.414*m_Scale*m_CallCount, m_PrevTaretPos.y - 1.414*m_Scale*m_CallCount);    break;

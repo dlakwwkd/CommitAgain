@@ -53,7 +53,7 @@ void GameManager::LowTick()
             unit->CurPosSync();
         }
     }
-    printf(" - Total Body Num : %d \n", m_World->GetBodyCount());
+    //printf(" - Total Body Num : %d \n", m_World->GetBodyCount());
     CallFuncAfter(MANAGER_UPDATE_INTERVAL, this, &GameManager::LowTick);
 }
 
@@ -445,7 +445,7 @@ void GameManager::DeadUnit(Unit* unit, int gameId)
     }
     auto unitId = unit->GetUnitID();
     auto owner = unit->GetOwner();
-    printf(" - Dead Unit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(unitId), GET_SIDE_TYPE(unitId), INIT_TYPE(unitId));
+    //printf(" - Dead Unit : MainType: %d, SideType: %d, UnitID: %d\n", GET_MAIN_TYPE(unitId), GET_SIDE_TYPE(unitId), INIT_TYPE(unitId));
 
     switch(GET_MAIN_TYPE(unitId))
     {

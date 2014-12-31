@@ -27,13 +27,13 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto glview = director->getOpenGLView();
     if(!glview) 
 	{
-        glview = GLViewImpl::create("Amaging PVP Game: Skima");
+        glview = GLViewImpl::createWithFullScreen("Amaging PVP Game: Skima");
         director->setOpenGLView(glview);
 
 		int w = GetSystemMetrics(SM_CXSCREEN);
 		int h = GetSystemMetrics(SM_CYSCREEN);
 
-		glview->setFrameSize(DISPLAY_X, DISPLAY_Y);
+		glview->setFrameSize(w, h);
         glview->setDesignResolutionSize(MAX_MAP_SIZE_X, MAX_MAP_SIZE_Y, ResolutionPolicy::NO_BORDER);
     }
 
