@@ -17,7 +17,7 @@ GameManager* GGameManager = nullptr;
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-    메인 틱
+    메인 틱 : 물리 계산 및 각 게임의 틱 호출
 */
 ///////////////////////////////////////////////////////////////////////////
 void GameManager::Tick(float dt)
@@ -35,22 +35,20 @@ void GameManager::Tick(float dt)
 
 ///////////////////////////////////////////////////////////////////////////
 /*
-    낮은 주기의 틱
+    낮은 주기의 틱 : 정지해 있는 바디들의 현재 위치 동기화
 */
 ///////////////////////////////////////////////////////////////////////////
 void GameManager::LowTick()
 {
-    int i = 0, j = 0;
     for (b2Body* b = m_World->GetBodyList(); b; b = b->GetNext())
     {
         if (!b->IsAwake())
         {
-            auto unit = static_cast<Unit*>(b->GetUserData());
-            if (!unit || unit->GetUnitID() < 0)
+            if (b->GetUserData())
             {
-				continue;
+                auto unit = static_cast<Unit*>(b->GetUserData());
+                unit->CurPosSync();
             }
-            unit->CurPosSync();
         }
     }
     //printf(" - Total Body Num : %d \n", m_World->GetBodyCount());

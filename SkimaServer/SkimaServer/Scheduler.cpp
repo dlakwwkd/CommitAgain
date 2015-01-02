@@ -17,10 +17,10 @@ void Scheduler::PushTask(RefCountable* owner, const Task& task, uint32_t after)
 }
 
 
-void Scheduler::DoTasks()
+void Scheduler::DoTasks(DWORD currTick)
 {
 	/// tick update
-	mCurrentTick = GetTickCount();
+    mCurrentTick = currTick;
 
 	while (!mTaskQueue.empty())
 	{

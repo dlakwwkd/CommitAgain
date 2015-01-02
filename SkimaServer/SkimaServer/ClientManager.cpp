@@ -91,10 +91,9 @@ void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
     서버의 매 프레임마다 실행되는 함수
     */
 ///////////////////////////////////////////////////////////////////////////
-void ClientManager::OnPeriodWork()
+void ClientManager::OnPeriodWork(DWORD currTick)
 {
-    /// 접속이 끊긴 세션들 주기적으로 정리 (1초 정도 마다 해주자)
-    DWORD currTick = GetTickCount();
+    /// 접속이 끊긴 세션들 주기적으로 정리
     if (currTick - mLastGCTick >= 1000)
     {
         CollectGarbageSessions();
@@ -134,7 +133,6 @@ void ClientManager::CollectGarbageSessions()
         mClientList.erase(client->mSocket);
         delete client;
     }
-
 }
 
 

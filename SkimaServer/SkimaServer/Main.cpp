@@ -126,16 +126,13 @@ unsigned int WINAPI ClientHandlingThread(LPVOID lpParam)
     {
         SOCKET acceptSock = NULL;
 
-
         /// 새로 접속한 클라이언트 처리
         if (pAcceptList->Consume(acceptSock, false))
         {
             /// 소켓 정보 구조체 할당과 초기화
             ClientSession* client = GClientManager->CreateClient(acceptSock);
             if (client == nullptr)
-            {
                 continue;
-            }
 
             SOCKADDR_IN clientaddr;
             int addrlen = sizeof(clientaddr);
@@ -143,9 +140,7 @@ unsigned int WINAPI ClientHandlingThread(LPVOID lpParam)
 
             // 클라 접속 처리
             if (false == client->OnConnect(&clientaddr))
-            {
                 client->Disconnect();
-            }
 
             continue; ///< 다시 대기로
         }
@@ -174,15 +169,15 @@ void CALLBACK TimerProc(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighVa
 {
     assert(LThreadType == THREAD_CLIENT);
 
-    LScheduler->DoTasks(); ///< 주기적으로 task 처리
-    GClientManager->OnPeriodWork();
+    static float deltaTime = 0;
+    static DWORD currTick = 0;
+    static DWORD lastTick = GetTickCount();
 
-    static float deltaTime;
-    static DWORD currentTime;
-    static DWORD lastTime = GetTickCount();
-    currentTime = GetTickCount();
-    deltaTime = (currentTime - lastTime)*0.001f;
-    lastTime = currentTime;
+    currTick = GetTickCount();
+    deltaTime = (currTick - lastTick)*0.001f;
+    lastTick = currTick;
 
+    LScheduler->DoTasks(currTick);
     GGameManager->Tick(deltaTime);
+    GClientManager->OnPeriodWork(currTick);
 }

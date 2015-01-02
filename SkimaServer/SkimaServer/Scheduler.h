@@ -32,12 +32,10 @@ typedef std::priority_queue<JobElement, std::vector<JobElement>, JobComparator> 
 class Scheduler
 {
 public:
-
 	Scheduler();
 
 	void PushTask(RefCountable* owner, const Task& task, uint32_t after);
-
-	void DoTasks();
+	void DoTasks(DWORD currTick);
 
 private:
 	TaskPriorityQueue mTaskQueue;

@@ -15,7 +15,7 @@ public:
     ClientSession*  CreateClient(SOCKET sock);
     void            BroadcastPacket(ClientSession* from, PacketHeader* pkt);
 
-    void            OnPeriodWork();
+    void            OnPeriodWork(DWORD currTick);
     void            FlushClientSend();
 
     bool            IsValidPlayerId(int playerId);
