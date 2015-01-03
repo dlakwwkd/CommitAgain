@@ -7,10 +7,10 @@ typedef std::map<int, Player*> PlayerList;
 class GameRoom
 {
 public:
-    GameRoom(const RoomInfo& roomInfo, int roomNum) : m_ReadyNum(0), m_JoinAble(true), m_IsGameExist(false)
+    GameRoom(const RoomInfo& roomInfo) : m_ReadyNum(0), m_JoinAble(true), m_IsGameExist(false)
     {
         m_RoomInfo = roomInfo;
-        m_RoomInfo.mRoomNum = roomNum;
+        m_RoomInfo.mRoomNum = MakeID(this);
     }
     ~GameRoom(){}
 

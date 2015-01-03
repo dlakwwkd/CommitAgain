@@ -14,8 +14,7 @@ enum PlayerType
 class Player : public ObjectPool<Player>
 {
 public:
-    Player(ClientSession* client, int playerId, const std::string& playerName, PlayerType type) :
-        m_Client(client), m_PlayerID(playerId), m_PlayerName(playerName), m_PlayerType(type){}
+    Player(ClientSession* client, const std::string& playerName, PlayerType type);
     ~Player();
 
     ClientSession*      GetClient() const{ return m_Client; }

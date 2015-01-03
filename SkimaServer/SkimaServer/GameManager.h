@@ -38,19 +38,18 @@ enum WallDirection
 class GameManager : public RefCountable
 {
 public:
-    GameManager() : m_MakeRoomNum(0){ InitPhyWorld(); }
+    GameManager(){ InitPhyWorld(); }
     virtual ~GameManager(){ DeletePhyWorld(); }
 
     void                Tick(float dt);
     void                LowTick();
-    void                CollectGarbageGames();
     void                DestroyTimer(Timer* timer);
 
-    GameRoom*           CreateRoom(RoomInfo roomInfo);
+    const RoomList&     GetRoomList(){ return m_RoomList; }
+    GameRoom*           CreateRoom(const RoomInfo& roomInfo);
     void                DeleteRoom(int roomId);
     GameRoom*           SearchRoom(int roomId);
     int                 SearchEmptyRoom();
-    const RoomList&     GetRoomList(){ return m_RoomList; }
     void                JoinRoom(int roomId, Player* player);
 
     Game*               SearchGame(int gameId);
@@ -77,7 +76,6 @@ private:
 private:
     GameList            m_GameList;
     RoomList            m_RoomList;
-    int                 m_MakeRoomNum;
 
 private:
     b2World*            m_World = nullptr;

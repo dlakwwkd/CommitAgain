@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#define MAX_CHAT_LEN        256
 #define MAX_NAME_LEN        15
+#define MAX_ROOM_NUM        256
 #define MAX_COMMENT_LEN	    40
 #define MAX_OBSTRUCT_SIZE   100
 
@@ -159,17 +159,17 @@ struct RoomInfo
 {
     RoomInfo()
     {
+        mRoomType = ROOM_NONE;
         mRoomNum = 0;
         mCurPlayerNum = 0;
         mMaxPlayerNum = 0;
-        mRoomType = ROOM_NONE;
         mIsStart = false;
     }
 
+    RoomType    mRoomType;
     int         mRoomNum;
     int         mCurPlayerNum;
     int         mMaxPlayerNum;
-    RoomType    mRoomType;
     bool        mIsStart;
 };
 
@@ -184,10 +184,8 @@ struct LoginRequest : public PacketHeader
     {
         mSize = sizeof(LoginRequest);
         mType = PKT_CS_LOGIN;
-        mPlayerId = -1;
-        memset(mPlayerName, 0, MAX_NAME_LEN);
+        ZeroMemory(mPlayerName, MAX_NAME_LEN);
     }
-    int     mPlayerId;
     char    mPlayerName[MAX_NAME_LEN];
 };
 struct LoginResult : public PacketHeader
@@ -197,10 +195,10 @@ struct LoginResult : public PacketHeader
         mSize = sizeof(LoginResult);
         mType = PKT_SC_LOGIN;
         mPlayerId = -1;
-        memset(mRoomList, 0, sizeof(mRoomList));
+        ZeroMemory(mRoomList, MAX_ROOM_NUM);
     }
     int         mPlayerId;
-    RoomInfo    mRoomList[255];
+    RoomInfo    mRoomList[MAX_ROOM_NUM];
 
 };
 
@@ -292,7 +290,7 @@ struct GameReadyResult : public PacketHeader
         mType = PKT_SC_GAME_READY;
         mPlayerId = -1;
         mRoomId = -1;
-        memset(mPlayerName, 0, MAX_NAME_LEN);
+        ZeroMemory(mPlayerName, MAX_NAME_LEN);
     }
     char    mPlayerName[MAX_NAME_LEN];
     int     mPlayerId; 
@@ -306,7 +304,7 @@ struct GameRunNotify : public PacketHeader
         mType = PKT_SC_ALL_READY;
         mPlayerId = -1;
     }
-    int         mPlayerId;
+    int     mPlayerId;
 };
 
 struct ServerRunCompleteNotify : public PacketHeader
@@ -317,7 +315,7 @@ struct ServerRunCompleteNotify : public PacketHeader
         mType = PKT_SC_RUN_COMPLETE;
         mPlayerId = -1;
     }
-    int         mPlayerId;
+    int     mPlayerId;
 };
 struct ClientRunCompleteNotify : public PacketHeader
 {
@@ -327,7 +325,7 @@ struct ClientRunCompleteNotify : public PacketHeader
         mType = PKT_CS_RUN_COMPLETE;
         mPlayerId = -1;
     }
-    int         mPlayerId;
+    int     mPlayerId;
 };
 
 struct StartGameNotify : public PacketHeader
@@ -338,7 +336,7 @@ struct StartGameNotify : public PacketHeader
         mType = PKT_SC_START_GAME;
         mPlayerId = -1;
     }
-    int         mPlayerId;
+    int     mPlayerId;
 };
 
 struct OutGameRequest : public PacketHeader
@@ -349,7 +347,7 @@ struct OutGameRequest : public PacketHeader
         mType = PKT_CS_OUT_GAME;
         mPlayerId = -1;
     }
-    int         mPlayerId;
+    int     mPlayerId;
 };
 struct OutGameResult : public PacketHeader
 {
@@ -359,7 +357,7 @@ struct OutGameResult : public PacketHeader
         mType = PKT_SC_OUT_GAME;
         mPlayerId = -1;
     }
-    int         mPlayerId;
+    int     mPlayerId;
 };
 
 

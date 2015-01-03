@@ -76,19 +76,10 @@ void GameManager::DestroyTimer(Timer* timer)
     GameRoom 관련
 */
 ///////////////////////////////////////////////////////////////////////////
-GameRoom* GameManager::CreateRoom(RoomInfo roomInfo)
+GameRoom* GameManager::CreateRoom(const RoomInfo& roomInfo)
 {
-    if (++m_MakeRoomNum == 1)
-    {
-        LowTick();
-    }
-    if (m_RoomList.find(m_MakeRoomNum) != m_RoomList.end())
-    {
-        DeleteRoom(m_MakeRoomNum);
-    }
-    roomInfo.mRoomNum = m_MakeRoomNum;
-    GameRoom* room = new GameRoom(roomInfo,m_MakeRoomNum);
-    m_RoomList[m_MakeRoomNum] = room;
+    auto room = new GameRoom(roomInfo);
+    m_RoomList.insert(RoomList::value_type(room->GetRoomID(), room));
     return room;
 }
 

@@ -9,8 +9,7 @@
 
 Item::Item(Mob* mob, BuffTarget buffType)
 {
-    static int makeId = 0;
-    m_UnitID = SET_MAIN_TYPE(++makeId, UNIT_ITEM);
+    m_UnitID = SET_MAIN_TYPE(MakeID(this), UNIT_ITEM);
 
     m_BuffType = buffType;
 

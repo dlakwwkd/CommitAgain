@@ -51,7 +51,7 @@ struct RegisterHandler
 ///////////////////////////////////////////////////////////////////////////
 /*
     연결된 클라이언트와 패킷 받고 보내는 작업 완료하는 콜백 함수들
-    */
+*/
 ///////////////////////////////////////////////////////////////////////////
 void CALLBACK RecvCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED lpOverlapped, DWORD dwFlags)
 {
@@ -103,7 +103,7 @@ void CALLBACK SendCompletion(DWORD dwError, DWORD cbTransferred, LPWSAOVERLAPPED
 ///////////////////////////////////////////////////////////////////////////
 /*
     보내기 완료한 패킷을 출력버퍼에서 제거하는 함수
-    */
+*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::OnWriteComplete(size_t len)
 {
@@ -113,7 +113,7 @@ void ClientSession::OnWriteComplete(size_t len)
 ///////////////////////////////////////////////////////////////////////////
 /*
     받은 패킷 파싱하여 처리하는 함수
-    */
+*/
 ///////////////////////////////////////////////////////////////////////////
 void ClientSession::OnRead(size_t len)
 {
@@ -147,7 +147,7 @@ void ClientSession::OnRead(size_t len)
 ///////////////////////////////////////////////////////////////////////////
 /*
     패킷 타입에 따라 파싱을 완료하고 작업을 처리하는 핸들러들
-    */
+*/
 ///////////////////////////////////////////////////////////////////////////
 REGISTER_HANDLER(PKT_CS_LOGIN)
 {
@@ -157,13 +157,15 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
         printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
         return;
     }
-    if (!(GClientManager->IsValidPlayerId(inPacket.mPlayerId)))
+    if (!(GClientManager->IsValidPlayerName(inPacket.mPlayerName)))
     {
-        printf("[DEBUG] playerId already exists\n");
+        printf("[DEBUG] playerName already exists\n");
+        // 여기서 이미 로그인 되어 있음을 알려주는 패킷을 보내는 처리 해야함.
         session->Disconnect();
         return;
     }
-    session->LoginProcess(inPacket.mPlayerId, inPacket.mPlayerName);
+    printf(" Recv:   Login Name: %s \n", inPacket.mPlayerName);
+    session->LoginProcess(inPacket.mPlayerName);
 
     // 	LoadPlayerDataContext* newDbJob = new LoadPlayerDataContext(session->GetSocketKey(), inPacket.mPlayerId);
     // 	GDatabaseJobManager->PushDatabaseJobRequest(newDbJob);
@@ -316,57 +318,41 @@ REGISTER_HANDLER(PKT_CS_SKILL)
 ///////////////////////////////////////////////////////////////////////////
 /*
     보낼 패킷 파싱하는 함수들
-    */
+*/
 ///////////////////////////////////////////////////////////////////////////
-void ClientSession::LoginProcess(int playerId, const std::string& playerName)
+
+///////////////////////////////////////////////////////////////////////////
+/*
+    로그인 및 대기실 관련
+*/
+///////////////////////////////////////////////////////////////////////////
+void ClientSession::LoginProcess(const std::string& playerName)
 {
-    printf(" Recv:   Login Name: %s \n", playerName.c_str());
-    mPlayer = new Player(this, playerId, playerName, PT_HUMAN);
+    mPlayer = new Player(this, playerName, PT_HUMAN);
     mLogon = true;
 
-    int i = 0;
-    auto roomList = GGameManager->GetRoomList();
-
-    LoginResult outPacket;
-    outPacket.mPlayerId = mPlayer->GetPlayerID();
-    //RoomInfo 보내는 부분
-    for (auto& room : roomList)
-    {
-        auto roomInfo = room.second->GetRoomInfo();
-        if (room.first <= 0) // 채워지지 않은 room이라면 break
-            break;
-
-        outPacket.mRoomList[i].mRoomNum = room.first;
-        outPacket.mRoomList[i].mCurPlayerNum = roomInfo.mCurPlayerNum;
-        outPacket.mRoomList[i++].mMaxPlayerNum = roomInfo.mMaxPlayerNum;
-    }
-
-    SendRequest(&outPacket);
-    printf(" Send:   Login ID: %d \n", outPacket.mPlayerId);
+    UpdateRoomInfo();
+    printf(" Send:   Login ID: %d \n", mPlayer->GetPlayerID());
 }
 
 void ClientSession::UpdateRoomInfo()
 {
-    int i = 0;
-    auto roomList = GGameManager->GetRoomList();
-
     LoginResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
 
-    for (auto& room : roomList)
+    int i = 0;
+    for (auto& room : GGameManager->GetRoomList())
     {
-        auto roomInfo = room.second->GetRoomInfo();
-        if (room.first <= 0) // 채워지지 않은 room이라면 break
-            break;
+        if (room.first < 1) // invalid한 room은 skip
+            continue;
 
-        outPacket.mRoomList[i++] = roomInfo;
+        outPacket.mRoomList[i++] = room.second->GetRoomInfo();
     }
 
     SendRequest(&outPacket);
-    //printf(" Send:   RoomInformation: roomMaxNum: %d, Player ID: %d \n", i, outPacket.mPlayerId);
 }
 
-void ClientSession::MakeGameRoom(RoomInfo roomInfo)
+void ClientSession::MakeGameRoom(const RoomInfo& roomInfo)
 {
     GameRoom* gameRoom = GGameManager->CreateRoom(roomInfo);
     GGameManager->JoinRoom(gameRoom->GetRoomID(), mPlayer);
@@ -391,7 +377,7 @@ void ClientSession::MakeGameRoom(RoomInfo roomInfo)
     printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId);
 }
 
-void ClientSession::JoinGameRoom(RoomInfo roomInfo)
+void ClientSession::JoinGameRoom(const RoomInfo& roomInfo)
 {
     if (roomInfo.mRoomNum < 0)
     {
@@ -420,7 +406,7 @@ void ClientSession::JoinGameRoom(RoomInfo roomInfo)
         outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId, outPacket.mRoomInfo.mCurPlayerNum, outPacket.mRoomInfo.mMaxPlayerNum);
 }
 
-void ClientSession::OutGameRoom(RoomInfo roomInfo)
+void ClientSession::OutGameRoom(const RoomInfo& roomInfo)
 {
     if (mPlayer == nullptr)
     {
@@ -456,7 +442,6 @@ void ClientSession::OutGameRoom(RoomInfo roomInfo)
     로딩 처리 관련
 */
 ///////////////////////////////////////////////////////////////////////////
-
 void ClientSession::PlayerReadyNotify()
 {
     GameReadyResult outPacket;

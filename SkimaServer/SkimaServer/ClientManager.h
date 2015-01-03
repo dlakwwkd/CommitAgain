@@ -13,12 +13,12 @@ public:
     {}
 
     ClientSession*  CreateClient(SOCKET sock);
-    void            BroadcastPacket(ClientSession* from, PacketHeader* pkt);
+    bool            IsValidPlayerName(const std::string& name);
 
-    void            OnPeriodWork(DWORD currTick);
+    void            BroadcastPacket(ClientSession* from, PacketHeader* pkt);
     void            FlushClientSend();
 
-    bool            IsValidPlayerId(int playerId);
+    void            OnPeriodWork(DWORD currTick);
 
     /// DB에 플레이어 정보를 생성하거나 삭제하는 함수
     // 	void CreatePlayer(int pid, const char* name, const char* comment) ;

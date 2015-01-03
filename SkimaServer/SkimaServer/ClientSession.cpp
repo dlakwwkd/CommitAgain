@@ -62,7 +62,6 @@ bool ClientSession::PostRecv()
     }
 
     IncRefCount();
-
     return true;
 }
 
@@ -103,7 +102,6 @@ void ClientSession::CloseSocketNoWait()
         printf_s("[DEBUG] setsockopt linger option error: %d\n", GetLastError());
         return;
     }
-
     closesocket(mSocket);
 }
 
@@ -124,9 +122,7 @@ bool ClientSession::SendRequest(PacketHeader* pkt)
         Disconnect();
         return false;
     }
-
     return true;
-
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -161,7 +157,6 @@ bool ClientSession::SendFlush()
     }
 
     IncRefCount();
-
     return true;
 }
 
@@ -183,7 +178,6 @@ bool ClientSession::Broadcast(PacketHeader* pkt)
         return false;
 
     GClientManager->BroadcastPacket(this, pkt);
-
     return true;
 }
 
@@ -198,10 +192,9 @@ void ClientSession::OnTick()
     if (!IsConnected())
         return;
 
-    if (mPlayer && mPlayer->GetRoomID() <= 0)
-    {
+    if (mPlayer && mPlayer->GetRoomID() < 1)    // 대기실에 있는 경우
         UpdateRoomInfo();
-    }
+
     CallFuncAfter(PLAYER_HEART_BEAT, this, &ClientSession::OnTick);
 }
 

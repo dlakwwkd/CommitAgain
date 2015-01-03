@@ -7,8 +7,7 @@
 
 Timer::Timer(int gameId)
 {
-    static int makeId = 0;
-    m_TimerID = ++makeId;
+    m_TimerID = MakeID(this);
     m_GameID = gameId;
 }
 

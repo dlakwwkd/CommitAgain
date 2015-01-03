@@ -109,6 +109,7 @@ unsigned int WINAPI ClientHandlingThread(LPVOID lpParam)
 {
     LThreadType = THREAD_CLIENT;
     LScheduler = new Scheduler;
+    GGameManager->LowTick();
 
     PendingAcceptList* pAcceptList = (PendingAcceptList*)lpParam;
 
@@ -153,6 +154,7 @@ unsigned int WINAPI ClientHandlingThread(LPVOID lpParam)
     }
 
     CloseHandle(hTimer);
+    delete LScheduler;
     return 0;
 }
 

@@ -104,7 +104,7 @@ void Game::InitGame(RoomType roomType)
         }
         player.second->CreateHero(CONVERT_IN(createPos, roomId), roomType);
     }
-    m_Computer = new Player(temp, PT_COMPUTER, "Computer", PT_COMPUTER);
+    m_Computer = new Player(temp, "Computer", PT_COMPUTER);
     m_Computer->SetRoomID(roomId);
     m_Computer->SetTeam(TEAM_C);
 	m_PlayerList[PT_COMPUTER] = m_Computer;

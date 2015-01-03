@@ -5,6 +5,14 @@
 #include "Jupiter.h"
 #include "Laphinx.h"
 
+Player::Player(ClientSession* client, const std::string& playerName, PlayerType type)
+{
+    m_PlayerID = MakeID(this);
+    m_Client = client;
+    m_PlayerName = playerName;
+    m_PlayerType = type;
+}
+
 Player::~Player()
 {
     UnitListClear();

@@ -31,11 +31,11 @@ public:
     SOCKET	GetSocketKey() const { return mSocket; }
     Player*	GetPlayer() const { return mPlayer; }
 
-    void    LoginProcess(int playerId, const std::string& playerName);
+    void LoginProcess(const std::string& playerName);
     void    UpdateRoomInfo();
-    void    MakeGameRoom(RoomInfo roomInfo);
-    void    JoinGameRoom(RoomInfo roomInfo);
-    void    OutGameRoom(RoomInfo roomInfo);
+    void    MakeGameRoom(const RoomInfo& roomInfo);
+    void    JoinGameRoom(const RoomInfo& roomInfo);
+    void    OutGameRoom(const RoomInfo& roomInfo);
 
     void    PlayerReadyNotify();
     void    AllReadyNotify();

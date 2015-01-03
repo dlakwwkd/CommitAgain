@@ -32,13 +32,14 @@ ClientSession* ClientManager::CreateClient(SOCKET sock)
     return client;
 }
 
-bool ClientManager::IsValidPlayerId(int playerId)
+
+///////////////////////////////////////////////////////////////////////////
+/*
+    해당 아이디가 이미 있는지를 체크하는 함수
+*/
+///////////////////////////////////////////////////////////////////////////
+bool ClientManager::IsValidPlayerName(const std::string& name)
 {
-    if (playerId < 0)
-    {
-        printf(" - IsValidPlayerId Failed ! : playerId is invalid \n");
-        return false;
-    }
     for (auto& client : mClientList)
     {
         auto player = client.second->GetPlayer();
@@ -46,13 +47,14 @@ bool ClientManager::IsValidPlayerId(int playerId)
         {
             continue;
         }
-        if (player->GetPlayerID() == playerId)
+        if (player->GetPlayerName() == name)
         {
             return false;
         }
     }
     return true;
 }
+
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -62,11 +64,9 @@ bool ClientManager::IsValidPlayerId(int playerId)
 ///////////////////////////////////////////////////////////////////////////
 void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
 {
-    ///FYI: C++ STL iterator 스타일의 루프
-    for (ClientList::const_iterator it = mClientList.begin(); it != mClientList.end(); ++it)
+    for (auto& it : mClientList)
     {
-        ClientSession* client = it->second;
-
+        auto client = it.second;
         if (from == client)
             continue;
 
@@ -84,6 +84,23 @@ void ClientManager::BroadcastPacket(ClientSession* from, PacketHeader* pkt)
     }
 }
 
+
+///////////////////////////////////////////////////////////////////////////
+/*
+    연결된 모든 클라의 출력버퍼에 쌓인 패킷들 전부 전송하는 함수
+    */
+///////////////////////////////////////////////////////////////////////////
+void ClientManager::FlushClientSend()
+{
+    for (auto& it : mClientList)
+    {
+        auto client = it.second;
+        if (false == client->SendFlush())
+        {
+            client->Disconnect();
+        }
+    }
+}
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -103,7 +120,6 @@ void ClientManager::OnPeriodWork(DWORD currTick)
     /// 처리 완료된 DB 작업들 각각의 Client로 dispatch
     //DispatchDatabaseJobResults() ;
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -132,25 +148,6 @@ void ClientManager::CollectGarbageSessions()
         ClientSession* client = disconnectedSessions[i];
         mClientList.erase(client->mSocket);
         delete client;
-    }
-}
-
-
-
-///////////////////////////////////////////////////////////////////////////
-/*
-    연결된 모든 클라의 출력버퍼에 쌓인 패킷들 전부 전송하는 함수
-    */
-///////////////////////////////////////////////////////////////////////////
-void ClientManager::FlushClientSend()
-{
-    for (auto& it : mClientList)
-    {
-        ClientSession* client = it.second;
-        if (false == client->SendFlush())
-        {
-            client->Disconnect();
-        }
     }
 }
 

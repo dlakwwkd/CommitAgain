@@ -10,8 +10,7 @@
 
 Mob::Mob()
 {
-	static int makeId = 0;
-	m_UnitID = SET_MAIN_TYPE(++makeId, UNIT_MOB);
+    m_UnitID = SET_MAIN_TYPE(MakeID(this), UNIT_MOB);
 }
 
 
