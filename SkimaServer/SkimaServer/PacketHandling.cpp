@@ -174,51 +174,29 @@ REGISTER_HANDLER(PKT_CS_LOGIN)
 REGISTER_HANDLER(PKT_CS_MAKE_ROOM)
 {
     MakeRoomRequest inPacket;
-    if (false == session->ParsePacket(inPacket))
-    {
-        printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+    if (false == session->ParsePacketWithCheckID(inPacket))
         return;
-    }
+
     session->MakeGameRoom(inPacket.mRoomInfo);
 }
 
 REGISTER_HANDLER(PKT_CS_INOUT_ROOM)
 {
     InOutRoomRequest inPacket;
-    if (false == session->ParsePacket(inPacket))
-    {
-        printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+    if (false == session->ParsePacketWithCheckID(inPacket))
         return;
-    }
-    if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
-    {
-        printf("[DEBUG] Player Info error! \n");
-        return;
-    }
 
     if (inPacket.mIsIn)
-    {
         session->JoinGameRoom(inPacket.mRoomInfo);	
-    }
     else
-    {
         session->OutGameRoom(inPacket.mRoomInfo);
-    }
 }
 
 REGISTER_HANDLER(PKT_CS_GAME_READY)
 {
     GameReadyRequest inPacket;
-    if (false == session->ParsePacket(inPacket))
-    {
-        printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+    if (false == session->ParsePacketWithCheckID(inPacket))
         return;
-    }
-    if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
-    {
-        printf("[DEBUG] Player Info error! \n");
-        return;
-    }
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto room = GGameManager->SearchRoom(player->GetRoomID());		if (!room)      return;
@@ -238,16 +216,8 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
 {
     ClientRunCompleteNotify inPacket;
-    if (false == session->ParsePacket(inPacket))
-    {
-        printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+    if (false == session->ParsePacketWithCheckID(inPacket))
         return;
-    }
-    if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
-    {
-        printf("[DEBUG] Player Info error! \n");
-        return;
-    }
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto game = GGameManager->SearchGame(player->GetRoomID());		if (!game)      return;
@@ -263,17 +233,8 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
 REGISTER_HANDLER(PKT_CS_MOVE)
 {
     MoveRequest inPacket;
-    if (false == session->ParsePacket(inPacket))
-    {
-        printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+    if (false == session->ParsePacketWithCheckID(inPacket))
         return;
-    }
-    if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
-    {
-        printf("[DEBUG] Player Info error! \n");
-        return;
-    }
-    //printf(" Receive: LoginID: %d \t\t\t x : %.f \t y : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto hero = player->GetMyHero();									if (!hero)      return;
@@ -289,17 +250,8 @@ REGISTER_HANDLER(PKT_CS_MOVE)
 REGISTER_HANDLER(PKT_CS_SKILL)
 {
     SkillRequest inPacket;
-    if (false == session->ParsePacket(inPacket))
-    {
-        printf("[DEBUG] packet parsing error: %d \n", inPacket.mType);
+    if (false == session->ParsePacketWithCheckID(inPacket))
         return;
-    }
-    if (session->GetPlayer()->GetPlayerID() != inPacket.mPlayerId)
-    {
-        printf("[DEBUG] Player Info error! \n");
-        return;
-    }
-    //printf(" SkillReceive: LoginID: %d \t\t\t x : %.f \t y : %.f\n", inPacket.mPlayerId, inPacket.mTargetPos.x, inPacket.mTargetPos.y);
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto hero = player->GetMyHero();									if (!hero)      return;
@@ -348,15 +300,13 @@ void ClientSession::UpdateRoomInfo()
 
         outPacket.mRoomList[i++] = room.second->GetRoomInfo();
     }
-
     SendRequest(&outPacket);
 }
 
 void ClientSession::MakeGameRoom(const RoomInfo& roomInfo)
 {
-    GameRoom* gameRoom = GGameManager->CreateRoom(roomInfo);
+    auto gameRoom = GGameManager->CreateRoom(roomInfo);
     GGameManager->JoinRoom(gameRoom->GetRoomID(), mPlayer);
-    mRoomId = gameRoom->GetRoomID();
 
     auto roomList = GGameManager->GetRoomList();
     auto room = roomList.find(gameRoom->GetRoomID());
@@ -367,7 +317,7 @@ void ClientSession::MakeGameRoom(const RoomInfo& roomInfo)
     }
     MakeRoomResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mRoomInfo.mRoomNum = mRoomId = gameRoom->GetRoomID();
+    outPacket.mRoomInfo.mRoomNum = gameRoom->GetRoomID();
     outPacket.mRoomInfo.mCurPlayerNum = 1; //방 생성한 player 1명
     outPacket.mRoomInfo.mMaxPlayerNum = roomInfo.mMaxPlayerNum;
     outPacket.mRoomInfo.mRoomType = roomInfo.mRoomType;
@@ -386,7 +336,6 @@ void ClientSession::JoinGameRoom(const RoomInfo& roomInfo)
     GGameManager->JoinRoom(roomInfo.mRoomNum, mPlayer);
     auto roomList = GGameManager->GetRoomList();
     auto room = roomList.find(roomInfo.mRoomNum);
-    mRoomId = roomInfo.mRoomNum;
 
     if (room == roomList.end())
     {
@@ -531,8 +480,8 @@ void ClientSession::TryMoveBroadCast(int unitId, const b2Vec2& curPos, const b2V
     MoveBroadcastResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
     outPacket.mUnitId = unitId;
-    outPacket.mCurrentPos = CONVERT_OUT(curPos, mRoomId);
-    outPacket.mTargetPos = CONVERT_OUT(targetPos, mRoomId);
+    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
+    outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
     {
@@ -545,8 +494,8 @@ void ClientSession::CrashedBroadCast(int playerId, int unitId, const b2Vec2& cur
     CrashedBroadcastResult outPacket;
     outPacket.mPlayerId = playerId;
     outPacket.mUnitId = unitId;
-    outPacket.mCurrentPos = CONVERT_OUT(curPos, mRoomId);
-    outPacket.mExpectPos = CONVERT_OUT(expectPos, mRoomId);
+    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
+    outPacket.mExpectPos = CONVERT_OUT(expectPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
     {
@@ -559,7 +508,7 @@ void ClientSession::SyncPosBroadCast(int playerId, int unitId, const b2Vec2& cur
     SyncPosBroadcastResult outPacket;
     outPacket.mPlayerId = playerId;
     outPacket.mUnitId = unitId;
-    outPacket.mCurrentPos = CONVERT_OUT(curPos, mRoomId);
+    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
     {

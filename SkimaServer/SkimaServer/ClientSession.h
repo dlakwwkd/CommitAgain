@@ -31,7 +31,7 @@ public:
     SOCKET	GetSocketKey() const { return mSocket; }
     Player*	GetPlayer() const { return mPlayer; }
 
-    void LoginProcess(const std::string& playerName);
+    void    LoginProcess(const std::string& playerName);
     void    UpdateRoomInfo();
     void    MakeGameRoom(const RoomInfo& roomInfo);
     void    JoinGameRoom(const RoomInfo& roomInfo);
@@ -80,13 +80,27 @@ public:
 public:
     template <class PKT_TYPE>
     bool ParsePacket(PKT_TYPE& pkt){ return mRecvBuffer.Read((char*)&pkt, pkt.mSize); }
+    template <class PKT_TYPE>
+    bool ParsePacketWithCheckID(PKT_TYPE& pkt)
+    {
+        if (false == ParsePacket(pkt))
+        {
+            printf("[DEBUG] packet parsing error: %d \n", pkt.mType);
+            return false;
+        }
+        if (mPlayer->GetPlayerID() != pkt.mPlayerId)
+        {
+            printf("[DEBUG] Player Info error! \n");
+            return false;
+        }
+        return true;
+    }
 
     void OnWriteComplete(size_t len);
     void OnRead(size_t len);
 
 private:
     Player*			mPlayer = nullptr;
-    int             mRoomId = NULL;
 
 private:
     bool            mConnected;
