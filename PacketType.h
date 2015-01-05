@@ -100,6 +100,7 @@ enum PacketTypes
     PKT_CS_GAME_READY   = 15,
     PKT_SC_GAME_READY   = 16,
     PKT_SC_ALL_READY    = 17,
+    PKT_CS_LOADING_OK   = 18,
 
     ///////////////
     // SC로만 로딩 정보 전달(맵, 유닛 등) 
@@ -163,6 +164,7 @@ struct RoomInfo
         mRoomNum = 0;
         mCurPlayerNum = 0;
         mMaxPlayerNum = 0;
+        mReadyNum = 0;
         mIsAllReady = false;
     }
 
@@ -170,6 +172,7 @@ struct RoomInfo
     int         mRoomNum;
     int         mCurPlayerNum;
     int         mMaxPlayerNum;
+    int         mReadyNum;
     bool        mIsAllReady;
 };
 
@@ -296,12 +299,22 @@ struct GameReadyResult : public PacketHeader
     int     mPlayerId; 
     int     mRoomId;
 };
-struct GameRunNotify : public PacketHeader
+struct AllReadyNotify : public PacketHeader
 {
-    GameRunNotify()
+    AllReadyNotify()
     {
-        mSize = sizeof(GameRunNotify);
+        mSize = sizeof(AllReadyNotify);
         mType = PKT_SC_ALL_READY;
+        mPlayerId = -1;
+    }
+    int     mPlayerId;
+};
+struct LoadingOKNotify : public PacketHeader
+{
+    LoadingOKNotify()
+    {
+        mSize = sizeof(LoadingOKNotify);
+        mType = PKT_CS_LOADING_OK;
         mPlayerId = -1;
     }
     int     mPlayerId;

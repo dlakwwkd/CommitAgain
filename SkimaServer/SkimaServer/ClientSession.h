@@ -38,7 +38,7 @@ public:
     void    OutGameRoom(const RoomInfo& roomInfo);
 
     void    PlayerReadyNotify();
-    void    AllReadyNotify();
+    void    AllPlayerReadyNotify();
     void    ServerRunComplete();
     void    SendCreateHeroResult(int unitId, const b2Vec2& pos, RoomType roomType);
     void	SendMapInfo(        int playerId,   int unitId, const b2Vec2& pos);

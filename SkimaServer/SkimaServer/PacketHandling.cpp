@@ -211,8 +211,23 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
     room->ReadySign();
     if (room->IsAllReady())
     {
-        CallFuncAfter(5000, GGameManager, &GameManager::CreateGame, room->GetRoomID());
-        session->AllReadyNotify();
+        session->AllPlayerReadyNotify();
+    }
+}
+
+REGISTER_HANDLER(PKT_CS_LOADING_OK)
+{
+    LoadingOKNotify inPacket;
+    if (false == session->ParsePacketWithCheckID(inPacket))
+        return;
+
+    auto player = session->GetPlayer();								if (!player)    return;
+    auto room = GGameManager->SearchRoom(player->GetRoomID());		if (!room)      return;
+
+    room->SetLoadedPlayerNum();
+    if (room->GetLoadedPlayerNum() >= room->GetPlayerListSize())
+    {
+        CallFuncAfter(1000, GGameManager, &GameManager::CreateGame, room->GetRoomID());
     }
 }
 
@@ -226,7 +241,7 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
     auto game = GGameManager->SearchGame(player->GetRoomID());		if (!game)      return;
 
     game->SetLoadedPlayerNum();
-    if (game->GetLoadedPlayerNum() >= game->GetPlayerListSize() - 1)
+    if (game->GetLoadedPlayerNum() >= game->GetPlayerListSize() - 1)    // 컴퓨터 플레이어가 추가됐기 때문
     {
         game->StartGame();
         session->SendStartGame();
@@ -368,22 +383,20 @@ void ClientSession::PlayerReadyNotify()
     outPacket.mPlayerId = mPlayer->GetPlayerID();
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
+    
     printf(" Send: Player: %s is ready, Room ID: %d \n",mPlayer->GetPlayerName().c_str(), mPlayer->GetRoomID());
 }
 
-void ClientSession::AllReadyNotify()
+void ClientSession::AllPlayerReadyNotify()
 {
-    GameRunNotify outPacket;
+    AllReadyNotify outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
-    printf(" Send: GameRunNotify Room ID: %d \n", mPlayer->GetRoomID());
+    
+    printf(" Send: AllReadyNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
 void ClientSession::ServerRunComplete()
@@ -392,9 +405,8 @@ void ClientSession::ServerRunComplete()
     outPacket.mPlayerId = mPlayer->GetPlayerID();
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
+    
     printf(" Send: ServerRunCompleteNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
@@ -408,9 +420,8 @@ void ClientSession::SendCreateHeroResult(int unitId, const b2Vec2& pos, RoomType
     outPacket.mRoomType = roomType;
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
+    
     //printf(" Send: CreateHeroResult Player ID: %d \n", mPlayer->GetPlayerID());
 }
 
@@ -422,9 +433,8 @@ void ClientSession::SendMapInfo(int playerId, int unitId, const b2Vec2& pos)
     outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
+    
     //printf(" Send: MapInfo Player ID: %d \t createPos  x: %.f \t y: %.f\n", mPlayer->GetPlayerID(), outPacket.mPos.x, outPacket.mPos.y);
 }
 
@@ -434,9 +444,8 @@ void ClientSession::SendStartGame()
     outPacket.mPlayerId = mPlayer->GetPlayerID();
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
+    
     printf(" Send: StartGameNotify Room ID: %d \n", mPlayer->GetRoomID());
 }
 
@@ -455,9 +464,7 @@ void ClientSession::TryMoveBroadCast(int unitId, const b2Vec2& curPos, const b2V
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::CrashedBroadCast(int playerId, int unitId, const b2Vec2& curPos, const b2Vec2& expectPos)
@@ -469,9 +476,7 @@ void ClientSession::CrashedBroadCast(int playerId, int unitId, const b2Vec2& cur
     outPacket.mExpectPos = CONVERT_OUT(expectPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::SyncPosBroadCast(int playerId, int unitId, const b2Vec2& curPos)
@@ -482,9 +487,7 @@ void ClientSession::SyncPosBroadCast(int playerId, int unitId, const b2Vec2& cur
     outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::SkillBroadCast(int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key)
@@ -497,9 +500,7 @@ void ClientSession::SkillBroadCast(int unitId, const b2Vec2& curPos, const b2Vec
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::UnHideBroadCast(int unitId, const b2Vec2& curPos)
@@ -510,9 +511,7 @@ void ClientSession::UnHideBroadCast(int unitId, const b2Vec2& curPos)
     outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::MeteorBroadCast(int unitId, const b2Vec2& targetPos)
@@ -523,9 +522,7 @@ void ClientSession::MeteorBroadCast(int unitId, const b2Vec2& targetPos)
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::ShootBroadCast(int playerId,int unitId, const b2Vec2& curPos, const b2Vec2& targetPos)
@@ -537,9 +534,7 @@ void ClientSession::ShootBroadCast(int playerId,int unitId, const b2Vec2& curPos
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::CreateMobBroadCast(int playerId, int unitId, const b2Vec2& pos, int hp, float speed)
@@ -552,9 +547,7 @@ void ClientSession::CreateMobBroadCast(int playerId, int unitId, const b2Vec2& p
     outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::ItemBroadCast(int playerId, int unitId, const b2Vec2& pos, bool isCreate, BuffTarget buffType)
@@ -567,9 +560,7 @@ void ClientSession::ItemBroadCast(int playerId, int unitId, const b2Vec2& pos, b
     outPacket.mBuffType = buffType;
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::HpBroadCast(int playerId, int unitId, int hp)
@@ -580,9 +571,7 @@ void ClientSession::HpBroadCast(int playerId, int unitId, int hp)
     outPacket.mHp = hp;
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type, bool isOn)
@@ -597,9 +586,7 @@ void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type, bool
     //printf(" - BuffBonus: %.f \n", outPacket.mBonus);
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }
 
 void ClientSession::GameOverCast(Team winTeam)
@@ -609,7 +596,5 @@ void ClientSession::GameOverCast(Team winTeam)
     outPacket.mWinTeam = winTeam;
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
 }

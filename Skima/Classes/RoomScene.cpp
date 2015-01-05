@@ -199,6 +199,7 @@ void RoomScene::GameStartComplete()
     m_IsReady = false;
     WaitingCheck();
     Director::getInstance()->pushScene(scene);
+    TcpClient::getInstance()->loadingOKRequest();
 }
 
 void RoomScene::WaitingCheck()

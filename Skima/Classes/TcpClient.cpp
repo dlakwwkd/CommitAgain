@@ -271,7 +271,7 @@ void TcpClient::processPacket()
 
         case PKT_SC_ALL_READY:
         {
-            GameRunNotify recvData;
+            AllReadyNotify recvData;
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
@@ -699,6 +699,17 @@ void TcpClient::startGameRequest(int roomId, Team team, HeroType heroType)
     sendData.mHeroType = heroType;
 
     send((const char*)&sendData, sizeof(GameReadyRequest));
+}
+
+void TcpClient::loadingOKRequest()
+{
+    if (mLoginId < 0)
+        return;
+
+    LoadingOKNotify sendData;
+    sendData.mPlayerId = mLoginId;
+
+    send((const char*)&sendData, sizeof(LoadingOKNotify));
 }
 
 void TcpClient::runCompleteRequest()
