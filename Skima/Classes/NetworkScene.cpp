@@ -70,7 +70,7 @@ void NetworkScene::menuCallback2(int roomNum)
     {
         if (room.mRoomNum == roomNum)
         {
-            if (room.mIsStart) //들어가려한 방이 게임이 시작된 방일 때
+            if (room.mIsAllReady) //들어가려한 방이 게임이 시작된 방일 때
             {
                 ConnectLabelChange("이미 게임이 시작된 방입니다.");
                 return;
