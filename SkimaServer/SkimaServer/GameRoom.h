@@ -19,15 +19,15 @@ public:
     int			        GetPlayerListSize(){ return m_PlayerList.size(); }
     void		        SetIsGameExist(bool isGameExist){ m_IsGameExist = isGameExist; }
     bool		        IsGameExist(){ return m_IsGameExist; }
-    void                SetIsGameStart(bool isStart){ m_RoomInfo.mIsStart = isStart; }
-    bool		        IsAllReady(){ return m_RoomInfo.mIsStart; }
+    void                SetIsGameStart(bool isStart){ m_RoomInfo.mIsAllReady = isStart; }
+    bool		        IsAllReady(){ return m_RoomInfo.mIsAllReady; }
     bool		        IsJoinAble(){ return m_JoinAble; }
 
     void		        ReadySign();
     void		        InitReady();
     const PlayerList&   GetPlayerList(){ return m_PlayerList; }
-    void		        JoinPlayer(Player* player);
-    void		        OutPlayer(int playerId);
+    bool                JoinPlayer(Player* player);
+    bool                OutPlayer(int playerId);
 
 private:
     PlayerList	m_PlayerList;

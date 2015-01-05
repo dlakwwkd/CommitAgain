@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "GameRoom.h"
 #include "Game.h"
+#include "Scheduler.h"
 //#include "DatabaseJobContext.h"
 //#include "DatabaseJobManager.h"
 
@@ -200,15 +201,17 @@ REGISTER_HANDLER(PKT_CS_GAME_READY)
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto room = GGameManager->SearchRoom(player->GetRoomID());		if (!room)      return;
-    room->ReadySign();
+
     player->SetReady(true);
     player->SetHeroType(inPacket.mHeroType);
     player->SetTeam(inPacket.mTeam);
-    printf(" - Player %d is Ready ! \n", inPacket.mPlayerId);
     session->PlayerReadyNotify();
+    printf(" - Player %d is Ready ! \n", inPacket.mPlayerId);
 
+    room->ReadySign();
     if (room->IsAllReady())
     {
+        CallFuncAfter(5000, GGameManager, &GameManager::CreateGame, room->GetRoomID());
         session->AllReadyNotify();
     }
 }
@@ -221,8 +224,8 @@ REGISTER_HANDLER(PKT_CS_RUN_COMPLETE)
 
     auto player = session->GetPlayer();								if (!player)    return;
     auto game = GGameManager->SearchGame(player->GetRoomID());		if (!game)      return;
-    game->SetLoadedPlayerNum();
 
+    game->SetLoadedPlayerNum();
     if (game->GetLoadedPlayerNum() >= game->GetPlayerListSize() - 1)
     {
         game->StartGame();
@@ -305,23 +308,13 @@ void ClientSession::UpdateRoomInfo()
 
 void ClientSession::MakeGameRoom(const RoomInfo& roomInfo)
 {
-    auto gameRoom = GGameManager->CreateRoom(roomInfo);
-    GGameManager->JoinRoom(gameRoom->GetRoomID(), mPlayer);
-
-    auto roomList = GGameManager->GetRoomList();
-    auto room = roomList.find(gameRoom->GetRoomID());
-    if (room == roomList.end())
-    {
-        printf(" MakeGameRoom() Failed ! \n");
+    auto room = GGameManager->CreateRoom(roomInfo);
+    if(false == room->JoinPlayer(mPlayer))
         return;
-    }
+
     MakeRoomResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mRoomInfo.mRoomNum = gameRoom->GetRoomID();
-    outPacket.mRoomInfo.mCurPlayerNum = 1; //방 생성한 player 1명
-    outPacket.mRoomInfo.mMaxPlayerNum = roomInfo.mMaxPlayerNum;
-    outPacket.mRoomInfo.mRoomType = roomInfo.mRoomType;
-    outPacket.mRoomInfo.mIsStart = false;
+    outPacket.mRoomInfo = room->GetRoomInfo();
 
     SendRequest(&outPacket);
     printf(" Send: Make Room ID: %d, Player ID: %d \n", outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId);
@@ -329,58 +322,36 @@ void ClientSession::MakeGameRoom(const RoomInfo& roomInfo)
 
 void ClientSession::JoinGameRoom(const RoomInfo& roomInfo)
 {
-    if (roomInfo.mRoomNum < 0)
-    {
+    auto room = GGameManager->SearchRoom(roomInfo.mRoomNum);
+    if (!room || false == room->JoinPlayer(mPlayer))
         return;
-    }
-    GGameManager->JoinRoom(roomInfo.mRoomNum, mPlayer);
-    auto roomList = GGameManager->GetRoomList();
-    auto room = roomList.find(roomInfo.mRoomNum);
 
-    if (room == roomList.end())
-    {
-        printf(" JoinGameRoom() Failed ! \n");
-        return;
-    }
     InOutRoomResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mRoomInfo = room->second->GetRoomInfo();
+    outPacket.mRoomInfo = room->GetRoomInfo();
     outPacket.mIsIn = true;
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
-    printf(" Send: Out Room ID: %d, Player ID: %d \n CurPlayerNum: %d, MaxPlayerNum: %d\n",
+
+    printf(" Send: Join Room ID: %d, Player ID: %d \n CurPlayerNum: %d, MaxPlayerNum: %d\n",
         outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId, outPacket.mRoomInfo.mCurPlayerNum, outPacket.mRoomInfo.mMaxPlayerNum);
 }
 
 void ClientSession::OutGameRoom(const RoomInfo& roomInfo)
 {
-    if (mPlayer == nullptr)
-    {
+    auto room = GGameManager->SearchRoom(roomInfo.mRoomNum);
+    if (!room || !mPlayer || false == room->OutPlayer(mPlayer->GetPlayerID()))
         return;
-    }
-
-    auto roomList = GGameManager->GetRoomList();
-    auto room = roomList.find(roomInfo.mRoomNum);
-    if (room == roomList.end())
-    {
-        printf(" OutGameRoom() Failed ! \n");
-        return;
-    }
 
     InOutRoomResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mRoomInfo = room->second->GetRoomInfo();
-    outPacket.mRoomInfo.mCurPlayerNum--; //패킷을 보내고 playerOut을 해주어야 하기 때문에 보낼 패킷엔 임시로 -1을 해준다.
+    outPacket.mRoomInfo = room->GetRoomInfo();
     outPacket.mIsIn = false;
 
     if (!Broadcast(&outPacket))
-    {
         Disconnect();
-    }
-    GGameManager->PlayerOut(mPlayer);
+
     printf(" Send: Out Room ID: %d, Player ID: %d \n CurPlayerNum: %d, MaxPlayerNum: %d\n",
         outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId, outPacket.mRoomInfo.mCurPlayerNum, outPacket.mRoomInfo.mMaxPlayerNum);
 }

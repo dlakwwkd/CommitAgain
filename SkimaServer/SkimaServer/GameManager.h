@@ -50,7 +50,6 @@ public:
     void                DeleteRoom(int roomId);
     GameRoom*           SearchRoom(int roomId);
     int                 SearchEmptyRoom();
-    void                JoinRoom(int roomId, Player* player);
 
     Game*               SearchGame(int gameId);
     void                CreateGame(int gameId);

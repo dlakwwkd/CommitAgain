@@ -130,22 +130,6 @@ int GameManager::SearchEmptyRoom()
     return -1;
 }
 
-void GameManager::JoinRoom(int roomId, Player* player)
-{
-    if (roomId < 0 || player == nullptr)
-    {
-        printf(" - JoinRoom Failed ! : invalid info \n");
-        return;
-    }
-	auto room = m_RoomList.find(roomId);
-	if (room == m_RoomList.end())
-	{
-		printf(" - JoinRoom Failed ! : relevant room isn't \n");
-		return;
-	}
-	room->second->JoinPlayer(player);
-}
-
 
 ///////////////////////////////////////////////////////////////////////////
 /*
@@ -286,10 +270,6 @@ void GameManager::PlayerOut(Player* player)
     if (room != m_RoomList.end())
     {
         room->second->OutPlayer(playerId);
-        if (room->second->GetPlayerListSize() == 0)
-        {
-            DeleteRoom(roomId);
-        }
     }
 }
 
