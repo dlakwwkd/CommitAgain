@@ -2,11 +2,21 @@
 #include "RefCountable.h"
 #include "ObjectPool.h"
 #include "Scheduler.h"
+class Game;
+
+enum TimerType
+{
+    TIMER_CALLBACK,
+    TIMER_INFINITE,
+    TIMER_REPEAT,
+};
 
 class Timer : public RefCountable, public ObjectPool<Timer>
 {
 public:
     Timer(int gameId);
+    template <class... Args>
+    Timer(Game* game, TimerType type, int delay, int repeatNum, Args&&... args);
     virtual ~Timer();
 
     void    SetOff(){ m_IsOn = false; }
