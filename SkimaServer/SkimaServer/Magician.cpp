@@ -11,7 +11,7 @@
 Magician::Magician(Player* owner, const b2Vec2& pos, float scale)
 {
     SetDynamicBody(owner, HERO_MAGICIAN, pos, scale);
-    m_Hp = m_MaxHp = 1500;
+    m_Hp = m_MaxHp = 1200;
     m_Speed = Reduce(320.0f);
 
     m_Buff = new BuffSkill(m_Owner);

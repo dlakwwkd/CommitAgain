@@ -9,14 +9,15 @@ enum TimerType
     TIMER_CALLBACK,
     TIMER_INFINITE,
     TIMER_REPEAT,
+    TIMER_WAIT_REPEAT,
 };
 
 class Timer : public RefCountable, public ObjectPool<Timer>
 {
 public:
     Timer(int gameId);
-    template <class... Args>
-    Timer(Game* game, TimerType type, int delay, int repeatNum, Args&&... args);
+//     template <class... Args>
+//     Timer(Game* game, TimerType type, int delay, int repeatNum, Args&&... args);
     virtual ~Timer();
 
     void    SetOff(){ m_IsOn = false; }

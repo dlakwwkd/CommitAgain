@@ -15,7 +15,7 @@
 FireWallSkill::FireWallSkill(Player* owner)
 {
     m_Owner = owner;
-    m_Damage = 64;
+    m_Damage = 32;
     m_Scale = Reduce(80.0f);
 }
 
@@ -34,8 +34,10 @@ void FireWallSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2&
     m_TaretPos = targetPos;
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    new Timer(game, TIMER_REPEAT, REPEAT_DELAY, REPEAT_TIME, &FireWallSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
-    new Timer(game, TIMER_REPEAT, CALL_DELAY, MAX_CALL, &FireWallSkill::DiagonalRadiation, this);
+    auto func = std::bind(&FireWallSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
+    auto timer = new Timer(m_Owner->GetRoomID());
+    timer->RepeatTimer(REPEAT_DELAY, REPEAT_TIME, func);
+    game->PushTimer(timer);
 
     auto posFunc = std::bind(&FireWallSkill::DiagonalRadiation, this);
     auto posTimer = new Timer(m_Owner->GetRoomID());

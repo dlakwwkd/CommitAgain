@@ -10,23 +10,24 @@ Timer::Timer(int gameId)
     m_TimerID = MakeID(this);
     m_GameID = gameId;
 }
-
-template <class... Args>
-Timer::Timer(Game* game, TimerType type, int delay, int repeatNum, Args&&... args)
-{
-    m_TimerID = MakeID(this);
-    m_GameID = game->GetGameID();
-    auto func = std::bind(std::forward<Args>(args)...);
-    switch (type)
-    {
-    case TIMER_CALLBACK:    CallFuncOnce(delay, func);              break;
-    case TIMER_INFINITE:    InfiniteTimer(delay, func);             break;
-    case TIMER_REPEAT:      RepeatTimer(delay, repeatNum, func);    break;
-    default:
-        break;
-    }
-    game->PushTimer(this);
-}
+// 
+// template <class... Args>
+// Timer::Timer(Game* game, TimerType type, int delay, int repeatNum, Args&&... args)
+// {
+//     m_TimerID = MakeID(this);
+//     m_GameID = game->GetGameID();
+//     auto func = std::bind(std::forward<Args>(args)...);
+//     switch (type)
+//     {
+//     case TIMER_CALLBACK:    CallFuncOnce(delay, func);              break;
+//     case TIMER_INFINITE:    InfiniteTimer(delay, func);             break;
+//     case TIMER_REPEAT:      RepeatTimer(delay, repeatNum, func);    break;
+//     case TIMER_WAIT_REPEAT: WaitRepeatTimer(delay, repeatNum, func);break;
+//     default:
+//         break;
+//     }
+//     game->PushTimer(this);
+// }
 
 
 Timer::~Timer()
