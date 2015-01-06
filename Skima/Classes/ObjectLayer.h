@@ -24,7 +24,7 @@ public:
     void CreateMob(int playerID, int unitID, Vec2 location, int hp, float speed);
     void CreateItem(int playerID, int unitID, Vec2 location, BuffTarget buffType);
     void RemoveItem(int playerID, int unitID);
-    void UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos);
+    void UnitMove(int unitID, Vec2 targetPos);
     void UnitCrash(int unitID, Vec2 exPos);
     void UnitCrashEnd(int unitID, Vec2 revisePos);
     void UnitSkillUse(int playerID, int unitID, SkillKey key, Vec2 recvCurPos, Vec2 targetPos);

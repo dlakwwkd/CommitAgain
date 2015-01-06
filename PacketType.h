@@ -464,11 +464,9 @@ struct MoveRequest : public PacketHeader
         mSize = sizeof(MoveRequest);
         mType = PKT_CS_MOVE;
         mPlayerId = -1;
-        mCurrentPos = { 0, };
         mTargetPos = { 0, };
     }
     int         mPlayerId;
-    Coord       mCurrentPos;
     Coord       mTargetPos;
 };
 
@@ -478,16 +476,12 @@ struct MoveBroadcastResult : public PacketHeader
     {
         mSize = sizeof(MoveBroadcastResult);
         mType = PKT_SC_MOVE;
-        mIsMove = false;
         mPlayerId = -1;
         mUnitId = -1;
-        mCurrentPos = { 0, };
         mTargetPos = { 0, };
     }
     int         mPlayerId;
     int         mUnitId;
-    bool        mIsMove;
-    Coord       mCurrentPos;
     Coord       mTargetPos;
 };
 

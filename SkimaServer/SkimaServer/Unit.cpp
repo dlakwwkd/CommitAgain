@@ -88,8 +88,7 @@ void Unit::Moving()
         printf(" - TryMove Failed ! : client is invalid \n");
         return;
     }
-    auto curPos = m_Body->GetPosition();
-    auto displacement = m_TargetPos - curPos;
+    auto displacement = m_TargetPos - m_Body->GetPosition();
     if (displacement.Normalize() < 0.5f)
     {
         m_Body->SetAwake(false);
@@ -98,7 +97,7 @@ void Unit::Moving()
     displacement *= m_Speed;
     m_Body->SetLinearVelocity(displacement);
 
-    client->TryMoveBroadCast(m_UnitID, curPos, m_TargetPos);
+    client->TryMoveBroadCast(m_UnitID, m_TargetPos);
 }
 
 void Unit::ReachCheck()
@@ -126,7 +125,7 @@ void Unit::CurPosSync()
         return;
     }
     auto curPos = m_Body->GetPosition();
-    client->SyncPosBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos);
+    client->SyncPosBroadCast(m_UnitID, curPos);
 }
 
 
@@ -196,7 +195,7 @@ void Unit::UseBuff(BuffTarget type)
 
 
 
-void Unit::TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos)
+void Unit::TryMove(const b2Vec2& targetPos)
 {
     m_TargetPos = targetPos;
     m_State->TryMove(this);
@@ -226,6 +225,6 @@ void Unit::Crashed(Unit* contactUnit)
     velocity *= 1.0f / DAMPING;
     expectPos += velocity;
 
-    client->CrashedBroadCast(m_Owner->GetPlayerID(), m_UnitID, curPos, expectPos);
+    client->CrashedBroadCast(m_UnitID, curPos, expectPos);
     m_State->Crashed(this);
 }

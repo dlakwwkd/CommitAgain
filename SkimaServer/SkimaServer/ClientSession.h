@@ -40,23 +40,21 @@ public:
     void    PlayerReadyNotify();
     void    AllPlayerReadyNotify();
     void    ServerRunComplete();
-    void    SendCreateHeroResult(int unitId, const b2Vec2& pos, RoomType roomType);
+    void    SendCreateHeroResult(               int unitId, const b2Vec2& pos, RoomType roomType);
     void	SendMapInfo(        int playerId,   int unitId, const b2Vec2& pos);
-    void    CreateMobBroadCast( int playerId,   int unitId, const b2Vec2& pos, int hp, float speed);
-    void    ItemBroadCast(      int playerId,   int unitId, const b2Vec2& pos, bool isCreate, BuffTarget buffType);
     void    SendStartGame();
 
-    void	TryMoveBroadCast(				    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
-    void	CrashedBroadCast(   int playerId,   int unitId, const b2Vec2& curPos, const b2Vec2& expectPos);
-    void	SyncPosBroadCast(   int playerId,   int unitId, const b2Vec2& curPos);
+    void    TryMoveBroadCast(				    int unitId, const b2Vec2& targetPos);
+    void    CrashedBroadCast(                   int unitId, const b2Vec2& curPos, const b2Vec2& expectPos);
+    void    SyncPosBroadCast(                   int unitId, const b2Vec2& curPos);
     void	SkillBroadCast(					    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key);
     void    UnHideBroadCast(                    int unitId, const b2Vec2& curPos);
     void    MeteorBroadCast(                    int unitId, const b2Vec2& targetPos);
-    void	SplashSkillBroadCast(			    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key);
     void	ShootBroadCast(	    int playerId,	int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
-    void	BlinkBroadCast(	    int playerId,	int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
-    void    HpBroadCast(	    int playerId,	int unitId, int hp);
+    void    CreateMobBroadCast( int playerId,   int unitId, const b2Vec2& pos, int hp, float speed);
+    void    ItemBroadCast(      int playerId,   int unitId, const b2Vec2& pos, bool isCreate, BuffTarget buffType);
     void    BuffBroadCast(                      int unitId, float bonus, BuffTarget type, bool isOn);
+    void    HpBroadCast(	    int playerId,   int unitId, int hp);
     void    GameOverCast(Team winTeam);
 
     // 	void    LoginDone(int pid, const char* name);

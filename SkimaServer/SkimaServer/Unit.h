@@ -48,7 +48,7 @@ public:
     virtual void    Dead();
     void            UseBuff(BuffTarget type);
 
-    void			TryMove(const b2Vec2& currentPos, const b2Vec2& targetPos);
+    void            TryMove(const b2Vec2& targetPos);
     void            Crashed(Unit* contactUnit);
     void            EndMove(){ m_State->EndMove(this); }
     void            EndCrash(){ m_State->EndCrash(this); }

@@ -417,7 +417,6 @@ void TcpClient::processPacket()
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
             
-            Vec2 curPos = CONVERT(recvData.mCurrentPos);
             Vec2 targetPos = CONVERT(recvData.mTargetPos);
 
             if (GET_GAME_SCENE == nullptr)
@@ -428,7 +427,7 @@ void TcpClient::processPacket()
             if (layer)
             {
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitMove, layer,
-                    recvData.mUnitId, curPos, targetPos));
+                    recvData.mUnitId, targetPos));
             }
         }
         break;
@@ -730,7 +729,6 @@ void TcpClient::moveRequest(Vec2 curPos, Vec2 targetPos)
 
     MoveRequest sendData;
     sendData.mPlayerId = mLoginId;
-    sendData.mCurrentPos = CONVERT(curPos);
     sendData.mTargetPos = CONVERT(targetPos);
 
     send((const char*)&sendData, sizeof(MoveRequest));

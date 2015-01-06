@@ -259,10 +259,9 @@ REGISTER_HANDLER(PKT_CS_MOVE)
     auto roomId = player->GetRoomID();                              if (roomId < 0) return;
 
     b2Vec2 targetPos = CONVERT_IN(inPacket.mTargetPos, roomId);
-    b2Vec2 currentPos = CONVERT_IN(inPacket.mCurrentPos, roomId);
 
     hero->StopSkill();
-    hero->TryMove(currentPos, targetPos);
+    hero->TryMove(targetPos);
 }
 
 REGISTER_HANDLER(PKT_CS_SKILL)
@@ -275,8 +274,8 @@ REGISTER_HANDLER(PKT_CS_SKILL)
     auto hero = player->GetMyHero();									if (!hero)      return;
     auto roomId = player->GetRoomID();                              if (roomId < 0) return;
 
-    b2Vec2 targetPos = CONVERT_IN(inPacket.mTargetPos, roomId);
     b2Vec2 currentPos = CONVERT_IN(inPacket.mCurrentPos, roomId);
+    b2Vec2 targetPos = CONVERT_IN(inPacket.mTargetPos, roomId);
 
     hero->UseSkill(inPacket.mKey, currentPos, targetPos);
 }
@@ -324,7 +323,7 @@ void ClientSession::UpdateRoomInfo()
 void ClientSession::MakeGameRoom(const RoomInfo& roomInfo)
 {
     auto room = GGameManager->CreateRoom(roomInfo);
-    if(false == room->JoinPlayer(mPlayer))
+    if(!room || false == room->JoinPlayer(mPlayer))
         return;
 
     MakeRoomResult outPacket;
@@ -349,14 +348,14 @@ void ClientSession::JoinGameRoom(const RoomInfo& roomInfo)
     if (!Broadcast(&outPacket))
         Disconnect();
 
-    printf(" Send: Join Room ID: %d, Player ID: %d \n CurPlayerNum: %d, MaxPlayerNum: %d\n",
+    printf(" Send: Join Room ID: %d, Player ID: %d \t [ %d / %d ]\n",
         outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId, outPacket.mRoomInfo.mCurPlayerNum, outPacket.mRoomInfo.mMaxPlayerNum);
 }
 
 void ClientSession::OutGameRoom(const RoomInfo& roomInfo)
 {
     auto room = GGameManager->SearchRoom(roomInfo.mRoomNum);
-    if (!room || !mPlayer || false == room->OutPlayer(mPlayer->GetPlayerID()))
+    if (!room || false == room->OutPlayer(mPlayer->GetPlayerID()))
         return;
 
     InOutRoomResult outPacket;
@@ -367,7 +366,7 @@ void ClientSession::OutGameRoom(const RoomInfo& roomInfo)
     if (!Broadcast(&outPacket))
         Disconnect();
 
-    printf(" Send: Out Room ID: %d, Player ID: %d \n CurPlayerNum: %d, MaxPlayerNum: %d\n",
+    printf(" Send: Out Room ID: %d, Player ID: %d \t [ %d / %d ]\n",
         outPacket.mRoomInfo.mRoomNum, outPacket.mPlayerId, outPacket.mRoomInfo.mCurPlayerNum, outPacket.mRoomInfo.mMaxPlayerNum);
 }
 
@@ -455,22 +454,21 @@ void ClientSession::SendStartGame()
     게임 플레이 관련
 */
 ///////////////////////////////////////////////////////////////////////////
-void ClientSession::TryMoveBroadCast(int unitId, const b2Vec2& curPos, const b2Vec2& targetPos)
+void ClientSession::TryMoveBroadCast(int unitId, const b2Vec2& targetPos)
 {
     MoveBroadcastResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
     outPacket.mUnitId = unitId;
-    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
         Disconnect();
 }
 
-void ClientSession::CrashedBroadCast(int playerId, int unitId, const b2Vec2& curPos, const b2Vec2& expectPos)
+void ClientSession::CrashedBroadCast(int unitId, const b2Vec2& curPos, const b2Vec2& expectPos)
 {
     CrashedBroadcastResult outPacket;
-    outPacket.mPlayerId = playerId;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
     outPacket.mUnitId = unitId;
     outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
     outPacket.mExpectPos = CONVERT_OUT(expectPos, mPlayer->GetRoomID());
@@ -479,10 +477,10 @@ void ClientSession::CrashedBroadCast(int playerId, int unitId, const b2Vec2& cur
         Disconnect();
 }
 
-void ClientSession::SyncPosBroadCast(int playerId, int unitId, const b2Vec2& curPos)
+void ClientSession::SyncPosBroadCast(int unitId, const b2Vec2& curPos)
 {
     SyncPosBroadcastResult outPacket;
-    outPacket.mPlayerId = playerId;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
     outPacket.mUnitId = unitId;
     outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
 
@@ -563,17 +561,6 @@ void ClientSession::ItemBroadCast(int playerId, int unitId, const b2Vec2& pos, b
         Disconnect();
 }
 
-void ClientSession::HpBroadCast(int playerId, int unitId, int hp)
-{
-    HpBroadcastResult outPacket;
-    outPacket.mPlayerId = playerId;
-    outPacket.mUnitId = unitId;
-    outPacket.mHp = hp;
-
-    if (!Broadcast(&outPacket))
-        Disconnect();
-}
-
 void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type, bool isOn)
 {
     BuffBroadcastResult outPacket;
@@ -583,7 +570,17 @@ void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type, bool
     outPacket.mBuffTarget = type;
     outPacket.mIsOn = isOn;
     
+    if (!Broadcast(&outPacket))
+        Disconnect();
     //printf(" - BuffBonus: %.f \n", outPacket.mBonus);
+}
+
+void ClientSession::HpBroadCast(int playerId, int unitId, int hp)
+{
+    HpBroadcastResult outPacket;
+    outPacket.mPlayerId = playerId;
+    outPacket.mUnitId = unitId;
+    outPacket.mHp = hp;
 
     if (!Broadcast(&outPacket))
         Disconnect();

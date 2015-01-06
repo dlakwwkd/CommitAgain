@@ -156,7 +156,7 @@ void ObjectLayer::RemoveItem(int playerID, int unitID)
     m_UnitList.erase(unit);
 }
 
-void ObjectLayer::UnitMove(int unitID, Vec2 recvCurPos, Vec2 targetPos)
+void ObjectLayer::UnitMove(int unitID, Vec2 targetPos)
 {
     auto unit = m_UnitList.find(unitID);
     if (unit == m_UnitList.end())

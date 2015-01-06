@@ -26,7 +26,7 @@ void ShortDashSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2
     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 
     DashSkillCast();
-    hero->TryMove(heroPos, targetPos);
+    hero->TryMove(targetPos);
 }
 
 void ShortDashSkill::CastStop()
