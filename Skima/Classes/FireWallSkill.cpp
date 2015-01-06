@@ -25,8 +25,8 @@ FireWallSkill::~FireWallSkill()
 
 void FireWallSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
-    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/firewall.mp3");
-    auto effect = new FireWallParticleEffect();
+    //SimpleAudioEngine::getInstance()->playEffect("Music/Effect/firewall.mp3");
+    auto effect = new FireEffect();
      //auto direction = GenerateWallDirection(heroPos, targetPos);
      effect->CreateEffect(targetPos);
 }

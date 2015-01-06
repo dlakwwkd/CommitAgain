@@ -1,6 +1,17 @@
 #pragma once
 #include "Skill.h"
-#include "GameManager.h"
+enum Direction
+{
+    N,
+    S,
+    W,
+    E,
+    NW,
+    NE,
+    SW,
+    SE,
+};
+
 class FieldType : public Skill
 {
 public:
@@ -11,9 +22,12 @@ public:
     virtual void    CastStop() = 0;
 
 protected:
+    b2Vec2          GenerateNextCenterPos(Direction dir, float var);
     void			FieldDamage(const b2Vec2& targetPos, float scale, int damage);
-    void            WallFieldDamage(const b2Vec2& targetPos, WallDirection direction, int damage);
+
 protected:
     float           m_Scale;
+    int             m_CallCount;
+    b2Vec2          m_TaretPos;
 };
 

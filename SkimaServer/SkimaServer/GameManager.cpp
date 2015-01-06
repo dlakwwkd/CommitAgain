@@ -309,7 +309,7 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
     }
 }
 
-void GameManager::FieldCheck(Item* item, b2Vec2 pos, float scale)
+void GameManager::FieldCheck(Item* item)
 {
     if (!item)
     {
@@ -323,12 +323,7 @@ void GameManager::FieldCheck(Item* item, b2Vec2 pos, float scale)
         printf(" - FieldCheck() Faild ! : invalid gameID \n");
         return;
     }
-
-    Rect range;
-    range.m_Top = pos.y + scale;
-    range.m_Bottom = pos.y - scale;
-    range.m_Left = pos.x - scale;
-    range.m_Right = pos.x + scale;
+    auto range = item->GetTakeRange();
 
     for (auto& player : game->second->m_PlayerList)
     {
@@ -340,8 +335,8 @@ void GameManager::FieldCheck(Item* item, b2Vec2 pos, float scale)
         {
             auto pos = unit.second->GetBody()->GetPosition();
 
-            if (pos.x > range.m_Left && pos.x < range.m_Right &&
-                pos.y > range.m_Bottom && pos.y < range.m_Top)
+            if (pos.x > range->m_Left && pos.x < range->m_Right &&
+                pos.y > range->m_Bottom && pos.y < range->m_Top)
             {
                 if (GET_MAIN_TYPE(unit.second->GetUnitID()) != UNIT_HERO)
                 {
@@ -355,42 +350,6 @@ void GameManager::FieldCheck(Item* item, b2Vec2 pos, float scale)
     }
 }
 
-void GameManager::WallFieldDamage(Player* caster, b2PolygonShape* wallShape, int damage)
-{
-    if (!caster || !wallShape)
-    {
-        printf(" - WallFieldDamage() Faild ! : invalid player or wallShape \n");
-        return;
-    }
-    auto game = m_GameList.find(caster->GetRoomID());
-    if (game == m_GameList.end())
-    {
-        printf(" - WallFieldDamage() Faild ! : invalid gameID \n");
-        return;
-    }
-    if (caster->GetTeam() != TEAM_C)
-    {
-        damage += caster->GetMyHero()->GetDamageBonus();
-    }
-    for (auto& player : game->second->m_PlayerList)
-    {
-        if (player.second->GetTeam() == caster->GetTeam())
-        {
-            continue;
-        }
-        for (auto& unit : player.second->GetUnitList())
-        {
-            auto pos = unit.second->GetBody()->GetPosition();
-            b2Transform transform;
-            transform.SetIdentity();
-
-            if (wallShape->TestPoint(transform,pos) == true)
-            {
-                unit.second->Damaged(damage);
-            }
-        }
-    }
-}
 void GameManager::DeadUnit(Unit* unit, int gameId)
 {
     if (m_GameList.find(gameId) == m_GameList.end())

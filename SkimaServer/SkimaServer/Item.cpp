@@ -13,14 +13,18 @@ Item::Item(Mob* mob, BuffTarget buffType)
 
     m_BuffType = buffType;
 
-    SetDynamicBody(mob->GetOwner(), ITEM_NORMAL, mob->GetBody()->GetPosition(), 30.0f);
+    SetDynamicBody(mob->GetOwner(), ITEM_NORMAL, mob->GetBody()->GetPosition(), 50.0f);
     m_Body->SetActive(false);
 
     auto pos = m_Body->GetPosition();
-    auto scale = Reduce(30.0f);
+    auto scale = Reduce(50.0f);
+    m_TakeRange.m_Top = pos.y + scale;
+    m_TakeRange.m_Bottom = pos.y - scale;
+    m_TakeRange.m_Left = pos.x - scale;
+    m_TakeRange.m_Right = pos.x + scale;
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto func = std::bind(&GameManager::FieldCheck, GGameManager, this, pos, scale);
+    auto func = std::bind(&GameManager::FieldCheck, GGameManager, this);
     m_Timer = new Timer(m_Owner->GetRoomID());
     m_Timer->InfiniteTimer(200, func);
     game->PushTimer(m_Timer);

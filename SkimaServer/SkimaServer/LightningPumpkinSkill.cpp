@@ -16,15 +16,14 @@
 #define UPPERNUM 1000
 #define DEPRECIATE 0.1
 #define MODIFYNUM 0.4
+
 LightningPumpkinSkill::LightningPumpkinSkill(Player* owner)
 {
     m_Owner = owner;
     m_Damage = 64;
     m_Scale = Reduce(80.0f);
     m_CallCount = 0;
-    m_PrevTaretPos = b2Vec2(-1, -1);
-
-    srand((unsigned)time(NULL));
+    m_TaretPos = b2Vec2(-1, -1);
 }
 
 
@@ -39,7 +38,7 @@ void LightningPumpkinSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const
 
     //auto client = m_Owner->GetClient();
     //client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
-    m_PrevTaretPos = targetPos;
+    m_TaretPos = targetPos;
 
     auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
     auto posFunc = std::bind(&LightningPumpkinSkill::DoNextAttack, this);
@@ -64,29 +63,29 @@ void LightningPumpkinSkill::DoNextAttack()
 
 
     auto client = m_Owner->GetClient();
-    client->SkillBroadCast(hero->GetUnitID(), m_PrevTaretPos, nextPos, SKILL_R);
+    client->SkillBroadCast(hero->GetUnitID(), m_TaretPos, nextPos, SKILL_R);
     if (m_CallCount == MAX_CALL)
     {
          m_CallCount = 0;
     }
 }
 
-b2Vec2 LightningPumpkinSkill::GenerateNextPos(WallDirection direction)
+b2Vec2 LightningPumpkinSkill::GenerateNextPos(Direction direction)
 {
-    float rndX = GenerateFloatRandom(m_PrevTaretPos.x)*MODIFYNUM;
-    float rndY = GenerateFloatRandom(m_PrevTaretPos.y)*MODIFYNUM;
+    float rndX = GenerateFloatRandom(m_TaretPos.x)*MODIFYNUM;
+    float rndY = GenerateFloatRandom(m_TaretPos.y)*MODIFYNUM;
     
     b2Vec2 nextPos;
     switch (direction)
     {
-    case N:     nextPos = b2Vec2(m_PrevTaretPos.x + rndX*DEPRECIATE, m_PrevTaretPos.y + rndY);    break;
-    case S:     nextPos = b2Vec2(m_PrevTaretPos.x + rndX*DEPRECIATE, m_PrevTaretPos.y - rndY);    break;
-    case W:     nextPos = b2Vec2(m_PrevTaretPos.x - rndX, m_PrevTaretPos.y + rndY*DEPRECIATE);    break;
-    case E:     nextPos = b2Vec2(m_PrevTaretPos.x + rndX, m_PrevTaretPos.y + rndY*DEPRECIATE);    break;
-    case NE:    nextPos = b2Vec2(m_PrevTaretPos.x + rndX, m_PrevTaretPos.y + rndY);    break;
-    case SE:    nextPos = b2Vec2(m_PrevTaretPos.x + rndX, m_PrevTaretPos.y - rndY);    break;
-    case SW:    nextPos = b2Vec2(m_PrevTaretPos.x - rndX, m_PrevTaretPos.y - rndY);    break;
-    case NW:    nextPos = b2Vec2(m_PrevTaretPos.x - rndX, m_PrevTaretPos.y + rndY);    break;
+    case N:     nextPos = b2Vec2(m_TaretPos.x + rndX*DEPRECIATE, m_TaretPos.y + rndY);    break;
+    case S:     nextPos = b2Vec2(m_TaretPos.x + rndX*DEPRECIATE, m_TaretPos.y - rndY);    break;
+    case W:     nextPos = b2Vec2(m_TaretPos.x - rndX, m_TaretPos.y + rndY*DEPRECIATE);    break;
+    case E:     nextPos = b2Vec2(m_TaretPos.x + rndX, m_TaretPos.y + rndY*DEPRECIATE);    break;
+    case NE:    nextPos = b2Vec2(m_TaretPos.x + rndX, m_TaretPos.y + rndY);    break;
+    case SE:    nextPos = b2Vec2(m_TaretPos.x + rndX, m_TaretPos.y - rndY);    break;
+    case SW:    nextPos = b2Vec2(m_TaretPos.x - rndX, m_TaretPos.y - rndY);    break;
+    case NW:    nextPos = b2Vec2(m_TaretPos.x - rndX, m_TaretPos.y + rndY);    break;
     }
     return nextPos;
 }
@@ -105,9 +104,9 @@ float LightningPumpkinSkill::GenerateFloatRandom(float num)
     return randomFloat;
 }
 
-WallDirection LightningPumpkinSkill::GenerateDirection()
+Direction LightningPumpkinSkill::GenerateDirection()
 {
-    WallDirection dir;
+    Direction dir;
     int rnd = rand() % 8;
 
     switch (rnd)

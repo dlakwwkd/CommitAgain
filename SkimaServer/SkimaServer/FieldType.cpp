@@ -8,11 +8,29 @@
 FieldType::FieldType()
 {
     m_Scale = 0.0f;
+    m_CallCount = 0;
+    m_TaretPos = b2Vec2(0, 0);
 }
 
 
 FieldType::~FieldType()
 {
+}
+
+b2Vec2 FieldType::GenerateNextCenterPos(Direction dir, float var)
+{
+    switch (dir)
+    {
+    case E:     return b2Vec2(m_TaretPos.x + var, m_TaretPos.y);
+    case W:     return b2Vec2(m_TaretPos.x - var, m_TaretPos.y);
+    case S:     return b2Vec2(m_TaretPos.x, m_TaretPos.y - var);
+    case N:     return b2Vec2(m_TaretPos.x, m_TaretPos.y + var);
+    case NE:    return b2Vec2(m_TaretPos.x + var, m_TaretPos.y + var);
+    case SE:    return b2Vec2(m_TaretPos.x + var, m_TaretPos.y - var);
+    case SW:    return b2Vec2(m_TaretPos.x - var, m_TaretPos.y - var);
+    case NW:    return b2Vec2(m_TaretPos.x - var, m_TaretPos.y + var);
+    }
+    return m_TaretPos;
 }
 
 void FieldType::FieldDamage(const b2Vec2& targetPos, float scale, int damage)
@@ -24,33 +42,4 @@ void FieldType::FieldDamage(const b2Vec2& targetPos, float scale, int damage)
     range.m_Right = targetPos.x + scale;
 
     GGameManager->FieldDamage(m_Owner, &range, damage);
-}
-
-void FieldType::WallFieldDamage(const b2Vec2& targetPos, WallDirection direction, int damage)
-{
-//     b2Vec2 polygon[4];
-//     int32 count = 4;  // 기다란 직사격형 모양의 4꼭지점
-//     switch (direction)
-//     {
-//     case SLASH:
-//         polygon[0].Set(targetPos.x + Reduce(565 - 21), targetPos.y + Reduce(565 + 21)); // Up
-//         polygon[1].Set(targetPos.x + Reduce(565 + 21), targetPos.y + Reduce(565 - 21)); // Right
-//         polygon[2].Set(targetPos.x + Reduce(-565 + 21), targetPos.y + Reduce(-565 - 21)); // Down
-//         polygon[3].Set(targetPos.x + Reduce(-565 - 21), targetPos.y + Reduce(-565 + 21)); // Left
-//         break;
-// 
-//     case BACKSLASH:
-//         polygon[0].Set(targetPos.x + Reduce(-565 + 21), targetPos.y + Reduce(565 + 21)); // Up
-//         polygon[1].Set(targetPos.x + Reduce(-565 - 21), targetPos.y + Reduce(565 - 21)); // Right
-//         polygon[2].Set(targetPos.x + Reduce(565 - 21), targetPos.y + Reduce(-565 - 21)); // Down
-//          polygon[3].Set(targetPos.x + Reduce(565 + 21), targetPos.y + Reduce(-565 + 21)); // Left
-//         break;
-//     default:
-//         break;
-//     }
-// 
-//     b2PolygonShape wallShape;
-//     wallShape.Set(polygon, count);
-// 
-//     GGameManager->WallFieldDamage(m_Owner, &wallShape, damage);
 }

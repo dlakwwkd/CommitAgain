@@ -20,18 +20,6 @@ struct Rect
     float m_Left	= 0;
     float m_Right	= 0;
 };
-enum WallDirection
-{
-    N,
-    S,
-    W,
-    E,
-    NW,
-    NE,
-    SW,
-    SE,
-};
-
 
 #define MAX_PLAYER_NUM 8
 
@@ -60,8 +48,7 @@ public:
 
     void                CrashDamage(Unit* unitA, Unit* unitB);
     void                FieldDamage(Player* caster, Rect* range, int damage);
-    void                FieldCheck(Item* item, b2Vec2 pos, float scale);
-    void                WallFieldDamage(Player* caster, b2PolygonShape* wallShape, int damage);
+    void                FieldCheck(Item* item);
     void                DeadUnit(Unit* unit, int gameId);
 
 public:
