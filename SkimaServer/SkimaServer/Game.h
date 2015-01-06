@@ -31,8 +31,8 @@ public:
     void                InitGame(RoomType roomType);
     void                StartGame();
 	void				EndGame();
+    bool                DecideWinTeam(OUT Team& winTeam);
 
-    const PlayerList&   GetPlayerList(){ return m_PlayerList; }
     Player*             GetPlayer(int playerId);
     void                OutPlayer(int playerId);
 

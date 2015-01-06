@@ -156,6 +156,28 @@ void Game::EndGame()
     }
 }
 
+bool Game::DecideWinTeam(OUT Team& winTeam)
+{
+    int surviveTeamNum = 0;
+    winTeam = TEAM_C;
+    for (auto& iter : m_PlayerList)
+    {
+        auto otherPlayer = iter.second;
+        if (otherPlayer->IsGameOver() || otherPlayer->GetTeam() == winTeam)
+        {
+            continue;
+        }
+        ++surviveTeamNum;
+        winTeam = otherPlayer->GetTeam();
+    }
+
+    if (surviveTeamNum > 1)
+    {
+        return false;
+    }
+    return true;
+}
+
 
 Player* Game::GetPlayer(int playerId)
 {

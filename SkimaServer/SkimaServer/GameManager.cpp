@@ -209,25 +209,6 @@ void GameManager::GameOver(Player* player)
         printf(" - GameOver Failed ! : relevant game isn't \n");
         return;
     }
-
-    int surviveTeamNum = 0;
-    auto temp = TEAM_C;
-    for (auto& otherPlayer : game->second->GetPlayerList())
-    {
-        if (otherPlayer.second->IsGameOver() || otherPlayer.second->GetTeam() == temp)
-        {
-            continue;
-        }
-        ++surviveTeamNum;
-        temp = otherPlayer.second->GetTeam();
-    }
-
-    if (surviveTeamNum > 1)
-    {
-        return;
-    }
-    auto winTeam = temp;
-
     auto room = m_RoomList.find(player->GetRoomID());
     if (room == m_RoomList.end())
     {
@@ -235,6 +216,11 @@ void GameManager::GameOver(Player* player)
         return;
     }
 
+    auto winTeam = TEAM_N;
+    if (false == game->second->DecideWinTeam(winTeam))
+    {
+        return;
+    }
     if (game->second->IsStart())
     {
         game->second->EndGame();

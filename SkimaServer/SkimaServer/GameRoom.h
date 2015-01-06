@@ -15,7 +15,6 @@ public:
 
     int			        GetRoomID(){ return m_RoomInfo.mRoomNum; }
     const RoomInfo&     GetRoomInfo(){ return m_RoomInfo; }
-    const PlayerList&   GetPlayerList(){ return m_PlayerList; }
     int			        GetPlayerListSize(){ return m_PlayerList.size(); }
     void		        SetIsGameExist(bool isGameExist){ m_IsGameExist = isGameExist; }
     void                SetIsGameStart(bool isStart){ m_RoomInfo.mIsAllReady = isStart; }
