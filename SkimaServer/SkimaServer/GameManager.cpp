@@ -170,10 +170,9 @@ void GameManager::CreateGame(int gameId)
         printf(" - CreateGame Failed ! : gameId is duplicated \n");
         return;
     }
-    Game* game = new Game(room->second);
-    m_GameList[gameId] = game;
-    auto roomInfo = room->second->GetRoomInfo();
-    game->InitGame(roomInfo.mRoomType);
+    auto game = new Game(room->second);
+    m_GameList.insert(GameList::value_type(gameId, game));
+    game->InitGame(room->second->GetRoomInfo().mRoomType);
     room->second->InitReady();
 }
 

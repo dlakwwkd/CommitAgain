@@ -166,11 +166,6 @@ void Unit::Damaged(int damage)
     m_Owner->GetClient()->HpBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Hp);
 }
 
-void Unit::Dead()
-{
-
-}
-
 void Unit::UseBuff(BuffTarget type)
 {
     switch (type)

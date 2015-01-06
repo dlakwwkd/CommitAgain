@@ -3,7 +3,7 @@
 #include "GameManager.h"
 #include "Player.h"
 #include "Skill.h"
-#include "Lava_Damage.h"
+#include "LavaDamageSkill.h"
 
 
 Lava::Lava(Player* owner, b2Vec2 createPos)
@@ -14,16 +14,8 @@ Lava::Lava(Player* owner, b2Vec2 createPos)
     m_Owner = owner;
     m_Hp = 10000;
     
-    m_Damage = new Lava_Damage(m_Owner);
+    m_Damage = new LavaDamageSkill(m_Owner);
     m_Damage->LavaDamage(GetBody()->GetPosition(), Reduce(80.0f), 10, 300);
-
-//         가로 240
-//         세로 210
-// 
-//         7 * 5
-// 
-//         1680 = 2 5 3 7 8
-//         1050 = 2 5 3 5 7
 }
 
 

@@ -15,7 +15,7 @@ class Player : public ObjectPool<Player>
 {
 public:
     Player(ClientSession* client, const std::string& playerName, PlayerType type);
-    ~Player();
+    virtual ~Player();
 
     ClientSession*      GetClient() const{ return m_Client; }
     const std::string&  GetPlayerName() const { return m_PlayerName; }

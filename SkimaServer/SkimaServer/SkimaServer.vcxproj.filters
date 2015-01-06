@@ -125,9 +125,6 @@
     <ClCompile Include="Lava.cpp">
       <Filter>Game\Component\Unit\Obstruct</Filter>
     </ClCompile>
-    <ClCompile Include="Lava_Damage.cpp">
-      <Filter>Game\Component\Skill\Neutrality Skill</Filter>
-    </ClCompile>
     <ClCompile Include="MeteorSkill.cpp">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClCompile>
@@ -154,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="LightningPumpkinSkill.cpp">
       <Filter>Game\Component\Skill\Jupiter Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="LavaDamageSkill.cpp">
+      <Filter>Game\Component\Skill\Neutrality Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -303,9 +303,6 @@
     <ClInclude Include="Lava.h">
       <Filter>Game\Component\Unit\Obstruct</Filter>
     </ClInclude>
-    <ClInclude Include="Lava_Damage.h">
-      <Filter>Game\Component\Skill\Neutrality Skill</Filter>
-    </ClInclude>
     <ClInclude Include="MeteorSkill.h">
       <Filter>Game\Component\Skill\Laphinx Skill</Filter>
     </ClInclude>
@@ -332,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="LightningPumpkinSkill.h">
       <Filter>Game\Component\Skill\Jupiter Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="LavaDamageSkill.h">
+      <Filter>Game\Component\Skill\Neutrality Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,11 +2,11 @@
 #include "FieldType.h"
 class Timer;
 
-class Lava_Damage : public FieldType
+class LavaDamageSkill : public FieldType
 {
 public:
-    Lava_Damage(Player* owner);
-    virtual ~Lava_Damage();
+    LavaDamageSkill(Player* owner);
+    virtual ~LavaDamageSkill();
 
     virtual void SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& targetPos){}
     virtual void CastStop(){}

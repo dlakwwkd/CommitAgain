@@ -1,7 +1,7 @@
 #pragma once
 #include "MapObject.h"
 #include "GameManager.h"
-class Lava_Damage;
+class LavaDamageSkill;
 
 class Lava : public MapObject
 {
@@ -13,6 +13,6 @@ public:
 
 private:
     Rect            m_Range;
-    Lava_Damage*    m_Damage;
+    LavaDamageSkill*    m_Damage;
 };
 

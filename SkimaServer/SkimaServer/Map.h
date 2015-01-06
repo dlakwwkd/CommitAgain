@@ -13,7 +13,7 @@ class Map
 {
 public:
     Map(int roomId);
-    virtual ~Map();
+    ~Map();
 
     void InitMap(Player* player, int roomId);
     void LavaCreate(Player* player, int roomId);

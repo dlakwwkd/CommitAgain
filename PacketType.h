@@ -168,12 +168,12 @@ struct RoomInfo
         mIsAllReady = false;
     }
 
-    RoomType    mRoomType;
-    int         mRoomNum;
-    int         mCurPlayerNum;
-    int         mMaxPlayerNum;
-    int         mReadyNum;
-    bool        mIsAllReady;
+    RoomType        mRoomType;
+    int             mRoomNum;
+    unsigned int    mCurPlayerNum;
+    unsigned int    mMaxPlayerNum;
+    unsigned int    mReadyNum;
+    bool            mIsAllReady;
 };
 
 ///////////////////////////////////////////////////////////////////////////
