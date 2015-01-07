@@ -1,9 +1,10 @@
 #pragma once
 #include "MapObject.h"
+#include "ObjectPool.h"
 #include "GameManager.h"
 class LavaDamageSkill;
 
-class Lava : public MapObject
+class Lava : public MapObject, public ObjectPool<Lava>
 {
 public:
     Lava(Player* owner, b2Vec2 createPos);

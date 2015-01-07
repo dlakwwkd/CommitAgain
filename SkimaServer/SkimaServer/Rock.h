@@ -1,6 +1,7 @@
 #pragma once
 #include "MapObject.h"
-class Rock : public MapObject
+#include "ObjectPool.h"
+class Rock : public MapObject, public ObjectPool<Rock>
 {
 public:
     Rock(Player* owner, const b2Vec2& pos);

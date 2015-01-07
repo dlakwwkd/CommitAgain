@@ -2,7 +2,7 @@
 
 #include "Exception.h"
 
-template <class TOBJECT, int ALLOC_COUNT = 10>
+template <class TOBJECT, int ALLOC_COUNT = 100>
 class ObjectPool
 {
 public:

@@ -1,10 +1,11 @@
 #pragma once
 #include "Unit.h"
+#include "ObjectPool.h"
 #include "GameManager.h"
 class Mob;
 class Timer;
 
-class Item : public Unit
+class Item : public Unit, public ObjectPool<Item>
 {
 public:
     Item(Mob* mob, BuffTarget buffType);
