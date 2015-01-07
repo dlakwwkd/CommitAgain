@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "LightningPumpkinSkill.h"
 #include "ClientSession.h"
-#include "GameManager.h"
 #include "Game.h"
 #include "Player.h"
 #include "Unit.h"
@@ -40,11 +39,8 @@ void LightningPumpkinSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const
     //client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
     m_TaretPos = targetPos;
 
-    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto posFunc = std::bind(&LightningPumpkinSkill::DoNextAttack, this);
-    auto posTimer = new Timer(m_Owner->GetRoomID());
-    posTimer->WaitRepeatTimer(CALL_DELAY, MAX_CALL, posFunc);
-    game->PushTimer(posTimer);
+    auto game = m_Owner->GetGame();
+    Timer::Push(game, CALL_DELAY, CALL_DELAY, MAX_CALL, this, &LightningPumpkinSkill::DoNextAttack);
 }
 
 void LightningPumpkinSkill::DoNextAttack()
@@ -55,12 +51,8 @@ void LightningPumpkinSkill::DoNextAttack()
     auto dir = GenerateDirection();
     auto nextPos = GenerateNextPos(dir);
 
-    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto func = std::bind(&LightningPumpkinSkill::FieldDamage, this, nextPos, m_Scale, m_Damage);
-    auto timer = new Timer(m_Owner->GetRoomID());
-    timer->RepeatTimer(REPEAT_DELAY, REPEAT_TIME, func);
-    game->PushTimer(timer);
-
+    auto game = m_Owner->GetGame();
+    Timer::Push(game, REPEAT_DELAY, REPEAT_TIME, this, &LightningPumpkinSkill::FieldDamage, nextPos, m_Scale, m_Damage);
 
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), m_TaretPos, nextPos, SKILL_R);

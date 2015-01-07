@@ -4,7 +4,6 @@
 #include "Player.h"
 #include "ClientSession.h"
 #include "Game.h"
-#include "GameManager.h"
 #include "Timer.h"
 
 Item::Item(Mob* mob, BuffTarget buffType)
@@ -23,11 +22,8 @@ Item::Item(Mob* mob, BuffTarget buffType)
     m_TakeRange.m_Left = pos.x - scale;
     m_TakeRange.m_Right = pos.x + scale;
 
-    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto func = std::bind(&GameManager::FieldCheck, GGameManager, this);
-    m_Timer = new Timer(m_Owner->GetRoomID());
-    m_Timer->InfiniteTimer(200, func);
-    game->PushTimer(m_Timer);
+    auto game = m_Owner->GetGame();
+    m_Timer = Timer::Push(game, 200, TIMER_INFINITE, GGameManager, &GameManager::FieldCheck, this);
 
     auto client = m_Owner->GetClient();
     client->ItemBroadCast(m_Owner->GetPlayerID(), m_UnitID, m_Body->GetPosition(), true, m_BuffType);

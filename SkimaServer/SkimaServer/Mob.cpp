@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Mob.h"
 #include "ClientSession.h"
-#include "GameManager.h"
 #include "Game.h"
 #include "Player.h"
 #include "Timer.h"
@@ -28,12 +27,8 @@ void Mob::ChaseEnemy()
     {
         return;
     }
-    m_Game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    m_Timer = new Timer(m_Owner->GetRoomID());
-
-    auto func = std::bind(&Mob::Chasing, this);
-    m_Timer->InfiniteTimer(3000, func);
-    m_Game->PushTimer(m_Timer);
+    m_Game = m_Owner->GetGame();
+    m_Timer = Timer::Push(m_Game, 3000, TIMER_INFINITE, this, &Mob::Chasing);
 }
 
 void Mob::Chasing()

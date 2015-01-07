@@ -2,7 +2,6 @@
 #include "LightningSkill.h"
 #include "ClientSession.h"
 #include "Player.h"
-#include "GameManager.h"
 #include "Game.h"
 #include "Timer.h"
 
@@ -38,9 +37,6 @@ void LightningSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), heroPos, attackPos, key);
 
-    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto func = std::bind(&LightningSkill::FieldDamage, this, attackPos, m_Scale, m_Damage);
-    auto timer = new Timer(m_Owner->GetRoomID());
-    timer->RepeatTimer(200, 5, func);
-    game->PushTimer(timer);
+    auto game = m_Owner->GetGame();
+    Timer::Push(game, 200, 5, this, &LightningSkill::FieldDamage, attackPos, m_Scale, m_Damage);
 }

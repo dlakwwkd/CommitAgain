@@ -3,6 +3,9 @@
 #include "Scheduler.h"
 #include "GameManager.h"
 #include "Macros.h"
+#include "Player.h"
+#include "Timer.h"
+#include "ClientSession.h"
 
 
 FieldType::FieldType()
@@ -15,6 +18,17 @@ FieldType::FieldType()
 
 FieldType::~FieldType()
 {
+}
+
+void FieldType::FieldDamage(const b2Vec2& targetPos, float scale, int damage)
+{
+    Rect range;
+    range.m_Top = targetPos.y + scale;
+    range.m_Bottom = targetPos.y - scale;
+    range.m_Left = targetPos.x - scale;
+    range.m_Right = targetPos.x + scale;
+
+    GGameManager->FieldDamage(m_Owner, &range, damage);
 }
 
 b2Vec2 FieldType::GenerateNextCenterPos(Direction dir, float var)
@@ -33,13 +47,50 @@ b2Vec2 FieldType::GenerateNextCenterPos(Direction dir, float var)
     return m_TaretPos;
 }
 
-void FieldType::FieldDamage(const b2Vec2& targetPos, float scale, int damage)
+void FieldType::DiagonalRadiation(int repeatDelay, int repeatNum, int callNum)
 {
-    Rect range;
-    range.m_Top = targetPos.y + scale;
-    range.m_Bottom = targetPos.y - scale;
-    range.m_Left = targetPos.x - scale;
-    range.m_Right = targetPos.x + scale;
+    auto game = m_Owner->GetGame();
+    auto client = m_Owner->GetClient();
+    auto hero = m_Owner->GetMyHero();
+    auto var = m_Scale*m_CallCount;
 
-    GGameManager->FieldDamage(m_Owner, &range, damage);
+    auto nextAttack = [&](Direction dir)
+    {
+        auto nextPos = GenerateNextCenterPos(dir, var);
+        Timer::Push(game, repeatDelay, repeatNum, this, &FieldType::FieldDamage, nextPos, m_Scale, m_Damage);
+        client->SkillBroadCast(hero->GetUnitID(), m_TaretPos, nextPos, SKILL_R);
+    };
+    nextAttack(NE);
+    nextAttack(SE);
+    nextAttack(SW);
+    nextAttack(NW);
+
+    if (++m_CallCount == callNum)
+    {
+        m_CallCount = 0;
+    }
+}
+
+void FieldType::CrossRadiation(int repeatDelay, int repeatNum, int callNum)
+{
+    auto game = m_Owner->GetGame();
+    auto client = m_Owner->GetClient();
+    auto hero = m_Owner->GetMyHero();
+    auto var = m_Scale*m_CallCount;
+
+    auto nextAttack = [&](Direction dir)
+    {
+        auto nextPos = GenerateNextCenterPos(dir, var);
+        Timer::Push(game, repeatDelay, repeatNum, this, &FieldType::FieldDamage, nextPos, m_Scale, m_Damage);
+        client->SkillBroadCast(hero->GetUnitID(), m_TaretPos, nextPos, SKILL_R);
+    };
+    nextAttack(E);
+    nextAttack(W);
+    nextAttack(S);
+    nextAttack(N);
+
+    if (++m_CallCount == callNum)
+    {
+        m_CallCount = 0;
+    }
 }

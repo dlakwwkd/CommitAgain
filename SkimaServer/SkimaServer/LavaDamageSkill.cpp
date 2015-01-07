@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "LavaDamageSkill.h"
-#include "GameManager.h"
 #include "Game.h"
 #include "Player.h"
 #include "Timer.h"
@@ -23,9 +22,6 @@ LavaDamageSkill::~LavaDamageSkill()
 
 void LavaDamageSkill::LavaDamage(b2Vec2 createPos, float scale, int damage, int repeatDelay)
 {
-    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto func = std::bind(&LavaDamageSkill::FieldDamage, this, createPos, scale, damage);
-    m_Timer = new Timer(m_Owner->GetRoomID());
-    m_Timer->InfiniteTimer(repeatDelay, func);
-    game->PushTimer(m_Timer);
+    auto game = m_Owner->GetGame();
+    Timer::Push(game, repeatDelay, TIMER_INFINITE, this, &LavaDamageSkill::FieldDamage, createPos, scale, damage);
 }

@@ -202,8 +202,8 @@ void GameManager::GameOver(Player* player)
     }
     player->SetGameOver();
 
-    auto game = m_GameList.find(player->GetRoomID());
-    if (game == m_GameList.end())
+    auto game = player->GetGame();
+    if (game == nullptr)
     {
         printf(" - GameOver Failed ! : relevant game isn't \n");
         return;
@@ -216,17 +216,17 @@ void GameManager::GameOver(Player* player)
     }
 
     auto winTeam = TEAM_N;
-    if (false == game->second->DecideWinTeam(winTeam))
+    if (false == game->DecideWinTeam(winTeam))
     {
         return;
     }
-    if (game->second->IsStart())
+    if (game->IsStart())
     {
-        game->second->EndGame();
+        game->EndGame();
         room->second->SetIsGameStart(false);
         player->GetClient()->GameOverCast(winTeam);
     }
-    DeleteGame(game->first);
+    DeleteGame(game->GetGameID());
 }
 
 
@@ -245,11 +245,12 @@ void GameManager::PlayerOut(Player* player)
     auto playerId = player->GetPlayerID();
     auto roomId = player->GetRoomID();
 
-    auto game = m_GameList.find(roomId);
-    if (game != m_GameList.end())
+    auto game = player->GetGame();
+    if (game != nullptr)
     {
-        game->second->OutPlayer(playerId);
+        game->OutPlayer(playerId);
         GameOver(player);
+        player->SetGame(nullptr);
     }
     auto room = m_RoomList.find(roomId);
     if (room != m_RoomList.end())
@@ -280,17 +281,17 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
         printf(" - FieldDamage() Faild ! : invalid player or range \n");
         return;
     }
-    auto game = m_GameList.find(caster->GetRoomID());
-    if (game == m_GameList.end())
+    auto game = caster->GetGame();
+    if (game == nullptr)
     {
-        printf(" - FieldDamage() Faild ! : invalid gameID \n");
+        printf(" - FieldDamage() Faild ! : invalid game \n");
         return;
     }
     if (caster->GetTeam() != TEAM_C)
     {
         damage += caster->GetMyHero()->GetDamageBonus();
     }
-    for (auto& player : game->second->m_PlayerList)
+    for (auto& player : game->m_PlayerList)
     {
         if (player.second->GetTeam() == caster->GetTeam())
         {
@@ -317,15 +318,15 @@ void GameManager::FieldCheck(Item* item)
         return;
     }
     auto computer = item->GetOwner();
-    auto game = m_GameList.find(computer->GetRoomID());
-    if (game == m_GameList.end())
+    auto game = computer->GetGame();
+    if (game == nullptr)
     {
-        printf(" - FieldCheck() Faild ! : invalid gameID \n");
+        printf(" - FieldCheck() Faild ! : invalid game \n");
         return;
     }
     auto range = item->GetTakeRange();
 
-    for (auto& player : game->second->m_PlayerList)
+    for (auto& player : game->m_PlayerList)
     {
         if (player.second->GetTeam() == computer->GetTeam())
         {
@@ -345,6 +346,7 @@ void GameManager::FieldCheck(Item* item)
                 item->SetDead();
                 CallFuncAfter(1, GGameManager, &GameManager::DeadUnit, item, computer->GetRoomID());
                 unit.second->UseBuff(item->GetBuffTarget());
+                return;
             }
         }
     }

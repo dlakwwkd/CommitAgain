@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "MeteorSkill.h"
 #include "ClientSession.h"
-#include "GameManager.h"
 #include "Game.h"
 #include "Player.h"
 #include "Timer.h"
@@ -27,11 +26,8 @@ void MeteorSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& t
     auto client = m_Owner->GetClient();
     client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
 
-    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto func = std::bind(&MeteorSkill::FieldDamage, this, targetPos, m_Scale, m_Damage);
-    auto timer = new Timer(m_Owner->GetRoomID());
-    timer->CallFuncOnce(1200, func);
-    game->PushTimer(timer);
+    auto game = m_Owner->GetGame();
+    Timer::Push(game, 1200, this, &MeteorSkill::FieldDamage, targetPos, m_Scale, m_Damage);
 
     client->MeteorBroadCast(hero->GetUnitID(), targetPos);
 }

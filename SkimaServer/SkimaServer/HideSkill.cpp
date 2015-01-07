@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "HideSkill.h"
 #include "ClientSession.h"
-#include "GameManager.h"
 #include "Game.h"
 #include "Player.h"
 #include "Laphinx.h"
@@ -32,9 +31,6 @@ void HideSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& tar
 
     auto mylaphinx = dynamic_cast<Laphinx*>(m_Owner->GetMyHero());
 
-    auto game = GGameManager->SearchGame(m_Owner->GetRoomID());
-    auto func = std::bind(&Laphinx::UnHide, mylaphinx);
-    auto timer = new Timer(m_Owner->GetRoomID());
-    timer->CallFuncOnce(8000, func);
-    game->PushTimer(timer);
+    auto game = m_Owner->GetGame();
+    Timer::Push(game, 8000, mylaphinx, &Laphinx::UnHide);
 }

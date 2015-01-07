@@ -2,6 +2,7 @@
 #include "Hero.h"
 #include "ObjectPool.h"
 class ClientSession;
+class Game;
 
 typedef std::map<int, Unit*> UnitList;
 
@@ -28,6 +29,9 @@ public:
     void                SetReady(bool ready) { m_IsReady = ready; }
     bool                IsReady() { return m_IsReady; }
 
+    void                SetGame(Game* game){ m_Game = game; }
+    Game*               GetGame(){ return m_Game; }
+
     void                InitGameOverStatus() { m_IsGameOver = false; }
     void                SetGameOver() { m_IsGameOver = true; }
     bool                IsGameOver() { return m_IsGameOver; }
@@ -49,6 +53,7 @@ private:
     std::string         m_PlayerName;
     PlayerType          m_PlayerType;
 
+    Game*               m_Game          = nullptr;
     Hero*               m_Hero          = nullptr;
     HeroType            m_HeroType      = HERO_NONE;
     Team                m_Team          = TEAM_N;

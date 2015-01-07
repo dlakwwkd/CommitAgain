@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Game.h"
 #include "GameRoom.h"
-#include "GameManager.h"
 #include "Player.h"
 #include "Map.h"
 #include "Rock.h"
@@ -77,6 +76,7 @@ void Game::InitGame(RoomType roomType)
     b2Vec2 createPos = { 0, 0 };
     for (auto& player : m_PlayerList)
     {
+        player.second->SetGame(this);
         player.second->InitGameOverStatus();
         if (roomType == ROOM_MELEE)
         {
@@ -107,6 +107,7 @@ void Game::InitGame(RoomType roomType)
     m_Computer = new Player(temp, "Computer", PT_COMPUTER);
     m_Computer->SetRoomID(roomId);
     m_Computer->SetTeam(TEAM_C);
+    m_Computer->SetGame(this);
 	m_PlayerList[PT_COMPUTER] = m_Computer;
 
     m_Map = new Map(roomId);
@@ -119,16 +120,9 @@ void Game::StartGame()
 {
     m_IsStart = true;
 
-    auto func = std::bind(&Map::LavaCreate, m_Map, m_Computer, m_GameID);
-    auto timer = new Timer(m_GameID);
-    timer->RepeatTimer(10000, 10, func);
-    PushTimer(timer);
-
     m_WaveSystem = new WaveSystem(this);
-    auto func2 = std::bind(&WaveSystem::WaveLoop, m_WaveSystem);
-    auto timer2 = new Timer(m_GameID);
-    timer2->InfiniteTimer(30000, func2);
-    PushTimer(timer2);
+    Timer::Push(this, 30000, TIMER_INFINITE, m_WaveSystem, &WaveSystem::WaveLoop);
+    Timer::Push(this, 10000, 10, m_Map, &Map::LavaCreate, m_Computer, m_GameID);
 }
 
 void Game::EndGame()
@@ -151,6 +145,7 @@ void Game::EndGame()
     }
     for (auto& player : m_PlayerList)
     {
+        player.second->SetGame(nullptr);
         player.second->SetTeam(TEAM_N);
         player.second->UnitListClear();
     }
