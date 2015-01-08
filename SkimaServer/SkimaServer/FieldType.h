@@ -24,8 +24,10 @@ public:
 protected:
     void			FieldDamage(const b2Vec2& targetPos, float scale, int damage);
     b2Vec2          GenerateNextCenterPos(Direction dir, float var);
+    b2Vec2          GenerateRandomPos(float range);
     void            DiagonalRadiation(int delay, int repeatNum, int callNum);
     void            CrossRadiation(int delay, int repeatNum, int callNum);
+    void            RandomAttack(float range, int delay, int repeatNum, int callNum);
 
 protected:
     float           m_Scale;

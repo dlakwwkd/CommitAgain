@@ -47,6 +47,12 @@ b2Vec2 FieldType::GenerateNextCenterPos(Direction dir, float var)
     return m_TaretPos;
 }
 
+b2Vec2 FieldType::GenerateRandomPos(float range)
+{
+    int var = static_cast<int>(range*2);
+    return b2Vec2(m_TaretPos.x + (rand() % var - range), m_TaretPos.y + (rand() % var - range));
+}
+
 void FieldType::DiagonalRadiation(int repeatDelay, int repeatNum, int callNum)
 {
     auto game = m_Owner->GetGame();
@@ -88,6 +94,22 @@ void FieldType::CrossRadiation(int repeatDelay, int repeatNum, int callNum)
     nextAttack(W);
     nextAttack(S);
     nextAttack(N);
+
+    if (++m_CallCount == callNum)
+    {
+        m_CallCount = 0;
+    }
+}
+
+void FieldType::RandomAttack(float range, int repeatDelay, int repeatNum, int callNum)
+{
+    auto game = m_Owner->GetGame();
+    auto client = m_Owner->GetClient();
+    auto hero = m_Owner->GetMyHero();
+
+    auto nextPos = GenerateRandomPos(range);
+    Timer::Push(game, repeatDelay, repeatNum, this, &FieldType::FieldDamage, nextPos, m_Scale, m_Damage);
+    client->SkillBroadCast(hero->GetUnitID(), m_TaretPos, nextPos, SKILL_R);
 
     if (++m_CallCount == callNum)
     {
