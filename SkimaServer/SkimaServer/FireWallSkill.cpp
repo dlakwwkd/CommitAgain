@@ -23,8 +23,6 @@ void FireWallSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2&
     auto hero = m_Owner->GetMyHero();
     hero->EndMove();
 
-    auto client = m_Owner->GetClient();
-    client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
     m_TaretPos = targetPos;
 
     auto game = m_Owner->GetGame();

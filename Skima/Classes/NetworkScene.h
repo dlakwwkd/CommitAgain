@@ -1,8 +1,8 @@
 ﻿#pragma once
+struct RoomInfo;
 
 USING_NS_CC;
 
-struct RoomInfo;
 class NetworkScene : public LayerColor
 {
 public:

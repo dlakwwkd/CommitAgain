@@ -161,7 +161,7 @@ struct RoomInfo
     RoomInfo()
     {
         mRoomType = ROOM_NONE;
-        mRoomNum = 0;
+        mRoomNum = -1;
         mCurPlayerNum = 0;
         mMaxPlayerNum = 0;
         mReadyNum = 0;

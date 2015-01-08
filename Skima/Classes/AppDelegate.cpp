@@ -6,11 +6,10 @@
 #include "SimpleAudioEngine.h"
 
 USING_NS_CC;
-using namespace CocosDenshion;
 
 AppDelegate::~AppDelegate()
 {
-    SimpleAudioEngine::end();
+    CocosDenshion::SimpleAudioEngine::end();
     TcpClient::getInstance()->destroyInstance();
 }
 
@@ -53,9 +52,9 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 void AppDelegate::applicationDidEnterBackground()
 {
-    Director::getInstance()->stopAnimation();
+    //Director::getInstance()->stopAnimation();
 }
 void AppDelegate::applicationWillEnterForeground()
 {
-    Director::getInstance()->startAnimation();
+    //Director::getInstance()->startAnimation();
 }

@@ -183,10 +183,8 @@ void TcpClient::processPacket()
 
         if (false == mRecvBuffer.Peek((char*)&header, sizeof(PacketHeader)))
             break;
-
         if (header.mSize > mRecvBuffer.GetStoredSize())
             break;
-        
         if (cocos2d::Director::getInstance()->getRunningScene() == nullptr)
             break;
 
@@ -207,7 +205,7 @@ void TcpClient::processPacket()
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::ClearRoomInfo, scene));
                 for (auto& room : recvData.mRoomList)
                 {
-                    if (room.mRoomNum <= 0) // roomNum이 0이하면 roomList의 끝이므로 break
+                    if (room.mRoomNum < 0) // roomNum이 0이하면 roomList의 끝이므로 break
                         break;
                     scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::RoomInformation, scene,
                         room));
@@ -221,7 +219,7 @@ void TcpClient::processPacket()
         {
             MakeRoomResult recvData;
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-            assert(ret && recvData.mPlayerId == mLoginId);
+            assert(ret && recvData.mPlayerId != -1);
 
             auto scene = GET_NETWORK_SCENE;
             if (scene)

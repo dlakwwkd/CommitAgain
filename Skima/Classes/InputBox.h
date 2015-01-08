@@ -1,15 +1,10 @@
 ﻿#pragma once
-
-#include "cocos2d.h"
-
-#include <string>
-
 class MainScene;
-class InputBox : public cocos2d::LabelTTF{
+
+class InputBox : public cocos2d::LabelTTF
+{
 public:
-    static InputBox *create(
-        const std::string &str,
-        const std::string &name, float size);
+    static InputBox* create(const std::string& str, const std::string& name, float size);
 
     void beginInput();
     void endInput();
@@ -17,27 +12,23 @@ public:
     void clear();
 
 protected:
-    InputBox();
-    virtual ~InputBox();
+    InputBox() : m_MaxLength(255), m_Editbox(nullptr), m_LastConv(IME_CMODE_NATIVE){}
+    virtual ~InputBox(){}
 
-    virtual bool init(
-        const std::string &str,
-        const std::string &name, float size);
+    virtual bool init(const std::string& str, const std::string& name, float size);
+
+    static LRESULT HookProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 
     void refreshContent();
 
     void saveConvMode();
     void restoreConvMode();
 
-    static LRESULT HookProc(
-        HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
-
 private:
-    int maxLength;
-
-    bool        inputEnabled;
-    HWND        editbox;
-    WNDPROC     oldProc;
-    DWORD       lastConv;
+    int         m_MaxLength;
+    bool        m_InputEnabled;
+    HWND        m_Editbox;
+    WNDPROC     m_OldProc;
+    DWORD       m_LastConv;
 };
 
