@@ -11,7 +11,7 @@
 #define GET_LOADING_LAYER   dynamic_cast<LoadingBGLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(GAME_SCENE)->getChildByName(LOADING_LAYER))
 #define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(GAME_SCENE)->getChildByName(LISTENER_LAYER)->getChildByName(OBJECT_LAYER))
 #define GET_MAP_LAYER       dynamic_cast<MapLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(GAME_SCENE)->getChildByName(LISTENER_LAYER)->getChildByName(MAP_LAYER))
-#define GET_UI_LAYER        dynamic_cast<UILayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(GAME_SCENE)->getChildByName(LISTENER_LAYER))
+#define GET_UI_LAYER        dynamic_cast<UILayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(GAME_SCENE)->getChildByName(UI_LAYER))
 
 
 ///////////////////////////////////////////////////////////////////////////

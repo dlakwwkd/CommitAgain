@@ -153,20 +153,7 @@ void RoomScene::PrintMenuByRoomType()
          roomTypeImage->setPosition(Vec2(winSize.width / 2, winSize.height * 7 / 8));
          this->addChild(roomTypeImage);
 
-         auto readyButton = MenuItemImage::create(
-             "Images/Interface/GameReady.png",
-             "Images/Interface/GameReady_Selected.png",
-             CC_CALLBACK_1(RoomScene::GameStartCallback, this));
-         auto exitButton = MenuItemImage::create(
-             "Images/Interface/ExitGame.png",
-             "Images/Interface/ExitGame_Selected.png",
-             CC_CALLBACK_1(RoomScene::GameExitCallback, this));
-         exitButton->setPosition(Vec2(0, -80));
-         exitButton->setScale(1.3f);
-
-         auto buttonMenu = Menu::create(readyButton, exitButton, NULL);
-         buttonMenu->setPosition(winSize.width * 7 / 8, winSize.height * 3 / 8);
-         this->addChild(buttonMenu);
+         MakeButton();
          break;
     }
     case ROOM_TEAM:
@@ -188,20 +175,7 @@ void RoomScene::PrintMenuByRoomType()
          label3->setHorizontalAlignment(TextHAlignment::CENTER);
          this->addChild(label3, 0, TEAM_STATE_LABEL);
          
-         auto readyButton = MenuItemImage::create(
-             "Images/Interface/GameReady.png",
-             "Images/Interface/GameReady_Selected.png",
-             CC_CALLBACK_1(RoomScene::GameStartCallback, this));
-         auto exitButton = MenuItemImage::create(
-             "Images/Interface/ExitGame.png",
-             "Images/Interface/ExitGame_Selected.png",
-             CC_CALLBACK_1(RoomScene::GameExitCallback, this));
-         exitButton->setPosition(Vec2(0, -80));
-         exitButton->setScale(1.3f);
-
-         auto buttonMenu = Menu::create(readyButton, exitButton, teamButton1, teamButton2, NULL);
-         buttonMenu->setPosition(winSize.width * 7 / 8, winSize.height * 3 / 8);
-         this->addChild(buttonMenu);
+         MakeButton();
          break;
     }
     default:
@@ -280,6 +254,25 @@ void RoomScene::WaitingCheck()
         GET_WAITING_LAYER->setVisible(true);
     else
         GET_WAITING_LAYER->setVisible(false);
+}
+
+void RoomScene::MakeButton()
+{
+    auto winSize = Director::getInstance()->getWinSize();
+    auto readyButton = MenuItemImage::create(
+        "Images/Interface/GameReady.png",
+        "Images/Interface/GameReady_Selected.png",
+        CC_CALLBACK_1(RoomScene::GameStartCallback, this));
+    auto exitButton = MenuItemImage::create(
+        "Images/Interface/ExitGame.png",
+        "Images/Interface/ExitGame_Selected.png",
+        CC_CALLBACK_1(RoomScene::GameExitCallback, this));
+    exitButton->setPosition(Vec2(0, -80));
+    exitButton->setScale(1.3f);
+
+    auto buttonMenu = Menu::create(readyButton, exitButton, NULL);
+    buttonMenu->setPosition(winSize.width * 7 / 8, winSize.height * 3 / 8);
+    this->addChild(buttonMenu);
 }
 
 void RoomScene::MakeHeroSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor, HeroType hero)

@@ -20,6 +20,11 @@ public:
     Sprite* GetCooltimeBox(SkillKey key);
 
 private:
+    Sprite* MakeSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor);
+    Sprite* MakeCooltimeBox(SkillKey key, Vec2 pos);
+    Sprite* MakeCursor(CursorMode mode, const char* image, Vec2 scale, Vec2 anchor);
+
+private:
     Sprite*                         m_Cursor;
     std::map<CursorMode, Sprite*>   m_CursorShape;
     std::map<SkillKey, Sprite*>     m_CooltimeBox;
