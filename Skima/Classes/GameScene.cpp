@@ -20,8 +20,8 @@ Scene* GameScene::createScene()
     auto scene = Scene::create();
     auto layer1 = GameScene::create();
     auto layer2 = ListenerLayer::create();
-    scene->addChild(layer1, 3, "GameScene");
-    layer1->addChild(layer2, 0, "ListenerLayer");
+    scene->addChild(layer1, 3, GAME_SCENE);
+    layer1->addChild(layer2, 0, LISTENER_LAYER);
 
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/game1.mp3");
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/game2.mp3");
@@ -41,9 +41,9 @@ bool GameScene::init()
     auto layer1 = LoadingBGLayer::create();
     auto layer2 = UILayer::create();
     auto layer3 = EscLayer::create();
-    this->addChild(layer1, 10, "LoadingBGLayer");
-    this->addChild(layer2, 5, "UILayer");
-    this->addChild(layer3, 20, "EscLayer");
+    this->addChild(layer1, 10, LOADING_LAYER);
+    this->addChild(layer2, 5, UI_LAYER);
+    this->addChild(layer3, 20, ESC_LAYER);
     layer3->setVisible(false);
     
     SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/game2.mp3", true);
@@ -61,7 +61,7 @@ void GameScene::StartGame()
 
 void GameScene::RemoveLoadingLayer()
 {
-    this->removeChildByName("LoadingBGLayer");
+    this->removeChildByName(LOADING_LAYER);
 }
 
 void GameScene::GameOver(int playerId, bool isWin)

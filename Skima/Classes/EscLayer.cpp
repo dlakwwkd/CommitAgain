@@ -14,8 +14,8 @@ bool EscLayer::init()
     }
     this->setOpacity(210);
 
-    auto label1 = Label::createWithSystemFont("돌아가기", "Thonburi", 50);
-    auto label2 = Label::createWithSystemFont("나가기", "Thonburi", 50);
+    auto label1 = Label::createWithSystemFont("돌아가기", DEF_FONT, 50);
+    auto label2 = Label::createWithSystemFont("나가기", DEF_FONT, 50);
     label1->setOpacity(255);
     label2->setOpacity(255);
 

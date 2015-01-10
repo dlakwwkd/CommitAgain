@@ -14,7 +14,7 @@ Scene* GameOverScene::createScene(RoomInfo roomInfo, int playerId, bool isWin)
 	auto scene = Scene::create();
 	auto layer = GameOverScene::create();
     Sprite* endScene;
-	scene->addChild(layer, 0, "GameOverScene");
+	scene->addChild(layer, 0, GAMEOVER_SCENE);
 	layer->SetRoomInfo(roomInfo);
 
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/winner.mp3");
@@ -48,8 +48,8 @@ bool GameOverScene::init()
 		return false;
 	}
 	ShowCursor(true);
-	//auto label1 = Label::createWithSystemFont("Play Again", "Thonburi", 50);
-	auto label2 = Label::createWithSystemFont("Exit", "Thonburi", 50);
+	//auto label1 = Label::createWithSystemFont("Play Again", DEF_FONT, 50);
+    auto label2 = Label::createWithSystemFont(EXIT_TEXT, DEF_FONT, 50);
 
 	//auto menuItem1 = MenuItemLabel::create(label1, CC_CALLBACK_1(GameOverScene::menuCallback1, this));
 	auto menuItem2 = MenuItemLabel::create(label2, CC_CALLBACK_1(GameOverScene::menuCallback2, this));
@@ -57,7 +57,7 @@ bool GameOverScene::init()
 	auto menu = Menu::create(menuItem2, NULL);
 	menu->alignItemsVertically();
 	menu->setPositionY(250);
-	this->addChild(menu, 2, "GameOverMenu");
+	this->addChild(menu, 2, GAMEOVER_MANU_LABEL);
 
 	return true;
 }

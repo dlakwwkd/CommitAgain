@@ -13,9 +13,9 @@
 #include "math.h"
 //#include "Macros.h"
 
-#define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(this->getChildByName("ObjectLayer"))
-#define GET_UI_LAYER        dynamic_cast<UILayer*>(this->getParent()->getChildByName("UILayer"))
-#define GET_ESC_LAYER       dynamic_cast<EscLayer*>(this->getParent()->getChildByName("EscLayer"))
+#define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(this->getChildByName(OBJECT_LAYER))
+#define GET_UI_LAYER        dynamic_cast<UILayer*>(this->getParent()->getChildByName(UI_LAYER))
+#define GET_ESC_LAYER       dynamic_cast<EscLayer*>(this->getParent()->getChildByName(ESC_LAYER))
 
 bool ListenerLayer::init()
 {
@@ -28,8 +28,8 @@ bool ListenerLayer::init()
 
     auto layer1 = MapLayer::create();
     auto layer2 = ObjectLayer::create();
-    this->addChild(layer1, 0, "MapLayer");
-    this->addChild(layer2, 1, "ObjectLayer");
+    this->addChild(layer1, 0, MAP_LAYER);
+    this->addChild(layer2, 1, OBJECT_LAYER);
 
     m_Targeting = false;
 

@@ -2,7 +2,7 @@
 #include "WaitingLayer.h"
 #include "RoomScene.h"
 
-#define GET_CONNECT_LABEL dynamic_cast<Label*>(this->getChildByName("ConnectLabel"))
+#define GET_CONNECT_LABEL dynamic_cast<Label*>(this->getChildByName(CONNECT_LABEL))
 #define GET_ROOM_SCENE    dynamic_cast<RoomScene*>(this->getParent())
 
 bool WaitingLayer::init()
@@ -17,7 +17,7 @@ bool WaitingLayer::init()
 
     auto label = Label::create("다른 플레이어를 기다리는 중...", "Arial", 50);
     label->setPosition(Vec2(winSize.width / 2, winSize.height * 3 / 4));
-    this->addChild(label, 1, "ConnectLabel");
+    this->addChild(label, 1, CONNECT_LABEL);
 
     return true;
 }

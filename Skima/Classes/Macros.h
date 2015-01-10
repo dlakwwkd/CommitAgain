@@ -1,16 +1,17 @@
 #pragma once
+#include "TextDefine.h"
 ///////////////////////////////////////////////////////////////////////////
 /*
     씬을 불러오기위한 매크로
 */
 ///////////////////////////////////////////////////////////////////////////
-#define GET_NETWORK_SCENE   dynamic_cast<NetworkScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("NetworkScene"))
-#define GET_ROOM_SCENE      dynamic_cast<RoomScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("RoomScene"))
-#define GET_GAME_SCENE		dynamic_cast<GameScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene"))
-#define GET_LOADING_LAYER   dynamic_cast<LoadingBGLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("LoadingBGLayer"))
-#define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("ListenerLayer")->getChildByName("ObjectLayer"))
-#define GET_MAP_LAYER       dynamic_cast<MapLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("ListenerLayer")->getChildByName("MapLayer"))
-#define GET_UI_LAYER        dynamic_cast<UILayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName("GameScene")->getChildByName("UILayer"))
+#define GET_NETWORK_SCENE   dynamic_cast<NetworkScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(NETWORK_SCENE))
+#define GET_ROOM_SCENE      dynamic_cast<RoomScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(ROOM_SCENE))
+#define GET_GAME_SCENE		dynamic_cast<GameScene*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(GAME_SCENE))
+#define GET_LOADING_LAYER   dynamic_cast<LoadingBGLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(GAME_SCENE)->getChildByName(LOADING_LAYER))
+#define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(GAME_SCENE)->getChildByName(LISTENER_LAYER)->getChildByName(OBJECT_LAYER))
+#define GET_MAP_LAYER       dynamic_cast<MapLayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(GAME_SCENE)->getChildByName(LISTENER_LAYER)->getChildByName(MAP_LAYER))
+#define GET_UI_LAYER        dynamic_cast<UILayer*>(cocos2d::Director::getInstance()->getRunningScene()->getChildByName(GAME_SCENE)->getChildByName(LISTENER_LAYER))
 
 
 ///////////////////////////////////////////////////////////////////////////

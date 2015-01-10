@@ -8,16 +8,16 @@
 
 using namespace CocosDenshion;
 
-#define GET_TEAM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("TeamStateLabel"))
-#define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName("RoomStateLabel"))
-#define GET_ROOM_PLAYER_LABEL dynamic_cast<Label*>(this->getChildByName("PlayerNumLabel"))
-#define GET_WAITING_LAYER    dynamic_cast<WaitingLayer*>(this->getChildByName("WaitingLayer"))
+#define GET_TEAM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName(TEAM_STATE_LABEL))
+#define GET_ROOM_STATE_LABEL dynamic_cast<Label*>(this->getChildByName(ROOM_STATE_LABEL))
+#define GET_ROOM_PLAYER_LABEL dynamic_cast<Label*>(this->getChildByName(PLAYER_NUM_LABEL))
+#define GET_WAITING_LAYER    dynamic_cast<WaitingLayer*>(this->getChildByName(WAITING_LAYER))
 
 Scene* RoomScene::createScene()
 {
     auto scene = Scene::create();
     auto layer = RoomScene::create();
-    scene->addChild(layer, 0, "RoomScene");
+    scene->addChild(layer, 0, ROOM_SCENE);
     return scene;
 }
 
@@ -74,19 +74,19 @@ bool RoomScene::init()
 
     auto waitLayer = WaitingLayer::create();
     waitLayer->setVisible(false);
-    this->addChild(waitLayer, 2, "WaitingLayer");
+    this->addChild(waitLayer, 2, WAITING_LAYER);
 
-    auto label1 = Label::createWithSystemFont("연결 중...", "Thonburi", 70);
+    auto label1 = Label::createWithSystemFont(ROOM_INFO_WAITING_TEXT, DEF_FONT, 70);
     label1->setAnchorPoint(Vec2(0, 0));
     label1->setPosition(Vec2(0, winSize.height * 0.9f));
     label1->setHorizontalAlignment(TextHAlignment::CENTER);
-    this->addChild(label1, 0, "RoomStateLabel");
+    this->addChild(label1, 0, ROOM_STATE_LABEL);
 
-    auto label2 = Label::createWithSystemFont(" ", "Thonburi", 50);
+    auto label2 = Label::createWithSystemFont(" ", DEF_FONT, 50);
     label2->setAnchorPoint(Vec2(0, 0));
     label2->setPosition(Vec2(0, winSize.height * 0.7f));
     label2->setHorizontalAlignment(TextHAlignment::CENTER);
-    this->addChild(label2, 0, "PlayerNumLabel");
+    this->addChild(label2, 0, PLAYER_NUM_LABEL);
 
     SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/banpick.mp3", true);
     SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
@@ -104,7 +104,7 @@ void RoomScene::TeamSelectACallback(Ref* sender)
     if (label == nullptr)
         return;
     m_CurTeam = TEAM_1;
-    label->setString("1 팀");
+    label->setString(TEAM_1_TEXT);
 }
 
 void RoomScene::TeamSelectBCallback(Ref* sender)
@@ -113,7 +113,7 @@ void RoomScene::TeamSelectBCallback(Ref* sender)
     if (label == nullptr)
         return;
     m_CurTeam = TEAM_2;
-    label->setString("2 팀");
+    label->setString(TEAM_2_TEXT);
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -159,7 +159,7 @@ void RoomScene::Tick(float dt)
     char buf[4];
     _itoa(m_RoomInfo.mRoomNum, buf, 10);
     std::string roomNum = buf;
-    roomNum += "번 방";
+    roomNum += ROOM_NUM_TEXT;
     label1->setString(roomNum);
 }
 //////////////////////////////////////////////////////////////////////////
@@ -172,7 +172,7 @@ void RoomScene::UpdateRoomInfo(RoomInfo roomInfo)
     m_RoomInfo = roomInfo;
 
     char buf[4];
-    std::string roomInfoStr = "방 인원: ";
+    std::string roomInfoStr = PLAYER_NUM_TEXT;
     _itoa(m_RoomInfo.mCurPlayerNum, buf, 10);
     std::string curPlayerNum = buf;
     curPlayerNum += "명 / ";
@@ -193,7 +193,7 @@ void RoomScene::GameStartComplete()
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     auto scene = GameScene::createScene();
 
-    auto layer = dynamic_cast<GameScene*>(scene->getChildByName("GameScene"));
+    auto layer = dynamic_cast<GameScene*>(scene->getChildByName(GAME_SCENE));
     layer->SetRoomInfo(m_RoomInfo);
 
     m_IsReady = false;
@@ -284,17 +284,17 @@ void RoomScene::PrintMenuByRoomType()
          auto roomTypeImage = Sprite::create("Images/Interface/TeamModeButton.png");
          roomTypeImage->setPosition(Vec2(winSize.width / 2, winSize.height * 7 / 8));
          this->addChild(roomTypeImage);
-         auto label1 = Label::createWithSystemFont("1 팀", "Thonburi", 50);
+         auto label1 = Label::createWithSystemFont(TEAM_1_TEXT, DEF_FONT, 50);
          auto teamButton1 = MenuItemLabel::create(label1, CC_CALLBACK_1(RoomScene::TeamSelectACallback, this));
          teamButton1->setPosition(Vec2(-80, 80));
-         auto label2 = Label::createWithSystemFont("2 팀", "Thonburi", 50);
+         auto label2 = Label::createWithSystemFont(TEAM_2_TEXT, DEF_FONT, 50);
          auto teamButton2 = MenuItemLabel::create(label2, CC_CALLBACK_1(RoomScene::TeamSelectBCallback, this));
          teamButton2->setPosition(Vec2(80, 80));
          
-         auto label3 = Label::createWithSystemFont("1 팀", "Thonburi", 50);
+         auto label3 = Label::createWithSystemFont(TEAM_1_TEXT, DEF_FONT, 50);
          label3->setPosition(Vec2(100, winSize.height * 0.5f));
          label3->setHorizontalAlignment(TextHAlignment::CENTER);
-         this->addChild(label3, 0, "TeamStateLabel");
+         this->addChild(label3, 0, TEAM_STATE_LABEL);
          
          auto readyButton = MenuItemImage::create("Images/Interface/GameReady.png", "Images/Interface/GameReady_Selected.png", CC_CALLBACK_1(RoomScene::GameStartCallback, this));
          auto exitButton = MenuItemImage::create("Images/Interface/ExitGame.png", "Images/Interface/ExitGame_Selected.png", CC_CALLBACK_1(RoomScene::GameExitCallback, this));

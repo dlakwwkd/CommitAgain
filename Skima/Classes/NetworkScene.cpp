@@ -8,14 +8,14 @@
 
 using namespace CocosDenshion;
 
-#define GET_CONNECT_LABEL dynamic_cast<Label*>(this->getChildByName("ConnectLabel"))
-#define GET_MAKEROOM_LAYER dynamic_cast<Layer*>(this->getChildByName("MakeRoomLayer"))
+#define GET_CONNECT_LABEL dynamic_cast<Label*>(this->getChildByName(CONNECT_LABEL))
+#define GET_MAKEROOM_LAYER dynamic_cast<Layer*>(this->getChildByName(MAKEROOM_LAYER))
 
 Scene* NetworkScene::createScene()
 {
     auto scene = Scene::create();
     auto layer = NetworkScene::create();
-    scene->addChild(layer, 0, "NetworkScene");
+    scene->addChild(layer, 0, NETWORK_SCENE);
     return scene;
 }
 
@@ -26,7 +26,7 @@ bool NetworkScene::init()
         return false;
     }
     auto winSize = Director::getInstance()->getWinSize();
-    ConnectLabelCreate("로그인 성공!!!", this);
+    ConnectLabelCreate(CONNECT_SUCCESS_TEXT, this);
 
     auto background = Sprite::create("Images/Background/NetworkBackground.png");
     background->setPosition(winSize.width / 2, winSize.height / 2);
@@ -54,10 +54,10 @@ void NetworkScene::menuCallback1(Ref* sender)
         return;
 
     if (GET_MAKEROOM_LAYER != nullptr)
-        this->removeChildByName("MakeRoomLayer");
+        this->removeChildByName(MAKEROOM_LAYER);
 
     auto makeRoomLayer = MakeRoomLayer::create();
-    this->addChild(makeRoomLayer, 3, "MakeRoomLayer");
+    this->addChild(makeRoomLayer, 3, MAKEROOM_LAYER);
 }
 
 void NetworkScene::menuCallback2(int roomNum)
@@ -65,19 +65,19 @@ void NetworkScene::menuCallback2(int roomNum)
     if (TcpClient::getInstance()->checkSocket() == NULL)
         return;
 
-    ConnectLabelChange("방에 들어가는 중...");
+    ConnectLabelChange(TRY_JOIN_ROOM_TEXT);
     for (auto& room : m_RoomList)
     {
         if (room.mRoomNum == roomNum)
         {
             if (room.mIsAllReady) //들어가려한 방이 게임이 시작된 방일 때
             {
-                ConnectLabelChange("이미 게임이 시작된 방입니다.");
+                ConnectLabelChange(ROOM_IS_STARTED_TEXT);
                 return;
             }
             if (room.mCurPlayerNum >= room.mMaxPlayerNum) // 들어가려한 방이 꽉차있을 때
             {
-                ConnectLabelChange("방의 인원이 초과하였습니다.");
+                ConnectLabelChange(ROOM_IS_FULL_TEXT);
                 return;
             }
             TcpClient::getInstance()->joinRoomRequest(room);
@@ -97,14 +97,14 @@ void NetworkScene::menuCallback3(Ref* sender)	// 나가기
 
 void NetworkScene::ConnectLabelCreate(const char* str, NetworkScene* scene)
 {
-    if (scene->getChildByName("ConnectLabel") != nullptr)
+    if (scene->getChildByName(CONNECT_LABEL) != nullptr)
     {
-        scene->removeChildByName("ConnectLabel");
+        scene->removeChildByName(CONNECT_LABEL);
     }
-    auto label = Label::createWithSystemFont(str, "Thonburi", 50);
+    auto label = Label::createWithSystemFont(str, DEF_FONT, 50);
     label->setAnchorPoint(Vec2::ZERO);
     label->setHorizontalAlignment(TextHAlignment::CENTER);
-    scene->addChild(label, 0, "ConnectLabel");
+    scene->addChild(label, 0, CONNECT_LABEL);
 }
 
 void NetworkScene::ConnectLabelChange(const char* str)
@@ -129,9 +129,9 @@ void NetworkScene::ClearRoomInfo()
 void NetworkScene::UpdateRoomInfo()
 {
     //Update를 위한 남아있는 Sprite 초기화
-    while (this->getChildByName("RoomListFrame") != nullptr)
+    while (this->getChildByName(ROOM_LIST_FRAME) != nullptr)
     {
-        this->removeChildByName("RoomListFrame");
+        this->removeChildByName(ROOM_LIST_FRAME);
     }
 
     auto winSize = Director::getInstance()->getWinSize();
@@ -145,7 +145,7 @@ void NetworkScene::UpdateRoomInfo()
         auto roomListFrame = Sprite::create("Images/Interface/RoomListFrame.png");
         roomListFrame->setPosition(Vec2(winSize.width * 0.45f - 50, winSize.height * line));
         roomListFrame->setScaleX(1.5f);
-        this->addChild(roomListFrame, 1, "RoomListFrame");
+        this->addChild(roomListFrame, 1, ROOM_LIST_FRAME);
 
         auto roomListFrameBack = Sprite::create("Images/Interface/RoomListFrame_back.png");
         roomListFrameBack->setPosition(Vec2(505.0f, 115.0f));
@@ -189,7 +189,7 @@ void NetworkScene::UpdateRoomInfo()
         joinRoomButton->setScaleX(0.8f);
         roomListFrame->addChild(menu);
 
-        auto roomInfoLabel = Label::createWithSystemFont(" ", "Thonburi", 40);
+        auto roomInfoLabel = Label::createWithSystemFont(" ", DEF_FONT, 40);
         std::string roomInfo;   char buf[4];
         _itoa(room.mRoomNum, buf, 10);      std::string roomNum = buf;
         _itoa(room.mCurPlayerNum, buf, 10); std::string curPlayerNum = buf;
@@ -208,9 +208,9 @@ void NetworkScene::UpdateRoomInfo()
 void NetworkScene::MakeRoomComplete(RoomInfo roomInfo)
 {
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    ConnectLabelChange("서버 연결 양호.");
+    ConnectLabelChange(CONNECT_GOOD_TEXT);
     auto scene = RoomScene::createScene();
-    auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
+    auto layer = dynamic_cast<RoomScene*>(scene->getChildByName(ROOM_SCENE));
     layer->UpdateRoomInfo(roomInfo);
     layer->PrintMenuByRoomType();
     Director::getInstance()->pushScene(scene);
@@ -219,9 +219,9 @@ void NetworkScene::MakeRoomComplete(RoomInfo roomInfo)
 void NetworkScene::JoinRoomComplete(RoomInfo roomInfo)
 {
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    ConnectLabelChange("서버 연결 양호.");
+    ConnectLabelChange(CONNECT_GOOD_TEXT);
     auto scene = RoomScene::createScene();
-    auto layer = dynamic_cast<RoomScene*>(scene->getChildByName("RoomScene"));
+    auto layer = dynamic_cast<RoomScene*>(scene->getChildByName(ROOM_SCENE));
     layer->UpdateRoomInfo(roomInfo);
     layer->PrintMenuByRoomType();
     Director::getInstance()->pushScene(scene);
@@ -233,5 +233,5 @@ void NetworkScene::Tick(float dt)
     {
         Director::getInstance()->popScene();
     }
-    ConnectLabelChange("방 참여 혹은 방 생성을 해주십시오.");
+    ConnectLabelChange(JOIN_ROOM_REQUEST_TEXT);
 }

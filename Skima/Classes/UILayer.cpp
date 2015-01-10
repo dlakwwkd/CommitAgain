@@ -17,9 +17,9 @@ bool UILayer::init()
     menu->setPosition(winSize.width - 40, 12);
     this->addChild(menu);
 
-    auto hpLabel = Label::createWithSystemFont("\0", "Thonburi", 23);
+    auto hpLabel = Label::createWithSystemFont("\0", DEF_FONT, 23);
     hpLabel->setPosition(Vec2(MAX_MAP_SIZE_X / 2, 143));
-    this->addChild(hpLabel, 11, "HpLabel");
+    this->addChild(hpLabel, 11, HP_LABEL);
 
     auto sprite = [](const char* image, Vec2 pos, Vec2 scale, Vec2 anchor)
     {
@@ -30,7 +30,7 @@ bool UILayer::init()
         return sprite;
     };
     this->addChild(sprite("Images/Interface/interface.png",       Vec2(MAX_MAP_SIZE_X / 2, 100), Vec2(1.1f, 1.1f), Vec2(0.5, 0.5)));
-    this->addChild(sprite("Images/Interface/HpBar_interface.png", Vec2(MAX_MAP_SIZE_X / 2 - 204, 141), Vec2(0.72f, 1.1f), Vec2(0.0, 0.5)), 10, "HpBar");
+    this->addChild(sprite("Images/Interface/HpBar_interface.png", Vec2(MAX_MAP_SIZE_X / 2 - 204, 141), Vec2(0.72f, 1.1f), Vec2(0.0, 0.5)), 10, HP_BAR);
 
     auto cooltimeBox = [&](SkillKey key, Vec2 pos)
     {
@@ -99,9 +99,9 @@ void UILayer::UpdateHpBar(float curHp, float maxHp)
     char* maximumHp = (char*)calloc(255, sizeof(char));
     itoa(curHp, currentHp, 10); itoa(maxHp, maximumHp, 10);
     strcat(currentHp, " / "); strcat(currentHp, maximumHp);
-    auto hpLabel = dynamic_cast<Label*>(this->getChildByName("HpLabel"));
+    auto hpLabel = dynamic_cast<Label*>(this->getChildByName(HP_LABEL));
     hpLabel->setString(currentHp);
-    auto hpBar = dynamic_cast<Sprite*>(this->getChildByName("HpBar"));
+    auto hpBar = dynamic_cast<Sprite*>(this->getChildByName(HP_BAR));
     hpBar->setScaleX(0.72f*(curHp / maxHp));
 }
 

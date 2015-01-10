@@ -13,7 +13,7 @@ Scene* MainScene::createScene()
 {
     auto scene = Scene::create();
     auto layer = MainScene::create();
-    scene->addChild(layer, 0, "MainScene");
+    scene->addChild(layer, 0, MAIN_SCENE);
     return scene;
 }
 
@@ -41,7 +41,7 @@ bool MainScene::init()
     loginBox->addChild(loginMenu2);
 
     // Login 입력박스
-    m_LoginBox = InputBox::create("이름을 입력", "Thonburi", MAX_NAME_LEN);
+    m_LoginBox = InputBox::create(LOGIN_BOX_INIT_TEXT, DEF_FONT, MAX_NAME_LEN);
     m_LoginBox->setAnchorPoint(Vec2(1,0));
     m_LoginBox->setPosition(Vec2(320, 92));
     m_LoginBox->setColor(Color3B::BLACK);
@@ -80,11 +80,11 @@ void MainScene::LoginToServer()
         return;
     }
 
-    ConnectLabelCreate("로그인 시도 중......", this);
+    ConnectLabelCreate(TRY_CONNECT_TEXT, this);
     if (TcpClient::getInstance()->connect() == false)
     {
         TcpClient::getInstance()->disconnect();
-        ConnectLabelChange("로그인 실패.");
+        ConnectLabelChange(CONNECT_FAILED_TEXT);
         m_LoginBox->clear();
         m_LoginBox->beginInput();
         return;
@@ -100,19 +100,19 @@ void MainScene::LoginToServer()
 
 void MainScene::ConnectLabelCreate(const char* str, MainScene* scene)
 {
-    if (scene->getChildByName("ConnectLabel") != nullptr)
+    if (scene->getChildByName(CONNECT_LABEL) != nullptr)
     {
-        scene->removeChildByName("ConnectLabel");
+        scene->removeChildByName(CONNECT_LABEL);
     }
-    auto label = Label::createWithSystemFont(str, "Thonburi", 50);
+    auto label = Label::createWithSystemFont(str, DEF_FONT, 50);
     label->setAnchorPoint(Vec2::ZERO);
     label->setHorizontalAlignment(TextHAlignment::CENTER);
-    scene->addChild(label, 0, "ConnectLabel");
+    scene->addChild(label, 0, CONNECT_LABEL);
 }
 
 void MainScene::ConnectLabelChange(const char* str)
 {
-    auto label = dynamic_cast<Label*>(this->getChildByName("ConnectLabel"));
+    auto label = dynamic_cast<Label*>(this->getChildByName(CONNECT_LABEL));
     if (label != nullptr)
     {
         label->setString(str);

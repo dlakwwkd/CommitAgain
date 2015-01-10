@@ -497,6 +497,9 @@
     <ClInclude Include="..\Classes\FireWallParticleEffect.h">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClInclude>
+    <ClInclude Include="TextDefine.h">
+      <Filter>Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

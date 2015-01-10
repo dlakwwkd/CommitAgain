@@ -26,7 +26,7 @@
 
 using namespace CocosDenshion;
 
-//#define GET_UI_LAYER	dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName("UILayer"))
+//#define GET_UI_LAYER	dynamic_cast<UILayer*>(this->getParent()->getParent()->getChildByName(UI_LAYER))
 
 bool ObjectLayer::init()
 {

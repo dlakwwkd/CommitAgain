@@ -3,9 +3,9 @@
 #include "PacketType.h"
 #include "TcpClient.h"
 
-#define GET_MAXPLAYER_LABEL dynamic_cast<Label*>(this->getChildByName("MakeRoomFrame")->getChildByName("MaxPlayerNumLabel"))
-#define GET_VSMODE_SPRITE   dynamic_cast<Sprite*>(this->getChildByName("MakeRoomFrame")->getChildByName("MeleeSelect"))
-#define GET_BOSSMODE_SPRITE dynamic_cast<Sprite*>(this->getChildByName("MakeRoomFrame")->getChildByName("TeamSelect"))
+#define GET_MAXPLAYER_LABEL dynamic_cast<Label*>(this->getChildByName(MAKEROOM_LAYER)->getChildByName(MAX_PLAYER_LABEL))
+#define GET_VSMODE_SPRITE   dynamic_cast<Sprite*>(this->getChildByName(MAKEROOM_LAYER)->getChildByName(MELEE_SELECT))
+#define GET_BOSSMODE_SPRITE dynamic_cast<Sprite*>(this->getChildByName(MAKEROOM_LAYER)->getChildByName(TEAM_SELECT))
 
 bool MakeRoomLayer::init()
 {
@@ -24,11 +24,11 @@ bool MakeRoomLayer::init()
 
     auto frame = Sprite::create("Images/Interface/MakeRoomFrame.png");
     frame->setPosition(Vec2(winSize.width / 2, winSize.height / 2));
-    this->addChild(frame, 1, "MakeRoomFrame");
+    this->addChild(frame, 1, MAKEROOM_LAYER);
 
     auto label = Label::create("2Έν", "Arial", 40);
     label->setPosition(Vec2(500.0f, 460.0f));
-    frame->addChild(label, 2, "MaxPlayerNumLabel");
+    frame->addChild(label, 2, MAX_PLAYER_LABEL);
     auto leftButton = MenuItemImage::create("Images/Interface/LeftSelect.PNG", "Images/Interface/LeftSelect.PNG",
         CC_CALLBACK_0(MakeRoomLayer::DownMaxPlayerNum, this));
     auto rightButton = MenuItemImage::create("Images/Interface/RightSelect.PNG", "Images/Interface/RightSelect.PNG",
@@ -48,8 +48,8 @@ bool MakeRoomLayer::init()
     auto TeamModeSelect = Sprite::create("Images/Interface/RoomModeSelect.png");
     TeamModeSelect->setVisible(false);
     TeamModeSelect->setPosition(Vec2(620.0f, 230.0f));
-    frame->addChild(MeleeModeSelect, 1, "MeleeSelect");
-    frame->addChild(TeamModeSelect, 1, "TeamSelect");
+    frame->addChild(MeleeModeSelect, 1, MELEE_SELECT);
+    frame->addChild(TeamModeSelect, 1, TEAM_SELECT);
 
     auto menu2 = Menu::create(MeleeMode, TeamMode, NULL);
     menu2->setPosition(Vec2(450.0f, 230.0f));
@@ -131,5 +131,5 @@ void MakeRoomLayer::MakeRoom()
 
 void MakeRoomLayer::CancelMakeRoom()
 {
-    this->getParent()->removeChildByName("MakeRoomLayer");
+    this->getParent()->removeChildByName(MAKEROOM_LAYER);
 }
