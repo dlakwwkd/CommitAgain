@@ -9,45 +9,36 @@ using namespace CocosDenshion;
 
 Scene* GameOverScene::createScene(RoomInfo roomInfo, int playerId, bool isWin)
 {
-    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-
 	auto scene = Scene::create();
 	auto layer = GameOverScene::create();
-    Sprite* endScene;
 	scene->addChild(layer, 0, GAMEOVER_SCENE);
 	layer->SetRoomInfo(roomInfo);
 
-    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/winner.mp3");
-    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Background/loser.mp3");
-
+    Sprite* endScene;
     if (isWin)
     {
         endScene = Sprite::create("Images/Background/WinScene.png");
         SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/winner.mp3");
-
     }
 	else
 	{
         endScene = Sprite::create("Images/Background/LoseScene.png");
         SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/loser.mp3");
-
 	}
     SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
     endScene->setAnchorPoint(Vec2(0, 0));
     endScene->setZOrder(1);
-
     layer->addChild(endScene);
-
 	return scene;
 }
 
 bool GameOverScene::init()
 {
 	if (!LayerColor::initWithColor(Color4B(100, 100, 200, 255)))
-	{
 		return false;
-	}
+
 	ShowCursor(true);
+
 	//auto label1 = Label::createWithSystemFont("Play Again", DEF_FONT, 50);
     auto label2 = Label::createWithSystemFont(EXIT_TEXT, DEF_FONT, 50);
 
@@ -58,10 +49,9 @@ bool GameOverScene::init()
 	menu->alignItemsVertically();
 	menu->setPositionY(250);
 	this->addChild(menu, 2, GAMEOVER_MANU_LABEL);
-
 	return true;
 }
-// 
+
 // void GameOverScene::menuCallback1(Ref* sender)	// 게임 시작
 // {
 //     SimpleAudioEngine::getInstance()->stopBackgroundMusic();

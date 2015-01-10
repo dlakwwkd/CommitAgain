@@ -207,7 +207,7 @@ void TcpClient::processPacket()
                 {
                     if (room.mRoomNum < 0) // roomNum이 0이하면 roomList의 끝이므로 break
                         break;
-                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::RoomInformation, scene,
+                    scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::PushRoomInfo, scene,
                         room));
                 }
                 scheduler->performFunctionInCocosThread(CC_CALLBACK_0(NetworkScene::UpdateRoomInfo, scene));

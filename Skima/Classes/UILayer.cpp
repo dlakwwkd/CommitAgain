@@ -7,12 +7,16 @@
 bool UILayer::init()
 {
     if (!Layer::init())
-    {
         return false;
-    }
+
     auto winSize = Director::getInstance()->getWinSize();
-    auto menuItem = MenuItemImage::create("Images/Interface/Exit.png","Images/Interface/Exit_selected.png", CC_CALLBACK_1(UILayer::ClickExit, this));
+
+    auto menuItem = MenuItemImage::create(
+        "Images/Interface/Exit.png",
+        "Images/Interface/Exit_selected.png",
+        CC_CALLBACK_1(UILayer::ClickExit, this));
     menuItem->setScale(0.3f, 0.3f);
+
     auto menu = Menu::create(menuItem, NULL);
     menu->setPosition(winSize.width - 40, 12);
     this->addChild(menu);
@@ -56,7 +60,6 @@ bool UILayer::init()
 	this->addChild(cursor(CURSOR_ATTACK, "Images/Cursor/cursor_attack.png",			Vec2(1, 1),			Vec2(0, 1)),		10);
 	this->addChild(cursor(CURSOR_TELEPORT, "Images/Cursor/cursor_teleport.png",		Vec2(0.2f, 0.08f),	Vec2(0.5f, 0.5f)),	10);
 	this->addChild(cursor(CURSOR_SPLASH, "Images/Cursor/cursor_splash.png",			Vec2(1.5f, 1.5f),	Vec2(0.5f, 0.5f)),	10);
-
     return true;
 }
 

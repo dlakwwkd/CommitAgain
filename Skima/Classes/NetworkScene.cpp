@@ -8,8 +8,8 @@
 
 using namespace CocosDenshion;
 
-#define GET_CONNECT_LABEL dynamic_cast<Label*>(this->getChildByName(CONNECT_LABEL))
-#define GET_MAKEROOM_LAYER dynamic_cast<Layer*>(this->getChildByName(MAKEROOM_LAYER))
+#define GET_CONNECT_LABEL   dynamic_cast<Label*>(this->getChildByName(CONNECT_LABEL))
+#define GET_MAKEROOM_LAYER  dynamic_cast<Layer*>(this->getChildByName(MAKEROOM_LAYER))
 
 Scene* NetworkScene::createScene()
 {
@@ -22,18 +22,19 @@ Scene* NetworkScene::createScene()
 bool NetworkScene::init()
 {
     if (!LayerColor::initWithColor(Color4B::BLACK))
-    {
         return false;
-    }
-    auto winSize = Director::getInstance()->getWinSize();
+
     ConnectLabelCreate(CONNECT_SUCCESS_TEXT, this);
+    auto winSize = Director::getInstance()->getWinSize();
 
     auto background = Sprite::create("Images/Background/NetworkBackground.png");
     background->setPosition(winSize.width / 2, winSize.height / 2);
     background->setOpacity(150);
     this->addChild(background);
 
-    auto createRoomButton = MenuItemImage::create("Images/Interface/CreateButton.png", "Images/Interface/CreateButton_selected.png",
+    auto createRoomButton = MenuItemImage::create(
+        "Images/Interface/CreateButton.png",
+        "Images/Interface/CreateButton_selected.png",
         CC_CALLBACK_1(NetworkScene::menuCallback1, this));
 
     auto menu = Menu::create(createRoomButton, NULL);
@@ -44,7 +45,6 @@ bool NetworkScene::init()
     this->addChild(menu);
 
     this->schedule(schedule_selector(NetworkScene::Tick), 1.0f);
-
     return true;
 }
 
@@ -93,14 +93,22 @@ void NetworkScene::menuCallback3(Ref* sender)	// 나가기
 }
 
 
+//////////////////////////////////////////////////////////////////////////
+void NetworkScene::Tick(float dt)
+{
+    if (TcpClient::getInstance()->checkSocket() == NULL)
+        Director::getInstance()->popScene();
+
+    ConnectLabelChange(JOIN_ROOM_REQUEST_TEXT);
+}
+//////////////////////////////////////////////////////////////////////////
 
 
 void NetworkScene::ConnectLabelCreate(const char* str, NetworkScene* scene)
 {
     if (scene->getChildByName(CONNECT_LABEL) != nullptr)
-    {
         scene->removeChildByName(CONNECT_LABEL);
-    }
+
     auto label = Label::createWithSystemFont(str, DEF_FONT, 50);
     label->setAnchorPoint(Vec2::ZERO);
     label->setHorizontalAlignment(TextHAlignment::CENTER);
@@ -111,12 +119,11 @@ void NetworkScene::ConnectLabelChange(const char* str)
 {
     auto label = GET_CONNECT_LABEL;
     if (label != nullptr)
-    {
         label->setString(str);
-    }
 }
 
-void NetworkScene::RoomInformation(RoomInfo roomInfo)
+
+void NetworkScene::PushRoomInfo(const RoomInfo& roomInfo)
 {
     m_RoomList.push_back(roomInfo);
 }
@@ -130,9 +137,7 @@ void NetworkScene::UpdateRoomInfo()
 {
     //Update를 위한 남아있는 Sprite 초기화
     while (this->getChildByName(ROOM_LIST_FRAME) != nullptr)
-    {
         this->removeChildByName(ROOM_LIST_FRAME);
-    }
 
     auto winSize = Director::getInstance()->getWinSize();
     auto line = 0.9f;
@@ -152,12 +157,9 @@ void NetworkScene::UpdateRoomInfo()
         roomListFrameBack->setScaleX(1.10f);
         roomListFrameBack->setOpacity(150);
         roomListFrame->addChild(roomListFrameBack);
+
         switch (room.mRoomType)
         {
-        case ROOM_NONE:
-        {
-            break;
-        }
         case ROOM_MELEE:
         {
             auto roomType = Sprite::create("Images/Interface/MeleeModeButton.png");
@@ -175,14 +177,14 @@ void NetworkScene::UpdateRoomInfo()
             break;
         }
         default:
-        {
             break;
         }
-        }
+
         auto joinRoomButton = MenuItemImage::create(
             "Images/Interface/JoinButton.png", 
             "Images/Interface/JoinButton_selected.png",
             CC_CALLBACK_0(NetworkScene::menuCallback2, this, room.mRoomNum));
+
         auto menu = Menu::create(joinRoomButton, NULL);
         menu->setPosition(Vec2(800.0f, 110.0f));
         menu->alignItemsVertically();
@@ -205,7 +207,13 @@ void NetworkScene::UpdateRoomInfo()
     }
 }
 
-void NetworkScene::MakeRoomComplete(RoomInfo roomInfo)
+
+void NetworkScene::MakeRoomComplete(const RoomInfo& roomInfo)
+{
+    JoinRoomComplete(roomInfo);
+}
+
+void NetworkScene::JoinRoomComplete(const RoomInfo& roomInfo)
 {
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     ConnectLabelChange(CONNECT_GOOD_TEXT);
@@ -214,24 +222,4 @@ void NetworkScene::MakeRoomComplete(RoomInfo roomInfo)
     layer->UpdateRoomInfo(roomInfo);
     layer->PrintMenuByRoomType();
     Director::getInstance()->pushScene(scene);
-}
-
-void NetworkScene::JoinRoomComplete(RoomInfo roomInfo)
-{
-    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    ConnectLabelChange(CONNECT_GOOD_TEXT);
-    auto scene = RoomScene::createScene();
-    auto layer = dynamic_cast<RoomScene*>(scene->getChildByName(ROOM_SCENE));
-    layer->UpdateRoomInfo(roomInfo);
-    layer->PrintMenuByRoomType();
-    Director::getInstance()->pushScene(scene);
-}
-
-void NetworkScene::Tick(float dt)
-{
-    if (TcpClient::getInstance()->checkSocket() == NULL)
-    {
-        Director::getInstance()->popScene();
-    }
-    ConnectLabelChange(JOIN_ROOM_REQUEST_TEXT);
 }

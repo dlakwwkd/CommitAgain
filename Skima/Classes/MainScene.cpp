@@ -20,22 +20,28 @@ Scene* MainScene::createScene()
 bool MainScene::init()
 {
     if (!Layer::init())
-    {
         return false;
-    }
+
     InitSound();
     InitBackground();
-
     auto winSize = Director::getInstance()->getWinSize();
 
     // Login 창
-    auto loginBox = MenuItemImage::create("Images/Interface/LoginScene.png", "Images/Interface/LoginScene.png", CC_CALLBACK_1(MainScene::menuCallback1, this));
+    auto loginBox = MenuItemImage::create(
+        "Images/Interface/LoginScene.png",
+        "Images/Interface/LoginScene.png",
+        CC_CALLBACK_1(MainScene::menuCallback1, this));
+
     auto loginMenu1 = Menu::create(loginBox, NULL);
     loginMenu1->setPosition(Vec2(winSize.width / 2, winSize.height / 4));
     this->addChild(loginMenu1);
 
     // Login 버튼
-    auto loginButton = MenuItemImage::create("Images/Interface/LoginButton.png", "Images/Interface/LoginButton_selected.png", CC_CALLBACK_1(MainScene::menuCallback2, this));
+    auto loginButton = MenuItemImage::create(
+        "Images/Interface/LoginButton.png",
+        "Images/Interface/LoginButton_selected.png",
+        CC_CALLBACK_1(MainScene::menuCallback2, this));
+
     auto loginMenu2 = Menu::create(loginButton, NULL);
     loginMenu2->setPosition(Vec2(415, 35));
     loginBox->addChild(loginMenu2);
@@ -47,7 +53,6 @@ bool MainScene::init()
     m_LoginBox->setColor(Color3B::BLACK);
     m_LoginBox->setFontSize(25);
     loginBox->addChild(m_LoginBox);
-
     return true;
 }
 
@@ -101,9 +106,8 @@ void MainScene::LoginToServer()
 void MainScene::ConnectLabelCreate(const char* str, MainScene* scene)
 {
     if (scene->getChildByName(CONNECT_LABEL) != nullptr)
-    {
         scene->removeChildByName(CONNECT_LABEL);
-    }
+
     auto label = Label::createWithSystemFont(str, DEF_FONT, 50);
     label->setAnchorPoint(Vec2::ZERO);
     label->setHorizontalAlignment(TextHAlignment::CENTER);
@@ -114,9 +118,7 @@ void MainScene::ConnectLabelChange(const char* str)
 {
     auto label = dynamic_cast<Label*>(this->getChildByName(CONNECT_LABEL));
     if (label != nullptr)
-    {
         label->setString(str);
-    }
 }
 
 void MainScene::InitBackground()

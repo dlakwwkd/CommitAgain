@@ -14,6 +14,7 @@ public:
     void    ChangeRoomMode(RoomType roomMode);
     void    MakeRoom();
     void    CancelMakeRoom();
+
 private:
     RoomInfo    m_MakeRoomInfo;
 };

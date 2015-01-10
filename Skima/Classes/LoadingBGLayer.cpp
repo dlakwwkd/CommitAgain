@@ -6,9 +6,7 @@
 bool LoadingBGLayer::init()
 {
     if (!LayerColor::initWithColor(Color4B::BLACK)) //검은색 세팅
-    {
         return false;
-    }
     this->setOpacity(210);
 
     m_IsLoadingFin = false;

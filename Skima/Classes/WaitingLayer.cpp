@@ -8,9 +8,7 @@
 bool WaitingLayer::init()
 {
     if (!LayerColor::initWithColor(Color4B::BLACK)) //검은색 세팅
-    {
         return false;
-    }
     this->setOpacity(240);
 
     auto winSize = Director::getInstance()->getWinSize();
@@ -18,7 +16,6 @@ bool WaitingLayer::init()
     auto label = Label::create("다른 플레이어를 기다리는 중...", "Arial", 50);
     label->setPosition(Vec2(winSize.width / 2, winSize.height * 3 / 4));
     this->addChild(label, 1, CONNECT_LABEL);
-
     return true;
 }
 

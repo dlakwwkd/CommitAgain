@@ -18,11 +18,13 @@ public:
 
     void ConnectLabelCreate(const char* str, NetworkScene* scene);
     void ConnectLabelChange(const char* str);
-    void RoomInformation(RoomInfo roomInfo);
+
+    void PushRoomInfo(const RoomInfo& roomInfo);
     void UpdateRoomInfo();
     void ClearRoomInfo();
-    void MakeRoomComplete(RoomInfo roomInfo);
-    void JoinRoomComplete(RoomInfo roomInfo);
+
+    void MakeRoomComplete(const RoomInfo& roomInfo);
+    void JoinRoomComplete(const RoomInfo& roomInfo);
 
 private:
     std::vector<RoomInfo>  m_RoomList;

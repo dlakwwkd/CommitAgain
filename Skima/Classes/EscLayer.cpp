@@ -9,9 +9,7 @@ using namespace CocosDenshion;
 bool EscLayer::init()
 {
     if (!LayerColor::initWithColor(Color4B::BLACK)) //검은색 세팅
-    {
         return false;
-    }
     this->setOpacity(210);
 
     auto label1 = Label::createWithSystemFont("돌아가기", DEF_FONT, 50);
@@ -25,8 +23,6 @@ bool EscLayer::init()
     auto menu = Menu::create(menuItem1, menuItem2, NULL);
     menu->alignItemsVertically();
     this->addChild(menu, 0, "EscMenu");
-    //menu->setPosition(300, 300);
-
     return true;
 }
 
@@ -37,20 +33,18 @@ void EscLayer::menuCallback1(Ref* sender)
 
 void EscLayer::menuCallback2(Ref* sender)
 {
+    ShowCursor(true);
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3", true);
 
     if (TcpClient::getInstance()->checkSocket() == NULL)
-    {
         return;
-    }
 
     auto scene = dynamic_cast<GameScene*>(this->getParent());
     int roomId = scene->GetRoomID();
 
     TcpClient::getInstance()->outRoomRequest(scene->GetRoomInfo());
     TcpClient::getInstance()->disconnect();
-    ShowCursor(true);
 
     Director::getInstance()->popScene();
     Director::getInstance()->popScene();

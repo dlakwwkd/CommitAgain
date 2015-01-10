@@ -13,24 +13,26 @@ public:
     virtual bool init();
     CREATE_FUNC(RoomScene);
 
+    void ClickHero(HeroType heroType);
+    void Tick(float dt);
+
     void SetRoomID(int id) { m_RoomInfo.mRoomNum = id; };
-    void UpdateRoomInfo(RoomInfo roomInfo);
+    void UpdateRoomInfo(const RoomInfo& roomInfo);
     void PrintMenuByRoomType();
+
     void TeamSelectACallback(Ref* sender);
     void TeamSelectBCallback(Ref* sender);
     void GameStartCallback(Ref* sender);
     void GameExitCallback(Ref* sender);
-    void WaitingCheck();
-
-    void MakeHeroSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor, HeroType hero);
-    void SetFaceProperty(MenuItemImage* img, Vec2 pos, Vec2 scale, Vec2 anchor);
-    void ChangeSelectedHero(HeroType heroType);
-
-    void Tick(float dt);
-    void ClickHero(HeroType heroType);
 
     void GameStart();
     void GameStartComplete();
+
+private:
+    void WaitingCheck();
+    void MakeHeroSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor, HeroType hero);
+    void SetFaceProperty(MenuItemImage* img, Vec2 pos, Vec2 scale, Vec2 anchor);
+    void ChangeSelectedHero(HeroType heroType);
 
 private:
     RoomInfo    m_RoomInfo;
