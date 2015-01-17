@@ -196,7 +196,7 @@ void NetworkScene::UpdateRoomInfo()
         _itoa(room.mRoomNum, buf, 10);      std::string roomNum = buf;
         _itoa(room.mCurPlayerNum, buf, 10); std::string curPlayerNum = buf;
         _itoa(room.mMaxPlayerNum, buf, 10); std::string maxPlayerNum = buf;
-        roomInfo += roomNum + "번 방       " + curPlayerNum + "명 / " + maxPlayerNum + "명";
+        roomInfo += roomNum + ROOM_NUM_TEXT + "       " + curPlayerNum + CUR_PLAYER_NUM_TEXT + maxPlayerNum + MAX_PLAYER_NUM_TEXT;
         roomInfoLabel->setString(roomInfo);
         roomInfoLabel->setPosition(Vec2(240.0f, 110.0f));
         roomInfoLabel->setScaleX(0.8f);

@@ -12,7 +12,7 @@ bool LoadingBGLayer::init()
     m_IsLoadingFin = false;
     auto winSize = Director::getInstance()->getWinSize();
 
-    auto label = LabelTTF::create("Loading...", "Arial", 50);
+    auto label = LabelTTF::create(LOADING_TEXT, DEF_FONT, 50);
     label->setPosition(winSize*1/2);
     this->addChild(label);
 

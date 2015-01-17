@@ -2,12 +2,11 @@
 #include <map>
 #include "PacketType.h"
 #include "Enums.h"
-
-USING_NS_CC;
-
 class Unit;
 class Hero;
 class Missile;
+
+USING_NS_CC;
 
 class ObjectLayer : public cocos2d::Layer
 {

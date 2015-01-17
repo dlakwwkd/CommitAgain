@@ -11,7 +11,6 @@
 #include "UILayer.h"
 #include "EscLayer.h"
 #include "math.h"
-//#include "Macros.h"
 
 #define GET_OBJECT_LAYER    dynamic_cast<ObjectLayer*>(this->getChildByName(OBJECT_LAYER))
 #define GET_UI_LAYER        dynamic_cast<UILayer*>(this->getParent()->getChildByName(UI_LAYER))
@@ -44,7 +43,7 @@ bool ListenerLayer::init()
     K_listener->onKeyReleased = CC_CALLBACK_2(ListenerLayer::OnKeyReleased, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(K_listener, this);
 
-	this->schedule(schedule_selector(ListenerLayer::Tick));
+	//this->schedule(schedule_selector(ListenerLayer::Tick));
 	layer2->schedule(schedule_selector(ObjectLayer::Tick));
     return true;
 }

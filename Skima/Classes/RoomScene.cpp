@@ -133,10 +133,10 @@ void RoomScene::UpdateRoomInfo(const RoomInfo& roomInfo)
     std::string roomInfoStr = PLAYER_NUM_TEXT;
     _itoa(m_RoomInfo.mCurPlayerNum, buf, 10);
     std::string curPlayerNum = buf;
-    curPlayerNum += "명 / ";
+    curPlayerNum += CUR_PLAYER_NUM_TEXT;
     _itoa(m_RoomInfo.mMaxPlayerNum, buf, 10);
     std::string maxPlayerNum = buf;
-    maxPlayerNum += "명";
+    maxPlayerNum += MAX_PLAYER_NUM_TEXT;
     roomInfoStr += curPlayerNum + maxPlayerNum;
     label2->setString(roomInfoStr);
 }

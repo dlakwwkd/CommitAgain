@@ -12,8 +12,8 @@ bool EscLayer::init()
         return false;
     this->setOpacity(210);
 
-    auto label1 = Label::createWithSystemFont("돌아가기", DEF_FONT, 50);
-    auto label2 = Label::createWithSystemFont("나가기", DEF_FONT, 50);
+    auto label1 = Label::createWithSystemFont(CONTINUE_TEXT, DEF_FONT, 50);
+    auto label2 = Label::createWithSystemFont(GAME_OUT_TEXT, DEF_FONT, 50);
     label1->setOpacity(255);
     label2->setOpacity(255);
 
@@ -22,7 +22,7 @@ bool EscLayer::init()
 
     auto menu = Menu::create(menuItem1, menuItem2, NULL);
     menu->alignItemsVertically();
-    this->addChild(menu, 0, "EscMenu");
+    this->addChild(menu);
     return true;
 }
 
