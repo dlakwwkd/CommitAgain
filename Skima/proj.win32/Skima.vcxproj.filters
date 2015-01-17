@@ -40,9 +40,6 @@
     <Filter Include="Game\Component\Effect">
       <UniqueIdentifier>{f0a0d55d-44b7-415e-babe-ec72683434c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Player">
-      <UniqueIdentifier>{658a76a3-8cc3-40a2-80dc-2c3f46f9821b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Component\Skill\Jupiter">
       <UniqueIdentifier>{c224a1a6-9f0e-497d-9188-a03ef491a404}</UniqueIdentifier>
     </Filter>
@@ -137,9 +134,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Effect.cpp">
       <Filter>Game\Component\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>Game\Component\Player</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Magician.cpp">
       <Filter>Game\Component\Unit\Hero</Filter>
@@ -264,9 +258,6 @@
     <ClCompile Include="..\Classes\RockEffect.cpp">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\FireWallEffect.cpp">
-      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\FireWallSkill.cpp">
       <Filter>Game\Component\Skill\Magician</Filter>
     </ClCompile>
@@ -281,12 +272,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Buff.cpp">
       <Filter>Game\Component\Skill\Buff</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\LightningPumpkinEffect.cpp">
-      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\FireWallParticleEffect.cpp">
-      <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -337,9 +322,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Effect.h">
       <Filter>Game\Component\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player.h">
-      <Filter>Game\Component\Player</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Shared\FSM.h">
       <Filter>Game\Component\Unit</Filter>
@@ -473,9 +455,6 @@
     <ClInclude Include="..\Classes\RockEffect.h">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\FireWallEffect.h">
-      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\FireWallSkill.h">
       <Filter>Game\Component\Skill\Magician</Filter>
     </ClInclude>
@@ -490,12 +469,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Buff.h">
       <Filter>Game\Component\Skill\Buff</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\LightningPumpkinEffect.h">
-      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\FireWallParticleEffect.h">
-      <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClInclude>
     <ClInclude Include="TextDefine.h">
       <Filter>Base</Filter>

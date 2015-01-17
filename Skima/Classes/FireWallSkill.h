@@ -13,6 +13,5 @@ public:
     virtual void SkillReady();
     virtual void SkillEnd();
 
-    Direction    GenerateWallDirection(Vec2 heroPos, Vec2 targetPos);
 };
 

@@ -1,7 +1,6 @@
 #pragma once
 #include "Skill.h"
 class Hero;
-class LightningPumpkinEffect;
 
 class LightningPumpkinSkill : public Skill
 {

@@ -1,13 +1,12 @@
 #include "pch.h"
 #include "LightningPumpkinSkill.h"
-#include "LightningPumpkinEffect.h"
 #include "GameManager.h"
 #include "UILayer.h"
 #include "Macros.h"
 #include "Hero.h"
 #include "SimpleAudioEngine.h"
 #include "LightningEffect.h"
-#include "LightningPumpkinEffect.h"
+
 using namespace CocosDenshion;
 
 LightningPumpkinSkill::LightningPumpkinSkill(Hero* hero)

@@ -40,14 +40,3 @@ void EffectParticleType::ExtinctParticle()
     GET_OBJECT_LAYER->removeChild(m_Particle);
     delete this;
 }
-// 
-// void EffectParticleType::MeteorSequenceEffect(const Vec2& createPos)
-// {
-//     auto fireSpriteA = Sprite::create("Laphinx/fireA.plist");
-//     auto fireSpriteB = Sprite::create("Laphinx/fireB.plist");
-//     auto fireSpriteC = Sprite::create("Laphinx/fire.plist");
-// 
-//     GET_OBJECT_LAYER->addChild(fireSpriteA, 20);
-//     GET_OBJECT_LAYER->addChild(fireSpriteB, 20);
-//     GET_OBJECT_LAYER->addChild(fireSpriteC, 20);
-// }
