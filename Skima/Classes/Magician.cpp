@@ -11,7 +11,7 @@
 Magician::Magician(Vec2 createPos, float scale)
 {
     m_HeroType = HERO_MAGICIAN;
-    m_MaxHp = 1500.0f;
+    m_MaxHp = 1200.0f;
     m_CurHp = m_MaxHp;
     m_Speed = 320.0f;
     m_CenterSprite->setPosition(createPos);
@@ -44,6 +44,26 @@ Magician::~Magician()
 {
 }
 
+void Magician::SetMoveMotionByDir()
+{
+    switch (CalcMoveDirection(m_TargetPos - m_CenterSprite->getPosition()))
+    {
+    case E:  m_RealSprite->runAction(MakeAnimation("MoveMotion_E_%02d.PNG", 7, 0.1f));   	break;
+    case W:  m_RealSprite->runAction(MakeAnimation("MoveMotion_W_%02d.PNG", 7, 0.1f));   	break;
+    case S:  m_RealSprite->runAction(MakeAnimation("MoveMotion_S_%02d.PNG", 7, 0.1f));   	break;
+    case N:  m_RealSprite->runAction(MakeAnimation("MoveMotion_N_%02d.PNG", 7, 0.1f));   	break;
+    case SE: m_RealSprite->runAction(MakeAnimation("MoveMotion_SE_%02d.PNG", 7, 0.1f));  	break;
+    case SW: m_RealSprite->runAction(MakeAnimation("MoveMotion_SW_%02d.PNG", 7, 0.1f));  	break;
+    case NE: m_RealSprite->runAction(MakeAnimation("MoveMotion_NE_%02d.PNG", 7, 0.1f));  	break;
+    case NW: m_RealSprite->runAction(MakeAnimation("MoveMotion_NW_%02d.PNG", 7, 0.1f));  	break;
+    }
+}
+
+void Magician::SetSkillMotionByDir(SkillKey key)
+{
+
+}
+
 void Magician::SetMoveMotionToCache()
 {
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Magician/MoveMotion_E.plist");
@@ -56,32 +76,7 @@ void Magician::SetMoveMotionToCache()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Magician/MoveMotion_NW.plist");
 }
 
-void Magician::SetMoveMotionByDir()
-{
-    switch (CalcMoveDirection(m_TargetPos - m_CenterSprite->getPosition()))
-    {
-    case E:  m_RealSprite->runAction(MakeAnimation("MoveMotion_E_%02d.PNG", 7));   	break;
-    case W:  m_RealSprite->runAction(MakeAnimation("MoveMotion_W_%02d.PNG", 7));   	break;
-    case S:  m_RealSprite->runAction(MakeAnimation("MoveMotion_S_%02d.PNG", 7));   	break;
-    case N:  m_RealSprite->runAction(MakeAnimation("MoveMotion_N_%02d.PNG", 7));   	break;
-    case SE: m_RealSprite->runAction(MakeAnimation("MoveMotion_SE_%02d.PNG", 7));  	break;
-    case SW: m_RealSprite->runAction(MakeAnimation("MoveMotion_SW_%02d.PNG", 7));  	break;
-    case NE: m_RealSprite->runAction(MakeAnimation("MoveMotion_NE_%02d.PNG", 7));  	break;
-    case NW: m_RealSprite->runAction(MakeAnimation("MoveMotion_NW_%02d.PNG", 7));  	break;
-    }
-}
-
 void Magician::SetSkillMotionToCache()
-{
-
-}
-
-void Magician::SetSkillMotionByDir(SkillKey key)
-{
-
-}
-
-void Magician::HeroUnHide(Vec2 heroPos)
 {
 
 }

@@ -12,6 +12,8 @@ public:
 protected:
     void			DashSkillCast();
     void            DashSkillEnd();
+    void            HideSkillCast();
+    void            HideSkillEnd();
 
     void            MoveSpeedBonus(int duration, float bonus);
     void            MoveSpeedBonusEnd(float bonus);

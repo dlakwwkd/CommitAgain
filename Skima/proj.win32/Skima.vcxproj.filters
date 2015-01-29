@@ -252,9 +252,6 @@
     <ClCompile Include="..\Classes\Mob.cpp">
       <Filter>Game\Component\Unit\Mob</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MeteorSequenceEffect.cpp">
-      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\RockEffect.cpp">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClCompile>
@@ -272,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Buff.cpp">
       <Filter>Game\Component\Skill\Buff</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MeteorEffect.cpp">
+      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -449,9 +449,6 @@
     <ClInclude Include="..\Classes\Mob.h">
       <Filter>Game\Component\Unit\Mob</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MeteorSequenceEffect.h">
-      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\RockEffect.h">
       <Filter>Game\Component\Effect\EffectParticleType</Filter>
     </ClInclude>
@@ -472,6 +469,9 @@
     </ClInclude>
     <ClInclude Include="TextDefine.h">
       <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MeteorEffect.h">
+      <Filter>Game\Component\Effect\EffectSpriteType</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

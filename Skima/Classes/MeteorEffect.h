@@ -3,11 +3,11 @@
 #include "EffectParticleType.h"
 #include "Enums.h"
 
-class MeteorSequenceEffect : public EffectSpriteType
+class MeteorEffect : public EffectSpriteType
 {
 public:
-    MeteorSequenceEffect(const Vec2& targetPos);
-    virtual ~MeteorSequenceEffect();
+    MeteorEffect();
+    virtual ~MeteorEffect();
 
     virtual void    	CreateEffect(const Vec2& createPos);
     virtual void        ExtinctEffect();

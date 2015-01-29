@@ -45,8 +45,3 @@ void LightningSkill::SkillEnd()
     auto rangeCircle = m_Owner->GetSkillRange();
     rangeCircle->setVisible(false);
 }
-
-void LightningSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
-{
-
-}

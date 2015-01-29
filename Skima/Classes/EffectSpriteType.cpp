@@ -13,15 +13,31 @@ EffectSpriteType::~EffectSpriteType()
 {
 }
 
+Animate* EffectSpriteType::MakeAnimation(const char* format, int size, float delay)
+{
+    auto animation = Animation::create();
+    animation->setDelayPerUnit(delay);
+
+    for (int i = 1; i < size + 1; ++i)
+    {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+        animation->addSpriteFrame(frame);
+    }
+
+    return Animate::create(animation);
+}
+
 void EffectSpriteType::CreateSprite(const char* file, const Vec2& createPos, float scale, float lastTime)
 {
     m_Sprite = Sprite::create(file);
     m_Sprite->setPosition(createPos);
     m_Sprite->setScale(scale);
+
     auto action1 = DelayTime::create(lastTime);
     auto action2 = CallFunc::create(CC_CALLBACK_0(EffectSpriteType::ExtinctSprite, this));
     auto action3 = Sequence::create(action1, action2, NULL);
     m_Sprite->runAction(action3);
+
     GET_OBJECT_LAYER->addChild(m_Sprite, 20);
 }
 
@@ -34,81 +50,8 @@ void EffectSpriteType::AddSubSprite(const char* file, const Vec2& anchorPoint, c
     m_Sprite->addChild(sprite);
 }
 
-Animate* EffectSpriteType::MakeAnimationOnce(const char* format, int size)
-{
-    auto animation = Animation::create();
-
-    if (size < 5)       animation->setDelayPerUnit(0.2f);
-    else if (size >= 5) animation->setDelayPerUnit(0.1f);
-
-    for (int i = 1; i < size + 1; ++i)
-    {
-        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-        animation->addSpriteFrame(frame);
-    }
-
-    return Animate::create(animation);
-}
-
 void EffectSpriteType::ExtinctSprite()
 {
     GET_OBJECT_LAYER->removeChild(m_Sprite);
     delete this;
 }
-
-void EffectSpriteType::ExtinctSubSprite(Sprite* sprite)
-{
-    GET_OBJECT_LAYER->removeChild(sprite);
-}
-
-Animate* EffectSpriteType::MakeFastAnimationOnce(const char* format, int size)
-{
-    auto animation = Animation::create();
-    animation->setDelayPerUnit(0.05f);
-    for (int i = 1; i < size + 1; ++i)
-    {
-        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-        animation->addSpriteFrame(frame);
-    }
-    return Animate::create(animation);
-}
-
-RepeatForever* EffectSpriteType::MakeFastAnimationForever(const char* format, int size)
-{
-    auto animation = Animation::create();
-    animation->setDelayPerUnit(0.05f);
-
-    for (int i = 1; i < size + 1; ++i)
-    {
-        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-        animation->addSpriteFrame(frame);
-    }
-
-    return RepeatForever::create(Animate::create(animation));
-}
-
-void EffectSpriteType::CreateFireSubSprite(Sprite* sprite,Vec2 createPos, float scale, float lastTime)
-{
-    sprite->setPosition(createPos);
-    sprite->setScale(scale);
-    auto action1 = DelayTime::create(lastTime);
-    auto action2 = CallFunc::create(CC_CALLBACK_0(EffectSpriteType::ExtinctSubSprite, this,sprite));
-    auto action3 = Sequence::create(action1, action2, NULL);
-    sprite->runAction(action3);
-    GET_OBJECT_LAYER->addChild(sprite, 20);
-}
-
-RepeatForever* EffectSpriteType::MakeAnimationForever(const char* format, int size)
-{
-    auto animation = Animation::create();
-    animation->setDelayPerUnit(0.2f);
-
-    for (int i = 1; i < size + 1; ++i)
-    {
-        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-        animation->addSpriteFrame(frame);
-    }
-
-    return RepeatForever::create(Animate::create(animation));
-}
-

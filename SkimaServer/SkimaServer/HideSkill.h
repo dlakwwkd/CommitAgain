@@ -1,6 +1,6 @@
 #pragma once
-#include "Skill.h"
-class HideSkill : public Skill
+#include "BuffType.h"
+class HideSkill : public BuffType
 {
 public:
     HideSkill(Player* owner);

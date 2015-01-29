@@ -47,14 +47,19 @@ public:
     void    TryMoveBroadCast(				    int unitId, const b2Vec2& targetPos);
     void    CrashedBroadCast(                   int unitId, const b2Vec2& curPos, const b2Vec2& expectPos);
     void    SyncPosBroadCast(                   int unitId, const b2Vec2& curPos);
+
     void	SkillBroadCast(					    int unitId, const b2Vec2& curPos, const b2Vec2& targetPos, SkillKey key);
-    void    UnHideBroadCast(                    int unitId, const b2Vec2& curPos);
-    void    MeteorBroadCast(                    int unitId, const b2Vec2& targetPos);
+    
     void	ShootBroadCast(	    int playerId,	int unitId, const b2Vec2& curPos, const b2Vec2& targetPos);
+    
     void    CreateMobBroadCast( int playerId,   int unitId, const b2Vec2& pos, int hp, float speed);
     void    ItemBroadCast(      int playerId,   int unitId, const b2Vec2& pos, bool isCreate, BuffTarget buffType);
+    
     void    BuffBroadCast(                      int unitId, float bonus, BuffTarget type, bool isOn);
+    void    HideBroadCast(                      int unitId, bool isOn);
+    void    EffectBroadCast(                                            EffectType type, const b2Vec2& pos);
     void    HpBroadCast(	    int playerId,   int unitId, int hp);
+    
     void    GameOverCast(Team winTeam);
 
     // 	void    LoginDone(int pid, const char* name);

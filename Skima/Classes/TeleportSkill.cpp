@@ -43,8 +43,3 @@ void TeleportSkill::SkillEnd()
     auto rangeCircle = m_Owner->GetSkillRange();
     rangeCircle->setVisible(false);
 }
-
-void TeleportSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
-{
-
-}

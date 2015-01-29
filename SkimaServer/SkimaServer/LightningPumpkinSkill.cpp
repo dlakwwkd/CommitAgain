@@ -27,6 +27,9 @@ void LightningPumpkinSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const
 
     m_TaretPos = targetPos;
 
+    auto client = m_Owner->GetClient();
+    client->SkillBroadCast(hero->GetUnitID(), heroPos, targetPos, key);
+
     auto game = m_Owner->GetGame();
-    Timer::Push(game, 200, 10, this, &LightningPumpkinSkill::RandomAttack, Reduce(200.0f), 200, 5, 10);
+    Timer::Push(game, 200, 10, this, &LightningPumpkinSkill::RandomAttack, Reduce(200.0f), 200, 5, 10, EF_LIGHTNING);
 }

@@ -10,9 +10,6 @@ public:
     virtual bool init();
     CREATE_FUNC(ListenerLayer);
 
-    void            Tick(float dt);
-    void            ScreenMove();
-
     virtual void    OnMouseDown(Event *event);
     virtual void    OnMouseUp(Event *event);
     virtual void    OnMouseMove(Event *event);
@@ -23,8 +20,7 @@ private:
     SkillKey        KeyboardToSkillKey(EventKeyboard::KeyCode keyCode);
     void            CoolTimeStart(SkillKey key);
     void            CoolTimeEnd(SkillKey key);
-    void            SetArrowPos();
-    void            SetNearRangePos();
+    void            SetArrowPos(Sprite* arrow, float posGap);
 
 private:
     bool            m_Targeting;

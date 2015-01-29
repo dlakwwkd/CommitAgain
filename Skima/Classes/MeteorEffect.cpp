@@ -1,66 +1,66 @@
 #include "pch.h"
-#include "MeteorSequenceEffect.h"
+#include "MeteorEffect.h"
 #include "ObjectLayer.h"
 #include "SimpleAudioEngine.h"
 
 using namespace CocosDenshion;
 
-MeteorSequenceEffect::MeteorSequenceEffect(const Vec2& targetPos)
-{
-    m_MeteorParticle = ParticleSystemQuad::create("Images/Effect/meteor.plist");
-
-    auto initPos = GenerateInitPos(targetPos);
-    m_MeteorParticle->setPosition(initPos);
-    m_MeteorParticle->setScale(0.8f);
-    m_MeteorParticle->setVisible(false);
-    GET_OBJECT_LAYER->addChild(m_MeteorParticle, 20);
-    
-    auto action1 = DelayTime::create(0.75f);
-    auto action2 = CallFunc::create(CC_CALLBACK_0(MeteorSequenceEffect::SetParticleVisible, this,m_MeteorParticle));
-    auto action3 = MoveTo::create(0.45f,targetPos);
-    auto action4 = CallFunc::create(CC_CALLBACK_0(MeteorSequenceEffect::ExtinctMeteorParticle, this));
-    auto sound = CallFunc::create(CC_CALLBACK_0(MeteorSequenceEffect::MakeExplodeSound, this));
-    auto action5 = CallFunc::create(CC_CALLBACK_0(MeteorSequenceEffect::ShowExplodeSprite, this));
-    auto action6 = Sequence::create(action1, action2,action3,action4,sound,action5, NULL);
-    m_MeteorParticle->runAction(action6);
-}
-
-MeteorSequenceEffect::~MeteorSequenceEffect()
+MeteorEffect::MeteorEffect()
 {
 }
 
-void MeteorSequenceEffect::CreateEffect(const Vec2& createPos)
+MeteorEffect::~MeteorEffect()
+{
+}
+
+void MeteorEffect::CreateEffect(const Vec2& createPos)
 {
      CreateSprite("Images/Unit/CloackingUnit.png", createPos, 2.0f,2.05f);
      SetExplodeCache();
+     m_MeteorParticle = ParticleSystemQuad::create("Images/Effect/meteor.plist");
+
+     auto initPos = GenerateInitPos(createPos);
+     m_MeteorParticle->setPosition(initPos);
+     m_MeteorParticle->setScale(0.8f);
+     m_MeteorParticle->setVisible(false);
+     GET_OBJECT_LAYER->addChild(m_MeteorParticle, 20);
+
+     auto action1 = DelayTime::create(0.75f);
+     auto action2 = CallFunc::create(CC_CALLBACK_0(MeteorEffect::SetParticleVisible, this, m_MeteorParticle));
+     auto action3 = MoveTo::create(0.45f, createPos);
+     auto action4 = CallFunc::create(CC_CALLBACK_0(MeteorEffect::ExtinctMeteorParticle, this));
+     auto sound = CallFunc::create(CC_CALLBACK_0(MeteorEffect::MakeExplodeSound, this));
+     auto action5 = CallFunc::create(CC_CALLBACK_0(MeteorEffect::ShowExplodeSprite, this));
+     auto action6 = Sequence::create(action1, action2, action3, action4, sound, action5, NULL);
+     m_MeteorParticle->runAction(action6);
 }
 
-void MeteorSequenceEffect::ExtinctEffect()
+void MeteorEffect::ExtinctEffect()
 {
     ExtinctSprite();
 }
 
-void MeteorSequenceEffect::ExtinctMeteorParticle()
+void MeteorEffect::ExtinctMeteorParticle()
 {
     GET_OBJECT_LAYER->removeChild(m_MeteorParticle);
 }
 
-void MeteorSequenceEffect::SetExplodeCache()
+void MeteorEffect::SetExplodeCache()
 {
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Effect/FirePool/explode.plist");
 }
 
-void MeteorSequenceEffect::ShowExplodeSprite()
+void MeteorEffect::ShowExplodeSprite()
 {
-    m_Sprite->runAction(MakeFastAnimationOnce("explode%02d.png", 15));
+    m_Sprite->runAction(MakeAnimation("explode%02d.png", 15, 0.05f));
 }
 
-void MeteorSequenceEffect::SetParticleVisible(ParticleSystemQuad* particle)
+void MeteorEffect::SetParticleVisible(ParticleSystemQuad* particle)
 {
     particle->setVisible(true);
 }
 
-Size MeteorSequenceEffect::GenerateInitPos(const Vec2&targetpos)
+Size MeteorEffect::GenerateInitPos(const Vec2&targetpos)
 {
     auto winSize = Director::getInstance()->getWinSize();
 
@@ -102,7 +102,7 @@ Size MeteorSequenceEffect::GenerateInitPos(const Vec2&targetpos)
     }
 }
 
-void MeteorSequenceEffect::MakeExplodeSound()
+void MeteorEffect::MakeExplodeSound()
 {
     SimpleAudioEngine::getInstance()->playEffect("Music/Effect/explode.mp3");
 }

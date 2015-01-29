@@ -12,7 +12,7 @@
 Jupiter::Jupiter(Vec2 createPos, float scale)
 {
 	m_HeroType = HERO_JUPITER;
-	m_MaxHp = 1200.0f;
+	m_MaxHp = 1800.0f;
 	m_CurHp = m_MaxHp;
 	m_Speed = 370.0f;
 	m_CenterSprite->setPosition(createPos);
@@ -49,6 +49,67 @@ Jupiter::~Jupiter()
 {
 }
 
+void Jupiter::SetMoveMotionByDir()
+{
+    switch (CalcMoveDirection(m_TargetPos - m_CenterSprite->getPosition()))
+    {
+    case E:  m_RealSprite->runAction(MakeAnimation("JupiterMove_E_%02d.png", 7, 0.1f));  break;
+    case W:  m_RealSprite->runAction(MakeAnimation("JupiterMove_W_%02d.png", 7, 0.1f));  break;
+    case S:  m_RealSprite->runAction(MakeAnimation("JupiterMove_S_%02d.png", 7, 0.1f));  break;
+    case N:  m_RealSprite->runAction(MakeAnimation("JupiterMove_N_%02d.png", 7, 0.1f));  break;
+    case SE: m_RealSprite->runAction(MakeAnimation("JupiterMove_SE_%02d.png", 7, 0.1f)); break;
+    case SW: m_RealSprite->runAction(MakeAnimation("JupiterMove_SW_%02d.png", 7, 0.1f)); break;
+    case NE: m_RealSprite->runAction(MakeAnimation("JupiterMove_NE_%02d.png", 7, 0.1f)); break;
+    case NW: m_RealSprite->runAction(MakeAnimation("JupiterMove_NW_%02d.png", 7, 0.1f)); break;
+    }
+}
+
+void Jupiter::SetSkillMotionByDir(SkillKey key)
+{
+    switch (key)
+    {
+    case SKILL_Q:
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
+        {
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_SE_%02d.png", 7, 0.1f)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_SW_%02d.png", 7, 0.1f)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_NE_%02d.png", 7, 0.1f)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_NW_%02d.png", 7, 0.1f)); break;
+        }
+        break;
+
+    case SKILL_W:
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
+        {
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SE_%02d.png", 3, 0.2f)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SW_%02d.png", 3, 0.2f)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NE_%02d.png", 3, 0.2f)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NW_%02d.png", 3, 0.2f)); break;
+        }
+        break;
+
+    case SKILL_E:
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
+        {
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_SE_%02d.png", 2, 0.2f)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_SW_%02d.png", 2, 0.2f)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_NE_%02d.png", 2, 0.2f)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_NW_%02d.png", 2, 0.2f)); break;
+        }
+        break;
+
+    case SKILL_R:
+        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
+        {
+        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SE_%02d.png", 3, 0.2f)); break;
+        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SW_%02d.png", 3, 0.2f)); break;
+        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NE_%02d.png", 3, 0.2f)); break;
+        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NW_%02d.png", 3, 0.2f)); break;
+        }
+        break;
+    }
+}
+
 void Jupiter::SetMoveMotionToCache()
 {
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_E.plist");
@@ -59,21 +120,6 @@ void Jupiter::SetMoveMotionToCache()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_SW.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_NE.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterMove_NW.plist");
-}
-
-void Jupiter::SetMoveMotionByDir()
-{
-    switch (CalcMoveDirection(m_TargetPos - m_CenterSprite->getPosition()))
-    {
-    case E:  m_RealSprite->runAction(MakeAnimation("JupiterMove_E_%02d.png", 7));  break;
-    case W:  m_RealSprite->runAction(MakeAnimation("JupiterMove_W_%02d.png", 7));  break;
-    case S:  m_RealSprite->runAction(MakeAnimation("JupiterMove_S_%02d.png", 7));  break;
-    case N:  m_RealSprite->runAction(MakeAnimation("JupiterMove_N_%02d.png", 7));  break;
-    case SE: m_RealSprite->runAction(MakeAnimation("JupiterMove_SE_%02d.png", 7)); break;
-    case SW: m_RealSprite->runAction(MakeAnimation("JupiterMove_SW_%02d.png", 7)); break;
-    case NE: m_RealSprite->runAction(MakeAnimation("JupiterMove_NE_%02d.png", 7)); break;
-    case NW: m_RealSprite->runAction(MakeAnimation("JupiterMove_NW_%02d.png", 7)); break;
-    }
 }
 
 void Jupiter::SetSkillMotionToCache()
@@ -90,55 +136,4 @@ void Jupiter::SetSkillMotionToCache()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterESkill_SW.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterESkill_NE.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Jupiter/JupiterESkill_NW.plist");
-}
-
-void Jupiter::SetSkillMotionByDir(SkillKey key)
-{
-    switch (key)
-    {
-    case SKILL_Q:
-        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
-        {
-        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_SE_%02d.png", 7)); break;
-        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_SW_%02d.png", 7)); break;
-        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_NE_%02d.png", 7)); break;
-        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterQSkill_NW_%02d.png", 7)); break;
-        }
-        break;
-
-    case SKILL_W:
-        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
-        {
-        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SE_%02d.png", 3)); break;
-        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SW_%02d.png", 3)); break;
-        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NE_%02d.png", 3)); break;
-        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NW_%02d.png", 3)); break;
-        }
-        break;
-
-    case SKILL_E:
-        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
-        {
-        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_SE_%02d.png", 2)); break;
-        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_SW_%02d.png", 2)); break;
-        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_NE_%02d.png", 2)); break;
-        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterESkill_NW_%02d.png", 2)); break;
-        }
-        break;
-
-    case SKILL_R:
-        switch (CalcSkillDirection(m_TargetPos - m_CenterSprite->getPosition()))
-        {
-        case SE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SE_%02d.png", 3)); break;
-        case SW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_SW_%02d.png", 3)); break;
-        case NE: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NE_%02d.png", 3)); break;
-        case NW: m_RealSprite->runAction(MakeAnimationOnce("JupiterWSkill_NW_%02d.png", 3)); break;
-        }
-        break;
-    }
-}
-
-void Jupiter::HeroUnHide(Vec2 heroPos)
-{
-
 }

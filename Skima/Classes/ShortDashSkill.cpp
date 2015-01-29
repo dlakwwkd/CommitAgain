@@ -41,8 +41,3 @@ void ShortDashSkill::SkillEnd()
     auto moveDir = m_Owner->GetArrow();
     moveDir->setVisible(false);
 }
-
-void ShortDashSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
-{
-
-}

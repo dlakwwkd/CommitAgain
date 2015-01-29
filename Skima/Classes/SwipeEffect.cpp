@@ -30,9 +30,9 @@ void SwipeEffect::ShowSwipeMotionByDir(Direction dir)
 {
     switch (dir)
     {
-    case SE:    m_Sprite->runAction(MakeAnimationOnce("Swipe_SE_NW%d.png", 6)); break;
-    case SW:    m_Sprite->runAction(MakeAnimationOnce("Swipe_SW_NE%d.png", 6)); break;
-    case NE:    m_Sprite->runAction(MakeAnimationOnce("Swipe_SW_NE%d.png", 6)); break;
-    case NW:    m_Sprite->runAction(MakeAnimationOnce("Swipe_SE_NW%d.png", 6)); break;
+    case SE:    m_Sprite->runAction(MakeAnimation("Swipe_SE_NW%d.png", 6, 0.1f)); break;
+    case SW:    m_Sprite->runAction(MakeAnimation("Swipe_SW_NE%d.png", 6, 0.1f)); break;
+    case NE:    m_Sprite->runAction(MakeAnimation("Swipe_SW_NE%d.png", 6, 0.1f)); break;
+    case NW:    m_Sprite->runAction(MakeAnimation("Swipe_SE_NW%d.png", 6, 0.1f)); break;
     }
 }

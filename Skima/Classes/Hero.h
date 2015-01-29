@@ -21,28 +21,17 @@ public:
     bool            GetSkillCanUse(SkillKey key);
     void			SetSkillCanUse(SkillKey key, bool isUse);
 
-    void            SkillCastForEnemy(SkillKey key, Vec2 recvPos, Vec2 targetPos);
     void			SkillCast(SkillKey key, Vec2 recvPos, Vec2 targetPos);
     void			SkillReady(SkillKey key);
     void			SkillEnd(SkillKey key);
 
-    bool            GetHeroPerforming(){ return m_IsPerforming; }
-    void            SetHeroPerforming(bool performing) { m_IsPerforming = performing; }
     void            SetSkillSprite();
 
-
-    virtual void    SetMoveMotionToCache()				= 0;
-    virtual void    SetSkillMotionToCache()				= 0;
     virtual void    SetMoveMotionByDir()				= 0;
     virtual void    SetSkillMotionByDir(SkillKey key)	= 0;
-    virtual void    HeroUnHide(Vec2 heroPos)            = 0;
-
 protected:
-    RepeatForever*  MakeAnimation(const char* format, int size);
-    Animate*        MakeAnimationOnce(const char* format, int size);
-//     Direction       CalcMoveDirection(Vec2 displacement);
-//     Direction       CalcSkillDirection(Vec2 displacement);
-
+    virtual void    SetMoveMotionToCache()              = 0;
+    virtual void    SetSkillMotionToCache()             = 0;
 
 protected:
     std::map<SkillKey, Skill*>  m_SkillList;

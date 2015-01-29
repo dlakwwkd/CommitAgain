@@ -34,10 +34,6 @@ public:
     float           GetSpeed(){ return m_Speed; }
     bool            GetHeroHiddenState(){ return m_IsHidden; }
 
-    virtual void    SetMoveMotionToCache() = 0;
-    virtual void    SetMoveMotionByDir() = 0;
-
-
     Sprite*         GetCenterSprite(){ return m_CenterSprite; }
     Sprite*         GetRealSprite(){ return m_RealSprite; }
     Sprite*         GetHpBarFrame(){ return m_HpBarFrame; }
@@ -57,9 +53,8 @@ public:
     void            Move();
     void            Crash();
 
-    void            InitCenterSprite();
-    void            InitRealSprite();
-    void            SetAllSpriteVisible();
+    void            InitSprite();
+    void            SetAllSpriteOpacity(GLubyte value);
     void            SetHp(int curHp);
     void            SetMyHpBar();
     void            SetEnemyHpBar();
@@ -69,11 +64,14 @@ public:
 protected:
     void            SetHeroHpBar(const char* barImage);
     void            Damaged();
-    RepeatForever*  MakeUnitAnimation(const char* format, int size);
-    Animate*        MakeUnitAnimationOnce(const char* format, int size);
 
+    Animate*        MakeAnimationOnce(const char* format, int size, float delay);
+    RepeatForever*  MakeAnimation(const char* format, int size, float delay);
     Direction       CalcMoveDirection(Vec2 displacement);
     Direction       CalcSkillDirection(Vec2 displacement);
+
+    virtual void    SetMoveMotionByDir()    = 0;
+    virtual void    SetMoveMotionToCache()  = 0;
 
 protected:
     UnitType        m_UnitType;

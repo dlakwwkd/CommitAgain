@@ -7,8 +7,7 @@ public:
     virtual ~Mob();
 
 private:
-    virtual void SetMoveMotionToCache();
     virtual void SetMoveMotionByDir();
-
+    virtual void SetMoveMotionToCache();
 };
 

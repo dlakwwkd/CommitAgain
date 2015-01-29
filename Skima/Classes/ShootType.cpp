@@ -28,8 +28,3 @@ void ShootType::SkillEnd()
     auto arrow = m_Owner->GetArrow();
     arrow->setVisible(false);
 }
-
-void ShootType::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
-{
-
-}

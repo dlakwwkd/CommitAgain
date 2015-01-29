@@ -52,13 +52,11 @@ void Missile::MissileCrash()
 
     switch (type)
     {
-	case MS_FIRE_BALL:  
-        effect = new FireEffect();  break;
-	case MS_ICE_BALL:   
-        effect = new IceEffect();   break;
-	case MS_SPARK:      
-        effect = new SparkEffect(); break;
-	default: return;
+	case MS_FIRE_BALL:  effect = new FireEffect();  break;
+	case MS_ICE_BALL:   effect = new IceEffect();   break;
+	case MS_SPARK:      effect = new SparkEffect(); break;
+	default:
+        return;
     }
     effect->CreateEffect(m_Particle->getPosition());
 }
@@ -69,14 +67,4 @@ void Missile::MissileDelete()
     GET_OBJECT_LAYER->removeChild(m_Particle);
     m_Particle = nullptr;
     GET_OBJECT_LAYER->DeleteMissile(m_UnitID);
-}
-
-void Missile::SetMoveMotionToCache()
-{
-
-}
-
-void Missile::SetMoveMotionByDir()
-{
-
 }

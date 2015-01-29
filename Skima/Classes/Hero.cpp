@@ -86,13 +86,6 @@ void Hero::SkillCast(SkillKey key, Vec2 recvPos, Vec2 targetPos)
     skill->SkillCast(recvPos, targetPos);
 }
 
-void Hero::SkillCastForEnemy(SkillKey key, Vec2 recvPos, Vec2 targetPos)
-{
-    auto skill = GetSkill(key);
-    if (!skill) return;
-    skill->SkillCastForEnemy(recvPos, targetPos);
-}
-
 void Hero::SkillReady(SkillKey key)
 {
     auto skill = GetSkill(key);
@@ -108,112 +101,6 @@ void Hero::SkillEnd(SkillKey key)
 }
 
 
-
-RepeatForever* Hero::MakeAnimation(const char* format, int size)
-{
-    auto animation = Animation::create();
-
-    if (m_HeroType == HERO_LAPHINX)
-    {
-        if (size < 5)
-            animation->setDelayPerUnit(0.2f);
-        else
-            animation->setDelayPerUnit(0.05f);
-    }
-    else
-    {
-        if (size < 5)
-            animation->setDelayPerUnit(0.2f);
-        else
-            animation->setDelayPerUnit(0.1f);
-    }
-
-    for (int i = 1; i < size + 1; ++i)
-    {
-        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-        animation->addSpriteFrame(frame);
-    }
-
-    return RepeatForever::create(Animate::create(animation));
-}
-
-Animate* Hero::MakeAnimationOnce(const char* format, int size)
-{
-    auto animation = Animation::create();
-
-    if (m_HeroType == HERO_LAPHINX)
-    {
-        if (size < 5)
-            animation->setDelayPerUnit(0.2f);
-        else
-            animation->setDelayPerUnit(0.05f);
-    }
-    else
-    {
-        if (size < 5)
-            animation->setDelayPerUnit(0.2f);
-        else
-            animation->setDelayPerUnit(0.1f);
-    }
-
-    for (int i = 1; i < size + 1; ++i)
-    {
-        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-        animation->addSpriteFrame(frame);
-    }
-
-    return Animate::create(animation);
-}
-// Direction Hero::CalcMoveDirection(Vec2 displacement)
-// {
-//     float slope = displacement.y / displacement.x;
-// 
-//     if (displacement.x > 0)
-//     {
-//         if (slope > -0.41f  && slope <= 0.41f)  return Direction::E;
-//         if (slope > 0.41f   && slope <= 2.41f)  return Direction::NE;
-//         if (slope <= -0.41f && slope > -2.41f)  return Direction::SE;
-//         if (slope > 2.41f)                      return Direction::NE;
-//         if (slope <= -2.41f)                    return Direction::S;
-//     }
-//     else if (displacement.x < 0)
-//     {
-//         if (slope > -0.41f  && slope <= 0.41f)  return Direction::W;
-//         if (slope > 0.41f   && slope <= 2.41f)  return Direction::SW;
-//         if (slope <= -0.41f && slope > -2.41f)  return Direction::NW;
-//         if (slope > 2.41f)                      return Direction::SW;
-//         if (slope <= -2.41f)                    return Direction::N;
-//     }
-//     else if (displacement.x == 0)
-//     {
-//         if (displacement.y < 0)
-//             return Direction::S;
-//         else
-//             return Direction::N;
-//     }
-//     return Direction::E;
-// }
-// 
-// Direction Hero::CalcSkillDirection(Vec2 displacement)
-// {
-//     float slope = displacement.y / displacement.x;
-// 
-//     if (displacement.x > 0)
-//     {
-//         if (slope >= 0)
-//             return Direction::NE;
-//         else
-//             return Direction::SE;
-//     }
-//     else
-//     {
-//         if (slope >= 0)
-//             return Direction::SW;
-//         else
-//             return Direction::NW;
-//     }
-//     return Direction::SE;
-// }
 
 void Hero::SetSkillSprite()
 {
@@ -238,5 +125,3 @@ void Hero::SetSkillSprite()
         GET_UI_LAYER->addChild(GetSkill(SKILL_R)->GetSprite());
     }
 }
-
-

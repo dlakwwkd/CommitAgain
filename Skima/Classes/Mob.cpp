@@ -32,6 +32,21 @@ Mob::~Mob()
 {
 }
 
+void Mob::SetMoveMotionByDir()
+{
+    switch (CalcMoveDirection(m_TargetPos - m_CenterSprite->getPosition()))
+    {
+    case E:  m_RealSprite->runAction(MakeAnimationOnce("Mob_E%02d.png", 8, 0.2f));   	break;
+    case W:  m_RealSprite->runAction(MakeAnimationOnce("Mob_W%02d.png", 8, 0.2f));   	break;
+    case S:  m_RealSprite->runAction(MakeAnimationOnce("Mob_S%02d.png", 8, 0.2f));   	break;
+    case N:  m_RealSprite->runAction(MakeAnimationOnce("Mob_N%02d.png", 8, 0.2f));   	break;
+    case SE: m_RealSprite->runAction(MakeAnimationOnce("Mob_SE%02d.png", 8, 0.2f));  	break;
+    case SW: m_RealSprite->runAction(MakeAnimationOnce("Mob_SW%02d.png", 8, 0.2f));  	break;
+    case NE: m_RealSprite->runAction(MakeAnimationOnce("Mob_NE%02d.png", 8, 0.2f));  	break;
+    case NW: m_RealSprite->runAction(MakeAnimationOnce("Mob_NW%02d.png", 8, 0.2f));  	break;
+    }
+}
+
 void Mob::SetMoveMotionToCache()
 {
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Mob/Mob_E.plist");
@@ -42,19 +57,4 @@ void Mob::SetMoveMotionToCache()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Mob/Mob_NE.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Mob/Mob_NW.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Images/Unit/Mob/Mob_SW.plist");
-}
-
-void Mob::SetMoveMotionByDir()
-{
-    switch (CalcMoveDirection(m_TargetPos - m_CenterSprite->getPosition()))
-    {
-    case E:  m_RealSprite->runAction(MakeUnitAnimationOnce("Mob_E%02d.png", 8));   	break;
-    case W:  m_RealSprite->runAction(MakeUnitAnimationOnce("Mob_W%02d.png", 8));   	break;
-    case S:  m_RealSprite->runAction(MakeUnitAnimationOnce("Mob_S%02d.png", 8));   	break;
-    case N:  m_RealSprite->runAction(MakeUnitAnimationOnce("Mob_N%02d.png", 8));   	break;
-    case SE: m_RealSprite->runAction(MakeUnitAnimationOnce("Mob_SE%02d.png", 8));  	break;
-    case SW: m_RealSprite->runAction(MakeUnitAnimationOnce("Mob_SW%02d.png", 8));  	break;
-    case NE: m_RealSprite->runAction(MakeUnitAnimationOnce("Mob_NE%02d.png", 8));  	break;
-    case NW: m_RealSprite->runAction(MakeUnitAnimationOnce("Mob_NW%02d.png", 8));  	break;
-    }
 }

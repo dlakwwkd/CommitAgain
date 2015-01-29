@@ -556,14 +556,14 @@ void TcpClient::processPacket()
             }
         }
         break;
-
-        case PKT_SC_UNHIDE:
+        
+        case PKT_SC_EFFECT:
         {
-            UnHideBroadcastResult recvData;
+            EffectBroadcastResult recvData;
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
 
-            Vec2 curPos = CONVERT(recvData.mCurrentPos);
+            Vec2 pos = CONVERT(recvData.mPos);
 
             if (GET_GAME_SCENE == nullptr)
             {
@@ -572,32 +572,30 @@ void TcpClient::processPacket()
             auto layer = GET_OBJECT_LAYER;
             if (layer)
             {
-                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnHide, layer,
-                    recvData.mPlayerId, recvData.mUnitId, curPos));
-            }
-        }
-        break;
-
-        case PKT_SC_METEOR:
-        {
-            MeteorBroadcastResult recvData;
-            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
-            assert(ret && recvData.mPlayerId != -1);
-
-            Vec2 targetPos = CONVERT(recvData.mTargetPos);
-
-            if (GET_GAME_SCENE == nullptr)
-            {
-                break;
-            }
-            auto layer = GET_OBJECT_LAYER;
-            if (layer)
-            {
-                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::MeteorCreate, layer,
-                    recvData.mPlayerId, recvData.mUnitId, targetPos));
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::CreateEffect, layer,
+                    recvData.mEffectType, pos));
             }
         }
             break;
+
+        case PKT_SC_HIDE:
+        {
+            HideBroadcastResult recvData;
+            bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
+            assert(ret && recvData.mPlayerId != -1);
+
+            if (GET_GAME_SCENE == nullptr)
+            {
+                break;
+            }
+            auto layer = GET_OBJECT_LAYER;
+            if (layer)
+            {
+                scheduler->performFunctionInCocosThread(CC_CALLBACK_0(ObjectLayer::UnitHide, layer,
+                    recvData.mPlayerId, recvData.mUnitId, recvData.mIsOn));
+            }
+        }
+        break;
 
         case PKT_SC_GAMEOVER:
         {

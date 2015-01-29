@@ -40,8 +40,3 @@ void FlashSkill::SkillEnd()
     auto moveDir = m_Owner->GetArrow();
     moveDir->setVisible(false);
 }
-
-void FlashSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
-{
-
-}

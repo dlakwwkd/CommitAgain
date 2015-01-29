@@ -43,39 +43,9 @@ bool ListenerLayer::init()
     K_listener->onKeyReleased = CC_CALLBACK_2(ListenerLayer::OnKeyReleased, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(K_listener, this);
 
-	//this->schedule(schedule_selector(ListenerLayer::Tick));
 	layer2->schedule(schedule_selector(ObjectLayer::Tick));
     return true;
 }
-
-//////////////////////////////////////////////////////////////////////////
-void ListenerLayer::Tick(float dt)
-{
-    //ScreenMove();
-}
-//////////////////////////////////////////////////////////////////////////
-
-
-void ListenerLayer::ScreenMove()
-{
-    if (GET_IM->GetMouseScrollStatus(SCROLL_UP) && this->getPositionY() < MAX_MAP_SIZE_Y / 8 - (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2)
-    {
-        this->setPositionY(this->getPositionY() + 20);
-    }
-    if (GET_IM->GetMouseScrollStatus(SCROLL_DOWN) && this->getPositionY() > -MAX_MAP_SIZE_Y / 8 - (MAX_MAP_SIZE_Y - DISPLAY_Y) / 2)
-    {
-        this->setPositionY(this->getPositionY() - 20);
-    }
-    if (GET_IM->GetMouseScrollStatus(SCROLL_LEFT) && this->getPositionX() < MAX_MAP_SIZE_X / 8 - (MAX_MAP_SIZE_X - DISPLAY_X) / 2)
-    {
-        this->setPositionX(this->getPositionX() + 20);
-    }
-    if (GET_IM->GetMouseScrollStatus(SCROLL_RIGHT) && this->getPositionX() > -MAX_MAP_SIZE_X / 8 - (MAX_MAP_SIZE_X - DISPLAY_X) / 2)
-    {
-        this->setPositionX(this->getPositionX() - 20);
-    }
-}
-
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -124,17 +94,7 @@ void ListenerLayer::OnMouseDown(Event *event)
         {
             if (hero->GetMoveState() != hero->GetCrashedState())
             {
-                if (hero->GetHeroType()==HERO_LAPHINX)
-                {
-                    if (hero->GetHeroPerforming() == false)
-                    {
-                        TcpClient::getInstance()->moveRequest(heroPos, mousePos - this->getPosition());
-                    }
-                }
-                else
-                {
-    				TcpClient::getInstance()->moveRequest(heroPos, mousePos - this->getPosition());
-                }
+    			TcpClient::getInstance()->moveRequest(heroPos, mousePos - this->getPosition());
             }
             if (key != SKILL_NONE)
             {
@@ -161,10 +121,14 @@ void ListenerLayer::OnMouseMove(Event *event)
     location.y = Director::getInstance()->getWinSize().height - location.y;
 
     GET_IM->SetMouseLocation(location);
-    GET_IM->CheckMouseScroll();
     GET_UI_LAYER->GetCurrentCursor()->setPosition(location);
-    SetArrowPos();
-    SetNearRangePos();
+
+    auto hero = GET_OBJECT_LAYER->GetMyHero();
+    if (hero == nullptr)
+        return;
+
+    SetArrowPos(hero->GetArrow(), 100);
+    SetArrowPos(hero->GetNearSkillRange(), 120);
 }
 
 
@@ -249,7 +213,7 @@ void ListenerLayer::CoolTimeEnd(SkillKey key)
     GET_OBJECT_LAYER->GetMyHero()->SetSkillCanUse(key, true);
 }
 
-void ListenerLayer::SetArrowPos()
+void ListenerLayer::SetArrowPos(Sprite* arrow, float posGap)
 {
     if (!m_Targeting || GET_OBJECT_LAYER->GetMyHero() == nullptr)
     {
@@ -258,33 +222,12 @@ void ListenerLayer::SetArrowPos()
     auto hero = GET_OBJECT_LAYER->GetMyHero();
     auto displacement = GET_IM->GetMouseLocation() - this->getPosition() - hero->GetHeroPos();
     auto distance = displacement.getLength();
-    auto arrow = hero->GetArrow();
 
     float degree = acos(displacement.y / distance) / M_PI * 180; //내적
     if (displacement.x < 0)
     {
         degree = degree * -1;
     }
-    arrow->setPosition(displacement / distance * 100);
+    arrow->setPosition(displacement / distance * posGap);
     arrow->setRotation(degree);
-}
-
-void ListenerLayer::SetNearRangePos()
-{
-    if (!m_Targeting || GET_OBJECT_LAYER->GetMyHero() == nullptr)
-    {
-        return;
-    }
-    auto hero = GET_OBJECT_LAYER->GetMyHero();
-    auto displacement = GET_IM->GetMouseLocation() - this->getPosition() - hero->GetHeroPos();
-    auto distance = displacement.getLength();
-    auto nearRange = hero->GetNearSkillRange();
-
-    float degree = acos(displacement.y / distance) / M_PI * 180; //내적
-    if (displacement.x < 0)
-    {
-        degree = degree * -1;
-    }
-    nearRange->setPosition(displacement / distance * 120);
-    nearRange->setRotation(degree);
 }

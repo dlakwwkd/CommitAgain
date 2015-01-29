@@ -31,11 +31,6 @@ Direction Skill::GenerateSkillDirection(Vec2 targetPos, Vec2 curPos)
     return Direction::SE;
 }
 
-void Skill::SetHeroPerforming(bool isPerforming)
-{
-    m_Owner->SetHeroPerforming(isPerforming);
-}
-
 void Skill::CreateSprite(const char* image)
 {
     m_Sprite = Sprite::create(image);

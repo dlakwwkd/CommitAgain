@@ -30,8 +30,7 @@ void SwipeSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
      auto direction = GenerateSkillDirection(targetPos, heroPos);
      effect->ShowSwipeMotionByDir(direction);
 
-     m_Owner->SetAllSpriteVisible();
-     m_Owner->SetUnitHiddenState(false);
+     m_Owner->SetAllSpriteOpacity(255);
 }
 
 void SwipeSkill::SkillReady()
@@ -49,9 +48,4 @@ void SwipeSkill::SkillEnd()
 {
     auto nearRange = m_Owner->GetNearSkillRange();
     nearRange->setVisible(false);
-}
-
-void SwipeSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
-{
-
 }

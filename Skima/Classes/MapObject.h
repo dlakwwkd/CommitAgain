@@ -8,7 +8,8 @@ public:
 
     void MapObjectBreak();
 
-    virtual void    SetMoveMotionToCache() = 0;
-    virtual void    SetMoveMotionByDir() = 0;
+private:
+    virtual void SetMoveMotionToCache(){}
+    virtual void SetMoveMotionByDir(){}
 };
 

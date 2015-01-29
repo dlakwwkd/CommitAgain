@@ -40,6 +40,21 @@ enum RoomType
     ROOM_MELEE,
     ROOM_TEAM,
 };
+enum EffectType
+{
+    EF_NONE,
+    EF_FIRE,
+    EF_ICE,
+    EF_SPARK,
+    EF_LIGHTNING,
+    EF_HIDE,
+    EF_ROCK,
+    EF_TELEPORT,
+
+    EF_SWIPE,
+    EF_METEOR,
+    EF_UNHIDE,
+};
 enum MissileType
 {
     MS_NONE,
@@ -132,8 +147,8 @@ enum PacketTypes
     PKT_SC_MISSILE      = 50,
     PKT_SC_TELEPORT     = 52,
     PKT_SC_HP           = 54,
-    PKT_SC_UNHIDE       = 55,
-    PKT_SC_METEOR       = 56,
+    PKT_SC_HIDE       = 55,
+    PKT_SC_EFFECT       = 56,
     PKT_SC_BUFF         = 57,
 
     PKT_SC_GAMEOVER     = 100,
@@ -622,33 +637,33 @@ struct TeleportBroadcastResult : public PacketHeader
     Coord       mCurrentPos;
     Coord       mTargetPos;
 };
-struct UnHideBroadcastResult : public PacketHeader
+struct HideBroadcastResult : public PacketHeader
 {
-    UnHideBroadcastResult()
+    HideBroadcastResult()
     {
-        mSize = sizeof(UnHideBroadcastResult);
-        mType = PKT_SC_UNHIDE;
+        mSize = sizeof(HideBroadcastResult);
+        mType = PKT_SC_HIDE;
         mPlayerId = -1;
         mUnitId = -1;
-        mCurrentPos = { 0, };
+        mIsOn = false;
     }
     int         mPlayerId;
     int         mUnitId;
-    Coord       mCurrentPos;
+    bool        mIsOn;
 };
-struct MeteorBroadcastResult : public PacketHeader
+struct EffectBroadcastResult : public PacketHeader
 {
-    MeteorBroadcastResult()
+    EffectBroadcastResult()
     {
-        mSize = sizeof(MeteorBroadcastResult);
-        mType = PKT_SC_METEOR;
+        mSize = sizeof(EffectBroadcastResult);
+        mType = PKT_SC_EFFECT;
         mPlayerId = -1;
-        mUnitId = -1;
-        mTargetPos = { 0, };
+        mEffectType = EF_NONE;
+        mPos = { 0, };
     }
     int         mPlayerId;
-    int         mUnitId;
-    Coord       mTargetPos;
+    EffectType  mEffectType;
+    Coord       mPos;
 };
 struct HpBroadcastResult : public PacketHeader
 {

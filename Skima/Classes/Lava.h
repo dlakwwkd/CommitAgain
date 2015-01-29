@@ -6,7 +6,8 @@ public:
     Lava(int id, Vec2 pos);
     virtual ~Lava();
 
-    virtual void    SetMoveMotionToCache();
-    virtual void    SetMoveMotionByDir();
+private:
+    virtual void SetMoveMotionToCache(){}
+    virtual void SetMoveMotionByDir(){}
 };
 

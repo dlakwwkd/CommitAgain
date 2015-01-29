@@ -5,7 +5,7 @@
 #include "Hero.h"
 #include "Macros.h"
 #include "ObjectLayer.h"
-#include "MeteorSequenceEffect.h"
+#include "MeteorEffect.h"
 #include "SimpleAudioEngine.h"
 
 using namespace CocosDenshion;
@@ -59,14 +59,10 @@ void MeteorSkill::SkillEnd()
     rangeCircle->setVisible(false);
 }
 
-void MeteorSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
-{
-
-}
 
 void MeteorSkill::MakeMeteor(Vec2 targetpos)
 {
-    auto particleEffect = new MeteorSequenceEffect(targetpos); // particle
+    auto particleEffect = new MeteorEffect(); // particle
     particleEffect->CreateEffect(targetpos); //explode sprite
     SimpleAudioEngine::getInstance()->playEffect("Music/Effect/meteor_hit.mp3"); //파티클이 끝나기도 전에 터져 버림
 }

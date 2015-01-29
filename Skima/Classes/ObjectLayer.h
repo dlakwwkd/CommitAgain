@@ -33,8 +33,9 @@ public:
     void ShootMissile(int missileID, Vec2 createPos, Vec2 targetPos);
     void MissileCrash(int missileID);
     void DeleteMissile(int missileID);
-    void UnHide(int playerID, int unitID, Vec2 recvCurPos);
     void MeteorCreate(int playerID, int unitID, Vec2 targetPos);
+    void UnitHide(int playerID, int unitID, bool isOn);
+    void CreateEffect(EffectType type, Vec2 createPos);
 
 protected:
     std::shared_ptr<Hero>					m_Hero = nullptr;

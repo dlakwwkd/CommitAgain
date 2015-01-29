@@ -24,9 +24,7 @@ FireWallSkill::~FireWallSkill()
 
 void FireWallSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
-    //SimpleAudioEngine::getInstance()->playEffect("Music/Effect/firewall.mp3");
-    auto effect = new FireEffect();
-    effect->CreateEffect(targetPos);
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/firewall.mp3");
 }
 
 void FireWallSkill::SkillReady()
@@ -44,9 +42,4 @@ void FireWallSkill::SkillEnd()
 {
     auto rangeCircle = m_Owner->GetSkillRange();
     rangeCircle->setVisible(false);
-}
-
-void FireWallSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
-{
-
 }

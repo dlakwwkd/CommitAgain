@@ -29,5 +29,5 @@ void MeteorSkill::SkillCast(SkillKey key, const b2Vec2& heroPos, const b2Vec2& t
     auto game = m_Owner->GetGame();
     Timer::Push(game, 1200, this, &MeteorSkill::FieldDamage, targetPos, m_Scale, m_Damage);
 
-    client->MeteorBroadCast(hero->GetUnitID(), targetPos);
+    client->EffectBroadCast(EF_METEOR, targetPos);
 }

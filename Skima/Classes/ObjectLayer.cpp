@@ -1,28 +1,33 @@
 ﻿#include "pch.h"
 #include "ObjectLayer.h"
-#include "LoadingBGLayer.h"
 #include "UILayer.h"
-#include "Magician.h"
-#include "Jupiter.h"
+#include "MapLayer.h"
+#include "LoadingBGLayer.h"
+#include "SimpleAudioEngine.h"
 #include "GameManager.h"
-#include "Hero.h"
-#include "Missile.h"
-#include "Enums.h"
-#include "TeleportEffect.h"
-#include "LightningEffect.h"
-#include "RockEffect.h"
-#include "Unit.h"
-#include "Skill.h"
+#include "TcpClient.h"
+#include "MeteorSkill.h"
+#include "Item.h"
+#include "Buff.h"
 #include "Laphinx.h"
 #include "Rock.h"
 #include "MoveRock.h"
 #include "Lava.h"
 #include "Mob.h"
-#include "MapLayer.h"
-#include "MeteorSkill.h"
-#include "SimpleAudioEngine.h"
-#include "Item.h"
-#include "Buff.h"
+#include "Magician.h"
+#include "Jupiter.h"
+#include "Missile.h"
+#include "Enums.h"
+#include "FireEffect.h"
+#include "IceEffect.h"
+#include "SparkEffect.h"
+#include "TeleportEffect.h"
+#include "LightningEffect.h"
+#include "RockEffect.h"
+#include "HideEffect.h"
+#include "SwipeEffect.h"
+#include "UnHideEffect.h"
+#include "MeteorEffect.h"
 
 using namespace CocosDenshion;
 
@@ -198,19 +203,10 @@ void ObjectLayer::UnitSkillUse(int playerID,int unitID, SkillKey key, Vec2 recvC
     }
     hero->second->SetTargetPos(targetPos);
     hero->second->GetCenterSprite()->stopAllActions();
-    hero->second->GetRealSprite()->setVisible(true);
     hero->second->SetSkillMotionByDir(key);
-
-    if (hero->second->GetHeroType() == HERO_LAPHINX && key == SKILL_Q && m_Hero->GetPlayerID() != playerID)
-    {
-        hero->second->SkillCastForEnemy(key, recvCurPos, targetPos);
-    }
-    else
-    {
-        hero->second->SkillCast(key, recvCurPos, targetPos);
-    }
-    
+    hero->second->SkillCast(key, recvCurPos, targetPos);
 }
+
 void ObjectLayer::UnitHpUpdate(int playerID, int unitID, int curHp)
 {
     auto unit = m_UnitList.find(unitID);
@@ -326,18 +322,30 @@ void ObjectLayer::DeleteMissile(int missileID)
     m_MissileList.erase(missile);
 }
 
-void ObjectLayer::UnHide(int playerID, int unitID, Vec2 recvCurPos)
+void ObjectLayer::UnitHide(int playerID, int unitID, bool isOn)
 {
-    auto hero = m_HeroList.find(unitID);
-    if (hero == m_HeroList.end())
-    {
+    auto unit = m_UnitList.find(unitID);
+    if (unit == m_UnitList.end())
         return;
-    }
 
-    if (hero->second->GetHeroType() == HERO_LAPHINX)
+    if (isOn)
     {
-        hero->second->HeroUnHide(recvCurPos);
+        if (playerID == TcpClient::getInstance()->getLoginId())
+            unit->second->SetAllSpriteOpacity(100);
+        else
+            unit->second->SetAllSpriteOpacity(0);
+    }
+    else
+    {
+        unit->second->SetAllSpriteOpacity(255);
 
+        auto pos = unit->second->GetCenterSprite()->getPosition();
+
+        auto effect1 = new UnHideEffect();
+        auto effect2 = new HideEffect();
+
+        effect1->CreateEffect(Vec2{ pos.x - 80, pos.y + 80 });
+        effect2->CreateEffect(pos);
     }
 }
 
@@ -354,5 +362,26 @@ void ObjectLayer::MeteorCreate(int playerID, int unitID, Vec2 targetPos)
         auto meteorSKill = dynamic_cast<MeteorSkill*>(hero->second->GetSkill(SKILL_R));
         meteorSKill->MakeMeteor(targetPos);
     }
+}
+
+void ObjectLayer::CreateEffect(EffectType type, Vec2 createPos)
+{
+    Effect* effect;
+    switch (type)
+    {
+    case EF_FIRE:       effect = new FireEffect();      break;
+    case EF_ICE:        effect = new IceEffect();       break;
+    case EF_SPARK:      effect = new SparkEffect();     break;
+    case EF_LIGHTNING:  effect = new LightningEffect(); break;
+    case EF_HIDE:       effect = new HideEffect();      break;
+    case EF_ROCK:       effect = new RockEffect();      break;
+    case EF_TELEPORT:   effect = new TeleportEffect();  break;
+    case EF_SWIPE:      effect = new SwipeEffect();     break;
+    case EF_METEOR:     effect = new MeteorEffect();    break;
+    case EF_UNHIDE:     effect = new UnHideEffect();    break;
+    default:
+        return;
+    }
+    effect->CreateEffect(createPos);
 }
 

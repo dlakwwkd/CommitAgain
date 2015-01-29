@@ -6,7 +6,8 @@ public:
     MoveRock(int id, Vec2 pos);
     virtual ~MoveRock();
 
-    virtual void    SetMoveMotionToCache();
-    virtual void    SetMoveMotionByDir();
+private:
+    virtual void SetMoveMotionToCache(){}
+    virtual void SetMoveMotionByDir(){}
 };
 

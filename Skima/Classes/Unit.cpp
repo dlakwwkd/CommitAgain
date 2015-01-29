@@ -41,15 +41,7 @@ Unit::~Unit()
 
 void Unit::Move()
 {
-    if (GET_MAIN_TYPE(m_UnitID) == UNIT_HERO)
-    {
-        auto hero = dynamic_cast<Hero*>(this);
-        hero->SetMoveMotionByDir();
-    }
-    if (GET_MAIN_TYPE(m_UnitID) == UNIT_MOB)
-    {
-        this->SetMoveMotionByDir();
-    }
+    this->SetMoveMotionByDir();
 
     auto gap = m_TargetPos - m_CenterSprite->getPosition();
     gap.normalize();
@@ -73,29 +65,27 @@ void Unit::Crash()
 
 
 
-void Unit::InitCenterSprite()
+
+void Unit::InitSprite()
 {
     m_CenterSprite->stopAllActions();
-    m_CenterSprite->setVisible(true);
-}
-
-void Unit::InitRealSprite()
-{
-    m_RealSprite->stopAllActions();
-    m_RealSprite->setVisible(true);
-    m_RealSprite->setColor(Color3B(255, 255, 255));
-}
-
-void Unit::SetAllSpriteVisible()
-{
-    m_CenterSprite->setOpacity(255);
-    m_RealSprite->setOpacity(255);
-    m_HpBarFrame->setOpacity(255);
-    if (m_HpBar != nullptr)
+    if (m_RealSprite)
     {
-        m_HpBar->setOpacity(255);
+        m_RealSprite->stopAllActions();
+        m_RealSprite->setColor(Color3B(255, 255, 255));
     }
 }
+
+void Unit::SetAllSpriteOpacity(GLubyte value)
+{
+    for (auto& sprite : m_CenterSprite->getChildren())
+    {
+        sprite->setOpacity(value);
+    }
+}
+
+
+
 
 void Unit::SetHp(int curHp)
 {
@@ -111,12 +101,10 @@ void Unit::SetMyHpBar()
 {
     SetHeroHpBar("Images/Interface/hp_bar_in.png");
 }
-
 void Unit::SetEnemyHpBar()
 {
     SetHeroHpBar("Images/Interface/hp_bar_in_enemy.png");
 }
-
 void Unit::SetTeamHpBar()
 {
     SetHeroHpBar("Images/Interface/hp_bar_in_team.png");
@@ -129,9 +117,9 @@ void Unit::SetUnitHpBar()
     m_CenterSprite->addChild(m_HpBarFrame, 10);
 
     m_HpBar = Sprite::create("Images/Interface/hp_bar_in_mob.png");
-    m_HpBar->setAnchorPoint(Vec2(0, 0));
-    m_HpBar->setPosition(Vec2(2, 2));
-    m_HpBarFrame->addChild(m_HpBar);
+    m_HpBar->setAnchorPoint(Vec2(0, 0.5f));
+    m_HpBar->setPosition(Vec2(-36, 50));
+    m_CenterSprite->addChild(m_HpBar, 9);
 }
 
 void Unit::UpdateHpBar()
@@ -145,7 +133,6 @@ void Unit::UpdateHpBar()
 
 
 
-
 void Unit::SetHeroHpBar(const char* barImage)
 {
     m_HpBarFrame = Sprite::create("Images/Interface/hp_bar_frame.png");
@@ -153,9 +140,9 @@ void Unit::SetHeroHpBar(const char* barImage)
     m_CenterSprite->addChild(m_HpBarFrame, 10);
 
     m_HpBar = Sprite::create(barImage);
-    m_HpBar->setAnchorPoint(Vec2(0, 0));
-    m_HpBar->setPosition(Vec2(5, 5));
-    m_HpBarFrame->addChild(m_HpBar);
+    m_HpBar->setAnchorPoint(Vec2(0, 0.5f));
+    m_HpBar->setPosition(Vec2(-50, 74));
+    m_CenterSprite->addChild(m_HpBar, 9);
 }
 
 void Unit::Damaged()
@@ -163,26 +150,38 @@ void Unit::Damaged()
     if (GET_MAIN_TYPE(m_UnitID) == UNIT_HERO)
     {
         auto hero = dynamic_cast<Hero*>(this);
-
         if (hero->GetBuff()->GetBuffNum(BUFF_SHIELD) > 0)
-        {
             SimpleAudioEngine::getInstance()->playEffect("Music/Effect/shield.mp3");
-
-        }
     }
-    {
-        SimpleAudioEngine::getInstance()->playEffect("Music/Effect/damage.mp3");
-    }
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/damage.mp3");
 
     auto action1 = TintTo::create(0, 255, 0, 0);
     auto action2 = TintTo::create(0.1f, 255, 255, 255);
     auto action3 = Sequence::create(action1, action2, action1, action2, action1, action2, NULL);
     
-
-    //auto action1 = Blink::create(0.5f, 4);
-
     m_RealSprite->runAction(action3);
-    //m_Damaged->setVisible(false);
+}
+
+
+
+
+Animate* Unit::MakeAnimationOnce(const char* format, int size, float delay)
+{
+    auto animation = Animation::create();
+    animation->setDelayPerUnit(delay);
+
+    for (int i = 1; i < size + 1; ++i)
+    {
+        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
+        animation->addSpriteFrame(frame);
+    }
+
+    return Animate::create(animation);
+}
+
+RepeatForever* Unit::MakeAnimation(const char* format, int size, float delay)
+{
+    return RepeatForever::create(MakeAnimationOnce(format, size, delay));
 }
 
 Direction Unit::CalcMoveDirection(Vec2 displacement)
@@ -191,21 +190,21 @@ Direction Unit::CalcMoveDirection(Vec2 displacement)
 
     if (displacement.x > 0)
     {
-        if (slope > -0.41f  && slope <= 0.41f)  return Direction::E;
-        if (slope > 0.41f   && slope <= 2.41f)  return Direction::NE;
-        if (slope <= -0.41f && slope > -2.41f)  return Direction::SE;
-        if (slope > 2.41f)                      return Direction::NE;
-        if (slope <= -2.41f)                    return Direction::S;
+        if (slope > -0.41f  && slope <= 0.41f)      return Direction::E;
+        else if (slope > 0.41f   && slope <= 2.41f) return Direction::NE;
+        else if (slope <= -0.41f && slope > -2.41f) return Direction::SE;
+        else if (slope > 2.41f)                     return Direction::NE;
+        else                                        return Direction::S;
     }
     else if (displacement.x < 0)
     {
-        if (slope > -0.41f  && slope <= 0.41f)  return Direction::W;
-        if (slope > 0.41f   && slope <= 2.41f)  return Direction::SW;
-        if (slope <= -0.41f && slope > -2.41f)  return Direction::NW;
-        if (slope > 2.41f)                      return Direction::SW;
-        if (slope <= -2.41f)                    return Direction::N;
+        if (slope > -0.41f  && slope <= 0.41f)      return Direction::W;
+        else if (slope > 0.41f   && slope <= 2.41f) return Direction::SW;
+        else if (slope <= -0.41f && slope > -2.41f) return Direction::NW;
+        else if (slope > 2.41f)                     return Direction::SW;
+        else                                        return Direction::N;
     }
-    else if (displacement.x == 0)
+    else
     {
         if (displacement.y < 0)
             return Direction::S;
@@ -234,40 +233,4 @@ Direction Unit::CalcSkillDirection(Vec2 displacement)
             return Direction::NW;
     }
     return Direction::SE;
-}
-
-RepeatForever* Unit::MakeUnitAnimation(const char* format, int size)
-{
-    auto animation = Animation::create();
-    if (size < 5)
-        animation->setDelayPerUnit(1.0f);
-    
-    else
-        animation->setDelayPerUnit(0.3f);
-
-    for (int i = 1; i < size + 1; ++i)
-    {
-        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-        animation->addSpriteFrame(frame);
-    }
-    return RepeatForever::create(Animate::create(animation));
-}
-
-Animate* Unit::MakeUnitAnimationOnce(const char* format, int size)
-{
-    auto animation = Animation::create();
-
-    if (size < 5)
-        animation->setDelayPerUnit(0.3f);
-    else
-        animation->setDelayPerUnit(0.2f);
-   
-
-    for (int i = 1; i < size + 1; ++i)
-    {
-        auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format, i));
-        animation->addSpriteFrame(frame);
-    }
-
-    return Animate::create(animation);
 }

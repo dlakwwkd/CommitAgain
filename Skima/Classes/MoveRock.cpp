@@ -14,13 +14,3 @@ MoveRock::MoveRock(int id, Vec2 pos)
 MoveRock::~MoveRock()
 {
 }
-
-void MoveRock::SetMoveMotionToCache()
-{
-
-}
-
-void MoveRock::SetMoveMotionByDir()
-{
-
-}

@@ -43,6 +43,6 @@ void Laphinx::UnHide()
         m_Body->SetAwake(false);
         m_IsHidden = false;
         this->EndMove();
-        client->UnHideBroadCast(m_UnitID, m_Body->GetPosition());
+        client->HideBroadCast(m_UnitID, false);
     }
 }

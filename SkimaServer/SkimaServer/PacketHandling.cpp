@@ -479,6 +479,9 @@ void ClientSession::CrashedBroadCast(int unitId, const b2Vec2& curPos, const b2V
 
 void ClientSession::SyncPosBroadCast(int unitId, const b2Vec2& curPos)
 {
+    if (mPlayer == nullptr)
+        return;
+
     SyncPosBroadcastResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
     outPacket.mUnitId = unitId;
@@ -495,28 +498,6 @@ void ClientSession::SkillBroadCast(int unitId, const b2Vec2& curPos, const b2Vec
     outPacket.mUnitId = unitId;
     outPacket.mKey = key;
     outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
-    outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
-
-    if (!Broadcast(&outPacket))
-        Disconnect();
-}
-
-void ClientSession::UnHideBroadCast(int unitId, const b2Vec2& curPos)
-{
-    UnHideBroadcastResult outPacket;
-    outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mUnitId = unitId;
-    outPacket.mCurrentPos = CONVERT_OUT(curPos, mPlayer->GetRoomID());
-
-    if (!Broadcast(&outPacket))
-        Disconnect();
-}
-
-void ClientSession::MeteorBroadCast(int unitId, const b2Vec2& targetPos)
-{
-    MeteorBroadcastResult outPacket;
-    outPacket.mPlayerId = mPlayer->GetPlayerID();
-    outPacket.mUnitId = unitId;
     outPacket.mTargetPos = CONVERT_OUT(targetPos, mPlayer->GetRoomID());
 
     if (!Broadcast(&outPacket))
@@ -573,6 +554,28 @@ void ClientSession::BuffBroadCast(int unitId, float bonus, BuffTarget type, bool
     if (!Broadcast(&outPacket))
         Disconnect();
     //printf(" - BuffBonus: %.f \n", outPacket.mBonus);
+}
+
+void ClientSession::HideBroadCast(int unitId, bool isOn)
+{
+    HideBroadcastResult outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mUnitId = unitId;
+    outPacket.mIsOn = isOn;
+
+    if (!Broadcast(&outPacket))
+        Disconnect();
+}
+
+void ClientSession::EffectBroadCast(EffectType type, const b2Vec2& pos)
+{
+    EffectBroadcastResult outPacket;
+    outPacket.mPlayerId = mPlayer->GetPlayerID();
+    outPacket.mEffectType = type;
+    outPacket.mPos = CONVERT_OUT(pos, mPlayer->GetRoomID());
+
+    if (!Broadcast(&outPacket))
+        Disconnect();
 }
 
 void ClientSession::HpBroadCast(int playerId, int unitId, int hp)

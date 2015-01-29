@@ -24,8 +24,7 @@ LightningPumpkinSkill::~LightningPumpkinSkill()
 
 void LightningPumpkinSkill::SkillCast(Vec2 heroPos, Vec2 targetPos)
 {
-    auto particleEffect = new LightningEffect();
-    particleEffect->CreateEffect(targetPos);
+    SimpleAudioEngine::getInstance()->playEffect("Music/Effect/thunder.mp3");
 }
 
 void LightningPumpkinSkill::SkillReady()
@@ -36,11 +35,6 @@ void LightningPumpkinSkill::SkillReady()
 }
 
 void LightningPumpkinSkill::SkillEnd()
-{
-
-}
-
-void LightningPumpkinSkill::SkillCastForEnemy(Vec2 heroPos, Vec2 targetPos)
 {
 
 }
