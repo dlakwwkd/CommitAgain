@@ -27,7 +27,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto glview = director->getOpenGLView();
     if(!glview) 
 	{
-        glview = GLViewImpl::createWithFullScreen("Amaging PVP Game: Skima");
+        glview = GLViewImpl::create("Amaging PVP Game: Skima");
         director->setOpenGLView(glview);
 
 		int w = GetSystemMetrics(SM_CXSCREEN);

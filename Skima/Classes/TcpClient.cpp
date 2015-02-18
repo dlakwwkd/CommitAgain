@@ -24,6 +24,7 @@ static TcpClient* s_TcpClient = nullptr;
 
 TcpClient::TcpClient() : mRecvBuffer(BUF_SIZE), mSock(NULL), mLoginId(-1)
 {
+    mServIP = "127.0.0.1"; //default
 }
 
 TcpClient::~TcpClient()
@@ -80,7 +81,8 @@ bool TcpClient::connect()
 
     ZeroMemory(&hostAddr, sizeof(hostAddr));
     hostAddr.sin_family = AF_INET;
-    hostAddr.sin_addr.s_addr = inet_addr("10.73.45.143");
+    const char* cIP = mServIP.c_str(); // serverIP 형변환
+    hostAddr.sin_addr.s_addr = inet_addr(cIP);
     hostAddr.sin_port = htons(port);
 
     if (SOCKET_ERROR == ::connect(mSock, (struct sockaddr*)&hostAddr, sizeof(hostAddr)))

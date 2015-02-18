@@ -63,6 +63,25 @@ bool MainScene::init()
     this->addChild(background2);
     this->addChild(title);
 
+    //serverIP 입력 창
+    auto servIPBox = Sprite::create("Images/Interface/ServerBox.png");
+    servIPBox->setPosition(winSize.width / 2, winSize.height / 3 + 100.0f);
+    servIPBox->setScaleY(0.7f);
+    auto IPInputButtonImage = MenuItemImage::create("Images/Interface/IPInputButton.png", "Images/Interface/IPInputButton_selected.png", CC_CALLBACK_1(MainScene::servIpCallback, this));
+    auto IPInputMenu = Menu::create(IPInputButtonImage, NULL);
+    IPInputMenu->setPosition(Vec2(480.0f, 85.0f));
+    IPInputMenu->alignItemsVertically(); 
+    this->addChild(servIPBox);
+    servIPBox->addChild(IPInputMenu);
+
+    m_ServIPBox = InputBox::create("서버주소 입력", "Thonburi", MAX_NAME_LEN);
+    m_ServIPBox->beginInput();
+    m_ServIPBox->setFontSize(25.0f);
+    m_ServIPBox->setColor(Color3B::BLACK);
+    m_ServIPBox->setPosition(Vec2(winSize.width / 2 - 10, winSize.height / 2 - 72.0f));
+    this->addChild(m_ServIPBox);
+
+
     // Login창 띄우기
     auto loginScene = Sprite::create("Images/Interface/LoginScene.png");
     loginScene->setPosition(Vec2(winSize.width / 2, winSize.height / 4));
@@ -76,10 +95,10 @@ bool MainScene::init()
     
     // Login입력 받는 box 구현
     m_LoginBox = InputBox::create("이름을 입력", "Thonburi", MAX_NAME_LEN);
-    m_LoginBox->setColor(Color3B::BLACK);
-    m_LoginBox->beginInput();
+    //m_LoginBox->beginInput();
     m_LoginBox->setFontSize(25.0f);
-    m_LoginBox->setPosition(Vec2(winSize.width / 2 - 10, winSize.height / 4));
+    m_LoginBox->setColor(Color3B::BLACK);
+    m_LoginBox->setPosition(Vec2(winSize.width / 2 - 10, winSize.height / 3-87.0f));
     this->addChild(m_LoginBox);
 
     SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3", true);
@@ -97,6 +116,10 @@ void MainScene::menuCallback2(Ref* sender)
     Director::getInstance()->end();
 }
 
+void MainScene::servIpCallback(Ref* sender)
+{
+    InputServerIp();
+}
 void MainScene::ConnectLabelCreate(const char* str, MainScene* scene)
 {
     if (scene->getChildByName("ConnectLabel") != nullptr)
@@ -149,3 +172,20 @@ void MainScene::LoginToServer()
     Director::getInstance()->pushScene(scene);
     TcpClient::getInstance()->loginRequest(m_LoginName.c_str());
 }
+
+void MainScene::InputServerIp()
+{
+    m_ServIP = m_ServIPBox->getString();
+    if (m_ServIP[0] == '\0' || m_ServIP[0] == ' ') // Name맨앞 공백 혹은 안썼을 때 return
+    {
+        m_ServIPBox->clear();
+        m_ServIPBox->beginInput();
+        return;
+    }
+
+    m_ServIPBox->endInput();
+    TcpClient::getInstance()->SetServIP(m_ServIP);
+    m_LoginBox->beginInput();
+
+}
+

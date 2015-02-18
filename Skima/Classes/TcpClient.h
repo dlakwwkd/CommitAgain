@@ -25,6 +25,8 @@ public:
     Team    getTeam(){ return mTeam; }
     bool    connect();
     void    disconnect();
+    void    SetServIP(std::string servIP){ mServIP = servIP; }
+    std::string GetServIP(){ return mServIP; }
 
     void    loginRequest(const char* playerName);
     void    makeRoomRequest(RoomInfo roomInfo);
@@ -53,5 +55,6 @@ private:
     int             mLoginId;
     char            mLoginName[MAX_NAME_LEN];
     Team            mTeam;
+    std::string     mServIP;
 };
 
