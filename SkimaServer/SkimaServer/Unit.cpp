@@ -220,6 +220,7 @@ void Unit::Crashed(Unit* contactUnit)
     velocity *= 1.0f / DAMPING;
     expectPos += velocity;
 
-    client->CrashedBroadCast(m_UnitID, curPos, expectPos);
     m_State->Crashed(this);
+	if (client->GetPlayer())
+		client->CrashedBroadCast(m_UnitID, curPos, expectPos);
 }

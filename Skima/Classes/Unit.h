@@ -16,7 +16,7 @@ public:
     virtual ~Unit();
 
     void            SetType(int type){ m_UnitID = SET_SIDE_TYPE(m_UnitID, type); }
-    void            SetPlayerID(int playerID){ m_PlayerID = playerID; }
+	void            SetPlayerID(int playerID){ m_PlayerID = playerID; }
     void            SetUnitID(int unitID){ m_UnitID = unitID; }
     void            SetSpeed(float speed) { m_Speed = speed; }
     void            SetCooltimeBonus(int bonus){ m_CooltimeBonus = bonus; }
@@ -55,7 +55,8 @@ public:
 
     void            InitSprite();
     void            SetAllSpriteOpacity(GLubyte value);
-    void            SetHp(int curHp);
+	void            SetName(const std::string& name);
+	void            SetHp(int curHp);
     void            SetMyHpBar();
     void            SetEnemyHpBar();
     void            SetTeamHpBar();

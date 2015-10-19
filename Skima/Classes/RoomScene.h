@@ -30,7 +30,8 @@ public:
 
 private:
     void WaitingCheck();
-    void MakeButton();
+	void MakeButton();
+	void MakeButton(MenuItemLabel* label1, MenuItemLabel* label2);
     void MakeHeroSprite(const char* image, Vec2 pos, Vec2 scale, Vec2 anchor, HeroType hero);
     void SetFaceProperty(MenuItemImage* img, Vec2 pos, Vec2 scale, Vec2 anchor);
     void ChangeSelectedHero(HeroType heroType);

@@ -289,7 +289,9 @@ void GameManager::FieldDamage(Player* caster, Rect* range, int damage)
     }
     if (caster->GetTeam() != TEAM_C)
     {
-        damage += caster->GetMyHero()->GetDamageBonus();
+		auto hero = caster->GetMyHero();
+		if (hero)
+			damage += hero->GetDamageBonus();
     }
     for (auto& player : game->m_PlayerList)
     {

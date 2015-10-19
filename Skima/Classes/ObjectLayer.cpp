@@ -65,7 +65,8 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location, Team team,
         return;
     }
     hero->SetPlayerID(playerID);
-    hero->SetUnitID(unitID);
+	hero->SetUnitID(unitID);
+	hero->SetName(std::to_string(playerID));
     if (playerID == TcpClient::getInstance()->getLoginId())
     {
         m_Hero = hero;

@@ -39,6 +39,7 @@ protected:
     Sprite*                     m_Arrow	= nullptr;
     Sprite*                     m_SkillRange = nullptr;
     Sprite*                     m_NearSkillRange = nullptr;
+	Label*						m_PlayerName = nullptr;
     bool                        m_IsPerforming;
     Buff*                       m_Buff;
 };

@@ -86,6 +86,16 @@ void Unit::SetAllSpriteOpacity(GLubyte value)
 
 
 
+void Unit::SetName(const std::string& name)
+{
+	m_Name = name;
+
+	auto label = Label::create(m_Name, "Arial", 20);
+	label->setPosition(Vec2(0, 100.0f));
+	m_CenterSprite->addChild(label);
+}
+
+
 
 void Unit::SetHp(int curHp)
 {
@@ -114,12 +124,12 @@ void Unit::SetUnitHpBar()
 {
     m_HpBarFrame = Sprite::create("Images/Interface/hp_bar_frame_mob.png");
     m_HpBarFrame->setPosition(Vec2(0, 50));
-    m_CenterSprite->addChild(m_HpBarFrame, 10);
+    m_CenterSprite->addChild(m_HpBarFrame, 9);
 
     m_HpBar = Sprite::create("Images/Interface/hp_bar_in_mob.png");
     m_HpBar->setAnchorPoint(Vec2(0, 0.5f));
     m_HpBar->setPosition(Vec2(-36, 50));
-    m_CenterSprite->addChild(m_HpBar, 9);
+    m_CenterSprite->addChild(m_HpBar, 10);
 }
 
 void Unit::UpdateHpBar()
@@ -137,12 +147,12 @@ void Unit::SetHeroHpBar(const char* barImage)
 {
     m_HpBarFrame = Sprite::create("Images/Interface/hp_bar_frame.png");
     m_HpBarFrame->setPosition(Vec2(0, 75));
-    m_CenterSprite->addChild(m_HpBarFrame, 10);
+    m_CenterSprite->addChild(m_HpBarFrame, 9);
 
     m_HpBar = Sprite::create(barImage);
     m_HpBar->setAnchorPoint(Vec2(0, 0.5f));
     m_HpBar->setPosition(Vec2(-50, 74));
-    m_CenterSprite->addChild(m_HpBar, 9);
+    m_CenterSprite->addChild(m_HpBar, 10);
 }
 
 void Unit::Damaged()
