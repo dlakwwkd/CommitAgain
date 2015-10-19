@@ -4,6 +4,7 @@
 #include "TcpClient.h"
 #include "GameScene.h"
 #include "SimpleAudioEngine.h"
+#include "GameManager.h"
 
 using namespace CocosDenshion;
 
@@ -67,6 +68,8 @@ void GameOverScene::menuCallback2(Ref* sender)	// 나가기
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3", true);
 
-    Director::getInstance()->popScene();
+	GET_GM.DeletePlayerAll();
+
+	Director::getInstance()->popScene();
 	Director::getInstance()->popScene();
 }

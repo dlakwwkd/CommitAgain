@@ -5,6 +5,7 @@
 #include "TcpClient.h"
 #include "SimpleAudioEngine.h"
 #include "MakeRoomLayer.h"
+#include "GameManager.h"
 
 using namespace CocosDenshion;
 
@@ -217,7 +218,9 @@ void NetworkScene::JoinRoomComplete(const RoomInfo& roomInfo)
 {
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     ConnectLabelChange(CONNECT_GOOD_TEXT);
-    auto scene = RoomScene::createScene();
+	GET_GM.DeletePlayerAll();
+
+	auto scene = RoomScene::createScene();
     auto layer = dynamic_cast<RoomScene*>(scene->getChildByName(ROOM_SCENE));
     layer->UpdateRoomInfo(roomInfo);
     layer->PrintMenuByRoomType();

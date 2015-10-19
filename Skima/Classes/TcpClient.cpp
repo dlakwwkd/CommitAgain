@@ -14,6 +14,8 @@
 #include "Enums.h"
 #include "Macros.h"
 #include "MapLayer.h"
+#include "GameManager.h"
+#include "Player.h"
 
 #ifdef _WIN32
 #pragma comment(lib,"ws2_32.lib")
@@ -244,6 +246,11 @@ void TcpClient::processPacket()
                     scheduler->performFunctionInCocosThread(CC_CALLBACK_0(RoomScene::UpdateRoomInfo, scene,
                         recvData.mRoomInfo));
                 }
+				auto player = GET_GM.GetPlayer(recvData.mPlayerId);
+				if (player && !recvData.mIsIn)
+				{
+					GET_GM.DeletePlayer(recvData.mPlayerId);
+				}
             }
             else
             {
@@ -262,6 +269,13 @@ void TcpClient::processPacket()
             GameReadyResult recvData;
             bool ret = mRecvBuffer.Read((char*)&recvData, recvData.mSize);
             assert(ret && recvData.mPlayerId != -1);
+
+			auto player = GET_GM.GetPlayer(recvData.mPlayerId);
+			if (!player)
+			{
+				GET_GM.SetPlayer(recvData.mPlayerId);
+				GET_GM.GetPlayer(recvData.mPlayerId)->SetPlayerName(recvData.mPlayerName);
+			}
 
             auto scene = GET_ROOM_SCENE;
         }

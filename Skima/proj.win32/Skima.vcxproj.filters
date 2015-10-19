@@ -85,6 +85,9 @@
     <Filter Include="Game\Component\Skill\Buff">
       <UniqueIdentifier>{f1fc4099-957d-46b5-9f59-013767b27153}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Player">
+      <UniqueIdentifier>{d7298eff-b6fb-4895-9637-24d6903ae9d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -272,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\MeteorEffect.cpp">
       <Filter>Game\Component\Effect\EffectSpriteType</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>Game\Component\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -472,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MeteorEffect.h">
       <Filter>Game\Component\Effect\EffectSpriteType</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>Game\Component\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

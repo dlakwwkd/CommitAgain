@@ -5,6 +5,7 @@
 #include "GameScene.h"
 #include "WaitingLayer.h"
 #include "SimpleAudioEngine.h"
+#include "GameManager.h"
 
 using namespace CocosDenshion;
 
@@ -221,6 +222,8 @@ void RoomScene::GameExitCallback(Ref* sender)	// 나가기
 
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Background/mainscene.mp3", true);
+
+	GET_GM.DeletePlayerAll();
 
     Director::getInstance()->popScene();
 }

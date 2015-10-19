@@ -380,6 +380,7 @@ void ClientSession::PlayerReadyNotify()
 {
     GameReadyResult outPacket;
     outPacket.mPlayerId = mPlayer->GetPlayerID();
+	strcpy(outPacket.mPlayerName, mPlayer->GetPlayerName().c_str());
 
     if (!Broadcast(&outPacket))
         Disconnect();

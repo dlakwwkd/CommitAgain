@@ -28,6 +28,7 @@
 #include "SwipeEffect.h"
 #include "UnHideEffect.h"
 #include "MeteorEffect.h"
+#include "Player.h"
 
 using namespace CocosDenshion;
 
@@ -66,7 +67,13 @@ void ObjectLayer::CreateHero(int playerID, int unitID, Vec2 location, Team team,
     }
     hero->SetPlayerID(playerID);
 	hero->SetUnitID(unitID);
-	hero->SetName(std::to_string(playerID));
+
+	auto player = GET_GM.GetPlayer(playerID);
+	if (player)
+	{
+		hero->SetName(player->GetPlayerName());
+	}
+
     if (playerID == TcpClient::getInstance()->getLoginId())
     {
         m_Hero = hero;

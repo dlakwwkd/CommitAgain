@@ -19,7 +19,7 @@ public:
     virtual ~Player();
 
     ClientSession*      GetClient() const{ return m_Client; }
-    const std::string&  GetPlayerName() const { return m_PlayerName; }
+    std::string			GetPlayerName() const { return m_PlayerName; }
     int                 GetPlayerID() const { return m_PlayerID; }
     int                 GetRoomID() const { return m_RoomID; }
     Hero*               GetMyHero(){ return m_Hero; }

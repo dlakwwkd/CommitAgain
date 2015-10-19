@@ -90,7 +90,7 @@ void Unit::SetName(const std::string& name)
 {
 	m_Name = name;
 
-	auto label = Label::create(m_Name, "Arial", 20);
+	auto label = Label::create(m_Name, "Arial", 25);
 	label->setPosition(Vec2(0, 100.0f));
 	m_CenterSprite->addChild(label);
 }
